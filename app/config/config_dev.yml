@@ -27,3 +27,7 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+# NelmioApiDocBundle
+nelmio_api_doc:
+    name: dotHIV API

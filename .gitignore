@@ -6,3 +6,6 @@
 /vendor/
 /bin/
 /composer.phar
+.settings
+.project
+.buildpath
