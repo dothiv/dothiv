@@ -2,6 +2,8 @@
 
 namespace DotHiv\APIBundle\Controller;
 
+use FOS\Rest\Util\Codes;
+
 use DotHiv\BusinessBundle\Form\ProjectType;
 use DotHiv\BusinessBundle\Entity\Project;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -24,9 +26,14 @@ class ProjectController extends FOSRestController
      *   }
      * )
      */ 
-    public function getProjectsAction()
-    {
-        return $this->getDoctrine()->getManager()->getRepository('DotHivBusinessBundle:Project')->findAll();
+    public function getProjectsAction() {
+        $em = $this->getDoctrine()->getManager();
+        $list = $em->getRepository('DotHivBusinessBundle:Project')->findAll();
+        foreach($list as $obj) {
+            $obj->setTranslatableLocale($this->getRequest()->getPreferredLanguage());
+            $em->refresh($obj);
+        }
+        return $list;
     }
     
     /**
@@ -44,7 +51,11 @@ class ProjectController extends FOSRestController
      * )
      */
     public function getProjectAction($slug) {
-    	return $this->getDoctrine()->getManager()->getRepository('DotHivBusinessBundle:Project')->find($slug);
+        $em = $this->getDoctrine()->getManager();
+        $obj = $em->getRepository('DotHivBusinessBundle:Project')->find($slug);
+        $obj->setTranslatableLocale($this->getRequest()->getPreferredLanguage());
+        $em->refresh($obj);
+        return $obj;
     }    
     
     /**
@@ -76,7 +87,7 @@ class ProjectController extends FOSRestController
      *   output="DotHiv\BusinessBundle\Form\ProjectType"
      * )
      */
-    public function postProjectsAction($slug) {
+    public function postProjectsAction() {
         return $this->processProjectForm(new Project(), true);
     }
     
@@ -114,6 +125,7 @@ class ProjectController extends FOSRestController
     		if ($isNew) {
     			$em->persist($project);
     		}
+    		$project->setTranslatableLocale($this->getRequest()->getPreferredLanguage());
     		$em->flush();
     		if ($isNew) {
     			$resp = $this->redirectView($this->generateUrl('get_project',
