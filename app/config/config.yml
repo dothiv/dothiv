@@ -68,6 +68,7 @@ swiftmailer:
 sensio_framework_extra:
     view:
         annotations: false
+        
 fos_rest:
     param_fetcher_listener: true
     body_listener: true
