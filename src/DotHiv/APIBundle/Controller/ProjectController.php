@@ -28,17 +28,17 @@ class ProjectController extends Controller
     }
     
     /**
-     * Gets one specific flight.
+     * Gets one specific project.
      *
      * @Rest\View()
      *
      * @ApiDoc(
      *   resource=true,
-     *   description="Returns a flight.",
+     *   description="Returns a project.",
      *   statusCodes={
      *     200="Returned when successful",
      *   },
-     *   output="NilsWisiol\FlightManagementBundle\Form\FlightType"
+     *   output="DotHiv\BusinessBundle\Entity\Project"
      * )
      */
     public function getProjectAction($slug) {
