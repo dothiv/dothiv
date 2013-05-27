@@ -1,20 +1,25 @@
 <?php
 
 namespace DotHiv\BusinessBundle\Entity;
+use Gedmo\Translatable\Translatable;
+
 use DotHiv\BusinessBundle\Enum\ProjectStatus;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  */
-class Project extends Entity
+class Project extends Entity implements Translatable
 {
 
     /**
      * short name
      *
+     * @Gedmo\Translatable
+     * @Assert\NotBlank
      * @ORM\Column(type="string",length=255)
      */
     protected $name;
@@ -24,7 +29,12 @@ class Project extends Entity
      * 
      * @ORM\Column(type="integer")
      */
-    protected $status = 0;
+    protected $status = ProjectStatus::DRAFT;
+    
+    /**
+     * @Gedmo\Locale
+     */
+    private $locale;    
 
     public function getName()
     {
@@ -64,5 +74,10 @@ class Project extends Entity
         
         $this->status = $status;
     }
+    
+    public function setTranslatableLocale($locale)
+    {
+    	$this->locale = $locale;
+    }    
 
 }

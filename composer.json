@@ -20,7 +20,8 @@
         "jms/di-extra-bundle": "1.3.*",
         "jms/serializer-bundle": "0.11.*",
         "friendsofsymfony/rest-bundle": "0.11.*",
-        "nelmio/api-doc-bundle": "dev-master"
+        "nelmio/api-doc-bundle": "dev-master",
+        "gedmo/doctrine-extensions": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
