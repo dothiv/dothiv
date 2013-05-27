@@ -4,13 +4,14 @@ namespace DotHiv\BusinessBundle\Entity;
 use Gedmo\Translatable\Translatable;
 
 use DotHiv\BusinessBundle\Enum\ProjectStatus;
-
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity
+ * @Serializer\ExclusionPolicy("all")
  */
 class Project extends Entity implements Translatable
 {
@@ -21,6 +22,7 @@ class Project extends Entity implements Translatable
      * @Gedmo\Translatable
      * @Assert\NotBlank
      * @ORM\Column(type="string",length=255)
+     * @Serializer\Expose
      */
     protected $name;
 
@@ -28,6 +30,7 @@ class Project extends Entity implements Translatable
      * Project status, as defined in enum 'ProjectStatus'
      * 
      * @ORM\Column(type="integer")
+     * @Serializer\Expose
      */
     protected $status = ProjectStatus::DRAFT;
     

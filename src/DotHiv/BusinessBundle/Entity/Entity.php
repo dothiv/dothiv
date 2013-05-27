@@ -3,9 +3,11 @@
 namespace DotHiv\BusinessBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\MappedSuperclass
+ * @Serializer\ExclusionPolicy("all")
  */
 class Entity
 {
@@ -16,6 +18,7 @@ class Entity
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose
      */
     protected $id;
     
