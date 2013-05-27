@@ -1,0 +1,7 @@
+parameters:
+#    dot_hiv_website.example.class: DotHiv\WebsiteBundle\Example
+
+services:
+#    dot_hiv_website.example:
+#        class: %dot_hiv_website.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

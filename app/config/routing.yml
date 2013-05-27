@@ -1,3 +1,7 @@
+dot_hiv_website:
+    resource: "@DotHivWebsiteBundle/Resources/config/routing.yml"
+    prefix:   /
+
 dot_hiv_api:
     resource: "@DotHivAPIBundle/Resources/config/routing.yml"
     prefix:   /api/
