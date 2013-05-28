@@ -12,8 +12,10 @@ browsers = ['Chrome'];
 
 singleRun = true;
 
+urlRoot = '/e2e/';
+
 proxies = {
-  '/': 'http://localhost:8000/'
+  '/': 'http://dothiv.bp/app_dev.php/'
 };
 
 junitReporter = {

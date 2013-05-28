@@ -5,25 +5,25 @@
 describe('my app', function() {
 
   beforeEach(function() {
-    browser().navigateTo('../../app/index.html');
+    browser().navigateTo('/');
   });
 
 
-  it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
-    expect(browser().location().url()).toBe("/view1");
-  });
+  /*it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
+    expect(browser().location().url()).toBe("/");
+  });*/
 
 
   describe('view1', function() {
 
     beforeEach(function() {
-      browser().navigateTo('#/view1');
+      
     });
 
 
-    it('should render view1 when user navigates to /view1', function() {
-      expect(element('[ng-view] p:first').text()).
-        toMatch(/partial for view 1/);
+    it('should show a h1 heading saying "DotHIV index page"', function() {
+      expect(element('#title').text()).
+        toMatch(/dotHIV/);
     });
 
   });
