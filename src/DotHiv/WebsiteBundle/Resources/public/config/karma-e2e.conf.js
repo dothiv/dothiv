@@ -12,11 +12,11 @@ browsers = ['Chrome'];
 
 singleRun = true;
 
-urlRoot = '/e2e/';
-
 proxies = {
-  '/': 'http://dothiv.bp/app_dev.php/'
+  '/': 'http://dothiv.bp/'
 };
+
+urlRoot = '/e2e/';
 
 junitReporter = {
   outputFile: 'test_out/e2e.xml',
