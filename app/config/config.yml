@@ -92,5 +92,12 @@ fos_rest:
             - html
             - xml
             - rss
-            - "*/*"        
+            - "*/*"      
+            
+# FOSUserBundle
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: DotHiv\BusinessBundle\Entity\User
+
   
