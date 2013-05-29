@@ -11,40 +11,6 @@
     <body>
         <div ui-view></div>
 
-        <!-- In production use:
-            <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
-        -->
-        <script src="{{ asset('bundles/websitecharity/app/lib/angular/angular.js') }}"></script>
-        <script src="{{ asset('bundles/websitecharity/app/lib/http-auth-interceptor.js') }}"></script>
-        <script src="{{ asset('bundles/websitecharity/app/lib/ui-bootstrap-tpls-0.3.0.min.js') }}"></script>
-        <script src="{{ asset('bundles/websitecharity/app/lib/angular-ui-router.min.js') }}"></script>
-        <script type="text/javascript">
-            // This script is generally refered to as 'app.js' 
-            'use strict';
-
-            // Declare app level module which depends on filters, and services
-            angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ui.state']).
-                config(['$stateProvider', function($stateProvider) {
-                    $stateProvider
-                        .state('home', {
-                                url: '/',
-                                templateUrl: '{{ path("dot_hiv_partial_view1") }}'
-                            })
-                    }]).
-                config(['$urlRouterProvider', function($urlRouter) {
-                    $urlRouter.otherwise('/')
-                    }]).
-                config(['$locationProvider', function($location) {
-                    $location.hashPrefix('!');
-                    }]).
-                config(['$interpolateProvider', function($interpolateProvider) {
-                    $interpolateProvider.startSymbol('[[');
-                    $interpolateProvider.endSymbol(']]');
-                    }]);
-        </script>
-        <script src="{{ asset('bundles/websitecharity/app/js/services.js') }}"></script>
-        <script src="{{ asset('bundles/websitecharity/app/js/controllers.js') }}"></script>
-        <script src="{{ asset('bundles/websitecharity/app/js/filters.js') }}"></script>
-        <script src="{{ asset('bundles/websitecharity/app/js/directives.js') }}"></script>
+        {% include 'DotHivWebsiteCharityBundle:Default:app.html.twig' %}
     </body>
 </html>
