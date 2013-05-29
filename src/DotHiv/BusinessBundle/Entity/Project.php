@@ -80,7 +80,7 @@ class Project extends Entity implements Translatable
     
     public function setTranslatableLocale($locale)
     {
-    	$this->locale = $locale;
+        $this->locale = $locale;
     }    
 
 }
