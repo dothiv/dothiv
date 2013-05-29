@@ -26,8 +26,8 @@ security:
             security: false
         main:
             pattern: ^/
-            http_basic:
-                realm: "Secured Demo Area"
+            form_login:
+                provider: fos_userbundle
             logout:       true
             anonymous:    true
 

@@ -13,3 +13,5 @@ parameters:
 
     locale:            en_US
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
+
+    security.authentication.form_entry_point.class: DotHiv\BusinessBundle\Security\SimpleAuthenticationEntryPoint

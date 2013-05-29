@@ -7,67 +7,16 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
     </head>
-<body ng-view>
-    <div class="row">
-        <div class="span12 center">
-            header logo etc
-        </div>
-    </div>
-    <!-- adopt for mobile useage -->
-    <div class="pink leftside text-right">
-        <div class="vert-center"></div>
-        <div class="vert-center">
-            rosa bar
-        </div>
-        <div class="vert-center"></div>
-    </div>
-    <div class="pink rightside"></div>
-    <hr>
-    <div class="row">        
-        <div class="span12 center">
-            klicken voten teilen
-        </div>
-    </div>
-    <hr>
-    <div class="row">         
-        <div class="span12 center">
-            wer steht dahinter 
-        </div>
-    </div>
-    <hr>    
-    <div class="row">     
-        <div class="span12 center">
-            voten
-        </div>
-    </div>
-    <hr>    
-    <div class="row">  
-        <div class="span12 center">
-            unternehmen
-        </div>
-    </div>
-    <hr>    
-    <div class="row">  
-        <div class="span12 center">
-            zitate
-        </div>
-    </div>
-    <hr>    
-    <div class="row">  
-        <div class="span12 center">
-            unsere partner
-        </div>
-    </div>
-    <div class="row">  
-        <div class="span12 center">
-            footer
-        </div>
-    </div>
-    </div>
+    <body>
+        
+        <div ng-view></div>
+        
         <!-- In production use:
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
         -->
         <script src="{{ asset('bundles/website/app/lib/angular/angular.js') }}"></script>
+        <script src="{{ asset('bundles/website/app/lib/http-auth-interceptor.js') }}"></script>
+        <script src="{{ asset('bundles/website/app/lib/ui-bootstrap-tpls-0.3.0.min.js') }}"></script>
         <script src="{{ asset('bundles/website/app/js/app.js') }}"></script>
         <script src="{{ asset('bundles/website/app/js/services.js') }}"></script>
         <script src="{{ asset('bundles/website/app/js/controllers.js') }}"></script>
