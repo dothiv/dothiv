@@ -15,8 +15,24 @@
             $stateProvider
                 .state('home', {
                         url: '/',
-                        templateUrl: '{{ path("dot_hiv_partial_view1") }}'
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_home') }}'
                     })
+                .state('login', {
+                        url: '/login',
+                        onEnter: function($stateParams, $state, $dialog) {
+
+                            $dialog.dialog({
+                                keyboard: true,
+                                templateUrl: '{{ path('dot_hiv_website_charity_partial_login') }}',
+                                backdropClick: true,
+                                dialogFade: true,
+                                backdropFade: true
+                            }).open().then(function(result) {
+                                console.log("result: " + result + "/" + result);
+                            });
+
+                        }
+                    });
             }]).
         config(['$urlRouterProvider', function($urlRouter) {
             $urlRouter.otherwise('/');

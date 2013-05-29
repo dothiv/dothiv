@@ -6,8 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PartialController extends Controller
 {
-    public function view1Action()
+    public function homeAction()
     {
-        return $this->render('DotHivWebsiteCharityBundle:Partials:partial1.html.twig');
+        return $this->render('DotHivWebsiteCharityBundle:Partials:home.html.twig');
+    }
+
+    public function loginAction()
+    {
+        return $this->render('DotHivWebsiteCharityBundle:Partials:login.html.twig');
     }
 }
