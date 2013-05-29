@@ -1,6 +1,6 @@
 <?php
 
-namespace DotHiv\WebsiteBundle\Controller;
+namespace DotHiv\WebsiteCharityBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +15,7 @@ class DefaultController extends Controller
         // check for the '_escaped_fragment_' parameter
         if($request->query->has('_escaped_fragment_') === false) {
             // we go ahead and return the regular index site with our angular app
-            return $this->render('DotHivWebsiteBundle:Default:index.html.twig');
+            return $this->render('DotHivWebsiteCharityBundle:Default:index.html.twig');
         } else {
             // we need to return a pre-rendered version of the requested site
             $fragment = $request->query->get('_escaped_fragment_');

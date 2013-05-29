@@ -30,7 +30,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        ['DotHivWebsiteBundle']
+    bundles:        ['DotHivWebsiteCharityBundle']
     #java: /usr/bin/java
     filters:
         less:

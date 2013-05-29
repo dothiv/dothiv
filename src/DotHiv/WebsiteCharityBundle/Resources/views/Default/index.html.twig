@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="fragment" content="!">
         <title>dotHIV</title>
-        {% stylesheets 'bundles/website/bootstrap-custom/custom-bootstrap.less' %}
+        {% stylesheets 'bundles/websitecharity/bootstrap-custom/custom-bootstrap.less' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
     </head>
@@ -14,10 +14,10 @@
         <!-- In production use:
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
         -->
-        <script src="{{ asset('bundles/website/app/lib/angular/angular.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/lib/http-auth-interceptor.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/lib/ui-bootstrap-tpls-0.3.0.min.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/lib/angular-ui-router.min.js') }}"></script>
+        <script src="{{ asset('bundles/websitecharity/app/lib/angular/angular.js') }}"></script>
+        <script src="{{ asset('bundles/websitecharity/app/lib/http-auth-interceptor.js') }}"></script>
+        <script src="{{ asset('bundles/websitecharity/app/lib/ui-bootstrap-tpls-0.3.0.min.js') }}"></script>
+        <script src="{{ asset('bundles/websitecharity/app/lib/angular-ui-router.min.js') }}"></script>
         <script type="text/javascript">
             // This script is generally refered to as 'app.js' 
             'use strict';
@@ -39,9 +39,9 @@
                     $interpolateProvider.endSymbol(']]');
                     }]);
         </script>
-        <script src="{{ asset('bundles/website/app/js/services.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/js/controllers.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/js/filters.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/js/directives.js') }}"></script>
+        <script src="{{ asset('bundles/websitecharity/app/js/services.js') }}"></script>
+        <script src="{{ asset('bundles/websitecharity/app/js/controllers.js') }}"></script>
+        <script src="{{ asset('bundles/websitecharity/app/js/filters.js') }}"></script>
+        <script src="{{ asset('bundles/websitecharity/app/js/directives.js') }}"></script>
     </body>
 </html>

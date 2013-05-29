@@ -19,8 +19,8 @@ fos_user_change_password:
     prefix: /profile
 # End of FOSUserBundle security routing
 
-dot_hiv_website:
-    resource: "@DotHivWebsiteBundle/Resources/config/routing.yml"
+dot_hiv_website_charity:
+    resource: "@DotHivWebsiteCharityBundle/Resources/config/routing.yml"
     prefix:   /
 
 dot_hiv_api:

@@ -1,6 +1,6 @@
 <?php
 
-namespace DotHiv\WebsiteBundle\Controller;
+namespace DotHiv\WebsiteCharityBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -8,6 +8,6 @@ class PartialController extends Controller
 {
     public function view1Action()
     {
-        return $this->render('DotHivWebsiteBundle:Partials:partial1.html.twig');
+        return $this->render('DotHivWebsiteCharityBundle:Partials:partial1.html.twig');
     }
 }

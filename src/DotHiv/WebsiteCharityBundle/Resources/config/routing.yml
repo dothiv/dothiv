@@ -1,0 +1,9 @@
+dot_hiv_website_homepage:
+    pattern:  /
+    host:     dothiv.bp
+    defaults: { _controller: DotHivWebsiteCharityBundle:Default:index }
+
+dot_hiv_partial_view1:
+    pattern:  /partial/view1
+    host:     dothiv.bp
+    defaults: { _controller: DotHivWebsiteCharityBundle:Partial:view1 }

@@ -24,7 +24,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new DotHiv\BusinessBundle\DotHivBusinessBundle(),
             new DotHiv\APIBundle\DotHivAPIBundle(),
-            new DotHiv\WebsiteBundle\DotHivWebsiteBundle(),
+            new DotHiv\WebsiteCharityBundle\DotHivWebsiteCharityBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
