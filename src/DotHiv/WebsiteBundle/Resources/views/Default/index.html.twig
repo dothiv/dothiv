@@ -7,71 +7,85 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
     </head>
-<body ng-view>
-    <div class="row">
-        <div class="span12 center">
-            header logo etc
+<body>
+    <div class="container">
+        <div class="row first">
+            <div class="span2 hiv-logo">
+                <img src="{{ asset("bundles/website/images/dotHiv-logo.png") }}">
+            </div>
+            <div class="span7">
+                header logo etc 2 
+            </div>
+            <div class="span3">
+                <span class="accountance">Login</span><br>
+                <span class="accountance">Projekt erstellen</span><br>
+                <span class="accountance">Missbrauch melden</span><br>
+                <span class="accountance grey">in Englisch</span>
+            </div>
         </div>
     </div>
     <!-- adopt for mobile useage -->
     <div class="pink leftside text-right">
-        <div class="vert-center"></div>
         <div class="vert-center">
-            rosa bar
+            <span class="text">Bisher aktiviert: </span>
+            <span class="text bold" id="acitve-money">€ 123.456</span>
+            <img class="image" src="{{ asset("bundles/website/images/tick-white.png") }}">
         </div>
-        <div class="vert-center"></div>
     </div>
     <div class="pink rightside"></div>
     <hr>
-    <div class="row">        
-        <div class="span12 center">
-            klicken voten teilen
+
+    <div class="container">
+        <div class="row">        
+            <div class="span12 center">
+                klicken voten teilen
+            </div>
         </div>
     </div>
     <hr>
-    <div class="row">         
+    <div class="row text-center">         
         <div class="span12 center">
             wer steht dahinter 
         </div>
     </div>
     <hr>    
-    <div class="row">     
+    <div class="row text-center">     
         <div class="span12 center">
             voten
         </div>
     </div>
     <hr>    
-    <div class="row">  
+    <div class="row text-center">  
         <div class="span12 center">
             unternehmen
         </div>
     </div>
     <hr>    
-    <div class="row">  
+    <div class="row text-center">  
         <div class="span12 center">
             zitate
         </div>
     </div>
     <hr>    
-    <div class="row">  
+    <div class="row text-center">  
         <div class="span12 center">
             unsere partner
         </div>
     </div>
-    <div class="row">  
+    <div class="row text-center">  
         <div class="span12 center">
             footer
         </div>
     </div>
     </div>
-        <!-- In production use:
-            <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
-        -->
-        <script src="{{ asset('bundles/website/app/lib/angular/angular.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/js/app.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/js/services.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/js/controllers.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/js/filters.js') }}"></script>
-        <script src="{{ asset('bundles/website/app/js/directives.js') }}"></script>
-    </body>
+    <!-- In production use:
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+    -->
+    <script src="{{ asset('bundles/website/app/lib/angular/angular.js') }}"></script>
+    <script src="{{ asset('bundles/website/app/js/app.js') }}"></script>
+    <script src="{{ asset('bundles/website/app/js/services.js') }}"></script>
+    <script src="{{ asset('bundles/website/app/js/controllers.js') }}"></script>
+    <script src="{{ asset('bundles/website/app/js/filters.js') }}"></script>
+    <script src="{{ asset('bundles/website/app/js/directives.js') }}"></script>
+</body>
 </html>

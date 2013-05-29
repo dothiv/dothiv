@@ -1,0 +1,67 @@
+// Custom colors
+// ----------------------------------
+@lightpink:         #FBE6F1;
+@darkpink:          #E00073;
+
+
+hr {
+    height: 6px;
+    background-color: black;
+    }
+
+// Adds spacing to the top
+// -----------------------------------
+.row.first {
+    margin-top: 50px;
+    margin-bottom: 37px;
+    }
+
+// Special classes for the page-head
+// -----------------------------------
+
+.hiv-logo {
+    position: relative;
+    bottom: -40px;
+    }
+.accountance {
+    font-style: italic;
+    }
+
+.accountance.grey {
+    color: #808080;
+    }
+
+
+// Handling the custom pink full-width-donation-bar
+.pink {
+    float: left;
+    margin: 0 0 0 0;
+    height: 60px;
+    }
+
+.pink.leftside {
+    background-color: @darkpink;
+    width: 57%;
+    }
+
+.pink.rightside {
+    background-color: @lightpink;
+    width: 43%;
+    }
+
+.pink > .vert-center {
+    font-size: 18px;
+    margin: 10px 20px;
+    }
+
+.pink * .image {
+    margin-left: 22px;
+    }
+
+.pink * .text {
+    color: white;
+    }
+
+.pink * .text + .bold {
+    font-weight: bold;
+    }
