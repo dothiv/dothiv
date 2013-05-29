@@ -31,6 +31,9 @@
                                 templateUrl: '{{ path("dot_hiv_partial_view1") }}'
                             })
                     }]).
+                config(['$urlRouterProvider', function($urlRouter) {
+                    $urlRouter.otherwise('/')
+                    }]).
                 config(['$locationProvider', function($location) {
                     $location.hashPrefix('!');
                     }]).
