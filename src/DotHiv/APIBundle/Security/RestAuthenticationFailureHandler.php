@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class RestAuthenticationFailureHandler extends DefaultAuthenticationFailureHandler {
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {
-        $response = new Response();
+        $response = new Response($exception->getMessage()); // TODO translate
         $response->setStatusCode(400);
         return $response;
     }

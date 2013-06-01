@@ -8,9 +8,11 @@
 var myModule = angular.module('myApp.services', ['ui.bootstrap']);
 myModule.factory('security', function($dialog, $http, $state) {
     var isAuthenticated = false;
+    var loginFailed = false;
     var security = {
             login: function() {
                 console.log("logging in ...");
+                loginFailed = false;
                 $dialog.dialog({
                     keyboard: true,
                     templateUrl: '/app_dev.php/partial/login',
@@ -30,10 +32,19 @@ myModule.factory('security', function($dialog, $http, $state) {
                                     authService.loginConfirmed();
                                     isAuthenticated = true;
                                     dialog.close();
+                                }).error(function(data, status, headers, config) {
+                                    // data: error msg (string)
+                                    // status: http status, 400
+                                    console.log("failure: " + data + "/" + status);
+                                    $scope.errormsg = data;
+                                    loginFailed = true;
                                 });
                             };
                             $scope.abort = function() {
                                 dialog.close();
+                            };
+                            $scope.loginFailed = function() {
+                                return loginFailed;
                             };
                         }
                 }).open().then(function($state) {
@@ -50,6 +61,9 @@ myModule.factory('security', function($dialog, $http, $state) {
             },
             isAuthenticated: function() {
                 return isAuthenticated;
+            },
+            loginFailed: function() {
+                return loginFailed;
             }
     };
     return security;
