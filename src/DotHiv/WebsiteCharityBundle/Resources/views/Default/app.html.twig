@@ -6,33 +6,22 @@
 <script src="{{ asset('bundles/websitecharity/app/lib/ui-bootstrap-tpls-0.3.0.min.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/lib/angular-ui-router.min.js') }}"></script>
 <script type="text/javascript">
-    // This script is generally refered to as 'app.js' 
+    // This script is generally refered to as 'app.js'
     'use strict';
 
     // Declare app level module which depends on filters, and services
     angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ui.state']).
-        config(['$stateProvider', function($stateProvider) {
+        config(['$stateProvider', '$httpProvider', 'authServiceProvider', function($stateProvider) {
             $stateProvider
                 .state('home', {
                         url: '/',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_home') }}'
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_home') }}',
+                        controller: 'homeAction'
                     })
-                .state('login', {
-                        url: '/login',
-                        onEnter: function($stateParams, $state, $dialog) {
-
-                            $dialog.dialog({
-                                keyboard: true,
-                                templateUrl: '{{ path('dot_hiv_website_charity_partial_login') }}',
-                                backdropClick: true,
-                                dialogFade: true,
-                                backdropFade: true
-                            }).open().then(function(result) {
-                                console.log("result: " + result + "/" + result);
-                            });
-
-                        }
-                    });
+                .state('profile', {
+                        url: '/profile',
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile') }}'
+                    })
             }]).
         config(['$urlRouterProvider', function($urlRouter) {
             $urlRouter.otherwise('/');

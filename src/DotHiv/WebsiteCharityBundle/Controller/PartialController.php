@@ -15,4 +15,9 @@ class PartialController extends Controller
     {
         return $this->render('DotHivWebsiteCharityBundle:Partials:login.html.twig');
     }
+
+    public function profileAction()
+    {
+        return $this->render('DotHivWebsiteCharityBundle:Partials:profile.html.twig');
+    }
 }

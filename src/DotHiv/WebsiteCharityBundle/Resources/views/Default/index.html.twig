@@ -9,16 +9,18 @@
         {% endstylesheets %}
     </head>
     <body>
-        <div class="container">
+        <div class="container" ng-controller="headerController">
             <div class="row first">
                 <div class="span2 hiv-logo">
-                    <img src="{{ asset("bundles/websitecharity/images/dotHiv-logo.png") }}">
+                    <a href="#!/"><img src="{{ asset("bundles/websitecharity/images/dotHiv-logo.png") }}"></a>
                 </div>
                 <div class="span7">
                     header logo etc 2 
                 </div>
                 <div class="span3">
-                    <span class="accountance"><a href="#!/login">Login</a></span><br>
+                    <span class="accountance" ng-show="!isAuthenticated()"><a ng-click="login()">Login</a></span><br>
+                    <span class="accountance" ng-show="isAuthenticated()"><a ng-click="logout()">Logout</a></span><br>
+                    <span class="accountance"><a href="#!/profile">Profil</a></span><br>
                     <span class="accountance">Projekt erstellen</span><br>
                     <span class="accountance">Missbrauch melden</span><br>
                     <span class="accountance grey">in Englisch</span>
