@@ -1,12 +1,12 @@
 <div class="modal-header">
-    <h1>This is the title</h1>
+    <h1>{% trans %}login.form.title{% endtrans %}</h1>
 </div>
 <div class="modal-body">
-    <p>Welcome to dotHIV</p>
-    <p>Username <input type="text" ng-model="username" /></p>
-    <p>Password <input type="password" ng-model="password" /></p>
+    <p>{% trans %}login.form.text{% endtrans %}</p>
+    <p>{% trans %}login.form.username{% endtrans %} <input type="text" ng-model="username" /></p>
+    <p>{% trans %}login.form.password{% endtrans %} <input type="password" ng-model="password" /></p>
 </div>
 <div class="modal-footer">
-    <button ng-click="abort()" class="btn">Abort</button>
-    <button ng-click="login(username,password)" class="btn btn-success btn-primary" >Login</button>
+    <button ng-click="abort()" class="btn">{% trans %}login.form.abort{% endtrans %}</button>
+    <button ng-click="login(username,password)" class="btn btn-success btn-primary" >{% trans %}login.form.submit{% endtrans %}</button>
 </div>

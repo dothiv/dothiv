@@ -1,0 +1,8 @@
+login:
+    form:
+        title: Please log in
+        text: Welcome to dotHIV
+        username: Username
+        password: Password
+        submit: Log in
+        abort: Ehm, actually don't log in
