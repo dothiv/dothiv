@@ -1,6 +1,6 @@
 <?php
 
-namespace DotHiv\BusinessBundle\Security;
+namespace DotHiv\APIBundle\Security;
 
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -14,11 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * Notice: As this entry point does not send a WWW-Authenticate header. Therefore,
  * the browser will not show a username/password field. For the Basic HTTP
- * Authentication, use the SimpleAuthenticationEntryPoint. 
+ * Authentication, use the BasicAuthenticationEntryPoint. 
  * 
  * @author Nils Wisiol <mail@nils-wisiol.de>
  */
-class SimpleAuthenticationEntryPoint implements AuthenticationEntryPointInterface
+class RestAuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
     /**
      * Send a 401 response to the client; letting him know he needs to login to 

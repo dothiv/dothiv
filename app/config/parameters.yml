@@ -14,4 +14,8 @@ parameters:
     locale:            en_US
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
 
-    security.authentication.form_entry_point.class: DotHiv\BusinessBundle\Security\SimpleAuthenticationEntryPoint
+    # configure symfony security bundle to use our REST authentication classes.
+    # this is required by the angular app authentication process (see http authentication interceptor)
+    security.authentication.form_entry_point.class: DotHiv\APIBundle\Security\RestAuthenticationEntryPoint
+    security.authentication.success_handler.class: DotHiv\APIBundle\Security\RestAuthenticationSuccessHandler
+    security.authentication.failure_handler.class: DotHiv\APIBundle\Security\RestAuthenticationFailureHandler

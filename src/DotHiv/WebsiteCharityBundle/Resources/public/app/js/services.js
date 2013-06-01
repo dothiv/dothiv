@@ -32,6 +32,9 @@ myModule.factory('security', function($dialog, $http, $state) {
                                     dialog.close();
                                 });
                             };
+                            $scope.abort = function() {
+                                dialog.close();
+                            };
                         }
                 }).open().then(function($state) {
                     // do something after login

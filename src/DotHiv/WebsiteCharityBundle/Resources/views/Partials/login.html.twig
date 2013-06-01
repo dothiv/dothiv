@@ -2,9 +2,11 @@
     <h1>This is the title</h1>
 </div>
 <div class="modal-body">
-    <p>Username <input ng-model="username" /></p>
-    <p>Password <input ng-model="password" /></p>
+    <p>Welcome to dotHIV</p>
+    <p>Username <input type="text" ng-model="username" /></p>
+    <p>Password <input type="password" ng-model="password" /></p>
 </div>
 <div class="modal-footer">
-    <button ng-click="login(username,password)" class="btn btn-primary" >Close</button>
+    <button ng-click="abort()" class="btn">Abort</button>
+    <button ng-click="login(username,password)" class="btn btn-success btn-primary" >Login</button>
 </div>
