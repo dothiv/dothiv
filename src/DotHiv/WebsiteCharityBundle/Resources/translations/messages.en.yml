@@ -6,3 +6,7 @@ login:
         password: Password
         submit: Log in
         abort: Ehm, actually don't log in
+header:
+    menu:
+        login: Log in
+title: dotHIV

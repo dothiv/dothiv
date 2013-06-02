@@ -1,3 +1,4 @@
+title: dotHIV
 login:
     form:
         title: Bitte anmelden
@@ -6,3 +7,6 @@ login:
         password: Kennwort
         submit: Anmelden
         abort: Oh, doch nicht
+header:
+    menu:
+        login: Anmelden

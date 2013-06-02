@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="fragment" content="!">
-        <title>dotHIV</title>
+        <title>{% trans %}title{% endtrans %}</title>
         {% stylesheets 'bundles/websitecharity/bootstrap-custom/custom-bootstrap.less' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -18,11 +18,11 @@
                     header logo etc 2 
                 </div>
                 <div class="span3">
-                    <span class="accountance" ng-show="!isAuthenticated()"><a ng-click="login()">Login</a></span><br>
-                    <span class="accountance" ng-show="isAuthenticated()"><a ng-click="logout()">Logout</a></span><br>
-                    <span class="accountance"><a href="#!/profile">Profil</a></span><br>
-                    <span class="accountance">Projekt erstellen</span><br>
-                    <span class="accountance">Missbrauch melden</span><br>
+                    <span class="accountance" ng-show="!isAuthenticated()"><a ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></span><br>
+                    <span class="accountance" ng-show="isAuthenticated()"><a ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></span><br>
+                    <span class="accountance"><a href="#!/profile">{% trans %}header.menu.profile{% endtrans %}</a></span><br>
+                    <span class="accountance">{% trans %}header.menu.createproject{% endtrans %}</span><br>
+                    <span class="accountance">{% trans %}header.menu.reportabuse{% endtrans %}</span><br>
                     <span class="accountance grey">in Englisch</span>
                 </div>
             </div>
