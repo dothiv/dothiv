@@ -31,4 +31,6 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
             security.logout();
         }
         
+        security.updateIsAuthenticated();
+        
     }]);

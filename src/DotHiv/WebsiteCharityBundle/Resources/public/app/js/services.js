@@ -59,6 +59,13 @@ myModule.factory('security', function($dialog, $http, $state) {
                     $state.transitionTo('home');
                 });
             },
+            updateIsAuthenticated: function() {
+                $http.post('/app_dev.php/api/login_state').success(function() {
+                    isAuthenticated = true;
+                }).error(function(data, status, headers, config) {
+                    isAuthenticated = false;
+                });
+            },
             isAuthenticated: function() {
                 return isAuthenticated;
             },
