@@ -2,7 +2,7 @@
     <h1>{% trans %}register.form.title{% endtrans %}</h1>
 </div>
 <div class="modal-body">
-    <span class="alert alert-error" ng-show="errormsg!=''">[[ errormsg ]]</span>
+    <span class="alert alert-error" ng-show="errormsg">[[ errormsg ]]</span>
     <p>{% trans %}register.form.text{% endtrans %}</p>
     <p>{% trans %}register.form.username{% endtrans %} <input type="text" ng-model="username" /></p>
     <p>{% trans %}register.form.email{% endtrans %} <input type="text" ng-model="email" /></p>

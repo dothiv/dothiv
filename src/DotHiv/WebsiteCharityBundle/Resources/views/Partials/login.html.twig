@@ -2,7 +2,7 @@
     <h1>{% trans %}login.form.title{% endtrans %}</h1>
 </div>
 <div class="modal-body">
-    <span class="alert alert-error" ng-show="errormsg!=''">[[ errormsg ]]</span>
+    <span class="alert alert-error" ng-show="errormsg">[[ errormsg ]]</span>
     <p>{% trans %}login.form.text{% endtrans %}</p>
     <p>{% trans %}login.form.username{% endtrans %} <input type="text" ng-model="username" /></p>
     <p>{% trans %}login.form.password{% endtrans %} <input type="password" ng-model="password" /></p>
