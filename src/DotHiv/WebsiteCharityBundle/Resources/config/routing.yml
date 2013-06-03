@@ -13,6 +13,11 @@ dot_hiv_website_charity_partial_login:
     host:     dothiv.bp
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:login }
 
+dot_hiv_website_chartiy_partial_register:
+    pattern: /partial/register
+    host: dothiv.bp
+    defaults: { _controller: DotHivWebsiteChartyBundle:Partial:register }
+
 dot_hiv_website_charity_partial_profile:
     pattern:  /partial/profile
     host:     dothiv.bp
