@@ -19,6 +19,7 @@ class ProjectController extends FOSRestController
      * @Rest\View()
      *
      * @ApiDoc(
+     *   section="project",
      *   resource=true,
      *   description="Returns all projects.",
      *   statusCodes={
@@ -42,6 +43,7 @@ class ProjectController extends FOSRestController
      * @Rest\View()
      *
      * @ApiDoc(
+     *   section="project",
      *   resource=true,
      *   description="Returns a project.",
      *   statusCodes={
@@ -64,6 +66,7 @@ class ProjectController extends FOSRestController
      * @Rest\View()
      * 
      * @ApiDoc(
+     *   section="project",
      *   resource=true,
      *   description="Changes a specific project",
      *   statusCodes={
@@ -79,6 +82,7 @@ class ProjectController extends FOSRestController
      * Posts a new project.
      * 
      * @ApiDoc(
+     *   section="project",
      *   resource=true,
      *   description="Creates a new project",
      *   statusCodes={
