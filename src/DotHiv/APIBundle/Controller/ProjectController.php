@@ -104,7 +104,7 @@ class ProjectController extends FOSRestController
                      ->find($slug);
         
         if (!$project) {
-        	throw $this->createNotFoundException("No such project.");
+            throw $this->createNotFoundException("No such project.");
         }
         
         return $project;
@@ -117,25 +117,25 @@ class ProjectController extends FOSRestController
      * @param unknown_type $isNew Whether the given project instance is new
      */
     private function processProjectForm(Project $project, $isNew) {
-    	$form = $this->createForm(new ProjectType(), $project);
-    	$form->bind($this->getRequest());
-    
-    	if ($form->isValid()) {
-    		$em = $this->getDoctrine()->getManager();
-    		if ($isNew) {
-    			$em->persist($project);
-    		}
-    		$project->setTranslatableLocale($this->getRequest()->getPreferredLanguage());
-    		$em->flush();
-    		if ($isNew) {
-    			$resp = $this->redirectView($this->generateUrl('get_project',
-    							array('slug' => $project->getId())), Codes::HTTP_CREATED);
-    			$resp->setData($project);
-    			return $resp;
-    		} else {
-    			return null;
-    		}
-    	}
-    	return array('form' => $form);
+        $form = $this->createForm(new ProjectType(), $project);
+        $form->bind($this->getRequest());
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            if ($isNew) {
+                $em->persist($project);
+            }
+            $project->setTranslatableLocale($this->getRequest()->getPreferredLanguage());
+            $em->flush();
+            if ($isNew) {
+                $resp = $this->redirectView($this->generateUrl('get_project',
+                                array('slug' => $project->getId())), Codes::HTTP_CREATED);
+                $resp->setData($project);
+                return $resp;
+            } else {
+                return null;
+            }
+        }
+        return array('form' => $form);
     }
 }

@@ -29,7 +29,11 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
         
         $scope.logout = function() {
             security.logout();
-        }
+        };
+        
+        $scope.register = function() {
+            security.register();
+        };
         
         security.updateIsAuthenticated();
         

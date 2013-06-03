@@ -11,7 +11,6 @@ myModule.factory('security', function($dialog, $http, $state) {
     var loginFailed = false;
     var security = {
             login: function() {
-                console.log("logging in ...");
                 loginFailed = false;
                 $dialog.dialog({
                     keyboard: true,
@@ -33,9 +32,6 @@ myModule.factory('security', function($dialog, $http, $state) {
                                     isAuthenticated = true;
                                     dialog.close();
                                 }).error(function(data, status, headers, config) {
-                                    // data: error msg (string)
-                                    // status: http status, 400
-                                    console.log("failure: " + data + "/" + status);
                                     $scope.errormsg = data;
                                     loginFailed = true;
                                 });
@@ -71,6 +67,35 @@ myModule.factory('security', function($dialog, $http, $state) {
             },
             loginFailed: function() {
                 return loginFailed;
+            },
+            register: function() {
+                $dialog.dialog({
+                    keyboard: true,
+                    templateUrl: '/app_dev.php/partial/register',
+                    backdropClick: true,
+                    dialogFade: true,
+                    backdropFade: true,
+                    controller: function($scope, dialog) {
+                        $scope.register = function(username, email, password) {
+                            // TODO replace this by $resource API call
+                            console.log("register " + username + "/" + email + "/" + password);
+                            $http.post('/app_dev.php/api/users', {
+                                username: username,
+                                email: email,
+                                plainPassword: password
+                            }).success(function() {
+                                // TODO login
+                                dialog.close();
+                            }).error(function(data, status, headers, config) {
+                                $scope.errormsg = data;
+                                $scope.registerFailed = true;
+                            });
+                        };
+                        $scope.abort = function() {
+                            dialog.close();
+                        };
+                    }
+                }).open();
             }
     };
     return security;

@@ -2,6 +2,10 @@ projects:
     type: rest
     resource: DotHiv\APIBundle\Controller\ProjectController
 
+user:
+    type: rest
+    resource: DotHiv\APIBundle\Controller\UserController
+
 dot_hiv_api_check_login_state:
     path: login_state
     methods: [ GET ]

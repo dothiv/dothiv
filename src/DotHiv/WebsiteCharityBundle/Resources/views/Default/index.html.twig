@@ -19,6 +19,7 @@
                 </div>
                 <div class="span3">
                     <span class="accountance" ng-show="!isAuthenticated()"><a ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></span><br>
+                    <span class="accountance" ng-show="!isAuthenticated()"><a ng-click="register()">{% trans %}header.menu.register{% endtrans %}</a></span><br>
                     <span class="accountance" ng-show="isAuthenticated()"><a ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></span><br>
                     <span class="accountance"><a href="#!/profile">{% trans %}header.menu.profile{% endtrans %}</a></span><br>
                     <span class="accountance">{% trans %}header.menu.createproject{% endtrans %}</span><br>
