@@ -2,7 +2,11 @@
 
 namespace DotHiv\BusinessBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Translatable\Translatable;
+use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * This class holds the content for a static website.
