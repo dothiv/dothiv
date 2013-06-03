@@ -11,12 +11,12 @@
 
     // Declare app level module which depends on filters, and services
     angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ui.state']).
-        config(['$stateProvider', '$httpProvider', 'authServiceProvider', function($stateProvider) {
+        config(['$stateProvider', function($stateProvider) {
             $stateProvider
                 .state('home', {
                         url: '/',
                         templateUrl: '{{ path('dot_hiv_website_charity_partial_home') }}',
-                        controller: 'homeAction'
+                        controller: 'HomeController'
                     })
                 .state('profile', {
                         url: '/profile',

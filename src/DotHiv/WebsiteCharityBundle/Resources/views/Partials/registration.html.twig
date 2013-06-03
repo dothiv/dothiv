@@ -2,7 +2,7 @@
     <h1>{% trans %}register.form.title{% endtrans %}</h1>
 </div>
 <div class="modal-body">
-    <span class="alert alert-error" ng-show="registerFailed">[[ errormsg ]]</span>
+    <span class="alert alert-error" ng-show="errormsg!=''">[[ errormsg ]]</span>
     <p>{% trans %}register.form.text{% endtrans %}</p>
     <p>{% trans %}register.form.username{% endtrans %} <input type="text" ng-model="username" /></p>
     <p>{% trans %}register.form.email{% endtrans %} <input type="text" ng-model="email" /></p>
@@ -11,5 +11,5 @@
 </div>
 <div class="modal-footer">
     <button ng-click="abort()" class="btn">{% trans %}register.form.abort{% endtrans %}</button>
-    <button ng-click="register(username,email,password)" class="btn btn-success btn-primary" >{% trans %}register.form.submit{% endtrans %}</button>
+    <button ng-click="submit(username,email,password)" class="btn btn-success btn-primary" >{% trans %}register.form.submit{% endtrans %}</button>
 </div>

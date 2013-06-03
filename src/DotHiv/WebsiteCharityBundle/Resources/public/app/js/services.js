@@ -1,102 +1,84 @@
 'use strict';
 
 /* Services */
+var myModule = angular.module('myApp.services', ['ui.bootstrap', 'myApp.controllers']);
 
-
-// Demonstrate how to register services
-// In this case it is a simple value service.
-var myModule = angular.module('myApp.services', ['ui.bootstrap']);
-myModule.factory('security', function($dialog, $http, $state) {
+myModule.factory('security', function($http, authService) {
     var isAuthenticated = false;
-    var loginFailed = false;
     var security = {
-            login: function() {
-                loginFailed = false;
-                $dialog.dialog({
-                    keyboard: true,
-                    templateUrl: '/app_dev.php/partial/login',
-                    backdropClick: true,
-                    dialogFade: true,
-                    backdropFade: true,
-                    controller: function($scope, dialog, $http, authService) {
-                            $scope.login = function(username, password) {
-                                console.log("sending login data ...");
-                                $http({
-                                    method: 'POST',
-                                    url: '/app_dev.php/login_check',
-                                    data: '_username=' + username + '&_password=' + password,
-                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                }).success(function() {
-                                    console.log("login complete.");
-                                    authService.loginConfirmed();
-                                    isAuthenticated = true;
-                                    dialog.close();
-                                }).error(function(data, status, headers, config) {
-                                    $scope.errormsg = data;
-                                    loginFailed = true;
-                                });
-                            };
-                            $scope.abort = function() {
-                                dialog.close();
-                            };
-                            $scope.loginFailed = function() {
-                                return loginFailed;
-                            };
-                        }
-                }).open().then(function($state) {
-                    // do something after login
-                });
-            },
-            logout: function() {
-                console.log("logging out ...");
-                $http.get('/app_dev.php/logout').success(function() {
-                    console.log("logout complete.");
-                    isAuthenticated = false;
-                    $state.transitionTo('home');
-                });
-            },
-            updateIsAuthenticated: function() {
-                $http.get('/app_dev.php/api/login_state').success(function() {
+            login: function(username, password, callback) {
+                $http({
+                    method: 'POST',
+                    url: '/app_dev.php/login_check',
+                    data: '_username=' + username + '&_password=' + password,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).success(function() {
+                    authService.loginConfirmed();
                     isAuthenticated = true;
+                    (callback || angular.noop)(isAuthenticated);
                 }).error(function(data, status, headers, config) {
                     isAuthenticated = false;
+                    (callback || angular.noop)(isAuthenticated, data);
+                });
+            },
+            logout: function(callback) {
+                $http.get('/app_dev.php/logout').success(function() {
+                    isAuthenticated = false;
+                    (callback || angular.noop)();
+                });
+            },
+            register: function(username, email, password, callback) {
+                // TODO replace this by $resource API call
+                $http.post('/app_dev.php/api/users', {
+                    username: username,
+                    email: email,
+                    plainPassword: password
+                }).success(function() {
+                    // TODO direct login
+                    (callback || angular.noop)(true);
+                }).error(function(data, status, headers, config) {
+                    (callback || angular.noop)(false, data);
+                });
+            },
+            updateIsAuthenticated: function(callback) {
+                $http.get('/app_dev.php/api/login_state').success(function() {
+                    isAuthenticated = true;
+                    (callback || angular.noop)();
+                }).error(function(data, status, headers, config) {
+                    isAuthenticated = false;
+                    (callback || angular.noop)();
                 });
             },
             isAuthenticated: function() {
                 return isAuthenticated;
             },
-            loginFailed: function() {
-                return loginFailed;
-            },
-            register: function() {
-                $dialog.dialog({
-                    keyboard: true,
-                    templateUrl: '/app_dev.php/partial/register',
-                    backdropClick: true,
-                    dialogFade: true,
-                    backdropFade: true,
-                    controller: function($scope, dialog) {
-                        $scope.register = function(username, email, password) {
-                            // TODO replace this by $resource API call
-                            console.log("register " + username + "/" + email + "/" + password);
-                            $http.post('/app_dev.php/api/users', {
-                                username: username,
-                                email: email,
-                                plainPassword: password
-                            }).success(function() {
-                                // TODO login
-                                dialog.close();
-                            }).error(function(data, status, headers, config) {
-                                $scope.errormsg = data;
-                                $scope.registerFailed = true;
-                            });
-                        };
-                        $scope.abort = function() {
-                            dialog.close();
-                        };
-                    }
-                }).open();
-            }
+
     };
     return security;
+});
+
+myModule.factory('securityDialog', function($dialog) {
+    var securityDialog = {
+        showLogin: function() {
+            $dialog.dialog({
+                keyboard: true, // TODO make these values default
+                backdropClick: true, // TODO make these values default
+                dialogFade: true, // TODO make these values default
+                backdropFade: true, // TODO make these values default
+                templateUrl: '/app_dev.php/partial/login',
+                controller: 'SecurityLoginDialogController'
+            }).open();
+        },
+        showRegistration: function() {
+            $dialog.dialog({
+                keyboard: true, // TODO make these values default
+                backdropClick: true, // TODO make these values default
+                dialogFade: true, // TODO make these values default
+                backdropFade: true, // TODO make these values default
+                templateUrl: '/app_dev.php/partial/registration',
+                controller: 'SecurityRegistrationDialogController'
+            }).open();
+        },
+    };
+    return securityDialog;
 });

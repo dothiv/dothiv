@@ -2,12 +2,12 @@
     <h1>{% trans %}login.form.title{% endtrans %}</h1>
 </div>
 <div class="modal-body">
-    <span class="alert alert-error" ng-show="loginFailed()">[[ errormsg ]]</span>
+    <span class="alert alert-error" ng-show="errormsg!=''">[[ errormsg ]]</span>
     <p>{% trans %}login.form.text{% endtrans %}</p>
     <p>{% trans %}login.form.username{% endtrans %} <input type="text" ng-model="username" /></p>
     <p>{% trans %}login.form.password{% endtrans %} <input type="password" ng-model="password" /></p>
 </div>
 <div class="modal-footer">
     <button ng-click="abort()" class="btn">{% trans %}login.form.abort{% endtrans %}</button>
-    <button ng-click="login(username,password)" class="btn btn-success btn-primary" >{% trans %}login.form.submit{% endtrans %}</button>
+    <button ng-click="submit(username,password)" class="btn btn-success btn-primary" >{% trans %}login.form.submit{% endtrans %}</button>
 </div>
