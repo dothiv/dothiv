@@ -60,7 +60,7 @@ myModule.factory('security', function($dialog, $http, $state) {
                 });
             },
             updateIsAuthenticated: function() {
-                $http.post('/app_dev.php/api/login_state').success(function() {
+                $http.get('/app_dev.php/api/login_state').success(function() {
                     isAuthenticated = true;
                 }).error(function(data, status, headers, config) {
                     isAuthenticated = false;
