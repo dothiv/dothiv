@@ -26,7 +26,7 @@ class SecurityController extends Controller {
      *   description="Check current login state.",
      *   statusCodes={
      *     200="Returned when logged in",
-     *     400="Retruned when not logged in",
+     *     400="Returned when not logged in",
      *   }
      * )
      */
