@@ -1,4 +1,5 @@
 title: dotHIV
+
 login:
     form:
         title: Bitte anmelden
@@ -7,11 +8,45 @@ login:
         password: Kennwort
         submit: Anmelden
         abort: Oh, doch nicht
+
 header:
     menu:
         login: Anmelden
+        register: Registrieren
+        createproject: Projekt einstellen
+        reportabuse: Missbrauch melden
+        picklanguage: Choose Language
 
 home:
     about:
          oneclickheadline: Klicken
-         oneclick: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+         oneclick: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+
+registration:
+    form:
+        title: Registrieren
+        text: Registrieren Sie Ihren dotHIV-Account.
+        username:
+            placeholder: Benutzername
+            label: Ihr Benutzername
+            help: ''
+            error: 
+                required: Bitte geben Sie einen Benutzernamen an
+                invalid: Dieser Benutzername ist ungültig
+        email:
+            placeholder: E-Mail-Adresse
+            label: Ihre E-Mail-Adresse
+            help: ''
+            error: 
+                required: Bitte geben Sie eine E-Mail-Adresse an
+                invalid: Noch keine gültige E-Mail-Adresse
+        password:
+            placeholder: Passwort
+            placeholderrepeat: Passwort wiederholen
+            label: Ihr Passwort
+            help: ''
+            error: 
+                required: Bitte geben Sie ein sicheres Passwort an
+                invalid: Bitte geben Sie ein besseres Passwort an
+        submit: registrieren!
+        abort: ich möchte keinen dotHIV-Account
