@@ -7,6 +7,7 @@
         {% stylesheets 'bundles/websitecharity/bootstrap-custom/custom-bootstrap.less' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+        <link rel="shortcut icon" href="{{ asset("bundles/websitecharity/images/favicon.png") }}" />
     </head>
     <body>
         <div class="container" ng-controller="HeaderController">
@@ -29,7 +30,7 @@
                         <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
                         <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.createproject{% endtrans %}</a></li>
                         <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.reportabuse{% endtrans %}</a></li>
-                        <li class="accountance hover-arrow grey"><a ng-click="">{%  trans %}in Englisch{% endtrans %}</a></li>
+                        <li class="accountance hover-arrow grey"><a ng-click="">{%  trans %}header.menu.picklanguage{% endtrans %}</a></li>
                     </ul>
                 </div>
             </div>

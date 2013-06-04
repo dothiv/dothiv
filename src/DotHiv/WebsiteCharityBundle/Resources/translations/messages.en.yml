@@ -1,3 +1,5 @@
+title: dotHIV
+
 login:
     form:
         title: Please log in
@@ -6,11 +8,15 @@ login:
         password: Password
         submit: Log in
         abort: Ehm, actually don't log in
+
 header:
     menu:
         login: Log in
         register: Sign up
-title: dotHIV
+        createproject: Submit project
+        reportabuse: Report abuse
+        picklanguage: Choose Language
+
 registration:
     form:
         title: Sign Up
@@ -20,7 +26,7 @@ registration:
             label: Your username
             help: ''
             error: 
-                required: Please provide an username address
+                required: Please provide an username
                 invalid: This username is invalid
         email:
             placeholder: email
