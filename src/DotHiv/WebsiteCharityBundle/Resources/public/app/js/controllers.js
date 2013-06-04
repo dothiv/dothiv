@@ -56,18 +56,6 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
                         $scope.errormsg = error;
                     }
                 })
-//                $http({
-//                    method: 'POST',
-//                    url: '/app_dev.php/login_check',
-//                    data: '_username=' + username + '&_password=' + password,
-//                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-//                }).success(function() {
-//                    authService.loginConfirmed();
-//                    dialog.close(true);
-//                }).error(function(data, status, headers, config) {
-//                    $scope.errormsg = data;
-//                    $scope.loginFailed = true;
-//                });
             };
 
             $scope.abort = function() {
