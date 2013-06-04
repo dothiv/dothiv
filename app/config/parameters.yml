@@ -14,6 +14,9 @@ parameters:
     locale:            en_US
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
 
+    charitydomain:     dothiv.bp
+    companydomain:     registry.hiv
+
     # configure symfony security bundle to use our REST authentication classes.
     # this is required by the angular app authentication process (see http authentication interceptor)
     security.authentication.form_entry_point.class: DotHiv\APIBundle\Security\RestAuthenticationEntryPoint
