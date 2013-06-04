@@ -3,8 +3,8 @@
 /* jasmine specs for services go here */
 
 describe('Security service', function() {
-    var security, httpBackend;
-    
+    var security, httpBackend, templateCache;
+
     beforeEach(module('myApp.services'));
     beforeEach(module('ui.state'));
     beforeEach(function () {
@@ -13,6 +13,9 @@ describe('Security service', function() {
         });
         inject(function($httpBackend) {
             httpBackend = $httpBackend;
+        });
+        inject(function($templateCache) {
+            templateCache = $templateCache;
         });
     });
 
@@ -142,6 +145,18 @@ describe('Security service', function() {
             expect(spyCallback.calls.length).toEqual(1);
         });
 
+        it('should clear the template cache when successfully logged out', function() {
+            // make sure we are logged in
+            httpBackend.expectGET('/app_dev.php/api/login_state').respond(200);
+            security.updateIsAuthenticated();
+            httpBackend.flush();
+
+            httpBackend.expectGET('/app_dev.php/logout').respond(201);
+            security.logout();
+            httpBackend.flush();
+            expect(templateCache.info().size).toEqual(0);
+        });
+
         it('should not set isAuthenticated to "false" when unsuccessfully trying to log out', function() {
             // make sure we are logged in
             httpBackend.expectGET('/app_dev.php/api/login_state').respond(200);
@@ -187,10 +202,4 @@ describe('Security service', function() {
             expect(spyCallback).toHaveBeenCalledWith(false, 'test message');
         });
     });
-
-/*  describe('version', function() {
-    it('should return current version', inject(function(version) {
-      expect(version).toEqual('0.1');
-    }));
-  });*/
 });

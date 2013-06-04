@@ -3,7 +3,7 @@
 /* Services */
 var myModule = angular.module('myApp.services', ['ui.bootstrap', 'myApp.controllers']);
 
-myModule.factory('security', function($http, authService) {
+myModule.factory('security', function($http, $templateCache, authService) {
     var isAuthenticated = false;
     var security = {
             login: function(username, password, callback) {
@@ -24,6 +24,7 @@ myModule.factory('security', function($http, authService) {
             logout: function(callback) {
                 $http.get('/app_dev.php/logout').success(function() {
                     isAuthenticated = false;
+                    $templateCache.removeAll();
                     (callback || angular.noop)();
                 });
             },
