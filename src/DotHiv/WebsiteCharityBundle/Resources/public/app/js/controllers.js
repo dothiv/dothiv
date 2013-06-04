@@ -43,19 +43,25 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
     ])
     .controller('SecurityLoginDialogController', ['$scope', 'dialog', 'security',
         function($scope, dialog, security) {
-
-            $scope.submit = function(username, password) {
-                security.login(username, password, function(result, error) {
-                    if (result) {
-                        // login successful
-                        console.log("login successful");
-                        dialog.close();
-                    } else {
-                        // login failed
-                        console.log("login failed");
-                        $scope.errormsg = error;
-                    }
-                })
+            $scope.clean = true;
+            $scope.submit = function(data) {
+                if($scope.login.$invalid) {
+                    $scope.clean = false;
+                    console.log("still invalid");
+                } else {
+                    console.log("form valid");
+                    security.login(data.username, data.password, function(result, error) {
+                        if (result) {
+                            // login successful
+                            console.log("login successful");
+                            dialog.close();
+                        } else {
+                            // login failed
+                            console.log("login failed");
+                            $scope.errormsg = error;
+                        }
+                    });
+                }
             };
 
             $scope.abort = function() {

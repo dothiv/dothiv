@@ -1,24 +1,19 @@
 dot_hiv_website_charity_app:
     pattern:  /
-    host:     dothiv.bp
     defaults: { _controller: DotHivWebsiteCharityBundle:Default:index }
 
 dot_hiv_website_charity_partial_home:
     pattern:  /partial/home
-    host:     dothiv.bp
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:home }
 
 dot_hiv_website_charity_partial_login:
     pattern:  /partial/login
-    host:     dothiv.bp
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:login }
 
 dot_hiv_website_chartiy_partial_registration:
     pattern: /partial/registration
-    host: dothiv.bp
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:registration }
 
 dot_hiv_website_charity_partial_profile:
     pattern:  /partial/profile
-    host:     dothiv.bp
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profile }
