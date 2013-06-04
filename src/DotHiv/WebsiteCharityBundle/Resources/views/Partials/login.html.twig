@@ -1,13 +1,32 @@
 <div class="modal-header">
-    <h1>{% trans %}login.form.title{% endtrans %}</h1>
+    <h4>{% trans %}login.form.title{% endtrans %}</h4>
 </div>
-<div class="modal-body">
-    <span class="alert alert-error" ng-show="errormsg">[[ errormsg ]]</span>
-    <p>{% trans %}login.form.text{% endtrans %}</p>
-    <p>{% trans %}login.form.username{% endtrans %} <input type="text" ng-model="username" /></p>
-    <p>{% trans %}login.form.password{% endtrans %} <input type="password" ng-model="password" /></p>
-</div>
-<div class="modal-footer">
-    <button ng-click="abort()" class="btn">{% trans %}login.form.abort{% endtrans %}</button>
-    <button ng-click="submit(username,password)" class="btn btn-success btn-primary" >{% trans %}login.form.submit{% endtrans %}</button>
-</div>
+<form novalidate name="login" class="simple-form">
+    <fieldset>
+        <div class="modal-body">
+            <span class="alert alert-error" ng-show="errormsg">[[ errormsg ]]</span>
+
+            <p>{% trans %}login.form.text{% endtrans %}</p>
+
+            <label>{% trans %}login.form.username{% endtrans %}</label> 
+            <input type="text" name="username" ng-model="data.username" placeholder="{% trans %}login.form.username.placeholder{% endtrans %}" required />
+            <span ng-show="login.username.$dirty && login.username.$invalid" class="alert alert-error">{% trans %}login.form.username.error.invalid{% endtrans %}</span>
+            <span ng-show="!login.username.$dirty && login.username.$error.required && !clean" class="alert alert-error">{% trans %}login.form.username.error.required{% endtrans %}</span>
+            <span class="help-block">
+                {% trans %}login.form.username.help{% endtrans %}
+            </span>
+
+            <label>{% trans %}login.form.password{% endtrans %}</label>
+            <input type="password" name="password" ng-model="data.password" placeholder="{% trans %}login.form.password.placeholder{% endtrans %}" required />
+            <span ng-show="login.password.$dirty && login.password.$invalid" class="alert alert-error">{% trans %}login.form.password.error.invalid{% endtrans %}</span>
+            <span ng-show="!login.password.$dirty && login.password.$error.required && !clean" class="alert alert-error">{% trans %}login.form.password.error.required{% endtrans %}</span>
+            <span class="help-block">
+                {% trans %}login.form.password.help{% endtrans %}
+            </span>
+        </div>
+        <div class="modal-footer">
+            <button type="button" ng-click="abort()" class="btn">{% trans %}login.form.abort{% endtrans %}</button>
+            <button type="submit" ng-click="submit(data)" class="btn btn-success btn-primary" >{% trans %}login.form.submit{% endtrans %}</button>
+        </div>
+    </fieldset>
+</form>
