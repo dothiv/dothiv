@@ -1,50 +1,67 @@
 <!-- adopt for mobile useage -->
-<div class="pink leftside text-right">
-    <div class="vert-center">
-        <span class="text">Bisher aktiviert: </span>
-        <span class="text bold" id="active-money">€ 123.456</span>
-        <img class="image" src="{{ asset("bundles/websitecharity/images/tick-white.png") }}">
+<div class="pink-bar rightside">
+    <div class="pink-bar leftside text-right">
+        <p>
+            <span class="pink-bar-text">{% trans %} home.pinkbar.activated {% endtrans %}</span>
+            <span class="pink-bar-text bold" id="active-money">€ 123.456</span>
+            <img class="pink-bar-image" src="{{ asset("bundles/websitecharity/images/tick-white.png") }}">
+        </p>
     </div>
 </div>
-<div class="pink rightside"></div>
+<div class="container">
+    <div class="row">
+        <div class="span4">
+            <div class="upper"><h3 class="pink-text">{% trans %} home.about.oneclickheadline {% endtrans %}</h3></div>
+            <div class="lower">{% trans %} home.about.oneclick {% endtrans %}</div>
+        </div>
+        <div class="span4">
+            klicken voten teilen
+        </div>
+        <div class="span4">
+            klicken voten teilen
+        </div>
+    </div>
+</div>
 <hr>
 <div class="container">
     <div class="row">
         <div class="span12 center">
-            klicken voten teilen
-        </div>
-    </div>
-    <hr>
-    <div class="row text-center">
-        <div class="span12 center">
             wer steht dahinter 
         </div>
     </div>
-    <hr>    
-    <div class="row text-center">
+</div>
+<hr>
+<div class="container">
+    <div class="row">
         <div class="span12 center">
             voten
         </div>
     </div>
-    <hr>    
-    <div class="row text-center">  
+</div>
+<hr>
+<div class="container">
+    <div class="row">
         <div class="span12 center">
             unternehmen
         </div>
     </div>
-    <hr>    
-    <div class="row text-center">  
+</div>
+<hr>
+<div class="container">
+    <div class="row">
         <div class="span12 center">
             zitate
         </div>
     </div>
-    <hr>    
-    <div class="row text-center">  
+</div>
+<hr>
+<div class="container">
+    <div class="row">
         <div class="span12 center">
             unsere partner
         </div>
     </div>
-    <div class="row text-center">  
+    <div class="row">
         <div class="span12 center">
             footer
         </div>

@@ -2,12 +2,35 @@
 // ----------------------------------
 @lightpink:         #FBE6F1;
 @darkpink:          #E00073;
+@hivblue:           #1885C0;
 
+@linkColor:         @black;
 
+// Class to add pointing arrows to elements on hover
+// -------------------------------------
+.hover-arrow:hover:before {
+    margin-left: -45px; /*width of the jpg*/
+    content: url('/bundles/websitecharity/images/link-hover-arrow.jpg');
+    }
+
+// Custom HR tag
+// ------------------------------------
 hr {
     height: 6px;
     background-color: black;
     }
+    
+// override h1, h2, h3 lineheight 
+// --------------------------------------
+h1, h2, h3 { line-height: 1.4em; }
+
+// Lets Login/report/language-menu list items behave like links and links inside them like text
+// -------------------------------------
+.accountance { list-style-type: none; }
+.accountance:hover { text-decoration: underline; }
+
+.accountance > a { cursor: hand; cursor: pointer; }
+.accountance > a:hover { text-decoration:none; }
 
 // Adds spacing to the top
 // -----------------------------------
@@ -16,14 +39,17 @@ hr {
     margin-bottom: 37px;
     }
 
-// Special classes for the page-head
+// Special classes for the page-head layout
 // -----------------------------------
 
 .hiv-logo {
     position: relative;
-    bottom: -40px;
+    bottom: -93px;
     }
 .accountance {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 2em;
     font-style: italic;
     }
 
@@ -33,35 +59,87 @@ hr {
 
 
 // Handling the custom pink full-width-donation-bar
-.pink {
+.pink-bar {
     float: left;
     margin: 0 0 0 0;
     height: 60px;
+    overflow: hidden;
     }
 
-.pink.leftside {
+.pink-bar.leftside {
     background-color: @darkpink;
     width: 57%;
+    min-width: 400px;
     }
 
-.pink.rightside {
+.pink-bar.rightside {
     background-color: @lightpink;
-    width: 43%;
+    width: 100%;
     }
 
-.pink > .vert-center {
-    font-size: 18px;
-    margin: 10px 20px;
-    }
-
-.pink * .image {
+.pink-bar-image {
     margin-left: 22px;
+    margin-right: 20px;
+    position: relative;
+    top: -2px;
     }
 
-.pink * .text {
+.pink-bar-text {
     color: white;
+    font-size: 18px;
     }
 
-.pink * .text + .bold {
+.pink-bar-text + .bold {
     font-weight: bold;
+    font-size: 20px;
     }
+
+// makes the horizontal menu on have as needed
+// -----------------------------------
+
+.first * .barmenu {
+    float: left;
+    margin-left: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    bottom: -138px;
+    cursor: hand;
+    cursor: pointer;
+    }
+
+
+.first * .barmenu:hover {
+    border-bottom: 6px solid black;
+    bottom: -120px;
+    }
+
+.first * .barmenu.first { margin-left: 10px; }
+
+// change the top-margin of serveral span-classes
+// --------------------------------
+.span4 { margin-top: 30px; }
+
+// adds colored borders to span-elements
+// --------------------------------
+.lower-border-pink { border-bottom: 5px solid @darkpink; }
+.lower-border-blue { border-bottom: 5px solid @hivblue; }
+
+// text and image behavior inside span-elements
+// --------------------------------
+.upper { }
+.lower { clear: both; }
+
+// custom text colors
+// ----------------------------------
+.pink-text { color: @darkpink; }
+.hivblue-text {color: @hivblue; }
+
+// custom headline sizes and spacings
+// ----------------------------------
+h3 { 
+    font-size: 40px;
+    line-height: 2em;
+    padding: 0;
+    margin: 0; 
+   } 

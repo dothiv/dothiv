@@ -15,16 +15,22 @@
                     <a href="#!/"><img src="{{ asset("bundles/websitecharity/images/dotHiv-logo.png") }}"></a>
                 </div>
                 <div class="span7">
-                    header logo etc 2 
+                    <div class="container">
+                        <div class="barmenu first">Projekte</div>
+                        <div class="barmenu">Über dotHIV</div>
+                        <div class="barmenu">URL registrieren</div>
+                    </div>
                 </div>
                 <div class="span3">
-                    <span class="accountance" ng-show="!isAuthenticated()"><a ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></span><br>
-                    <span class="accountance" ng-show="!isAuthenticated()"><a ng-click="register()">{% trans %}header.menu.register{% endtrans %}</a></span><br>
-                    <span class="accountance" ng-show="isAuthenticated()"><a ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></span><br>
-                    <span class="accountance"><a href="#!/profile">{% trans %}header.menu.profile{% endtrans %}</a></span><br>
-                    <span class="accountance">{% trans %}header.menu.createproject{% endtrans %}</span><br>
-                    <span class="accountance">{% trans %}header.menu.reportabuse{% endtrans %}</span><br>
-                    <span class="accountance grey">in Englisch</span>
+                    <ul>
+                        <li class="accountance" ng-show="!isAuthenticated()"><a class="hover-arrow" ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
+                        <li class="accountance" ng-show="!isAuthenticated()"><a class="hover-arrow" ng-click="register()">{% trans %}header.menu.register{% endtrans %}</a></li>
+                        <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
+                        <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" ng-click="">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
+                        <li class="accountance" ><a class="hover-arrow" ng-click="">{% trans %}header.menu.createproject{% endtrans %}</a></li>
+                        <li class="accountance" ><a class="hover-arrow" ng-click="">{% trans %}header.menu.reportabuse{% endtrans %}</a></li>
+                        <li class="accountance grey"><a class="hover-arrow" ng-click="">{%  trans %}in Englisch{% endtrans %}</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
