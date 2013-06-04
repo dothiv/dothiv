@@ -12,7 +12,6 @@ login:
 header:
     menu:
         login: Anmelden
-        register: Registrieren
         createproject: Projekt einstellen
         reportabuse: Missbrauch melden
         picklanguage: Choose Language

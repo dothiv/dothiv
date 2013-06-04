@@ -43,10 +43,11 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
     ])
     .controller('SecurityLoginDialogController', ['$scope', 'dialog', 'security',
         function($scope, dialog, security) {
-            $scope.clean = true;
-            $scope.submit = function(data) {
-                if($scope.login.$invalid) {
-                    $scope.clean = false;
+            $scope.loginclean = true;
+
+            $scope.login = function(data) {
+                if($scope.loginForm.$invalid) {
+                    $scope.loginclean = false;
                     console.log("still invalid");
                 } else {
                     console.log("form valid");
@@ -58,26 +59,17 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
                         } else {
                             // login failed
                             console.log("login failed");
-                            $scope.errormsg = error;
+                            $scope.loginerrormsg = error;
                         }
                     });
                 }
             };
 
-            $scope.abort = function() {
-                dialog.close(false);
-            };
+            $scope.registrationclean = true;
 
-            $scope.loginFailed = false;
-
-        }
-    ])
-    .controller('SecurityRegistrationDialogController', ['$scope', 'dialog', 'security',
-        function($scope, dialog, security) {
-            $scope.clean = true;
-            $scope.submit = function(data) {
-                if ($scope.registration.$invalid) {
-                    $scope.clean = false;
+            $scope.register = function(data) {
+                if ($scope.registrationForm.$invalid) {
+                    $scope.registrationclean = false;
                     console.log("still invalid");
                 } else {
                     console.log("form valid");
@@ -89,13 +81,10 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
                         } else {
                             // registration failed
                             console.log("registration failed");
-                            $scope.errormsg = error;
+                            $scope.registrationerrormsg = error;
                         }
                     });
                 }
-            };
-            $scope.abort = function() {
-                dialog.close();
             };
         }
     ])

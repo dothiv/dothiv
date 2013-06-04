@@ -12,7 +12,6 @@ login:
 header:
     menu:
         login: Log in
-        register: Sign up
         createproject: Submit project
         reportabuse: Report abuse
         picklanguage: Choose Language
