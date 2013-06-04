@@ -173,13 +173,15 @@ describe('Security service', function() {
     describe('register()', function() {
         it('should send a POST request containing username, email address and password', function() {
             // check request for correct data and header
-            httpBackend.expectPOST('/app_dev.php/api/users', '{"username":"testuser","email":"test@email.hiv","plainPassword":"testpassword"}').respond(201);
+            httpBackend.expectPOST('/app_dev.php/api/users', '{"username":"testuser","email":"test@email.hiv","plainPassword":"testpassword"}').respond(400);
             security.register('testuser', 'test@email.hiv', 'testpassword');
             httpBackend.flush();
         });
 
-        it('should call the callback function providing "true" when successfully registered', function() {
+        it('should login the new user and call the callback function providing "true" when successfully registered', function() {
             httpBackend.expectPOST('/app_dev.php/api/users').respond(201);
+
+            httpBackend.expectPOST('/app_dev.php/login_check').respond(201);
 
             // define a 'spy' callback function
             var spyCallback = jasmine.createSpy('callback');
