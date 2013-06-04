@@ -30,6 +30,7 @@
             <span ng-show="registration.password.$dirty && registration.password.$invalid" class="alert alert-error">{% trans %}registration.form.password.error.invalid{% endtrans %}</span>
             <span ng-show="!registration.password.$dirty && registration.password.$error.required && !clean" class="alert alert-error">{% trans %}registration.form.password.error.required{% endtrans %}</span>
             <span ng-show="registration.passwordrepeat.$dirty && registration.passwordrepeat.$invalid" class="alert alert-error">{% trans %}registration.form.password.error.mismatch{% endtrans %}</span>
+            <span ng-show="!registration.passwordrepeat.$dirty && registration.passwordrepeat.$error.required && !clean" class="alert alert-error">{% trans %}registration.form.password.error.repeatrequired{% endtrans %}</span>
             <span class="help-block">
                 {% trans %}registration.form.password.help{% endtrans %}
             </span>
