@@ -31,6 +31,8 @@ class UserController extends FOSRestController {
      */
     public function postUsersAction() {
         $user = new User();
+        $user->setEnabled(true); // TODO: we need to make sure the new user is human (and not registered by bots)
+
         $form = $this->createForm(new UserRegisterType(), $user);
         $form->bind($this->getRequest());
 
@@ -47,7 +49,7 @@ class UserController extends FOSRestController {
 
         return array('form' => $form);
     }
-    
+
     /**
      * Returns the requested user.
      * 
