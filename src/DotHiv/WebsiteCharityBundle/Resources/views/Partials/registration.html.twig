@@ -1,15 +1,42 @@
 <div class="modal-header">
-    <h1>{% trans %}register.form.title{% endtrans %}</h1>
+    <h4>{% trans %}registration.form.title{% endtrans %}</h4>
 </div>
-<div class="modal-body">
-    <span class="alert alert-error" ng-show="errormsg">[[ errormsg ]]</span>
-    <p>{% trans %}register.form.text{% endtrans %}</p>
-    <p>{% trans %}register.form.username{% endtrans %} <input type="text" ng-model="username" /></p>
-    <p>{% trans %}register.form.email{% endtrans %} <input type="text" ng-model="email" /></p>
-    <p>{% trans %}register.form.password{% endtrans %} <input type="password" ng-model="password" /></p>
-    <p>{% trans %}register.form.passwordrepeat{% endtrans %} <input type="password" ng-model="passwordrepeat" /></p>
-</div>
-<div class="modal-footer">
-    <button ng-click="abort()" class="btn">{% trans %}register.form.abort{% endtrans %}</button>
-    <button ng-click="submit(username,email,password)" class="btn btn-success btn-primary" >{% trans %}register.form.submit{% endtrans %}</button>
-</div>
+<form novalidate name="registration" class="simple-form">
+    <fieldset>
+        <div class="modal-body">
+            <span class="alert alert-error" ng-show="errormsg">[[ errormsg ]]</span>
+            
+            <p>{% trans %}registration.form.text{% endtrans %}</p>
+            
+            <label>{% trans %}registration.form.username.label{% endtrans %}</label>
+            <input type="text" name="username" ng-model="data.username" placeholder="{% trans %}registration.form.username.placeholder{% endtrans %}" required />
+            <span ng-show="registration.username.$dirty && registration.username.$invalid" class="alert alert-error">{% trans %}registration.form.username.error.invalid{% endtrans %}</span>
+            <span ng-show="!registration.username.$dirty && registration.username.$error.required && !clean" class="alert alert-error">{% trans %}registration.form.username.error.required{% endtrans %}</span>
+            <span class="help-block">
+                {% trans %}registration.form.username.help{% endtrans %}
+            </span>
+            
+            <label>{% trans %}registration.form.email.label{% endtrans %}</label>
+            <input type="email" name="email" ng-model="data.email" placeholder="{% trans %}registration.form.email.placeholder{% endtrans %}" required />
+            <span ng-show="registration.email.$dirty && registration.email.$invalid" class="alert alert-error">{% trans %}registration.form.email.error.invalid{% endtrans %}</span>
+            <span ng-show="!registration.email.$dirty && registration.email.$error.required && !clean" class="alert alert-error">{% trans %}registration.form.email.error.required{% endtrans %}</span>
+            <span class="help-block">
+                {% trans %}registration.form.email.help{% endtrans %}
+            </span>
+            
+            <label>{% trans %}registration.form.password.label{% endtrans %}</label>
+            <input type="password" name="password" ng-model="data.password" placeholder="{% trans %}registration.form.password.placeholder{% endtrans %}" required /><br />
+            <input type="password" name="passwordrepeat" placeholder="{% trans %}registration.form.password.placeholderrepeat{% endtrans %}" ng-model="data.passwordRepeat" repeat-password="password" required>
+            <span ng-show="registration.password.$dirty && registration.password.$invalid" class="alert alert-error">{% trans %}registration.form.password.error.invalid{% endtrans %}</span>
+            <span ng-show="!registration.password.$dirty && registration.password.$error.required && !clean" class="alert alert-error">{% trans %}registration.form.password.error.required{% endtrans %}</span>
+            <span ng-show="registration.passwordrepeat.$dirty && registration.passwordrepeat.$invalid" class="alert alert-error">{% trans %}registration.form.password.error.mismatch{% endtrans %}</span>
+            <span class="help-block">
+                {% trans %}registration.form.password.help{% endtrans %}
+            </span>
+        </div>
+        <div class="modal-footer">
+            <button type="button" ng-click="abort()" class="btn">{% trans %}registration.form.abort{% endtrans %}</button>
+            <button type="submit" ng-click="submit(data)" class="btn btn-success btn-primary" >{% trans %}registration.form.submit{% endtrans %}</button>
+        </div>
+    </fieldset>
+</form>
