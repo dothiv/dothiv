@@ -3,8 +3,9 @@
 @lightpink:         #FBE6F1;
 @darkpink:          #E00073;
 @hivblue:           #1885C0;
+@colordark:     #252525;
 
-@linkColor:         @black;
+@linkColor:         @colordark;
 
 // Class to add pointing arrows to elements on hover
 // -------------------------------------
@@ -16,8 +17,10 @@
 // Custom HR tag
 // ------------------------------------
 hr {
-    height: 6px;
-    background-color: black;
+    border-top: 2px solid #D5D5D5;
+    height: 2px;
+    background-color: #ECECEC;
+    border-bottom: 2px solid #F1F1F1;
     }
     
 // override h1, h2, h3 lineheight 
@@ -110,7 +113,7 @@ h1, h2, h3 { line-height: 1.4em; }
 
 
 .first * .barmenu:hover {
-    border-bottom: 6px solid black;
+    border-bottom: 6px solid @colordark;
     bottom: -120px;
     }
 
@@ -130,10 +133,12 @@ h1, h2, h3 { line-height: 1.4em; }
 .upper { }
 .lower { clear: both; }
 
-// custom text colors
+// custom text selectors (colors, style, size)
 // ----------------------------------
 .pink-text { color: @darkpink; }
 .hivblue-text {color: @hivblue; }
+.colordark-text {color: @colordark; }
+.running-text { line-height: 1.6em; font-style: italic; }
 
 // custom headline sizes and spacings
 // ----------------------------------
@@ -142,4 +147,4 @@ h3 {
     line-height: 2em;
     padding: 0;
     margin: 0; 
-   } 
+   }
