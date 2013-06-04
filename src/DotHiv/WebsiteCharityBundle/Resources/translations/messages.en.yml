@@ -9,4 +9,33 @@ login:
 header:
     menu:
         login: Log in
+        register: Sign up
 title: dotHIV
+registration:
+    form:
+        title: Sign Up
+        text: Please sign up for a dotHIV account.
+        username:
+            placeholder: username
+            label: Your username
+            help: ''
+            error: 
+                required: Please provide an username address
+                invalid: This username is invalid
+        email:
+            placeholder: email
+            label: Your email
+            help: ''
+            error: 
+                required: Please provide an email address
+                invalid: No valid address yet
+        password:
+            placeholder: password
+            placeholderrepeat: repeat password
+            label: Your password
+            help: ''
+            error: 
+                required: Please provide a safe password
+                invalid: Please provide a better password
+        submit: sign up!
+        abort: I dont want a dotHIV account

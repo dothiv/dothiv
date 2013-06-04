@@ -68,19 +68,25 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
     ])
     .controller('SecurityRegistrationDialogController', ['$scope', 'dialog', 'security',
         function($scope, dialog, security) {
-            $scope.submit = function(username, email, password) {
-                security.register(username, email, password, function(result, error) {
-                    if (result) {
-                        // registration successful
-                        console.log("registration successful");
-                        dialog.close();
-                    } else {
-                        // registration failed
-                        console.log("registration failed");
-                        $scope.errormsg = error;
-                    }
-                });
-
+            $scope.clean = true;
+            $scope.submit = function(data) {
+                if ($scope.registration.$invalid) {
+                    $scope.clean = false;
+                    console.log("still invalid");
+                } else {
+                    console.log("form valid");
+                    security.register(data.username, data.email, data.password, function(result, error) {
+                        if (result) {
+                            // registration successful
+                            console.log("registration successful");
+                            dialog.close();
+                        } else {
+                            // registration failed
+                            console.log("registration failed");
+                            $scope.errormsg = error;
+                        }
+                    });
+                }
             };
             $scope.abort = function() {
                 dialog.close();
