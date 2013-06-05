@@ -1,0 +1,2 @@
+DotHiv\BusinessBundle\Entity\User:
+    exclusion_policy: ALL
