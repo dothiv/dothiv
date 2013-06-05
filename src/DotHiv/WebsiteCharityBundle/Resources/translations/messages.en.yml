@@ -15,6 +15,8 @@ header:
         createproject: Submit project
         reportabuse: Report abuse
         picklanguage: Choose Language
+        logout: Log out
+        myprofile: My profile
 
 registration:
     form:
@@ -44,3 +46,7 @@ registration:
                 invalid: Please provide a better password
         submit: sign up!
         abort: I dont want a dotHIV account
+
+home:
+    pinkbar:
+        activated: Already activated
