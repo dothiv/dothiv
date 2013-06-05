@@ -2,5 +2,14 @@ FOS\UserBundle\Model\User:
     exclusion_policy: ALL
     properties:
         username:
-          expose: true
-          type: string
+            expose: true
+        usernameCanonical:
+            expose: true
+        email:
+            expose: true
+        emailCanonical:
+            expose: true
+        lastLogin:
+            expose: true
+        roles:
+            expose: true
