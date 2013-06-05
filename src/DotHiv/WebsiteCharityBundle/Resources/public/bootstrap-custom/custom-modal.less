@@ -1,8 +1,19 @@
-@modalwidth: 680px;
+@modalwidth: 940px;
 @modalbackgroundcolor: #E7E7E7;
+@modalborderradius: 0px;
+@modalbodymaxheight: 810px;
 
 .modal {
     width: @modalwidth;
     margin-left: -@modalwidth/2;
     background-color: @modalbackgroundcolor;
+    .border-radius(@modalborderradius);
+}
+
+.modal-body {
+    max-height: @modalbodymaxheight;
+}
+
+.modal-footer {
+    .border-radius(0 0 @modalborderradius @modalborderradius);
 }

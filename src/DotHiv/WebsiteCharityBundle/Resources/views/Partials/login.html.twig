@@ -1,7 +1,12 @@
 <div class="modal-body">
     <div class="row-fluid">
+        <div class="span12">
+            <button type="button" class="close" ng-click="abort()" aria-hidden="true">&times;</button>
+        </div>
+    </div>
+    <div class="row-fluid">
         <div class="span6">
-            <form novalidate name="loginForm" class="simple-form">
+            <form novalidate name="loginForm" class="simple-form" ng-class="{clean: loginclean, unclean: !loginclean}">
                 <fieldset>
                     <h4>{% trans %}login.form.title{% endtrans %}</h4>
                     <p>{% trans %}login.form.text{% endtrans %}</p>
@@ -9,20 +14,10 @@
                     <span class="alert alert-error" ng-show="loginerrormsg">[[ loginerrormsg ]]</span>
                 
                     <label>{% trans %}login.form.username{% endtrans %}</label> 
-                    <input type="text" name="username" ng-model="loginData.username" placeholder="{% trans %}login.form.username.placeholder{% endtrans %}" required />
-                    <span ng-show="loginForm.username.$dirty && loginForm.username.$invalid" class="alert alert-error">{% trans %}login.form.username.error.invalid{% endtrans %}</span>
-                    <span ng-show="!loginForm.username.$dirty && loginForm.username.$error.required && !loginclean" class="alert alert-error">{% trans %}login.form.username.error.required{% endtrans %}</span>
-                    <span class="help-block">
-                        {% trans %}login.form.username.help{% endtrans %}
-                    </span>
+                    <input type="text" class="span12" name="username" ng-model="loginData.username" placeholder="{% trans %}login.form.username.placeholder{% endtrans %}" required />
                 
                     <label>{% trans %}login.form.password{% endtrans %}</label>
-                    <input type="password" name="password" ng-model="loginData.password" placeholder="{% trans %}login.form.password.placeholder{% endtrans %}" required />
-                    <span ng-show="loginForm.password.$dirty && loginForm.password.$invalid" class="alert alert-error">{% trans %}login.form.password.error.invalid{% endtrans %}</span>
-                    <span ng-show="!loginForm.password.$dirty && loginForm.password.$error.required && !loginclean" class="alert alert-error">{% trans %}login.form.password.error.required{% endtrans %}</span>
-                    <span class="help-block">
-                        {% trans %}login.form.password.help{% endtrans %}
-                    </span>
+                    <input type="password" class="span12" name="password" ng-model="loginData.password" placeholder="{% trans %}login.form.password.placeholder{% endtrans %}" required />
                     
                     <button type="submit" ng-click="login(loginData)" class="btn btn-success btn-primary" >{% trans %}login.form.submit{% endtrans %}</button>
                 </fieldset>
@@ -31,7 +26,7 @@
     
     
         <div class="span6">
-            <form novalidate name="registrationForm" class="simple-form">
+            <form novalidate name="registrationForm" class="simple-form" ng-class="{clean: registrationclean, unclean: !registrationclean}">
                 <fieldset>
                     <h4>{% trans %}registration.form.title{% endtrans %}</h4>
                     <p>{% trans %}registration.form.text{% endtrans %}</p>
@@ -39,31 +34,14 @@
                     <span class="alert alert-error" ng-show="registrationerrormsg">[[ registrationerrormsg ]]</span>
                     
                     <label>{% trans %}registration.form.username.label{% endtrans %}</label>
-                    <input type="text" name="username" ng-model="registrationData.username" placeholder="{% trans %}registration.form.username.placeholder{% endtrans %}" required />
-                    <span ng-show="registrationForm.username.$dirty && registrationForm.username.$invalid" class="alert alert-error">{% trans %}registration.form.username.error.invalid{% endtrans %}</span>
-                    <span ng-show="!registrationForm.username.$dirty && registrationForm.username.$error.required && !registrationclean" class="alert alert-error">{% trans %}registration.form.username.error.required{% endtrans %}</span>
-                    <span class="help-block">
-                        {% trans %}registration.form.username.help{% endtrans %}
-                    </span>
+                    <input type="text" class="span12" name="username" ng-model="registrationData.username" placeholder="{% trans %}registration.form.username.placeholder{% endtrans %}" required />
                     
                     <label>{% trans %}registration.form.email.label{% endtrans %}</label>
-                    <input type="email" name="email" ng-model="registrationData.email" placeholder="{% trans %}registration.form.email.placeholder{% endtrans %}" required />
-                    <span ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid" class="alert alert-error">{% trans %}registration.form.email.error.invalid{% endtrans %}</span>
-                    <span ng-show="!registrationForm.email.$dirty && registrationForm.email.$error.required && !registrationclean" class="alert alert-error">{% trans %}registration.form.email.error.required{% endtrans %}</span>
-                    <span class="help-block">
-                        {% trans %}registration.form.email.help{% endtrans %}
-                    </span>
+                    <input type="email" class="span12" name="email" ng-model="registrationData.email" placeholder="{% trans %}registration.form.email.placeholder{% endtrans %}" required />
                     
                     <label>{% trans %}registration.form.password.label{% endtrans %}</label>
-                    <input type="password" name="password" ng-model="registrationData.password" placeholder="{% trans %}registration.form.password.placeholder{% endtrans %}" required /><br />
-                    <input type="password" name="passwordrepeat" placeholder="{% trans %}registration.form.password.placeholderrepeat{% endtrans %}" ng-model="registrationData.passwordRepeat" repeat-password="password" required>
-                    <span ng-show="registrationForm.password.$dirty && registrationForm.password.$invalid" class="alert alert-error">{% trans %}registration.form.password.error.invalid{% endtrans %}</span>
-                    <span ng-show="!registrationForm.password.$dirty && registrationForm.password.$error.required && !registrationclean" class="alert alert-error">{% trans %}registration.form.password.error.required{% endtrans %}</span>
-                    <span ng-show="registrationForm.passwordrepeat.$dirty && registrationForm.passwordrepeat.$invalid" class="alert alert-error">{% trans %}registration.form.password.error.mismatch{% endtrans %}</span>
-                    <span ng-show="!registrationForm.passwordrepeat.$dirty && registrationForm.passwordrepeat.$error.required && !registrationclean" class="alert alert-error">{% trans %}registration.form.password.error.repeatrequired{% endtrans %}</span>
-                    <span class="help-block">
-                        {% trans %}registration.form.password.help{% endtrans %}
-                    </span>
+                    <input type="password" class="span12" name="password" ng-model="registrationData.password" placeholder="{% trans %}registration.form.password.placeholder{% endtrans %}" required /><br />
+                    <input type="password" class="span12" name="passwordrepeat" placeholder="{% trans %}registration.form.password.placeholderrepeat{% endtrans %}" ng-model="registrationData.passwordRepeat" repeat-password="password" required>
             
                     <button type="submit" ng-click="register(registrationData)" class="btn btn-success btn-primary" >{% trans %}registration.form.submit{% endtrans %}</button>
                 </fieldset>

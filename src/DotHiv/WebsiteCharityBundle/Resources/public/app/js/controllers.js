@@ -86,5 +86,9 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
                     });
                 }
             };
+
+            $scope.abort = function() {
+                dialog.close();
+            };
         }
     ])
