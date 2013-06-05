@@ -26,7 +26,7 @@
                     <ul>
                         <li class="accountance hover-arrow" ng-show="!isAuthenticated()"><a ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
                         <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
-                        <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
+                        <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="#!/profile">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
                         <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.createproject{% endtrans %}</a></li>
                         <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.reportabuse{% endtrans %}</a></li>
                         <li class="accountance hover-arrow grey"><a ng-click="">{%  trans %}header.menu.picklanguage{% endtrans %}</a></li>
