@@ -100,4 +100,16 @@ fos_user:
     firewall_name: main
     user_class: DotHiv\BusinessBundle\Entity\User
 
-  
+jms_serializer:
+    metadata:
+        # Using auto-detection, the mapping files for each bundle will be
+        # expected in the Resources/config/serializer directory.
+        #
+        # Example:
+        # class: My\FooBundle\Entity\User
+        # expected path: @MyFooBundle/Resources/config/serializer/Entity.User.(yml|xml|php)
+        auto_detection: true
+        directories:
+            FOSUserBundle:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "@DotHivBusinessBundle/Resources/config/serializer/fosuserbundle"
