@@ -1,0 +1,69 @@
+@btnBackground: #C1C1C1;
+
+// Core
+.btn {
+    padding: 15px 12px;
+    background: @btnBackground;
+    border: none;
+    border-radius: 0px;
+    .box-shadow(none);
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: none;
+
+    // Hover/focus state
+    &:hover,
+    &:focus {
+        // TODO
+    }
+
+    // Active state
+    &.active,
+    &:active {
+        // TODO
+    }
+
+    // Disabled state
+    &.disabled,
+    &[disabled] {
+        // TODO
+    }
+
+}
+
+.btn-primary {
+    background: #1786BE;
+}
+
+.btn-facebook {
+    background: #3C5A9A;
+}
+
+.btn-twitter {
+    background: #29AAE3;
+}
+
+.btn-gplus {
+    background: #DF4C3A;
+}
+
+.btn-link,
+.btn-link:active,
+.btn-link[disabled] {
+    background-color: transparent;
+    background-image: none;
+    .box-shadow(none);
+    padding-top: 0;
+    padding-bottom: 0;
+    vertical-align: bottom;
+    font-weight: normal;
+    text-decoration: underline;
+}
+.btn-link {
+    border-color: transparent;
+    cursor: pointer;
+    color: @linkColor;
+    .border-radius(0);
+}
+

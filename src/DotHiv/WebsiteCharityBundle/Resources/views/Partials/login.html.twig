@@ -9,7 +9,7 @@
             <form novalidate name="loginForm" class="simple-form" ng-class="{clean: loginclean, unclean: !loginclean}">
                 <fieldset>
                     <h4>{% trans %}login.form.title{% endtrans %}</h4>
-                    <p>{% trans %}login.form.text{% endtrans %}</p>
+                    <p><small>{% trans %}login.form.text{% endtrans %}</small></p>
                 
                     <span class="alert alert-error" ng-show="loginerrormsg">[[ loginerrormsg ]]</span>
                 
@@ -19,9 +19,19 @@
                     <label>{% trans %}login.form.password{% endtrans %}</label>
                     <input type="password" class="span12" name="password" ng-model="loginData.password" placeholder="{% trans %}login.form.password.placeholder{% endtrans %}" required />
                     
-                    <button type="submit" ng-click="login(loginData)" class="btn btn-success btn-primary" >{% trans %}login.form.submit{% endtrans %}</button>
+                    <button type="submit" ng-click="login(loginData)" class="btn btn-primary" >{% trans %}login.form.submit{% endtrans %}</button>
+                    <button type="button" class="btn btn-link">{% trans %}login.form.passwordrecovery{% endtrans %}</button>
                 </fieldset>
             </form>
+            
+            <h4>{% trans %}login.form.thirdparty{% endtrans %}</h4>
+            <div class="row-fluid">
+                <div class="btn-group btn-group-vertical span12">
+                    <button type="button" class="btn btn-facebook span12">{% trans %}login.form.thirdparty.facebook.button{% endtrans %}</button>
+                    <button type="button" class="btn btn-twitter span12">{% trans %}login.form.thirdparty.twitter.button{% endtrans %}</button>
+                    <button type="button" class="btn btn-gplus span12">{% trans %}login.form.thirdparty.gplus.button{% endtrans %}</button>
+                </div>
+            </div>
         </div>
     
     
@@ -29,21 +39,30 @@
             <form novalidate name="registrationForm" class="simple-form" ng-class="{clean: registrationclean, unclean: !registrationclean}">
                 <fieldset>
                     <h4>{% trans %}registration.form.title{% endtrans %}</h4>
-                    <p>{% trans %}registration.form.text{% endtrans %}</p>
+                    <p><small>{% trans %}registration.form.text{% endtrans %}</small></p>
                     
                     <span class="alert alert-error" ng-show="registrationerrormsg">[[ registrationerrormsg ]]</span>
                     
-                    <label>{% trans %}registration.form.username.label{% endtrans %}</label>
-                    <input type="text" class="span12" name="username" ng-model="registrationData.username" placeholder="{% trans %}registration.form.username.placeholder{% endtrans %}" required />
+                    <label>{% trans %}registration.form.name.label{% endtrans %}</label>
+                    <input type="text" class="span12" name="name" ng-model="registrationData.name" placeholder="{% trans %}registration.form.name.placeholder{% endtrans %}" required />
+                    
+                    <label>{% trans %}registration.form.surname.label{% endtrans %}</label>
+                    <input type="text" class="span12" name="surname" ng-model="registrationData.surname" placeholder="{% trans %}registration.form.surname.placeholder{% endtrans %}" required />
                     
                     <label>{% trans %}registration.form.email.label{% endtrans %}</label>
                     <input type="email" class="span12" name="email" ng-model="registrationData.email" placeholder="{% trans %}registration.form.email.placeholder{% endtrans %}" required />
                     
                     <label>{% trans %}registration.form.password.label{% endtrans %}</label>
                     <input type="password" class="span12" name="password" ng-model="registrationData.password" placeholder="{% trans %}registration.form.password.placeholder{% endtrans %}" required /><br />
+                    
+                    <label>{% trans %}registration.form.passwordrepeat.label{% endtrans %}</label>
                     <input type="password" class="span12" name="passwordrepeat" placeholder="{% trans %}registration.form.password.placeholderrepeat{% endtrans %}" ng-model="registrationData.passwordRepeat" repeat-password="password" required>
+                    
+                    <label class="checkbox">
+                        <input type="checkbox"> {% trans %}registration.form.agreement{% endtrans %}
+                    </label>
             
-                    <button type="submit" ng-click="register(registrationData)" class="btn btn-success btn-primary" >{% trans %}registration.form.submit{% endtrans %}</button>
+                    <button type="submit" ng-click="register(registrationData)" class="btn btn-primary" >{% trans %}registration.form.submit{% endtrans %}</button>
                 </fieldset>
             </form>
         </div>
