@@ -1,0 +1,3 @@
+security:
+    login:
+        failure: Benutzername oder Kennwort falsch.

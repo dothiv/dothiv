@@ -5,3 +5,7 @@ services:
 #    dot_hiv_api.example:
 #        class: %dot_hiv_api.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    security.authentication.failure_handler:
+        class: %security.authentication.failure_handler.class%
+        public: false
+        arguments:  ['@http_kernel', '@security.http_utils', '', '@logger', '@translator']

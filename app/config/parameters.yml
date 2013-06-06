@@ -22,3 +22,6 @@ parameters:
     security.authentication.form_entry_point.class: DotHiv\APIBundle\Security\RestAuthenticationEntryPoint
     security.authentication.success_handler.class: DotHiv\APIBundle\Security\RestAuthenticationSuccessHandler
     security.authentication.failure_handler.class: DotHiv\APIBundle\Security\RestAuthenticationFailureHandler
+
+    # listener that sets the users locale
+    locale_listener.class: DotHiv\BusinessBundle\Listener\LocaleListener
