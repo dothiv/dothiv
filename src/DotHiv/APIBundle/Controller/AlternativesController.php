@@ -51,34 +51,11 @@ class AlternativesController extends FOSRestController {
             ->getQuery()
             ->getResult();
 
-        $origin = $this->getRequest()->headers->get('Origin');
-        $chrome = 'chrome-extension://';
-        if (substr($origin, 0, strlen($chrome)) == $chrome) {
-            // Allow API calls from Chrome extensions TODO make this a service
-            $handler = $this->get('fos_rest.view_handler');
-            $view = View::create($result, 200, array(
-                    'Access-Control-Allow-Origin' => $origin,
-                    'Access-Control-Allow-Headers' => 'X-Requested-With',
-                ));
-            return $this->handleView($view);
-        } else {
-            return $result;
-        }
+        return $result;
     }
-    
+
     public function optionsAlternativesAction() {
-        $resp = new Response();
-
-        // Allow API calls from Chrome extensions TODO make this a service
-        $origin = $this->getRequest()->headers->get('Origin');
-        $chrome = 'chrome-extension://';
-        if (substr($origin, 0, strlen($chrome)) == $chrome) {
-            $resp->headers->set('Access-Control-Allow-Origin', $origin);
-            $resp->headers->set('Access-Control-Allow-Headers', 'X-Requested-With');
-            $resp->headers->set('Access-Control-Allow-Methods', 'GET, OPTIONS');
-        }
-
-        return $resp;
+        return new Response();
     }
 
 }
