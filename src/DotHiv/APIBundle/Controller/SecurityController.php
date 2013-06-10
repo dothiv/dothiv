@@ -34,7 +34,7 @@ class SecurityController extends Controller {
         if ($user) {
             return $user;
         } else {
-            return new Response("{}");
+            return new Response("{}"); // TODO This is json-only. Respect the client's Accept-header.
         }
     }
 

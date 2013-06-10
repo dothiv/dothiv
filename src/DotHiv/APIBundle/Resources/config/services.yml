@@ -1,6 +1,6 @@
 parameters:
     cors_options:
-        allow_origin: [ '^chrome-extension://' ]
+        allow_origin: [ '^chrome-extension://', '^https?://(www\.)?%charitydomain%' ]
 
 services:
     security.authentication.success_handler:
@@ -19,8 +19,7 @@ services:
         tags: 
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 255 }
         arguments: [ '@fos_rest.decoder_provider' ]
-        
-        
+
     dot_hiv.cors_listener:
         class: DotHiv\APIBundle\Listener\CORSListener
         tags: 
