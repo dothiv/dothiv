@@ -4,8 +4,8 @@ login:
     form:
         title: Bitte anmelden
         text: Willkommen bei dotHIV
-        username: Benutzername
-        password: Kennwort
+        username: E-Mail
+        password: Passwort
         submit: Anmelden
         abort: Oh, doch nicht
 

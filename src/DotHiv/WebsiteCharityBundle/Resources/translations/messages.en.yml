@@ -4,7 +4,7 @@ login:
     form:
         title: Please log in
         text: Welcome to dotHIV
-        username: Username
+        username: Email
         password: Password
         submit: Log in
         abort: Ehm, actually don't log in

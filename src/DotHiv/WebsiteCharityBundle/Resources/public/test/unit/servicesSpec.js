@@ -28,22 +28,29 @@ describe('Security service', function() {
             expect(security.isAuthenticated()).toEqual(false);
         });
 
-        it('should still be false after calling updateIsAuthenticated() without logging in', function() {
-            httpBackend.expectGET('/app_dev.php/api/login_state').respond(400);
-            security.updateIsAuthenticated();
+        it('should still be false after calling updateUserInfo() without logging in', function() {
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(400);
+            security.updateUserInfo();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(false);
         });
 
-        it('should be true after calling updateIsAuthenticated() while being logged in', function() {
-            httpBackend.expectGET('/app_dev.php/api/login_state').respond(200);
-            security.updateIsAuthenticated();
+        it('should be true after calling updateUserInfo() while being logged in', function() {
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+            security.updateUserInfo();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(true);
         });
 
         it('should be false after successfully logging out', function() {
-            httpBackend.expectGET('/app_dev.php/logout').respond(200);
+            httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
             security.logout();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(false);
@@ -51,12 +58,19 @@ describe('Security service', function() {
 
         it('should still be true after unsuccessfully trying to log out', function() {
             // make sure we are logged in
-            httpBackend.expectGET('/app_dev.php/api/login_state').respond(200);
-            security.updateIsAuthenticated();
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+            security.updateUserInfo();
             httpBackend.flush();
 
             // logging out unsuccessfully
-            httpBackend.expectGET('/app_dev.php/logout').respond(400);
+            httpBackend.expectDELETE(/^.*\/api\/login$/).respond(400);
             security.logout(); 
             httpBackend.flush();
 
@@ -67,16 +81,28 @@ describe('Security service', function() {
     describe('login()', function() {
         it('should send a POST request (with correct header), containing username and password', function() {
             // check request for correct data and header
-            httpBackend.expectPOST('/app_dev.php/login_check', '_username=testuser&_password=testpassword', function(headers) {
-                return headers['Content-Type'] == 'application/x-www-form-urlencoded';
-              }).respond(201);
+            httpBackend.expectPOST(/^.*\/api\/login$/, '{"username":"testuser","password":"testpassword"}').respond(201, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
             security.login('testuser', 'testpassword');
             httpBackend.flush();
         });
 
         it('should set isAuthenticated to true when successfully logged in', function() {
             expect(security.isAuthenticated()).toEqual(false);
-            httpBackend.expectPOST('/app_dev.php/login_check').respond(201);
+            httpBackend.expectPOST(/^.*\/api\/login$/).respond(201, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
             security.login('testuser', 'testpassword');
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(true);
@@ -84,7 +110,7 @@ describe('Security service', function() {
 
         it('should not set isAuthenticated to true when unsuccessfully trying to log in', function() {
             expect(security.isAuthenticated()).toEqual(false);
-            httpBackend.expectPOST('/app_dev.php/login_check').respond(400);
+            httpBackend.expectPOST(/^.*\/api\/login$/).respond(400);
             security.login('testuser', 'testpassword');
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(false);
@@ -92,7 +118,14 @@ describe('Security service', function() {
 
         it('should call the callback function providing "true" when successfully logged in', function() {
             expect(security.isAuthenticated()).toEqual(false);
-            httpBackend.expectPOST('/app_dev.php/login_check').respond(201);
+            httpBackend.expectPOST(/^.*\/api\/login$/).respond(201, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
             var cbstatus = false;
             security.login('testuser', 'testpassword', function(status) {
                 cbstatus = status;
@@ -103,7 +136,7 @@ describe('Security service', function() {
 
         it('should call the callback function providing "false" and a message when unsuccessfully trying to log in', function() {
             expect(security.isAuthenticated()).toEqual(false);
-            httpBackend.expectPOST('/app_dev.php/login_check').respond(400, 'test message');
+            httpBackend.expectPOST(/^.*\/api\/login$/).respond(400, 'test message');
             var cbstatus = true;
             var cbdata;
             security.login('testuser', 'testpassword', function(status, data) {
@@ -112,18 +145,25 @@ describe('Security service', function() {
             });
             httpBackend.flush();
             expect(cbstatus).toEqual(false);
-            expect(cbdata).toEqual('test message');
+            expect(cbdata.data).toEqual('test message');
         });
     });
 
     describe('logout()', function() {
         it('should set isAuthenticated to "false" when successfully logged out', function() {
             // make sure we are logged in
-            httpBackend.expectGET('/app_dev.php/api/login_state').respond(200);
-            security.updateIsAuthenticated();
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+            security.updateUserInfo();
             httpBackend.flush();
 
-            httpBackend.expectGET('/app_dev.php/logout').respond(201);
+            httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
             security.logout();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(false);
@@ -131,14 +171,21 @@ describe('Security service', function() {
 
         it('should call the callback function once when successfully logged out', function() {
             // make sure we are logged in
-            httpBackend.expectGET('/app_dev.php/api/login_state').respond(200);
-            security.updateIsAuthenticated();
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+            security.updateUserInfo();
             httpBackend.flush();
 
             // define a 'spy' callback function
             var spyCallback = jasmine.createSpy('callback');
 
-            httpBackend.expectGET('/app_dev.php/logout').respond(201);
+            httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
             security.logout(spyCallback);
             httpBackend.flush();
             expect(spyCallback).toHaveBeenCalled();
@@ -147,11 +194,18 @@ describe('Security service', function() {
 
         it('should clear the template cache when successfully logged out', function() {
             // make sure we are logged in
-            httpBackend.expectGET('/app_dev.php/api/login_state').respond(200);
-            security.updateIsAuthenticated();
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+            security.updateUserInfo();
             httpBackend.flush();
 
-            httpBackend.expectGET('/app_dev.php/logout').respond(201);
+            httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
             security.logout();
             httpBackend.flush();
             expect(templateCache.info().size).toEqual(0);
@@ -159,49 +213,111 @@ describe('Security service', function() {
 
         it('should not set isAuthenticated to "false" when unsuccessfully trying to log out', function() {
             // make sure we are logged in
-            httpBackend.expectGET('/app_dev.php/api/login_state').respond(200);
-            security.updateIsAuthenticated();
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+            security.updateUserInfo();
             httpBackend.flush();
 
-            httpBackend.expectGET('/app_dev.php/logout').respond(400);
+            httpBackend.expectDELETE(/^.*\/api\/login$/).respond(400);
             security.logout();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(true);
         });
     });
 
+    describe('user attribute', function() {
+        it('should be empty by default', function() {
+            expect('username' in security.state.user).toEqual(false);
+        });
+
+        it('should be populated after login', function() {
+            expect(security.isAuthenticated()).toEqual(false);
+            // make sure we are logged in
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+            security.updateUserInfo();
+            httpBackend.flush();
+            expect(security.isAuthenticated()).toEqual(true);
+
+            expect('username' in security.state.user).toEqual(true);
+            expect(security.state.user.username).toEqual('testuser');
+            expect(security.state.user.email).toEqual('test@email.hiv');
+        });
+
+        it('should be cleared after logout', function() {
+            expect(security.isAuthenticated()).toEqual(false);
+            // make sure we are logged in
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+            security.updateUserInfo();
+            httpBackend.flush();
+            expect(security.isAuthenticated()).toEqual(true);
+
+            httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
+            security.logout();
+            httpBackend.flush();
+
+            expect('username' in security.state.user).toEqual(false);
+        });
+    });
+
     describe('register()', function() {
         it('should send a POST request containing username, email address and password', function() {
             // check request for correct data and header
-            httpBackend.expectPOST('/app_dev.php/api/users', '{"username":"testuser","email":"test@email.hiv","plainPassword":"testpassword"}').respond(400);
-            security.register('testuser', 'test@email.hiv', 'testpassword');
+            httpBackend.expectPOST(/^.*\/api\/users$/, '{"username":"test@email.hiv","email":"test@email.hiv","plainPassword":"testpassword"}').respond(400);
+            security.register('testname', 'testsurname', 'test@email.hiv', 'testpassword');
             httpBackend.flush();
         });
 
         it('should login the new user and call the callback function providing "true" when successfully registered', function() {
-            httpBackend.expectPOST('/app_dev.php/api/users').respond(201);
+            httpBackend.expectPOST(/^.*\/api\/users$/).respond(201);
 
-            httpBackend.expectPOST('/app_dev.php/login_check').respond(201);
+            httpBackend.expectPOST(/^.*\/api\/login$/).respond(201, '{\
+                    "username": "test@email.hiv",\
+                    "username_canonical": "test@email.hiv",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
 
             // define a 'spy' callback function
             var spyCallback = jasmine.createSpy('callback');
 
-            security.register('testuser', 'test@email.hiv', 'testpassword', spyCallback);
+            security.register('testname', 'testsurname', 'test@email.hiv', 'testpassword', spyCallback);
             httpBackend.flush();
 
             expect(spyCallback).toHaveBeenCalledWith(true);
         });
 
         it('should call the callback function providing "false" when unsuccessfully trying to register', function() {
-            httpBackend.expectPOST('/app_dev.php/api/users').respond(400, 'test message');
+            httpBackend.expectPOST(/^.*\/api\/users$/).respond(400, 'test message');
 
             // define a 'spy' callback function
             var spyCallback = jasmine.createSpy('callback');
 
-            security.register('testuser', 'test@email.hiv', 'testpassword', spyCallback);
+            security.register('testname', 'testsurname', 'test@email.hiv', 'testpassword', spyCallback);
             httpBackend.flush();
 
-            expect(spyCallback).toHaveBeenCalledWith(false, 'test message');
+            expect(spyCallback).toHaveBeenCalledWith(false, jasmine.any(Object));
         });
     });
 });

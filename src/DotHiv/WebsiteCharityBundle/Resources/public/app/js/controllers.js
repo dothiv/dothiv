@@ -36,8 +36,10 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
                 securityDialog.showRegistration();
             };
             
+            $scope.security = security.state;
+            
             // TODO move this to a more general place
-            security.updateIsAuthenticated();
+            security.updateUserInfo();
         
         }
     ])
@@ -73,7 +75,7 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
                     console.log("still invalid");
                 } else {
                     console.log("form valid");
-                    security.register(data.username, data.email, data.password, function(result, error) {
+                    security.register(data.name, data.surname, data.email, data.password, function(result, error) {
                         if (result) {
                             // registration successful
                             console.log("registration successful");
