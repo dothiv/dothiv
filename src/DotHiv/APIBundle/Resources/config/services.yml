@@ -1,5 +1,6 @@
 parameters:
-#    dot_hiv_api.example.class: DotHiv\APIBundle\Example
+    cors_options:
+        allow_origin: [ '^chrome-extension://' ]
 
 services:
     security.authentication.success_handler:
@@ -18,3 +19,10 @@ services:
         tags: 
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 255 }
         arguments: [ '@fos_rest.decoder_provider' ]
+        
+        
+    dot_hiv.cors_listener:
+        class: DotHiv\APIBundle\Listener\CORSListener
+        tags: 
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 254 }
+        arguments: [ '@event_dispatcher', %cors_options% ]
