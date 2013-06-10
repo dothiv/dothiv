@@ -28,30 +28,28 @@ class AlternativesController extends FOSRestController {
      * @ApiDoc(
      *   section="alternatives",
      *   resource=true,
-     *   description="Find alternatives for a given set of domain names.",
+     *   description="Find alternatives for all domain names, or for a given set of domain names.",
      *   statusCodes={
      *     200="Returned when successful",
      *   },
      *   filters={
-     *       {"name"="q", "description"="Query for domain names", "dataType"="comma seperated list of domain names"}
+     *       {"name"="q", "description"="Query for domain names, empty in order to get all domain alternatives.", "dataType"="comma seperated list of domain names"}
      *   }
      * )
      */
     public function getAlternativesAction() {
-        $domainList = explode(',', $this->getRequest()->get('q'));
-
-        if (count($domainList) == 0) 
-            throw new HttpException(404);
+        $query = $this->getRequest()->get('q');
+        $domainList = strlen($query) == 0 ? array() : explode(',', $query);
 
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository('DotHivBusinessBundle:DomainAlternative')->createQueryBuilder('d');
-        $result = $qb
-            ->where($qb->expr()->in('d.domain', $domainList))
-            ->andWhere('d.trusted = true')
-            ->getQuery()
-            ->getResult();
+        $qb->where('d.trusted = true');
 
-        return $result;
+        if (count($domainList) > 0) {
+            $qb->andWhere($qb->expr()->in('d.domain', $domainList));
+        }
+
+        return $qb->getQuery()->getResult();;
     }
 
     public function optionsAlternativesAction() {
