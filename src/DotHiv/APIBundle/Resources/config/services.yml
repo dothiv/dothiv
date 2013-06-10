@@ -2,10 +2,19 @@ parameters:
 #    dot_hiv_api.example.class: DotHiv\APIBundle\Example
 
 services:
-#    dot_hiv_api.example:
-#        class: %dot_hiv_api.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    security.authentication.success_handler:
+        class: %security.authentication.success_handler.class%
+        public: false
+        arguments: ['@security.http_utils', '/', '@fos_rest.view_handler' ]
+
     security.authentication.failure_handler:
         class: %security.authentication.failure_handler.class%
         public: false
         arguments:  ['@http_kernel', '@security.http_utils', '', '@logger', '@translator']
+
+    # do the decoding of the body first in any case
+    fos_rest.body_listener:
+        class: FOS\RestBundle\EventListener\BodyListener
+        tags: 
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 255 }
+        arguments: [ '@fos_rest.decoder_provider' ]

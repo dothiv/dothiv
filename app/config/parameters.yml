@@ -20,8 +20,11 @@ parameters:
     # configure symfony security bundle to use our REST authentication classes.
     # this is required by the angular app authentication process (see http authentication interceptor)
     security.authentication.form_entry_point.class: DotHiv\APIBundle\Security\RestAuthenticationEntryPoint
+    security.authentication.listener.form.class: DotHiv\APIBundle\Security\RestAuthenticationListener
     security.authentication.success_handler.class: DotHiv\APIBundle\Security\RestAuthenticationSuccessHandler
     security.authentication.failure_handler.class: DotHiv\APIBundle\Security\RestAuthenticationFailureHandler
+    security.logout.success_handler.class: DotHiv\APIBundle\Security\RestLogoutSuccessHandler
+    security.logout_listener.class: DotHiv\APIBundle\Security\RestLogoutListener
 
     # listener that sets the users locale
     locale_listener.class: DotHiv\BusinessBundle\Listener\LocaleListener

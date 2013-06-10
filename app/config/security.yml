@@ -27,8 +27,13 @@ security:
         main:
             pattern: ^/
             form_login:
+                check_path: /api/login
+                login_path: /
+                username_parameter: username
+                password_parameter: password
                 provider: fos_userbundle
-            logout:       true
+            logout:
+                path: /api/login
             anonymous:    true
 
     access_control:

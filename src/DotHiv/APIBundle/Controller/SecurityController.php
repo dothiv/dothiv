@@ -22,18 +22,48 @@ class SecurityController extends Controller {
      * 
      * @ApiDoc(
      *   section="security",
-     *   resource=false,
-     *   description="Check current login state.",
+     *   resource=true,
+     *   description="Get current user object, or {} if not logged in.",
      *   statusCodes={
-     *     200="Returned when logged in",
-     *     400="Returned when not logged in",
+     *     200="Success",
      *   }
      * )
      */
-    public function checkLoginStateAction() {
-        $resp = new Response();
-        $resp->setStatusCode(false === $this->get('security.context')->isGranted('ROLE_USER') ? 400 : 200);
-        return $resp;
+    public function getLoginAction() {
+        $user = $this->getUser();
+        if ($user) {
+            return $user;
+        } else {
+            return new Response("{}");
+        }
+    }
+
+    /**
+     * @ApiDoc(
+     *   section="security",
+     *   resource=true,
+     *   description="Log in.",
+     *   statusCodes={
+     *     201="Login successful",
+     *   }
+     * )
+     */
+    public function postLoginAction() {
+        // handled by Symfony firewall
+    }
+
+    /**
+     * @ApiDoc(
+     *   section="security",
+     *   resource=false,
+     *   description="Log out",
+     *   statusCodes={
+     *     200="Success",
+     *   }
+     * )
+     */
+    public function deleteLoginAction() {
+        // handled by Symfony firewall
     }
 
 }

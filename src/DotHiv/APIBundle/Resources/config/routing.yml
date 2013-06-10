@@ -5,12 +5,7 @@ projects:
 user:
     type: rest
     resource: DotHiv\APIBundle\Controller\UserController
-    
+
 alternatives:
     type: rest
     resource: DotHiv\APIBundle\Controller\AlternativesController
-
-dot_hiv_api_check_login_state:
-    path: login_state
-    methods: [ GET ]
-    defaults: { _controller: DotHivAPIBundle:Security:checkLoginState }

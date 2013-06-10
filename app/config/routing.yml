@@ -1,36 +1,35 @@
-# FOSUserBundle security routing
+# security routing
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
-fos_user_profile:
-    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /profile
+fos_user_security_check:
+    pattern: /api/login
+    defaults: { _controller: DotHivAPIBundle:Security:postLogin }
+    methods: [ POST ]
 
-fos_user_register:
-    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
+dot_hiv_api_security_login:
+    pattern: /api/login
+    defaults: { _controller: DotHivAPIBundle:Security:getLogin }
+    methods: [ GET ]
 
-fos_user_resetting:
-    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
+fos_user_security_logout:
+    pattern: /api/login
+    defaults: { _controller: DotHivAPIBundle:Security:deleteLogin }
+    methods: [ DELETE ]
 
-fos_user_change_password:
-    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile
-# End of FOSUserBundle security routing
+# API routing
+dot_hiv_api:
+    resource: "@DotHivAPIBundle/Resources/config/routing.yml"
+    prefix:   /api/
 
+# routing for charity website
 dot_hiv_website_charity:
     host: %charitydomain%
     resource: "@DotHivWebsiteCharityBundle/Resources/config/routing.yml"
     prefix:   /
 
+# routing for company website
 dot_hiv_website_company:
     host: %companydomain%
     resource: "@DotHivWebsiteCompanyBundle/Resources/config/routing.yml"
     prefix:   /
-
-dot_hiv_api:
-    resource: "@DotHivAPIBundle/Resources/config/routing.yml"
-    prefix:   /api/
-
-
