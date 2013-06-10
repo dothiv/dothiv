@@ -1,71 +1,112 @@
 'use strict';
 
 /* Services */
-var myModule = angular.module('myApp.services', ['ui.bootstrap', 'myApp.controllers']);
+var myModule = angular.module('myApp.services', ['ui.bootstrap', 'myApp.controllers', 'ngResource']);
 
-myModule.factory('security', function($http, $templateCache, authService) {
-    // private variable keeping track of authentication status
-    var isAuthenticated = false;
+myModule.factory('dothivResourceDefaultActions', function() {
+    return {
+            'get':    {method:'GET'},
+            'save':   {method:'POST'},
+            'query':  {method:'GET', isArray:true},
+            'remove': {method:'DELETE'},
+            'delete': {method:'DELETE'}
+    };
+});
+
+myModule.factory('dothivUserResource', function($resource, dothivResourceDefaultActions) {
+    return $resource('http://dothiv.bp/app_dev.php/api/:path/:username', {}, {
+        'get':    {method:'GET', params:{path:'user',username: '@username'}},
+        'save':  {method:'POST', params:{path:'users',username: ''}}
+    });
+});
+
+myModule.factory('dothivLoginResource', function($resource, dothivResourceDefaultActions) {
+    return $resource('http://dothiv.bp/app_dev.php/api/login', {}, {
+        'get':    {method:'GET'},
+        'login':  {method:'POST'},
+        'logout': {method:'DELETE'}
+    });
+});
+
+myModule.factory('security', function($http, $templateCache, authService, dothivLoginResource, dothivUserResource) {
+    // variable to keep user information and login status
+    var _state = {'user': {}};
 
     function _login(username, password, callback) {
-        $http({
-            method: 'POST',
-            url: '/app_dev.php/login_check',
-            data: '_username=' + username + '&_password=' + password,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function() {
-            authService.loginConfirmed();
-            isAuthenticated = true;
-            (callback || angular.noop)(isAuthenticated);
-        }).error(function(data, status, headers, config) {
-            isAuthenticated = false;
-            (callback || angular.noop)(isAuthenticated, data);
-        });
+        _state.user = dothivLoginResource.login(
+                // user credentials
+                {'username': username, 'password': password},
+                // on success
+                function(){
+                    authService.loginConfirmed();
+                    (callback || angular.noop)(true);
+                }, 
+                // on error
+                function(data) {
+                    _state.user = {};
+                    (callback || angular.noop)(false, data);
+                }
+        );
     }
 
     function _logout(callback) {
-        $http.get('/app_dev.php/logout').success(function() {
-            isAuthenticated = false;
-            $templateCache.removeAll();
-            (callback || angular.noop)();
-        });
+        // preserve user object in case logout fails
+        var _userCopy = dothivLoginResource.logout(
+                // no data required for logout
+                {},
+                // on success
+                function() {
+                    $templateCache.removeAll();
+                    _state.user = _userCopy;
+                    (callback || angular.noop)();
+                },
+                function(data) {
+                    (callback || angular.noop)();
+                }
+        );
     }
 
-    function _register(username, email, password, callback) {
-        // TODO replace this by $resource API call
-        $http.post('/app_dev.php/api/users', {
-            username: username,
-            email: email,
-            plainPassword: password
-        }).success(function() {
-            // direct login
-            _login(username, password);
-            (callback || angular.noop)(true);
-        }).error(function(data, status, headers, config) {
-            (callback || angular.noop)(false, data);
-        });
+    function _register(name, surname, email, password, callback) {
+        dothivUserResource.save(
+                // user data //TODO: Save all data!
+                {'username': email, 'email': email, 'plainPassword': password},
+                // on success
+                function() {
+                    // direct login
+                    _login(email, password);
+                    (callback || angular.noop)(true);
+                },
+                // on error
+                function(data, status, headers, config) {
+                    (callback || angular.noop)(false, data);
+                }
+        );
     }
 
-    function _updateIsAuthenticated(callback) {
-        $http.get('/app_dev.php/api/login_state').success(function() {
-            isAuthenticated = true;
-            (callback || angular.noop)();
-        }).error(function(data, status, headers, config) {
-            isAuthenticated = false;
-            (callback || angular.noop)();
-        });
+    function _updateUserInfo(callback) {
+        _state.user = dothivLoginResource.get(
+                // no data required
+                {},
+                // on success
+                callback,
+                // on error
+                function(data, status, headers, config) {
+                    (callback || angular.noop)(false, data);
+                }
+        );
     }
 
     function _isAuthenticated() {
-        return isAuthenticated; 
+        return ('username' in _state.user); 
     }
 
     return {
         login: _login,
-        updateIsAuthenticated: _updateIsAuthenticated,
+        updateUserInfo: _updateUserInfo,
         isAuthenticated: _isAuthenticated,
         register: _register,
-        logout: _logout
+        logout: _logout,
+        state: _state
     };
 });
 

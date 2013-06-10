@@ -13,11 +13,11 @@
                 
                     <span class="alert alert-error" ng-show="loginerrormsg">[[ loginerrormsg ]]</span>
                 
-                    <label>{% trans %}login.form.username{% endtrans %}</label> 
-                    <input type="text" class="span12" name="username" ng-model="loginData.username" placeholder="{% trans %}login.form.username.placeholder{% endtrans %}" required />
+                    <label for="login-username">{% trans %}login.form.username{% endtrans %}</label> 
+                    <input type="text" class="span12" name="username" id="login-username" ng-model="loginData.username" placeholder="{% trans %}login.form.username.placeholder{% endtrans %}" required />
                 
-                    <label>{% trans %}login.form.password{% endtrans %}</label>
-                    <input type="password" class="span12" name="password" ng-model="loginData.password" placeholder="{% trans %}login.form.password.placeholder{% endtrans %}" required />
+                    <label for="login-password">{% trans %}login.form.password{% endtrans %}</label>
+                    <input type="password" class="span12" name="password" id="login-password" ng-model="loginData.password" placeholder="{% trans %}login.form.password.placeholder{% endtrans %}" required />
                     
                     <button type="submit" ng-click="login(loginData)" class="btn btn-primary" >{% trans %}login.form.submit{% endtrans %}</button>
                     <button type="button" class="btn btn-link">{% trans %}login.form.passwordrecovery{% endtrans %}</button>
@@ -43,20 +43,20 @@
                     
                     <span class="alert alert-error" ng-show="registrationerrormsg">[[ registrationerrormsg ]]</span>
                     
-                    <label>{% trans %}registration.form.name.label{% endtrans %}</label>
-                    <input type="text" class="span12" name="name" ng-model="registrationData.name" placeholder="{% trans %}registration.form.name.placeholder{% endtrans %}" required />
+                    <label for="registration-name">{% trans %}registration.form.name.label{% endtrans %}</label>
+                    <input type="text" class="span12" name="name" id="registration-name" ng-model="registrationData.name" placeholder="{% trans %}registration.form.name.placeholder{% endtrans %}" required />
                     
-                    <label>{% trans %}registration.form.surname.label{% endtrans %}</label>
-                    <input type="text" class="span12" name="surname" ng-model="registrationData.surname" placeholder="{% trans %}registration.form.surname.placeholder{% endtrans %}" required />
+                    <label for="registration-surname">{% trans %}registration.form.surname.label{% endtrans %}</label>
+                    <input type="text" class="span12" name="surname" id="registration-surname" ng-model="registrationData.surname" placeholder="{% trans %}registration.form.surname.placeholder{% endtrans %}" required />
                     
-                    <label>{% trans %}registration.form.email.label{% endtrans %}</label>
-                    <input type="email" class="span12" name="email" ng-model="registrationData.email" placeholder="{% trans %}registration.form.email.placeholder{% endtrans %}" required />
+                    <label for="registration-email">{% trans %}registration.form.email.label{% endtrans %}</label>
+                    <input type="email" class="span12" name="email" id="registration-email" ng-model="registrationData.email" placeholder="{% trans %}registration.form.email.placeholder{% endtrans %}" required />
                     
-                    <label>{% trans %}registration.form.password.label{% endtrans %}</label>
-                    <input type="password" class="span12" name="password" ng-model="registrationData.password" placeholder="{% trans %}registration.form.password.placeholder{% endtrans %}" required /><br />
+                    <label for="registration-password">{% trans %}registration.form.password.label{% endtrans %}</label>
+                    <input type="password" class="span12" name="password" id="registration-password" ng-model="registrationData.password" placeholder="{% trans %}registration.form.password.placeholder{% endtrans %}" required /><br />
                     
-                    <label>{% trans %}registration.form.passwordrepeat.label{% endtrans %}</label>
-                    <input type="password" class="span12" name="passwordrepeat" placeholder="{% trans %}registration.form.password.placeholderrepeat{% endtrans %}" ng-model="registrationData.passwordRepeat" repeat-password="password" required>
+                    <label for="registration-passwordrepeat">{% trans %}registration.form.passwordrepeat.label{% endtrans %}</label>
+                    <input type="password" class="span12" name="passwordrepeat" id="registration-passwordrepeat" placeholder="{% trans %}registration.form.password.placeholderrepeat{% endtrans %}" ng-model="registrationData.passwordRepeat" repeat-password="password" required>
                     
                     <label class="checkbox">
                         <input type="checkbox"> {% trans %}registration.form.agreement{% endtrans %}
