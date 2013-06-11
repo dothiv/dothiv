@@ -21,8 +21,17 @@
                         controller: 'HomeController'
                     })
                 .state('profile', {
+                        abstract: true,
                         url: '/profile',
                         templateUrl: '{{ path('dot_hiv_website_charity_partial_profile') }}'
+                    })
+                .state('profile.summary', {
+                        url: '',
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_summary') }}'
+                    })
+                .state('profile.edit', {
+                        url: '/edit',
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_edit') }}'
                     })
             }]).
         config(['$urlRouterProvider', function($urlRouter) {
@@ -34,7 +43,12 @@
         config(['$interpolateProvider', function($interpolateProvider) {
             $interpolateProvider.startSymbol('[[');
             $interpolateProvider.endSymbol(']]');
-            }]);
+            }]).
+        config(['$anchorScrollProvider', function($anchorScrollProvider) {
+            $anchorScrollProvider.disableAutoScrolling();
+            }])
+        .value('$anchorScroll', angular.noop); // TODO: working, but best practice? 
+    
 </script>
 <script src="{{ asset('bundles/websitecharity/app/js/services.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers.js') }}"></script>

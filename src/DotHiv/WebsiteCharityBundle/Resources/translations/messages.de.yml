@@ -53,3 +53,29 @@ home:
          oneclick: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
     pinkbar:
         activated: Bisher aktiviert
+
+profile:
+    edit:
+        form:
+            name:
+                placeholder: Ihr Vorname
+                label: Vorname
+                help: ''
+                error: 
+                    required: Bitte geben Sie Ihren Vornamen an
+                    invalid: Diese Eingabe ist ungültig
+            surname:
+                placeholder: Ihr Nachname
+                label: Nachname
+                help: ''
+                error: 
+                    required: Bitte geben Sie Ihren Nachnamen an
+                    invalid: Diese Eingabe ist ungültig
+            email:
+                placeholder: Ihre E-Mail-Adresse
+                label: E-Mail-Adresse
+                help: ''
+                error: 
+                    required: Bitte geben Sie eine E-Mail-Adresse an
+                    invalid: Noch keine gültige E-Mail-Adresse
+            submit: speichern

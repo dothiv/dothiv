@@ -14,9 +14,10 @@ myModule.factory('dothivResourceDefaultActions', function() {
 });
 
 myModule.factory('dothivUserResource', function($resource, dothivResourceDefaultActions) {
-    return $resource('http://dothiv.bp/app_dev.php/api/:path/:username', {}, {
-        'get':    {method:'GET', params:{path:'user',username: '@username'}},
-        'save':  {method:'POST', params:{path:'users',username: ''}}
+    return $resource('http://dothiv.bp/app_dev.php/api/users/:username', {}, {
+        'get':    {method:'GET', params:{username: '@username'}},
+        'save':   {method:'POST', params:{username: ''}},
+        'update': {method:'PUT', params:{username: '@username'}},
     });
 });
 
@@ -58,10 +59,10 @@ myModule.factory('security', function($http, $templateCache, authService, dothiv
                 function() {
                     $templateCache.removeAll();
                     _state.user = _userCopy;
-                    (callback || angular.noop)();
+                    (callback || angular.noop)(true);
                 },
                 function(data) {
-                    (callback || angular.noop)();
+                    (callback || angular.noop)(false);
                 }
         );
     }
@@ -74,6 +75,22 @@ myModule.factory('security', function($http, $templateCache, authService, dothiv
                 function() {
                     // direct login
                     _login(email, password);
+                    (callback || angular.noop)(true);
+                },
+                // on error
+                function(data, status, headers, config) {
+                    (callback || angular.noop)(false, data);
+                }
+        );
+    }
+
+    function _edit(name, surname, email, callback) {
+        var _userCopy = dothivUserResource.update(
+                // user data
+                {'username': _state.user.username, 'name': name, 'surname': surname, 'email': email},
+                // on success
+                function() {
+                    _state.user = _userCopy;
                     (callback || angular.noop)(true);
                 },
                 // on error
@@ -106,6 +123,7 @@ myModule.factory('security', function($http, $templateCache, authService, dothiv
         isAuthenticated: _isAuthenticated,
         register: _register,
         logout: _logout,
+        edit: _edit,
         state: _state
     };
 });

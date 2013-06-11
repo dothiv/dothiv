@@ -153,13 +153,41 @@ h3 {
     margin: 0; 
    } 
 
+// styling for global footer
+// ----------------------------------
+.footer {
+    background-color: #EDEDED;
+    margin-top: 160px;
+    .box-shadow(0 -2px 5px 0 rgba(220,220,220,1));
+    height: 450px;
+}
+
 // styling for profile header
 // ----------------------------------
+.profile h2 {
+    line-height: 1em;
+    color: @hivblue;
+    margin-bottom: 20px;
+}
+
+.profile .form-well {
+    background-color: #E9E9E9;
+    padding: 20px;
+    font-style: italic;
+    & input {
+        font-style: italic;
+    }
+}
+
+.profile-heading a {
+    font-style: italic;
+}
+
 .profile-summary-header {
     height: 210px;
     line-height: 1em;
     .box-shadow(0 4px 5px 0 rgba(214,214,214,0.6));
-    margin-bottom: 5px;
+    margin-bottom: 70px;
     background-image: url('/bundles/websitecharity/images/squairy_light_textur.png');
 }
 
@@ -191,14 +219,7 @@ h3 {
 .profile-summary-list {
     list-style: none;
     margin-left: 0;
-}
-
-.profile-summary-list-heading {
-    margin-top: 45px;
-}
-
-.profile-summary-list-heading h2 {
-    line-height: 1em;
+    margin-bottom: 45px;
 }
 
 .profile-summary-item {
@@ -219,6 +240,10 @@ h3 {
     & a {
         color: white;
     }
+}
+
+.profile-summary-list-heading h2 {
+    margin-bottom: 10px;
 }
 
 .profile-summary-list li {
