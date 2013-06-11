@@ -42,6 +42,7 @@ class UserController extends FOSRestController {
             $this->container->get('fos_user.user_manager')->updateUser($user, false);
             $em->flush();
 
+            // TODO: allow dashes/email adresses in slug
             $response = $this->redirectView($this->generateUrl('get_user', array('slug' => $user->getUsername())), Codes::HTTP_CREATED);
             $response->setData($user);
             return $response;

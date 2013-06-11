@@ -11,6 +11,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @ORM\Entity
  * @UniqueEntity("username")
+ * @Serializer\ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -21,8 +22,36 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\Column(type="string")
+     * @Serializer\Expose
+     */
+    protected $name;
+
+    /**
+     * @ORM\Column(type="string")
+     * @Serializer\Expose
+     */
+    protected $surname;
+
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function getSurname() {
+        return $this->surname;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setSurname($surname) {
+        $this->surname = $surname;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
     }
 }

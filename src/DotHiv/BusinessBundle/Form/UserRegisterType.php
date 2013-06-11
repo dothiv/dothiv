@@ -18,6 +18,8 @@ class UserRegisterType extends AbstractType {
         $builder->add('username');
         $builder->add('email');
         $builder->add('plainPassword');
+        $builder->add('name');
+        $builder->add('surname');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
