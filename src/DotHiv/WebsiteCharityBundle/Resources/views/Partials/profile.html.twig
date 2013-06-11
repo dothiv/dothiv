@@ -1,9 +1,9 @@
-<header class="jumbotron profile-summary-header" style="background-image: url('bundles/websitecharity/images/squairy_light_textur.png');">
+<header class="jumbotron profile-summary-header" ng-controller="ProfileController">
     <div class="container">
         <div class="row">
             <div class="span9">
-                <h1>Hallo Max Mustermann!</h1>
-                <p class="profile-summary-login-info">Letzter Login: heute, 08:32</p>
+                <h1>Hallo [[ security.user.name + " " + security.user.surname ]]!</h1>
+                <p class="profile-summary-login-info">Letzter Login: [[ security.user.last_login | date:'longDate' ]], [[ security.user.last_login | date:'shortTime' ]]</p>
                 <p class="profile-summary-status-info"><span>4 Votes</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span>10 abgegebene Kommentare</span></p>
             </div>
             <div class="span3">

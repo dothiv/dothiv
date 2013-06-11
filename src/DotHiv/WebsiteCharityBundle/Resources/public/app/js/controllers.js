@@ -94,3 +94,9 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
             };
         }
     ])
+    .controller('ProfileController', ['$scope', 'security',
+        function($scope, security) {
+            // make user information available
+            $scope.security = security.state;
+        }
+    ]);

@@ -68,8 +68,8 @@ myModule.factory('security', function($http, $templateCache, authService, dothiv
 
     function _register(name, surname, email, password, callback) {
         dothivUserResource.save(
-                // user data //TODO: Save all data!
-                {'username': email, 'email': email, 'plainPassword': password},
+                // user data
+                {'username': email, 'email': email, 'plainPassword': password, 'name': name, 'surname': surname},
                 // on success
                 function() {
                     // direct login
