@@ -4,14 +4,14 @@
             <div class="span9">
                 <h1>Hallo [[ security.user.name + " " + security.user.surname ]]!</h1>
                 <p class="profile-summary-login-info">Letzter Login: [[ security.user.last_login | date:'longDate' ]], [[ security.user.last_login | date:'shortTime' ]]</p>
-                <p class="profile-summary-status-info"><span>4 Votes</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span>10 abgegebene Kommentare</span></p>
+                <p class="profile-summary-status-info"><a href="#!/profile/votes">4 Votes</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#!/profile/comments">10 abgegebene Kommentare</a></p>
             </div>
             <div class="span3">
                 <ul>
                     <li class="accountance"><a href="#!/profile">Übersicht</a></li>
                     <li class="accountance"><a href="#!/profile/edit">Profil bearbeiten</a></li>
                     <li class="accountance"><a href="#!/profile/projects">Projekte verwalten (3)</a></li>
-                    <li class="accountance"><a href="">Domains verwalten (1)</a></li>
+                    <li class="accountance"><a href="#!/profile/domains">Domains verwalten (1)</a></li>
                     <li class="accountance grey"><a ng-click="logout()">Logout</a></li>
                 </ul>
             </div>

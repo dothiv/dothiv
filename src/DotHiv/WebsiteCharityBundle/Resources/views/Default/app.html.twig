@@ -39,6 +39,10 @@
                         url: '/projects',
                         templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_projects') }}'
                     })
+                .state('profile.domains', {
+                        url: '/domains',
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domains') }}'
+                    })
             }])
         .config(['$urlRouterProvider', function($urlRouter) {
             $urlRouter.otherwise('/');
