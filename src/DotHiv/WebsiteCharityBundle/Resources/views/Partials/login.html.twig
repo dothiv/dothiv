@@ -14,7 +14,7 @@
                     <span class="alert alert-error" ng-show="loginerrormsg">[[ loginerrormsg ]]</span>
                 
                     <label for="login-username">{% trans %}login.form.username{% endtrans %}</label> 
-                    <input type="text" class="span12" name="username" id="login-username" ng-model="loginData.username" placeholder="{% trans %}login.form.username.placeholder{% endtrans %}" required />
+                    <input type="text" class="span12" name="username" id="login-username" ng-model="loginData.username" placeholder="{% trans %}login.form.username.placeholder{% endtrans %}" required autofocus />
                 
                     <label for="login-password">{% trans %}login.form.password{% endtrans %}</label>
                     <input type="password" class="span12" name="password" id="login-password" ng-model="loginData.password" placeholder="{% trans %}login.form.password.placeholder{% endtrans %}" required />
