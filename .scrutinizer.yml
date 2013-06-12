@@ -1,6 +1,6 @@
 tools:
     js_hint: true
-    php_code_coverage: true
+    php_code_coverage:
         only_changesets: true
     php_code_sniffer: true
     php_cpd: true
