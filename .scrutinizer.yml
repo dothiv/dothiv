@@ -1,0 +1,10 @@
+tools:
+    js_hint: true
+    php_code_coverage:
+        only_changesets: true
+    php_code_sniffer: true
+    php_cpd: true
+    php_cs_fixer: true
+    php_mess_detector: true
+    php_analyzer: true
+    sensiolabs_security_checker: true
