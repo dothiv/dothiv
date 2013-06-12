@@ -67,8 +67,10 @@ class UserController extends FOSRestController {
      */
     public function getUserAction($slug) {
         $context = $this->get('security.context');
-        if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $slug)
-            return $this->getDoctrine()->getEntityManager()->getRepository('DotHivBusinessBundle:User')->findBy(array('username' => $slug));
+        if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $slug) {
+            $user = $this->getDoctrine()->getEntityManager()->getRepository('DotHivBusinessBundle:User')->findOneBy(array('username' => $slug));
+            return $this->createForm(new UserRegisterType(), $user);
+        }
         throw new HttpException(403);
     }
 
