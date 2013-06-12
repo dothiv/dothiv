@@ -4,7 +4,6 @@ namespace DotHiv\APIBundle\Security;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 
 /**

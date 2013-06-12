@@ -26,12 +26,14 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string")
      * @Serializer\Expose
+     * @Assert\NotBlank
      */
     protected $name;
 
     /**
      * @ORM\Column(type="string")
      * @Serializer\Expose
+     * @Assert\NotBlank
      */
     protected $surname;
 

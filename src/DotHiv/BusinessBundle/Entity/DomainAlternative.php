@@ -23,6 +23,7 @@ class DomainAlternative extends Entity {
      * FQDN of the alternative domain.
      * @ORM\Column(type="string",length=255)
      * @Serializer\Expose
+     * @Assert\NotBlank
      */
     protected $domain;
     

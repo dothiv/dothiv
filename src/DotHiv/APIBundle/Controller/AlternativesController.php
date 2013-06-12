@@ -2,15 +2,7 @@
 
 namespace DotHiv\APIBundle\Controller;
 
-use FOS\RestBundle\View\View;
-
-use FOS\RestBundle\View\ViewHandler;
-
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\Query\Expr;
-use DotHiv\BusinessBundle\Entity\DomainList;
-use DotHiv\BusinessBundle\Form\DomainListType;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 

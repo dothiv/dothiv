@@ -3,7 +3,6 @@
 namespace DotHiv\APIBundle\Controller;
 
 use FOS\Rest\Util\Codes;
-
 use DotHiv\BusinessBundle\Form\ProjectType;
 use DotHiv\BusinessBundle\Entity\Project;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -118,7 +117,7 @@ class ProjectController extends FOSRestController
      * Read changes on project from request and apply them to given project instance.
      * 
      * @param Project $project The project instance to updated
-     * @param unknown_type $isNew Whether the given project instance is new
+     * @param bool $isNew Whether the given project instance is new
      */
     private function processProjectForm(Project $project, $isNew) {
         $form = $this->createForm(new ProjectType(), $project);

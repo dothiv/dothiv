@@ -1,8 +1,8 @@
 <?php
 
 namespace DotHiv\BusinessBundle\Entity;
-use Gedmo\Translatable\Translatable;
 
+use Gedmo\Translatable\Translatable;
 use DotHiv\BusinessBundle\Enum\ProjectStatus;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
