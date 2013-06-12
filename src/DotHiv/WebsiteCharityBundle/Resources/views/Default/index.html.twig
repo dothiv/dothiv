@@ -10,49 +10,88 @@
         <link rel="shortcut icon" href="{{ asset("bundles/websitecharity/images/favicon.png") }}" />
     </head>
     <body>
-        <div class="container" ng-controller="HeaderController">
-            <div class="row first">
-                <div class="span2 hiv-logo">
-                    <a href="#!/"><img src="{{ asset("bundles/websitecharity/images/dotHiv-logo.png") }}"></a>
-                </div>
-                <div class="span7">
-                    <div class="container">
-                        <div class="barmenu first">Projekte</div>
-                        <div class="barmenu">Über dotHIV</div>
-                        <div class="barmenu">URL registrieren</div>
+        <div ng-controller="HeaderController">
+            <div class="container">
+                <div class="row first">
+                    <div class="span2 hiv-logo">
+                        <a href="#!/"><img src="{{ asset("bundles/websitecharity/images/dotHiv-logo.png") }}"></a>
+                    </div>
+                    <div class="span7">
+                        <div class="container">
+                            <div class="barmenu first"><h4>Projekte</h4></div>
+                            <div class="barmenu secound"><h4>Über dotHIV</h4></div>
+                            <div class="barmenu third"><h4>URL registrieren</h4></div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <ul>
+                            <li class="accountance dummy" ng-show="!isAuthenticated()"></li>
+                            <li class="accountance hover-arrow" ng-show="!isAuthenticated()"><a ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
+                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
+                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile">{% trans %}header.menu.myprofile{% endtrans %} ([[ security.user.username ]])</a></li>
+                            <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.createproject{% endtrans %}</a></li>
+                            <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.reportabuse{% endtrans %}</a></li>
+                            <li class="accountance hover-arrow grey"><a ng-click="">{%  trans %}header.menu.picklanguage{% endtrans %}</a></li>
+                        </ul>
                     </div>
                 </div>
-                <div class="span3">
-                    <ul>
-                        <li class="accountance hover-arrow" ng-show="!isAuthenticated()"><a ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
-                        <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
-                        <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile">{% trans %}header.menu.myprofile{% endtrans %} ([[ security.user.username ]])</a></li>
-                        <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.createproject{% endtrans %}</a></li>
-                        <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.reportabuse{% endtrans %}</a></li>
-                        <li class="accountance hover-arrow grey"><a ng-click="">{%  trans %}header.menu.picklanguage{% endtrans %}</a></li>
-                    </ul>
-                </div>
             </div>
-        </div>
-
-        <!-- adopt for mobile useage -->
-        <div class="pink-bar rightside">
-            <div class="pink-bar leftside text-right">
-                <p>
-                    <span class="pink-bar-text">{% trans %} home.pinkbar.activated {% endtrans %}</span>
-                    <span class="pink-bar-text bold" id="active-money">€ 123.456</span>
-                    <img class="pink-bar-image" src="{{ asset("bundles/websitecharity/images/tick-white.png") }}">
+    
+            <!-- adopt for mobile useage -->
+            <div class="pink-bar rightside">
+                <div class="pink-bar leftside text-right" ng-style="{ width: bar.current / bar.total *100 + '%' }">
+                    <p ng-show="bar.current / bar.total * 10 > 4">
+                        <span class="pink-bar-text">{% trans %} home.pinkbar.activated {% endtrans %}</span>
+                        <span class="pink-bar-text bold" id="active-money">€ [[ bar.current ]]</span>
+                        <img class="pink-bar-image" src="{{ asset("bundles/websitecharity/images/tick-white.png") }}">
+                    </p>
+                </div>
+                <p ng-show="bar.current / bar.total * 10 < 4">
+                    <img class="pink-bar-image right" src="{{ asset("bundles/websitecharity/images/tick-black.png") }}">
+                    <span class="pink-bar-text right" >{% trans %} home.pinkbar.activated {% endtrans %}</span>
+                    <span class="pink-bar-text right bold" id="active-money">€ [[ bar.current ]]</span>
                 </p>
             </div>
         </div>
+
+
         <div style="clear: both;"></div>
         <div ui-view></div>
 
         <footer class="footer">
             <div class="container">
                 <div class="row">
-                    <div class="span12 center">
-                        Footer
+                    <div class="span12 center footer-margin">
+                        <img class="hiv-42px" src="{{ asset("bundles/websitecharity/images/dotHiv-logo.png") }}">
+                        <p class="running-text footer-slogan">{% trans %} footer.slogan {% endtrans %}</p>
+                        <div class="container">
+                            <div class="row">
+                                <div class="span4">
+                                    <ul>
+                                        <li class="running-text">{% trans %} footer.adress.name {%  endtrans %}</li>
+                                        <li class="running-text">{% trans %} footer.adress.street {%  endtrans %}</li>
+                                        <li class="running-text">{% trans %} footer.adress.city {%  endtrans %}</li>
+                                        <li class="running-text">{% trans %} footer.adress.phone {%  endtrans %}</li>
+                                    </ul>
+                                </div>
+                                <div class="span4">
+                                    <ul>
+                                        <li><a class="running-text" src="">{% trans %}footer.navi.feedback{% endtrans %}</a></li>
+                                        <li><a class="running-text" src="">{% trans %}footer.navi.help{% endtrans %}</a> / <a class="running-text" src="">{% trans %}footer.navi.forum{% endtrans %}</a></li>
+                                        <li><a class="running-text" src="">{% trans %}footer.navi.contact{% endtrans %}</a> / <a class="running-text" src="">{% trans %}footer.navi.impressum{% endtrans %}</a></li>
+                                        <li><a class="running-text" src="">{% trans %}footer.navi.terms{% endtrans %}</a> / <a class="running-text" src="">{% trans %}footer.navi.privacy{% endtrans %}</a></li>
+                                    </ul>
+                                </div>
+                                <div class="span4">
+                                    <ul>
+                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-fb.png") }}">{% trans %} footer.social.facebook {% endtrans %}</a></li>
+                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-tw.png") }}">{% trans %} footer.social.twitter {% endtrans %}</a></li>
+                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-gp.png") }}">{% trans %} footer.social.googleplus {% endtrans %}</a></li>
+                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-pi.png") }}">{% trans %} footer.social.pinterest {% endtrans %}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -79,3 +79,24 @@ profile:
                     required: Bitte geben Sie eine E-Mail-Adresse an
                     invalid: Noch keine gültige E-Mail-Adresse
             submit: speichern
+
+footer:
+    slogan: Doing good with just one click
+    adress:
+        name: dotHiv gemeinnütziger e.V.
+        street: Lehmbruckstrasse 3
+        city: 10245 Berlin, Germany
+        phone: +49 176-56 74 64 65
+    navi:
+        feedback: Feedback
+        help: Hilfe
+        forum: Forum
+        contact: Kontakt
+        impressum: Impressum
+        terms: Nutzungsbedingungen
+        privacy: Datenschutz
+    social:
+        facebook: Finde uns auf Facebook
+        twitter: Folge uns auf Twitter
+        googleplus: Adde uns auf Google Plus
+        pinterest: Folge uns auf Pinterest
