@@ -25,3 +25,7 @@ dot_hiv_website_charity_partial_profile_summary:
 dot_hiv_website_charity_partial_profile_edit:
     pattern:  /partial/profile/edit
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileEdit }
+
+dot_hiv_website_charity_partial_profile_projects:
+    pattern:  /partial/profile/projects
+    defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileProjects }

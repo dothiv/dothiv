@@ -84,22 +84,6 @@ myModule.factory('security', function($http, $templateCache, authService, dothiv
         );
     }
 
-    function _edit(name, surname, email, callback) {
-        var _userCopy = dothivUserResource.update(
-                // user data
-                {'username': _state.user.username, 'name': name, 'surname': surname, 'email': email},
-                // on success
-                function() {
-                    _state.user = _userCopy;
-                    (callback || angular.noop)(true);
-                },
-                // on error
-                function(data, status, headers, config) {
-                    (callback || angular.noop)(false, data);
-                }
-        );
-    }
-
     function _updateUserInfo(callback) {
         _state.user = dothivLoginResource.get(
                 // no data required
@@ -123,7 +107,6 @@ myModule.factory('security', function($http, $templateCache, authService, dothiv
         isAuthenticated: _isAuthenticated,
         register: _register,
         logout: _logout,
-        edit: _edit,
         state: _state
     };
 });

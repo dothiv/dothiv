@@ -23,7 +23,8 @@
                 .state('profile', {
                         abstract: true,
                         url: '/profile',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile') }}'
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile') }}',
+                        controller: 'ProfileController'
                     })
                 .state('profile.summary', {
                         url: '',
@@ -31,24 +32,33 @@
                     })
                 .state('profile.edit', {
                         url: '/edit',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_edit') }}'
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_edit') }}',
+                        controller: 'ProfileEditController'
                     })
-            }]).
-        config(['$urlRouterProvider', function($urlRouter) {
+                .state('profile.projects', {
+                        url: '/projects',
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_projects') }}'
+                    })
+            }])
+        .config(['$urlRouterProvider', function($urlRouter) {
             $urlRouter.otherwise('/');
-            }]).
-        config(['$locationProvider', function($location) {
+            }])
+        .config(['$locationProvider', function($location) {
             $location.hashPrefix('!');
-            }]).
-        config(['$interpolateProvider', function($interpolateProvider) {
+            }])
+        .config(['$interpolateProvider', function($interpolateProvider) {
             $interpolateProvider.startSymbol('[[');
             $interpolateProvider.endSymbol(']]');
-            }]).
-        config(['$anchorScrollProvider', function($anchorScrollProvider) {
+            }])
+        .config(['$anchorScrollProvider', function($anchorScrollProvider) {
             $anchorScrollProvider.disableAutoScrolling();
             }])
-        .value('$anchorScroll', angular.noop); // TODO: working, but best practice? 
-    
+        .value('$anchorScroll', angular.noop) // TODO: working, but best practice? 
+        .run(['security', function(security) {
+            // Get the current user when the application starts 
+            // (in case they are still logged in from a previous session) 
+            security.updateUserInfo();
+          }]);
 </script>
 <script src="{{ asset('bundles/websitecharity/app/js/services.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers.js') }}"></script>

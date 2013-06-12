@@ -37,10 +37,6 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
             };
             
             $scope.security = security.state;
-            
-            // TODO move this to a more general place
-            security.updateUserInfo();
-        
         }
     ])
     .controller('SecurityLoginDialogController', ['$scope', 'dialog', 'security',
@@ -99,32 +95,6 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
             // make user information available
             $scope.security = security.state;
 
-            // set initial user values to form
-            $scope.editData = {
-                    'name': security.state.user.name,
-                    'surname': security.state.user.surname,
-                    'email': security.state.user.email
-                    };
-
-            // allow editing user data
-            $scope.edit = function(data) {
-                if ($scope.editForm.$invalid) {
-                    $scope.editclean = false;
-                    console.log("still invalid");
-                } else {
-                    console.log("form valid");
-                    security.edit(data.name, data.surname, data.email, function(result, error) {
-                        if (result) {
-                            // editing successful, redirect to summary page
-                            $location.path( "/profile" );
-                        } else {
-                            // editing failed
-                            $scope.editerrormsg = error;
-                        }
-                    });
-                }
-            };
-
             // make logout available and redirect to home page
             $scope.logout = function() {
                 security.logout(function(success){
@@ -132,5 +102,24 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
                         $location.path( "/" );
                 });
             };
+        }
+    ])
+    .controller('ProfileEditController', ['$scope', '$location', 'security', 'dothivUserResource',
+        function($scope, $location, security, dothivUserResource) {
+        // get fresh user object
+        $scope.user = dothivUserResource.get({"username": security.state.user.username});
+
+        // send user object back to server
+        $scope.submit = function() {
+            $scope.user.$update(
+                {"username": security.state.user.username},
+                function() { // success
+                    security.updateUserInfo();
+                    $location.path( "/profile" );
+                }, 
+                function() { // error
+                }
+            );
+        };
         }
     ]);

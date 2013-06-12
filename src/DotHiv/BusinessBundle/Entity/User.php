@@ -11,6 +11,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @ORM\Entity
  * @UniqueEntity("username")
+ * @UniqueEntity("email")
  * @Serializer\ExclusionPolicy("all")
  */
 class User extends BaseUser
@@ -53,5 +54,10 @@ class User extends BaseUser
 
     public function setName($name) {
         $this->name = $name;
+    }
+
+    public function setUsername($username) {
+        if ($username !== $this->username) 
+            throw new \InvalidArgumentException("Username may not be changed.");
     }
 }

@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row">
+        <div class="span12 profile-summary-list-heading profile-summary-projects-heading">
+            <a class="pull-right" href="#">Neues Projekt anlegen</a>
+            <h2>Projektübersicht</h2>
+        </div>
+    </div>
+    <ul class="profile-summary-list profile-summary-projects-list">
+        <li ng-repeat="(name, votes) in {'Awesome project':3268, 'Lame project':12, 'Nils\'s project':122626}">{% include 'DotHivWebsiteCharityBundle:Partials/Profile:projects-item.html.twig' %}</li>
+    </ul>
+</div>

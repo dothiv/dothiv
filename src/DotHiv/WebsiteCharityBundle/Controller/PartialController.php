@@ -18,17 +18,22 @@ class PartialController extends Controller
 
     public function profileAction()
     {
-        return $this->render('DotHivWebsiteCharityBundle:Partials:profile.html.twig');
+        return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:profile.html.twig');
     }
 
     public function profileSummaryAction()
     {
-        return $this->render('DotHivWebsiteCharityBundle:Partials:profile_summary.html.twig');
+        return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:summary.html.twig');
     }
-    
+
     public function profileEditAction()
     {
-        return $this->render('DotHivWebsiteCharityBundle:Partials:profile_edit.html.twig');
+        return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:edit.html.twig');
+    }
+
+    public function profileProjectsAction()
+    {
+        return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:projects.html.twig');
     }
 
     public function registrationAction()

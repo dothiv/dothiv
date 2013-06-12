@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use DotHiv\BusinessBundle\Entity\User;
 use DotHiv\BusinessBundle\Form\UserRegisterType;
+use DotHiv\BusinessBundle\Form\UserEditType;
 use DotHiv\BusinessBundle\Form\ProjectType;
 use DotHiv\BusinessBundle\Entity\Project;
 use FOS\Rest\Util\Codes;
@@ -69,9 +70,46 @@ class UserController extends FOSRestController {
         $context = $this->get('security.context');
         if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $slug) {
             $user = $this->getDoctrine()->getEntityManager()->getRepository('DotHivBusinessBundle:User')->findOneBy(array('username' => $slug));
-            return $this->createForm(new UserRegisterType(), $user);
+            return $this->createForm(new UserEditType(), $user);
         }
         throw new HttpException(403);
     }
 
+    /**
+     * Updates the requested user.
+     *
+     * @ApiDoc(
+     *   section="user",
+     *   resource=true,
+     *   description="Updates the requested user.",
+     *   statusCodes={
+     *     200="Successfully updated",
+     *     403="Access denied"
+     *   },
+     *   output="DotHiv\BusinessBundle\Entity\User"
+     * )
+     */
+    public function putUserAction($slug) {
+        $context = $this->get('security.context');
+        if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $slug) {
+            // fetch user from database
+            $em = $this->getDoctrine()->getEntityManager();
+            $user = $em->getRepository('DotHivBusinessBundle:User')->findOneBy(array('username' => $slug));
+
+            // apply form
+            $form = $this->createForm(new UserEditType(), $user);
+            $form->bind($this->getRequest());
+
+            if ($form->isValid()) {
+                $em->persist($user);
+                $this->container->get('fos_user.user_manager')->updateUser($user, false);
+                $em->flush();
+
+                return null;
+            }
+
+            return array('form' => $form);
+        }
+        throw new HttpException(403);
+    }
 }

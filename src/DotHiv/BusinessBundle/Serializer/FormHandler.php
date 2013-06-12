@@ -2,6 +2,8 @@
 
 namespace DotHiv\BusinessBundle\Serializer;
 
+use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Form\FormError;
 use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\XmlSerializationVisitor;
 use JMS\Serializer\GenericSerializationVisitor;
@@ -18,6 +20,14 @@ use JMS\Serializer\Handler\FormErrorHandler;
  */
 class FormHandler extends FormErrorHandler {
 
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+        parent::__construct($translator);
+    }
+
     public function serializeFormToJson(JsonSerializationVisitor $visitor, Form $form, array $type)
     {
         return $this->convertFormToArray($visitor, $form);
@@ -28,12 +38,13 @@ class FormHandler extends FormErrorHandler {
         $isRoot = null === $visitor->getRoot();
 
         $children = array();
+        $form = $errors = array();
 
         if (($isRoot && !$data->isBound()) || $serializeData) {
 
             foreach ($data->all() as $child) {
                 if (count($child->getChildren()) > 0) {
-                    $children[$child->getName()] = $this->convertFormToArray($visitor, $child, true);
+                    $form[$child->getName()] = $this->convertFormToArray($visitor, $child, true);
                 } else {
                     $form[$child->getName()] = $child->getData();
                 }
@@ -41,13 +52,16 @@ class FormHandler extends FormErrorHandler {
 
         } else {
 
-            $form = $errors = array();
             foreach ($data->getErrors() as $error) {
                 $errors[] = $this->getErrorMessage($error);
             }
 
             if ($errors) {
                 $form['errors'] = $errors;
+            }
+
+            foreach ($data->all() as $child) {
+                $children[$child->getName()] = $this->convertFormToArray($visitor, $child);
             }
 
         }
@@ -66,6 +80,15 @@ class FormHandler extends FormErrorHandler {
     public function serializeFormToXml(XmlSerializationVisitor $visitor, Form $form, array $type)
     {
         throw new NotImplementedException();
+    }
+
+    private function getErrorMessage(FormError $error)
+    {
+        if (null !== $error->getMessagePluralization()) {
+            return $this->translator->transChoice($error->getMessageTemplate(), $error->getMessagePluralization(), $error->getMessageParameters(), 'validators');
+        }
+
+        return $this->translator->trans($error->getMessageTemplate(), $error->getMessageParameters(), 'validators');
     }
 
 }

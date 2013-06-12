@@ -1,4 +1,4 @@
-<div class="container" ng-controller="ProfileController">
+<div class="container">
     <div class="row">
         <div class="span12 profile-heading">
             <h2 class="pull-left">Mein Profil bearbeiten</h2>
@@ -12,15 +12,15 @@
                     <span class="alert alert-error" ng-show="editerrormsg">[[ editerrormsg ]]</span>
 
                     <label for="edit-name">{% trans %}profile.edit.form.name.label{% endtrans %}</label>
-                    <input type="text" class="span6" name="name" id="edit-name" ng-model="editData.name" value="[[ security.user.name ]]" placeholder="{% trans %}profile.edit.form.name.placeholder{% endtrans %}" required />
+                    <input type="text" class="span6" name="name" id="edit-name" ng-model="user.name" placeholder="{% trans %}profile.edit.form.name.placeholder{% endtrans %}" required />
 
                     <label for="edit-surname">{% trans %}profile.edit.form.surname.label{% endtrans %}</label>
-                    <input type="text" class="span6" name="surname" id="edit-surname" ng-model="editData.surname" value="[[ security.user.surname ]]" placeholder="{% trans %}profile.edit.form.surname.placeholder{% endtrans %}" required />
+                    <input type="text" class="span6" name="surname" id="edit-surname" ng-model="user.surname" placeholder="{% trans %}profile.edit.form.surname.placeholder{% endtrans %}" required />
 
                     <label for="edit-email">{% trans %}profile.edit.form.email.label{% endtrans %}</label>
-                    <input type="email" class="span6" name="email" id="edit-email" ng-model="editData.email" value="[[ security.user.email ]]" placeholder="{% trans %}profile.edit.form.email.placeholder{% endtrans %}" required />
+                    <input type="email" class="span6" name="email" id="edit-email" ng-model="user.email" placeholder="{% trans %}profile.edit.form.email.placeholder{% endtrans %}" required />
                 </fieldset>
-                <button type="submit" ng-click="edit(editData)" class="btn btn-primary pull-right" >{% trans %}profile.edit.form.submit{% endtrans %}</button>
+                <button type="submit" ng-click="submit()" class="btn btn-primary pull-right" >{% trans %}profile.edit.form.submit{% endtrans %}</button>
             </form>
         </div>
     </div>
