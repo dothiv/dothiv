@@ -39,6 +39,10 @@ class FormHandler extends FormErrorHandler {
 
         $children = array();
         $form = $errors = array();
+        
+        if (!$data) {
+            return $form;
+        }
 
         if (($isRoot && !$data->isBound()) || $serializeData) {
 
