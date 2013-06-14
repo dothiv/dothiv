@@ -14,7 +14,7 @@ myModule.factory('dothivResourceDefaultActions', function() {
 });
 
 myModule.factory('dothivUserResource', function($resource, dothivResourceDefaultActions) {
-    return $resource('http://dothiv.bp/app_dev.php/api/users/:username', {}, {
+    return $resource('/app_dev.php/api/users/:username', {}, {
         'get':    {method:'GET', params:{username: '@username'}},
         'save':   {method:'POST', params:{username: ''}},
         'update': {method:'PUT', params:{username: '@username'}},
@@ -22,7 +22,7 @@ myModule.factory('dothivUserResource', function($resource, dothivResourceDefault
 });
 
 myModule.factory('dothivLoginResource', function($resource, dothivResourceDefaultActions) {
-    return $resource('http://dothiv.bp/app_dev.php/api/login', {}, {
+    return $resource('/app_dev.php/api/login', {}, {
         'get':    {method:'GET'},
         'login':  {method:'POST'},
         'logout': {method:'DELETE'}
