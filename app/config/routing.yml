@@ -17,6 +17,11 @@ fos_user_security_logout:
     defaults: { _controller: DotHivAPIBundle:Security:deleteLogin }
     methods: [ DELETE ]
 
+dot_hiv_security_options:
+    pattern: /api/login
+    defaults: { _controller: DotHivAPIBundle:Security:optionsLogin }
+    methods: [ OPTIONS ]
+
 # API routing
 dot_hiv_api:
     resource: "@DotHivAPIBundle/Resources/config/routing.yml"

@@ -65,4 +65,16 @@ class SecurityController extends Controller {
         // handled by Symfony firewall
     }
 
+    /**
+     * We need to define this explicitly, as this is not a FOSRestController.
+     * Allowed methods are GET, POST, DELETE and OPTIONS 
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function optionsLoginAction() {
+        $response = new Response();
+        $response->headers->set('Allow', 'GET, POST, DELETE, OPTIONS');
+        return $response;
+    }
+
 }
