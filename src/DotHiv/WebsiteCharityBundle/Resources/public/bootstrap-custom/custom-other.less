@@ -36,6 +36,7 @@ h1, h2, h3 { line-height: 1.4em; }
 .accountance { list-style-type: none; }
 .accountance a:hover { text-decoration: underline; font-weight: bold; }
 .accountance > li { cursor: hand; cursor: pointer; }
+.accountance .active { font-weight: bold; text-decoration: underline; }
 
 // Adds spacing to the top
 // -----------------------------------
@@ -150,6 +151,11 @@ h1, h2, h3 { line-height: 1.4em; }
 }
 
 .first h4:hover {
+    padding-bottom: 4px;
+    border-bottom: 6px solid @colordark;
+}
+
+.first h4.active {
     padding-bottom: 4px;
     border-bottom: 6px solid @colordark;
 }
