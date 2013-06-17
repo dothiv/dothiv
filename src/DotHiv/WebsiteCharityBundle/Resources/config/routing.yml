@@ -14,6 +14,14 @@ dot_hiv_website_chartiy_partial_registration:
     pattern: /partial/registration
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:registration }
 
+dot_hiv_website_charity_partial_about:
+    pattern:  /partial/about
+    defaults: { _controller: DotHivWebsiteCharityBundle:Partial:about }
+
+dot_hiv_website_charity_partial_about_idea:
+    pattern:  /partial/about/idea
+    defaults: { _controller: DotHivWebsiteCharityBundle:Partial:aboutIdea }
+
 dot_hiv_website_charity_partial_profile:
     pattern:  /partial/profile
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profile }
