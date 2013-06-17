@@ -32,6 +32,10 @@ class UserController extends FOSRestController {
         $user = new User();
         $user->setEnabled(true); // TODO: we need to make sure the new user is human (and not registered by bots)
 
+        // generate a random username
+        $randomUsername = $this->newRandomCode();
+        $user->setUsername($randomUsername);
+
         $form = $this->createForm(new UserRegisterType(), $user);
         $form->bind($this->getRequest());
 
@@ -110,4 +114,18 @@ class UserController extends FOSRestController {
         }
         throw new HttpException(403);
     }
+
+    /**
+     * Generates a 12 digit random code
+     *
+     * Used pool of characters: a-z0-9
+     */
+     private function newRandomCode() {
+        $pool = "abcdefghijklmnopqrstuvwxyz0123456789";
+        $code = "";
+        while (strlen($code) < 12) {
+            $code .= substr($pool, rand(0, 35), 1);
+        }
+        return $code;
+     }
 }

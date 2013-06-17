@@ -18,6 +18,7 @@ class UserEditType extends AbstractType {
         $builder->add('email');
         $builder->add('name');
         $builder->add('surname');
+        $builder->add('username', 'text', array('read_only' => true));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
