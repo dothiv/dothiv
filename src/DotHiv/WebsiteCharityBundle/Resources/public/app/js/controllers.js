@@ -42,10 +42,6 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
                 'total': 10,
                 'current': 1.43,
             }; 
-            
-            // TODO move this to a more general place
-            security.updateUserInfo();
-        
         }
     ])
     .controller('SecurityLoginDialogController', ['$scope', 'dialog', 'security',

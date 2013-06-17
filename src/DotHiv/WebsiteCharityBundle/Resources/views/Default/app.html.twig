@@ -43,6 +43,14 @@
                         url: '/domains',
                         templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domains') }}'
                     })
+                .state('profile.votes', {
+                        url: '/votes',
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_votes_domains') }}'
+                    })
+                .state('profile.comments', {
+                        url: '/comments',
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_comments_domains') }}'
+                    })
             }])
         .config(['$urlRouterProvider', function($urlRouter) {
             $urlRouter.otherwise('/');

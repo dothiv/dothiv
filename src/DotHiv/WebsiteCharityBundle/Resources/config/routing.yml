@@ -33,3 +33,11 @@ dot_hiv_website_charity_partial_profile_projects:
 dot_hiv_website_charity_partial_profile_domains:
     pattern:  /partial/profile/domains
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileDomains }
+
+dot_hiv_website_charity_partial_votes_domains:
+    pattern:  /partial/profile/votes
+    defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileVotes }
+
+dot_hiv_website_charity_partial_comments_domains:
+    pattern:  /partial/profile/comments
+    defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileComments }

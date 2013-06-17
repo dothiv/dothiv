@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="row">
+        <div class="span12 profile-summary-list-heading profile-summary-votes-heading">
+            <h2>Votes</h2>
+        </div>
+    </div>
+    <ul class="profile-summary-list profile-summary-votes-list">
+        <li ng-repeat="(name, votes) in {'Awesome project':3268, 'Lame project':12, 'Nils\'s project':122626}">{% include 'DotHivWebsiteCharityBundle:Partials/Profile:votes-item.html.twig' %}</li>
+    </ul>
+</div>
