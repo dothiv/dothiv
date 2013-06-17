@@ -306,6 +306,20 @@ h3 {
     }
 }
 
+.profile-summary-item .project-rating {
+    &  [class^="icon-star"], [class*=" icon-star"] {
+        width: 22px;
+        height: 20px;
+        background-position: 0;
+    }
+    & .icon-star {
+        background-image: url('/bundles/websitecharity/images/star-white.png');
+    }
+    & .icon-star-empty {
+        background-image: url('/bundles/websitecharity/images/star-blue.png');;
+    }
+}
+
 .profile-summary-projects-heading h2 {
     color: @hivblue;
 }
