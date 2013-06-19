@@ -282,7 +282,7 @@ describe('Security service', function() {
     describe('register()', function() {
         it('should send a POST request containing username, email address and password', function() {
             // check request for correct data and header
-            httpBackend.expectPOST(/^.*\/api\/users$/, '{"username":"test@email.hiv","email":"test@email.hiv","plainPassword":"testpassword","name":"testname","surname":"testsurname"}').respond(400);
+            httpBackend.expectPOST(/^.*\/api\/users$/, '{"email":"test@email.hiv","plainPassword":"testpassword","name":"testname","surname":"testsurname"}').respond(400);
             security.register('testname', 'testsurname', 'test@email.hiv', 'testpassword');
             httpBackend.flush();
         });
