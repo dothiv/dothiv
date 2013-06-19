@@ -21,7 +21,7 @@ class Entity
      * @Serializer\Expose
      */
     protected $id;
-    
+
     /**
      * gets the database primary key 
      */

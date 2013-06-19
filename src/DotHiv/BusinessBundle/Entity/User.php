@@ -2,6 +2,7 @@
 
 namespace DotHiv\BusinessBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,6 +25,8 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * First name 
+     *
      * @ORM\Column(type="string")
      * @Serializer\Expose
      * @Assert\NotBlank
@@ -31,14 +34,24 @@ class User extends BaseUser
     protected $name;
 
     /**
+     * Last name
+     *
      * @ORM\Column(type="string")
      * @Serializer\Expose
      * @Assert\NotBlank
      */
     protected $surname;
 
+    /**
+     * A list of domains owned by this user
+     *
+     * @ORM\OneToMany(targetEntity="Domain",mappedBy="owner")
+     */
+    protected $domains;
+
     public function __construct()
     {
+        $this->domains = new ArrayCollection();
         parent::__construct();
     }
 
@@ -56,5 +69,31 @@ class User extends BaseUser
 
     public function setName($name) {
         $this->name = $name;
+    }
+
+    public function getDomains() {
+        return $this->domains;
+    }
+
+    /**
+     * Adds a new domain to this user. Ownership of the domain
+     * will be transfered.
+     *
+     * @param Domain $newDomain
+     */
+    public function addDomain(Domain $newDomain) {
+        // let the domain class take care of everything
+        $newDomain->setOwner($this);
+    }
+
+    /**
+     * Removes the given domain from the user, if it was previously 
+     * owned by him/her.
+     *
+     * @param Domain $domain
+     */
+    public function removeDomain(Domain $domain)  {
+        if($this->domains->contains($domain)) 
+            $domain->setOwner(null);
     }
 }

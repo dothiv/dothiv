@@ -9,3 +9,11 @@ user:
 alternatives:
     type: rest
     resource: DotHiv\APIBundle\Controller\AlternativesController
+
+domains:
+    type: rest
+    resource: DotHiv\APIBundle\Controller\DomainController
+
+domainclaims:
+    type: rest
+    resource: DotHiv\APIBundle\Controller\DomainClaimController
