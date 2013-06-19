@@ -17,6 +17,11 @@ header:
         picklanguage: Choose Language
         logout: Abmelden
         myprofile: Mein Profil
+        lang:
+            de: Deutsch
+            en: Englisch
+            fr: Französisch
+            es: Spanisch
 
 registration:
     form:

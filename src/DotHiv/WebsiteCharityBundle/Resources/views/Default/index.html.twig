@@ -31,7 +31,21 @@
                             <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile" ng-class="{ active: state.includes('profile') }">{% trans %}header.menu.myprofile{% endtrans %} ([[ security.user.username ]])</a></li>
                             <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.createproject{% endtrans %}</a></li>
                             <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.reportabuse{% endtrans %}</a></li>
-                            <li class="accountance hover-arrow grey"><a ng-click="">{%  trans %}header.menu.picklanguage{% endtrans %}</a></li>
+
+                            <li class="accountance grey">
+                                <div class="input-append">
+                                    <div class="btn-group">
+                                        <button id="langBut"
+                                                tooltip-placement="bottom" 
+                                                tooltip-trigger="click" 
+                                                tooltip-html-unsafe="[[languagechooser.content]]" 
+                                                class="btn langchooser">
+                                            {%  trans %}header.menu.picklanguage{% endtrans %}
+                                          <span class="caret"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>

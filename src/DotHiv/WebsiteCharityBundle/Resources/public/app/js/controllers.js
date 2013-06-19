@@ -43,7 +43,16 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
             $scope.bar = {
                 'total': 10,
                 'current': 1.43,
-            }; 
+            };
+            
+            $scope.languagechooser = {
+                    'content':  '<ul class="tooltip-ul">'+
+                                    '<li>{% trans %}header.menu.lang.de{% endtrans %}</li>'+
+                                    '<li>{% trans %}header.menu.lang.en{% endtrans %}</li>'+
+                                    '<li>{% trans %}header.menu.lang.fr{% endtrans %}</li>'+
+                                    '<li>{% trans %}header.menu.lang.es{% endtrans %}</li>'+
+                                '</ul>',
+            };
         }
     ])
     .controller('SecurityLoginDialogController', ['$scope', 'dialog', 'security',

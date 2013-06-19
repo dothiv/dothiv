@@ -18,6 +18,9 @@
     content: url('/bundles/websitecharity/images/link-hover-arrow.jpg');
 }
 
+//simplify cursor-to-hand definition
+.cursor-hand { cursor: pointer; cursor: hand; }
+
 // Custom HR tag
 // ------------------------------------
 hr {
@@ -30,48 +33,6 @@ hr {
 // override h1, h2, h3 lineheight 
 // --------------------------------------
 h1, h2, h3 { line-height: 1.4em; }
-
-// Lets Login/report/language-menu list items behave like links and links inside them like text
-// -------------------------------------
-.accountance { list-style-type: none; }
-.accountance a:hover { text-decoration: underline; font-weight: bold; }
-.accountance > li { cursor: hand; cursor: pointer; }
-.accountance .active { font-weight: bold; text-decoration: underline; }
-
-// Adds spacing to the top
-// -----------------------------------
-.row.first {
-    margin-top: 50px;
-    margin-bottom: 37px;
-}
-
-// Special classes for the page-head layout
-// -----------------------------------
-.hiv-logo {
-    position: relative;
-    bottom: -77px;
-}
-
-.accountance {
-    font-size: 16px;
-    line-height: @accountLineHeight;
-    font-style: italic;
-    cursor: pointer;
-    cursor: hand;
-}
-
-.accountance.dummy {
-    height: @accountLineHeight; 
-}
-
-.accountance a {
-    display: inline-block;
-    width: 100%;
-}
-
-.accountance.grey a {
-    color: #808080;
-}
 
 // Handling the custom pink full-width-donation-bar
 // -----------------------------------
@@ -87,10 +48,7 @@ h1, h2, h3 { line-height: 1.4em; }
     margin: 0;
 }
 
-.pink-bar.leftside {
-    background-color: @darkpink;
-    width: 57%;
-}
+.pink-bar.leftside { background-color: @darkpink; }
 
 .pink-bar.rightside {
     background-color: @lightpink;
@@ -116,53 +74,13 @@ h1, h2, h3 { line-height: 1.4em; }
     font-size: 18px;
 }
 
-.pink-bar-text.right {
-    color: black;
-}
+.pink-bar-text.right { color: black; }
+.pink-bar-text.right + .bold { margin-left: 5px; }
 
-.pink-bar-text.right + .bold {
-    margin-left: 5px;
-}
-
-.pink-bar-text + .bold {
+.pink-bar-text + .bold { 
     font-weight: bold;
     font-size: 20px;
 }
-
-// makes the horizontal menu on have as needed
-// -----------------------------------
-.first * .barmenu {
-    float: left;
-    margin-left: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    position: relative;
-    bottom: -122px;
-    cursor: hand;
-    cursor: pointer;
-    height: 40px;
-}
-
-.first h4 {
-    position: absolute;
-    display: inline-block;
-    bottom: 0px;
-    left: 0px;
-}
-
-.first h4:hover {
-    padding-bottom: 4px;
-    border-bottom: 6px solid @colordark;
-}
-
-.first h4.active {
-    padding-bottom: 4px;
-    border-bottom: 6px solid @colordark;
-}
-
-.first * .barmenu.first { margin-left: 10px; width: 100px; }
-.first * .barmenu.secound { width: 130px; }
-.first * .barmenu.third { width: 150px; }
 
 // change the top-margin of serveral span-classes
 // --------------------------------
