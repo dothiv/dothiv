@@ -1,0 +1,7 @@
+#
+# .dist file for parameters_dev.yml
+#
+
+# use this directive to set the recipient of local mail
+parameters:
+    luser:  your_unix_user_name
