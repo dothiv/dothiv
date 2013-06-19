@@ -56,7 +56,7 @@
             <!-- adopt for mobile useage -->
             <div class="pink-bar rightside">
                 <div class="pink-bar leftside text-right" ng-style="{ width: bar.current / bar.total *100 + '%' }">
-                    <button ng-show="bar.current / bar.total * 10 > 4">
+                    <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 > 4">
                         <p>
                             <span class="pink-bar-text">{% trans %} home.pinkbar.activated {% endtrans %}</span>
                             <span class="pink-bar-text bold" id="active-money">€ [[ bar.current ]]</span>
@@ -64,7 +64,7 @@
                         </p>
                     </button>
                 </div>
-                <button tooltip="HEY!" tooltip-placement="bottom" tooltip-trigger="click" ng-show="bar.current / bar.total * 10 < 4">
+                <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 < 4">
                     <p>
                         <img class="pink-bar-image right" src="{{ asset("bundles/websitecharity/images/tick-black.png") }}">
                         <span class="pink-bar-text right" >{% trans %} home.pinkbar.activated {% endtrans %}</span>
@@ -72,6 +72,8 @@
                     </p>
                 </button>
             </div>
+            <div ng-show="showfunding"
+                    style="background-color: red; width: 100%; height: 100px;"></div>
         </div>
 
 
