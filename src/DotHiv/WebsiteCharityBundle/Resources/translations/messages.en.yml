@@ -4,8 +4,18 @@ login:
     form:
         title: Please log in
         text: Welcome to dotHIV
-        username: Email
-        password: Password
+        username:
+            label: Email
+            placeholder: Your email address
+            tooltip:
+                default: please type in your email address
+                invalid: please provide a valid email address
+        password:
+            label: Password
+            placeholder: Your password
+            tooltip:
+                default: ''
+                invalid: ''
         submit: Log in
         abort: Ehm, actually don't log in
 
