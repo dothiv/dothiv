@@ -1,17 +1,17 @@
-<header class="jumbotron profile-summary-header">
+<header class="jumbotron profile-header">
     <div class="container">
         <div class="row">
             <div class="span9">
                 <h1>Hallo [[ security.user.name + " " + security.user.surname ]]!</h1>
-                <p class="profile-summary-login-info">Letzter Login: [[ security.user.last_login | date:'longDate' ]], [[ security.user.last_login | date:'shortTime' ]]</p>
-                <p class="profile-summary-status-info"><a href="#!/profile/votes">4 Votes</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#!/profile/comments">10 abgegebene Kommentare</a></p>
+                <p class="login-info">Letzter Login: [[ security.user.last_login | date:'longDate' ]], [[ security.user.last_login | date:'shortTime' ]]</p>
+                <p class="status-info"><a href="#!/profile/votes" ng-class="{ active: state.includes('profile.votes') }">4 Votes</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#!/profile/comments" ng-class="{ active: state.includes('profile.comments') }">10 abgegebene Kommentare</a></p>
             </div>
             <div class="span3">
                 <ul>
-                    <li class="accountance"><a href="#!/profile">Übersicht</a></li>
-                    <li class="accountance"><a href="#!/profile/edit">Profil bearbeiten</a></li>
-                    <li class="accountance"><a href="#!/profile/projects">Projekte verwalten (3)</a></li>
-                    <li class="accountance"><a href="#!/profile/domains">Domains verwalten (1)</a></li>
+                    <li class="accountance"><a href="#!/profile" ng-class="{ active: state.includes('profile.summary') }">Übersicht</a></li>
+                    <li class="accountance"><a href="#!/profile/edit" ng-class="{ active: state.includes('profile.edit') }">Profil bearbeiten</a></li>
+                    <li class="accountance"><a href="#!/profile/projects" ng-class="{ active: state.includes('profile.projects') }">Projekte verwalten (3)</a></li>
+                    <li class="accountance"><a href="#!/profile/domains" ng-class="{ active: state.includes('profile.domains') }">Domains verwalten (1)</a></li>
                     <li class="accountance grey"><a ng-click="logout()">Logout</a></li>
                 </ul>
             </div>

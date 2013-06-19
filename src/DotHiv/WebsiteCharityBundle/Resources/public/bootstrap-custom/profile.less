@@ -1,0 +1,194 @@
+//
+// profile
+// --------------------------------------------------
+
+
+// general style
+// -------------------------
+.profile h2 {
+    line-height: 1em;
+    color: @hivblue;
+    margin-bottom: 20px;
+}
+
+.profile .form-well {
+    background-color: #E9E9E9;
+    padding: 20px;
+    font-style: italic;
+    & input {
+        font-style: italic;
+    }
+}
+
+// profile header
+// -------------------------
+.profile-header {
+    height: 210px;
+    line-height: 1em;
+    .box-shadow(0 4px 5px 0 rgba(214,214,214,0.6));
+    margin-bottom: 70px;
+    background-image: url('/bundles/websitecharity/images/squairy_light_textur.png');
+
+    & h1 {
+        margin-top: 35px;
+        margin-bottom: 55px;
+        color: @darkpink;
+        line-height: 1em;
+    }
+    & p {
+        margin-top: 17px;
+    }
+    & ul {
+        margin-top: 25px;
+        margin-bottom: 0;
+    }
+    & .login-info {
+        font-style: italic;
+    }
+    & .status-info a {
+       font-style: italic;
+        text-decoration: underline;
+    }
+    & .active {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+}
+
+
+// profile summary lists
+// -------------------------
+.profile-summary-list {
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 45px;
+
+    & li {
+        margin-top: 10px;
+    }
+    & .item-icon {
+        height: 60px;
+        margin-right: 15px;
+    }
+    & .item-arrow {
+        width: 10px;
+        height: 11px;
+        display: inline-block;
+        margin-left: 20px;
+        background: url('/bundles/websitecharity/images/arrow-white.png') no-repeat center;
+    }
+}
+
+.profile-summary-item .project-rating {
+    &  [class^="icon-star"], [class*=" icon-star"] {
+        width: 22px;
+        height: 20px;
+        background-position: 0;
+    }
+    & .icon-star {
+        background-image: url('/bundles/websitecharity/images/star-white.png');
+    }
+    & .icon-star-empty {
+        background-image: url('/bundles/websitecharity/images/star-blue.png');;
+    }
+}
+
+.profile-summary-item {
+    height: 105px;
+    color: white;
+    & h3 {
+        border-bottom: 1px solid white;
+        font-size: 18px;
+        line-height: 1.5em;
+    }
+    & .profile-summary-item-well {
+        padding: 15px 20px 10px 20px;
+    }
+    & .profile-summary-item-lower {
+        font-style: italic;
+        line-height: 60px;
+    }
+    & a {
+        color: white;
+    }
+}
+
+.profile-summary-list-heading, .profile-heading {
+    & h2 {
+        margin-bottom: 10px;
+    }
+    & a {
+        display: inline-block;
+        line-height: 32px;
+        margin: 10px 0;
+        font-style: italic;
+    }
+    & .heading-arrow  {
+        width: 10px;
+        height: 11px;
+        display: inline-block;
+        margin-left: 15px;
+        margin-right: 5px;
+        background: url('/bundles/websitecharity/images/arrow-black.png') no-repeat center;
+    }
+}
+
+.profile-heading {
+    margin-bottom: 15px;
+}
+
+.profile-summary-projects-heading h2 {
+    color: @hivblue;
+}
+
+.profile-summary-projects-list {
+    & .profile-summary-item {
+        background-color: @hivblue;
+    }
+    & .item-icon {
+        width: 22px;
+        background: url('/bundles/websitecharity/images/clipboard.png') no-repeat center;
+    }
+}
+
+.profile-summary-domains-heading h2 {
+    color: @darkpink;
+}
+
+.profile-summary-domains-list {
+    & .profile-summary-item {
+        background-color: @darkpink;
+    }
+    & .item-icon {
+        width: 17px;
+        background: url('/bundles/websitecharity/images/mouse.png') no-repeat center;
+    }
+}
+
+.profile-summary-votes-heading h2 {
+    color: @hivpurple;
+}
+
+.profile-summary-votes-list {
+    & .profile-summary-item {
+        background-color: @hivpurple;
+    }
+    & .item-icon {
+        width: 25px;
+        background: url('/bundles/websitecharity/images/flag.png') no-repeat center;
+    }
+}
+
+.profile-summary-comments-heading h2 {
+    color: @hivorange;
+}
+
+.profile-summary-comments-list {
+    & .profile-summary-item {
+        background-color: @hivorange;
+    }
+    & .item-icon {
+        width: 30px;
+        background: url('/bundles/websitecharity/images/bubble.png') no-repeat center;
+    }
+}

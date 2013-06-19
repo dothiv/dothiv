@@ -18,9 +18,9 @@
                     </div>
                     <div class="span7">
                         <div class="container">
-                            <div class="barmenu first"><h4>Projekte</h4></div>
-                            <div class="barmenu secound"><h4>Über dotHIV</h4></div>
-                            <div class="barmenu third"><h4>URL registrieren</h4></div>
+                            <div class="barmenu first"><a href="#!"><h4>Projekte</h4></a></div>
+                            <div class="barmenu secound"><a href="#!/about"><h4 ng-class="{ active: state.includes('about') }">Über dotHIV</h4></a></div>
+                            <div class="barmenu third"><a href="#!"><h4>URL registrieren</h4></a></div>
                         </div>
                     </div>
                     <div class="span3">
@@ -28,7 +28,7 @@
                             <li class="accountance dummy" ng-show="!isAuthenticated()"></li>
                             <li class="accountance hover-arrow" ng-show="!isAuthenticated()"><a ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
                             <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
-                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile">{% trans %}header.menu.myprofile{% endtrans %} ([[ security.user.username ]])</a></li>
+                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile" ng-class="{ active: state.includes('profile') }">{% trans %}header.menu.myprofile{% endtrans %} ([[ security.user.username ]])</a></li>
                             <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.createproject{% endtrans %}</a></li>
                             <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.reportabuse{% endtrans %}</a></li>
                             <li class="accountance hover-arrow grey"><a ng-click="">{%  trans %}header.menu.picklanguage{% endtrans %}</a></li>

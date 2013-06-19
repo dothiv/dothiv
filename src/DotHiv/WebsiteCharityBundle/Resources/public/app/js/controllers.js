@@ -17,9 +17,11 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
         
         }
     ])
-    .controller('HeaderController', ['$scope', 'security', 'securityDialog',
-        function($scope, security, securityDialog) {
-        
+    .controller('HeaderController', ['$scope', '$state', 'security', 'securityDialog',
+        function($scope, $state, security, securityDialog) {
+            // make state information available
+            $scope.state = $state;
+            
             $scope.isAuthenticated = function() {
                 return security.isAuthenticated();
             };
@@ -42,10 +44,6 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
                 'total': 10,
                 'current': 1.43,
             }; 
-            
-            // TODO move this to a more general place
-            security.updateUserInfo();
-        
         }
     ])
     .controller('SecurityLoginDialogController', ['$scope', 'dialog', 'security',
@@ -99,10 +97,13 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
             };
         }
     ])
-    .controller('ProfileController', ['$scope', '$location', 'security',
-        function($scope, $location, security) {
+    .controller('ProfileController', ['$scope', '$location', '$state', 'security',
+        function($scope, $location, $state, security) {
             // make user information available
             $scope.security = security.state;
+
+            // make current state information available
+            $scope.state = $state;
 
             // make logout available and redirect to home page
             $scope.logout = function() {

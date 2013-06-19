@@ -15,7 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class UserRegisterType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('username');
         $builder->add('email');
         $builder->add('plainPassword');
         $builder->add('name');
