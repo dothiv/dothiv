@@ -35,14 +35,16 @@
                             <li class="accountance grey">
                                 <div class="input-append">
                                     <div class="btn-group">
-                                        <button id="langBut"
-                                                tooltip-placement="bottom" 
-                                                tooltip-trigger="click" 
-                                                tooltip-html-unsafe="[[languagechooser.content]]" 
-                                                class="btn langchooser">
-                                            {%  trans %}header.menu.picklanguage{% endtrans %}
-                                          <span class="caret"></span>
-                                        </button>
+                                        <div class="language-chooser">
+                                            <button id="langBut"
+                                                    tooltip-placement="bottom" 
+                                                    tooltip-trigger="click" 
+                                                    tooltip-html-unsafe="[[languagechooser.content]]" 
+                                                    class="btn langchooser">
+                                                {%  trans %}header.menu.picklanguage{% endtrans %}
+                                              <span class="caret"></span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -54,17 +56,21 @@
             <!-- adopt for mobile useage -->
             <div class="pink-bar rightside">
                 <div class="pink-bar leftside text-right" ng-style="{ width: bar.current / bar.total *100 + '%' }">
-                    <p ng-show="bar.current / bar.total * 10 > 4">
-                        <span class="pink-bar-text">{% trans %} home.pinkbar.activated {% endtrans %}</span>
-                        <span class="pink-bar-text bold" id="active-money">€ [[ bar.current ]]</span>
-                        <img class="pink-bar-image" src="{{ asset("bundles/websitecharity/images/tick-white.png") }}">
-                    </p>
+                    <button ng-show="bar.current / bar.total * 10 > 4">
+                        <p>
+                            <span class="pink-bar-text">{% trans %} home.pinkbar.activated {% endtrans %}</span>
+                            <span class="pink-bar-text bold" id="active-money">€ [[ bar.current ]]</span>
+                            <img class="pink-bar-image" src="{{ asset("bundles/websitecharity/images/tick-white.png") }}">
+                        </p>
+                    </button>
                 </div>
-                <p ng-show="bar.current / bar.total * 10 < 4">
-                    <img class="pink-bar-image right" src="{{ asset("bundles/websitecharity/images/tick-black.png") }}">
-                    <span class="pink-bar-text right" >{% trans %} home.pinkbar.activated {% endtrans %}</span>
-                    <span class="pink-bar-text right bold" id="active-money">€ [[ bar.current ]]</span>
-                </p>
+                <button tooltip="HEY!" tooltip-placement="bottom" tooltip-trigger="click" ng-show="bar.current / bar.total * 10 < 4">
+                    <p>
+                        <img class="pink-bar-image right" src="{{ asset("bundles/websitecharity/images/tick-black.png") }}">
+                        <span class="pink-bar-text right" >{% trans %} home.pinkbar.activated {% endtrans %}</span>
+                        <span class="pink-bar-text right bold" id="active-money">€ [[ bar.current ]]</span>
+                    </p>
+                </button>
             </div>
         </div>
 
