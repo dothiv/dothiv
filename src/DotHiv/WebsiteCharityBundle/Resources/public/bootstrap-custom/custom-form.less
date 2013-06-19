@@ -6,6 +6,8 @@
 @inputInvalidBackground: #FCE4F1;
 @inputInvalidBorderFocus: #E02155;
 
+@tooltipBorderShadow: 0px 0px 7px 0px @grayLight;
+
 textarea,
 input[type="text"],
 input[type="password"],
@@ -84,4 +86,72 @@ input.ng-dirty.ng-valid {
 
 form.unclean input.ng-invalid-required {
     .invalid;
+}
+
+button.langchooser {
+    color: #808080;
+    background-color: white;
+    padding: 4px 0 0 0 ;
+    &:hover, &:focus, &:active {
+        color: @black;
+        background-color: @white; 
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        .caret {
+            background-image: url('/bundles/websitecharity/images/tick-black.png');
+        }
+    }
+}
+
+.btn-group.open .btn.dropdown-toggle { 
+    background-color: @white; 
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: @black;
+}
+
+span.caret {
+    width: 12px;
+    height: 10px;
+    border: none;
+    background-image: url('/bundles/websitecharity/images/tick-grey.png');
+    background-size: 100%;
+}
+
+.open span.caret { background-image: url('/bundles/websitecharity/images/tick-black.png'); }
+
+
+
+.dropdown-menu {
+    display: inline-block;
+    .border-radius(0px);
+}
+
+.tooltip { cursor: default; }
+.tooltip.in { opacity: 1; }
+.tooltip.bottom .tooltip-arrow { 
+    top: -3px;
+    left: 25%; 
+    border-width: 0 5px 8px;
+    border-bottom-color: @grayLight;
+}
+.tooltip.bottom > .tooltip-inner { background-color: transparent; padding: 0; }
+
+.tooltip-ul {
+    padding: 10px 0;
+    font-size: 16px;
+    list-style-type: none;
+    background-color: @white;
+    width: 370px;
+    margin-left: 22px;
+    .box-shadow(@tooltipBorderShadow);
+}
+
+.tooltip-ul li {
+    .cursor-hand;
+    margin-bottom: 10px;
+    color: @grayLight;
+    &:hover { color: @black; }
 }
