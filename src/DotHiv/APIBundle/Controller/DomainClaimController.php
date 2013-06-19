@@ -3,7 +3,6 @@
 namespace DotHiv\APIBundle\Controller;
 
 use FOS\RestBundle\View\View;
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use DotHiv\BusinessBundle\Entity\DomainClaim;
@@ -48,14 +47,13 @@ class DomainClaimController extends FOSRestController {
 
             // check if token exists and is connected to a domain
             if ($domain === null || $token == '')
-                throw new HttpException(400);
+                throw new HttpException(Codes::HTTP_BAD_REQUEST);
 
             // retrieve the user object
             $user = $em->getRepository('DotHivBusinessBundle:User')->findOneBy(array('username' => $username));
 
-            // set the given user as owner of the domain and void token
-            $domain->setOwner($user);
-            $domain->setClaimingToken(null);
+            // claim the domain
+            $domain->claim($user, $token);
 
             // persist the successful claim
             $claim->setUsername($username);

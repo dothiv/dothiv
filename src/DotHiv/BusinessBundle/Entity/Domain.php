@@ -2,6 +2,7 @@
 
 namespace DotHiv\BusinessBundle\Entity;
 
+use InvalidArgumentException;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
@@ -88,7 +89,7 @@ class Domain extends Entity {
      *
      * @param User $newOwner
      */
-    public function setOwner(User $newOwner) {
+    public function setOwner(User $newOwner = NULL) {
         // remove this domain from current owner's list, if anybody owns it
         if ($this->owner !== null)
             $this->owner->getDomains()->removeElement($this);
@@ -111,5 +112,23 @@ class Domain extends Entity {
 
     public function setClaimingToken($token) {
         $this->claimingToken = $token;
+    }
+
+    /**
+     * Claims this domain for the given user. The provided token must match the
+     * claiming token.
+     *
+     * @param User $newOwner
+     * @param string $token
+     * @throws InvalidArgumentException
+     */
+    public function claim(User $newOwner, $token) {
+        if (empty($token))
+            throw new InvalidArgumentException('Given token is empty');
+        if ($token !== $this->token)
+            throw new InvalidArgumentException('Given token did not match');
+
+        $this->claimingToken = null;
+        $this->setOwner($newOwner);
     }
 }
