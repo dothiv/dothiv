@@ -73,7 +73,7 @@ class DomainTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($owner, $domain->getOwner());
     }
 
-    public function testUserDomainsUpdate() {
+    public function testDomainUsersUpdate() {
         // create new domains and new users
         $domain1 = new Domain();
         $domain2 = new Domain();
@@ -87,11 +87,13 @@ class DomainTest extends \PHPUnit_Framework_TestCase {
         $domain1->setOwner($user1);
         $this->assertEquals($domain1, $user1->getDomains()->first());
         $this->assertEquals(1, $user1->getDomains()->count());
+        $this->assertEquals($user1, $domain1->getOwner());
 
         // add another domain
         $domain2->setOwner($user1);
         $this->assertEquals($domain2, $user1->getDomains()->last());
         $this->assertEquals(2, $user1->getDomains()->count());
+        $this->assertEquals($user1, $domain2->getOwner());
 
         // transfer a domain to another user
         $domain1->setOwner($user2);
@@ -99,6 +101,8 @@ class DomainTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($domain2, $user1->getDomains()->first());
         $this->assertEquals(1, $user1->getDomains()->count());
         $this->assertEquals(1, $user2->getDomains()->count());
+        $this->assertEquals($user1, $domain2->getOwner());
+        $this->assertEquals($user2, $domain1->getOwner());
 
         // remove domain from user
         $domain1->setOwner(null);
