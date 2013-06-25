@@ -127,20 +127,41 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
     ])
     .controller('ProfileEditController', ['$scope', '$location', 'security', 'dothivUserResource',
         function($scope, $location, security, dothivUserResource) {
-        // get fresh user object
-        $scope.user = dothivUserResource.get({"username": security.state.user.username});
+            // get fresh user object
+            $scope.user = dothivUserResource.get({"username": security.state.user.username});
 
-        // send user object back to server
-        $scope.submit = function() {
-            $scope.user.$update(
-                {"username": security.state.user.username},
-                function() { // success
-                    security.updateUserInfo();
-                    $location.path( "/profile" );
-                }, 
-                function() { // error
-                }
-            );
-        };
+            // send user object back to server
+            $scope.submit = function() {
+                $scope.user.$update(
+                    {"username": security.state.user.username},
+                    function() { // success
+                        security.updateUserInfo();
+                        $location.path( "/profile" );
+                    }, 
+                    function() { // error
+                    }
+                );
+            };
         }
-    ]);
+    ])
+    .controller('ProfileDomainClaimController', ['$scope', '$location', 'security', 'dothivDomainResource',
+        function($scope, $location, security, dothivDomainResource) {
+            // retrieve token from query parameters
+            $scope.token = $location.search().token;
+
+            // look up corresponding domain
+            $scope.domain = dothivDomainResource.search(
+                    {"token": $scope.token},
+                    function() { // success
+                    },
+                    function() { // error
+                        // TODO: Show error message
+                    }
+            );
+
+            $scope.claim = function() {
+                dothivDomainResource.claim({"claimingToken": $scope.token, "username": security.state.user.username});
+            };
+        }
+    ])
+    ;

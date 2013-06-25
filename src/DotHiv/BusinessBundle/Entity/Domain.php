@@ -53,6 +53,7 @@ class Domain extends Entity
      * This token will be used by the owner to claim the domain
      *
      * @ORM\Column(type="string",length=255,nullable=true,unique=true)
+     * @Serializer\Expose
      */
     protected $claimingToken;
 
@@ -134,7 +135,7 @@ class Domain extends Entity
     {
         if (empty($token))
             throw new InvalidArgumentException('Given token is empty');
-        if ($token !== $this->token)
+        if ($token !== $this->claimingToken)
             throw new InvalidArgumentException('Given token did not match');
 
         $this->claimingToken = null;

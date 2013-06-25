@@ -27,7 +27,7 @@ class DomainClaimController extends FOSRestController {
      *   output="DotHiv\BusinessBundle\Form\DomainClaimType"
      * )
      */
-    public function postDomainClaimsAction() {
+    public function postDomainsClaimsAction() {
         // create a new claim object and the corresponding form
         $claim = new DomainClaim();
         $form = $this->createForm(new DomainClaimType(), $claim);

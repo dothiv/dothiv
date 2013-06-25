@@ -61,6 +61,11 @@ class PartialController extends Controller
         return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:comments.html.twig');
     }
 
+    public function profileDomainClaimAction()
+    {
+        return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:domain-claim.html.twig');
+    }
+
     public function registrationAction()
     {
         return $this->render('DotHivWebsiteCharityBundle:Partials:registration.html.twig');

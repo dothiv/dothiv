@@ -45,11 +45,16 @@
                     })
                 .state('profile.votes', {
                         url: '/votes',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_votes_domains') }}'
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_votes') }}'
                     })
                 .state('profile.comments', {
                         url: '/comments',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_comments_domains') }}'
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_comments') }}'
+                    })
+                .state('profile.domainclaim', {
+                        url: '/domainclaim',
+                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domainclaim') }}',
+                        controller: 'ProfileDomainClaimController'
                     })
                 .state('about', {
                         abstract: true,

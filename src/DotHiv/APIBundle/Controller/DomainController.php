@@ -2,11 +2,15 @@
 
 namespace DotHiv\APIBundle\Controller;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 use DotHiv\BusinessBundle\Form\DomainType;
 use DotHiv\BusinessBundle\Entity\Domain;
 use DotHiv\BusinessBundle\Entity\User;
 use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class DomainController extends FOSRestController {
@@ -16,7 +20,7 @@ class DomainController extends FOSRestController {
      * @ApiDoc(
      *   section="domain",
      *   resource=true,
-     *   description="Returns a domain.",
+     *   description="Returns a domain",
      *   statusCodes={
      *     200="Returned when successful",
      *   },
@@ -29,6 +33,42 @@ class DomainController extends FOSRestController {
         // retrieve domain from database
         $domain = $this->getDoctrine()->getEntityManager()->getRepository('DotHivBusinessBundle:Domain')->findOneBy(array('id' => $slug));
         return $this->createForm(new DomainType(), $domain);
+    }
+
+    /**
+     * Returns a list of all domains.
+     *
+     * @QueryParam(name="token", nullable=true, description="Claiming token")
+     *
+     * @ApiDoc(
+     *   section="domain",
+     *   resource=true,
+     *   description="Returns a list of all domains",
+     *   filters={{"name"="token", "dataType"="string"}},
+     *   statusCodes={
+     *     200="Returned when successful",
+     *     400="Token unknown"
+     *   }
+     * )
+     */
+    public function getDomainsAction(ParamFetcher $paramFetcher) {
+        // TODO: security concern: who is allowed to GET domain information?
+
+        // get query parameter and entity manager
+        $token = $paramFetcher->get('token');
+        $em = $this->getDoctrine()->getManager();
+
+        if ($token === null) {
+            // retrieve list of domains from database
+            $list = $em->getRepository('DotHivBusinessBundle:Domain')->findAll();
+            return $list;
+        } else {
+            // retrieve requested domain from database
+            $domain = $em->getRepository('DotHivBusinessBundle:Domain')->findOneBy(array('claimingToken' => $token));
+            if ($domain === null)
+                throw new HttpException(Codes::HTTP_BAD_REQUEST, 'Invalid token.'); // TODO: better error handling!
+            return $this->createForm(new DomainType(), $domain);
+        }
     }
 
     /**

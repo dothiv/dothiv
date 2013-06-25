@@ -29,6 +29,15 @@ myModule.factory('dothivLoginResource', function($resource, dothivResourceDefaul
     });
 });
 
+myModule.factory('dothivDomainResource', function($resource, dothivResourceDefaultActions) {
+    return $resource('/app_dev.php/api/domains/:claims/:id', {}, {
+        'get':    {method:'GET', params: {id:'@id'}},
+        'query':  {method:'GET', isArray:true},
+        'search': {method:'GET', params: {token:'@token'}},
+        'claim':  {method:'POST', params: {claims:'claims'}}
+    });
+});
+
 myModule.factory('security', function($http, $templateCache, authService, dothivLoginResource, dothivUserResource) {
     // variable to keep user information and login status
     var _state = {'user': {}};
