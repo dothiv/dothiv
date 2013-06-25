@@ -33,3 +33,10 @@ parameters:
 
     # handler for serialization of forms
     jms_serializer.form_error_handler.class: DotHiv\BusinessBundle\Serializer\FormHandler
+
+    #
+    # PARAMETERS USED IN DEV MODE
+    #
+
+    # use this directive to set the recipient of local mail
+    luser:  your_unix_user_name
