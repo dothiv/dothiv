@@ -53,6 +53,8 @@ angular.module('myApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'm
                                     '<li>{% trans %}header.menu.lang.es{% endtrans %}</li>'+
                                 '</ul>',
             };
+            
+            $scope.showfunding = false;
         }
     ])
     .controller('SecurityLoginDialogController', ['$scope', 'dialog', 'security',
