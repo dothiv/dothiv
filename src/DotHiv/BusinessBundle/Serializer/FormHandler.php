@@ -47,7 +47,7 @@ class FormHandler extends FormErrorHandler {
         if (($isRoot && !$data->isBound()) || $serializeData) {
 
             foreach ($data->all() as $child) {
-                if (count($child->getChildren()) > 0) {
+                if (count($child->all()) > 0) {
                     $form[$child->getName()] = $this->convertFormToArray($visitor, $child, true);
                 } else {
                     $form[$child->getName()] = $child->getData();
