@@ -1,5 +1,6 @@
 imports:
     - { resource: config.yml }
+    - { resource: parameters_dev.yml }
 
 framework:
     router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }
@@ -25,8 +26,8 @@ monolog:
 assetic:
     use_controller: true
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    delivery_address: %luser%@localhost
 
 # NelmioApiDocBundle
 nelmio_api_doc:

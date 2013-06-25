@@ -1,7 +1,6 @@
 <?php
 
 namespace DotHiv\BusinessBundle\Entity;
-
 use InvalidArgumentException;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,7 +14,8 @@ use JMS\Serializer\Annotation as Serializer;
  * 
  * @author Nils Wisiol <mail@nils-wisiol.de>
  */
-class Domain extends Entity {
+class Domain extends Entity
+{
 
     /**
      * FQDN, no trailing dot.
@@ -45,6 +45,7 @@ class Domain extends Entity {
      * Email address of the owner, as provided by registrar
      *
      * @ORM\Column(type="string",nullable=true)
+     * @Assert\NotBlank
      */
     protected $emailAddressFromRegistrar;
 
@@ -60,7 +61,8 @@ class Domain extends Entity {
      *
      * @return string the FQDN
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -69,7 +71,8 @@ class Domain extends Entity {
      *
      * @param string $fqdn
      */
-    public function setName($fqdn) {
+    public function setName($fqdn)
+    {
         $this->name = $fqdn;
     }
 
@@ -78,7 +81,8 @@ class Domain extends Entity {
      * 
      * @return User the owning user
      */
-    public function getOwner() {
+    public function getOwner()
+    {
         return $this->owner;
     }
 
@@ -89,7 +93,8 @@ class Domain extends Entity {
      *
      * @param User $newOwner
      */
-    public function setOwner(User $newOwner = NULL) {
+    public function setOwner(User $newOwner = NULL)
+    {
         // remove this domain from current owner's list, if anybody owns it
         if ($this->owner !== null)
             $this->owner->getDomains()->removeElement($this);
@@ -102,15 +107,18 @@ class Domain extends Entity {
             $newOwner->getDomains()->add($this);
     }
 
-    public function hasOwner() {
+    public function hasOwner()
+    {
         return $this->owner !== null;
     }
 
-    public function getClaimingToken() {
+    public function getClaimingToken()
+    {
         return $this->claimingToken;
     }
 
-    public function setClaimingToken($token) {
+    public function setClaimingToken($token)
+    {
         $this->claimingToken = $token;
     }
 
@@ -122,7 +130,8 @@ class Domain extends Entity {
      * @param string $token
      * @throws InvalidArgumentException
      */
-    public function claim(User $newOwner, $token) {
+    public function claim(User $newOwner, $token)
+    {
         if (empty($token))
             throw new InvalidArgumentException('Given token is empty');
         if ($token !== $this->token)
@@ -131,4 +140,25 @@ class Domain extends Entity {
         $this->claimingToken = null;
         $this->setOwner($newOwner);
     }
+
+    /**
+     * Returns the future user's email address as was provided by registrar.
+     *
+     * @return string future user's email address
+     */
+    public function getEmailAddressFromRegistrar()
+    {
+        return $this->emailAddressFromRegistrar;
+    }
+
+    /**
+     * Sets the email address of the future owner as provided by registrar.
+     *
+     * @param string $address
+     */
+    public function setEmailAddressFromRegistrar($address)
+    {
+        $this->emailAddressFromRegistrar = $address;
+    }
+
 }

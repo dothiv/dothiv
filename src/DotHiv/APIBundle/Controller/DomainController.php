@@ -61,6 +61,15 @@ class DomainController extends FOSRestController {
             $em->persist($domain);
             $em->flush();
 
+            // send email
+            $message = \Swift_Message::newInstance()
+                ->setSubject($this->renderView('DotHivAPIBundle:Emails:DomainMailSubject.txt.twig', array('domain' => $domain)))
+                ->setFrom($this->container->getParameter('domain_email_sender_address'))
+                ->setTo($domain->getEmailAddressFromRegistrar())
+                ->setBody($this->renderView('DotHivAPIBundle:Emails:DomainMailBody.txt.twig', array('domain' => $domain)));
+            $this->get('mailer')->send($message);
+
+            // prepare response
             $response = $this->redirectView($this->generateUrl('get_domain', array('slug' => $domain->getId())), Codes::HTTP_CREATED);
             $response->setData($this->createForm(new DomainType(), $domain));
             return $response;

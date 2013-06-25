@@ -13,6 +13,7 @@ class DomainType extends AbstractType
         $builder
             ->add('name')
             ->add('owner', 'text', array('read_only' => true))
+            ->add('emailAddressFromRegistrar')
             ->add('claimingToken', 'text', array('read_only' => true))
         ;
     }
