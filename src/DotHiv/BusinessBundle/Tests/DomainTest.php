@@ -6,7 +6,9 @@ use DotHiv\BusinessBundle\Entity\User;
 use DotHiv\BusinessBundle\Entity\Domain;
 
 class DomainTest extends \PHPUnit_Framework_TestCase {
-
+    /**
+     * Tests 'Getter', 'Setter' and 'Hasser' of Domain's User attribute.
+     */
     public function testGetAndHasAndSetOwner() {
         // create a new domain
         $domain = new Domain();
@@ -38,6 +40,9 @@ class DomainTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(true, $domain->hasOwner());
     }
 
+    /**
+     * Tests the claim functionality.
+     */
     public function testClaim() {
         // create a new domain and a new user
         $domain = new Domain();
@@ -72,7 +77,10 @@ class DomainTest extends \PHPUnit_Framework_TestCase {
         $domain->claim($evilUser, '');
         $this->assertEquals($owner, $domain->getOwner());
     }
-
+    /**
+     * Tests the wiring between User and Domain class.
+     * See also Tests\UserTest
+     */
     public function testDomainUsersUpdate() {
         // create new domains and new users
         $domain1 = new Domain();

@@ -6,6 +6,10 @@ use DotHiv\BusinessBundle\Entity\User;
 use DotHiv\BusinessBundle\Entity\Domain;
 
 class UserTest extends \PHPUnit_Framework_TestCase {
+    /**
+     * Tests the wiring between Domain and User class.
+     * See also Tests\DomainTest
+     */
     public function testUserDomainsUpdate() {
         // create new domains and new users
         $domain1 = new Domain();
