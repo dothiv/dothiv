@@ -32,6 +32,7 @@ security:
                 username_parameter: username
                 password_parameter: password
                 provider: fos_userbundle
+                require_previous_session: false
             logout:
                 path: /api/login
             anonymous:    true
