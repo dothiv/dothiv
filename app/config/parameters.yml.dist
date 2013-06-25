@@ -1,0 +1,25 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     dothiv
+    database_user:     root
+    database_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            en_US
+    secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
+
+    charitydomain:     dothiv.bp
+    companydomain:     registry.hiv
+
+    #
+    # PARAMETERS USED IN DEV MODE
+    #
+
+    # use this directive to set the recipient of local mail
+    luser:  your_unix_user_name
