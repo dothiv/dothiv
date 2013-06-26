@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new DotHiv\APIBundle\DotHivAPIBundle(),
             new DotHiv\WebsiteCharityBundle\DotHivWebsiteCharityBundle(),
             new DotHiv\WebsiteCompanyBundle\DotHivWebsiteCompanyBundle(),
+            new FOS\FacebookBundle\FOSFacebookBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

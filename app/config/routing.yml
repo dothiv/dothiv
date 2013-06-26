@@ -22,6 +22,15 @@ dot_hiv_security_options:
     defaults: { _controller: DotHivAPIBundle:Security:optionsLogin }
     methods: [ OPTIONS ]
 
+# facebook login routing
+_security_check:
+    pattern:  /login_check
+    defaults: { _controller: DotHivAPIBundle:Security:postLogin }
+
+_security_logout:
+    pattern:  /logout
+    defaults: { _controller: DotHivAPIBundle:Security:deleteLogin }
+
 # API routing
 dot_hiv_api:
     resource: "@DotHivAPIBundle/Resources/config/routing.yml"
