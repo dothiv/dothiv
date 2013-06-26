@@ -31,7 +31,7 @@ class DomainController extends FOSRestController {
         // TODO: security concern: who is allowed to GET domain information?
 
         // retrieve domain from database
-        $domain = $this->getDoctrine()->getEntityManager()->getRepository('DotHivBusinessBundle:Domain')->findOneBy(array('id' => $slug));
+        $domain = $this->getDoctrine()->getManager()->getRepository('DotHivBusinessBundle:Domain')->findOneBy(array('id' => $slug));
         return $this->createForm(new DomainType(), $domain);
     }
 
