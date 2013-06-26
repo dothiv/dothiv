@@ -17,17 +17,17 @@ class Page extends Entity
 {
 
     /**
-     * @ORM(type="string",length=2048)
+     * @ORM\Column(type="string",length=2048)
      */
     protected $url;
 
     /**
-     * @ORM(type="string",length=16)
+     * @ORM\Column(type="string",length=16)
      */
     protected $locale;
 
     /**
-     * @ORM(type="blob")
+     * @ORM\Column(type="blob")
      */
     protected $dom;
 
