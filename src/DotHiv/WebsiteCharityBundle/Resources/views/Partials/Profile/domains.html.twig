@@ -6,6 +6,6 @@
         </div>
     </div>
     <ul class="profile-summary-list profile-summary-domains-list">
-        <li>{% include 'DotHivWebsiteCharityBundle:Partials/Profile:domains-item.html.twig' %}</li>
+        <li ng-repeat="domain in domains">{% include 'DotHivWebsiteCharityBundle:Partials/Profile:domains-item.html.twig' %}</li>
     </ul>
 </div>
