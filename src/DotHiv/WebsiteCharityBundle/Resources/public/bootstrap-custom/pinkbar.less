@@ -69,3 +69,24 @@
     * .span4 { margin-top: 0px; }
             
 }
+
+
+.pink-bar-popover-hide, .pink-bar-popover-show {
+  .transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s);
+}
+
+.pink-bar-popover-show {
+  opacity: 0;
+}
+
+.pink-bar-popover-hide {
+  opacity: 1;
+}
+
+.pink-bar-popover-show.pink-bar-popover-show-active {
+  opacity: 1;
+}
+
+.pink-bar-popover-hide.pink-bar-popover-hide-active {
+  opacity: 0;
+}
