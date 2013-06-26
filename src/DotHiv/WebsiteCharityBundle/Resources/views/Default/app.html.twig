@@ -27,7 +27,8 @@
                 })
             .state('profile.summary', {
                     url: '',
-                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_summary') }}'
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_summary') }}',
+                    controller: 'ProfileSummaryController'
                 })
             .state('profile.edit', {
                     url: '/edit',
@@ -83,6 +84,7 @@
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileDomainClaimController.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileDomainController.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileEditController.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileSummaryController.js') }}"></script>
 
 <script src="{{ asset('bundles/websitecharity/app/js/directives/dhInput.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/directives/repeatPassword.js') }}"></script>

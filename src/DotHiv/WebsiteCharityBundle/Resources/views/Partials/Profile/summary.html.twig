@@ -12,12 +12,12 @@
     <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-domains-heading">
             <a class="pull-right" href="#"><div class="heading-arrow"></div>Neue Domain registrieren</a>
-            <h2 class="pull-left">Registrierte Domains (1)</h2>
+            <h2 class="pull-left">Registrierte Domains ([[ domains.length ]])</h2>
             <a href="#!/profile/domains"><div class="heading-arrow"></div>Alle Domains anzeigen</a>
         </div>
     </div>
     <ul class="profile-summary-list profile-summary-domains-list">
-        <li>{% include 'DotHivWebsiteCharityBundle:Partials/Profile:domains-item.html.twig' %}</li>
+        <li ng-repeat="domain in (domains | limitTo:3)">{% include 'DotHivWebsiteCharityBundle:Partials/Profile:domains-item.html.twig' %}</li>
     </ul>
     <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-votes-heading">
