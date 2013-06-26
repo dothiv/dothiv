@@ -1,3 +1,5 @@
 security:
     login:
-        failure: Benutzername oder Kennwort falsch.
+        failure:
+            credentials: Benutzername oder Kennwort falsch.
+            session: Ihre Sitzung ist abgelaufen, oder Ihr Browser erlaubt keine Cookies.
