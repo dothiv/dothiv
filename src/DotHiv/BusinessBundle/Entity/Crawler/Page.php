@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * This is the interface for the crawler.
  * 
  * @author Nils Wisiol <mail@nils-wisiol.de>
+ * 
+ * @ORM\Entity
  */
 class Page extends Entity
 {
