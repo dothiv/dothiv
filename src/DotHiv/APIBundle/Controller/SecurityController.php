@@ -31,7 +31,7 @@ class SecurityController extends Controller {
     public function getLoginAction() {
         $user = $this->getUser();
         if ($user) {
-            return $user;
+            return $user; // TODO use the form to serialize the user object
         } else {
             return new Response("{}"); // TODO This is json-only. Respect the client's Accept-header.
         }

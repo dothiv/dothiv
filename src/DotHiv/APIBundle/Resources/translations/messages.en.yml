@@ -1,3 +1,5 @@
 security:
     login:
-        failure: Incorrect username or password.
+        failure:
+            credentials: Incorrect username or password.
+            session: Your session has expired, or your browser does not allow cookies.

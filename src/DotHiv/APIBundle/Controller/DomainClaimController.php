@@ -3,6 +3,7 @@
 namespace DotHiv\APIBundle\Controller;
 
 use FOS\RestBundle\View\View;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use DotHiv\BusinessBundle\Entity\DomainClaim;
@@ -26,6 +27,8 @@ class DomainClaimController extends FOSRestController {
      *   },
      *   output="DotHiv\BusinessBundle\Form\DomainClaimType"
      * )
+     *
+     * @Secure(roles="ROLE_USER")
      */
     public function postDomainsClaimsAction() {
         // create a new claim object and the corresponding form

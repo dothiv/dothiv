@@ -35,7 +35,18 @@ class RestAuthenticationFailureHandler extends DefaultAuthenticationFailureHandl
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {
-        $msg = 'security.login.failure';
+        $msg = ''; $status = 500;
+        if ($exception instanceof \Symfony\Component\Security\Core\Exception\SessionUnavailableException) {
+            $msg = 'security.login.failure.session';
+            $status = 400;
+        } elseif ($exception instanceof \Symfony\Component\Security\Core\Exception\BadCredentialsException) {
+            $msg = 'security.login.failure.credentials';
+            $status = 400;
+        } else {
+            $msg = 'security.login.failure.servererror';
+            $status = 500;
+        }
+
         if ($this->translator != null) {
             $msg = $this->translator->trans($msg);
         }
