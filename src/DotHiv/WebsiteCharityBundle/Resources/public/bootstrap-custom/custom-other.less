@@ -7,6 +7,8 @@
 @hivpurple:         #9B3388;
 @hivorange:         #F78E21;
 
+@btnHover:          #252525;     
+
 @linkColor:         @colordark;
 
 @accountLineHeight:    2em;
@@ -34,53 +36,7 @@ hr {
 // --------------------------------------
 h1, h2, h3 { line-height: 1.4em; }
 
-// Handling the custom pink full-width-donation-bar
-// -----------------------------------
-.pink-bar {
-    float: left;
-    margin: 0 0 0 0;
-    height: 60px;
-    overflow: hidden;
-}
 
-.pink-bar p {
-    line-height: 60px;
-    margin: 0;
-}
-
-.pink-bar.leftside { background-color: @darkpink; }
-
-.pink-bar.rightside {
-    background-color: @lightpink;
-    width: 100%;
-}
-
-.pink-bar-image {
-    margin-left: 22px;
-    margin-right: 20px;
-    position: relative;
-    top: -2px;
-}
-
-.pink-bar-image.right {
-    margin-left: 20px;
-    margin-right: 22px;
-    position: relative;
-    top: -2px;
-}
-
-.pink-bar-text {
-    color: white;
-    font-size: 18px;
-}
-
-.pink-bar-text.right { color: black; }
-.pink-bar-text.right + .bold { margin-left: 5px; }
-
-.pink-bar-text + .bold { 
-    font-weight: bold;
-    font-size: 20px;
-}
 
 // change the top-margin of serveral span-classes
 // --------------------------------
@@ -112,7 +68,20 @@ h3 {
     margin: 0; 
 }
 
-.pink-bar button {
-    background-color: transparent;
-    border: none;
+// custom arrow-head icons for buttons and ticks
+
+i {
+    &[class^="icon-"],
+    &[class*=" icon-"] {
+        width: 20px;
+        height: 20px;
+        background-image: url('/bundles/websitecharity/images/tick-sprite.png');
+    }  
+    
+    &.icon-white { background-image: url('/bundles/websitecharity/images/tick-sprite-white.png'); }
+      
+    &.icon-tick-right { background-position: -60px 0px; }
+    &.icon-tick-left { background-position: -40px 0px; }
+    &.icon-tick-upper { background-position: -20px 0px; }
+    &.icon-tick-lower { background-position: 0px 0px; }
 }
