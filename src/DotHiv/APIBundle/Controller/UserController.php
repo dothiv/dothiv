@@ -11,6 +11,7 @@ use DotHiv\BusinessBundle\Entity\Project;
 use FOS\Rest\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class UserController extends FOSRestController {
 
@@ -27,6 +28,8 @@ class UserController extends FOSRestController {
      *   },
      *   output="DotHiv\BusinessBundle\Entity\User"
      * )
+     *
+     * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      */
     public function postUsersAction() {
         $user = new User();
@@ -67,11 +70,13 @@ class UserController extends FOSRestController {
      *   },
      *   output="DotHiv\BusinessBundle\Entity\User"
      * )
+     *
+     * @Secure(roles="ROLE_USER")
      */
     public function getUserAction($slug) {
         $context = $this->get('security.context');
         if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $slug) {
-            $user = $this->getDoctrine()->getEntityManager()->getRepository('DotHivBusinessBundle:User')->findOneBy(array('username' => $slug));
+            $user = $this->getDoctrine()->getManager()->getRepository('DotHivBusinessBundle:User')->findOneBy(array('username' => $slug));
             return $this->createForm(new UserEditType(), $user);
         }
         throw new HttpException(403);
@@ -90,12 +95,14 @@ class UserController extends FOSRestController {
      *   },
      *   output="DotHiv\BusinessBundle\Entity\User"
      * )
+     *
+     * @Secure(roles="ROLE_USER")
      */
     public function putUserAction($slug) {
         $context = $this->get('security.context');
         if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $slug) {
             // fetch user from database
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('DotHivBusinessBundle:User')->findOneBy(array('username' => $slug));
 
             // apply form
