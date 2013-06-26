@@ -5,7 +5,7 @@
 describe('Security service', function() {
     var security, httpBackend, templateCache;
 
-    beforeEach(module('myApp.services'));
+    beforeEach(module('dotHIVApp.services'));
     beforeEach(module('ui.state'));
     beforeEach(function () {
         inject(function($injector) {

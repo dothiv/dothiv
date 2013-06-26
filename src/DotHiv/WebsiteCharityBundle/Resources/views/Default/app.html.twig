@@ -1,93 +1,86 @@
 <!-- In production use:
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
 -->
-<script src="{{ asset('bundles/websitecharity/app/lib/angular/angular.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/app/lib/angular/angular-resource.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/app/lib/http-auth-interceptor.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/app/lib/ui-bootstrap-tpls-0.4.0-SNAPSHOT.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/app/lib/angular-ui-router.min.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/app/lib/angular/i18n/angular-locale_de.js') }}"></script>
-<script type="text/javascript">
-    // This script is generally refered to as 'app.js'
-    'use strict';
+<script src="{{ asset('bundles/websitecharity/app/js/vendor/angular/angular.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/vendor/angular/angular-resource.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/vendor/http-auth-interceptor.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/vendor/ui-bootstrap-tpls-0.4.0-SNAPSHOT.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/vendor/angular-ui-router.min.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/vendor/angular/i18n/angular-locale_de.js') }}"></script>
 
-    // Declare app level module which depends on filters, and services
-    angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ui.state']).
-        config(['$stateProvider', function($stateProvider) {
-            $stateProvider
-                .state('home', {
-                        url: '/',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_home') }}',
-                        controller: 'HomeController'
-                    })
-                .state('profile', {
-                        abstract: true,
-                        url: '/profile',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile') }}',
-                        controller: 'ProfileController'
-                    })
-                .state('profile.summary', {
-                        url: '',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_summary') }}'
-                    })
-                .state('profile.edit', {
-                        url: '/edit',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_edit') }}',
-                        controller: 'ProfileEditController'
-                    })
-                .state('profile.projects', {
-                        url: '/projects',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_projects') }}'
-                    })
-                .state('profile.domains', {
-                        url: '/domains',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domains') }}'
-                    })
-                .state('profile.votes', {
-                        url: '/votes',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_votes') }}'
-                    })
-                .state('profile.comments', {
-                        url: '/comments',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_comments') }}'
-                    })
-                .state('profile.domainclaim', {
-                        url: '/domainclaim',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domainclaim') }}',
-                        controller: 'ProfileDomainClaimController'
-                    })
-                .state('about', {
-                        abstract: true,
-                        url: '/about',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_about') }}',
-                        //controller: 'AboutController'
-                    })
-                .state('about.idea', {
-                        url: '',
-                        templateUrl: '{{ path('dot_hiv_website_charity_partial_about_idea') }}'
-                    })
-            }])
-        .config(['$urlRouterProvider', function($urlRouter) {
-            $urlRouter.otherwise('/');
-            }])
-        .config(['$locationProvider', function($locationProvider) {
-            $locationProvider.hashPrefix('!');
-            }])
-        .config(['$interpolateProvider', function($interpolateProvider) {
-            $interpolateProvider.startSymbol('[[');
-            $interpolateProvider.endSymbol(']]');
-            }])
-        .config(['$anchorScrollProvider', function($anchorScrollProvider) {
-            $anchorScrollProvider.disableAutoScrolling();
-            }])
-        .value('$anchorScroll', angular.noop) // TODO: working, but best practice? 
-        .run(['security', function(security) {
-            // Get the current user when the application starts 
-            // (in case they are still logged in from a previous session) 
-            security.updateUserInfo();
-          }]);
+<script src="{{ asset('bundles/websitecharity/app/js/app.js') }}"></script>
+
+<script type="text/javascript">
+    // Configute routing and states
+    angular.module('dotHIVApp').config(['$stateProvider', function($stateProvider) {
+        $stateProvider
+            .state('home', {
+                    url: '/',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_home') }}',
+                    controller: 'HomeController'
+                })
+            .state('profile', {
+                    abstract: true,
+                    url: '/profile',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile') }}',
+                    controller: 'ProfileController'
+                })
+            .state('profile.summary', {
+                    url: '',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_summary') }}'
+                })
+            .state('profile.edit', {
+                    url: '/edit',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_edit') }}',
+                    controller: 'ProfileEditController'
+                })
+            .state('profile.projects', {
+                    url: '/projects',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_projects') }}'
+                })
+            .state('profile.domains', {
+                    url: '/domains',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domains') }}'
+                })
+            .state('profile.votes', {
+                    url: '/votes',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_votes') }}'
+                })
+            .state('profile.comments', {
+                    url: '/comments',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_comments') }}'
+                })
+            .state('profile.domainclaim', {
+                    url: '/domainclaim',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domainclaim') }}',
+                    controller: 'ProfileDomainClaimController'
+                })
+            .state('about', {
+                    abstract: true,
+                    url: '/about',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_about') }}',
+                    //controller: 'AboutController'
+                })
+            .state('about.idea', {
+                    url: '',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_about_idea') }}'
+                })
+        }]);
 </script>
-<script src="{{ asset('bundles/websitecharity/app/js/services.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/app/js/controllers.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/app/js/filters.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/app/js/directives.js') }}"></script>
+
+<script src="{{ asset('bundles/websitecharity/app/js/services/security.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/services/securityDialog.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/services/resourceDefaultActions.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/services/models/domain.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/services/models/login.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/services/models/user.js') }}"></script>
+
+<script src="{{ asset('bundles/websitecharity/app/js/controllers/HeaderController.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/controllers/HomeController.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/controllers/LoginDialogController.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileController.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileDomainClaimController.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileEditController.js') }}"></script>
+
+<script src="{{ asset('bundles/websitecharity/app/js/directives/dhInput.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/directives/repeatPassword.js') }}"></script>
