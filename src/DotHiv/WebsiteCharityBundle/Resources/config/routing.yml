@@ -42,6 +42,10 @@ dot_hiv_website_charity_partial_profile_domains:
     pattern:  /partial/profile/domains
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileDomains }
 
+dot_hiv_website_charity_partial_profile_domain_edit:
+    pattern:  /partial/profile/domain/edit
+    defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileDomainEdit }
+
 dot_hiv_website_charity_partial_profile_votes:
     pattern:  /partial/profile/votes
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileVotes }
@@ -50,6 +54,6 @@ dot_hiv_website_charity_partial_profile_comments:
     pattern:  /partial/profile/comments
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileComments }
 
-dot_hiv_website_charity_partial_profile_domainclaim:
-    pattern:  /partial/profile/domainclaim
+dot_hiv_website_charity_partial_profile_domain_claim:
+    pattern:  /partial/profile/domain/claim
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileDomainClaim }
