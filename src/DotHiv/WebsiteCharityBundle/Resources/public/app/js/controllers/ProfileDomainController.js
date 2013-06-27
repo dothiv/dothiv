@@ -6,5 +6,8 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainController', ['
         $scope.domains = dothivUserResource.getDomains(
             {"username": security.state.user.username}
         );
+
+        // set initial page length to 5 entries
+        $scope.pageLength = 5;
     }
 ]);

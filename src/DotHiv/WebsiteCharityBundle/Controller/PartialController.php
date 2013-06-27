@@ -51,6 +51,16 @@ class PartialController extends Controller
         return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:domains.html.twig');
     }
 
+    public function profileDomainEditAction()
+    {
+        return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:domain-edit.html.twig');
+    }
+
+    public function profileDomainClaimAction()
+    {
+        return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:domain-claim.html.twig');
+    }
+
     public function profileVotesAction()
     {
         return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:votes.html.twig');
@@ -59,11 +69,6 @@ class PartialController extends Controller
     public function profileCommentsAction()
     {
         return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:comments.html.twig');
-    }
-
-    public function profileDomainClaimAction()
-    {
-        return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:domain-claim.html.twig');
     }
 
     public function registrationAction()

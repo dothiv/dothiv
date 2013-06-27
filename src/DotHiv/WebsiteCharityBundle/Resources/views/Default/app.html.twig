@@ -64,6 +64,10 @@
                     templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domains') }}',
                     controller: 'ProfileDomainController'
                 })
+            .state('=.profile.domainedit', {
+                    url: '/domain/edit/:domainName',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domain_edit') }}'
+                })
             .state('=.profile.votes', {
                     url: '/votes',
                     templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_votes') }}'
@@ -73,8 +77,8 @@
                     templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_comments') }}'
                 })
             .state('=.profile.domainclaim', {
-                    url: '/domainclaim',
-                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domainclaim') }}',
+                    url: '/domain/claim',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domain_claim') }}',
                     controller: 'ProfileDomainClaimController'
                 })
         }]);

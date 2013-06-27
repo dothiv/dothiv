@@ -20,6 +20,21 @@
     }
 }
 
+.profile button.next-page {
+    background-color: #C1C1C1;
+    height: 45px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+    &:hover {
+        background-color: #D1D1D1;
+    }
+    &:active {
+        background-color: #B1B1B1;
+    }
+}
+
 // profile header
 // -------------------------
 .profile-header {
@@ -190,5 +205,26 @@
     & .item-icon {
         width: 30px;
         background: url('/bundles/websitecharity/images/bubble.png') no-repeat center;
+    }
+}
+
+.profile-list-search {
+    margin: 10px 0;
+    & input {
+        vertical-align: middle;
+        font-size: 14.5px;
+        padding: 4px 6px;
+        line-height: 20px;
+        border: 2px solid #F8F8F8;
+        .placeholder(#999999);
+        color: #333333;
+    }
+    & input:focus {
+        border: 2px solid #E7E7E7;
+        .box-shadow(none);
+        outline: none;
+    }
+    & input:hover {
+        border: 2px solid #E7E7E7;
     }
 }
