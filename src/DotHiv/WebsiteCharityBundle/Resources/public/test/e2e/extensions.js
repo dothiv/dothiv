@@ -3,7 +3,8 @@
  */
 angular.scenario.dsl('dhInput', function() {
     var chain = {};
-    var supportInputEvent = true; // 'oninput' in document.createElement('div') && msie != 9;
+    var msie = parseInt((/msie (\d+)/.exec(navigator.userAgent.toLowerCase()) || [])[1], 10);
+    var supportInputEvent = msie != 9;
 
     chain.enter = function(value, event) {
       return this.addFutureAction("dhInput '" + this.name + "' enter '" + value + "'", function($window, $document, done) {
@@ -19,3 +20,4 @@ angular.scenario.dsl('dhInput', function() {
         return chain;
       };
 });
+

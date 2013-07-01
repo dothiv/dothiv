@@ -15,6 +15,9 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
     .config(['$anchorScrollProvider', function($anchorScrollProvider) {
         $anchorScrollProvider.disableAutoScrolling();
     }])
+    .config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.headers.common.Accept = "application/json";
+    }])
     .value('$anchorScroll', angular.noop) // TODO: working, but best practice?
     .run(['$rootScope', 'security', 'securityDialog', function($rootScope, security, securityDialog) {
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {

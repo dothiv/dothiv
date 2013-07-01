@@ -86,8 +86,8 @@ fos_rest:
         view_response_listener: 'force'
     format_listener:
         default_priorities:
-            - json
             - html
+            - json
             - xml
             - rss
             - "*/*"
