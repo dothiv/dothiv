@@ -3,7 +3,7 @@
 /* jasmine specs for services go here */
 
 describe('Security service', function() {
-    var security, httpBackend, templateCache;
+    var security, httpBackend, templateCache, rootScope;
 
     beforeEach(module('dotHIVApp.services'));
     beforeEach(module('ui.state'));
@@ -16,6 +16,9 @@ describe('Security service', function() {
         });
         inject(function($templateCache) {
             templateCache = $templateCache;
+        });
+        inject(function($rootScope) {
+            rootScope = $rootScope;
         });
     });
 
@@ -31,6 +34,7 @@ describe('Security service', function() {
         it('should still be false after calling updateUserInfo() without logging in', function() {
             httpBackend.expectGET(/^.*\/api\/login$/).respond(400);
             security.updateUserInfo();
+            rootScope.$digest();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(false);
         });
@@ -45,6 +49,7 @@ describe('Security service', function() {
                     "roles": ["ROLE_USER"]\
                 }');
             security.updateUserInfo();
+            rootScope.$digest();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(true);
         });
@@ -52,6 +57,7 @@ describe('Security service', function() {
         it('should be false after successfully logging out', function() {
             httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
             security.logout();
+            rootScope.$digest();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(false);
         });
@@ -67,11 +73,13 @@ describe('Security service', function() {
                     "roles": ["ROLE_USER"]\
                 }');
             security.updateUserInfo();
+            rootScope.$digest();
             httpBackend.flush();
 
             // logging out unsuccessfully
             httpBackend.expectDELETE(/^.*\/api\/login$/).respond(400);
             security.logout(); 
+            rootScope.$digest();
             httpBackend.flush();
 
             expect(security.isAuthenticated()).toEqual(true);
@@ -90,6 +98,7 @@ describe('Security service', function() {
                     "roles": ["ROLE_USER"]\
                 }');
             security.login('testuser', 'testpassword');
+            rootScope.$digest();
             httpBackend.flush();
         });
 
@@ -104,6 +113,7 @@ describe('Security service', function() {
                     "roles": ["ROLE_USER"]\
                 }');
             security.login('testuser', 'testpassword');
+            rootScope.$digest();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(true);
         });
@@ -112,6 +122,7 @@ describe('Security service', function() {
             expect(security.isAuthenticated()).toEqual(false);
             httpBackend.expectPOST(/^.*\/api\/login$/).respond(400);
             security.login('testuser', 'testpassword');
+            rootScope.$digest();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(false);
         });
@@ -130,6 +141,7 @@ describe('Security service', function() {
             security.login('testuser', 'testpassword', function(status) {
                 cbstatus = status;
             });
+            rootScope.$digest();
             httpBackend.flush();
             expect(cbstatus).toEqual(true);
         });
@@ -143,6 +155,7 @@ describe('Security service', function() {
                 cbstatus = status;
                 cbdata = data;
             });
+            rootScope.$digest();
             httpBackend.flush();
             expect(cbstatus).toEqual(false);
             expect(cbdata.data).toEqual('test message');
@@ -161,10 +174,12 @@ describe('Security service', function() {
                     "roles": ["ROLE_USER"]\
                 }');
             security.updateUserInfo();
+            rootScope.$digest();
             httpBackend.flush();
 
             httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
             security.logout();
+            rootScope.$digest();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(false);
         });
@@ -180,6 +195,7 @@ describe('Security service', function() {
                     "roles": ["ROLE_USER"]\
                 }');
             security.updateUserInfo();
+            rootScope.$digest();
             httpBackend.flush();
 
             // define a 'spy' callback function
@@ -187,6 +203,7 @@ describe('Security service', function() {
 
             httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
             security.logout(spyCallback);
+            rootScope.$digest();
             httpBackend.flush();
             expect(spyCallback).toHaveBeenCalled();
             expect(spyCallback.calls.length).toEqual(1);
@@ -203,10 +220,12 @@ describe('Security service', function() {
                     "roles": ["ROLE_USER"]\
                 }');
             security.updateUserInfo();
+            rootScope.$digest();
             httpBackend.flush();
 
             httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
             security.logout();
+            rootScope.$digest();
             httpBackend.flush();
             expect(templateCache.info().size).toEqual(0);
         });
@@ -222,10 +241,12 @@ describe('Security service', function() {
                     "roles": ["ROLE_USER"]\
                 }');
             security.updateUserInfo();
+            rootScope.$digest();
             httpBackend.flush();
 
             httpBackend.expectDELETE(/^.*\/api\/login$/).respond(400);
             security.logout();
+            rootScope.$digest();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(true);
         });
@@ -248,6 +269,7 @@ describe('Security service', function() {
                     "roles": ["ROLE_USER"]\
                 }');
             security.updateUserInfo();
+            rootScope.$digest();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(true);
 
@@ -268,11 +290,13 @@ describe('Security service', function() {
                     "roles": ["ROLE_USER"]\
                 }');
             security.updateUserInfo();
+            rootScope.$digest();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(true);
 
             httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
             security.logout();
+            rootScope.$digest();
             httpBackend.flush();
 
             expect('username' in security.state.user).toEqual(false);
@@ -284,6 +308,7 @@ describe('Security service', function() {
             // check request for correct data and header
             httpBackend.expectPOST(/^.*\/api\/users$/, '{"email":"test@email.hiv","plainPassword":"testpassword","name":"testname","surname":"testsurname"}').respond(400);
             security.register('testname', 'testsurname', 'test@email.hiv', 'testpassword');
+            rootScope.$digest();
             httpBackend.flush();
         });
 
@@ -303,6 +328,7 @@ describe('Security service', function() {
             var spyCallback = jasmine.createSpy('callback');
 
             security.register('testname', 'testsurname', 'test@email.hiv', 'testpassword', spyCallback);
+            rootScope.$digest();
             httpBackend.flush();
 
             expect(spyCallback).toHaveBeenCalledWith(true);
@@ -315,6 +341,7 @@ describe('Security service', function() {
             var spyCallback = jasmine.createSpy('callback');
 
             security.register('testname', 'testsurname', 'test@email.hiv', 'testpassword', spyCallback);
+            rootScope.$digest();
             httpBackend.flush();
 
             expect(spyCallback).toHaveBeenCalledWith(false, jasmine.any(Object));
