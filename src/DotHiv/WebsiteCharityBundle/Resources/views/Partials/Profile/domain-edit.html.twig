@@ -6,6 +6,79 @@
     </div>
     <div class="row">
         <div class="span12">
+            <form novalidate class="simple-form">
+                <tabset>
+                    <tab active="tab1.active">
+                        <tab-heading>Schritt 1</tab-heading>
+                        <div class="tab-content-container">
+                            <h3>Domain [[ domainName ]]<br>Standard-Banner-Konfiguration</h3>
+                            <dh-input
+                                type="radio"
+
+                                dh-name="forward-radio"
+                                ng-model=""
+
+                                dh-label="Weiterleitung einrichten"
+
+                                dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
+                                dh-tooltip-trigger="focus"
+                                dh-tooltip-placement="top"
+                                dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
+                            ></dh-input>
+                            <dh-input
+                                type="radio"
+
+                                dh-name="forward-radio"
+                                ng-model=""
+
+                                dh-label="keine Weiterleitung"
+
+                                dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
+                                dh-tooltip-trigger="focus"
+                                dh-tooltip-placement="top"
+                                dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
+                            ></dh-input>
+                            <dh-input
+                                class="span6"
+                                type="text"
+
+                                dh-name="target-name"
+                                dh-placeholder="{% trans %}registration.form.name.placeholder{% endtrans %}"
+                                ng-model=""
+
+                                dh-required
+
+                                dh-label="Zieldomain eingeben"
+
+                                dh-tooltip="{% trans %}registration.form.name.tooltip.default{% endtrans %}"
+                                dh-tooltip-trigger="focus"
+                                dh-tooltip-placement="right"
+                                dh-tooltip-invalid="{% trans %}registration.form.name.tooltip.invalid{% endtrans %}"
+                            ></dh-input>
+                            <div>
+                                <button><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
+                                <button>&nbsp;Vorschau ansehen</button>
+                                <button class="pull-right next" ng-click="tab2.active = true"><i class="icon-tick-right icon-white pull-right"></i>&nbsp;Weiter</button>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab active="tab2.active">
+                        <tab-heading>Schritt 2</tab-heading>
+                        <div class="tab-content-container">
+                            Content 2
+                            <div>
+                                <button ng-click="tab1.active = true"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
+                                <button>&nbsp;Vorschau ansehen</button>
+                                <button class="pull-right next" ng-click="tab3.active = true"><i class="icon-tick-right icon-white pull-right"></i>&nbsp;Weiter</button>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab>
+                        <tab-heading>Finalisieren</tab-heading>
+                        <div class="tab-content-container">Content 3</div>
+                    </tab>
+                </tabset>
+            </form>
         </div>
     </div>
 </div>
