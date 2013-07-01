@@ -110,28 +110,64 @@
     }
 }
 
+
+// tab container content
+// -------------------------
 .profile .tab-content {
     background-color: #E9E9E9;
 }
 
 .tab-content-container {
     padding: 45px 20px;
-}
-
-.tab-content-container button {
-    height: 50px;
-    background-color: #C1C1C1;
-    padding: 14px 20px;
-    border: 0;
-    color: #252525;
     font-style: italic;
-    font-weight: bold;
-    display: inline-block;
-    margin-right: 20px;
+
+    & h3 {
+        font-style: normal;
+        margin-bottom: 50px;
+    }
+
+    & div.tab-bottom-buttons {
+        margin-top: 30px;
+    }
+
+    & button {
+        height: 50px;
+        background-color: #C1C1C1;
+        padding: 14px 20px;
+        border: 0;
+        color: #252525;
+        font-style: italic;
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    & button.next {
+        background-color: #1785BE;
+        color: white;
+        margin-right: 0;
+    }
 }
 
-.tab-content-container button.next {
-    background-color: #1785BE;
-    color: white;
-    margin-right: 0;
+// horizontal radio button groups
+// -------------------------
+.tab-content-container .horizontal-radio-group > div {
+    display: inline-block;
+    margin: 0 20px 20px 0;
+}
+
+// inputs
+// -------------------------
+.tab-content-container input[type="text"] {
+    margin-bottom: 15px;
+}
+
+.tab-content-container select {
+    height: 35px;
+    box-sizing: content-box;
+    padding-right: 0;
+    padding-left: 3px;
+    padding-top: 7px;
+    border: 0px solid;
+    outline: none;
 }
