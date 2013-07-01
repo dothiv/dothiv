@@ -58,7 +58,7 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
 
             // require attribute
             if (tElement.attr("dh-required") != undefined) {
-                input.prop("required", true);
+                input.attr("required", "required");
             }
 
             // autofocus attribute

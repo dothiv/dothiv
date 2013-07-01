@@ -8,6 +8,7 @@ describe('dotHIVApp', function() {
 
     beforeEach(function() {
         browser().navigateTo('/app_dev.php/');
+        sleep(1);
     });
 
     var email;
@@ -32,11 +33,13 @@ describe('dotHIVApp', function() {
 
     it('should show the login dialog exactly once when navigating to a protected page', function() {
         browser().navigateTo('#!/profile');
+        sleep(1);
         expect(element('form[name="loginForm"]:visible').count()).toBe(1);
     });
 
     it('should navigate back to the homepage when starting the app on a protected page and aborting the login', function() {
         browser().navigateTo('/app_dev.php/#!/profile');
+        sleep(1);
         element('.modal-backdrop').click();
         sleep(1);
         expect(element('form[name="loginForm"]:visible').count()).toBe(0);
@@ -45,6 +48,7 @@ describe('dotHIVApp', function() {
 
     it('should navigate back to the homepage when navigating on a protected page and aborting the login', function() {
         browser().navigateTo('#!/profile');
+        sleep(1);
         element('.modal-backdrop').click();
         sleep(1);
         expect(element('form[name="loginForm"]:visible').count()).toBe(0);
