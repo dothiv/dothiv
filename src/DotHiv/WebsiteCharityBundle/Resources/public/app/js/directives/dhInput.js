@@ -10,6 +10,7 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
                 ngModel: '=',
                 Required: '@dhRequired',
                 Autofocus: '@dhAutofocus',
+                value: '@dhValue',
 
                 // label
                 label: '@dhLabel',
@@ -27,6 +28,7 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
                         // core input attributes
                         'name="[[ name ]]"' +
                         'placeholder="[[ placeholder ]]"' +
+                        'value="[[ value ]]"' +
                         'ng-model="$parent.ngModel"' +
 
                         // tooltip
@@ -76,6 +78,9 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
                 label.replaceWith(input);
                 input.parent().append(label);
             }
+
+            // add css class to div
+            tElement.addClass('dhInput');
         }
     };
 });
