@@ -131,10 +131,10 @@
                         ></dh-input>
 
                     <label for="registration-password">{% trans %}registration.form.password.label{% endtrans %}</label>
-                    <input type="password" class="span12" name="password" id="registration-password" ng-model="registrationData.password" placeholder="{% trans %}registration.form.password.placeholder{% endtrans %}" required /><br />
+                    <input type="password" class="span12" name="registration-password" id="registration-password" ng-model="registrationData.password" placeholder="{% trans %}registration.form.password.placeholder{% endtrans %}" required /><br />
 
                     <label for="registration-passwordrepeat">{% trans %}registration.form.passwordrepeat.label{% endtrans %}</label>
-                    <input type="password" class="span12" name="passwordrepeat" id="registration-passwordrepeat" placeholder="{% trans %}registration.form.password.placeholderrepeat{% endtrans %}" ng-model="registrationData.passwordRepeat" repeat-password="password" required>
+                    <input type="password" class="span12" name="registration-passwordrepeat" id="registration-passwordrepeat" placeholder="{% trans %}registration.form.password.placeholderrepeat{% endtrans %}" ng-model="registrationData.passwordRepeat" repeat-password="registration-password" required>
 
                     <label class="checkbox">
                         <input type="checkbox"> {% trans %}registration.form.agreement{% endtrans %}

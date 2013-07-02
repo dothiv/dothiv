@@ -13,31 +13,31 @@ describe('dotHIVApp', function() {
 
     var email;
 
-    xit('should show no login dialog at startup', function() {
+    it('should show no login dialog at startup', function() {
         expect(element('form[name="loginForm"]:visible').count()).toBe(0);
     });
 
-    xit('should show a login button after logging out', function() {
+    it('should show a login button after logging out', function() {
         element('a[ng-click="logout()"]').click();
         expect(element('a[ng-click="login()"]:visible').count()).toBeGreaterThan(0);
     });
 
-    xit('should not show a logout button', function() {
+    it('should not show a logout button', function() {
         expect(element('a[ng-click="logout()"]:visible').count()).toBe(0);
     });
 
-    xit('should show a login dialog exactly once after clicking on login', function() {
+    it('should show a login dialog exactly once after clicking on login', function() {
         element('a[ng-click="login()"]').click();
         expect(element('form[name="loginForm"]:visible').count()).toBe(1);
     });
 
-    xit('should show the login dialog exactly once when navigating to a protected page', function() {
+    it('should show the login dialog exactly once when navigating to a protected page', function() {
         browser().navigateTo('#!/profile');
         sleep(1);
         expect(element('form[name="loginForm"]:visible').count()).toBe(1);
     });
 
-    xit('should navigate back to the homepage when starting the app on a protected page and aborting the login', function() {
+    it('should navigate back to the homepage when starting the app on a protected page and aborting the login', function() {
         browser().navigateTo('/app_dev.php/#!/profile');
         sleep(1);
         element('.modal-backdrop').click();
@@ -46,7 +46,7 @@ describe('dotHIVApp', function() {
         expect(browser().location().url()).toBe('/');
     });
 
-    xit('should navigate back to the homepage when navigating on a protected page and aborting the login', function() {
+    it('should navigate back to the homepage when navigating on a protected page and aborting the login', function() {
         browser().navigateTo('#!/profile');
         sleep(1);
         element('.modal-backdrop').click();
@@ -55,13 +55,13 @@ describe('dotHIVApp', function() {
         expect(browser().location().url()).toBe('/');
     });
 
-    xit('should log in after successful registration', function() {
+    it('should log in after successful registration', function() {
         element('a[ng-click="login()"]').click();
-        dhInput('#registration-name').enter('Foo');
-        dhInput('#registration-surname').enter('Bar');
-        dhInput('#registration-email').enter(email = ('e2etest-' + Math.random().toString(36).substring(7) + '@stop.hiv'));
-        dhInput('#registration-password').enter('test123');
-        dhInput('#registration-passwordrepeat').enter('test123');
+        dhInput('input[name="registration-name"]').enter('Foo');
+        dhInput('input[name="registration-surname"]').enter('Bar');
+        dhInput('input[name="registration-email"]').enter(email = ('e2etest-' + Math.random().toString(36).substring(7) + '@stop.hiv'));
+        dhInput('input[name="registration-password"]').enter('test123');
+        dhInput('input[name="registration-passwordrepeat"]').enter('test123');
         element('form[name="registrationForm"] button[type="submit"]').click();
         sleep(1);
         expect(element('a[ng-click="logout()"]:visible').count()).toBeGreaterThan(0);
@@ -69,10 +69,10 @@ describe('dotHIVApp', function() {
 
     it('should not show a login dialog when navigating to a protected page while logged in', function() {
         // navigate with ajax
-//        browser().navigateTo('#!/profile');
-//        sleep(1);
-//        expect(browser().location().url()).toBe('/profile');
-//        expect(element('form[name="loginForm"]:visible').count()).toBe(0);
+       browser().navigateTo('#!/profile');
+       sleep(1);
+       expect(browser().location().url()).toBe('/profile');
+       expect(element('form[name="loginForm"]:visible').count()).toBe(0);
 
         // navigate directly
         browser().navigateTo('/app_dev.php/#!/profile');
@@ -81,17 +81,17 @@ describe('dotHIVApp', function() {
         expect(element('form[name="loginForm"]:visible').count()).toBe(0);
     });
 
-    xit('shoud redirect to home when logging out on protected page', function() {
+    it('shoud redirect to home when logging out on protected page', function() {
         element('a[ng-click="logout()"]').click();
         sleep(1);
         expect(browser().location().url()).toBe('/');
     });
 
-    xit('should log in when correctly using the log in form', function() {
+    it('should log in when correctly using the log in form', function() {
         element('a[ng-click="login()"]').click();
         sleep(1);
-        dhInput('#login-username').enter(email);
-        dhInput('#login-password').enter('test123');
+        dhInput('input[name="login-username"]').enter(email);
+        dhInput('input[name="login-password"]').enter('test123');
         element('form[name="loginForm"] button[type="submit"]').click();
         sleep(1);
         expect(element('a[ng-click="logout()"]:visible').count()).toBeGreaterThan(0);
@@ -99,55 +99,55 @@ describe('dotHIVApp', function() {
         element('a[ng-click="logout()"]').click();
     });
 
-    xit('should show the correct page after navigating to a protected page while not logged in', function() {
+    it('should show the correct page after navigating to a protected page while not logged in', function() {
         browser().navigateTo('#!/profile');
         sleep(1);
         expect(element('form[name="loginForm"]:visible').count()).toBe(1);
-        dhInput('#login-username').enter(email);
-        dhInput('#login-password').enter('test123');
+        dhInput('input[name="login-username"]').enter(email);
+        dhInput('input[name="login-password"]').enter('test123');
         element('form[name="loginForm"] button[type="submit"]').click();
         sleep(1);
         expect(browser().location().url()).toBe('/profile');
         element('a[ng-click="logout()"]').click();
     });
 
-    xit('should not accept the same email address twice for registration', function() {
+    it('should not accept the same email address twice for registration', function() {
         element('a[ng-click="login()"]').click();
-        dhInput('#registration-name').enter('Foo1');
-        dhInput('#registration-surname').enter('Bar1');
-        dhInput('#registration-email').enter(email);
-        dhInput('#registration-password').enter('test1231');
-        dhInput('#registration-passwordrepeat').enter('test1231');
+        dhInput('input[name="registration-name"]').enter('Foo1');
+        dhInput('input[name="registration-surname"]').enter('Bar1');
+        dhInput('input[name="registration-email"]').enter(email);
+        dhInput('input[name="registration-password"]').enter('test1231');
+        dhInput('input[name="registration-passwordrepeat"]').enter('test1231');
         element('form[name="registrationForm"] button[type="submit"]').click();
         sleep(1);
         expect(element('a[ng-click="login()"]:visible').count()).toBeGreaterThan(0);
         expect(element('form[name="loginForm"]:visible').count()).toBe(1);
     });
 
-    xit('should not accept the submission of an empty or invalid registration form', function() {
+    it('should not accept the submission of an empty or invalid registration form', function() {
         element('a[ng-click="login()"]').click();
-        expect(element('#registration-name').attr('class')).toMatch(/ng-invalid/);
-        expect(element('#registration-surname').attr('class')).toMatch(/ng-invalid/);
-        expect(element('#registration-email').attr('class')).toMatch(/ng-invalid/);
-        expect(element('#registration-password').attr('class')).toMatch(/ng-invalid/);
+        expect(element('input[name="registration-name"]').attr('class')).toMatch(/ng-invalid/);
+        expect(element('input[name="registration-surname"]').attr('class')).toMatch(/ng-invalid/);
+        expect(element('input[name="registration-email"]').attr('class')).toMatch(/ng-invalid/);
+        expect(element('input[name="registration-password"]').attr('class')).toMatch(/ng-invalid/);
         element('form[name="registrationForm"] button[type="submit"]').click();
         sleep(1);
         expect(element('a[ng-click="login()"]:visible').count()).toBeGreaterThan(0);
         expect(element('form[name="loginForm"]:visible').count()).toBe(1);
-        dhInput('#registration-name').enter('Foo1');
-        expect(element('#registration-name').attr('class')).not().toMatch(/ng-invalid/);
-        dhInput('#registration-password').enter('test1231');
-        expect(element('#registration-password').attr('class')).not().toMatch(/ng-invalid/);
-        dhInput('#registration-passwordrepeat').enter('test');
-        expect(element('#registration-passwordrepeat').attr('class')).toMatch(/ng-invalid/);
-        dhInput('#registration-passwordrepeat').enter('test1231');
-        expect(element('#registration-passwordrepeat').attr('class')).not().toMatch(/ng-invalid/);
+        dhInput('input[name="registration-name"]').enter('Foo1');
+        expect(element('input[name="registration-name"]').attr('class')).not().toMatch(/ng-invalid/);
+        dhInput('input[name="registration-password"]').enter('test1231');
+        expect(element('input[name="registration-password"]').attr('class')).not().toMatch(/ng-invalid/);
+        dhInput('input[name="registration-passwordrepeat"]').enter('test');
+        expect(element('input[name="registration-passwordrepeat"]').attr('class')).toMatch(/ng-invalid/);
+        dhInput('input[name="registration-passwordrepeat"]').enter('test1231');
+        expect(element('input[name="registration-passwordrepeat"]').attr('class')).not().toMatch(/ng-invalid/);
     });
 
-    xit('should not accept wrong credentials for logging in', function() {
+    it('should not accept wrong credentials for logging in', function() {
         element('a[ng-click="login()"]').click();
-        dhInput('#login-username').enter('no@suchusername.de');
-        dhInput('#login-password').enter('ölksajfdölksajfdsaölkjfd');
+        dhInput('input[name="login-username"]').enter('no@suchusername.de');
+        dhInput('input[name="login-password"]').enter('ölksajfdölksajfdsaölkjfd');
         element('form[name="loginForm"] button[type="submit"]').click();
         sleep(1);
         expect(element('a[ng-click="login()"]:visible').count()).toBeGreaterThan(0);
