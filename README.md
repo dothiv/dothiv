@@ -6,6 +6,11 @@ What is this?
 
 This application provides both client and server for the dotHIV platform.
 
+Build status
+-------------
+
+[![Build Status](https://secure.travis-ci.org/dothiv/dothiv.png)](http://travis-ci.org/dothiv/dothiv)
+
 How to contribute
 -----------------
 
