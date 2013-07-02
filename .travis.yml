@@ -23,6 +23,11 @@ before_script:
   - mysql -e 'create database dothiv;'
   - php app/console doctrine:schema:create
 
+before_install:
+# headless testing
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
 script:
 # PHP testing
   - phpunit -c app
