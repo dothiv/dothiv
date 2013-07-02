@@ -347,4 +347,51 @@ describe('Security service', function() {
             expect(spyCallback).toHaveBeenCalledWith(false, jasmine.any(Object));
         });
     });
+
+    describe('schedule()', function() {
+        it('should call the scheduled callbacks after login', function() {
+            httpBackend.expectPOST(/^.*\/api\/login$/).respond(201, '{\
+                    "username": "test@email.hiv",\
+                    "username_canonical": "test@email.hiv",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+
+            security.login('testuser', 'testpassword');
+            var spyCallbackA = jasmine.createSpy('callbackA');
+            var spyCallbackB = jasmine.createSpy('callbackB');
+            security.schedule(spyCallbackA);
+            security.schedule(spyCallbackB);
+            rootScope.$digest();
+            httpBackend.flush();
+            expect(spyCallbackA).toHaveBeenCalled();
+            expect(spyCallbackB).toHaveBeenCalled();
+        });
+
+        it('should call the scheduled callback immediately if no update is pending', function() {
+            var spyCallbackA = jasmine.createSpy('callbackA');
+            security.schedule(spyCallbackA);
+            expect(spyCallbackA).toHaveBeenCalled();
+        });
+
+        it('should not crash when schedule is called with no arguments', function() {
+            httpBackend.expectPOST(/^.*\/api\/login$/).respond(201, '{\
+                    "username": "test@email.hiv",\
+                    "username_canonical": "test@email.hiv",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+
+            security.login('testuser', 'testpassword');
+            security.schedule();
+            rootScope.$digest();
+            httpBackend.flush();
+
+            security.schedule();
+        })
+    })
 });
