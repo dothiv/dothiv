@@ -10,6 +10,7 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
                 ngModel: '=',
                 Required: '@dhRequired',
                 Autofocus: '@dhAutofocus',
+                value: '@dhValue',
 
                 // label
                 label: '@dhLabel',
@@ -22,12 +23,12 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
                 tooltipShowInvalid: '=dhTooltipShowInvalid',
             },
         template: '<div>' +
-                    '<label for="[[ name ]]" ng-transclude>[[ label ]]</label>' +
+                    '<label ng-transclude>[[ label ]]</label>' +
                     '<input ' +
                         // core input attributes
                         'name="[[ name ]]"' +
-                        'id="[[ name ]]" ' +
                         'placeholder="[[ placeholder ]]"' +
+                        'value="[[ value ]]"' +
                         'ng-model="$parent.ngModel"' +
 
                         // tooltip
@@ -47,6 +48,12 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
         }],
         compile: function(tElement, tAttrs, transclude) {
             var input = tElement.find('input');
+            var label = tElement.find('label');
+            var id = Math.random().toString(36).substring(7);
+
+            // set random id
+            input.attr('id', id);
+            label.attr('for', id);
 
             // move css classes
             input.attr('class', tElement.attr('class'));
@@ -58,13 +65,22 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
 
             // require attribute
             if (tElement.attr("dh-required") != undefined) {
-                input.prop("required", true);
+                input.attr("required", "required");
             }
 
             // autofocus attribute
             if (tElement.attr("dh-autofocus") != undefined) {
                 input.prop("autofocus", true);
             }
+
+            // switch label and input for radio buttons and check boxes
+            if (input.attr('type') == 'radio' || input.attr('type') == 'checkbox') {
+                label.replaceWith(input);
+                input.parent().append(label);
+            }
+
+            // add css class to div
+            tElement.addClass('dhInput');
         }
     };
 });

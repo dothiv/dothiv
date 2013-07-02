@@ -1,0 +1,92 @@
+@pinkbarHeight:         60px;
+
+// Handling the custom pink full-width-donation-bar
+// -----------------------------------
+.pink-bar {
+    float: left;
+    margin: 0 0 0 0;
+    height: @pinkbarHeight;
+    overflow: hidden;
+}
+
+.pink-bar p {
+    line-height: @pinkbarHeight;
+    margin: 0;
+}
+
+.pink-bar.leftside { background-color: @darkpink; }
+
+.pink-bar.rightside {
+    background-color: @lightpink;
+    width: 100%;
+}
+
+.pink-bar-image {
+    margin-left: 22px;
+    margin-right: 20px;
+    position: relative;
+    top: -2px;
+}
+
+.pink-bar-image.right {
+    margin-left: 20px;
+    margin-right: 22px;
+    position: relative;
+    top: -2px;
+}
+
+.pink-bar-text {
+    color: white;
+    font-size: 18px;
+}
+
+.pink-bar-text.right { color: black; }
+.pink-bar-text.right + .bold { margin-left: 5px; }
+
+.pink-bar-text + .bold { 
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.pink-bar button {
+    background-color: transparent;
+    border: none;
+}
+
+.pink-bar-popover-handle { position: relative; }
+.pink-bar-popover {
+    position: absolute;
+    font-family: @headingsFontFamily;
+    background-color: @darkpink;
+    top: @pinkbarHeight;
+    z-index: @zindexPopover;
+    width: 100%; 
+    height: 400px;
+    
+    * .row.first { margin-top: 50px; }
+    * .activeMoney { font-size: @baseFontSize*2; }
+    * hr { height: 1px; background-color: @white; border: none;}
+    * .span4 { margin-top: 0px; }
+            
+}
+
+
+.pink-bar-popover-hide, .pink-bar-popover-show {
+  .transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s);
+}
+
+.pink-bar-popover-show {
+  opacity: 0;
+}
+
+.pink-bar-popover-hide {
+  opacity: 1;
+}
+
+.pink-bar-popover-show.pink-bar-popover-show-active {
+  opacity: 1;
+}
+
+.pink-bar-popover-hide.pink-bar-popover-hide-active {
+  opacity: 0;
+}

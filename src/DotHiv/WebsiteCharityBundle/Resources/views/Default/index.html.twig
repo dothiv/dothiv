@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="fragment" content="!">
         <title>{% trans %}title{% endtrans %}</title>
-        {% stylesheets 'bundles/websitecharity/bootstrap-custom/custom-bootstrap.less' %}
+        {% stylesheets 'bundles/websitecharity/bootstrap-custom/custom-bootstrap.less' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
         <link rel="shortcut icon" href="{{ asset("bundles/websitecharity/images/favicon.png") }}" />
@@ -16,13 +16,13 @@
             <div class="container">
                 <div class="row first">
                     <div class="span2 hiv-logo">
-                        <a href="#!/"><img src="{{ asset("bundles/websitecharity/images/dotHiv-logo.png") }}"></a>
+                        <a href="#!/" class="crawlme"><img src="{{ asset("bundles/websitecharity/images/dotHiv-logo.png") }}"></a>
                     </div>
                     <div class="span7">
                         <div class="container">
-                            <div class="barmenu first"><a href="#!"><h4>Projekte</h4></a></div>
-                            <div class="barmenu secound"><a href="#!/about"><h4 ng-class="{ active: state.includes('about') }">Über dotHIV</h4></a></div>
-                            <div class="barmenu third"><a href="#!"><h4>URL registrieren</h4></a></div>
+                            <div class="barmenu first"><a class="crawlme" href="#!"><h4>Projekte</h4></a></div>
+                            <div class="barmenu secound"><a class="crawlme" href="#!/about"><h4 ng-class="{ active: state.includes('about') }">Über dotHIV</h4></a></div>
+                            <div class="barmenu third"><a class="crawlme" href="#!"><h4>URL registrieren</h4></a></div>
                         </div>
                     </div>
                     <div class="span3">
@@ -30,7 +30,7 @@
                             <li class="accountance dummy" ng-show="!isAuthenticated()"></li>
                             <li class="accountance hover-arrow" ng-show="!isAuthenticated()"><a ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
                             <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
-                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile" ng-class="{ active: state.includes('profile') }">{% trans %}header.menu.myprofile{% endtrans %} ([[ security.user.username ]])</a></li>
+                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile" ng-class="{ active: state.includes('=.profile') }">{% trans %}header.menu.myprofile{% endtrans %} ([[ security.user.username ]])</a></li>
                             <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.createproject{% endtrans %}</a></li>
                             <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.reportabuse{% endtrans %}</a></li>
 
@@ -74,10 +74,53 @@
                     </p>
                 </button>
             </div>
-            <div ng-show="showfunding"
-                    style="background-color: red; width: 100%; height: 100px;"></div>
+            <div class="pink-bar-popover-handle">
+                <div ng-show="showfunding" ng-animate="{show: 'pink-bar-popover-show', hide: 'pink-bar-popover-hide'}" class="pink-bar-popover">
+                    <div class="container">
+                        <div class="row first">
+                            <div class="span6 pink-bar-text">
+                                <p>{% trans %}home.pinkbar.popover.currentStatus{% endtrans %}</p>
+                                <p><span class="activeMoney" id="active-money-popover">€ [[ bar.current ]]</span>
+                                {% trans %}home.pinkbar.popover.areActivated{% endtrans %}</p>
+                                <p><span class="activeMoney" id="clicks-popover">[[ bar.click ]] Klicks</span>
+                                {% trans %}home.pinkbar.popover.missing{% endtrans %}</p>
+                                <hr>
+                                <p>{% trans %}home.pinkbar.popover.shareNow{% endtrans %}</p>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="span2">
+                                           {% trans %}home.pinkbar.popover.chooseDomainButtonLabel{% endtrans %}:
+                                        </div>
+                                        <div class="span4">
+                                            <div class="control-group input-prepend">
+                                                <button class="btn"></button>
+                                                <input type="text"></input>
+                                                <button class="btn"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span2">
+                                           {% trans %}home.pinkbar.popover.shareNowButtonLabel{% endtrans %}:
+                                        </div>
+                                        <div class="span4">
+                                           <button class="btn">FB</button>
+                                           <button class="btn">TW</button>
+                                           <button class="btn">GP</button>     
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6 pink-bar-text">
+                                <img src="{{ asset("bundles/websitecharity/images/video-static-prev.jpg") }}">
+                                <p>{% trans %}home.pinkbar.popover.viewVideo{% endtrans %}
+                                <br>{% trans %}home.pinkbar.popover.how{% endtrans %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
 
         <div style="clear: both;"></div>
         <div ui-view></div>

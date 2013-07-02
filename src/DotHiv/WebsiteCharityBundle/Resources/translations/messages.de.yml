@@ -57,7 +57,16 @@ home:
          oneclickheadline: Klicken
          oneclick: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
     pinkbar:
-        activated: Bisher aktiviert
+         activated: Bisher aktiviert
+         popover:
+            currentStatus: Aktueller Stand der Spendengenerierung
+            areActivated: von möglichen sind aktiviert.
+            missing: fehlen noch.
+            shareNow: Jetzt teilen, damit noch mehr Geld freigeklickt wird.
+            chooseDomainButtonLabel: Domain wählen
+            shareNowButtonLabel: Teilen auf
+            viewVideo: Jetzt Video ansehen
+            how: Wie funktioniert die Spendengenerierung?
 
 profile:
     edit:

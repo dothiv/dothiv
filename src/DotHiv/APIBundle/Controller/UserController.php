@@ -65,7 +65,7 @@ class UserController extends FOSRestController {
      *   resource=true,
      *   description="Gets information about the requested user",
      *   statusCodes={
-     *     200="Successfully created",
+     *     200="Successful",
      *     403="Access denied"
      *   },
      *   output="DotHiv\BusinessBundle\Entity\User"
@@ -90,7 +90,7 @@ class UserController extends FOSRestController {
      *   resource=true,
      *   description="Updates the requested user.",
      *   statusCodes={
-     *     200="Successfully updated",
+     *     200="Successful",
      *     403="Access denied"
      *   },
      *   output="DotHiv\BusinessBundle\Entity\User"
@@ -120,6 +120,32 @@ class UserController extends FOSRestController {
             return array('form' => $form);
         }
         throw new HttpException(403);
+    }
+
+    /**
+     * Gets this user's domains.
+     *
+     * @ApiDoc(
+     *   section="user",
+     *   resource=true,
+     *   description="Gets a list of this user's domains",
+     *   statusCodes={
+     *     200="Successful",
+     *     403="Access denied"
+     *   },
+     *   output="DotHiv\BusinessBundle\Entity\Domain"
+     * )
+     *
+     * @Secure(roles="ROLE_USER")
+     */
+    public function getUserDomainsAction($slug) {
+        $context = $this->get('security.context');
+        if (!$context->isGranted('ROLE_ADMIN') && $context->getToken()->getUsername() !== $slug)
+            throw new HttpException(403);
+
+        // retrieve user object from database
+        $user = $this->getDoctrine()->getManager()->getRepository('DotHivBusinessBundle:User')->findOneBy(array('username' => $slug));
+        return $user->getDomains();
     }
 
     /**
