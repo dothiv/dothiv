@@ -12,12 +12,6 @@ browsers = ['Chrome'];
 
 singleRun = true;
 
-proxies = {
-  '/': 'http://dothiv.bp/'
-};
-
-urlRoot = '/e2e/';
-
 junitReporter = {
   outputFile: 'test_out/e2e.xml',
   suite: 'e2e'
