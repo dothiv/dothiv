@@ -33,4 +33,4 @@ script:
   - phpunit -c app
 # Javascript testing
   - cd src/DotHiv/WebsiteCharityBundle/Resources/public
-  - CHROME_BIN="/usr/bin/chromium-browser" ./scripts/e2e-test.sh
+  - DISPLAY=:99.0 CHROME_BIN="/usr/bin/chromium-browser" ./scripts/e2e-test.sh
