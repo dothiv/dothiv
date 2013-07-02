@@ -6,5 +6,7 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
         $scope.domainforwarding = 'true';
         $scope.bannerposition = 'center';
         $scope.bannersecondposition = 'upper';
+        $scope.language = 'Deutsch';
+        $scope.languages = {'german':'Deutsch', 'english':'Englisch', 'spanish':'Spanisch', 'latin':'Latein'};
     }
 ]);

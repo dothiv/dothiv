@@ -64,11 +64,7 @@
                                 ></dh-input>
                             </div>
                             <label for="languages">In welcher Sprache soll der Banner angezeigt werden</label>
-                            <select name="languages" class="span6">
-                                <option value="">Deutsch</option>
-                                <option value="">Englisch</option>
-                                <option value="">Spanisch</option>
-                            </select>
+                            <dh-select class="span6" ng-model="language" dh-options="languages"></dh-select>
                             <div class="tab-bottom-buttons">
                                 <button style="visibility: hidden"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
                                 <button>&nbsp;Vorschau ansehen</button>
