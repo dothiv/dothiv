@@ -14,7 +14,7 @@ before_script:
   - sudo service apache2 restart
 # install karma
   - sudo apt-get install python-software-properties python g++ make software-properties-common
-  - sudo add-apt-repository ppa:chris-lea/node.js
+  - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get update
   - sudo apt-get install nodejs
   - sudo npm install -g karma
