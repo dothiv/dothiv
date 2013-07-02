@@ -19,14 +19,20 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
         $httpProvider.defaults.headers.common.Accept = "application/json";
     }])
     .value('$anchorScroll', angular.noop) // TODO: working, but best practice?
+    .run(['security', function(security) {
+        // Get the current user when the application starts (in case they are still logged in from a previous session)
+        security.updateUserInfo();
+    }])
     .run(['$rootScope', 'security', 'securityDialog', function($rootScope, security, securityDialog) {
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
             console.log("$stateChangeStart");
-            if (toState.name.match('^=') && !security.isAuthenticated()) {
-                event.preventDefault();
-                securityDialog.showLogin(toState.name);
-                console.log("$stateChangeStart prevented");
-            }
+            security.schedule(function() {
+                if (toState.name.match('^=') && !security.isAuthenticated()) {
+                    event.preventDefault();
+                    securityDialog.showLogin(toState.name);
+                    console.log("$stateChangeStart prevented");
+                }
+            });
         });
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
             console.log("$stateChangeSuccess");
@@ -34,10 +40,6 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
         $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
             console.log("stateChangeError");
         });
-    }])
-    .run(['security', function(security) {
-        // Get the current user when the application starts (in case they are still logged in from a previous session)
-        security.updateUserInfo();
     }])
     .run(['$rootScope', 'securityDialog', function($rootScope, securityDialog) {
         $rootScope.$on('event:auth-loginRequired', function() {
