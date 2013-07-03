@@ -87,3 +87,18 @@ input.ng-dirty.ng-valid {
 form.unclean input.ng-invalid-required {
     .invalid;
 }
+
+form input[type="url"].ng-dirty.ng-valid + span {
+    display: block;
+    position: relative;
+    &:after {
+        content: '';
+        width: 36px;
+        height: 36px;
+        display: block;
+        position: absolute;
+        top: -52px;
+        right: -50px;
+        background: url(/bundles/websitecharity/images/green-tick.png) 0 0 no-repeat;
+    }
+}
