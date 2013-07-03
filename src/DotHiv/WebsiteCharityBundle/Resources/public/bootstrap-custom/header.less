@@ -16,12 +16,17 @@
     line-height: @accountLineHeight;
     font-style: italic;
     .cursor-hand;
+    & * .open .dropdown-toggle { color: @black; };
+    &.grey * a { 
+        color: @grayLight;
+        &:hover { color: @black; font-weight: 500; } 
+    }
 }
 
 // Used to create dummy space in headers login-menu
 .accountance.dummy { height: @accountLineHeight; }
 
-.accountance a {
+li .accountance a {
     display: inline-block;
     width: 100%;
 }
