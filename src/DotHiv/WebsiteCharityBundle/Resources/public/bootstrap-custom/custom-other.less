@@ -17,7 +17,12 @@
 // -------------------------------------
 .hover-arrow:hover:before {
     margin-left: -45px; /*width of the jpg*/
-    content: url('/bundles/websitecharity/images/link-hover-arrow.jpg');
+    width: 45px;
+    height: 20px;
+    background-image: url('/bundles/websitecharity/images/tick-sprite.png');
+    background-position: -80px 0px;
+    content: " ";
+    display: inline-block;
 }
 
 //simplify cursor-to-hand definition
@@ -122,3 +127,7 @@ i {
     &.icon-tick-lower { background-position: 0px 0px; }
 }
 
+//japp
+//----------------------------------
+.dropdown-icon.pull-right { margin-left: 10px; }
+    

@@ -12,7 +12,7 @@
   font-size: 11px;
   line-height: 1.4;
   .opacity(0);
-  &.in     { .opacity(80); }
+  &.in     { .opacity(100); }
   &.top    { margin-top:  -3px; padding: 5px 0; }
   &.right  { margin-left:  3px; padding: 0 5px; }
   &.bottom { margin-top:   3px; padding: 5px 0; }
@@ -45,6 +45,15 @@ input.ng-dirty.ng-invalid:focus + div.tooltip {
   &.right > .tooltip-arrow {
     border-right-color: @tooltipInvalidArrowColor;
   }
+  &.left > .tooltip-arrow {
+    border-left-color: @tooltipInvalidArrowColor;
+  }
+  &.top > .tooltip-arrow {
+    border-top-color: @tooltipInvalidArrowColor;
+  }
+  &.bottom > .tooltip-arrow {
+    border-bottom-color: @tooltipInvalidArrowColor;
+  }
   & > .tooltip-inner {
     background-color: @tooltipInvalidBackground;
   }
@@ -61,7 +70,7 @@ input.ng-dirty.ng-invalid:focus + div.tooltip {
 .tooltip {
   &.top .tooltip-arrow {
     bottom: 0;
-    left: 50%;
+    left: 20%;
     margin-left: -@tooltipArrowWidth;
     border-width: @tooltipArrowWidth @tooltipArrowWidth 0;
     border-top-color: @tooltipArrowColor;
@@ -82,7 +91,7 @@ input.ng-dirty.ng-invalid:focus + div.tooltip {
   }
   &.bottom .tooltip-arrow {
     top: 0;
-    left: 50%;
+    left: 0%;
     margin-left: -@tooltipArrowWidth;
     border-width: 0 @tooltipArrowWidth @tooltipArrowWidth;
     border-bottom-color: @tooltipArrowColor;
