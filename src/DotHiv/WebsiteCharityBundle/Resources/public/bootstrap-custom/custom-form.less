@@ -6,6 +6,9 @@
 @inputInvalidBackground: #FCE5F1;
 @inputInvalidBorderFocus: #E0003A;
 
+@inputBorderProgress: #E89608;
+@inputFieldProgress: #FFE6BC;
+
 @tooltipBorderShadow: 0px 0px 7px 0px @grayLight;
 
 textarea,
@@ -87,3 +90,8 @@ input.ng-dirty.ng-valid {
 form.unclean input.ng-invalid-required {
     .invalid;
 }
+
+form.clean input.ng-dirty.ng-invalid:focus, form.unclean input.ng-dirty.ng-invalid:focus {
+    background-color: @inputFieldProgress;
+    border-color: @inputBorderProgress;
+}    
