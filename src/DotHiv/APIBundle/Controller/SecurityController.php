@@ -2,6 +2,8 @@
 
 namespace DotHiv\APIBundle\Controller;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -49,6 +51,7 @@ class SecurityController extends Controller {
      */
     public function postLoginAction() {
         // handled by Symfony firewall
+        throw new RuntimeException();
     }
 
     /**
@@ -63,6 +66,37 @@ class SecurityController extends Controller {
      */
     public function deleteLoginAction() {
         // handled by Symfony firewall
+        throw new RuntimeException();
+    }
+
+    /**
+     * @ApiDoc(
+     *   section="security",
+     *   resource=false,
+     *   description="Start Facebook login process"
+     * )
+     */
+    public function facebookLoginStartAction() {
+        $facebook = $this->get('facebook');
+        $loginUrl = $facebook->getLoginUrl(
+           array(
+                'redirect_uri' => $this->generateUrl('dot_hiv_api_security_facebook_login_return', array(), UrlGeneratorInterface::ABSOLUTE_URL),
+                'scope' => 'email',
+                'display' => 'popup'
+        ));
+        return $this->redirect($loginUrl);
+    }
+
+    /**
+     * @ApiDoc(
+     *   section="security",
+     *   resource=false,
+     *   description="Return point for facebook login"
+     * )
+     */
+    public function facebookLoginReturnAction() {
+        // handled by Symfony firewall
+        throw new RuntimeException();
     }
 
     /**

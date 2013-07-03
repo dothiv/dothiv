@@ -17,6 +17,9 @@ parameters:
     charitydomain:     dothiv.bp
     companydomain:     registry.hiv
 
+    facebook_app_id:   ~
+    facebook_app_secret: ~
+
     #
     # PARAMETERS USED IN DEV MODE
     #

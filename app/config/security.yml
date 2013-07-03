@@ -43,6 +43,9 @@ security:
             fos_facebook:
                 app_url: "http://apps.facebook.com/DotHivDemo/"
                 server_url: "http://dothiv.bp/"
+                check_path: /api/login/facebook/return
+                provider: my_fos_facebook_provider
+                require_previous_session: false
             logout:
                 path: /api/login
             anonymous:    true

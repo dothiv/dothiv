@@ -115,8 +115,8 @@ jms_serializer:
 # FOSFacebook
 fos_facebook:
     alias:  facebook
-    app_id: 557254000987057
-    secret: 95d0f98cba2f3c476e56fcce4b8e9928
+    app_id: %facebook_app_id%
+    secret: %facebook_app_secret%
     cookie: true
     permissions: [email, user_birthday, user_location]
 

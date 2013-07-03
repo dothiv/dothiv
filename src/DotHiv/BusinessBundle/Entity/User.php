@@ -51,7 +51,7 @@ class User extends BaseUser
     /**
      * The user's facebook id, if facebook login is used
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     protected $facebookId;
 
@@ -125,19 +125,35 @@ class User extends BaseUser
      */
     public function setFBData($fbdata)
     {
+        if ($this->username == '') {
+            $this->username = $this->newRandomCode();
+        }
         if (isset($fbdata['id'])) {
             $this->setFacebookId($fbdata['id']);
             $this->addRole('ROLE_FACEBOOK');
         }
         if (isset($fbdata['first_name'])) {
-            $this->setFirstname($fbdata['first_name']);
+            $this->setName($fbdata['first_name']);
         }
         if (isset($fbdata['last_name'])) {
-            $this->setLastname($fbdata['last_name']);
+            $this->setSurname($fbdata['last_name']);
         }
         if (isset($fbdata['email'])) {
             $this->setEmail($fbdata['email']);
         }
     }
 
+    /**
+     * Generates a 12 digit random code
+     *
+     * Used pool of characters: a-z0-9
+     */
+    public function newRandomCode() {
+        $pool = "abcdefghijklmnopqrstuvwxyz0123456789";
+        $code = "";
+        while (strlen($code) < 12) {
+            $code .= substr($pool, rand(0, 35), 1);
+        }
+        return $code;
+    }
 }
