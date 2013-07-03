@@ -8,5 +8,6 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
         $scope.bannersecondposition = 'upper';
         $scope.language = 'Deutsch';
         $scope.languages = {'german':'Deutsch', 'english':'Englisch', 'spanish':'Spanisch', 'latin':'Latein'};
+        $scope.formclean = true;
     }
 ]);

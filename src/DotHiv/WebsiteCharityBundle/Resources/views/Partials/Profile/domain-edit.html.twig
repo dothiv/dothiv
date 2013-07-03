@@ -6,7 +6,7 @@
     </div>
     <div class="row">
         <div class="span12">
-            <form novalidate class="simple-form">
+            <form novalidate class="simple-form" ng-class="{clean: formclean, unclean: !formclean}">
                 <tabset>
                     <tab active="tab1.active">
                         <tab-heading>Schritt 1</tab-heading>
@@ -21,11 +21,6 @@
                                     dh-value="true"
 
                                     dh-label="Weiterleitung einrichten"
-
-                                    dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
-                                    dh-tooltip-trigger="focus"
-                                    dh-tooltip-placement="top"
-                                    dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
                                 ></dh-input>
                                 <dh-input
                                     type="radio"
@@ -35,32 +30,25 @@
                                     dh-value="false"
 
                                     dh-label="keine Weiterleitung"
-
-                                    dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
-                                    dh-tooltip-trigger="focus"
-                                    dh-tooltip-placement="top"
-                                    dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
                                 ></dh-input>
                                 <div style="clear: both;"></div>
                             </div>
                             <div ng-show="domainforwarding == 'true'">
                                 <dh-input
                                     class="span6"
-                                    type="text"
+                                    type="url"
 
                                     dh-name="target-name"
-                                    dh-placeholder="{% trans %}registration.form.name.placeholder{% endtrans %}"
-
                                     ng-model="testbla"
 
                                     dh-required
 
                                     dh-label="Zieldomain eingeben"
 
-                                    dh-tooltip="{% trans %}registration.form.name.tooltip.default{% endtrans %}"
+                                    dh-tooltip="Bitte geben Sie eine gültige URL ein."
                                     dh-tooltip-trigger="focus"
                                     dh-tooltip-placement="right"
-                                    dh-tooltip-invalid="{% trans %}registration.form.name.tooltip.invalid{% endtrans %}"
+                                    dh-tooltip-invalid="Bitte geben Sie eine gültige URL ein."
                                 ></dh-input>
                             </div>
                             <label for="languages">In welcher Sprache soll der Banner angezeigt werden</label>
