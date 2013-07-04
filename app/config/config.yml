@@ -118,7 +118,7 @@ fos_facebook:
     app_id: %facebook_app_id%
     secret: %facebook_app_secret%
     cookie: true
-    permissions: [email, user_birthday, user_location]
+    permissions: [email]
 
 # Services
 services:
@@ -137,7 +137,7 @@ parameters:
     # this is required by the angular app authentication process (see http authentication interceptor)
     security.authentication.form_entry_point.class: DotHiv\APIBundle\Security\RestAuthenticationEntryPoint
     security.authentication.listener.form.class: DotHiv\APIBundle\Security\RestAuthenticationListener
-    security.authentication.success_handler.class: DotHiv\APIBundle\Security\RestAuthenticationSuccessHandler
+    security.authentication.success_handler.class: DotHiv\APIBundle\Security\DotHivAuthenticationSuccessHandler
     security.authentication.failure_handler.class: DotHiv\APIBundle\Security\RestAuthenticationFailureHandler
     security.logout.success_handler.class: DotHiv\APIBundle\Security\RestLogoutSuccessHandler
     security.logout_listener.class: DotHiv\APIBundle\Security\RestLogoutListener

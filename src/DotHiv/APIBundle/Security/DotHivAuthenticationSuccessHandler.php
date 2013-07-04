@@ -2,6 +2,7 @@
 
 namespace DotHiv\APIBundle\Security;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\HttpUtils;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandler;
@@ -10,14 +11,16 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Returns an 201-response with the user data.
- * Currently, user data is always sent in JSON format.
- * TODO Fix this and use the Accept-Header the client sent.
+ * For requests with Accept: application/json, this returns
+ * the user object and status code 201.
+ * 
+ * For all other requests, the authentication success template
+ * is rendered.
  * 
  * @author Nils Wisiol <mail@nils-wisiol.de>
  *
  */
-class RestAuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler {
+class DotHivAuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler {
 
     /**
      * The view handler to handle the view for the formatted response.
@@ -39,12 +42,26 @@ class RestAuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandl
      * @see Symfony\Component\Security\Http\Authentication.AuthenticationSuccessHandlerInterface::onAuthenticationSuccess()
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token) {
-        $user = $token->getUser();
-        $view = new View();
-        $view->setData($user);
-        $view->setStatusCode(201);
-        $view->setFormat('json'); // TODO use FormatListener's autodetection of the format
-        return $this->viewHandler->handle($view, $request);
+        if (in_array('application/json', $request->getAcceptableContentTypes())) {
+            $user = $token->getUser();
+            $view = new View();
+            $view->setData($user);
+            $view->setStatusCode(201);
+            $view->setFormat('json'); // TODO use FormatListener's autodetection of the format
+            return $this->viewHandler->handle($view, $request);
+        } else {
+            return new Response('<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script type="text/javascript">
+        window.opener.postMessage(true, "http://dothiv.bp");
+        window.close();
+    </script>
+  </body>
+</html>');
+        }
     }
 
 }

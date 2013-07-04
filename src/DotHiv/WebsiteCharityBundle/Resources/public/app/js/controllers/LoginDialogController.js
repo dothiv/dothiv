@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$scope', 'dialog', 'security', '$window',
-        function($scope, dialog, security, $window) {
+angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$scope', 'dialog', 'security', '$window', '$location',
+        function($scope, dialog, security, $window, $location) {
             $scope.loginclean = true;
 
             $scope.login = function(data) {
@@ -39,8 +39,20 @@ angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$s
             };
 
             $scope.thirdparty = function(url) {
-                $window.open(url, 'thirdpartyLogin', 'width=580,height=200,location=no,menubar=no', false);
+                var popup = $window.open(url, 'thirdpartyLogin', 'width=580,height=200,location=no,menubar=no', false);
+                $window.addEventListener('message', receiveMessage, false);
             }
+
+            function receiveMessage(event) {
+                if (event.origin !== $location.protocol() + "://" + $location.host()) {
+                    return;
+                }
+
+                if (event.data) {
+                    security.updateUserInfo();
+                    dialog.close();
+                }
+            };
 
             $scope.abort = function() {
                 dialog.close();
