@@ -5,6 +5,7 @@ angular.module('dotHIVApp.services').factory('dothivDomainResource', function($r
         'get':    {method:'GET', params: {id:'@id'}},
         'query':  {method:'GET', isArray:true},
         'search': {method:'GET', params: {token:'@token'}},
-        'claim':  {method:'POST', params: {claims:'claims'}}
+        'claim':  {method:'POST', params: {claims:'claims'}},
+        'save':   {method:'POST', params: {id:'@id'}},
     });
 });

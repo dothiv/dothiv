@@ -11,13 +11,13 @@
                     <tab active="tab1.active">
                         <tab-heading>Schritt 1</tab-heading>
                         <div class="tab-content-container" ng-form="step1form">
-                            <h3>Domain [[ domainName ]]<br>Standard-Banner-Konfiguration</h3>
+                            <h3>Domain [[ domain.name ]]<br>Standard-Banner-Konfiguration</h3>
                             <div class="horizontal-radio-group">
                                 <dh-input
                                     type="radio"
 
                                     dh-name="forwardRadio"
-                                    ng-model="domainforwarding"
+                                    ng-model="domainData.forwarding"
                                     dh-value="true"
 
                                     dh-label="Weiterleitung einrichten"
@@ -26,20 +26,20 @@
                                     type="radio"
 
                                     dh-name="forwardRadio"
-                                    ng-model="domainforwarding"
+                                    ng-model="domainData.forwarding"
                                     dh-value="false"
 
                                     dh-label="keine Weiterleitung"
                                 ></dh-input>
                                 <div style="clear: both;"></div>
                             </div>
-                            <div ng-show="domainforwarding == 'true'">
+                            <div ng-show="domainData.forwarding == 'true'">
                                 <dh-input
                                     class="span6"
                                     type="url"
 
                                     dh-name="targetName"
-                                    ng-model="targetdomain"
+                                    ng-model="domainData.targetdomain"
 
                                     dh-required
 
@@ -52,7 +52,7 @@
                                 ></dh-input>
                             </div>
                             <label for="languages">In welcher Sprache soll der Banner angezeigt werden</label>
-                            <dh-select class="span6" ng-model="language" dh-options="languages"></dh-select>
+                            <dh-select class="span6" ng-model="domainData.language" dh-options="languages"></dh-select>
                             <div class="tab-bottom-buttons">
                                 <button style="visibility: hidden"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
                                 <button ng-click="checkValid()">&nbsp;Vorschau ansehen</button>
@@ -60,16 +60,16 @@
                             </div>
                         </div>
                     </tab>
-                    <tab active="tab2.active">
+                    <tab active="tab2.active" disabled="!step1form.$valid">
                         <tab-heading>Schritt 2</tab-heading>
-                        <div class="tab-content-container">
+                        <div class="tab-content-container" ng-form="step2form">
                             <h3>Domain [[ domainName ]]<br>Standard-Banner-Konfiguration</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis scelerisque neque id viverra mollis. Sed mi sem, consequat eu ultrices non, imperdiet id tellus. Morbi et massa at elit tempus pellentesque nec ut eros. Vestibulum auctor enim eget aliquet porttitor. Nulla lacinia purus non elementum commodo.</p>
                             <dh-input
                                 type="radio"
 
                                 dh-name="positionRadio"
-                                ng-model="bannerposition"
+                                ng-model="domainData.bannerposition"
                                 dh-value="center"
 
                                 dh-label="mittig"
@@ -83,7 +83,7 @@
                                 type="radio"
 
                                 dh-name="positionRadio"
-                                ng-model="bannerposition"
+                                ng-model="domainData.bannerposition"
                                 dh-value="upper"
 
                                 dh-label="oben"
@@ -97,7 +97,7 @@
                                 type="radio"
 
                                 dh-name="positionRadio"
-                                ng-model="bannerposition"
+                                ng-model="domainData.bannerposition"
                                 dh-value="right"
 
                                 dh-label="rechts"
@@ -111,7 +111,7 @@
                                 type="checkbox"
 
                                 dh-name="secondvisitBox"
-                                ng-model="secondvisit"
+                                ng-model="domainData.secondvisit"
                                 dh-value="true"
 
                                 dh-label="ab dem 2. Besuch täglich soll ein anderer Banner angezeigt werden"
@@ -121,12 +121,12 @@
                                 dh-tooltip-placement="top"
                                 dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
                             ></dh-input>
-                            <div ng-show="secondvisit">
+                            <div ng-show="domainData.secondvisit">
                                 <dh-input
                                     type="radio"
 
                                     dh-name="secondpositionRadio"
-                                    ng-model="bannersecondposition"
+                                    ng-model="domainData.bannersecondposition"
                                     dh-value="upper"
 
                                     dh-label="oben"
@@ -140,7 +140,7 @@
                                     type="radio"
 
                                     dh-name="secondpositionRadio"
-                                    ng-model="bannersecondposition"
+                                    ng-model="domainData.bannersecondposition"
                                     dh-value="right"
 
                                     dh-label="rechts"
@@ -154,11 +154,11 @@
                             <div class="tab-bottom-buttons">
                                 <button ng-click="tab1.active = true"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
                                 <button style="visibility: hidden">&nbsp;Vorschau ansehen</button>
-                                <button class="pull-right next" ng-click="tab3.active = true"><i class="icon-tick-right icon-white pull-right"></i>Speichern&nbsp;</button>
+                                <button class="pull-right next" ng-click="submit(tab3)"><i class="icon-tick-right icon-white pull-right"></i>Speichern&nbsp;</button>
                             </div>
                         </div>
                     </tab>
-                    <tab active="tab3.active">
+                    <tab active="tab3.active" disabled="!(step1form.$valid && step2form.$valid)">
                         <tab-heading>Finalisieren</tab-heading>
                         <div class="tab-content-container">
                             <h3>Die Einstellungen für [[ domainName ]] wurden erfolgreich gespeichert!</h3>
