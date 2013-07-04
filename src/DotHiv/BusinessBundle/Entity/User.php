@@ -121,6 +121,10 @@ class User extends BaseUser
     }
 
     /**
+     * Updates the user's data by using the most recent data
+     * from facebook. This is called every time the user logs
+     * in.
+     *
      * @param Array
      */
     public function setFBData($fbdata)
@@ -132,13 +136,13 @@ class User extends BaseUser
             $this->setFacebookId($fbdata['id']);
             $this->addRole('ROLE_FACEBOOK');
         }
-        if (isset($fbdata['first_name'])) {
+        if ($this->name == '' && isset($fbdata['first_name'])) {
             $this->setName($fbdata['first_name']);
         }
-        if (isset($fbdata['last_name'])) {
+        if ($this->surname == '' && isset($fbdata['last_name'])) {
             $this->setSurname($fbdata['last_name']);
         }
-        if (isset($fbdata['email'])) {
+        if ($this->email == '' && isset($fbdata['email'])) {
             $this->setEmail($fbdata['email']);
         }
     }
