@@ -56,7 +56,7 @@ class DotHivAuthenticationSuccessHandler extends DefaultAuthenticationSuccessHan
   </head>
   <body>
     <script type="text/javascript">
-        window.opener.postMessage(true, "http://dothiv.bp");
+        window.opener.postMessage(true, location.protocol + "//" + location.hostname);
         window.close();
     </script>
   </body>
