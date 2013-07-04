@@ -1,7 +1,9 @@
 <?php
 
 namespace DotHiv\BusinessBundle\Entity;
+
 use InvalidArgumentException;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
@@ -56,6 +58,29 @@ class Domain extends Entity
      * @Serializer\Expose
      */
     protected $claimingToken;
+
+    /**
+     * A list of (possible) banners for this domain
+     *
+     * @ORM\OneToMany(targetEntity="Banner",mappedBy="domain")
+     */
+    protected $banners;
+
+    /**
+     * The active banner for this domain, which will be actually shown
+     * 
+     * @ORM\OneToOne(targetEntity="Banner")
+     */
+    protected $activeBanner;
+
+    /**
+     * The constructor
+     */
+    public function __construct()
+    {
+        $this->banners = new ArrayCollection();
+        parent::__construct();
+    }
 
     /**
      * Returns the FQDN of this domain
@@ -162,4 +187,34 @@ class Domain extends Entity
         $this->emailAddressFromRegistrar = $address;
     }
 
+    /**
+     * Returns a collection of all banners associated with this domain.
+     */
+    public function getBanners() {
+        return $this->banners;
+    }
+
+    /**
+     * Activates the given banner for this domain. The banner will be added to
+     * the list of banners if not already present.
+     *
+     * @param Banner $banner
+     */
+    public function setActiveBanner(Banner $banner = null) {
+        if ($banner === null) {
+            $this->activeBanner = null;
+        } else {
+            $this->activeBanner = $banner;
+            $this->banners->contains($banner) ? : $banner->setDomain($this);
+        }
+    }
+
+    /**
+     * Returns the active banner.
+     *
+     * @return Banner active Banner
+     */
+    public function getActiveBanner() {
+        return $this->activeBanner;
+    }
 }

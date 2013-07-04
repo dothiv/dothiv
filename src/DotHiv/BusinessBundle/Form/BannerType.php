@@ -6,22 +6,22 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DomainType extends AbstractType
+class BannerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            //->add('owner', 'entity', array('read_only' => true))
-            ->add('emailAddressFromRegistrar')
-            ->add('claimingToken', 'text', array('read_only' => true))
+            ->add('redirectDomain')
+            ->add('language')
+            ->add('position')
+            ->add('positionAlternative')
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'DotHiv\BusinessBundle\Entity\Domain',
+            'data_class' => 'DotHiv\BusinessBundle\Entity\Banner',
             'csrf_protection' => false
         ));
     }
