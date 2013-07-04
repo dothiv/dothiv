@@ -1,7 +1,6 @@
 <?php
 
 namespace DotHiv\BusinessBundle\Entity;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -49,29 +48,41 @@ class User extends BaseUser
      */
     protected $domains;
 
+    /**
+     * The user's facebook id, if facebook login is used
+     *
+     * @ORM\Column(type="string", length=255,nullable=true)
+     */
+    protected $facebookId;
+
     public function __construct()
     {
         $this->domains = new ArrayCollection();
         parent::__construct();
     }
 
-    public function getSurname() {
+    public function getSurname()
+    {
         return $this->surname;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function setSurname($surname) {
+    public function setSurname($surname)
+    {
         $this->surname = $surname;
     }
 
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
-    public function getDomains() {
+    public function getDomains()
+    {
         return $this->domains;
     }
 
@@ -81,7 +92,8 @@ class User extends BaseUser
      *
      * @param Domain $newDomain
      */
-    public function addDomain(Domain $newDomain) {
+    public function addDomain(Domain $newDomain)
+    {
         // let the domain class take care of everything
         $newDomain->setOwner($this);
     }
@@ -92,8 +104,56 @@ class User extends BaseUser
      *
      * @param Domain $domain
      */
-    public function removeDomain(Domain $domain)  {
-        if($this->domains->contains($domain)) 
+    public function removeDomain(Domain $domain)
+    {
+        if ($this->domains->contains($domain))
             $domain->setOwner(null);
+    }
+
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
+    }
+
+    /**
+     * @param Array
+     */
+    public function setFBData($fbdata)
+    {
+        if ($this->username == '') {
+            $this->username = $this->newRandomCode();
+        }
+        if (isset($fbdata['id'])) {
+            $this->setFacebookId($fbdata['id']);
+            $this->addRole('ROLE_FACEBOOK');
+        }
+        if (isset($fbdata['first_name'])) {
+            $this->setName($fbdata['first_name']);
+        }
+        if (isset($fbdata['last_name'])) {
+            $this->setSurname($fbdata['last_name']);
+        }
+        if (isset($fbdata['email'])) {
+            $this->setEmail($fbdata['email']);
+        }
+    }
+
+    /**
+     * Generates a 12 digit random code
+     *
+     * Used pool of characters: a-z0-9
+     */
+    public function newRandomCode() {
+        $pool = "abcdefghijklmnopqrstuvwxyz0123456789";
+        $code = "";
+        while (strlen($code) < 12) {
+            $code .= substr($pool, rand(0, 35), 1);
+        }
+        return $code;
     }
 }

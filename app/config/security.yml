@@ -19,8 +19,13 @@ security:
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
+        chain_provider:
+            chain:
+                providers: [fos_userbundle, my_fos_facebook_provider]
         fos_userbundle:
             id: fos_user.user_provider.username_email
+        my_fos_facebook_provider:
+            id: my.facebook.user   # see "Example Custom User Provider using the FOS\UserBundle" chapter further down
 
     firewalls:
         dev:
@@ -34,6 +39,12 @@ security:
                 username_parameter: username
                 password_parameter: password
                 provider: fos_userbundle
+                require_previous_session: false
+            fos_facebook:
+                app_url: "http://apps.facebook.com/DotHivDemo/"
+                server_url: "http://dothiv.bp/"
+                check_path: /api/login/facebook/return
+                provider: my_fos_facebook_provider
                 require_previous_session: false
             logout:
                 path: /api/login

@@ -209,7 +209,8 @@ describe('Security service', function() {
             expect(spyCallback.calls.length).toEqual(1);
         });
 
-        it('should clear the template cache when successfully logged out', function() {
+        it('should not clear the template cache when successfully logged out', function() {
+            var sizeBefore = templateCache.info().size;
             // make sure we are logged in
             httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
                     "username": "testuser",\
@@ -227,7 +228,7 @@ describe('Security service', function() {
             security.logout();
             rootScope.$digest();
             httpBackend.flush();
-            expect(templateCache.info().size).toEqual(0);
+            expect(templateCache.info().size).toEqual(sizeBefore);
         });
 
         it('should not set isAuthenticated to "false" when unsuccessfully trying to log out', function() {

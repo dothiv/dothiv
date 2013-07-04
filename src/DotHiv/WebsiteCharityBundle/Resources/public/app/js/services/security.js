@@ -2,7 +2,7 @@
 
 /**
  * @name dotHIVApp.services.security
- * @requires $http, $templateCache, authServer, dothivLoginResource, dothivUserResource
+ * @requires $http, authServer, dothivLoginResource, dothivUserResource
  * 
  * @description
  * Manages the user login and registration within the dothiv web application.
@@ -15,7 +15,7 @@
  *   - `callback` – {function(success, data)} Callback to call after the request returns from the server. `success`
  *                  is a boolean variable indicating the success of the login, data is only given on failure and contains
  *                  the data sent by the server.
- * - **`logout()`** Logs the user out. No error is thrown if nobody is logged in. On success the angular template cache is flushed. Argument is:
+ * - **`logout()`** Logs the user out. No error is thrown if nobody is logged in. Argument is:
  *   - `callback` – {function(success)} Callback to call after the request returns from the server. `success` is a boolean
  *                  variable indicating the success of the logout.
  *
@@ -54,7 +54,7 @@
  * - **`state`** An object holding the current security state of the application. Field is:
  *   - `user` – the current user object as sent by the server.
  */
-angular.module('dotHIVApp.services').factory('security', function($http, $templateCache, authService, dothivLoginResource, dothivUserResource) {
+angular.module('dotHIVApp.services').factory('security', function($http, authService, dothivLoginResource, dothivUserResource) {
     // variable to keep user information and login status
     var _state = {'user': {}};
 
@@ -91,7 +91,6 @@ angular.module('dotHIVApp.services').factory('security', function($http, $templa
                 {},
                 // on success
                 function() {
-                    $templateCache.removeAll();
                     _state.user = _userCopy;
                     (callback || angular.noop)(true);
                 },

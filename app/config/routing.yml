@@ -22,6 +22,16 @@ dot_hiv_security_options:
     defaults: { _controller: DotHivAPIBundle:Security:optionsLogin }
     methods: [ OPTIONS ]
 
+dot_hiv_api_security_facebook_login_start:
+    pattern: /api/login/facebook/start
+    defaults: { _controller: DotHivAPIBundle:Security:facebookLoginStart }
+    methods: [ GET ]
+
+dot_hiv_api_security_facebook_login_return:
+    pattern: /api/login/facebook/return
+    defaults: { _controller: DotHivAPIBundle:Security:facebookLoginReturn }
+    methods: [ GET ]
+
 # API routing
 dot_hiv_api:
     resource: "@DotHivAPIBundle/Resources/config/routing.yml"
