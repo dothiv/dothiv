@@ -11,13 +11,20 @@
 
 @linkColor:         @colordark;
 
+@hivLowerBoxshadow: 0 6px 4px rgba(220,220,220,1);
+
 @accountLineHeight:    2em;
 
 // Class to add pointing arrows to elements on hover
 // -------------------------------------
 .hover-arrow:hover:before {
     margin-left: -45px; /*width of the jpg*/
-    content: url('/bundles/websitecharity/images/link-hover-arrow.jpg');
+    width: 45px;
+    height: 20px;
+    background-image: url('/bundles/websitecharity/images/tick-sprite.png');
+    background-position: -80px 0px;
+    content: " ";
+    display: inline-block;
 }
 
 //simplify cursor-to-hand definition
@@ -30,6 +37,7 @@ hr {
     height: 2px;
     background-color: #ECECEC;
     border-bottom: 2px solid #F1F1F1;
+    margin: 0 0 0 0 ;
 }
 
 // override h1, h2, h3 lineheight 
@@ -103,21 +111,7 @@ h3 {
     margin: 0; 
 }
 
-// custom arrow-head icons for buttons and ticks
-
-i {
-    &[class^="icon-"],
-    &[class*=" icon-"] {
-        width: 20px;
-        height: 20px;
-        background-image: url('/bundles/websitecharity/images/tick-sprite.png');
-    }  
+//japp
+//----------------------------------
+.dropdown-icon.pull-right { margin-left: 10px; }
     
-    &.icon-white { background-image: url('/bundles/websitecharity/images/tick-sprite-white.png'); }
-      
-    &.icon-tick-right { background-position: -60px 0px; }
-    &.icon-tick-left { background-position: -40px 0px; }
-    &.icon-tick-upper { background-position: -20px 0px; }
-    &.icon-tick-lower { background-position: 0px 0px; }
-}
-

@@ -73,10 +73,13 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
                 input.prop("autofocus", true);
             }
 
-            // switch label and input for radio buttons and check boxes
             if (input.attr('type') == 'radio' || input.attr('type') == 'checkbox') {
+                // switch label and input for radio buttons and check boxes
                 label.replaceWith(input);
                 input.parent().append(label);
+            } else {
+                // for other types of input, append '<span>' for ':after' handling
+                input.parent().append('<span></span>');
             }
 
             // add css class to div

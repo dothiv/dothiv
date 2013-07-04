@@ -6,73 +6,57 @@
     </div>
     <div class="row">
         <div class="span12">
-            <form novalidate class="simple-form">
+            <form novalidate name="domainForm" class="simple-form" ng-class="{clean: formclean, unclean: !formclean}">
                 <tabset>
                     <tab active="tab1.active">
                         <tab-heading>Schritt 1</tab-heading>
-                        <div class="tab-content-container">
+                        <div class="tab-content-container" ng-form="step1form">
                             <h3>Domain [[ domainName ]]<br>Standard-Banner-Konfiguration</h3>
                             <div class="horizontal-radio-group">
                                 <dh-input
                                     type="radio"
 
-                                    dh-name="forward-radio"
+                                    dh-name="forwardRadio"
                                     ng-model="domainforwarding"
                                     dh-value="true"
 
                                     dh-label="Weiterleitung einrichten"
-
-                                    dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
-                                    dh-tooltip-trigger="focus"
-                                    dh-tooltip-placement="top"
-                                    dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
                                 ></dh-input>
                                 <dh-input
                                     type="radio"
 
-                                    dh-name="forward-radio"
+                                    dh-name="forwardRadio"
                                     ng-model="domainforwarding"
                                     dh-value="false"
 
                                     dh-label="keine Weiterleitung"
-
-                                    dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
-                                    dh-tooltip-trigger="focus"
-                                    dh-tooltip-placement="top"
-                                    dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
                                 ></dh-input>
                                 <div style="clear: both;"></div>
                             </div>
                             <div ng-show="domainforwarding == 'true'">
                                 <dh-input
                                     class="span6"
-                                    type="text"
+                                    type="url"
 
-                                    dh-name="target-name"
-                                    dh-placeholder="{% trans %}registration.form.name.placeholder{% endtrans %}"
-
-                                    ng-model="testbla"
+                                    dh-name="targetName"
+                                    ng-model="targetdomain"
 
                                     dh-required
 
                                     dh-label="Zieldomain eingeben"
 
-                                    dh-tooltip="{% trans %}registration.form.name.tooltip.default{% endtrans %}"
+                                    dh-tooltip="Bitte geben Sie eine gültige URL ein."
                                     dh-tooltip-trigger="focus"
                                     dh-tooltip-placement="right"
-                                    dh-tooltip-invalid="{% trans %}registration.form.name.tooltip.invalid{% endtrans %}"
+                                    dh-tooltip-invalid="Bitte geben Sie eine gültige URL ein."
                                 ></dh-input>
                             </div>
                             <label for="languages">In welcher Sprache soll der Banner angezeigt werden</label>
-                            <select name="languages" class="span6">
-                                <option value="">Deutsch</option>
-                                <option value="">Englisch</option>
-                                <option value="">Spanisch</option>
-                            </select>
+                            <dh-select class="span6" ng-model="language" dh-options="languages"></dh-select>
                             <div class="tab-bottom-buttons">
                                 <button style="visibility: hidden"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
-                                <button>&nbsp;Vorschau ansehen</button>
-                                <button class="pull-right next" ng-click="tab2.active = true"><i class="icon-tick-right icon-white pull-right"></i>Weiter&nbsp;</button>
+                                <button ng-click="checkValid()">&nbsp;Vorschau ansehen</button>
+                                <button class="pull-right next" ng-click="nextStep(step1form, tab2)"><i class="icon-tick-right icon-white pull-right"></i>Weiter&nbsp;</button>
                             </div>
                         </div>
                     </tab>
@@ -82,65 +66,66 @@
                             <h3>Domain [[ domainName ]]<br>Standard-Banner-Konfiguration</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis scelerisque neque id viverra mollis. Sed mi sem, consequat eu ultrices non, imperdiet id tellus. Morbi et massa at elit tempus pellentesque nec ut eros. Vestibulum auctor enim eget aliquet porttitor. Nulla lacinia purus non elementum commodo.</p>
                             <dh-input
-                                    type="radio"
+                                type="radio"
 
-                                    dh-name="position-radio"
-                                    ng-model="bannerposition"
-                                    dh-value="center"
+                                dh-name="positionRadio"
+                                ng-model="bannerposition"
+                                dh-value="center"
 
-                                    dh-label="mittig"
+                                dh-label="mittig"
 
-                                    dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
-                                    dh-tooltip-trigger="focus"
-                                    dh-tooltip-placement="top"
-                                    dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
+                                dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
+                                dh-tooltip-trigger="focus"
+                                dh-tooltip-placement="top"
+                                dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
                             ></dh-input>
                             <dh-input
-                                    type="radio"
+                                type="radio"
 
-                                    dh-name="position-radio"
-                                    ng-model="bannerposition"
-                                    dh-value="upper"
+                                dh-name="positionRadio"
+                                ng-model="bannerposition"
+                                dh-value="upper"
 
-                                    dh-label="oben"
+                                dh-label="oben"
 
-                                    dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
-                                    dh-tooltip-trigger="focus"
-                                    dh-tooltip-placement="top"
-                                    dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
+                                dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
+                                dh-tooltip-trigger="focus"
+                                dh-tooltip-placement="top"
+                                dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
                             ></dh-input>
                             <dh-input
-                                    type="radio"
+                                type="radio"
 
-                                    dh-name="position-radio"
-                                    ng-model="bannerposition"
-                                    dh-value="right"
+                                dh-name="positionRadio"
+                                ng-model="bannerposition"
+                                dh-value="right"
 
-                                    dh-label="rechts"
+                                dh-label="rechts"
 
-                                    dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
-                                    dh-tooltip-trigger="focus"
-                                    dh-tooltip-placement="top"
-                                    dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
+                                dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
+                                dh-tooltip-trigger="focus"
+                                dh-tooltip-placement="top"
+                                dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
                             ></dh-input>
                             <dh-input
-                                    type="checkbox"
+                                type="checkbox"
 
-                                    dh-name="secondvisit-box"
-                                    ng-model="secondvisit"
-                                    dh-value="true"
+                                dh-name="secondvisitBox"
+                                ng-model="secondvisit"
+                                dh-value="true"
 
-                                    dh-label="ab dem 2. Besuch täglich soll ein anderer Banner angezeigt werden"
+                                dh-label="ab dem 2. Besuch täglich soll ein anderer Banner angezeigt werden"
 
-                                    dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
-                                    dh-tooltip-trigger="focus"
-                                    dh-tooltip-placement="top"
-                                    dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
+                                dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
+                                dh-tooltip-trigger="focus"
+                                dh-tooltip-placement="top"
+                                dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
                             ></dh-input>
-                            <dh-input
+                            <div ng-show="secondvisit">
+                                <dh-input
                                     type="radio"
 
-                                    dh-name="secondposition-radio"
+                                    dh-name="secondpositionRadio"
                                     ng-model="bannersecondposition"
                                     dh-value="upper"
 
@@ -150,11 +135,11 @@
                                     dh-tooltip-trigger="focus"
                                     dh-tooltip-placement="top"
                                     dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
-                            ></dh-input>
-                            <dh-input
+                                ></dh-input>
+                                <dh-input
                                     type="radio"
 
-                                    dh-name="secondposition-radio"
+                                    dh-name="secondpositionRadio"
                                     ng-model="bannersecondposition"
                                     dh-value="right"
 
@@ -164,7 +149,8 @@
                                     dh-tooltip-trigger="focus"
                                     dh-tooltip-placement="top"
                                     dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
-                            ></dh-input>
+                                ></dh-input>
+                            </div>
                             <div class="tab-bottom-buttons">
                                 <button ng-click="tab1.active = true"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
                                 <button style="visibility: hidden">&nbsp;Vorschau ansehen</button>

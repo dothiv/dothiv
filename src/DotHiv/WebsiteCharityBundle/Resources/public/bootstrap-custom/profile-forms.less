@@ -115,6 +115,7 @@
 // -------------------------
 .profile .tab-content {
     background-color: #E9E9E9;
+    overflow: visible;
 }
 
 .tab-content-container {
@@ -160,6 +161,7 @@
 // -------------------------
 .tab-content-container input[type="text"] {
     margin-bottom: 15px;
+    border: 2px solid white;
 }
 
 .tab-content-container select {
@@ -170,4 +172,58 @@
     padding-top: 7px;
     border: 0px solid;
     outline: none;
+}
+
+// dh-dropdown
+// -------------------------
+.dh-dropdown {
+    position: relative;
+}
+
+.tab-content-container .dh-dropdown {
+    &[class*="span"] {
+        float: none;
+        margin-left: 0;
+    }
+    & a {
+        height: @inputHeight - 8px - @inputBorderWidth;
+        line-height: @inputHeight - 8px - @inputBorderWidth;
+        cursor: pointer;
+        .user-select(none);
+    }
+    & a.dropdown-toggle {
+        background-color: white;
+        color: #555555;
+        display: block;
+        border: 2px solid white;
+        padding: 4px 15px;
+        margin-bottom: 15px;
+    }
+
+    &.open a.dropdown-toggle i.dropdown-icon {
+        background-position-x: -30px;
+    }
+    & .dropdown-menu {
+        margin: 0;
+        width: 100%;
+        border: none;
+        max-height: 180px;
+        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .border-radius(0);
+        .box-shadow(none);
+    }
+    & .dropdown-menu > li {
+        padding: 0;
+    }
+    & .dropdown-menu > li > a {
+        color: #999999;
+        padding: 3px 15px;
+    }
+    & .dropdown-menu > li > a:hover {
+        background: none;
+        padding: 3px 15px;
+        color: #252525;
+    }
 }

@@ -3,8 +3,11 @@
 @inputBorderFocus: #C0C0C0;
 @inputHeight: 45px;
 @inputBorderWidth: 2px;
-@inputInvalidBackground: #FCE4F1;
-@inputInvalidBorderFocus: #E02155;
+@inputInvalidBackground: #FCE5F1;
+@inputInvalidBorderFocus: #E0003A;
+
+@inputBorderProgress: #E89608;
+@inputFieldProgress: #FFE6BC;
 
 @tooltipBorderShadow: 0px 0px 7px 0px @grayLight;
 
@@ -86,4 +89,24 @@ input.ng-dirty.ng-valid {
 
 form.unclean input.ng-invalid-required {
     .invalid;
+}
+
+form input[type="url"].ng-dirty.ng-valid.span6 + span {
+    display: block;
+    position: relative;
+    &:after {
+        content: '';
+        width: 36px;
+        height: 36px;
+        display: block;
+        position: absolute;
+        top: -52px;
+        left: 470px;
+        background: url(/bundles/websitecharity/images/green-tick.png) 0 0 no-repeat;
+    }
+}
+
+form.clean input.ng-dirty.ng-invalid:focus, form.unclean input.ng-dirty.ng-invalid:focus {
+    background-color: @inputFieldProgress;
+    border-color: @inputBorderProgress;
 }
