@@ -12,6 +12,10 @@ browsers = ['Firefox'];
 
 singleRun = true;
 
+proxies = {
+    '/': 'http://localhost/'
+}
+
 junitReporter = {
   outputFile: 'test_out/e2e.xml',
   suite: 'e2e'
