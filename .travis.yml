@@ -40,3 +40,7 @@ script:
   - cd src/DotHiv/WebsiteCharityBundle/Resources/public
   - DISPLAY=:99.0 ./scripts/test.sh
   - DISPLAY=:99.0 ./scripts/e2e-test.sh
+
+after_failure:
+  - cat app/logs/*
+  - cat /var/log/apache2/*
