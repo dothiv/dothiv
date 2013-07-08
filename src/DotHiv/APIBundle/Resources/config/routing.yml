@@ -17,3 +17,7 @@ domains:
 domainclaims:
     type: rest
     resource: DotHiv\APIBundle\Controller\DomainClaimController
+
+banner:
+    type: rest
+    resource: DotHiv\APIBundle\Controller\BannerController

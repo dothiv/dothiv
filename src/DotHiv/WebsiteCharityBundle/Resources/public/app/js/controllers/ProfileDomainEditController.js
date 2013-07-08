@@ -1,20 +1,25 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController', ['$scope', '$location', '$stateParams', 'security',
-    function($scope, $location, $stateParams, security) {
+angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController', ['$scope', '$location', '$stateParams', 'dothivDomainResource',
+    function($scope, $location, $stateParams, dothivDomainResource) {
 
-        $scope.domainName = $stateParams.domainName; //TODO
+        // retrieve domain id from URL parameters and get domain information
+        var domainId = $stateParams.domainId;
+        $scope.domain = dothivDomainResource.get({"id": domainId});
 
-        $scope.domainforwarding = 'true';
-        $scope.bannerposition = 'center';
-        $scope.bannersecondposition = 'upper';
-        $scope.targetdomain = '';
-        $scope.language = 'Deutsch';
+        // data structure for form values
+        $scope.domainData = {};
+        $scope.domainData.forwarding = 'true';
+        $scope.domainData.bannerposition = 'center';
+        $scope.domainData.bannersecondposition = 'upper';
+        $scope.domainData.targetdomain = '';
+        $scope.domainData.language = 'Deutsch';
+
         $scope.languages = {'german':'Deutsch', 'english':'Englisch', 'spanish':'Spanisch', 'latin':'Latein'};
 
         // form configuration
         $scope.formclean = true;
-        $scope.nextStep = function (form, tab) {
+        $scope.nextStep = function(form, tab) {
             if (form.$valid) {
                 console.log('valid');
                 tab.active = true;
@@ -22,6 +27,11 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
                 console.log('invalid');
                 $scope.formclean = false;
             }
+        };
+        $scope.submit = function(tab) {
+            console.log($scope.domainData);
+            //dothivDomainResource.save(); //TODO
+            tab.active = true;
         };
     }
 ]);

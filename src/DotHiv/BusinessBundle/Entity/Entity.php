@@ -22,6 +22,11 @@ class Entity
      */
     protected $id;
 
+    public function __construct()
+    {
+
+    }
+
     /**
      * gets the database primary key 
      */

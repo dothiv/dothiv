@@ -12,7 +12,7 @@
                     <li class="accountance"><a href="#!/profile" ng-class="{ active: state.includes('=.profile.summary') }">Übersicht</a></li>
                     <li class="accountance"><a href="#!/profile/edit" ng-class="{ active: state.includes('=.profile.edit') }">Profil bearbeiten</a></li>
                     <li class="accountance"><a href="#!/profile/projects" ng-class="{ active: state.includes('=.profile.projects') }">Projekte verwalten (3)</a></li>
-                    <li class="accountance"><a href="#!/profile/domains" ng-class="{ active: state.includes('=.profile.domains') }">Domains verwalten (1)</a></li>
+                    <li class="accountance"><a href="#!/profile/domains" ng-class="{ active: (state.includes('=.profile.domains') || state.includes('=.profile.domainedit')) }">Domains verwalten (1)</a></li>
                     <li class="accountance grey"><a ng-click="logout()">Logout</a></li>
                 </ul>
             </div>

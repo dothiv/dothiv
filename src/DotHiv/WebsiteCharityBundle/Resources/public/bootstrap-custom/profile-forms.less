@@ -63,6 +63,13 @@
     }
 }
 
+.profile .nav-tabs > li:not(.disabled):not(.active) > a:hover {
+    background-color: #252525;
+    &:after {
+        border-left-color: #252525;
+    }
+}
+
 .profile .nav-tabs > li:first-child > a {
     padding-left: 20px;
 }
@@ -141,13 +148,22 @@
         font-weight: bold;
         display: inline-block;
         margin-right: 20px;
+
+        &:hover {
+            background-color: #1786BE;
+        }
     }
 
     & button.next {
         background-color: #1785BE;
         color: white;
         margin-right: 0;
+
+        &:hover {
+            background-color: #252525;
+        }
     }
+
 }
 
 // horizontal radio button groups
