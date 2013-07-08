@@ -119,6 +119,32 @@ class DomainController extends FOSRestController {
     }
 
     /**
+     * Gets the banners of this domain.
+     *
+     * @ApiDoc(
+     *   section="domain",
+     *   resource=true,
+     *   description="Gets a list of banners of this domain",
+     *   statusCodes={
+     *     200="Successful",
+     *     403="Access denied"
+     *   },
+     *   output="DotHiv\BusinessBundle\Entity\Banner"
+     * )
+     */
+     public function getDomainBannersAction($id) {
+        // TODO: security concern: who is allowed to get domain banners?
+
+        // retrieve domain from database
+        $domain = $this->getDoctrine()->getManager()->getRepository('DotHivBusinessBundle:Domain')->findOneBy(array('id' => $id));
+
+        // return list of banners
+        return $domain->getBanners();
+    }
+
+    // ----------- private functions go here -----------
+
+    /**
      * Generates a 32 digit random code
      *
      * Used pool of characters: a-zA-Z0-9
