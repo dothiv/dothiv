@@ -12,10 +12,10 @@ angular.module('dotHIVApp.directives').directive("dhSelect", function($compile) 
                 options: '=dhOptions',
                },
         template: '<div class="dh-dropdown">' +
-                    '<a class="dropdown-toggle">[[ ngModel ]]<i class="dropdown-icon pull-right"></i></a>' +
+                    '<a class="dropdown-toggle">[[ options[ngModel] ]]<i class="dropdown-icon pull-right"></i></a>' +
                     '<ul class="dropdown-menu">' +
                       '<li ng-repeat="(key, value) in options">' +
-                        '<a ng-click="select(this)" dh-value="[[ key ]]" class="[[ value == ngModel ? \'selected\' : \'\' ]]">[[ value ]]</a>' +
+                        '<a ng-click="select(this)" dh-value="[[ key ]]" class="[[ key == ngModel ? \'selected\' : \'\' ]]">[[ value ]]</a>' +
                       '</li>' +
                     '</ul>' +
                   '</div>',
@@ -23,7 +23,7 @@ angular.module('dotHIVApp.directives').directive("dhSelect", function($compile) 
         priority: 10,
         controller: function($scope) {
             $scope.select = function(selectedElement) {
-                $scope.ngModel = selectedElement.value;
+                $scope.ngModel = selectedElement.key;
             };
         }
     };
