@@ -27,6 +27,7 @@ before_script:
 # install dothiv
   - composer install
   - mysql -e 'create database dothiv;'
+  - echo "php_value date.timezone Europe/Berlin" >> web/.htaccess
   - php app/console doctrine:schema:create
   - sudo chown -R www-data app/cache app/logs
   - sudo chmod -R 777 app/cache app/logs
