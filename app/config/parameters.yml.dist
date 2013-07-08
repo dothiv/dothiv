@@ -14,11 +14,11 @@ parameters:
     locale:            en_US
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
 
-    charitydomain:     dothiv.bp
+    charitydomain:     localhost
     companydomain:     registry.hiv
 
-    facebook_app_id:   ~
-    facebook_app_secret: ~
+    facebook_app_id:   1234
+    facebook_app_secret: yourfacebooksecret
 
     #
     # PARAMETERS USED IN DEV MODE

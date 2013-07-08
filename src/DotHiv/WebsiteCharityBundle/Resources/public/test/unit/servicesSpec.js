@@ -3,10 +3,24 @@
 /* jasmine specs for services go here */
 
 describe('Security service', function() {
-    var security, httpBackend, templateCache, rootScope;
+    var security, httpBackend, templateCache, rootScope, state;
 
     beforeEach(module('dotHIVApp.services'));
     beforeEach(module('ui.state'));
+    beforeEach(module(function($provide) {
+            $provide.factory('$state', function() {
+                return {
+                    transitionTo: function(state) {
+                        this.current = state;
+                    },
+                    includes: function(state) {
+                        return !!this.current.match(new RegExp('(^|\.)' + state + '($|\.)'));
+                    },
+                    current: 'the_default_state',
+                };
+            });
+        })
+    );
     beforeEach(function () {
         inject(function($injector) {
             security = $injector.get('security');
@@ -20,6 +34,10 @@ describe('Security service', function() {
         inject(function($rootScope) {
             rootScope = $rootScope;
         });
+        inject(function($state) {
+            state = $state;
+        })
+        state.transitionTo('home');
     });
 
     it('should be instanciated for further testing', function() {
@@ -250,6 +268,58 @@ describe('Security service', function() {
             rootScope.$digest();
             httpBackend.flush();
             expect(security.isAuthenticated()).toEqual(true);
+        });
+
+        it('should redirect to home state when logging out from a protected (=) state', function() {
+            // make sure we are logged in
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+            security.updateUserInfo();
+            rootScope.$digest();
+            httpBackend.flush();
+
+            // make sure we are in a protected state
+            state.transitionTo('=');
+
+            httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
+            security.logout();
+            spyOn(state, 'transitionTo').andCallThrough();
+            rootScope.$digest();
+            httpBackend.flush();
+            expect(state.current).toEqual('home');
+            expect(state.transitionTo).toHaveBeenCalledWith('home');
+        });
+
+        it('should not redirect to home state when logging out from a not protected state', function() {
+            // make sure we are logged in
+            httpBackend.expectGET(/^.*\/api\/login$/).respond(200, '{\
+                    "username": "testuser",\
+                    "username_canonical": "testuser",\
+                    "email": "test@email.hiv",\
+                    "email_canonical": "test@email.hiv",\
+                    "last_login": "2013-06-05T17:26:29+0200",\
+                    "roles": ["ROLE_USER"]\
+                }');
+            security.updateUserInfo();
+            rootScope.$digest();
+            httpBackend.flush();
+
+            // make sure we are in a non-protected state
+            state.transitionTo('somePublicPage');
+
+            httpBackend.expectDELETE(/^.*\/api\/login$/).respond(200);
+            spyOn(state, 'transitionTo');
+            security.logout();
+            rootScope.$digest();
+            httpBackend.flush();
+            expect(state.current).toEqual('somePublicPage');
+            expect(state.transitionTo).not.toHaveBeenCalled();
         });
     });
 

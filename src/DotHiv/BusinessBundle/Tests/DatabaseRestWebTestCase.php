@@ -10,11 +10,12 @@ use Doctrine\Common\Persistence\PersistentObject;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * Base class for tests that use a database and HTTP requests.
- * 
+ * Extend the RestWebTestCase class by adding a fresh and
+ * temporary database.
+ *
  * @author Nils Wisiol <mail@nils-wisiol.de>
  */
-abstract class DatabaseWebTestCase extends WebTestCase {
+abstract class DatabaseRestWebTestCase extends RestWebTestCase {
 
     const USER_EMAIL = 'phpunit@example.com';
     const USER_PASSWORD = 'Br=Pr*p6';
@@ -26,12 +27,6 @@ abstract class DatabaseWebTestCase extends WebTestCase {
      * @var Doctrine\ORM\EntityManager
      */
     protected static $em;
-
-    /**
-     * The HTTP client that is used to make requests.
-     * @var Client
-     */
-    protected static $client;
 
     private static $_application;
 
@@ -52,8 +47,6 @@ abstract class DatabaseWebTestCase extends WebTestCase {
         self::$em = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager();
-
-        self::$client = static::createClient();
     }
 
     /**
@@ -113,43 +106,10 @@ abstract class DatabaseWebTestCase extends WebTestCase {
         return self::$_application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
     }
 
-    /**
-     * Do a JSON-Request, that is, send the $content JSON-encoded to the server with
-     * Content-Type- and Accept-Headers set to 'application/json'.
-     * 
-     * After any request, the EntityManager of this class will be cleared to avoid
-     * concurrency between this Manager and the Manager that is used in the actual
-     * application.
-     * 
-     * An array of (object, int) with the JSON-response and the status code will be returned.
-     * 
-     * @param string $method
-     * @param string $path
-     * @param object|array|string $content The content to be sent. Array and object will be sent JSON-encoded; strings will be sent without modification.
-     * 
-     * @return array
-     */
-    protected static function jsonRequest($method, $path, $content = '') {
-        if (is_array($content)) $content = (object)$content;
-
-        $crawler = self::$client->request(
-                $method,
-                $path,
-                array(),
-                array(),
-                array(
-                        'CONTENT_TYPE' => 'application/json',
-                        'HTTP_ACCEPT' => 'application/json',
-                ),
-                is_object($content) ? json_encode($content) : $content
-            );
-
-        $response = json_decode(self::$client->getResponse()->getContent());
-        $status = self::$client->getResponse()->getStatusCode();
-
+    protected static function jsonRequest($method, $path, $content = '', $additional_headers = array()) {
+        $ret = parent::jsonRequest($method, $path, $content, $additional_headers);
         self::$em->clear();
-
-        return array($response, $status);
+        return $ret;
     }
 
 }

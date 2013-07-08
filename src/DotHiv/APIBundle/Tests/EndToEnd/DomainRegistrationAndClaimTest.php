@@ -2,14 +2,14 @@
 
 namespace DotHiv\APIBundle\Tests\EndToEnd;
 
-use DotHiv\BusinessBundle\Tests\DatabaseWebTestCase;
+use DotHiv\BusinessBundle\Tests\DatabaseRestWebTestCase;
 
 /**
  * Tests the process of registering and claiming a domain.
  * 
  * @author Nils Wisiol <mail@nils-wisiol.de>
  */
-class DomainRegistrationAndClaimTestTest extends DatabaseWebTestCase {
+class DomainRegistrationAndClaimTestTest extends DatabaseRestWebTestCase {
 
     protected static $username = "";
 

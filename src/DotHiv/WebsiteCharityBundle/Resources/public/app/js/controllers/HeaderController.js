@@ -16,7 +16,7 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
         };
 
         $scope.login = function() {
-            securityDialog.showLogin();
+            securityDialog.showLogin('=.profile.summary');
         };
 
         $scope.logout = function() {

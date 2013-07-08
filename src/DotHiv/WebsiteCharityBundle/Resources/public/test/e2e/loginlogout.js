@@ -82,12 +82,13 @@ describe('dotHIVApp', function() {
     });
 
     it('shoud redirect to home when logging out on protected page', function() {
+        browser().navigateTo('/app_dev.php/#!/profile');
         element('a[ng-click="logout()"]').click();
         sleep(1);
         expect(browser().location().url()).toBe('/');
     });
 
-    it('should log in when correctly using the log in form', function() {
+    it('should log in and redirect to the profile summary page when correctly using the log in form', function() {
         element('a[ng-click="login()"]').click();
         sleep(1);
         dhInput('input[name="login-username"]').enter(email);
@@ -96,6 +97,7 @@ describe('dotHIVApp', function() {
         sleep(1);
         expect(element('a[ng-click="logout()"]:visible').count()).toBeGreaterThan(0);
         expect(element('a[ng-click="login()"]:visible').count()).toBe(0);
+        expect(browser().location().url()).toBe('/profile');
         element('a[ng-click="logout()"]').click();
     });
 

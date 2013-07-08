@@ -21,3 +21,7 @@ domainclaims:
 banner:
     type: rest
     resource: DotHiv\APIBundle\Controller\BannerController
+
+locale:
+    type: rest
+    resource: DotHiv\APIBundle\Controller\LocaleController

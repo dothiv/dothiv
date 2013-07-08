@@ -10,10 +10,7 @@ angular.module('dotHIVApp.controllers').controller('ProfileController', ['$scope
 
         // make logout available and redirect to home page
         $scope.logout = function() {
-            security.logout(function(success){
-                if (success)
-                    $location.path( "/" );
-            });
+            security.logout();
         };
     }
 ]);
