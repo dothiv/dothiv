@@ -28,7 +28,8 @@ before_script:
   - composer install
   - mysql -e 'create database dothiv;'
   - sudo rm -rf app/cache/* app/logs/*
-  - sudo chmod -R 777 app/cache app/logs
+  - sudo setfacl -dRm user:apache:rwx app/cache app/logs
+  - sudo setfacl -Rm user:apache:rwx app/cache app/logs
   - php app/console doctrine:schema:create
   - wget --save-headers --output-document - http://localhost/app_dev.php
 
