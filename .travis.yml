@@ -31,9 +31,10 @@ before_script:
   - php app/console doctrine:schema:create
   - sudo chown -R www-data app/cache app/logs
   - sudo chmod -R 777 app/cache app/logs
-  - wget --save-headers --output-document - http://localhost/app_dev.php
 
 script:
+# test webserver
+  - wget --save-headers --output-document - http://localhost/app_dev.php
 # PHP testing
   - phpunit -c app
 # Javascript testing
