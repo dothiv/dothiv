@@ -18,6 +18,39 @@ describe('locale service', function() {
         });
     });
 
+    describe('language/territory', function() {
+
+        it('should set the language and territory correctly when using a locale like de_DE (language and territory part)', function() {
+            httpBackend.expectPUT(/^.*\/api\/locale$/, '{"locale":"de_DE"}').respond(204);
+            locale.set('de_DE');
+            expect(locale.language).toBe('de');
+            expect(locale.territory).toBe('DE');
+            httpBackend.expectPUT(/^.*\/api\/locale$/, '{"locale":"en_AU"}').respond(204);
+            locale.set('en_AU');
+            expect(locale.language).toBe('en');
+            expect(locale.territory).toBe('AU');
+        });
+
+        it('should set the language and territory correctly when using a locale like de (no territory part)', function() {
+            httpBackend.expectPUT(/^.*\/api\/locale$/, '{"locale":"de"}').respond(204);
+            locale.set('de');
+            expect(locale.language).toBe('de');
+            expect(locale.territory).toBe('');
+            httpBackend.expectPUT(/^.*\/api\/locale$/, '{"locale":"en"}').respond(204);
+            locale.set('en');
+            expect(locale.language).toBe('en');
+            expect(locale.territory).toBe('');
+        });
+
+        it('should set language and territory to empty string when the locale is undefined', function() {
+            httpBackend.expectPUT(/^.*\/api\/locale$/, '{"locale":""}').respond(204);
+            locale.set(undefined);
+            expect(locale.language).toBe('');
+            expect(locale.territory).toBe('');
+        })
+
+    })
+
     describe('set(), locale', function() {
 
         it('should call the locale api endpoint when settings a locale', function() {
@@ -27,9 +60,10 @@ describe('locale service', function() {
             httpBackend.flush();
         });
 
-        it('should set the locale property correctly', function() {
+        it('should set the _locale property correctly', function() {
+            httpBackend.expectPUT(/^.*\/api\/locale$/, '{"locale":"de_DE"}').respond(204);
             locale.set('de_DE');
-            expect(locale.locale.locale).toBe('de_DE');
+            expect(locale._locale.locale).toBe('de_DE');
         });
 
         it('can clear the locale', function() {

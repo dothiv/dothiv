@@ -9,17 +9,32 @@
  * 
  * The returned object provides the following methods and fields:
  * 
- * - **`set()`** Set a locale.
- *   - `locale` – {string} The locale to use from now on.
+ * - **`set(locale)`** Set a locale.
+ * - **`language`** – {string} The language part of a locale. ('de' for 'de_DE' as well as for 'de')
+ * - **`territory`** – {string} The territory part of a locale. ('DE' for 'de_DE', empty string for 'de')
  */
 angular.module('dotHIVApp.services').factory('locale', function(dothivLocaleResource) {
     var locale = {
-        locale: null,
+        _locale: null,
+        _set: function(locale) {
+                locale = locale || '';
+                this._locale.locale = locale;
+                var parts = locale.match(/^([a-zA-Z]+)(\_([a-zA-Z]+))?$/) || Array(4);
+                this.language = parts[1] || '';
+                this.territory = parts[3] || '';
+        },
+        language: '',
+        territory: '',
         set: function(locale) {
-                this.locale.locale = locale;
-                this.locale.$put();
+                this._set(locale);
+                this._locale.$put();
             }
-        };
-    locale.locale = dothivLocaleResource.get();
+    };
+
+    // initialize locale service
+    locale._locale = dothivLocaleResource.get(function() {
+        locale._set(locale._locale.locale);
+    });
+
     return locale;
 });
