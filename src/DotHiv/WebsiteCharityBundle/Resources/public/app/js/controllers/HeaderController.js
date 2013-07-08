@@ -4,20 +4,19 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
     function($scope, $state, security, securityDialog) {
         // make state information available
         $scope.state = $state;
-        
+
         $scope.siteLanguage = 'Select Language';
         $scope.siteLanguages = {
                 'Deutsch': 'German',
                 'Englisch': 'English'
                     };
-        
 
         $scope.isAuthenticated = function() {
             return security.isAuthenticated();
         };
 
         $scope.login = function() {
-            securityDialog.showLogin();
+            securityDialog.showLogin('=.profile.summary');
         };
 
         $scope.logout = function() {
