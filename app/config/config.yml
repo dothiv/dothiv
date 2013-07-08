@@ -143,7 +143,7 @@ parameters:
     security.logout_listener.class: DotHiv\APIBundle\Security\RestLogoutListener
 
     # listener that sets the users locale
-    locale_listener.class: DotHiv\BusinessBundle\Listener\LocaleListener
+    locale_listener.class: DotHiv\APIBundle\Listener\LocaleListener
 
     # handler for serialization of forms
     jms_serializer.form_error_handler.class: DotHiv\BusinessBundle\Serializer\FormHandler
