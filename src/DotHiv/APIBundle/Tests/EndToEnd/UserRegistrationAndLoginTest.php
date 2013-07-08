@@ -2,14 +2,14 @@
 
 namespace DotHiv\APIBundle\Tests\EndToEnd;
 
-use DotHiv\BusinessBundle\Tests\DatabaseWebTestCase;
+use DotHiv\BusinessBundle\Tests\DatabaseRestWebTestCase;
 
 /**
  * Tests the registration and login process.
  * 
  * @author Nils Wisiol <mail@nils-wisiol.de>
  */
-class UserRegistrationAndLoginTest extends DatabaseWebTestCase {
+class UserRegistrationAndLoginTest extends DatabaseRestWebTestCase {
 
     protected static $username = '';
 
