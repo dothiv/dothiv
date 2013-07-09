@@ -1,0 +1,36 @@
+{
+    "header":
+    {
+        "menu":
+        {
+            "logout": "Abmelden",
+            "login": "Anmelden"
+        }
+    },
+    "login":
+    {
+        "form":
+        {
+            "username":
+            {
+                "label": "Emailadresse",
+                "placeholder": "Ihre Emailadresse"
+            },
+            "thirdparty":
+            {
+                "facebook":
+                {
+                    "button": "Mit Facebook einloggen"
+                },
+                "twitter":
+                {
+                    "button": "Mit Twitter einloggen"
+                },
+                "gplus":
+                {
+                    "button": "Mit Google Plus einloggen"
+                }
+            }
+        }
+    }
+}

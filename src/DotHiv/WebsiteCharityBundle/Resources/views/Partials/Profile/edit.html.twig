@@ -12,15 +12,15 @@
                     <fieldset>
                         <span class="alert alert-error" ng-show="editerrormsg">[[ editerrormsg ]]</span>
 
-                        <label for="edit-name">{% trans %}profile.edit.form.name.label{% endtrans %}</label>
-                        <input type="text" class="span6" name="name" id="edit-name" ng-model="user.name" placeholder="{% trans %}profile.edit.form.name.placeholder{% endtrans %}" required />
+                        <label for="edit-name">[[ 'profile.edit.form.name.label' | translate ]]</label>
+                        <input type="text" class="span6" name="name" id="edit-name" ng-model="user.name" placeholder="[[ 'profile.edit.form.name.placeholder' | translate ]]" required />
 
-                        <label for="edit-surname">{% trans %}profile.edit.form.surname.label{% endtrans %}</label>
-                        <input type="text" class="span6" name="surname" id="edit-surname" ng-model="user.surname" placeholder="{% trans %}profile.edit.form.surname.placeholder{% endtrans %}" required />
+                        <label for="edit-surname">[[ 'profile.edit.form.surname.label' | translate ]]</label>
+                        <input type="text" class="span6" name="surname" id="edit-surname" ng-model="user.surname" placeholder="[[ 'profile.edit.form.surname.placeholder' | translate ]]" required />
 
-                        <label for="edit-email">{% trans %}profile.edit.form.email.label{% endtrans %}</label>
-                        <input type="email" class="span6" name="email" id="edit-email" ng-model="user.email" placeholder="{% trans %}profile.edit.form.email.placeholder{% endtrans %}" required />
-                        <button type="submit" ng-click="submit()" class="btn btn-primary pull-right" >{% trans %}profile.edit.form.submit{% endtrans %}</button>
+                        <label for="edit-email">[[ 'profile.edit.form.email.label' | translate ]]</label>
+                        <input type="email" class="span6" name="email" id="edit-email" ng-model="user.email" placeholder="[[ 'profile.edit.form.email.placeholder' | translate ]]" required />
+                        <button type="submit" ng-click="submit()" class="btn btn-primary pull-right" >[[ 'profile.edit.form.submit' | translate ]]</button>
                     </fieldset>
                 </form>
             </div>

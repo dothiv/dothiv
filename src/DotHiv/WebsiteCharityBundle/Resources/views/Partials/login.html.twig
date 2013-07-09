@@ -8,8 +8,8 @@
         <div class="span6">
             <form novalidate name="loginForm" class="simple-form" ng-class="{clean: loginclean, unclean: !loginclean}">
                 <fieldset>
-                    <h4>{% trans %}login.form.title{% endtrans %}</h4>
-                    <p><small>{% trans %}login.form.text{% endtrans %}</small></p>
+                    <h4>[[ 'login.form.title' | translate ]]</h4>
+                    <p><small>[[ 'login.form.text' | translate ]]</small></p>
 
                     <span class="alert alert-error" ng-show="loginerrormsg">[[ loginerrormsg ]]</span>
 
@@ -18,18 +18,18 @@
                         type="email"
 
                         dh-name="login-username"
-                        dh-placeholder="{% trans %}login.form.username.placeholder{% endtrans %}"
+                        dh-placeholder="[[ 'login.form.username.placeholder' | translate ]]"
                         ng-model="loginData.username"
 
                         dh-required
                         dh-autofocus
 
-                        dh-label="{% trans %}login.form.username.label{% endtrans %}"
+                        dh-label="[[ 'login.form.username.label' | translate ]]"
 
-                        dh-tooltip="{% trans %}login.form.username.tooltip.default{% endtrans %}"
+                        dh-tooltip="[[ 'login.form.username.tooltip.default' | translate ]]"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="{% trans %}login.form.username.tooltip.invalid{% endtrans %}"
+                        dh-tooltip-invalid="[[ 'login.form.username.tooltip.invalid' | translate ]]"
                         dh-tooltip-show-invalid="!loginclean"
                         ></dh-input>
 
@@ -38,24 +38,24 @@
                         type="password"
 
                         dh-name="login-password"
-                        dh-placeholder="{% trans %}login.form.password.placeholder{% endtrans %}"
+                        dh-placeholder="[[ 'login.form.password.placeholder' | translate ]]"
                         ng-model="loginData.password"
 
                         dh-required
 
-                        dh-label="{% trans %}login.form.password{% endtrans %}"
+                        dh-label="[[ 'login.form.password' | translate ]]"
 
-                        dh-tooltip="{% trans %}login.form.password.tooltip{% endtrans %}"
+                        dh-tooltip="[[ 'login.form.password.tooltip' | translate ]]"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="right"
                         ></dh-input>
 
-                    <button type="submit" ng-click="login(loginData)" class="btn btn-primary" >{% trans %}login.form.submit{% endtrans %}</button>
-                    <button type="button" class="btn btn-link">{% trans %}login.form.passwordrecovery{% endtrans %}</button>
+                    <button type="submit" ng-click="login(loginData)" class="btn btn-primary" >[[ 'login.form.submit' | translate ]]</button>
+                    <button type="button" class="btn btn-link">[[ 'login.form.passwordrecovery' | translate ]]</button>
                 </fieldset>
             </form>
 
-            <h4>{% trans %}login.form.thirdparty{% endtrans %}</h4>
+            <h4>[[ 'login.form.thirdparty' | translate ]]</h4>
             <div class="row-fluid">
                 <div class="btn-group btn-group-vertical span12">
                     <button
@@ -63,11 +63,11 @@
                         class="btn btn-facebook span12"
                         ng-click="thirdparty('{{ path('dot_hiv_api_security_facebook_login_start') }}')"
                         >
-                        {% trans %}login.form.thirdparty.facebook.button{% endtrans %}
+                        [[ 'login.form.thirdparty.facebook.button' | translate ]]
                         <i class="icon-tick-right icon-white pull-right"></i>
                     </button>
-                    <button type="button" class="btn btn-twitter span12">{% trans %}login.form.thirdparty.twitter.button{% endtrans %}<i class="icon-tick-right icon-white pull-right"></i></button>
-                    <button type="button" class="btn btn-gplus span12">{% trans %}login.form.thirdparty.gplus.button{% endtrans %}<i class="icon-tick-right icon-white pull-right"></i></button>
+                    <button type="button" class="btn btn-twitter span12">[[ 'login.form.thirdparty.twitter.button' | translate ]]<i class="icon-tick-right icon-white pull-right"></i></button>
+                    <button type="button" class="btn btn-gplus span12">[[ 'login.form.thirdparty.gplus.button' | translate ]]<i class="icon-tick-right icon-white pull-right"></i></button>
                 </div>
             </div>
         </div>
@@ -75,8 +75,8 @@
         <div class="span6">
             <form novalidate name="registrationForm" class="simple-form" ng-class="{clean: registrationclean, unclean: !registrationclean}">
                 <fieldset>
-                    <h4>{% trans %}registration.form.title{% endtrans %}</h4>
-                    <p><small>{% trans %}registration.form.text{% endtrans %}</small></p>
+                    <h4>[[ 'registration.form.title' | translate ]]</h4>
+                    <p><small>[[ 'registration.form.text' | translate ]]</small></p>
 
                     <span class="alert alert-error" ng-show="registrationerrormsg">[[ registrationerrormsg ]]</span>
 
@@ -85,17 +85,17 @@
                         type="text"
 
                         dh-name="registration-name"
-                        dh-placeholder="{% trans %}registration.form.name.placeholder{% endtrans %}"
+                        dh-placeholder="[[ 'registration.form.name.placeholder' | translate ]]"
                         ng-model="registrationData.name"
 
                         dh-required
 
-                        dh-label="{% trans %}registration.form.name.label{% endtrans %}"
+                        dh-label="[[ 'registration.form.name.label' | translate ]]"
 
-                        dh-tooltip="{% trans %}registration.form.name.tooltip.default{% endtrans %}"
+                        dh-tooltip="[[ 'registration.form.name.tooltip.default' | translate ]]"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="{% trans %}registration.form.name.tooltip.invalid{% endtrans %}"
+                        dh-tooltip-invalid="[[ 'registration.form.name.tooltip.invalid' | translate ]]"
                         dh-tooltip-show-invalid="!registrationclean"
                         ></dh-input>
 
@@ -104,17 +104,17 @@
                         type="text"
 
                         dh-name="registration-surname"
-                        dh-placeholder="{% trans %}registration.form.surname.placeholder{% endtrans %}"
+                        dh-placeholder="[[ 'registration.form.surname.placeholder' | translate ]]"
                         ng-model="registrationData.surname"
 
                         dh-required
 
-                        dh-label="{% trans %}registration.form.surname.label{% endtrans %}"
+                        dh-label="[[ 'registration.form.surname.label' | translate ]]"
 
-                        dh-tooltip="{% trans %}registration.form.surname.tooltip.default{% endtrans %}"
+                        dh-tooltip="[[ 'registration.form.surname.tooltip.default' | translate ]]"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="{% trans %}registration.form.surname.tooltip.invalid{% endtrans %}"
+                        dh-tooltip-invalid="[[ 'registration.form.surname.tooltip.invalid' | translate ]]"
                         dh-tooltip-show-invalid="!registrationclean"
                         ></dh-input>
 
@@ -123,31 +123,31 @@
                         type="email"
 
                         dh-name="registration-email"
-                        dh-placeholder="{% trans %}registration.form.email.placeholder{% endtrans %}"
+                        dh-placeholder="[[ 'registration.form.email.placeholder' | translate ]]"
                         ng-model="registrationData.email"
 
                         dh-required
 
-                        dh-label="{% trans %}registration.form.email.label{% endtrans %}"
+                        dh-label="[[ 'registration.form.email.label' | translate ]]"
 
-                        dh-tooltip="{% trans %}registration.form.email.tooltip.default{% endtrans %}"
+                        dh-tooltip="[[ 'registration.form.email.tooltip.default' | translate ]]"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="{% trans %}registration.form.email.tooltip.invalid{% endtrans %}"
+                        dh-tooltip-invalid="[[ 'registration.form.email.tooltip.invalid' | translate ]]"
                         dh-tooltip-show-invalid="!registrationclean"
                         ></dh-input>
 
-                    <label for="registration-password">{% trans %}registration.form.password.label{% endtrans %}</label>
-                    <input type="password" class="span12" name="registration-password" id="registration-password" ng-model="registrationData.password" placeholder="{% trans %}registration.form.password.placeholder{% endtrans %}" required /><br />
+                    <label for="registration-password">[[ 'registration.form.password.label' | translate ]]</label>
+                    <input type="password" class="span12" name="registration-password" id="registration-password" ng-model="registrationData.password" placeholder="[[ 'registration.form.password.placeholder' | translate ]]" required /><br />
 
-                    <label for="registration-passwordrepeat">{% trans %}registration.form.passwordrepeat.label{% endtrans %}</label>
-                    <input type="password" class="span12" name="registration-passwordrepeat" id="registration-passwordrepeat" placeholder="{% trans %}registration.form.password.placeholderrepeat{% endtrans %}" ng-model="registrationData.passwordRepeat" repeat-password="registration-password" required>
+                    <label for="registration-passwordrepeat">[[ 'registration.form.passwordrepeat.label' | translate ]]</label>
+                    <input type="password" class="span12" name="registration-passwordrepeat" id="registration-passwordrepeat" placeholder="[[ 'registration.form.password.placeholderrepeat' | translate ]]" ng-model="registrationData.passwordRepeat" repeat-password="registration-password" required>
 
                     <label class="checkbox">
-                        <input type="checkbox"> {% trans %}registration.form.agreement{% endtrans %}
+                        <input type="checkbox"> [[ 'registration.form.agreement' | translate ]]
                     </label>
 
-                    <button type="submit" ng-click="register(registrationData)" class="btn btn-primary" >{% trans %}registration.form.submit{% endtrans %}</button>
+                    <button type="submit" ng-click="register(registrationData)" class="btn btn-primary" >[[ 'registration.form.submit' | translate ]]</button>
                 </fieldset>
             </form>
         </div>

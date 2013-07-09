@@ -6,4 +6,4 @@ echo ""
 echo "Starting Karma Server (http://karma-runner.github.io)"
 echo "-------------------------------------------------------------------"
 
-CHROME_BIN=`which chromium-browser` karma start $BASE_DIR/../config/karma.conf.js $*
+karma start $BASE_DIR/../config/travis-karma.conf.js $*

@@ -1,0 +1,36 @@
+{
+    "header":
+    {
+        "menu":
+        {
+            "logout": "Log out",
+            "login": "Sign in"
+        }
+    },
+    "login":
+    {
+        "form":
+        {
+            "username":
+            {
+                "label": "Email address",
+                "placeholder": "Your email address"
+            },
+            "thirdparty":
+            {
+                "facebook":
+                {
+                    "button": "log in with Facebook"
+                },
+                "twitter":
+                {
+                    "button": "use Twitter for login"
+                },
+                "gplus":
+                {
+                    "button": "log in with Google Plus"
+                }
+            }
+        }
+    }
+}

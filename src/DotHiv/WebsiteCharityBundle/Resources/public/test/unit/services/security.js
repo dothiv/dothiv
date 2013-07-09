@@ -1,7 +1,5 @@
 'use strict';
 
-/* jasmine specs for services go here */
-
 describe('Security service', function() {
     var security, httpBackend, templateCache, rootScope, state;
 
