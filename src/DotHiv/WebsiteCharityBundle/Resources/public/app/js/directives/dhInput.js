@@ -9,6 +9,7 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
                 placeholder: '@dhPlaceholder',
                 ngModel: '=',
                 Required: '@dhRequired',
+                NgRequired: '=dhNgRequired',
                 Autofocus: '@dhAutofocus',
                 value: '@dhValue',
 
@@ -30,6 +31,7 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
                         'placeholder="[[ placeholder ]]"' +
                         'value="[[ value ]]"' +
                         'ng-model="$parent.ngModel"' +
+                        'ng-required="$parent.NgRequired"' +
 
                         // tooltip
                         'tooltip="[[ tooltiptext() ]]" ' +

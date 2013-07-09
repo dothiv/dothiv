@@ -17,7 +17,7 @@
                                     type="radio"
 
                                     dh-name="forwardRadio"
-                                    ng-model="domainData.forwarding"
+                                    ng-model="formforwarding"
                                     dh-value="true"
 
                                     dh-label="Weiterleitung einrichten"
@@ -26,22 +26,22 @@
                                     type="radio"
 
                                     dh-name="forwardRadio"
-                                    ng-model="domainData.forwarding"
+                                    ng-model="formforwarding"
                                     dh-value="false"
 
                                     dh-label="keine Weiterleitung"
                                 ></dh-input>
                                 <div style="clear: both;"></div>
                             </div>
-                            <div ng-show="domainData.forwarding == 'true'">
+                            <div ng-show="formforwarding == 'true'">
                                 <dh-input
                                     class="span6"
                                     type="url"
 
                                     dh-name="targetName"
-                                    ng-model="domainData.targetdomain"
+                                    ng-model="banner.redirect_domain"
 
-                                    dh-required
+                                    dh-ng-required="formforwarding == 'true'"
 
                                     dh-label="Zieldomain eingeben"
 
@@ -52,10 +52,10 @@
                                 ></dh-input>
                             </div>
                             <label for="languages">In welcher Sprache soll der Banner angezeigt werden</label>
-                            <dh-select class="span6" ng-model="domainData.language" dh-options="languages"></dh-select>
+                            <dh-select class="span6" ng-model="banner.language" dh-options="languages"></dh-select>
                             <div class="tab-bottom-buttons">
                                 <button style="visibility: hidden"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
-                                <button ng-click="checkValid()">&nbsp;Vorschau ansehen</button>
+                                <button>&nbsp;Vorschau ansehen</button>
                                 <button class="pull-right next" ng-click="nextStep(step1form, tab2)"><i class="icon-tick-right icon-white pull-right"></i>Weiter&nbsp;</button>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                 type="radio"
 
                                 dh-name="positionRadio"
-                                ng-model="domainData.bannerposition"
+                                ng-model="banner.position"
                                 dh-value="center"
 
                                 dh-label="mittig"
@@ -83,8 +83,8 @@
                                 type="radio"
 
                                 dh-name="positionRadio"
-                                ng-model="domainData.bannerposition"
-                                dh-value="upper"
+                                ng-model="banner.position"
+                                dh-value="top"
 
                                 dh-label="oben"
 
@@ -97,7 +97,7 @@
                                 type="radio"
 
                                 dh-name="positionRadio"
-                                ng-model="domainData.bannerposition"
+                                ng-model="banner.position"
                                 dh-value="right"
 
                                 dh-label="rechts"
@@ -111,7 +111,7 @@
                                 type="checkbox"
 
                                 dh-name="secondvisitBox"
-                                ng-model="domainData.secondvisit"
+                                ng-model="formsecondvisit"
                                 dh-value="true"
 
                                 dh-label="ab dem 2. Besuch täglich soll ein anderer Banner angezeigt werden"
@@ -121,13 +121,13 @@
                                 dh-tooltip-placement="top"
                                 dh-tooltip-invalid="[[ 'login.form.username.tooltip.invalid' | translate ]]"
                             ></dh-input>
-                            <div ng-show="domainData.secondvisit">
+                            <div ng-show="formsecondvisit == true">
                                 <dh-input
                                     type="radio"
 
                                     dh-name="secondpositionRadio"
-                                    ng-model="domainData.bannersecondposition"
-                                    dh-value="upper"
+                                    ng-model="banner.position_alternative"
+                                    dh-value="top"
 
                                     dh-label="oben"
 
@@ -140,7 +140,7 @@
                                     type="radio"
 
                                     dh-name="secondpositionRadio"
-                                    ng-model="domainData.bannersecondposition"
+                                    ng-model="banner.position_alternative"
                                     dh-value="right"
 
                                     dh-label="rechts"
