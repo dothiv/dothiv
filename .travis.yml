@@ -43,6 +43,8 @@ script:
   - DISPLAY=:99.0 ./scripts/e2e-test.sh
 
 after_failure:
+  - cd /home/travis/build/dothiv/dothiv/
   - pwd
+  - ls -lah /var/log
   - sudo cat app/logs/*
   - sudo cat /var/log/apache2/*
