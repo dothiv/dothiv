@@ -17,6 +17,7 @@ before_script:
   - echo "export PATH=/home/vagrant/.phpenv/bin:$PATH" | sudo tee -a /etc/apache2/envvars > /dev/null
   - echo "$(curl -fsSL https://raw.github.com/gist/16d751c979fdeb5a14e3/gistfile1.txt)" | sudo tee /etc/apache2/conf.d/phpconfig > /dev/null
   - echo "$(curl -fsSL https://raw.github.com/gist/2eb301570ed4a1f4c33d/gistfile1.txt)" | sed -e "s,PATH,`pwd`/web,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
+  - echo "date.timezone = Europe/Berlin" | tee -a /etc/php5/apache2/php.ini
   - sudo service apache2 restart
 # install karma
   - sudo apt-get install python-software-properties python g++ make software-properties-common
@@ -27,7 +28,6 @@ before_script:
 # install dothiv
   - composer install
   - mysql -e 'create database dothiv;'
-  - echo "php_value date.timezone Europe/Berlin" >> web/.htaccess
   - php app/console doctrine:schema:create
   - sudo chown -R www-data app/cache app/logs
   - sudo chmod -R 777 app/cache app/logs
@@ -44,7 +44,6 @@ script:
 
 after_failure:
   - cd /home/travis/build/dothiv/dothiv/
-  - pwd
   - sudo cat app/logs/dev.log
   - sudo cat app/logs/test.log
   - sudo cat /var/log/apache2/error.log
