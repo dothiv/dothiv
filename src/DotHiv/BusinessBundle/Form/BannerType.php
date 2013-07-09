@@ -11,10 +11,11 @@ class BannerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('redirectDomain')
+            ->add('id')
+            ->add('redirect_domain')
             ->add('language')
             ->add('position')
-            ->add('positionAlternative')
+            ->add('position_alternative')
         ;
     }
 

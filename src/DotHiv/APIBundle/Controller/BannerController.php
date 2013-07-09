@@ -22,11 +22,11 @@ class BannerController extends FOSRestController {
      *   output="DotHiv\BusinessBundle\Form\BannerType"
      * )
      */
-    public function getBannerAction($slug) {
+    public function getBannerAction($id) {
         // TODO: security concern: who is allowed to GET banner information?
 
         // retrieve banner from database
-        $banner = $this->getDoctrine()->getManager()->getRepository('DotHivBusinessBundle:Banner')->findOneBy(array('id' => $slug));
+        $banner = $this->getDoctrine()->getManager()->getRepository('DotHivBusinessBundle:Banner')->findOneBy(array('id' => $id));
         return $this->createForm(new BannerType(), $banner);
     }
 
@@ -65,5 +65,36 @@ class BannerController extends FOSRestController {
         }
 
         return array('form' => $form);
+    }
+
+    /**
+     * Updates the banner.
+     *
+     * @ApiDoc(
+     *   section="banner",
+     *   resource=true,
+     *   description="Updates the banner.",
+     *   statusCodes={
+     *     200="Successful"
+     *   }
+     * )
+     */
+    public function putBannerAction($id) {
+            // fetch banner from database
+            $em = $this->getDoctrine()->getManager();
+            $banner = $em->getRepository('DotHivBusinessBundle:Banner')->findOneBy(array('id' => $id));
+
+            // apply form
+            $form = $this->createForm(new BannerType(), $banner);
+            $form->bind($this->getRequest());
+
+            if ($form->isValid()) {
+                // persist the updated banner
+                $em->persist($banner);
+                $em->flush();
+                return null;
+            }
+
+            return array('form' => $form);
     }
 }
