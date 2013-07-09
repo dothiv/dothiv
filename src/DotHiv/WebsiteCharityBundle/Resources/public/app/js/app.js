@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotHIVApp.controllers', 'ui.state'])
+angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotHIVApp.controllers', 'ui.state', 'pascalprecht.translate'])
     .config(['$urlRouterProvider', function($urlRouter) {
         $urlRouter.otherwise('/');
     }])
@@ -18,6 +18,12 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
     .config(['$httpProvider', function($httpProvider) {
         $httpProvider.defaults.headers.common.Accept = "application/json";
     }])
+    .config(['$translateProvider', function($translateProvider) {
+        $translateProvider.useStaticFilesLoader({
+            prefix: '/bundles/websitecharity/app/translations/language-',
+            suffix: '.json'
+        });
+    }])
     .value('$anchorScroll', angular.noop) // TODO: working, but best practice?
     .run(['security', function(security) {
         // Get the current user when the application starts (in case they are still logged in from a previous session)
@@ -30,15 +36,12 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                 if (toState.name.match('^=') && !security.isAuthenticated()) {
                     event.preventDefault();
                     securityDialog.showLogin(toState.name);
-                    console.log("$stateChangeStart prevented");
                 }
             });
         });
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-            console.log("$stateChangeSuccess");
         });
         $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-            console.log("stateChangeError");
         });
     }])
     .run(['$rootScope', 'securityDialog', function($rootScope, securityDialog) {

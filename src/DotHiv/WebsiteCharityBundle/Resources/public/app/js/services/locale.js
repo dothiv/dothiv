@@ -2,7 +2,7 @@
 
 /**
  * @name dotHIVApp.services.locale
- * @requires dothivLocaleResource
+ * @requires dothivLocaleResource, $translate
  * 
  * @description
  * Manages the user's locale. This includes telling the server which locale to use.
@@ -13,7 +13,7 @@
  * - **`language`** – {string} The language part of a locale. ('de' for 'de_DE' as well as for 'de')
  * - **`territory`** – {string} The territory part of a locale. ('DE' for 'de_DE', empty string for 'de')
  */
-angular.module('dotHIVApp.services').factory('locale', function(dothivLocaleResource) {
+angular.module('dotHIVApp.services').factory('locale', function(dothivLocaleResource, $translate) {
     var locale = {
         _locale: null,
         _set: function(locale) {
@@ -22,6 +22,7 @@ angular.module('dotHIVApp.services').factory('locale', function(dothivLocaleReso
                 var parts = locale.match(/^([a-zA-Z]+)(\_([a-zA-Z]+))?$/) || Array(4);
                 this.language = parts[1] || '';
                 this.territory = parts[3] || '';
+                $translate.uses(this.language ? this.language : 'en');
         },
         language: '',
         territory: '',

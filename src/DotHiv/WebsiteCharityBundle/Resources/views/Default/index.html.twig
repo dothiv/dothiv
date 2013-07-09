@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="fragment" content="!">
-        <title>{% trans %}title{% endtrans %}</title>
+        <title>[[ 'title' | translate ]]</title>
         {% stylesheets 'bundles/websitecharity/bootstrap-custom/custom-bootstrap.less' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -28,11 +28,11 @@
                     <div class="span3">
                         <ul>
                             <li class="accountance dummy" ng-show="!isAuthenticated()"></li>
-                            <li class="accountance hover-arrow" ng-show="!isAuthenticated()"><a ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
-                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
-                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile" ng-class="{ active: state.includes('=.profile') }">{% trans %}header.menu.myprofile{% endtrans %} ([[ security.user.username ]])</a></li>
-                            <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.createproject{% endtrans %}</a></li>
-                            <li class="accountance hover-arrow" ><a ng-click="">{% trans %}header.menu.reportabuse{% endtrans %}</a></li>
+                            <li class="accountance hover-arrow" ng-show="!isAuthenticated()"><a ng-click="login()">[[ 'header.menu.login' | translate ]]</a></li>
+                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="logout()">[[ 'header.menu.logout' | translate ]]</a></li>
+                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile" ng-class="{ active: state.includes('=.profile') }">[[ 'header.menu.myprofile' | translate ]] ([[ security.user.username ]])</a></li>
+                            <li class="accountance hover-arrow" ><a ng-click="">[[ 'header.menu.createproject' | translate ]]</a></li>
+                            <li class="accountance hover-arrow" ><a ng-click="">[[ 'header.menu.reportabuse' | translate ]]</a></li>
 
                             <li class="accountance grey">
                                 <div class="language-chooser">
@@ -49,7 +49,7 @@
                 <div class="pink-bar leftside text-right" ng-style="{ width: bar.current / bar.total *100 + '%' }">
                     <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 > 4">
                         <p>
-                            <span class="pink-bar-text">{% trans %} home.pinkbar.activated {% endtrans %}</span>
+                            <span class="pink-bar-text">[[ 'home.pinkbar.activated' | translate ]]</span>
                             <span class="pink-bar-text bold" id="active-money">€ [[ bar.current ]]</span>
                             <img class="pink-bar-image" src="{{ asset("bundles/websitecharity/images/tick-white.png") }}">
                         </p>
@@ -58,7 +58,7 @@
                 <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 < 4">
                     <p>
                         <img class="pink-bar-image right" src="{{ asset("bundles/websitecharity/images/tick-black.png") }}">
-                        <span class="pink-bar-text right" >{% trans %} home.pinkbar.activated {% endtrans %}</span>
+                        <span class="pink-bar-text right" >[[ 'home.pinkbar.activated' | translate ]]</span>
                         <span class="pink-bar-text right bold" id="active-money">€ [[ bar.current ]]</span>
                     </p>
                 </button>
@@ -68,17 +68,17 @@
                     <div class="container">
                         <div class="row first">
                             <div class="span6 pink-bar-text">
-                                <p>{% trans %}home.pinkbar.popover.currentStatus{% endtrans %}</p>
+                                <p>[[ 'home.pinkbar.popover.currentStatus' | translate ]]</p>
                                 <p><span class="activeMoney" id="active-money-popover">€ [[ bar.current ]]</span>
-                                {% trans %}home.pinkbar.popover.areActivated{% endtrans %}</p>
+                                [[ 'home.pinkbar.popover.areActivated' | translate ]]</p>
                                 <p><span class="activeMoney" id="clicks-popover">[[ bar.click ]] Klicks</span>
-                                {% trans %}home.pinkbar.popover.missing{% endtrans %}</p>
+                                [[ 'home.pinkbar.popover.missing' | translate ]]</p>
                                 <hr>
-                                <p>{% trans %}home.pinkbar.popover.shareNow{% endtrans %}</p>
+                                <p>[[ 'home.pinkbar.popover.shareNow' | translate ]]</p>
                                 <div class="container">
                                     <div class="row">
                                         <div class="span2">
-                                           {% trans %}home.pinkbar.popover.chooseDomainButtonLabel{% endtrans %}:
+                                           [[ 'home.pinkbar.popover.chooseDomainButtonLabel' | translate ]]:
                                         </div>
                                         <div class="span4">
                                             <div class="control-group input-prepend">
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="span2">
-                                           {% trans %}home.pinkbar.popover.shareNowButtonLabel{% endtrans %}:
+                                           [[ 'home.pinkbar.popover.shareNowButtonLabel' | translate ]]:
                                         </div>
                                         <div class="span4">
                                            <button class="btn">FB</button>
@@ -102,8 +102,8 @@
                             </div>
                             <div class="span6 pink-bar-text">
                                 <img src="{{ asset("bundles/websitecharity/images/video-static-prev.jpg") }}">
-                                <p>{% trans %}home.pinkbar.popover.viewVideo{% endtrans %}
-                                <br>{% trans %}home.pinkbar.popover.how{% endtrans %}</p>
+                                <p>[[ 'home.pinkbar.popover.viewVideo' | translate ]]
+                                <br>[[ 'home.pinkbar.popover.how' | translate ]]</p>
                             </div>
                         </div>
                     </div>
@@ -119,31 +119,31 @@
                 <div class="row">
                     <div class="span12 center footer-margin">
                         <img class="hiv-42px" src="{{ asset("bundles/websitecharity/images/dotHiv-logo.png") }}">
-                        <p class="running-text footer-slogan">{% trans %} footer.slogan {% endtrans %}</p>
+                        <p class="running-text footer-slogan">[[ 'footer.slogan' | translate ]]</p>
                         <div class="container">
                             <div class="row">
                                 <div class="span4">
                                     <ul>
-                                        <li class="running-text">{% trans %} footer.adress.name {%  endtrans %}</li>
-                                        <li class="running-text">{% trans %} footer.adress.street {%  endtrans %}</li>
-                                        <li class="running-text">{% trans %} footer.adress.city {%  endtrans %}</li>
-                                        <li class="running-text">{% trans %} footer.adress.phone {%  endtrans %}</li>
+                                        <li class="running-text">[[ 'footer.adress.name' | translate ]]</li>
+                                        <li class="running-text">[[ 'footer.adress.street' | translate ]]</li>
+                                        <li class="running-text">[[ 'footer.adress.city' | translate ]]</li>
+                                        <li class="running-text">[[ 'footer.adress.phone' | translate ]]</li>
                                     </ul>
                                 </div>
                                 <div class="span4">
                                     <ul>
-                                        <li><a class="running-text" src="">{% trans %}footer.navi.feedback{% endtrans %}</a></li>
-                                        <li><a class="running-text" src="">{% trans %}footer.navi.help{% endtrans %}</a> / <a class="running-text" src="">{% trans %}footer.navi.forum{% endtrans %}</a></li>
-                                        <li><a class="running-text" src="">{% trans %}footer.navi.contact{% endtrans %}</a> / <a class="running-text" src="">{% trans %}footer.navi.impressum{% endtrans %}</a></li>
-                                        <li><a class="running-text" src="">{% trans %}footer.navi.terms{% endtrans %}</a> / <a class="running-text" src="">{% trans %}footer.navi.privacy{% endtrans %}</a></li>
+                                        <li><a class="running-text" src="">[[ 'footer.navi.feedback' | translate ]]</a></li>
+                                        <li><a class="running-text" src="">[[ 'footer.navi.help' | translate ]]</a> / <a class="running-text" src="">[[ 'footer.navi.forum' | translate ]]</a></li>
+                                        <li><a class="running-text" src="">[[ 'footer.navi.contact' | translate ]]</a> / <a class="running-text" src="">[[ 'footer.navi.impressum' | translate ]]</a></li>
+                                        <li><a class="running-text" src="">[[ 'footer.navi.terms' | translate ]]</a> / <a class="running-text" src="">[[ 'footer.navi.privacy' | translate ]]</a></li>
                                     </ul>
                                 </div>
                                 <div class="span4">
                                     <ul>
-                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-fb.png") }}">{% trans %} footer.social.facebook {% endtrans %}</a></li>
-                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-tw.png") }}">{% trans %} footer.social.twitter {% endtrans %}</a></li>
-                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-gp.png") }}">{% trans %} footer.social.googleplus {% endtrans %}</a></li>
-                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-pi.png") }}">{% trans %} footer.social.pinterest {% endtrans %}</a></li>
+                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-fb.png") }}">[[ 'footer.social.facebook' | translate ]]</a></li>
+                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-tw.png") }}">[[ 'footer.social.twitter' | translate ]]</a></li>
+                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-gp.png") }}">[[ 'footer.social.googleplus' | translate ]]</a></li>
+                                        <li><a class="social-link" href="#"><img class="social" src="{{ asset("bundles/websitecharity/images/social-pi.png") }}">[[ 'footer.social.pinterest' | translate ]]</a></li>
                                     </ul>
                                 </div>
                             </div>

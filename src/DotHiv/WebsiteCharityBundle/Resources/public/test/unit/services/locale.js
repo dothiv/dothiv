@@ -2,15 +2,27 @@
 
 describe('locale service', function() {
 
-    var locale, httpBackend, rootScope;
+    var locale, httpBackend, rootScope, translate;
 
     beforeEach(module('dotHIVApp.services'));
+    beforeEach(module(function($provide) {
+            $provide.factory('$translate', function() {
+                return {
+                    uses: angular.noop
+                };
+            });
+        })
+    );
     beforeEach(function () {
         inject(function($httpBackend) {
             httpBackend = $httpBackend;
         });
         inject(function($rootScope) {
             rootScope = $rootScope;
+        });
+        inject(function($translate) {
+            translate = $translate;
+            spyOn(translate, 'uses');
         });
         inject(function($injector) {
             httpBackend.expectGET(/^.*\/api\/locale$/).respond(200, '{"locale":"en_US"}');
@@ -47,9 +59,9 @@ describe('locale service', function() {
             locale.set(undefined);
             expect(locale.language).toBe('');
             expect(locale.territory).toBe('');
-        })
+        });
 
-    })
+    });
 
     describe('set(), locale', function() {
 
@@ -71,7 +83,13 @@ describe('locale service', function() {
             locale.set('');
             rootScope.$digest();
             httpBackend.flush();
-        })
+        });
+
+        it('should call $translate.uses', function() {
+            httpBackend.expectPUT(/^.*\/api\/locale$/, '{"locale":"de_DE"}').respond(204);
+            locale.set('de_DE');
+            expect(translate.uses).toHaveBeenCalledWith('de');
+        });
 
     });
 

@@ -11,11 +11,9 @@ files = [
   'test/unit/**/*.js'
 ];
 
-autoWatch = false;
+autoWatch = true;
 
-browsers = ['Firefox'];
-
-singleRun = true;
+browsers = ['Chrome'];
 
 junitReporter = {
   outputFile: 'test_out/unit.xml',
