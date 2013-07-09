@@ -25,6 +25,8 @@ before_script:
   - sudo apt-get update
   - sudo apt-get install nodejs
   - sudo npm install -g karma
+# install lessc
+  - sudo npm install -g less
 # install dothiv
   - composer install
   - mysql -e 'create database dothiv;'
