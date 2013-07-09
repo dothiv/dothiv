@@ -35,8 +35,6 @@ before_script:
   - sudo chmod -R 777 app/cache app/logs
 
 script:
-# test webserver
-  - wget --save-headers --output-document - http://localhost/app_dev.php
 # PHP testing
   - phpunit -c app
 # Javascript testing
@@ -45,6 +43,7 @@ script:
   - DISPLAY=:99.0 ./scripts/e2e-test.sh
 
 after_failure:
+  - wget --save-headers --output-document - http://localhost/app_dev.php
   - cd /home/travis/build/dothiv/dothiv/
   - sudo cat app/logs/dev.log
   - sudo cat app/logs/test.log
