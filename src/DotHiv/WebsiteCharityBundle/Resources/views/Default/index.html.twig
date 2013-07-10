@@ -11,28 +11,25 @@
     </head>
     <body>
         <div ng-controller="HeaderController">
-            <div class="container">
+            <div class="container header">
                 <div class="row first">
                     <div class="span2 hiv-logo">
                         <a href="#!/" class="crawlme"><img src="{{ asset("bundles/websitecharity/images/dotHiv-logo.png") }}"></a>
                     </div>
-                    <div class="span7">
-                        <div class="container">
-                            <div class="barmenu first"><a class="crawlme" href="#!"><h4>Projekte</h4></a></div>
-                            <div class="barmenu secound"><a class="crawlme" href="#!/about"><h4 ng-class="{ active: state.includes('about') }">Über dotHIV</h4></a></div>
-                            <div class="barmenu third"><a class="crawlme" href="#!"><h4>URL registrieren</h4></a></div>
-                        </div>
+                    <div class="menubar span7">
+                        <div class="barmenu first"><a class="crawlme" href="#!"><h4>Projekte</h4></a></div>
+                        <div class="barmenu secound"><a class="crawlme" href="#!/about"><h4 ng-class="{ active: state.includes('about') }">Über dotHIV</h4></a></div>
+                        <div class="barmenu third"><a class="crawlme" href="#!"><h4>URL registrieren</h4></a></div>
                     </div>
-                    <div class="span3">
+                    <div class="span1">
                         <ul>
                             <li class="accountance dummy" ng-show="!isAuthenticated()"></li>
-                            <li class="accountance hover-arrow" ng-show="!isAuthenticated()"><a ng-click="login()">[[ 'header.menu.login' | translate ]]</a></li>
-                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a ng-click="logout()">[[ 'header.menu.logout' | translate ]]</a></li>
-                            <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile" ng-class="{ active: state.includes('=.profile') }">[[ 'header.menu.myprofile' | translate ]] ([[ security.user.username ]])</a></li>
-                            <li class="accountance hover-arrow" ><a ng-click="">[[ 'header.menu.createproject' | translate ]]</a></li>
-                            <li class="accountance hover-arrow" ><a ng-click="">[[ 'header.menu.reportabuse' | translate ]]</a></li>
-                            <li class="accountance hover-arrow" ><a href="#!/mock" ng-class="{ active: state.includes('mock') }">mock actions</a></li>
-
+                            <li class="accountance" ng-show="!isAuthenticated()"><a class="hover-arrow" ng-click="login()">[[ 'header.menu.login' | translate ]]</a></li>
+                            <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" ng-click="logout()">[[ 'header.menu.logout' | translate ]]</a></li>
+                            <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" href="#!/profile" ng-class="{ active: state.includes('=.profile') }">[[ 'header.menu.myprofile' | translate ]] ([[ security.user.username ]])</a></li>
+                            <li class="accountance"><a class="hover-arrow" ng-click="">[[ 'header.menu.createproject' | translate ]]</a></li>
+                            <li class="accountance"><a class="hover-arrow" ng-click="">[[ 'header.menu.reportabuse' | translate ]]</a></li>
+                            <li class="accountance"><a class="hover-arrow" href="#!/mock" ng-class="{ active: state.includes('mock') }">[[ 'header.menu.mockaction' | translate ]]</a></li>
                             <li class="accountance grey">
                                 <div class="language-chooser">
                                     <dh-select class="" ng-model="locale.language" dh-options="siteLanguages"></dh-select>
@@ -50,13 +47,15 @@
                         <p>
                             <span class="pink-bar-text">[[ 'home.pinkbar.activated' | translate ]]</span>
                             <span class="pink-bar-text bold" id="active-money">€ [[ bar.current ]]</span>
-                            <img class="pink-bar-image" src="{{ asset("bundles/websitecharity/images/tick-white.png") }}">
+                            <i ng-show="!showfunding" class="icon-tick-lower icon-white"></i>
+                            <i ng-show="showfunding" class="icon-tick-upper icon-white"></i>
                         </p>
                     </button>
                 </div>
                 <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 < 4">
                     <p>
-                        <img class="pink-bar-image right" src="{{ asset("bundles/websitecharity/images/tick-black.png") }}">
+                        <i ng-show="!showfunding" class="icon-tick-lower"></i>
+                        <i ng-show="showfunding" class="icon-tick-upper"></i>
                         <span class="pink-bar-text right" >[[ 'home.pinkbar.activated' | translate ]]</span>
                         <span class="pink-bar-text right bold" id="active-money">€ [[ bar.current ]]</span>
                     </p>

@@ -6,11 +6,18 @@
     </div>
     <div class="row">
         <div class="span12">
-            <div class="form-well">
+            <div class="form-well" ng-show="preset">
                 Mit dem Abschluss der Domain-Registrierung wird die Domain <br><br>
                 <strong>[[ domain.name ]]</strong> für <strong>[[ security.user.name + " " + security.user.surname ]]</strong> mit dem Token <strong>[[ token ]]</strong><br><br>
                 registiert.
                 <button ng-click="claim()" class="btn btn-primary pull-right" >weiter</button>
+            </div>
+            <div class="form-well" ng-show="!preset">
+                <form class="form-inline">
+                    <input type="text" ng-model="token" required placeholder="Ihr Token">
+                    <input type="text" ng-model="domain.name" required ng-disabled="true" placeholder="Domainname">
+                    <button class="btn btn-primary" ng-click="claim()">Registrierung abschließen</button>
+                </form>
             </div>
         </div>
     </div>

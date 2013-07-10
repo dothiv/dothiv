@@ -4,7 +4,11 @@
         "menu":
         {
             "logout": "Abmelden",
-            "login": "Anmelden"
+            "login": "Anmelden",
+            "myprofile": "Mein Profil",
+            "createproject": "Projekt einstellen",
+            "reportabuse": "Missbrauch melden",
+            "mockaction": "mock actions"
         }
     },
     "login":

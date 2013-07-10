@@ -1,3 +1,8 @@
+.header { 
+    position: relative;
+    height: 300px;
+}
+
 // Lets Login/report/language-menu list items behave like links and links inside them like text
 // -------------------------------------
 .accountance { list-style-type: none; }
@@ -6,17 +11,18 @@
 .accountance .active { font-weight: bold; text-decoration: underline; }
 
 // Adds spacing to the top
-.row.first { margin-top: 50px; margin-bottom: 37px; }
+.row.first { margin-top: 50px; }
 
 // Special classes for the page-head layout
-.hiv-logo { position: relative; bottom: -77px; }
+.hiv-logo { position: relative; bottom: -110px; }
 
 .accountance {
     font-size: 16px;
     display: inline-block;
+    white-space: nowrap;
     line-height: @accountLineHeight;
     font-style: italic;
-    .cursor-hand;
+    & a { .cursor-hand; }
     & * .open .dropdown-toggle { color: @black; };
     &.grey * a { 
         color: @grayLight;
@@ -34,30 +40,39 @@ li .accountance a {
 
 // makes the horizontal menu on have as needed
 // -----------------------------------
-.first * .barmenu {
+.first { 
+    * .barmenu {
+    position: relative;
     float: left;
     margin-left: 50px;
     font-size: 20px;
     font-weight: bold;
-    position: relative;
-    bottom: -122px;
     .cursor-hand;
     height: 40px;
 }
 
-.first h4 {
-    position: absolute;
-    display: inline-block;
-    bottom: 0px;
-    left: 0px;
-}
+    .menubar {
+        position: relative;
+        bottom: -155px;
+        
+    }
 
-.first h4:hover,
-.first h4.active {
-    padding-bottom: 4px;
-    border-bottom: 6px solid @colordark;
-}
+    h4 {
+        position: absolute;
+        display: inline-block;
+        bottom: 0px;
+        left: 0px;
+    }
 
-.first * .barmenu.first { margin-left: 10px; width: 100px; }
-.first * .barmenu.secound { width: 130px; }
-.first * .barmenu.third { width: 150px; }
+    h4:hover,
+    h4.active {
+        padding-bottom: 4px;
+        border-bottom: 6px solid @colordark;
+    }
+
+    * .barmenu.first { margin-left: 10px; width: 75px; }
+    * .barmenu.secound { width: 110px; }
+    * .barmenu.third { width: 150px; }
+    
+    .span1 { margin-left: 0px; }
+}
