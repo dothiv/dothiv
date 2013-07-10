@@ -82,7 +82,7 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
             else
               $scope.banner.$update();
 
-            // activate next tab
+            // activate final tab
             tab.active = true;
         };
     }
