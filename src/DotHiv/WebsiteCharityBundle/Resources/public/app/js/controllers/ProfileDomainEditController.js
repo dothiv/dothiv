@@ -3,8 +3,9 @@
 angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController', ['$scope', '$location', '$stateParams', 'dothivDomainResource', 'Banner',
     function($scope, $location, $stateParams, dothivDomainResource, Banner) {
 
-        $scope.formforwarding = 'true';
-        $scope.formsecondvisit = true;
+        $scope.formData = {};
+        $scope.formData.forwarding = 'true';
+        $scope.formData.secondvisit = true;
 
         // retrieve domain id from URL parameters and get domain/banner information
         var domainId = $stateParams.domainId;
@@ -33,8 +34,13 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
                             $scope.banner.position = $scope.banners[0].position;
                             $scope.banner.position_alternative = $scope.banners[0].position_alternative;
 
-                            $scope.formforwarding = ($scope.banner.redirect_domain != '') ? 'true' : 'false';
-                            $scope.formsecondvisit = ($scope.banner.position_alternative != '') ? true : false;
+                            $scope.formData.forwarding = ($scope.banner.redirect_domain != undefined) ? 'true' : 'false';
+                            if ($scope.banner.position_alternative != undefined) {
+                                $scope.formData.secondvisit = true;
+                            } else {
+                                $scope.formData.secondvisit = false;
+                                $scope.banner.position_alternative = 'top';
+                            }
                             console.log($scope.banner);
                         }
                     }
@@ -45,25 +51,38 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
         // data structure for language values
         $scope.languages = {'de':'Deutsch', 'en':'Englisch', 'es':'Spanisch', 'la':'Latein'};
 
+        $scope.$watch('formData.forwarding', function(forwarding) {
+            if (forwarding == 'false')
+                $scope.banner.redirect_domain = null;
+        });
+
         // form configuration
         $scope.formclean = true;
-        $scope.nextStep = function(form, tab) {
+        $scope.nextStep = function(tab, form) {
+            // check if form is valid
             if (form.$valid) {
-                console.log('valid');
                 tab.active = true;
-            } else {
-                console.log('invalid');
-                $scope.formclean = false;
-            }
+            } else
+              $scope.formclean = false;
         };
 
         // submit function for form
         $scope.submit = function(tab) {
+            // do not submit values of disabled input fields
+            if ($scope.formData.secondvisit == false)
+                $scope.banner.position_alternative = null;
+            if ($scope.formData.forwarding == 'false')
+                $scope.banner.redirect_domain = null;
+
             console.log($scope.banner);
+
+            // distinguish between new and updated banners
             if ($scope.banner.id === undefined)
                 $scope.banner.$save();
             else
               $scope.banner.$update();
+
+            // activate final tab
             tab.active = true;
         };
     }
