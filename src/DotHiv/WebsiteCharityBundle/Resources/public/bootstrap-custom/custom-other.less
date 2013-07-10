@@ -92,8 +92,14 @@ div.dhInput {
 
 // text and image behavior inside span-elements
 // --------------------------------
-.upper { }
+.upper { position: relative; height: 128px; }
 .lower { clear: both; }
+.oneup { 
+    z-index: 1;
+    position: absolute;
+    float: left;
+    bottom: 0px; 
+}
 
 // custom text selectors (colors, style, size)
 // ----------------------------------
@@ -189,4 +195,41 @@ h3 {
         .colorfooter-arrow;
         border-left-color: @colordark;
     }
+}
+
+// image-container-classes for infobox
+//---------------------------------------------
+.image-container {
+    position: absolute;
+    right: 0px;
+    text-align: center;
+    height: 128px;
+
+    &.monitor { 
+        background: url('/bundles/websitecharity/images/monitor.png') no-repeat; 
+        width: 128px;
+        .text {
+            top: 18px;
+            left: 7px;
+            width: 108px;
+        }
+    }
+    
+    &.arrow { 
+        background: url('/bundles/websitecharity/images/arrow.png') no-repeat;
+        width: 220px; 
+        .text {
+            font-size: 20px;
+            top: 10px;
+            left: 40px;
+        }
+    }
+    
+    &.people { 
+        background: url('/bundles/websitecharity/images/people.png') no-repeat;
+        width: 103px;
+        height: 105px;
+        bottom: 10px; 
+    }
+    .text { position: absolute; }
 }
