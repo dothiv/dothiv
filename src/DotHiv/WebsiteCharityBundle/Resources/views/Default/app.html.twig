@@ -77,6 +77,11 @@
                     templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domains') }}',
                     controller: 'ProfileDomainController'
                 })
+            .state('=.profile.domaineditors', {
+                    url: '/domains/editors/:domainId',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domain_editors') }}',
+                    controller: 'ProfileDomainEditorsController'
+                })
             .state('=.profile.domainedit', {
                     url: '/domain/edit/:domainId',
                     templateUrl: '{{ path('dot_hiv_website_charity_partial_profile_domain_edit') }}',
@@ -116,6 +121,7 @@
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileDomainClaimController.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileDomainController.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileDomainEditController.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileDomainEditorsController.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileEditController.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileSummaryController.js') }}"></script>
 

@@ -15,6 +15,7 @@ class DomainType extends AbstractType
             //->add('owner', 'entity', array('read_only' => true))
             ->add('emailAddressFromRegistrar')
             ->add('claimingToken', 'text', array('read_only' => true))
+            ->add('id', 'text', array('read_only' => true))
         ;
     }
 
