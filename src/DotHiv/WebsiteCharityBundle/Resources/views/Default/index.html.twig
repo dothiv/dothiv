@@ -47,13 +47,15 @@
                         <p>
                             <span class="pink-bar-text">[[ 'home.pinkbar.activated' | translate ]]</span>
                             <span class="pink-bar-text bold" id="active-money">€ [[ bar.current ]]</span>
-                            <img class="pink-bar-image" src="{{ asset("bundles/websitecharity/images/tick-white.png") }}">
+                            <i ng-show="!showfunding" class="icon-tick-lower icon-white"></i>
+                            <i ng-show="showfunding" class="icon-tick-upper icon-white"></i>
                         </p>
                     </button>
                 </div>
                 <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 < 4">
                     <p>
-                        <img class="pink-bar-image right" src="{{ asset("bundles/websitecharity/images/tick-black.png") }}">
+                        <i ng-show="!showfunding" class="icon-tick-lower"></i>
+                        <i ng-show="showfunding" class="icon-tick-upper"></i>
                         <span class="pink-bar-text right" >[[ 'home.pinkbar.activated' | translate ]]</span>
                         <span class="pink-bar-text right bold" id="active-money">€ [[ bar.current ]]</span>
                     </p>

@@ -30,7 +30,7 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
 
         $scope.bar = {
             'total': 10,
-            'current': 1.43,
+            'current': 6.43,
             'click': 29000,
         };
 
