@@ -57,3 +57,7 @@ dot_hiv_website_charity_partial_profile_comments:
 dot_hiv_website_charity_partial_profile_domain_claim:
     pattern:  /partial/profile/domain/claim
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileDomainClaim }
+
+dot_hiv_website_charity_partial_profile_domain_editors:
+    pattern:  /partial/profile/domain/editors
+    defaults: { _controller: DotHivWebsiteCharityBundle:Partial:profileDomainEditors }
