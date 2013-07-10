@@ -18,7 +18,8 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainClaimController
                     function() { // success
                     },
                     function() { // error
-                        // TODO: Show error message
+                        $scope.preset = false;
+                        $scope.token = "";
                     }
             );
         }
