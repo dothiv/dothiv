@@ -71,8 +71,8 @@ class PartialController extends Controller
         return $this->render('DotHivWebsiteCharityBundle:Partials/Profile:comments.html.twig');
     }
 
-    public function registrationAction()
+    public function mockAction()
     {
-        return $this->render('DotHivWebsiteCharityBundle:Partials:registration.html.twig');
+        return $this->render('DotHivWebsiteCharityBundle:Partials:mock.html.twig');
     }
 }

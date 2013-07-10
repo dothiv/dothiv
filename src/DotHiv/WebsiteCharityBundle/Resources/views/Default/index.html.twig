@@ -8,8 +8,6 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
         <link rel="shortcut icon" href="{{ asset("bundles/websitecharity/images/favicon.png") }}" />
-        
-
     </head>
     <body>
         <div ng-controller="HeaderController">
@@ -33,6 +31,7 @@
                             <li class="accountance hover-arrow" ng-show="isAuthenticated()"><a href="#!/profile" ng-class="{ active: state.includes('=.profile') }">[[ 'header.menu.myprofile' | translate ]] ([[ security.user.username ]])</a></li>
                             <li class="accountance hover-arrow" ><a ng-click="">[[ 'header.menu.createproject' | translate ]]</a></li>
                             <li class="accountance hover-arrow" ><a ng-click="">[[ 'header.menu.reportabuse' | translate ]]</a></li>
+                            <li class="accountance hover-arrow" ><a href="#!/mock" ng-class="{ active: state.includes('mock') }">mock actions</a></li>
 
                             <li class="accountance grey">
                                 <div class="language-chooser">

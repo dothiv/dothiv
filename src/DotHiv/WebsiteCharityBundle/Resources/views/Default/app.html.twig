@@ -33,6 +33,17 @@
                 })
 
             /**
+             * This state is useful for development use only. It provides
+             * API calls to mock thirdparty API calls that are unavailable
+             * during development.
+             */
+            .state('mock', {
+                    url: '/mock',
+                    templateUrl: '{{ path('dot_hiv_website_charity_partial_mock') }}',
+                    controller: 'MockController'
+                })
+
+            /**
              * This state is the parent state for all states that require the user
              * to be logged in.
              */
@@ -99,6 +110,7 @@
 
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/HeaderController.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/HomeController.js') }}"></script>
+<script src="{{ asset('bundles/websitecharity/app/js/controllers/MockController.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/LoginDialogController.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileController.js') }}"></script>
 <script src="{{ asset('bundles/websitecharity/app/js/controllers/ProfileDomainClaimController.js') }}"></script>

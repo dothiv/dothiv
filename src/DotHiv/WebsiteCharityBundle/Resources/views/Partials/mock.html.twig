@@ -1,0 +1,14 @@
+<div class="container profile">
+    <div class="row">
+        <div class="span12">
+            <h2>Mock API Calls</h2>
+            <div class="form-well">
+                <form class="form-inline simple-form" novalidate name="registerdomainform">
+                    <input type="email" placeholder="domain owner email" ng-model="registerdomaindata.emailAddressFromRegistrar" required>
+                    <input type="text" placeholder="domain name" ng-model="registerdomaindata.name" required>
+                    <button type="submit" class="btn btn-primary" ng-disabled="registerdomainform.$invalid" ng-click="registerdomain(registerdomaindata)">register a domain</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

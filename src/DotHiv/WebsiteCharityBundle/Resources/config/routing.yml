@@ -10,9 +10,9 @@ dot_hiv_website_charity_partial_login:
     pattern:  /partial/login
     defaults: { _controller: DotHivWebsiteCharityBundle:Partial:login }
 
-dot_hiv_website_chartiy_partial_registration:
-    pattern: /partial/registration
-    defaults: { _controller: DotHivWebsiteCharityBundle:Partial:registration }
+dot_hiv_website_charity_partial_mock:
+    pattern: /partial/mock
+    defaults: { _controller: DotHivWebsiteCharityBundle:Partial:mock }
 
 dot_hiv_website_charity_partial_about:
     pattern:  /partial/about

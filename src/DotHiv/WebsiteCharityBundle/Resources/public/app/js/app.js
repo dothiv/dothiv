@@ -31,7 +31,6 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
     }])
     .run(['$rootScope', 'security', 'securityDialog', function($rootScope, security, securityDialog) {
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-            console.log("$stateChangeStart");
             security.schedule(function() {
                 if (toState.name.match('^=') && !security.isAuthenticated()) {
                     event.preventDefault();
