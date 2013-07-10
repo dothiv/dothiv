@@ -51,9 +51,15 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
         compile: function(tElement, tAttrs, transclude) {
             var input = tElement.find('input');
             var label = tElement.find('label');
-            var id = Math.random().toString(36).substring(7);
+            var id;
 
-            // set random id
+            // check if ID is given, otherwise generate random id
+            if (tElement.attr("dh-id") != undefined)
+                id = tElement.attr("dh-id");
+            else
+              id = Math.random().toString(36).substring(7);
+
+            // set id
             input.attr('id', id);
             label.attr('for', id);
 
