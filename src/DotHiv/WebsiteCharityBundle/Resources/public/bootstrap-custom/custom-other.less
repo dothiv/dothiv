@@ -110,3 +110,83 @@ h3 {
     padding: 0;
     margin: 0; 
 }
+
+// custom linked color-bars and classes for coloring those
+//-----------------------------------
+
+@colorfooterHeight: 6px;
+
+.colorfooter-container {
+    height: @colorfooterHeight;
+    &.span4 { margin-top: 0; }
+    &.row { margin-bottom: 50px; margin-top: -10px; }
+    position: relative;
+    left: 20px;
+}    
+
+
+.colorfooterX (@index) when (@index > 0) {
+    .colorfooter@{index} { .colorfooter(@index); }
+    .colorfooterX(@index - 1);
+}
+
+.colorfooterX (0) {}
+
+.colorfooter (@columns) {
+    width: (@gridColumnWidth * @columns) + (@gridGutterWidth * (@columns));
+}
+.colorfooterX (@gridColumns);
+
+.color-pink {
+    float: left;
+    height: @colorfooterHeight;
+    background-color: @darkpink;
+}
+.color-blue {
+    float: left;
+    height: @colorfooterHeight;
+    background-color: @hivblue;
+}
+.color-dark {
+    float: left;
+    height: @colorfooterHeight;
+    background-color: @colordark;
+}
+
+.colorfooter-arrow {
+    left: 100%;
+    border-width: 11px 0px 11px 20px;
+    border-style:  solid;
+    border-color: transparent transparent transparent transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    top: 50%;
+    margin-top: -11px;
+}
+
+.colorfooter-last-pink { 
+    position: relative; 
+    &:after {
+        .colorfooter-arrow;
+        border-left-color: @darkpink;
+    }
+}
+
+.colorfooter-last-blue { 
+    position: relative; 
+    &:after {
+        .colorfooter-arrow;
+        border-left-color: @hivblue;
+    }
+}
+
+.colorfooter-last-dark { 
+    position: relative; 
+    &:after {
+        .colorfooter-arrow;
+        border-left-color: @colordark;
+    }
+}
