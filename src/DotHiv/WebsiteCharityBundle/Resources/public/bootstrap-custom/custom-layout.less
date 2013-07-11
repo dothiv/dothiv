@@ -1,5 +1,16 @@
 .row { 
     margin-bottom: 40px; 
 
-    &.bottom-hack { margin-bottom: 0; }
+    &.bottom-hack { 
+        margin-bottom: 0; 
+        
+        .pos-rel { 
+            position: relative; 
+        
+            .overflow-up {
+                position: absolute;
+                bottom: 0px;
+            }
+        }    
+    }
 }

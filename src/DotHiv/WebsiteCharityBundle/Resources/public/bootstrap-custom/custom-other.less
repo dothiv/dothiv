@@ -119,133 +119,26 @@ h5 {
     
 }
 
-// custom linked color-bars and classes for coloring those
-//-----------------------------------
-
-@colorfooterHeight: 6px;
-
-
-
-.colorfooter-container {
-    &.span4 { margin-top: 0; }
-    &.row { margin-bottom: 50px; margin-top: -10px; }
-    position: relative;
-    left: 20px;
-    
-}    
-
-
-.colorfooterX (@index) when (@index > 0) {
-    .colorfooter@{index} { .colorfooter(@index); }
-    .colorfooterX(@index - 1);
-
-    .xsmall-height { height: 1px; }
-    .small-height { height: @colorfooterHeight/2 ; }
-    .medium-height { height: @colorfooterHeight; }
-    .big-height { height: @colorfooterHeight*1.5 ; }
+.next2h3 {
+    display: inline-block;
+    margin-top: 38px;
+    margin-left: 20px;
+    & i { margin-right: 10px; }
 }
 
-.colorfooterX (0) {}
-
-.colorfooter (@columns) {
-    width: (@gridColumnWidth * @columns) + (@gridGutterWidth * (@columns));
-}
-.colorfooterX (@gridColumns);
-
-.color-pink {
-    float: left;
-    background-color: @darkpink;
-}
-.color-blue {
-    float: left;
-    background-color: @hivblue;
-}
-.color-dark {
-    float: left;
-    background-color: @colordark;
+.heading-arrow  {
+    width: 10px;
+    height: 11px;
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 5px;
+    background: url('/bundles/websitecharity/images/arrow-black.png') no-repeat center;
 }
 
-.colorfooter-arrow {
-    left: 100%;
-    border-width: 11px 0px 11px 20px;
-    border-style:  solid;
-    border-color: transparent transparent transparent transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    top: 50%;
-    margin-top: -11px;
-}
-
-.colorfooter-last-pink { 
-    position: relative; 
-    &:after {
-        .colorfooter-arrow;
-        border-left-color: @darkpink;
-    }
-}
-
-.colorfooter-last-blue { 
-    position: relative; 
-    &:after {
-        .colorfooter-arrow;
-        border-left-color: @hivblue;
-    }
-}
-
-.colorfooter-last-dark { 
-    position: relative; 
-    &:after {
-        .colorfooter-arrow;
-        border-left-color: @colordark;
-    }
-}
-
-// image-container-classes for infobox
-//---------------------------------------------
-.image-container {
-    position: absolute;
-    right: 0px;
-    text-align: center;
-
-    &.monitor { 
-        background: url('/bundles/websitecharity/images/monitor.png') no-repeat; 
-        height: 128px;
-        width: 128px;
-        .text {
-            top: 18px;
-            left: 7px;
-            width: 108px;
-        }
-    }
-    
-    &.arrow { 
-        background: url('/bundles/websitecharity/images/arrow.png') no-repeat;
-        height: 128px;
-        width: 220px; 
-        .text {
-            font-size: 20px;
-            top: 10px;
-            left: 40px;
-        }
-    }
-    
-    &.people { 
-        background: url('/bundles/websitecharity/images/people.png') no-repeat;
-        width: 103px;
-        height: 105px;
-        bottom: 10px; 
-    }
-    .text { position: absolute; }
-}
-
-.pos-rel { 
-    position: relative; 
-
-    .whosbehind {
-        position: absolute;
-        bottom: 0px;
-    }
+.voteproject {
+    & .row { margin-bottom: 13px; }
+    & * .span4 { margin-top: 0; }
+    & * h5 { margin-bottom: 40px; }
+    & * img { margin-bottom: 20px; }
+    & * .separator4 { margin-top: 20px; }
 }
