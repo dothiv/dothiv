@@ -1,6 +1,5 @@
 .infobox {
     background-image: url('/bundles/websitecharity/images/squairy_light_textur.png');
-    .box-shadow(@hivLowerBoxshadow);
     
     & * .close {
         .running-text;
@@ -8,4 +7,8 @@
         color: @black;
         background: transparent;
     }
+}
+
+.bottom-shadow {
+    .box-shadow(@hivLowerBoxshadow);
 }    

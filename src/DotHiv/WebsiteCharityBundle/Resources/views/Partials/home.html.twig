@@ -1,5 +1,5 @@
 <div >
-    <div class="jumbotron infobox" ng-hide="isClosed">
+    <div class="jumbotron infobox bottom-shadow" ng-hide="isClosed">
         <div class="container">
             <div class="row">
                 <div class="span4">
@@ -34,22 +34,44 @@
                 </div>
             </div>
             <div class="row colorfooter-container">
-                <div class="colorfooter4 color-pink"></div>
-                <div class="colorfooter4 color-blue"></div>
-                <div class="colorfooter4 color-dark colorfooter-last-dark"></div>
+                <div class="colorfooter4 color-pink medium-height"></div>
+                <div class="colorfooter4 color-blue medium-height"></div>
+                <div class="colorfooter4 color-dark medium-height colorfooter-last-dark"></div>
             </div>
         </div>
     </div>
 </div>
 
+<hr>
+
 <div class="container">
     <div class="row">
-        <div class="span12 center">
-            wer steht dahinter 
+        <div class="span6"></div>
+        <div class="span6">
+            <h5 class="pink-text">[[ 'home.who.headline' | translate ]]</h5>
+            <p class="running-text">
+                [[ 'home.who.text' | translate ]] 
+                <a class="bold-text" href="#!">[[ 'home.who.knowmore' | translate ]]</a>
+            </p>
+            <div class="colorfooter6 color-pink small-height"></div>
+            <h5><a href="#!/">[[ 'home.who.votefor' | translate ]]</a></h5>
+            <div class="colorfooter6 color-dark xsmall-height"></div>
+            <h5><a href="#!/">[[ 'home.who.yourpage' | translate ]]</a></h5>
+            <div class="colorfooter6 color-dark xsmall-height"></div>
+            <h5><a href="#!/">[[ 'home.who.howto' | translate ]]</a></h5>
+            <div class="colorfooter6 color-dark xsmall-height"></div>
         </div>
     </div>
+    <div class="row bottom-hack">
+            <div class="pos-rel">
+                <img class="whosbehind" src="{{ asset("bundles/websitecharity/images/whosbehind.png") }}"></img>
+            </div>
+            
+    </div>
 </div>
-<hr>
+
+<hr class="bottom-shadow">
+
 <div class="container">
     <div class="row">
         <div class="span12 center">

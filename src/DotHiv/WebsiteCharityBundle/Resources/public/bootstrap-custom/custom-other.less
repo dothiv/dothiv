@@ -33,11 +33,9 @@
 // Custom HR tag
 // ------------------------------------
 hr {
-    border-top: 2px solid #D5D5D5;
-    height: 2px;
-    background-color: #ECECEC;
-    border-bottom: 2px solid #F1F1F1;
-    margin: 0 0 0 0 ;
+    border-top: none;
+    height: 7px;
+    margin-bottom: 30px ;
 }
 
 // override h1, h2, h3 lineheight 
@@ -85,11 +83,6 @@ div.dhInput {
 // --------------------------------
 .span4 { margin-top: 30px; }
 
-// adds colored borders to span-elements
-// --------------------------------
-.lower-border-pink { border-bottom: 5px solid @darkpink; }
-.lower-border-blue { border-bottom: 5px solid @hivblue; }
-
 // text and image behavior inside span-elements
 // --------------------------------
 .upper { position: relative; height: 128px; }
@@ -107,6 +100,7 @@ div.dhInput {
 .hivblue-text {color: @hivblue; }
 .colordark-text {color: @colordark; }
 .running-text { line-height: 1.6em; font-style: italic; }
+.bold-text { font-weight: bold; }
 
 // custom headline sizes and spacings
 // ----------------------------------
@@ -117,23 +111,38 @@ h3 {
     margin: 0; 
 }
 
+h5 {
+    font-size: 30px;
+    line-height: 2em;
+    padding: 0;
+    margin: 0;
+    
+}
+
 // custom linked color-bars and classes for coloring those
 //-----------------------------------
 
 @colorfooterHeight: 6px;
 
+
+
 .colorfooter-container {
-    height: @colorfooterHeight;
     &.span4 { margin-top: 0; }
     &.row { margin-bottom: 50px; margin-top: -10px; }
     position: relative;
     left: 20px;
+    
 }    
 
 
 .colorfooterX (@index) when (@index > 0) {
     .colorfooter@{index} { .colorfooter(@index); }
     .colorfooterX(@index - 1);
+
+    .xsmall-height { height: 1px; }
+    .small-height { height: @colorfooterHeight/2 ; }
+    .medium-height { height: @colorfooterHeight; }
+    .big-height { height: @colorfooterHeight*1.5 ; }
 }
 
 .colorfooterX (0) {}
@@ -145,17 +154,14 @@ h3 {
 
 .color-pink {
     float: left;
-    height: @colorfooterHeight;
     background-color: @darkpink;
 }
 .color-blue {
     float: left;
-    height: @colorfooterHeight;
     background-color: @hivblue;
 }
 .color-dark {
     float: left;
-    height: @colorfooterHeight;
     background-color: @colordark;
 }
 
@@ -203,10 +209,10 @@ h3 {
     position: absolute;
     right: 0px;
     text-align: center;
-    height: 128px;
 
     &.monitor { 
         background: url('/bundles/websitecharity/images/monitor.png') no-repeat; 
+        height: 128px;
         width: 128px;
         .text {
             top: 18px;
@@ -217,6 +223,7 @@ h3 {
     
     &.arrow { 
         background: url('/bundles/websitecharity/images/arrow.png') no-repeat;
+        height: 128px;
         width: 220px; 
         .text {
             font-size: 20px;
@@ -232,4 +239,13 @@ h3 {
         bottom: 10px; 
     }
     .text { position: absolute; }
+}
+
+.pos-rel { 
+    position: relative; 
+
+    .whosbehind {
+        position: absolute;
+        bottom: 0px;
+    }
 }
