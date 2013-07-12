@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
+angular.module('dotHIVApp.directives').directive("dhInput", function($compile, $timeout) {
     return {
         restrict: 'E',
         scope: {
@@ -12,15 +12,16 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
                 NgRequired: '=dhNgRequired',
                 Autofocus: '@dhAutofocus',
                 value: '@dhValue',
+                focus: '=dhFocus',
 
                 // label
                 label: '@dhLabel',
 
                 // tooltip
-                tooltip: '@dhTooltip',
+                tooltip: '&dhTooltip',
                 tooltipPlacement: '@dhTooltipPlacement',
                 tooltipTrigger: '@dhTooltipTrigger',
-                tooltipInvalid: '@dhTooltipInvalid',
+                tooltipInvalid: '&dhTooltipInvalid',
                 tooltipShowInvalid: '=dhTooltipShowInvalid',
             },
         template: '<div>' +
@@ -41,11 +42,10 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
                   '</div>',
         replace: true,
         transclude: true,
-        require: 'ngModel',
         priority: 10,
         controller: ['$scope', '$element', '$attrs', '$transclude', function($scope, $element, $attrs, $transclude) {
             $scope.tooltiptext = function() {
-                return $scope.tooltipShowInvalid ? $scope.tooltipInvalid : $scope.tooltip;
+                return $scope.tooltipShowInvalid ? $scope.tooltipInvalid() : $scope.tooltip();
             };
         }],
         compile: function(tElement, tAttrs, transclude) {
@@ -57,7 +57,7 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
             if (tElement.attr("dh-id") != undefined)
                 id = tElement.attr("dh-id");
             else
-              id = Math.random().toString(36).substring(7);
+                id = Math.random().toString(36).substring(7);
 
             // set id
             input.attr('id', id);
@@ -92,6 +92,14 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile) {
 
             // add css class to div
             tElement.addClass('dhInput');
+
+            return function ( scope, element, attrs ) {
+                scope.$watch( 'focus', function ( val ) {
+                    if ( angular.isDefined( val ) && val ) {
+                        $timeout( function () { element.find('input')[0].focus(); } );
+                    }
+                }, true);
+            };
         }
     };
 });

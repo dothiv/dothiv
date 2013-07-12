@@ -18,6 +18,8 @@
                         type="email"
 
                         dh-name="login-username"
+                        dh-id="login-id"
+                        dh-focus="focusLoginUsername"
                         dh-placeholder="[[ 'login.form.username.placeholder' | translate ]]"
                         ng-model="loginData.username"
 
@@ -26,10 +28,10 @@
 
                         dh-label="[[ 'login.form.username.label' | translate ]]"
 
-                        dh-tooltip="[[ 'login.form.username.tooltip.default' | translate ]]"
+                        dh-tooltip="logintooltip"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="[[ 'login.form.username.tooltip.invalid' | translate ]]"
+                        dh-tooltip-invalid="'login.form.username.tooltip.invalid' | translate"
                         dh-tooltip-show-invalid="!loginclean"
                         ></dh-input>
 
@@ -45,7 +47,7 @@
 
                         dh-label="[[ 'login.form.password' | translate ]]"
 
-                        dh-tooltip="[[ 'login.form.password.tooltip' | translate ]]"
+                        dh-tooltip="'login.form.password.tooltip' | translate"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="right"
                         ></dh-input>
@@ -92,10 +94,10 @@
 
                         dh-label="[[ 'registration.form.name.label' | translate ]]"
 
-                        dh-tooltip="[[ 'registration.form.name.tooltip.default' | translate ]]"
+                        dh-tooltip="'registration.form.name.tooltip.default' | translate"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="[[ 'registration.form.name.tooltip.invalid' | translate ]]"
+                        dh-tooltip-invalid="'registration.form.name.tooltip.invalid' | translate"
                         dh-tooltip-show-invalid="!registrationclean"
                         ></dh-input>
 
@@ -111,10 +113,10 @@
 
                         dh-label="[[ 'registration.form.surname.label' | translate ]]"
 
-                        dh-tooltip="[[ 'registration.form.surname.tooltip.default' | translate ]]"
+                        dh-tooltip="'registration.form.surname.tooltip.default' | translate"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="[[ 'registration.form.surname.tooltip.invalid' | translate ]]"
+                        dh-tooltip-invalid="'registration.form.surname.tooltip.invalid' | translate"
                         dh-tooltip-show-invalid="!registrationclean"
                         ></dh-input>
 
@@ -130,10 +132,10 @@
 
                         dh-label="[[ 'registration.form.email.label' | translate ]]"
 
-                        dh-tooltip="[[ 'registration.form.email.tooltip.default' | translate ]]"
+                        dh-tooltip="'registration.form.email.tooltip.default' | translate"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="[[ 'registration.form.email.tooltip.invalid' | translate ]]"
+                        dh-tooltip-invalid="'registration.form.email.tooltip.invalid' | translate"
                         dh-tooltip-show-invalid="!registrationclean"
                         ></dh-input>
 

@@ -1,8 +1,22 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$scope', 'dialog', 'security', '$window', '$location',
-        function($scope, dialog, security, $window, $location) {
+angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$scope', 'dialog', 'security', '$window', '$location', '$translate',
+        function($scope, dialog, security, $window, $location, $translate) {
             $scope.loginclean = true;
+            $scope.focusLoginUsername = 1;
+            $scope.loginData = { 'username': '', 'password': '' };
+
+            function resetLoginTooltip() {
+                $scope.logintooltip = $translate('login.form.username.tooltip.default');
+            }
+
+            $scope.$watch('loginData.username', function() {
+                resetLoginTooltip();
+            })
+            $scope.$watch('loginData.password', function() {
+                resetLoginTooltip();
+            })
+            resetLoginTooltip();
 
             $scope.login = function(data) {
                 if($scope.loginForm.$invalid) {
@@ -14,7 +28,8 @@ angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$s
                             dialog.close();
                         } else {
                             // login failed
-                            $scope.loginerrormsg = error;
+                            $scope.logintooltip = error.data;
+                            $scope.focusLoginUsername++;
                         }
                     });
                 }
