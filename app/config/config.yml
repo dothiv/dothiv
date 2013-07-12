@@ -25,6 +25,9 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+        charitydomain: %charitydomain%
+        companydomain: %companydomain%
 
 # Assetic Configuration
 assetic:
