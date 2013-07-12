@@ -30,7 +30,7 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainClaimController
 
         $scope.claim = function() {
             dothivDomainResource.claim({"claimingToken": $scope.token, "username": security.state.user.username}, function(d, headers) {
-                $state.transitionTo('=.profile.domaineditors', {'domainId': $scope.domain.name});
+                $state.transitionTo('=.profile.domaineditors', {'domainId': $scope.domain.id});
             }, function(a,b,c) {
                 // TODO: Show error message
             });
