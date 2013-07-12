@@ -8,7 +8,7 @@
             "myprofile": "Mein Profil",
             "createproject": "Projekt einstellen",
             "reportabuse": "Missbrauch melden",
-            "mockaction": "mock actions"
+            "mockaction": "Mockaktionen"
         }
     },
     "login":
@@ -18,7 +18,12 @@
             "username":
             {
                 "label": "Emailadresse",
-                "placeholder": "Ihre Emailadresse"
+                "placeholder": "Ihre Emailadresse",
+                "tooltip":
+                {
+                    "default": "Bitte geben Sie Ihre Email-Adresse ein",
+                    "invalid": "Diese Email-Adresse ist ungültig"
+                }
             },
             "thirdparty":
             {

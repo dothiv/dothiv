@@ -4,7 +4,11 @@
         "menu":
         {
             "logout": "Log out",
-            "login": "Sign in"
+            "login": "Sign in",
+            "myprofile": "My Profile",
+            "createproject": "Add a Project",
+            "reportabuse": "Report Abuse",
+            "mockaction": "Mock Actions"
         }
     },
     "login":
@@ -14,7 +18,12 @@
             "username":
             {
                 "label": "Email address",
-                "placeholder": "Your email address"
+                "placeholder": "Your email address",
+                "tooltip":
+                {
+                    "default": "Please type in your email address",
+                    "invalid": "Sorry, no valid email address"
+                }
             },
             "thirdparty":
             {
@@ -31,6 +40,16 @@
                     "button": "log in with Google Plus"
                 }
             }
+        }
+    },
+    "home":
+    {
+        "about":
+        {
+            "oneclickheadline": "Click",
+            "monitorheadline": "Video:",
+            "monitortext": "The idea in 111 seconds",
+            "arrowtext": "Sign in now"
         }
     }
 }
