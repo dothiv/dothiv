@@ -1,11 +1,46 @@
 .infobox {
     background-image: url('/bundles/websitecharity/images/squairy_light_textur.png');
+}
+
+.bottom-shadow {
     .box-shadow(@hivLowerBoxshadow);
-    
-    & * .close {
-        .running-text;
-        font-size: @baseFontSize;
-        color: @black;
-        background: transparent;
-    }
 }    
+
+
+// image-container-classes for infobox
+//---------------------------------------------
+.image-container {
+    position: absolute;
+    right: 0px;
+    text-align: center;
+
+    &.monitor { 
+        background: url('/bundles/websitecharity/images/infobox/monitor.png') no-repeat; 
+        height: 128px;
+        width: 128px;
+        .text {
+            top: 18px;
+            left: 7px;
+            width: 108px;
+        }
+    }
+    
+    &.arrow { 
+        background: url('/bundles/websitecharity/images/infobox/arrow.png') no-repeat;
+        height: 128px;
+        width: 220px; 
+        .text {
+            font-size: 20px;
+            top: 10px;
+            left: 40px;
+        }
+    }
+    
+    &.people { 
+        background: url('/bundles/websitecharity/images/infobox/people.png') no-repeat;
+        width: 103px;
+        height: 105px;
+        bottom: 10px; 
+    }
+    .text { position: absolute; }
+}
