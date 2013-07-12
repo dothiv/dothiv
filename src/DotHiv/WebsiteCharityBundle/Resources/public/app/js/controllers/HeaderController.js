@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope', '$state', 'security', 'securityDialog', 'locale',
-    function($scope, $state, security, securityDialog, locale) {
+angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope', '$state', 'security', 'securityDialog', 'locale', '$rootScope',
+    function($scope, $state, security, securityDialog, locale, $rootScope) {
         // make state information available
         $scope.state = $state;
 
         $scope.locale = locale;
         $scope.siteLanguages = {
-                                'de': 'German',
+                                'de': 'Deutsch',
                                 'en': 'English'
                                };
         $scope.$watch('locale.language', function() {
@@ -35,5 +35,9 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
         };
 
         $scope.showfunding = false;
+
+        $scope.$on('localeInitialized', function() {
+            $scope.finishedbooting = true;
+        });
     }
 ]);

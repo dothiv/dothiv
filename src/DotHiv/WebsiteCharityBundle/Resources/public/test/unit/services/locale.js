@@ -19,6 +19,7 @@ describe('locale service', function() {
         });
         inject(function($rootScope) {
             rootScope = $rootScope;
+            spyOn(rootScope, '$broadcast').andCallThrough();
         });
         inject(function($translate) {
             translate = $translate;
@@ -92,5 +93,15 @@ describe('locale service', function() {
         });
 
     });
+
+    describe('initialize', function() {
+
+        it('should broadcast the "localeInitialized" event when received the locale from the server', function() {
+            rootScope.$digest();
+            httpBackend.flush();
+            expect(rootScope.$broadcast).toHaveBeenCalledWith('localeInitialized');
+        });
+
+    })
 
 });
