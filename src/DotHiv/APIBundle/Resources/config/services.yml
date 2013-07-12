@@ -11,7 +11,7 @@ services:
     security.authentication.failure_handler:
         class: %security.authentication.failure_handler.class%
         public: false
-        arguments:  ['@http_kernel', '@security.http_utils', '', '@logger', '@translator']
+        arguments:  ['@http_kernel', '@security.http_utils', '', '@logger', '@translator', '@templating']
 
     # do the decoding of the body first in any case
     fos_rest.body_listener:

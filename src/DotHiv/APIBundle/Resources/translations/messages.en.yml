@@ -5,4 +5,5 @@ security:
             session: Your session has expired, or your browser does not allow cookies.
         facebook:
             failure:
+                headline: Nuts! Didn't Work
                 duplicate: We already have an account with this email address. Did you sign up not using Facebook before?

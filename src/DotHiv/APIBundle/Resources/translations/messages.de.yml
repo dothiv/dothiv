@@ -5,4 +5,5 @@ security:
             session: Ihre Sitzung ist abgelaufen, oder Ihr Browser erlaubt keine Cookies.
         facebook:
             failure:
+                headline: Mist, hat nicht geklappt!
                 duplicate: Wir haben bereits ein Benutzerkonto mit dieser Email-Adresse. Haben Sie sich schonmal ohne Facebook registriert?
