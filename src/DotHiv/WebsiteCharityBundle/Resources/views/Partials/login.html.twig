@@ -11,8 +11,6 @@
                     <h4>[[ 'login.form.title' | translate ]]</h4>
                     <p><small>[[ 'login.form.text' | translate ]]</small></p>
 
-                    <span class="alert alert-error" ng-show="loginerrormsg">[[ loginerrormsg ]]</span>
-
                     <dh-input
                         class="span12"
                         type="email"
@@ -80,13 +78,12 @@
                     <h4>[[ 'registration.form.title' | translate ]]</h4>
                     <p><small>[[ 'registration.form.text' | translate ]]</small></p>
 
-                    <span class="alert alert-error" ng-show="registrationerrormsg">[[ registrationerrormsg ]]</span>
-
                     <dh-input
                         class="span12"
                         type="text"
 
                         dh-name="registration-name"
+                        dh-focus="registrationfocus.name"
                         dh-placeholder="[[ 'registration.form.name.placeholder' | translate ]]"
                         ng-model="registrationData.name"
 
@@ -94,10 +91,10 @@
 
                         dh-label="[[ 'registration.form.name.label' | translate ]]"
 
-                        dh-tooltip="'registration.form.name.tooltip.default' | translate"
+                        dh-tooltip="registrationtooltip.name.default"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="'registration.form.name.tooltip.invalid' | translate"
+                        dh-tooltip-invalid="registrationtooltip.name.invalid"
                         dh-tooltip-show-invalid="!registrationclean"
                         ></dh-input>
 
@@ -106,6 +103,7 @@
                         type="text"
 
                         dh-name="registration-surname"
+                        dh-focus="registrationfocus.surname"
                         dh-placeholder="[[ 'registration.form.surname.placeholder' | translate ]]"
                         ng-model="registrationData.surname"
 
@@ -113,10 +111,10 @@
 
                         dh-label="[[ 'registration.form.surname.label' | translate ]]"
 
-                        dh-tooltip="'registration.form.surname.tooltip.default' | translate"
+                        dh-tooltip="registrationtooltip.surname.default"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="'registration.form.surname.tooltip.invalid' | translate"
+                        dh-tooltip-invalid="registrationtooltip.surname.invalid"
                         dh-tooltip-show-invalid="!registrationclean"
                         ></dh-input>
 
@@ -125,6 +123,7 @@
                         type="email"
 
                         dh-name="registration-email"
+                        dh-focus="registrationfocus.email"
                         dh-placeholder="[[ 'registration.form.email.placeholder' | translate ]]"
                         ng-model="registrationData.email"
 
@@ -132,10 +131,10 @@
 
                         dh-label="[[ 'registration.form.email.label' | translate ]]"
 
-                        dh-tooltip="'registration.form.email.tooltip.default' | translate"
+                        dh-tooltip="registrationtooltip.email.default"
                         dh-tooltip-trigger="focus"
                         dh-tooltip-placement="top"
-                        dh-tooltip-invalid="'registration.form.email.tooltip.invalid' | translate"
+                        dh-tooltip-invalid="registrationtooltip.email.invalid"
                         dh-tooltip-show-invalid="!registrationclean"
                         ></dh-input>
 

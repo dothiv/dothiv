@@ -42,6 +42,20 @@
             }
         }
     },
+    "registration":
+    {
+        "form":
+        {
+            "name":
+            {
+                "tooltip":
+                {
+                    "default": "Please type in your name",
+                    "invalid": "We don't think this is your name"
+                }
+            }
+        }
+    },
     "home":
     {
         "about":

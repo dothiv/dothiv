@@ -10,10 +10,7 @@ angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$s
                 $scope.logintooltip = $translate('login.form.username.tooltip.default');
             }
 
-            $scope.$watch('loginData.username', function() {
-                resetLoginTooltip();
-            })
-            $scope.$watch('loginData.password', function() {
+            $scope.$watch('loginData', function() {
                 resetLoginTooltip();
             })
             resetLoginTooltip();
@@ -36,6 +33,22 @@ angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$s
             };
 
             $scope.registrationclean = true;
+            $scope.registrationfocus = {};
+
+            function resetRegistrationTooltips() {
+                $scope.registrationtooltip = 
+                    {
+                        "name":           { "default": $translate("registration.form.name.tooltip.default"), "invalid": $translate("registration.form.name.tooltip.invalid") },
+                        "surname":        { "default": $translate("registration.form.surname.tooltip.default"), "invalid": $translate("registration.form.surname.tooltip.invalid") },
+                        "email":          { "default": $translate("registration.form.email.tooltip.default"), "invalid": $translate("registration.form.email.tooltip.invalid") },
+                        "password":       { "default": $translate("registration.form.password.tooltip.default"), "invalid": $translate("registration.form.password.tooltip.invalid") },
+                        "passwordrepeat": { "default": $translate("registration.form.passwordrepeat.tooltip.default"), "invalid": $translate("registration.form.passwordrepeat.tooltip.invalid") },
+                    };
+            }
+            $scope.$watch('registrationData', function() {
+                resetRegistrationTooltips();
+            });
+            resetRegistrationTooltips();
 
             $scope.register = function(data) {
                 if ($scope.registrationForm.$invalid) {
@@ -47,7 +60,27 @@ angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$s
                             dialog.close();
                         } else {
                             // registration failed
-                            $scope.registrationerrormsg = error;
+                            if (!angular.isDefined(error.data.form.children)) {
+                                // TODO what shall we do?
+                                console.log("something is seriously wrong.");
+                                return;
+                            }
+
+                            var errorFound = false;
+                            angular.forEach(error.data.form.children, function(value, key) {
+                                if (errorFound) return;
+
+                                if (angular.isDefined(value.errors)) {
+                                    // set the tooltip accordingly
+                                    $scope.registrationtooltip[key]['default'] = $scope.registrationtooltip[key]['invalid'] = value.errors[0];
+
+                                    // set the focus to the errored field
+                                    !$scope.registrationfocus[key] ? $scope.registrationfocus[key] = 1 : $scope.registrationfocus[key]++;
+
+                                    // break for each
+                                    errorFound = true;
+                                }
+                            });
                         }
                     });
                 }
