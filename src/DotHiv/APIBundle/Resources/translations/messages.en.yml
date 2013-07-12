@@ -3,3 +3,6 @@ security:
         failure:
             credentials: Incorrect username or password.
             session: Your session has expired, or your browser does not allow cookies.
+        facebook:
+            failure:
+                duplicate: We already have an account with this email address. Did you sign up not using Facebook before?

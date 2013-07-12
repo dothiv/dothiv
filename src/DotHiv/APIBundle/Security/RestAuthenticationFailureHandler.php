@@ -42,6 +42,9 @@ class RestAuthenticationFailureHandler extends DefaultAuthenticationFailureHandl
         } elseif ($exception instanceof \Symfony\Component\Security\Core\Exception\BadCredentialsException) {
             $msg = 'security.login.failure.credentials';
             $status = 400;
+        } elseif ($exception instanceof \DotHiv\BusinessBundle\Security\Exception\DuplicateEmailAddressException) {
+            $msg = 'security.login.facebook.failure.duplicate';
+            $status = 200; // send 200 OK though its a client error, as this is a classic browser request, but not an RESTful API call
         } else {
             $msg = 'security.login.failure.servererror';
             $status = 500;
@@ -51,7 +54,7 @@ class RestAuthenticationFailureHandler extends DefaultAuthenticationFailureHandl
             $msg = $this->translator->trans($msg);
         }
         $response = new Response($msg);
-        $response->setStatusCode(400);
+        $response->setStatusCode($status);
         return $response;
     }
 

@@ -2,6 +2,10 @@
 
 namespace DotHiv\BusinessBundle\Security\User\Provider;
 
+use DotHiv\BusinessBundle\Security\Exception\DuplicateEmailAddressException;
+
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -59,6 +63,11 @@ class FacebookProvider implements UserProviderInterface
                 // TODO: the user was found obviously, but doesnt match our expectations, do something smart
                 throw new UsernameNotFoundException('The facebook user could not be stored');
             }
+
+            if ($this->userManager->findUserBy(array('email' => $user->getEmail()))) {
+                throw new DuplicateEmailAddressException();
+            }
+
             $this->userManager->updateUser($user);
         }
 
