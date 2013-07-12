@@ -8,7 +8,6 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile, $
                 name: '@dhName',
                 placeholder: '@dhPlaceholder',
                 ngModel: '=',
-                Required: '@dhRequired',
                 NgRequired: '=dhNgRequired',
                 Autofocus: '@dhAutofocus',
                 value: '@dhValue',
@@ -70,11 +69,6 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile, $
             // move type
             input.attr('type', tElement.attr('type'));
             tElement.removeAttr('type');
-
-            // require attribute
-            if (tElement.attr("dh-required") != undefined) {
-                input.attr("required", "required");
-            }
 
             // autofocus attribute
             if (tElement.attr("dh-autofocus") != undefined) {
