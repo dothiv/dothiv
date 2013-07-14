@@ -64,6 +64,15 @@
             "monitorheadline": "Video:",
             "monitortext": "Die Idee in 111 Sekunden",
             "arrowtext": "Jetzt anmelden"
+        },
+        "quotes":
+        {
+            "headline": "Zitate",
+            "allquotes": "Alle anzeigen",
+            "quoteA": "Dieses Zitat ist nicht sehr lang.",
+            "userA": "Komplize M, Angestellter",
+            "quoteB": "Dieses Zitat ist länger, dieser Fan hatte deutlich mehr zu sagen. Immerhin ist das ein sehr intressantes Projekt.",
+            "userB": "Komplize A, Student"
         }
     }
 }
