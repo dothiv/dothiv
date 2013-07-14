@@ -13,7 +13,8 @@
             -moz-box-shadow: none;
             box-shadow: none;
             .caret {
-                background-image: url('/bundles/websitecharity/images/tick-black.png');
+                background: url('/bundles/websitecharity/images/tick-sprite.png') no-repeat;
+                background-position: 0px 0px;
             }
         }
     }
@@ -26,17 +27,24 @@
         color: @black;
     }
     
-    span.caret {
-        width: 12px;
-        height: 10px;
-        border: none;
-        background-image: url('/bundles/websitecharity/images/tick-grey.png');
-        background-size: 100%;
+    .dh-dropdown .dropdown-toggle {
+        i.dropdown-icon {
+            width: 10px;
+            height: 10px;
+            border: none;
+            background: url('/bundles/websitecharity/images/small-tick-sprite.png') no-repeat;
+            background-position: -20px -20px;
+        }
+        &:hover i.dropdown-icon { background-position: -20px 0px; }
     }
     
-    .open span.caret { background-image: url('/bundles/websitecharity/images/tick-black.png'); }
-    
-    
+    .dh-dropdown.open .dropdown-toggle i.dropdown-icon {
+        width: 10px;
+        height: 10px;
+        border: none;
+        background: url('/bundles/websitecharity/images/small-tick-sprite.png') no-repeat;
+        background-position: -20px 0px; 
+    }
     
     .dropdown-menu {
         .border-radius(0px);
