@@ -13,15 +13,16 @@
 
 @hivLowerBoxshadow: 0 6px 4px rgba(220,220,220,1);
 
-@accountLineHeight:    2em;
+@accountLineHeight:    1em;
 
 // Class to add pointing arrows to elements on hover
 // -------------------------------------
 .hover-arrow:hover:before {
-    margin-left: -45px; /*width of the jpg*/
-    width: 45px;
+    margin-left: -50px; /*width of the jpg*/
+    margin-top: -10px;
+    width: 50px;
     height: 20px;
-    background-image: url('/bundles/websitecharity/images/tick-sprite.png');
+    background: url('/bundles/websitecharity/images/tick-sprite.png') no-repeat;
     background-position: -80px 0px;
     content: " ";
     display: inline-block;
@@ -132,7 +133,8 @@ h5 {
     display: inline-block;
     margin-left: 15px;
     margin-right: 5px;
-    background: url('/bundles/websitecharity/images/arrow-black.png') no-repeat center;
+    background: url('/bundles/websitecharity/images/small-tick-sprite.png') no-repeat center;
+    background-position: -10px 0;
 }
 
 .voteproject {
@@ -141,4 +143,31 @@ h5 {
     & * h5 { margin-bottom: 40px; }
     & * img { margin-bottom: 20px; }
     & * .separator4 { margin-top: 20px; }
+}
+
+.quotes {
+    .row {
+        margin-top: 49px;
+        margin-bottom: 12px;
+    
+        .quote-bubbles {
+            position: absolute;
+            right: -62px;
+            top: -18px;
+        }
+    }
+
+    p.quote {
+        margin-top: 39px;
+        margin-bottom: 39px;
+        font-size: 28px;
+        font-family: @headingsFontFamily;
+        line-height: 1.2em;
+    }
+    
+    p.quoted {
+        margin-top: 55px;
+        margin-bottom: 0px;
+        font-style: italic;
+    }
 }
