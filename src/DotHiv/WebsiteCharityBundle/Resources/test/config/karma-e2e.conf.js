@@ -12,8 +12,10 @@ browsers = ['Chrome','Firefox'];
 
 singleRun = true;
 
+urlRoot = '/karma/';
+
 proxies = {
-    '/': 'http://dothiv.bp/app_dev.php/'
+    '/': 'http://dothiv.bp/'
 };
 
 junitReporter = {
