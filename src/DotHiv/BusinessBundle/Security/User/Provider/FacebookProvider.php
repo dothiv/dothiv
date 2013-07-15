@@ -51,6 +51,10 @@ class FacebookProvider implements UserProviderInterface
 
         if (!empty($fbdata)) {
             if (empty($user)) {
+                if ($this->userManager->findUserBy(array('email' => $fbdata["email"]))) {
+                    throw new DuplicateEmailAddressException();
+                }
+
                 $user = $this->userManager->createUser();
                 $user->setEnabled(true);
                 $user->setPassword('');
@@ -62,10 +66,6 @@ class FacebookProvider implements UserProviderInterface
             if (count($this->validator->validate($user, 'Facebook'))) {
                 // TODO: the user was found obviously, but doesnt match our expectations, do something smart
                 throw new UsernameNotFoundException('The facebook user could not be stored');
-            }
-
-            if ($this->userManager->findUserBy(array('email' => $user->getEmail()))) {
-                throw new DuplicateEmailAddressException();
             }
 
             $this->userManager->updateUser($user);
