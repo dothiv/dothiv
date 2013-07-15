@@ -1,4 +1,4 @@
-basePath = '../';
+basePath = '../..';
 
 files = [
   ANGULAR_SCENARIO,
@@ -8,13 +8,13 @@ files = [
 
 autoWatch = false;
 
-browsers = ['Firefox'];
+browsers = ['Chrome','Firefox'];
 
 singleRun = true;
 
 proxies = {
-    '/': 'http://localhost/'
-}
+    '/': 'http://dothiv.bp'
+};
 
 junitReporter = {
   outputFile: 'test_out/e2e.xml',

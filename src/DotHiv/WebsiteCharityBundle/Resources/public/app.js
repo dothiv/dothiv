@@ -20,7 +20,7 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
     }])
     .config(['$translateProvider', function($translateProvider) {
         $translateProvider.useStaticFilesLoader({
-            prefix: '/bundles/websitecharity/app/translations/language-',
+            prefix: '/bundles/websitecharity/translations/language-',
             suffix: '.json'
         });
     }])

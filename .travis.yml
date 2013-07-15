@@ -38,9 +38,8 @@ script:
 # PHP testing
   - phpunit -c app
 # Javascript testing
-  - cd src/DotHiv/WebsiteCharityBundle/Resources/public
-  - DISPLAY=:99.0 ./scripts/travis-test.sh
-  - DISPLAY=:99.0 ./scripts/travis-e2e-test.sh
+  - DISPLAY=:99.0 ./src/DotHiv/WebsiteCharityBundle/Resources/test/travis-test.sh
+  - DISPLAY=:99.0 ./src/DotHiv/WebsiteCharityBundle/Resources/test/travis-e2e-test.sh
 
 after_failure:
   - wget --save-headers --output-document - http://localhost/app_dev.php
