@@ -1,7 +1,20 @@
 parameters:
-#    dot_hiv_website.example.class: DotHiv\WebsiteCharityBundle\Example
+    dothiv.websitecharity.assetic.filter.ngmin.class: DotHiv\WebsiteCharityBundle\Assetic\Filter\NgMinFilter
+    dothiv.websitecharity.assetic.filter.ngmin.bin: /usr/bin/ngmin
 
 services:
-#    dot_hiv_website_charity.example:
-#        class: %dot_hiv_website_charity.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    dothiv.websitecharity.assetic.filter.ngmin:
+        class: %dothiv.websitecharity.assetic.filter.ngmin.class%
+        tags:
+            - { name: assetic.filter, alias: ngmin }
+        arguments: [%dothiv.websitecharity.assetic.filter.ngmin.bin%]
+
+    dothiv.websitecharity.assetic.filter.closureecma5:
+        class: %assetic.filter.closure.jar.class%
+        tags:
+            - { name: assetic.filter, alias: closureecma5 }
+        arguments: [%assetic.filter.closure.jar%, %assetic.filter.closure.java%]
+        calls:
+            - [ setTimeout, [%assetic.filter.closure.timeout%] ]
+            - [ setCompilationLevel, [%assetic.filter.closure.compilation_level%] ]
+            - [ setLanguage, ['ECMASCRIPT5'] ]

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dotHIVApp.services').factory('dothivDomainResource', function($resource, dothivResourceDefaultActions) {
-    return $resource('/app_dev.php/api/domains/:claims/:id/:sub', {}, {
+    return $resource('api/domains/:claims/:id/:sub', {}, {
         'get':        {method:'GET', params: {id:'@id'}},
         'query':      {method:'GET', isArray:true},
         'search':     {method:'GET', params: {token:'@token'}},

@@ -1,130 +1,16 @@
-<!-- In production use:
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
--->
-<script src="{{ asset('bundles/websitecharity/vendor/angular/angular.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/vendor/angular/angular-resource.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/vendor/http-auth-interceptor.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/vendor/ui-bootstrap-tpls-0.4.0-SNAPSHOT.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/vendor/angular-ui-router.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/vendor/angular-translate.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/vendor/angular-translate-loader-static-files.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/vendor/angular/i18n/angular-locale_de.js') }}"></script>
-
-<script src="{{ asset('bundles/websitecharity/app.js') }}"></script>
-
-<script type="text/javascript">
-    // Configute routing and states
-    angular.module('dotHIVApp').config(['$stateProvider', function($stateProvider) {
-        $stateProvider
-            .state('home', {
-                    url: '/',
-                    templateUrl: '/bundles/websitecharity/templates/home.html',
-                    controller: 'HomeController'
-                })
-            .state('about', {
-                    abstract: true,
-                    url: '/about',
-                    templateUrl: '/bundles/websitecharity/templates/about/index.html',
-                    //controller: 'AboutController'
-                })
-            .state('about.idea', {
-                    url: '',
-                    templateUrl: '/bundles/websitecharity/templates/about/idea.html'
-                })
-
-            /**
-             * This state is useful for development use only. It provides
-             * API calls to mock thirdparty API calls that are unavailable
-             * during development.
-             */
-            .state('mock', {
-                    url: '/mock',
-                    templateUrl: '/bundles/websitecharity/templates/mock.html',
-                    controller: 'MockController'
-                })
-
-            /**
-             * This state is the parent state for all states that require the user
-             * to be logged in.
-             */
-            .state('=', {
-                    abstract: true,
-                    url: '',
-                    template: '<div ui-view></div>',
-                })
-            .state('=.profile', {
-                    abstract: true,
-                    url: '/profile',
-                    templateUrl: '/bundles/websitecharity/templates/profile/index.html',
-                    controller: 'ProfileController'
-                })
-            .state('=.profile.summary', {
-                    url: '',
-                    templateUrl: '/bundles/websitecharity/templates/profile/summary.html',
-                    controller: 'ProfileSummaryController'
-                })
-            .state('=.profile.edit', {
-                    url: '/edit',
-                    templateUrl: '/bundles/websitecharity/templates/profile/edit.html',
-                    controller: 'ProfileEditController'
-                })
-            .state('=.profile.projects', {
-                    url: '/projects',
-                    templateUrl: '/bundles/websitecharity/templates/profile/projects.html'
-                })
-            .state('=.profile.domains', {
-                    url: '/domains',
-                    templateUrl: '/bundles/websitecharity/templates/profile/domains.html',
-                    controller: 'ProfileDomainController'
-                })
-            .state('=.profile.domaineditors', {
-                    url: '/domains/editors/:domainId',
-                    templateUrl: '/bundles/websitecharity/templates/profile/domain-editors.html',
-                    controller: 'ProfileDomainEditorsController'
-                })
-            .state('=.profile.domainedit', {
-                    url: '/domain/edit/:domainId',
-                    templateUrl: '/bundles/websitecharity/templates/profile/domain-edit.html',
-                    controller: 'ProfileDomainEditController'
-                })
-            .state('=.profile.votes', {
-                    url: '/votes',
-                    templateUrl: '/bundles/websitecharity/templates/profile/votes.html'
-                })
-            .state('=.profile.comments', {
-                    url: '/comments',
-                    templateUrl: '/bundles/websitecharity/templates/profile/comments.html'
-                })
-            .state('=.profile.domainclaim', {
-                    url: '/domain/claim',
-                    templateUrl: '/bundles/websitecharity/templates/profile/domain-claim.html',
-                    controller: 'ProfileDomainClaimController'
-                })
-        }]);
-</script>
-
-<script src="{{ asset('bundles/websitecharity/services/security.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/services/locale.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/services/securityDialog.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/services/resourceDefaultActions.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/services/models/banner.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/services/models/domain.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/services/models/login.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/services/models/user.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/services/models/locale.js') }}"></script>
-
-<script src="{{ asset('bundles/websitecharity/controllers/HeaderController.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/controllers/HomeController.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/controllers/MockController.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/controllers/LoginDialogController.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/controllers/ProfileController.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/controllers/ProfileDomainClaimController.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/controllers/ProfileDomainController.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/controllers/ProfileDomainEditController.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/controllers/ProfileDomainEditorsController.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/controllers/ProfileEditController.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/controllers/ProfileSummaryController.js') }}"></script>
-
-<script src="{{ asset('bundles/websitecharity/directives/dhInput.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/directives/dhSelect.js') }}"></script>
-<script src="{{ asset('bundles/websitecharity/directives/repeatPassword.js') }}"></script>
+{% javascripts
+    '@DotHivWebsiteCharityBundle/Resources/public/vendor/angular/angular.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/vendor/angular/angular-resource.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/vendor/http-auth-interceptor.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/vendor/ui-bootstrap-tpls-0.4.0-SNAPSHOT.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/vendor/angular-ui-router.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/vendor/angular-translate.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/vendor/angular-translate-loader-static-files.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/vendor/angular/i18n/angular-locale_de.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/app.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/services/*.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/services/**/*.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/directives/*.js'
+    '@DotHivWebsiteCharityBundle/Resources/public/controllers/*.js' filter='?ngmin,?closureecma5' output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}

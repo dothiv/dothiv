@@ -7,7 +7,7 @@ describe('dotHIVApp', function() {
   describe('login, logout', function() {
 
     beforeEach(function() {
-        browser().navigateTo('/app_dev.php/');
+        browser().navigateTo('/');
         sleep(1);
     });
 
@@ -38,7 +38,7 @@ describe('dotHIVApp', function() {
     });
 
     it('should navigate back to the homepage when starting the app on a protected page and aborting the login', function() {
-        browser().navigateTo('/app_dev.php/#!/profile');
+        browser().navigateTo('/#!/profile');
         sleep(1);
         element('.modal-backdrop').click();
         sleep(1);
@@ -75,14 +75,14 @@ describe('dotHIVApp', function() {
        expect(element('form[name="loginForm"]:visible').count()).toBe(0);
 
         // navigate directly
-        browser().navigateTo('/app_dev.php/#!/profile');
+        browser().navigateTo('/#!/profile');
         sleep(1);
         expect(browser().location().url()).toBe('/profile');
         expect(element('form[name="loginForm"]:visible').count()).toBe(0);
     });
 
     it('shoud redirect to home when logging out on protected page', function() {
-        browser().navigateTo('/app_dev.php/#!/profile');
+        browser().navigateTo('/#!/profile');
         element('a[ng-click="logout()"]').click();
         sleep(1);
         expect(browser().location().url()).toBe('/');

@@ -13,7 +13,7 @@ browsers = ['Chrome','Firefox'];
 singleRun = true;
 
 proxies = {
-    '/': 'http://dothiv.bp'
+    '/': 'http://dothiv.bp/app_dev.php/'
 };
 
 junitReporter = {

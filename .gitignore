@@ -1,6 +1,7 @@
 /src/DotHiv/WebsiteCharityBundle/Resources/public/fonts/Harmonia Sans Bold.woff
 /web/bundles/
 /web/css/
+/web/js/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/logs/*

@@ -19,20 +19,26 @@ before_script:
   - echo "$(curl -fsSL https://raw.github.com/gist/2eb301570ed4a1f4c33d/gistfile1.txt)" | sed -e "s,PATH,`pwd`/web,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
   - echo 'date.timezone = "Europe/Berlin"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - sudo service apache2 restart
+# install java
+  - sudo apt-get install openjdk-7-jre
 # install karma
   - sudo apt-get install python-software-properties python g++ make software-properties-common
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get update
   - sudo apt-get install nodejs
   - sudo npm install -g karma
-# install lessc
+# install lessc, ngmin
   - sudo npm install -g less
+  - sudo npm install -g ngmin
 # install dothiv
   - composer install
   - mysql -e 'create database dothiv;'
   - php app/console doctrine:schema:create
+  - php app/console assetic:dump --env prod
   - sudo chown -R www-data app/cache app/logs
   - sudo chmod -R 777 app/cache app/logs
+  - cp web/app_dev.php web/app_dev_travis.php
+  - echo "<?php header('HTTP/1.0 403 Forbidden') ?>Use app.php" > web/app_dev.php
 
 script:
 # PHP testing
@@ -42,8 +48,9 @@ script:
   - DISPLAY=:99.0 ./src/DotHiv/WebsiteCharityBundle/Resources/test/travis-e2e-test.sh
 
 after_failure:
-  - wget --save-headers --output-document - http://localhost/app_dev.php
+  - wget --save-headers --output-document - http://localhost/app_dev_travis.php
   - cd /home/travis/build/dothiv/dothiv/
+  - sudo cat app/logs/prod.log
   - sudo cat app/logs/dev.log
   - sudo cat app/logs/test.log
   - sudo cat /var/log/apache2/error.log

@@ -13,7 +13,7 @@ angular.module('dotHIVApp.controllers').controller('MockController', ['$scope', 
             }
 
             $scope.registerdomain = function(data) {
-                $http({method: 'POST', url: '/app_dev.php/api/domains', data: data}).success(result).error(result);
+                $http({method: 'POST', url: 'api/domains', data: data}).success(result).error(result);
             }
         }
     ]);
