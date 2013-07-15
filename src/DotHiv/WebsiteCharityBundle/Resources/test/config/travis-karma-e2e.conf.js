@@ -12,6 +12,8 @@ browsers = ['Firefox'];
 
 singleRun = true;
 
+urlRoot = '/karma/';
+
 proxies = {
     '/': 'http://localhost/'
 }
