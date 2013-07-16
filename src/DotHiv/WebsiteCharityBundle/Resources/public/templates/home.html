@@ -79,8 +79,8 @@
                 [[ 'home.vote.allprojects' | translate ]]
             </a>
             <div class="next2h3 pull-right">
-                <a href="#!/"><i class="icon-tick-left"></i></a>
-                <a href="#!/"><i class="icon-tick-right"></i></a>
+                <button class="scroll" ng-click="decrementProjectOffset();"><i class="icon-tick-left"></i></button>
+                <button class="scroll" ng-click="incrementProjectOffset();"><i class="icon-tick-right"></i></button>
             </div>
         </div>
         <div class="span12">
@@ -89,45 +89,21 @@
     </div>
     <div class="container">
         <div class="row projects-container">
-            <div class="span4">
-                <img src="/bundles/websitecharity/images/projects/schoolclass.jpg"></img>
-                <span class="colordark-text running-text"><span id="proAVoteCount">124</span> Votes | Rangliste Platz <span id="proAVotePlace">14</span></span>
+
+            <div class="span4" ng-repeat="pro in (projects | carousel: projectOffset | limitTo: 3)">
+                <img ng-src="[[ pro.pictureurl ]]"></img>
+                <span class="colordark-text running-text">[[ pro.votes ]] Votes | Rangliste Platz [[ pro.place ]]</span>
                 <div class="separator4 color-dark small-height"></div>
                 <div class="ellip">
-                    <h5>[[ 'home.vote.headlineA' | translate ]] bla blab abalba lbablab</h5>
+                    <h5>[[ pro.headline ]]</h5>
                 </div>
                 <div class="row-fluid">
                     <div class="btn-group btn-group-vertical span12">
-                        <button class="btn btn-primary span12">[[ 'home.vote.votethis' | translate ]]</button>
+                        <button class="btn btn-primary span12">[[ pro.id ]]</button>
                     </div>
                 </div>
             </div>
-            <div class="span4">
-                <img src="/bundles/websitecharity/images/projects/papermen.jpg"></img>
-                <span class="colordark-text running-text"><span id="proBVoteCount">124</span> Votes | Rangliste Platz <span id="proBVotePlace">14</span></span>
-                <div class="separator4 color-dark small-height"></div>
-                <div class="ellip">
-                    <h5>Kinder und AIDS, Hilfe für HIV-betroffene Familien bla bla blablabla bla bla blablabla bla bla blablabla</h5>
-                </div>
-                <div class="row-fluid">
-                    <div class="btn-group btn-group-vertical span12">
-                        <button class="btn btn-primary span12">[[ 'home.vote.votethis' | translate ]]</button>
-                    </div>
-                </div>
-            </div>
-            <div class="span4">
-                <img src="/bundles/websitecharity/images/projects/trees.jpg"></img>
-                <span class="colordark-text running-text"><span id="proCVoteCount">124</span> Votes | Rangliste Platz <span id="proCVotePlace">14</span></span>
-                <div class="separator4 color-dark small-height"></div>
-                <div class="ellip">
-                    <h5>[[ 'home.vote.headlineC' | translate ]]</h5>
-                </div>
-                <div class="row-fluid">
-                    <div class="btn-group btn-group-vertical span12">
-                        <button class="btn btn-primary span12">[[ 'home.vote.votethis' | translate ]]</button>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -143,40 +119,15 @@
                 [[ 'home.firms.allfirms' | translate ]]
             </a>
             <div class="next2h3 pull-right">
-                <a href="#!/"><i class="icon-tick-left"></i></a>
-                <a href="#!/"><i class="icon-tick-right"></i></a>
+                <button class="scroll" ng-click="decrementFirmOffset();"><i class="icon-tick-left"></i></button>
+                <button class="scroll" ng-click="incrementFirmOffset();"><i class="icon-tick-right"></i></button>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="span2">
-            <a href="#!/">
-                <img src="/bundles/websitecharity/images/firms/github.jpg"></img>
-            </a>
-        </div>
-        <div class="span2">
-            <a href="#!/">
-                <img src="/bundles/websitecharity/images/firms/liga01.jpg"></img>
-            </a>
-        </div>
-        <div class="span2">
-            <a href="#!/">
-                <img src="/bundles/websitecharity/images/firms/jovoto.jpg"></img>
-            </a>
-        </div>
-        <div class="span2">
-            <a href="#!/">
-                <img src="/bundles/websitecharity/images/firms/swipe.jpg"></img>
-            </a>
-        </div>
-        <div class="span2">
-            <a href="#!/">
-                <img src="/bundles/websitecharity/images/firms/github.jpg"></img>
-            </a>
-        </div>
-        <div class="span2">
-            <a href="#!/">
-                <img src="/bundles/websitecharity/images/firms/liga01.jpg"></img>
+        <div class="span2" ng-repeat="f in (firms | carousel: firmOffset | limitTo: 6)">
+            <a ng-href="[[ f.url ]]">
+                <img ng-src="[[ f.img ]]"></img>
             </a>
         </div>
     </div>
@@ -196,23 +147,17 @@
                 <img class="quote-bubbles" src="/bundles/websitecharity/images/quote-bubbles.png"></img>
             </div>
             <div class="next2h3 pull-right">
-                <a href="#!/"><i class="icon-tick-left"></i></a>
-                <a href="#!/"><i class="icon-tick-right"></i></a>
+                <button class="scroll" ng-click="decrementQuoteOffset();"><i class="icon-tick-left"></i></button>
+                <button class="scroll" ng-click="incrementQuoteOffset();"><i class="icon-tick-right"></i></button>
             </div>
         </div>
     </div>
     <div class="row quote-container">
-        <div class="span6">
+        <div class="span6" ng-repeat="q in (quotes | carousel: quoteOffset | limitTo: 2)">
             <div class="separator6 color-blue small-height"></div>
-            <p id="quoteA" class="quote hivblue-text">[[ 'home.quotes.quoteA' | translate ]]</p>
+            <p class="quote hivblue-text">[[ q.text ]]</p>
             <div class="separator6 color-blue small-height"></div>
-            <p class="quoted" id="userA">[[ 'home.quotes.userA' | translate ]]</p>
-        </div>
-        <div class="span6">
-            <div class="separator6 color-blue small-height"></div>
-            <p id="quoteB" class="quote hivblue-text">[[ 'home.quotes.quoteB' | translate ]]</p>
-            <div class="separator6 color-blue small-height"></div>
-            <p class="quoted" id="userB">[[ 'home.quotes.userB' | translate ]]</p>
+            <p class="quoted">[[ q.person ]]</p>
         </div>
     </div>
 </div>
