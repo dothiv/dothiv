@@ -8,7 +8,8 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
         $scope.locale = locale;
         $scope.siteLanguages = {
                                 'de': 'Deutsch',
-                                'en': 'English'
+                                'en': 'English',
+                                'key': 'Keys only'
                                };
         $scope.$watch('locale.language', function() {
             locale.set(locale.language);
