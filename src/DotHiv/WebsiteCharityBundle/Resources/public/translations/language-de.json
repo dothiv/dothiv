@@ -9,6 +9,12 @@
             "createproject": "Projekt einstellen",
             "reportabuse": "Missbrauch melden",
             "mockaction": "Mockaktionen"
+        },
+        "bar":
+        {
+            "project": "Projekte",
+            "aboutHIV": "Über dotHIV",
+            "registerurl": "URL registrieren"
         }
     },
     "login":
