@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotHIVApp.controllers', 'ui.state', 'pascalprecht.translate'])
+angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotHIVApp.filters', 'dotHIVApp.controllers', 'ui.state', 'pascalprecht.translate'])
     .config(['$urlRouterProvider', function($urlRouter) {
         $urlRouter.otherwise('/');
     }])
@@ -143,3 +143,4 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
 angular.module('dotHIVApp.services', ['ui.bootstrap', 'ui.state', 'dotHIVApp.controllers', 'ngResource']);
 angular.module('dotHIVApp.controllers', ['http-auth-interceptor', 'ui.bootstrap', 'dotHIVApp.services']);
 angular.module('dotHIVApp.directives', []);
+angular.module('dotHIVApp.filters', []);
