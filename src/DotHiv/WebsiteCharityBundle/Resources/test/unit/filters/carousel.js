@@ -1,6 +1,6 @@
 'use strict';
 
-describe('offset filter', function() {
+ddescribe('offset filter', function() {
     
     var carousel;
     
@@ -17,6 +17,12 @@ describe('offset filter', function() {
         var a = ['1', '2', '3', '4'];
         var b = ['4', '1', '2', '3'];
         expect(carousel(a, 3)).toEqual(b);
+    });
+    
+    it('should handle negative X-values as other-way-turns', function() {
+        var a = ['1', '2', 'a', 'b'];
+        var b = ['2', 'a', 'b', '1'];
+        expect(carousel(a,-3)).toEqual(b);
     });
     
     it('should return the same array if nothing is shifted', function() {
