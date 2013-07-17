@@ -36,11 +36,19 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                     abstract: true,
                     url: '/about',
                     templateUrl: '/bundles/websitecharity/templates/about/index.html',
-                    //controller: 'AboutController'
+                    controller: 'AboutController'
                 })
-            .state('about.idea', {
+            .state('about.start', {
                     url: '',
                     templateUrl: '/bundles/websitecharity/templates/about/idea.html'
+                })
+            .state('about.idea', {
+                    url: '/idea',
+                    templateUrl: '/bundles/websitecharity/templates/about/idea.html'
+                })
+            .state('about.whosbehind', {
+                    url: '/whosbehind',
+                    templateUrl: '/bundles/websitecharity/templates/about/whosbehind.html'
                 })
 
             /**

@@ -6,22 +6,24 @@
     </div>
 </div>
 
-<hr class="bottom-shadow">
+<hr class="bottom-shadow about-nav">
 
 <div class="container">    
     <div class="row">
         <div class="span3 about-nav">
             <ul>
-                <li><a href="#!/about">[[ 'about.nav.idea' | translate ]]</a></li>
+                <li><a href="#!/about/idea" ng-class="{ active: state.includes('about.idea') }">[[ 'about.nav.idea' | translate ]]</a></li>
                 <li>
                     <ul>
                         <li><a href="#!/about">[[ 'about.nav.film' | translate ]]</a></li>
                         <li><a href="#!/about">[[ 'about.nav.manifesto' | translate ]]</a></li>
                         <li><a href="#!/about">[[ 'about.nav.concept' | translate ]]</a></li>
+                        <li><a href="#!/about">[[ 'about.nav.history' | translate ]]</a></li>
+                        <li><a href="#!/about">[[ 'about.nav.quotes' | translate ]]</a></li>
                     </ul>
                 </li>
                 <li class="dummy"></li>
-                <li><a href="#!/about">[[ 'about.nav.whosbehind' | translate ]]</a></li>
+                <li><a href="#!/about/whosbehind" ng-class="{ active: state.includes('about.whosbehind') }">[[ 'about.nav.whosbehind' | translate ]]</a></li>
                 <li>
                     <ul>
                         <li><a href="#!/about">[[ 'about.nav.partners' | translate ]]</a></li>
