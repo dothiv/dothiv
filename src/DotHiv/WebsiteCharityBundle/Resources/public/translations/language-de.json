@@ -80,5 +80,17 @@
             "quoteB": "Dieses Zitat ist länger, dieser Fan hatte deutlich mehr zu sagen. Immerhin ist das ein sehr intressantes Projekt.",
             "userB": "Komplize A, Student"
         }
+    },
+    "about":
+    {
+        "nav":
+        {
+            "idea": "Die Idee",
+            "film": "Film",
+            "manifesto": "Manifesto",
+            "concept": "Klick-/Spendenprinzip",
+            "history": "Die Geschichte",
+            "quotes": "Zitate"
+        }
     }
 }

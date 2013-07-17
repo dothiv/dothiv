@@ -12,6 +12,10 @@ angular.module('dotHIVApp.filters').filter('carousel', function() {
         return function(input, shift) {
             var retr = new Array().concat(input);
             
+            if (+shift < 0) {
+                shift = (shift % retr.length) + retr.length;
+            }
+            
             for (var i = 0 ; i < +shift ; i++) {
                 var tmp = retr[0];
                 retr.shift();

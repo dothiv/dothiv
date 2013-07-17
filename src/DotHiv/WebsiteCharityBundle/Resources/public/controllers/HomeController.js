@@ -4,19 +4,7 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
     function($scope) {
     
         $scope.projectOffset = 0 ;
-        $scope.incrementProjectOffset = function() {
-            $scope.projectOffset++;
-            if ($scope.projectOffset == $scope.projects.length) {
-                $scope.projectOffset = 0;
-            }
-        }
-        $scope.decrementProjectOffset = function() {
-            $scope.projectOffset--;
-            if ($scope.projectOffset < 0) {
-                $scope.projectOffset = $scope.projects.length-1;
-            }
-        }
-    
+
         $scope.projects = [
                            {
                                'id': 1,
@@ -53,18 +41,7 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
                        ]
     
         $scope.firmOffset = 0 ;
-        $scope.incrementFirmOffset = function() {
-            $scope.firmOffset++;
-            if ($scope.firmOffset == $scope.firms.length) {
-                $scope.firmOffset = 0;
-            }
-        }
-        $scope.decrementFirmOffset = function() {
-            $scope.firmOffset--;
-            if ($scope.firmOffset < 0) {
-                $scope.firmOffset = $scope.firms.length-1;
-            }
-        }
+
         $scope.firms = [
                         { 
                                 'img': '/bundles/websitecharity/images/firms/github.jpg',
@@ -100,18 +77,7 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
                         }
                     ]
         $scope.quoteOffset = 0 ;
-        $scope.incrementQuoteOffset = function() {
-            $scope.quoteOffset++;
-            if ($scope.quoteOffset == $scope.quotes.length) {
-                $scope.quoteOffset = 0;
-            }
-        }
-        $scope.decrementQuoteOffset = function() {
-            $scope.quoteOffset--;
-            if ($scope.quoteOffset < 0) {
-                $scope.quoteOffset = $scope.quotes.length-1;
-            }
-        }
+
         $scope.quotes = [
                          {
                              'text': 'Wenn man einen Filter hat, sieht jedes Problem aus wie ein Hammer.',
