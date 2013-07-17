@@ -4,7 +4,16 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
     function($scope, $state, security, securityDialog, locale, $rootScope) {
         // make state information available
         $scope.state = $state;
-
+        
+        $scope.urlOffset = 0;
+        $scope.urls = [
+                       {'name': 'www.google.hiv' },
+                       {'name': 'www.facebook.hiv' },
+                       {'name': 'www.twitter.hiv' },
+                       {'name': 'www.web.hiv' },
+                       {'name': 'www.youtube.hiv' }
+                   ];
+        
         $scope.locale = locale;
         $scope.siteLanguages = {
                                 'de': 'Deutsch',
