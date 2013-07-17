@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('offset filter', function() {
+describe('offset filter', function() {
     
     var carousel;
     

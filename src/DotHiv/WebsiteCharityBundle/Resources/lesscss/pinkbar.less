@@ -7,51 +7,37 @@
     margin: 0 0 0 0;
     height: @pinkbarHeight;
     overflow: hidden;
+    
+    
+    p {
+        line-height: @pinkbarHeight;
+        margin: 0;
+    }
+    
     & i { margin: 0 10px 0 10px; }
-}
-
-.pink-bar p {
-    line-height: @pinkbarHeight;
-    margin: 0;
-}
-
-.pink-bar.leftside { background-color: @darkpink; }
-
-.pink-bar.rightside {
-    background-color: @lightpink;
-    width: 100%;
-}
-
-.pink-bar-image {
-    margin-left: 22px;
-    margin-right: 20px;
-    position: relative;
-    top: -2px;
-}
-
-.pink-bar-image.right {
-    margin-left: 20px;
-    margin-right: 22px;
-    position: relative;
-    top: -2px;
+    &.leftside { background-color: @darkpink; }
+    
+    &.rightside {
+        background-color: @lightpink;
+        width: 100%;
+    }
+    
+    button {
+        background-color: transparent;
+        border: none;
+    }
 }
 
 .pink-bar-text {
     color: white;
     font-size: 18px;
-}
 
-.pink-bar-text.right { color: black; }
-.pink-bar-text.right + .bold { margin-left: 5px; }
-
-.pink-bar-text + .bold { 
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.pink-bar button {
-    background-color: transparent;
-    border: none;
+    .right { color: black; }
+    .right + .bold { margin-left: 5px; }
+    & + .bold { 
+        font-weight: bold;
+        font-size: 20px;
+    }
 }
 
 .pink-bar-popover-handle { position: relative; }
@@ -70,6 +56,11 @@
     * .activeMoney { font-size: @baseFontSize*2; }
     * hr { height: 1px; background-color: @white; border: none;}
     * .span4 { margin-top: 0px; }
+    * iframe {
+        width: 460px;
+        height: 260px;
+        frameborder: 0;
+    }
             
 }
 
