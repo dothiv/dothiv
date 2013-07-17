@@ -120,7 +120,8 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                     controller: 'ProfileDomainClaimController'
                 })
         }])
-    .value('$anchorScroll', angular.noop) // TODO: working, but best practice?
+
+        
     .run(['security', function(security) {
         // Get the current user when the application starts (in case they are still logged in from a previous session)
         security.updateUserInfo();
