@@ -80,17 +80,15 @@
                                 [[ 'home.pinkbar.popover.missing' | translate ]]</p>
                                 <hr>
                                 <p>[[ 'home.pinkbar.popover.shareNow' | translate ]]</p>
-                                <div class="container">
+                                <div class="container domain-chooser">
                                     <div class="row">
                                         <div class="span2">
                                            [[ 'home.pinkbar.popover.chooseDomainButtonLabel' | translate ]]:
                                         </div>
                                         <div class="span4">
-                                            <div class="control-group input-prepend">
-                                                <button class="btn"></button>
-                                                <input type="text"></input>
-                                                <button class="btn"></button>
-                                            </div>
+                                            <button class="scroll pull-left" ng-click="urlOffset = urlOffset+1;"><i class="icon-tick-left icon-white icon-small"></i></button>
+                                            <div ng-repeat="u in ( urls | carousel: urlOffset | limitTo: 1)" class="display pull-left">[[ u.name ]]</div>
+                                            <button class="scroll pull-left" ng-click="urlOffset = urlOffset-1;"><i class="icon-tick-right icon-white icon-small"></i></button>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -98,15 +96,23 @@
                                            [[ 'home.pinkbar.popover.shareNowButtonLabel' | translate ]]:
                                         </div>
                                         <div class="span4">
-                                           <button class="btn">FB</button>
-                                           <button class="btn">TW</button>
-                                           <button class="btn">GP</button>     
+                                           <div class="row-fluid">
+                                               <div class="span4">
+                                                   <button class="btn btn-primary"><img class="social" src="{{ asset("bundles/websitecharity/images/social/social-fb.png") }}"></button>
+                                               </div>
+                                               <div class="span4">
+                                                   <button class="btn btn-primary"><img class="social" src="{{ asset("bundles/websitecharity/images/social/social-tw.png") }}"></button>
+                                               </div>
+                                               <div class="span4">
+                                                   <button class="btn btn-primary"><img class="social" src="{{ asset("bundles/websitecharity/images/social/social-gp.png") }}"></button>     
+                                               </div>
+                                           </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="span6 pink-bar-text">
-                                <iframe ng-show="showfunding" src="//www.youtube.com/embed/l3ZHd8qbSpE" allowfullscreen></iframe>
+                                <iframe ng-show="showfunding" ng-src="//www.youtube.com/embed/l3ZHd8qbSpE" allowfullscreen></iframe>
                                 <p>[[ 'home.pinkbar.popover.viewVideo' | translate ]]
                                 <br>[[ 'home.pinkbar.popover.how' | translate ]]</p>
                             </div>
