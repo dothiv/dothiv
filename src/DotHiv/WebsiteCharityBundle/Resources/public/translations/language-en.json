@@ -9,12 +9,22 @@
             "createproject": "Add a Project",
             "reportabuse": "Report Abuse",
             "mockaction": "Mock Actions"
+        },
+        "bar":
+        {
+            "project": "Projects",
+            "aboutHIV": "About dotHIV",
+            "registerurl": "register Domain"
         }
     },
     "login":
     {
         "form":
         {
+            "title": "Log in",
+            "text": "Welcome to dotHIV. Please log in.",
+            "submit": "Log in",
+            "passwordrecovery": "recover your password",
             "username":
             {
                 "label": "Email address",
@@ -22,22 +32,40 @@
                 "tooltip":
                 {
                     "default": "Please type in your email address",
-                    "invalid": "Sorry, no valid email address"
+                    "invalid":
+                    {
+                        "email": "Sorry, no valid email address",
+                        "required": "Please enter your email address"
+                    }
+                }
+            },
+            "password":
+            {
+                "label": "Password",
+                "placeholder": "",
+                "tooltip":
+                {
+                    "default": "",
+                    "invalid":
+                    {
+                        "required": "Please enter your password"
+                    }
                 }
             },
             "thirdparty":
             {
+                "title": "Login with ...",
                 "facebook":
                 {
-                    "button": "log in with Facebook"
+                    "button": "Facebook"
                 },
                 "twitter":
                 {
-                    "button": "use Twitter for login"
+                    "button": "Twitter"
                 },
                 "gplus":
                 {
-                    "button": "log in with Google Plus"
+                    "button": "Google Plus"
                 }
             }
         }
@@ -46,14 +74,77 @@
     {
         "form":
         {
+            "title": "Sign up for dotHIV",
+            "text": "It's easy to get an account! Just use this form.",
+            "submit": "sign up now",
             "name":
             {
+                "label": "Your Name",
+                "placeholder": "Here goes your name",
                 "tooltip":
                 {
                     "default": "Please type in your name",
-                    "invalid": "We don't think this is your name"
+                    "invalid":
+                    {
+                        "required": "You need to tell us your name"
+                    }
                 }
-            }
+            },
+            "surname":
+            {
+                "label": "Your Last Name",
+                "placeholder": "Here goes your last name",
+                "tooltip":
+                {
+                    "default": "Please type in your last name",
+                    "invalid":
+                    {
+                        "required": "You need to tell us your last name"
+                    }
+                }
+            },
+            "email":
+            {
+                "label": "Your Email Address",
+                "placeholder": "yourname@gmail.com",
+                "tooltip":
+                {
+                    "default": "Please type in your address",
+                    "invalid":
+                    {
+                        "required": "We need your email address to contact you",
+                        "email": "Sorry, this is not a valid email address"
+                    }
+                }
+            },
+            "password":
+            {
+                "label": "Your password",
+                "placeholder": "used for login on this page",
+                "tooltip":
+                {
+                    "default": "a safe password uses upper- and lowercase characters as well as digits",
+                    "invalid":
+                    {
+                        "required": "You'll need a password to login ..."
+                    }
+                }
+            },
+            "passwordrepeat":
+            {
+                "label": "Again, your password",
+                "placeholder": "",
+                "tooltip":
+                {
+                    "default": "",
+                    "invalid":
+                    {
+                        "required": "please provider your password a second time",
+                        "repeat": "this password doesn't match the one provided above"
+                    }
+                }
+            },
+            "agreement": "I agree to the terms of use"
         }
     },
     "home":
@@ -61,6 +152,8 @@
         "about":
         {
             "oneclickheadline": "Click",
+            "voteheadline": "Vote",
+            "shareheadline": "Share",
             "monitorheadline": "Video:",
             "monitortext": "The idea in 111 seconds",
             "arrowtext": "Sign in now"

@@ -14,36 +14,58 @@
         {
             "project": "Projekte",
             "aboutHIV": "Über dotHIV",
-            "registerurl": "URL registrieren"
+            "registerurl": "Domain registrieren"
         }
     },
     "login":
     {
         "form":
         {
+            "title": "Anmelden",
+            "text": "Willkommen bei dotHIV. Bitte melden Sie sich an.",
+            "submit": "Anmelden",
+            "passwordrecovery": "Kennwort vergessen",
             "username":
             {
                 "label": "Emailadresse",
                 "placeholder": "Ihre Emailadresse",
                 "tooltip":
                 {
-                    "default": "Bitte geben Sie Ihre Email-Adresse ein",
-                    "invalid": "Diese Email-Adresse ist ungültig"
+                    "default": "Bitte geben Sie Ihre Emailadresse an.",
+                    "invalid":
+                    {
+                        "email": "Dies ist keine gültige Emailadresse.",
+                        "required": "Bitte geben Sie Ihre Emailadresse an."
+                    }
+                }
+            },
+            "password":
+            {
+                "label": "Password",
+                "placeholder": "",
+                "tooltip":
+                {
+                    "default": "",
+                    "invalid":
+                    {
+                        "required": "Bitte geben Sie Ihr Kennwort ein."
+                    }
                 }
             },
             "thirdparty":
             {
+                "title": "Oder ...",
                 "facebook":
                 {
-                    "button": "Mit Facebook einloggen"
+                    "button": "mit Facebook anmelden"
                 },
                 "twitter":
                 {
-                    "button": "Mit Twitter einloggen"
+                    "button": "mit Twitter anmelden"
                 },
                 "gplus":
                 {
-                    "button": "Mit Google Plus einloggen"
+                    "button": "mit Google Plus anmelden"
                 }
             }
         }
@@ -52,14 +74,77 @@
     {
         "form":
         {
+            "title": "Konto registrieren",
+            "text": "Einfach mit diesem Formular registrieren.",
+            "submit": "Jetzt registrieren",
             "name":
             {
+                "label": "Ihr Vorname",
+                "placeholder": "Vorname",
                 "tooltip":
                 {
-                    "default": "Bitte geben Sie Ihren Namen ein",
-                    "invalid": "Ist dies wirklich Ihr Name?"
+                    "default": "Bitte geben Sie Ihren Vornamen ein",
+                    "invalid":
+                    {
+                        "required": "Sie müssen Ihren Vornamen angeben."
+                    }
                 }
-            }
+            },
+            "surname":
+            {
+                "label": "Ihr Nachname",
+                "placeholder": "Nachname",
+                "tooltip":
+                {
+                    "default": "Bitte geben Sie Ihren Nachnamen ein",
+                    "invalid":
+                    {
+                        "required": "Sie müssen Ihren Nachnamen angeben."
+                    }
+                }
+            },
+            "email":
+            {
+                "label": "Ihre Emailadresse",
+                "placeholder": "ihrname@gmail.com",
+                "tooltip":
+                {
+                    "default": "Bitte geben Sie Ihre Emailadresse ein",
+                    "invalid":
+                    {
+                        "required": "Wir benötigen die Emailadresse, um Sie zu kontaktieren",
+                        "email": "Dies ist keine gültige Emailadresse."
+                    }
+                }
+            },
+            "password":
+            {
+                "label": "Ihr Kennwort",
+                "placeholder": "wird zum einloggen verwendet",
+                "tooltip":
+                {
+                    "default": "Ein sicheres Kennwort enthält Klein- und Großbuchstaben sowie Ziffern",
+                    "invalid":
+                    {
+                        "required": "Sie müssen ein Kennwort vergeben."
+                    }
+                }
+            },
+            "passwordrepeat":
+            {
+                "label": "Nachmal Ihr Kennwort",
+                "placeholder": "",
+                "tooltip":
+                {
+                    "default": "",
+                    "invalid":
+                    {
+                        "required": "Bitte geben Sie Ihr Kennwort ein zweites Mal ein",
+                        "repeat": "Die Kennwörter stimmen nicht überein"
+                    }
+                }
+            },
+            "agreement": "Ich stimme den AGB zu"
         }
     },
     "home":
@@ -67,6 +152,8 @@
         "about":
         {
             "oneclickheadline": "Klicken",
+            "voteheadline": "Voten",
+            "shareheadline": "Teilen",
             "monitorheadline": "Video:",
             "monitortext": "Die Idee in 111 Sekunden",
             "arrowtext": "Jetzt anmelden"
