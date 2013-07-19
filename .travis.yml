@@ -10,6 +10,7 @@ before_install:
   - sleep 3 # give xvfb some time to start
 
 before_script:
+  - sudo apt-get update
 # install apache
   - sudo apt-get install apache2
   - sudo a2enmod actions
