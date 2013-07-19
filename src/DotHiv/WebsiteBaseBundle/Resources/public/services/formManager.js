@@ -1,5 +1,29 @@
 'use strict';
-
+/**
+ * @name dotHIVApp.services.formManager
+ * @requires $translate
+ *
+ * @description
+ * Provides tooltip info and error messages for a form instance.
+ *
+ * The formManager manages the following fields inside the $scope.formName object:
+ * - `$scope.formName.tooltip` {string}
+ * 
+ * The formManager provides the following method:
+ *
+ * - **`function(name,scope)`** Log the user in. Arguments are:
+ *   - `name`  – {string} The name of the form to manage
+ *   - `scope` – {string} The scope in which the form resides.
+ *
+ *   The manager then returns a management object for the form, which provides the following methods:
+ *   - fail() Mark the form as failed. That is, set the failed variable on the form to true, update the
+ *            tooltip texts and set the focus to the first $invalid field.
+ *   - showServerError(text) Show an plain text error message on the first field.
+ *     - `text`  – {string} The plain text error message to show.
+ *   - showServerFormError(obj) Show the first error message from the given object on the respective
+ *                              form input field.
+ *     - `obj`  – {obj} The form error object. Please see unit tests for detailed object structure.
+ */
 angular.module('dotHIVApp.services').factory('formManager', function($translate) {
     return function(name, $scope) {
         // set up our environment

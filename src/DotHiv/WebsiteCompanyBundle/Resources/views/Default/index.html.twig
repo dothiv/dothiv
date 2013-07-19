@@ -1,1 +1,24 @@
-Hello {{ name }}!
+<!DOCTYPE html>
+<html lang="en" ng-app="dotHIVApp" xmlns:fb="http://www.facebook.com/2008/fbml">
+    <head>
+        <meta charset="utf-8">
+        <meta name="fragment" content="!">
+        <title>[[ 'title' | translate ]]</title>
+        {% stylesheets '@DotHivWebsiteCompanyBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        <link rel="shortcut icon" href="{{ asset("bundles/websitecompany/images/favicon.png") }}" />
+    </head>
+    <body>
+        <div ng-controller="HeaderController">
+        </div>
+
+        <div style="clear: both;"></div>
+        <div ui-view></div>
+
+        <footer class="footer">
+        </footer>
+
+        {% include 'DotHivWebsiteCompanyBundle:Default:app.html.twig' %}
+    </body>
+</html>

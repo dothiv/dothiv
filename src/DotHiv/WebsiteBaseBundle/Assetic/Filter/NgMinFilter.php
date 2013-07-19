@@ -1,6 +1,6 @@
 <?php
 
-namespace DotHiv\WebsiteCharityBundle\Assetic\Filter;
+namespace DotHiv\WebsiteBaseBundle\Assetic\Filter;
 
 use Assetic\Filter\BaseProcessFilter;
 use Assetic\Asset\AssetInterface;
