@@ -11,30 +11,32 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile, $
                 NgRequired: '=dhNgRequired',
                 Autofocus: '@dhAutofocus',
                 value: '@dhValue',
+
+                // focus
                 focus: '=dhFocus',
 
                 // label
                 label: '@dhLabel',
 
                 // tooltip
-                tooltip: '&dhTooltip',
+                tooltip: '=dhTooltip',
                 tooltipPlacement: '@dhTooltipPlacement',
                 tooltipTrigger: '@dhTooltipTrigger',
-                tooltipInvalid: '&dhTooltipInvalid',
-                tooltipShowInvalid: '=dhTooltipShowInvalid',
             },
         template: '<div>' +
                     '<label ng-transclude>[[ label ]]</label>' +
                     '<input ' +
                         // core input attributes
-                        'name="[[ name ]]"' +
                         'placeholder="[[ placeholder ]]"' +
                         'value="[[ value ]]"' +
                         'ng-model="$parent.ngModel"' +
                         'ng-required="$parent.NgRequired"' +
 
+                        // focus
+                        'dh-focus="focus"' +
+
                         // tooltip
-                        'tooltip="[[ tooltiptext() ]]" ' +
+                        'tooltip="[[ tooltip ]]" ' +
                         'tooltip-placement="[[ tooltipPlacement ]]" ' +
                         'tooltip-trigger="[[ tooltipTrigger ]]" ' +
                         '/>' +
@@ -43,9 +45,6 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile, $
         transclude: true,
         priority: 10,
         controller: ['$scope', '$element', '$attrs', '$transclude', function($scope, $element, $attrs, $transclude) {
-            $scope.tooltiptext = function() {
-                return $scope.tooltipShowInvalid ? $scope.tooltipInvalid() : $scope.tooltip();
-            };
         }],
         compile: function(tElement, tAttrs, transclude) {
             var input = tElement.find('input');
@@ -61,6 +60,9 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile, $
             // set id
             input.attr('id', id);
             label.attr('for', id);
+
+            // set name
+            input.attr('name', tElement.attr('dh-name'));
 
             // move css classes
             input.attr('class', tElement.attr('class'));
@@ -87,13 +89,7 @@ angular.module('dotHIVApp.directives').directive("dhInput", function($compile, $
             // add css class to div
             tElement.addClass('dhInput');
 
-            return function ( scope, element, attrs ) {
-                scope.$watch( 'focus', function ( val ) {
-                    if ( angular.isDefined( val ) && val ) {
-                        $timeout( function () { element.find('input')[0].focus(); } );
-                    }
-                }, true);
-            };
+            return;
         }
     };
 });

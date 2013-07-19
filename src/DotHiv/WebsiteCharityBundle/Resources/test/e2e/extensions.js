@@ -15,6 +15,14 @@ angular.scenario.dsl('dhInput', function() {
       });
     };
 
+    chain.focus = function() {
+      return this.addFutureAction("dhInput '" + this.name + "' focus", function($window, $document, done) {
+        var input = $document.elements(this.name).filter(':input');
+        input.focus();
+        done();
+      });
+    };
+
     return function(name) {
         this.name = name;
         return chain;
