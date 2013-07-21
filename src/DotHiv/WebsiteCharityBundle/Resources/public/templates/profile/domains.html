@@ -6,7 +6,9 @@
         </div>
     </div>
     <ul class="profile-summary-list profile-summary-domains-list">
-        <li ng-repeat="domain in (domains | filter:searchText | limitTo:(searchText.name ? domains.length : pageLength))">{% include 'DotHivWebsiteCharityBundle:Partials/Profile:domains-item.html.twig' %}</li>
+        <li ng-repeat="domain in (domains | filter:searchText | limitTo:(searchText.name ? domains.length : pageLength))">
+            <dh-domain-item domain="domain"></dh-domain-item>
+        </li>
     </ul>
     <div class="row">
         <button class="next-page span12" ng-hide="(pageLength >= domains.length) || searchText.name" ng-click="pageLength = pageLength + 5">Mehr anzeigen <i class="icon-tick-lower icon-white"></i></button>
