@@ -1,11 +1,16 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController', ['$scope', '$location', '$stateParams', 'dothivDomainResource', 'Banner',
-    function($scope, $location, $stateParams, dothivDomainResource, Banner) {
+angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController', ['$scope', '$location', '$stateParams', 'dothivDomainResource', 'Banner', 'formManager',
+    function($scope, $location, $stateParams, dothivDomainResource, Banner, formManager) {
 
-        $scope.formData = {};
-        $scope.formData.forwarding = 'true';
-        $scope.formData.secondvisit = true;
+        var manager = formManager('domaineditbasic', $scope, 'banner');
+
+        // set default values when form is initialized
+        $scope.$watch('domaineditbasic', function() {
+            $scope.domaineditbasic.$data = {};
+            $scope.domaineditbasic.$data.forwarding = 'true';
+            $scope.domaineditbasic.$data.secondvisit = true;
+        });
 
         // retrieve domain id from URL parameters and get domain/banner information
         var domainId = $stateParams.domainId;
@@ -34,11 +39,11 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
                             $scope.banner.position = $scope.banners[0].position;
                             $scope.banner.position_alternative = $scope.banners[0].position_alternative;
 
-                            $scope.formData.forwarding = ($scope.banner.redirect_domain != undefined) ? 'true' : 'false';
+                            $scope.domaineditbasic.$data.forwarding = ($scope.banner.redirect_domain != undefined) ? 'true' : 'false';
                             if ($scope.banner.position_alternative != undefined) {
-                                $scope.formData.secondvisit = true;
+                                $scope.domaineditbasic.$data.secondvisit = true;
                             } else {
-                                $scope.formData.secondvisit = false;
+                                $scope.domaineditbasic.$data.secondvisit = false;
                                 $scope.banner.position_alternative = 'top';
                             }
                             console.log($scope.banner);
@@ -51,27 +56,26 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
         // data structure for language values
         $scope.languages = {'de':'Deutsch', 'en':'Englisch', 'es':'Spanisch', 'la':'Latein'};
 
-        $scope.$watch('formData.forwarding', function(forwarding) {
+        $scope.$watch('domaineditbasic.$data.forwarding', function(forwarding) {
             if (forwarding == 'false')
                 $scope.banner.redirect_domain = null;
         });
 
         // form configuration
-        $scope.formclean = true;
         $scope.nextStep = function(tab, form) {
             // check if form is valid
-            if (form.$valid) {
+            if (form.$valid)
                 tab.active = true;
-            } else
-              $scope.formclean = false;
+            else
+                manager.fail();
         };
 
         // submit function for form
         $scope.submit = function(tab) {
             // do not submit values of disabled input fields
-            if ($scope.formData.secondvisit == false)
+            if ($scope.domaineditbasic.$data.secondvisit == false)
                 $scope.banner.position_alternative = null;
-            if ($scope.formData.forwarding == 'false')
+            if ($scope.domaineditbasic.$data.forwarding == 'false')
                 $scope.banner.redirect_domain = null;
 
             console.log($scope.banner);
@@ -80,7 +84,7 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
             if ($scope.banner.id === undefined)
                 $scope.banner.$save();
             else
-              $scope.banner.$update();
+                $scope.banner.$update();
 
             // activate final tab
             tab.active = true;
