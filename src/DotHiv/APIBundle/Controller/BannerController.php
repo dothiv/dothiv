@@ -59,7 +59,7 @@ class BannerController extends FOSRestController {
             $em->flush();
 
             // prepare response
-            $response = $this->redirectView($this->generateUrl('get_banner', array('slug' => $banner->getId())), Codes::HTTP_CREATED);
+            $response = $this->redirectView($this->generateUrl('get_banner', array('id' => $banner->getId())), Codes::HTTP_CREATED);
             $response->setData($this->createForm(new BannerType(), $banner));
             return $response;
         }
@@ -80,21 +80,21 @@ class BannerController extends FOSRestController {
      * )
      */
     public function putBannerAction($id) {
-            // fetch banner from database
-            $em = $this->getDoctrine()->getManager();
-            $banner = $em->getRepository('DotHivBusinessBundle:Banner')->findOneBy(array('id' => $id));
+        // fetch banner from database
+        $em = $this->getDoctrine()->getManager();
+        $banner = $em->getRepository('DotHivBusinessBundle:Banner')->findOneBy(array('id' => $id));
 
-            // apply form
-            $form = $this->createForm(new BannerType(), $banner);
-            $form->bind($this->getRequest());
+        // apply form
+        $form = $this->createForm(new BannerType(), $banner);
+        $form->bind($this->getRequest());
 
-            if ($form->isValid()) {
-                // persist the updated banner
-                $em->persist($banner);
-                $em->flush();
-                return null;
-            }
+        if ($form->isValid()) {
+            // persist the updated banner
+            $em->persist($banner);
+            $em->flush();
+            return null;
+        }
 
-            return array('form' => $form);
+        return array('form' => $form);
     }
 }
