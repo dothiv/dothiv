@@ -168,7 +168,7 @@ describe('dotHIVApp', function() {
 
             it('should show the default tooltip when opening the login dialog', function() {
                 element('a[ng-click="login()"]').click();
-                sleep(1);
+                sleep(2);
                 expect(element('input[id="login-username"] + div.tooltip').count()).toBe(1);
                 expect(element('div.tooltip-inner').count()).toBe(1);
                 expect(element('div.tooltip-inner').text()).toBe('login.form.username.tooltip.default');
@@ -177,6 +177,7 @@ describe('dotHIVApp', function() {
             it('should show the tooltip on the username field when trying to submit an invalid email address', function() {
                 element('a[ng-click="login()"]').click();
                 dhInput('input[id="login-username"]').enter('invalid');
+                dhInput('input[id="login-password"]').enter('invalid');
                 element('form[name="login"] button[type="submit"]').click();
                 sleep(1);
                 expect(element('input[id="login-username"] + div.tooltip').count()).toBe(1);

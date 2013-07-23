@@ -6,7 +6,7 @@ angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$s
         var registrationFormManager = formManager('registration', $scope);
 
         $scope.$watch('login', function(newval, oldval) {
-            $scope.login.focus.username = 1;
+            $scope.login.$focus.username = 1;
         });
 
         $scope.signin = function(data) {
