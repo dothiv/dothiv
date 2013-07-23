@@ -13,7 +13,7 @@ angular.module('dotHIVApp.directives').directive('dhDomainItem', function() {
                     '<div class="profile-summary-item-well">' +
                         '<h3 ng-bind="domain.name"></h3>' +
                         '<div class="profile-summary-item-lower">' +
-                            '<button class="btn-link pull-right" ng-click="edit(domain.id)">Domain bearbeiten<div class="item-arrow"></div></button>' +
+                            '<a href="" class="pull-right" ng-click="edit(domain.id)">Domain bearbeiten<div class="item-arrow"></div></a>' +
                             '<div class="pull-left item-icon"></div>' +
                             '<span>223.342 Hits&nbsp;&nbsp;|&nbsp;&nbsp;Standard-Banner</span>' +
                         '</div>' +
