@@ -89,7 +89,8 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                 })
             .state('=.profile.projects', {
                     url: '/projects',
-                    templateUrl: '/bundles/websitecharity/templates/profile/projects.html'
+                    templateUrl: '/bundles/websitecharity/templates/profile/projects.html',
+                    controller: 'ProfileProjectController'
                 })
             .state('=.profile.domains', {
                     url: '/domains',
