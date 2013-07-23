@@ -6,18 +6,18 @@
     </div>
     <div class="row">
         <div class="span12">
-            <form novalidate name="domainForm" class="simple-form" ng-class="{clean: formclean, unclean: !formclean}">
+            <form novalidate name="domaineditbasic" class="simple-form" ng-class="{clean: !domaineditbasic.$failed, unclean: domaineditbasic.$failed}">
                 <tabset>
                     <tab active="tab1.active">
                         <tab-heading>Schritt 1</tab-heading>
-                        <div class="tab-content-container" ng-form="step1form">
+                        <div class="tab-content-container" ng-form="step1" name="step1">
                             <h3>Domain [[ domain.name ]]<br>Standard-Banner-Konfiguration</h3>
                             <div class="horizontal-radio-group">
                                 <dh-input
                                     type="radio"
 
                                     dh-name="forwardRadio"
-                                    ng-model="formData.forwarding"
+                                    ng-model="domaineditbasic.$data.forwarding"
                                     dh-value="true"
 
                                     dh-label="Weiterleitung einrichten"
@@ -26,14 +26,14 @@
                                     type="radio"
 
                                     dh-name="forwardRadio"
-                                    ng-model="formData.forwarding"
+                                    ng-model="domaineditbasic.$data.forwarding"
                                     dh-value="false"
 
                                     dh-label="keine Weiterleitung"
                                 ></dh-input>
                                 <div style="clear: both;"></div>
                             </div>
-                            <div ng-show="formData.forwarding == 'true'">
+                            <div ng-show="domaineditbasic.$data.forwarding == 'true'">
                                 <dh-input
                                     class="span6"
                                     type="url"
@@ -41,14 +41,14 @@
                                     dh-name="targetName"
                                     ng-model="banner.redirect_domain"
 
-                                    dh-ng-required="formData.forwarding == 'true'"
+                                    dh-ng-required="domaineditbasic.$data.forwarding == 'true'"
 
                                     dh-label="Zieldomain eingeben"
 
-                                    dh-tooltip="'Bitte geben Sie eine gültige URL ein.'"
+                                    dh-focus="domaineditbasic.$focus.targetName"
+                                    dh-tooltip="domaineditbasic.$tooltip.targetName"
                                     dh-tooltip-trigger="focus"
                                     dh-tooltip-placement="right"
-                                    dh-tooltip-invalid="'Bitte geben Sie eine gültige URL ein.'"
                                 ></dh-input>
                             </div>
                             <label for="languages">In welcher Sprache soll der Banner angezeigt werden</label>
@@ -56,13 +56,13 @@
                             <div class="tab-bottom-buttons">
                                 <button style="visibility: hidden"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
                                 <button>&nbsp;Vorschau ansehen</button>
-                                <button class="pull-right next" ng-click="nextStep(tab2, step1form)"><i class="icon-tick-right icon-white pull-right"></i>Weiter&nbsp;</button>
+                                <button class="pull-right next" ng-click="nextStep(tab2, step1)"><i class="icon-tick-right icon-white pull-right"></i>Weiter&nbsp;</button>
                             </div>
                         </div>
                     </tab>
-                    <tab active="tab2.active" disabled="!step1form.$valid">
+                    <tab active="tab2.active" disabled="!step1.$valid">
                         <tab-heading>Schritt 2</tab-heading>
-                        <div class="tab-content-container" ng-form="step2form">
+                        <div class="tab-content-container" ng-form="step2">
                             <h3>Domain [[ domain.name ]]<br>Standard-Banner-Konfiguration</h3>
                             <p>Welcher Banner soll dem User beim Besuch von [[ domain.name ]] angezeigt werden?</p>
                             <div class="row-fluid">
@@ -77,11 +77,6 @@
                                         dh-id="positionRadioCenter"
 
                                         dh-label="mittig"
-
-                                        dh-tooltip="'login.form.username.tooltip.default' | translate"
-                                        dh-tooltip-trigger="focus"
-                                        dh-tooltip-placement="top"
-                                        dh-tooltip-invalid="'login.form.username.tooltip.invalid' | translate"
                                     ></dh-input>
                                 </div>
                                 <div class="span3 position-radio-container">
@@ -95,11 +90,6 @@
                                         dh-id="positionRadioTop"
 
                                         dh-label="oben"
-
-                                        dh-tooltip="'login.form.username.tooltip.default' | translate"
-                                        dh-tooltip-trigger="focus"
-                                        dh-tooltip-placement="top"
-                                        dh-tooltip-invalid="'login.form.username.tooltip.invalid' | translate"
                                     ></dh-input>
                                 </div>
                                 <div class="span3 position-radio-container">
@@ -113,11 +103,6 @@
                                         dh-id="positionRadioRight"
 
                                         dh-label="rechts"
-
-                                        dh-tooltip="'login.form.username.tooltip.default' | translate"
-                                        dh-tooltip-trigger="focus"
-                                        dh-tooltip-placement="top"
-                                        dh-tooltip-invalid="'login.form.username.tooltip.invalid' | translate"
                                     ></dh-input>
                                 </div>
                             </div>
@@ -125,17 +110,12 @@
                                 type="checkbox"
 
                                 dh-name="secondvisitBox"
-                                ng-model="formData.secondvisit"
+                                ng-model="domaineditbasic.$data.secondvisit"
                                 dh-value="true"
 
                                 dh-label="Ab dem 2. Besuch täglich soll ein anderer Banner angezeigt werden."
-
-                                dh-tooltip="'login.form.username.tooltip.default' | translate"
-                                dh-tooltip-trigger="focus"
-                                dh-tooltip-placement="top"
-                                dh-tooltip-invalid="'login.form.username.tooltip.invalid' | translate"
                             ></dh-input>
-                            <div class="fluid-row clearfix" ng-show="formData.secondvisit == true">
+                            <div class="fluid-row clearfix" ng-show="domaineditbasic.$data.secondvisit == true">
                                 <div class="span3 position-radio-container">
                                     <label for="altPositionRadioTop" class="position-label top"></label>
                                     <dh-input
@@ -147,11 +127,6 @@
                                         dh-id="altPositionRadioTop"
 
                                         dh-label="oben"
-
-                                        dh-tooltip="'login.form.username.tooltip.default' | translate"
-                                        dh-tooltip-trigger="focus"
-                                        dh-tooltip-placement="top"
-                                        dh-tooltip-invalid="'login.form.username.tooltip.invalid' | translate"
                                     ></dh-input>
                                 </div>
                                 <div class="span3 position-radio-container">
@@ -165,22 +140,17 @@
                                         dh-id="altPositionRadioRight"
 
                                         dh-label="rechts"
-
-                                        dh-tooltip="'login.form.username.tooltip.default' | translate"
-                                        dh-tooltip-trigger="focus"
-                                        dh-tooltip-placement="top"
-                                        dh-tooltip-invalid="'login.form.username.tooltip.invalid' | translate"
                                     ></dh-input>
                                 </div>
                             </div>
                             <div class="tab-bottom-buttons">
                                 <button ng-click="tab1.active = true"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
                                 <button style="visibility: hidden">&nbsp;Vorschau ansehen</button>
-                                <button class="pull-right next" ng-click="submit(tab3)"><i class="icon-tick-right icon-white pull-right"></i>Speichern&nbsp;</button>
+                                <button class="pull-right next" ng-click="nextStep(tab3, step2)"><i class="icon-tick-right icon-white pull-right"></i>Speichern&nbsp;</button>
                             </div>
                         </div>
                     </tab>
-                    <tab active="tab3.active" disabled="!(step1form.$valid && step2form.$valid)" select="submit(tab3)">
+                    <tab active="tab3.active" disabled="!(step1.$valid && step2.$valid)" select="submit(tab3)">
                         <tab-heading>Finalisieren</tab-heading>
                         <div class="tab-content-container">
                             <h3>Die Einstellungen für [[ domainName ]] wurden erfolgreich gespeichert!</h3>
@@ -198,7 +168,7 @@
                                 </div>
                             </div>
                             <div class="tab-bottom-buttons">
-                                    <button ng-click="tab2.active = true"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
+                                <button ng-click="tab2.active = true"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
                             </div>
                         </div>
                     </tab>
