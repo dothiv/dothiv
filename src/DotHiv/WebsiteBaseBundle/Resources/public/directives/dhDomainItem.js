@@ -22,7 +22,7 @@ angular.module('dotHIVApp.directives').directive('dhDomainItem', function() {
             '</div>',
         controller: function($scope, $state) {
             $scope.edit = function() {
-                $state.transitionTo('=.profile.domainedit', { domainId: $scope.domain.id });
+                $state.transitionTo('=.profile.domaineditors', { domainId: $scope.domain.id });
             };
         }
     };

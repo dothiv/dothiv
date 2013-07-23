@@ -40,7 +40,7 @@ describe('the dhDomainItem directive', function() {
     it('should transition to the domain edit page when the edit link was clicked', function() {
         expect(element.attr('ng-click', 'edit(d.id)'));
         scope.$$childHead.edit();
-        expect(state.transitionTo).toHaveBeenCalledWith('=.profile.domainedit', { domainId: 1337 });
+        expect(state.transitionTo).toHaveBeenCalledWith('=.profile.domaineditors', { domainId: 1337 });
     })
 
 });
