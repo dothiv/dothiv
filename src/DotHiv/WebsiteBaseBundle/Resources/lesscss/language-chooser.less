@@ -1,25 +1,9 @@
+@tooltipBorderShadow: 0px 0px 7px 0px @grayLight;
+
 .language-chooser {
     
     & * .dropdown-menu { z-index: 2000; }
-    
     & * i { margin-left: 10px; }
-    
-    button.langchooser {
-        color: #808080;
-        background-color: white;
-        padding: 4px 0 0 0 ;
-        &:hover, &:focus, &:active {
-            color: @black;
-            background-color: @white; 
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
-            box-shadow: none;
-            .caret {
-                background: url('/bundles/websitecharity/images/tick-sprite.png') no-repeat;
-                background-position: 0px 0px;
-            }
-        }
-    }
     
     .btn-group.open .btn.dropdown-toggle { 
         background-color: @white; 
@@ -60,6 +44,7 @@
         border-width: 0 5px 8px;
         border-bottom-color: @grayLight;
     }
+    
     .tooltip.bottom > .tooltip-inner { background-color: transparent; padding: 0; }
     
     .tooltip-ul {

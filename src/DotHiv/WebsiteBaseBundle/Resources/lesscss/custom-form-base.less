@@ -1,14 +1,3 @@
-@inputBorderRadius: 0px;
-@inputBorder: @white;
-@inputBorderFocus: #C0C0C0;
-@inputHeight: 45px;
-@inputBorderWidth: 2px;
-@inputInvalidBackground: #FCE5F1;
-@inputInvalidBorderFocus: #E0003A;
-
-@inputBorderProgress: #E89608;
-@inputFieldProgress: #FFE6BC;
-
 textarea,
 input[type="text"],
 input[type="password"],
@@ -25,8 +14,14 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .uneditable-input {
-    border: @inputBorderWidth solid @inputBorder;
+    .box-shadow(none);
 
+    &:focus, &:invalid, &:focus:invalid {
+        color: inherit;
+        outline: 0;
+        outline: thin dotted \9; /* IE6-9 */
+        .box-shadow(none);
+    }
 }
 
 select,
@@ -46,22 +41,17 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .uneditable-input {
-    height: @inputHeight - 8px - @inputBorderWidth;
+
 }
 
 .valid {
-    &:focus {
-        border-color: @inputBorderFocus;
-    }
+    background: @white;
+    border-color: @white;
+
 }
 
 .invalid {
-    background: @inputInvalidBackground;
-    border-color: @inputInvalidBackground;
 
-    &:focus {
-        border-color: @inputInvalidBorderFocus;
-    }
 }
 
 form.clean input.ng-dirty.ng-invalid,
@@ -79,7 +69,17 @@ form.unclean input.ng-invalid-required {
     .invalid;
 }
 
-form.clean input.ng-dirty.ng-invalid:focus, form.unclean input.ng-dirty.ng-invalid:focus {
-    background-color: @inputFieldProgress;
-    border-color: @inputBorderProgress;
+form input[type="url"].ng-dirty.ng-valid.span6 + span {
+    display: block;
+    position: relative;
+    &:after {
+        content: '';
+        width: 36px;
+        height: 36px;
+        display: block;
+        position: absolute;
+        top: -52px;
+        left: 470px;
+        background: url(/bundles/websitecharity/images/green-tick.png) 0 0 no-repeat;
+    }
 }

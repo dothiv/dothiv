@@ -1,0 +1,95 @@
+// Class to add pointing arrows to elements on hover
+// -------------------------------------
+.hover-arrow:hover:before {
+    margin-left: -50px; /*width of the jpg*/
+    margin-top: -10px;
+    width: 50px;
+    height: 20px;
+    background: url('/bundles/websitecharity/images/tick-sprite.png') no-repeat;
+    background-position: -80px 0px;
+    content: " ";
+    display: inline-block;
+}
+
+//simplify cursor-to-hand definition
+.cursor-hand { cursor: pointer; cursor: hand; }
+
+// Custom HR tag
+// ------------------------------------
+hr {
+    border-top: none;
+    height: 7px;
+    margin-bottom: 30px ;
+}
+
+// override h1, h2, h3 lineheight 
+// --------------------------------------
+h1, h2, h3 { line-height: 1.4em; }
+
+// custom text selectors (colors, style, size)
+// ----------------------------------
+.pink-text { color: @darkpink; }
+.hivblue-text {color: @hivblue; }
+.colordark-text {color: @colordark; }
+.running-text { line-height: 1.6em; font-style: italic; }
+.bold-text { font-weight: bold; }
+
+// formerly known as custom-layout.less
+.row { 
+    margin-bottom: 40px; 
+
+    &.bottom-hack { 
+        margin-bottom: 0; 
+        
+    }
+    .pos-rel { 
+        position: relative; 
+    
+        .overflow-up {
+            position: absolute;
+            bottom: 0px;
+        }
+    }    
+}
+
+// custom headline sizes and spacings
+// ----------------------------------
+h3 {
+    font-size: 40px;
+    line-height: 1em;
+    padding: 0;
+    margin: 0; 
+    margin-bottom: 0.5em;
+}
+
+h5 {
+    font-size: 30px;
+    line-height: 2em;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.next2h3 {
+    display: inline-block;
+    margin-top: 18px;
+    margin-left: 20px;
+    & i { margin-right: 10px; }
+}
+
+.next2h2 {
+    display: inline-block;
+    margin-top: 21px;
+    margin-left: 20px;
+    & i { margin-right: 10px; }
+}
+
+.heading-arrow  {
+    width: 10px;
+    height: 11px;
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 5px;
+    background: url('/bundles/websitecharity/images/small-tick-sprite.png') no-repeat center;
+    background-position: -10px 0;
+}

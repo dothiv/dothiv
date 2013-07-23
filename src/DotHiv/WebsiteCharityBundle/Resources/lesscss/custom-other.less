@@ -15,71 +15,6 @@
 
 @accountLineHeight:    1em;
 
-// Class to add pointing arrows to elements on hover
-// -------------------------------------
-.hover-arrow:hover:before {
-    margin-left: -50px; /*width of the jpg*/
-    margin-top: -10px;
-    width: 50px;
-    height: 20px;
-    background: url('/bundles/websitecharity/images/tick-sprite.png') no-repeat;
-    background-position: -80px 0px;
-    content: " ";
-    display: inline-block;
-}
-
-//simplify cursor-to-hand definition
-.cursor-hand { cursor: pointer; cursor: hand; }
-
-// Custom HR tag
-// ------------------------------------
-hr {
-    border-top: none;
-    height: 7px;
-    margin-bottom: 30px ;
-}
-
-// override h1, h2, h3 lineheight 
-// --------------------------------------
-h1, h2, h3 { line-height: 1.4em; }
-
-// radio button and checkbox custom style
-// --------------------------------------
-div.dhInput {
-    position: relative;
-
-    & > input[type="radio"], & > input[type="checkbox"] {
-        opacity: 0;
-        margin: 0;
-        position: absolute;
-        left: 0;
-        height: 20px;
-        width: 20px;
-    }
-
-    & > input[type="radio"] + label {
-        background: url('/bundles/websitecharity/images/controlls-sprite.png') 0 0 no-repeat;
-        height: 20px;
-        padding: 0 0 0 30px;
-        display: inline-block;
-    }
-
-    & > input[type="checkbox"] + label {
-        background: url('/bundles/websitecharity/images/controlls-sprite.png') 0 -40px no-repeat;
-        height: 20px;
-        padding: 0 0 0 30px;
-        display: inline-block;
-    }
-
-    & > input[type="radio"]:checked + label {
-        background-position: 0 -20px;
-    }
-
-    & > input[type="checkbox"]:checked + label {
-        background-position: 0 -60px;
-    }
-}
-
 // change the top-margin of serveral span-classes
 // --------------------------------
 .span4 { margin-top: 30px; }
@@ -93,56 +28,6 @@ div.dhInput {
     position: absolute;
     float: left;
     bottom: 0px; 
-}
-
-// custom text selectors (colors, style, size)
-// ----------------------------------
-.pink-text { color: @darkpink; }
-.hivblue-text {color: @hivblue; }
-.colordark-text {color: @colordark; }
-.running-text { line-height: 1.6em; font-style: italic; }
-.bold-text { font-weight: bold; }
-
-// custom headline sizes and spacings
-// ----------------------------------
-h3 {
-    font-size: 40px;
-    line-height: 1em;
-    padding: 0;
-    margin: 0; 
-    margin-bottom: 0.5em;
-}
-
-h5 {
-    font-size: 30px;
-    line-height: 2em;
-    padding: 0;
-    margin: 0;
-    
-}
-
-.next2h3 {
-    display: inline-block;
-    margin-top: 18px;
-    margin-left: 20px;
-    & i { margin-right: 10px; }
-}
-
-.next2h2 {
-    display: inline-block;
-    margin-top: 21px;
-    margin-left: 20px;
-    & i { margin-right: 10px; }
-}
-
-.heading-arrow  {
-    width: 10px;
-    height: 11px;
-    display: inline-block;
-    margin-left: 15px;
-    margin-right: 5px;
-    background: url('/bundles/websitecharity/images/small-tick-sprite.png') no-repeat center;
-    background-position: -10px 0;
 }
 
 .scroll {

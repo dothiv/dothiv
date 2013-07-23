@@ -1,86 +1,9 @@
-// Lets Login/report/language-menu list items behave like links and links inside them like text
-// -------------------------------------
-.accountance {
-    list-style-type: none;
-    font-size: 16px;
-    display: inline-block;
-    white-space: nowrap;
-    line-height: @accountLineHeight;
-    font-style: italic;
-    margin-top: 10px;
-    
-    & a {
-        display: inline-block;
-        width: 100%; 
-        .cursor-hand;
-        height: 22px; 
-        
-        &:hover { text-decoration: underline; font-weight: bold; }
-    }
-    
-    &.grey * a { 
-        color: @grayLight;
-        &:hover { color: @black; font-weight: 500; } 
-    }
-    
-    & > li { .cursor-hand; }
-    &.dummy { height: @accountLineHeight; display: block; }
-    & * .open .dropdown-toggle { color: @black; }
-    & .active { font-weight: bold; text-decoration: underline; }
-}
-
-// makes the horizontal menu on have as needed
-// -----------------------------------
 .header { 
-    position: relative;
-    margin-bottom: 40px;
-    
-    .row { margin-bottom: 0px; }
-    
-    .hiv-logo { 
-    }
-    
     .menubar {
-        margin-top: 32px;
-
         .barmenu {
-            float: left;
-            margin-left: 50px;
-            font-size: 20px;
-            font-weight: bold;
-            .cursor-hand;
-            height: 40px;
-            
             &.first { margin-left: 10px; width: 75px; }
-            &.barmenu.secound { width: 110px; }
-            &.barmenu.third { width: 150px; }
-            
+            &.barmenu.secound { width: 130px; }
+            &.barmenu.third { width: 200px; }
         }
     }
-    
-    h4 {
-        display: inline-block;
-        margin-top: 20px;
-        
-        &:hover,
-        &.active {
-            margin: 10px 0;
-            padding-bottom: 4px;
-            border-bottom: 6px solid @colordark;
-        }
-    }
-    
-    .usermenu {
-        ul { 
-            margin-bottom: 0px; 
-            margin-left: 5px;
-            }
-        margin-left: 0px;
-    }
-
-
-
-
-    
-    .span1 { margin-left: 0px; }
 }
