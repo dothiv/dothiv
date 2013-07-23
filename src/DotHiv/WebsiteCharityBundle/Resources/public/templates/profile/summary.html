@@ -2,12 +2,14 @@
     <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-projects-heading">
             <a class="pull-right next2h2" href="#"><div class="heading-arrow"></div>Neues Projekt anlegen</a>
-            <h2 class="pull-left">Projekte (2)</h2>
+            <h2 class="pull-left">Projekte ([[ projects.length ]])</h2>
             <a class="next2h2" href="#!/profile/projects"><div class="heading-arrow"></div>Alle Projekte anzeigen</a>
         </div>
     </div>
     <ul class="profile-summary-list profile-summary-projects-list">
-        <li ng-repeat="(name, votes) in {'Awesome project':3268, 'Lame project':12, 'Nils\'s project':122626}">{% include 'DotHivWebsiteCharityBundle:Partials/Profile:projects-item.html.twig' %}</li>
+        <li ng-repeat="p in projects">
+            <dh-project-item project="p"></dh-project-item>
+        </li>
     </ul>
     <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-domains-heading">
@@ -17,7 +19,9 @@
         </div>
     </div>
     <ul class="profile-summary-list profile-summary-domains-list">
-        <li ng-repeat="domain in (domains | limitTo:3)">{% include 'DotHivWebsiteCharityBundle:Partials/Profile:domains-item.html.twig' %}</li>
+        <li ng-repeat="d in (domains | limitTo:3)">
+            <dh-domain-item domain="d"></dh-domain-item>
+        </li>
     </ul>
     <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-votes-heading">

@@ -6,6 +6,8 @@
         </div>
     </div>
     <ul class="profile-summary-list profile-summary-projects-list">
-        <li ng-repeat="(name, votes) in {'Awesome project':3268, 'Lame project':12, 'Nils\'s project':122626}">{% include 'DotHivWebsiteCharityBundle:Partials/Profile:projects-item.html.twig' %}</li>
+        <li ng-repeat="p in projects">
+            <dh-project-item project="p"></dh-project-item>
+        </li>
     </ul>
 </div>
