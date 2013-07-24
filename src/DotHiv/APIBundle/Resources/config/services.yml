@@ -1,6 +1,6 @@
 parameters:
     cors_options:
-        allow_origin: [ '^chrome-extension://', '^https?://(www\.)?%charitydomain%', '^https?://localhost', '^https?://127.0.0.1' ]
+        allow_origin: [ '^chrome-extension://', '^https?://(www\.)?%charitydomain%', '^https?://(www\.)?%companydomain%', '^https?://localhost', '^https?://127.0.0.1' ]
 
 services:
     security.authentication.success_handler:
