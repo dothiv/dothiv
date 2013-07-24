@@ -1,4 +1,64 @@
-<div>
-<h3 style="font-size: 40px; font-family: 'Harmonia-Sans'">das ist eine Testüberschrift</h3>
+<div class="container aboutus">
+    <div class="row">
+        <div class="span12">
+            <h2>[[ 'gmbh.home.aboutus.headline' | translate ]]</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6"><p class="running-text">[[ 'gmbh.home.aboutus.left' | translate ]]</p></div>
+        <div class="span6"><p class="running-text">[[ 'gmbh.home.aboutus.right' | translate ]]</p></div>
+    </div>
 </div>
-
+<hr class="bottom-shadow">
+<div class="container domain-chooser">
+    <div class="row">
+        <h2 class="pull-left">[[ 'gmbh.home.latest' | translate ]]</h2>
+        <div class="span4 pull-right">
+            <button class="scroll pull-left" ng-click="urlOffset = urlOffset+1;"><i class="icon-tick-left icon-white icon-small"></i></button>
+            <div ng-repeat="u in ( urls | carousel: urlOffset | limitTo: 1)" class="running-text bold-text display pull-left">[[ u.name ]]</div>
+            <button class="scroll pull-left" ng-click="urlOffset = urlOffset-1;"><i class="icon-tick-right icon-white icon-small"></i></button>
+        </div>
+    </div>
+</div>
+<hr class="bottom-shadow">
+<div class="container">
+    <div class="row">
+        <h2 class="hivblue-text pull-left"> [[ 'gmbh.home.companies.headline' | translate]]</h2>
+        <a class="next2h2 pull-left" href="#!/">
+            <div class="heading-arrow"></div>
+            [[ 'gmbh.home.companies.all' | translate ]]
+        </a>
+        <div class="next2h2 pull-right">
+            <button class="scroll" ng-click="firmOffset = firmOffset+1"><i class="icon-tick-left"></i></button>
+            <button class="scroll" ng-click="firmOffset = firmOffset-1"><i class="icon-tick-right"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span2" ng-repeat="f in (firms | carousel: firmOffset | limitTo: 6)">
+            <a ng-href="[[ f.url ]]">
+                <img ng-src="[[ f.img ]]"></img>
+            </a>
+        </div>
+    </div>
+</div>
+<hr class="bottom-shadow">
+<div class="container">
+    <div class="row">
+        <h2 class="hivblue-text pull-left"> [[ 'gmbh.home.charity.headline' | translate]]</h2>
+        <a class="next2h2 pull-left" href="#!/">
+            <div class="heading-arrow"></div>
+            [[ 'gmbh.home.charity.all' | translate ]]
+        </a>
+        <div class="next2h2 pull-right">
+            <button class="scroll" ng-click="charityOffset = charityOffset+1"><i class="icon-tick-left"></i></button>
+            <button class="scroll" ng-click="charityOffset = charityOffset-1"><i class="icon-tick-right"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span3" ng-repeat="f in (charity | carousel: charityOffset | limitTo: 4)">
+            <a ng-href="[[ f.url ]]">
+                <img ng-src="[[ f.img ]]"></img>
+            </a>
+        </div>
+    </div>
+</div>

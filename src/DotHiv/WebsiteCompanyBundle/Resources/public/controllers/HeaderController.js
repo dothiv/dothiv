@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope', 'locale',
-    function($scope, locale) {
+angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope', '$state', 'locale',
+    function($scope, $state, locale) {
+        // make state information available
+        $scope.state = $state;    
+    
         $scope.locale = locale;
         $scope.siteLanguages = {
                                 'de': 'Deutsch',

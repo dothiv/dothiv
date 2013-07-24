@@ -1,4 +1,47 @@
 {
-
+    "gmbh":
+    {
+        "menu":
+        {
+            "asTLD": "dotHIV als TLD",
+            "registrars": "Partner-Registrarliste",
+            "becomeregistrar": "Registrar werden",
+            "whois": "WhoIs / Domainliste",
+            "policies": "Policies",
+            "stats": "Statistiken",
+            "service": "Service",
+            "ICANN": "ICANN",
+            "forcompanies": "dotHIV für Firmen",
+            "advantage": "Vorteile",
+            "concepts": "Nutzungskonzepte",
+            "registernow": "Jetzt registrieren!",
+            "registercharity": "Charity Domain registrieren",
+            "ourregistry": "Unsere Registry",
+            "contract": "Gesellschaftsvertrag",
+            "usage": "Mittelverwendung",
+            "reports": "Geschäftsberichte",
+            "team": "Team / Kontakt",
+            "jobs": "Jobs"
+        },
+        "home":
+        {
+            "aboutus":
+            {
+                "headline": "Über uns",
+                "left": "foo",
+                "right": "bar"
+            },
+            "companies":
+            {
+                "headline": "Teilnehmende Unternehmen",
+                "all": "Alle anzeigen"
+            },
+            "charity":
+            {
+                "headline": "Unsere Charity Domains",
+                "all": "Charity Domain beantragen"
+            },
+            "latest": "Zuletzt registrierte Domains" 
+        }
+    }
 }
-
