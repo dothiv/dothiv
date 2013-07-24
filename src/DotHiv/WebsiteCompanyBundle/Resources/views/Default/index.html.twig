@@ -11,12 +11,104 @@
     </head>
     <body>
         <div ng-controller="HeaderController">
+            <div style="height: 40px;"></div>
+            <div class="container header">
+                <div class="row">
+                    <img class="pull-left" src="{{ asset("bundles/websitecompany/images/hiv-logo.png") }}">
+                    <div class="headline pull-left">
+                        <div class="space">TLD dotHIV<br>Registry GmbH</div>
+                    </div>
+                    <div class="span2 pull-right"></div>
+                    <div class="span1 pull-right">
+                        <ul class="usermenu">
+                            <li class="accountance"><a class="hover-arrow">[[ 'gmbh.header.config' | translate ]]</a></li>
+                            <li class="accountance"><a class="hover-arrow">[[ 'gmbh.header.back' | translate ]]</a></li>
+                            <li class="accountance grey">
+                                <div class="language-chooser">
+                                    <dh-select class="" ng-model="locale.language" dh-options="siteLanguages"></dh-select>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="just bottom-shadow">
+            <div class="jumbotron infobox bottom-shadow">
+                <div class="container">
+                    <div class="row">
+                        <div class="span1">
+                            <h5 class="hivblue-text">[[ 'gmbh.menu.asTLD' | translate ]]</h5>
+                            <ul>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.registars' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.becomeregistar' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.whois' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.policies' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.stats' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.service' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.ICANN' | translate ]]</a></li>
+                            </ul>
+                        </div>
+                        <div class="span3"></div>
+                        <div class="span1">
+                            <h5 class="hivblue-text">[[ 'gmbh.menu.forcompanies' | translate ]]</h5>
+                            <ul>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.advantage' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.concepts' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.registernow' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.registercharity' | translate ]]</a></li>
+                            </ul>
+                        </div>
+                        <div class="span3"></div>
+                        <div class="span1">
+                            <h5 class="hivblue-text">[[ 'gmbh.menu.forcompanies' | translate ]]</h5>
+                            <ul>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.contract' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.usage' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.reports' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.team' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.jobs' | translate ]]</a></li>
+                            </ul>
+                        </div>
+                        <div class="span3"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div style="clear: both;"></div>
         <div ui-view></div>
 
         <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="span12 center footer-margin">
+                        <img class="hiv-42px" src="{{ asset("bundles/websitecompany/images/hiv-logo.png") }}">
+                        <div class="container">
+                            <div class="row">
+                                <div class="span4">
+                                    <p class="running-text bold-text">[[ 'gmbh.footer.slogan' | translate ]]</p>
+                                </div>
+                                <div class="span4">
+                                    <ul>
+                                        <li class="running-text">[[ 'gmbh.footer.name' | translate ]]</li>    
+                                        <li class="running-text">[[ 'gmbh.footer.street' | translate ]]</li>
+                                        <li class="running-text">[[ 'gmbh.footer.city' | translate ]]</li>
+                                        <li class="running-text">[[ 'gmbh.footer.phone' | translate ]]</li>
+                                    </ul>
+                                </div>
+                                <div class="span4">
+                                    <ul>
+                                        <li><a class="running-text" src="">[[ 'footer.navi.help' | translate ]]</a> / <a class="running-text" src="">[[ 'footer.navi.forum' | translate ]]</a></li>
+                                        <li><a class="running-text" src="">[[ 'footer.navi.contact' | translate ]]</a> / <a class="running-text" src="">[[ 'footer.navi.impressum' | translate ]]</a></li>
+                                        <li><a class="running-text" src="">[[ 'footer.navi.usage' | translate ]]</a> / <a class="running-text" src="">[[ 'footer.navi.privacy' | translate ]]</a></li>
+                                        <li><a class="running-text" src="">[[ 'footer.navi.configurebanner' | translate ]]</a></li>    
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </footer>
 
         {% include 'DotHivWebsiteCompanyBundle:Default:app.html.twig' %}
