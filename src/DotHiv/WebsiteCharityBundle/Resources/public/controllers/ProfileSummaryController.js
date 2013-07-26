@@ -9,5 +9,6 @@ angular.module('dotHIVApp.controllers').controller('ProfileSummaryController', [
 
         // TODO get personal list of projects from server
         $scope.projects = [ {name: 'Awesome project', votes: 3268}, {name: 'Lame project', votes: 12}, {name: 'Nils\'s project', votes: 122626} ];
+        $scope.projects.$resolved = true; // workaround for the loader
     }
 ]);

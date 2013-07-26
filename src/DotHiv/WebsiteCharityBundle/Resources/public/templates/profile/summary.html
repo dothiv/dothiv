@@ -6,11 +6,16 @@
             <a class="next2h2" href="#!/profile/projects"><div class="heading-arrow"></div>Alle Projekte anzeigen</a>
         </div>
     </div>
-    <ul class="profile-summary-list profile-summary-projects-list">
-        <li ng-repeat="p in projects">
-            <dh-project-item project="p"></dh-project-item>
-        </li>
-    </ul>
+    <div ng-hide="projects.$resolved">
+        <p class="text-center"><dh-loader></dh-loader></p>
+    </div>
+    <div ng-show="projects.$resolved">
+        <ul class="profile-summary-list profile-summary-projects-list">
+            <li ng-repeat="p in projects">
+                <dh-project-item project="p"></dh-project-item>
+            </li>
+        </ul>
+    </div>
     <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-domains-heading">
             <a class="pull-right next2h2" href="#"><div class="heading-arrow"></div>Neue Domain registrieren</a>
@@ -18,11 +23,16 @@
             <a class="next2h2" href="#!/profile/domains"><div class="heading-arrow"></div>Alle Domains anzeigen</a>
         </div>
     </div>
-    <ul class="profile-summary-list profile-summary-domains-list">
-        <li ng-repeat="d in (domains | limitTo:3)">
-            <dh-domain-item domain="d"></dh-domain-item>
-        </li>
-    </ul>
+    <div ng-hide="domains.$resolved">
+        <p class="text-center"><dh-loader></dh-loader></p>
+    </div>
+    <div ng-show="domains.$resolved">
+        <ul class="profile-summary-list profile-summary-domains-list">
+            <li ng-repeat="d in (domains | limitTo:3)">
+                <dh-domain-item domain="d"></dh-domain-item>
+            </li>
+        </ul>
+    </div>
     <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-votes-heading">
             <h2 class="pull-left">Abgegebene Votes (4)</h2>

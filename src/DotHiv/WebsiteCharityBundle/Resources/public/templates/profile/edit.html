@@ -6,7 +6,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="span12">
+        <div class="span12" ng-hide="user.$resolved">
+            <p class="text-center"><dh-loader></dh-loader></p>
+        </div>
+        <div class="span12" ng-show="user.$resolved">
             <div class="form-well">
                 <form novalidate name="editForm" class="simple-form" ng-class="{clean: editclean, unclean: !editclean}">
                     <fieldset>

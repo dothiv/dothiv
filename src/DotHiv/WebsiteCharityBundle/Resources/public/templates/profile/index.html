@@ -1,6 +1,9 @@
 <header class="jumbotron profile-header">
     <div class="container">
-        <div class="row">
+        <div class="row" ng-hide="security.user.$resolved">
+            <p class="text-center"><dh-loader></dh-loader></p>
+        </div>
+        <div class="row" ng-show="security.user.$resolved">
             <div class="span9">
                 <h1>[[ 'profile.greeting' | translate ]] [[ security.user.name + " " + security.user.surname ]]!</h1>
                 <p class="login-info">Letzter Login: [[ security.user.last_login | date:'longDate' ]], [[ security.user.last_login | date:'shortTime' ]]</p>

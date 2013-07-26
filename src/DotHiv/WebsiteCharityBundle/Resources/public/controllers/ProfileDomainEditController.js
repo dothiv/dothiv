@@ -28,8 +28,6 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
                             $scope.banner.language = 'de';
                             $scope.banner.position = 'center';
                             $scope.banner.position_alternative = 'top';
-
-                            console.log($scope.banner);
                         } else {
                             // always take the first banner, TODO: let the user decide
                             $scope.banner = new Banner();
@@ -46,7 +44,6 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
                                 $scope.domaineditbasic.$data.secondvisit = false;
                                 $scope.banner.position_alternative = 'top';
                             }
-                            console.log($scope.banner);
                         }
                     }
                 );
@@ -83,8 +80,6 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
                 $scope.banner.position_alternative = null;
             if ($scope.domaineditbasic.$data.forwarding == 'false')
                 $scope.banner.redirect_domain = null;
-
-            console.log($scope.banner);
 
             // distinguish between new and updated banners
             if ($scope.banner.id === undefined)
