@@ -1,99 +1,83 @@
 @tooltipBorderShadow: 0px 0px 7px 0px @grayLight;
 
 .language-chooser {
-    
-    & * .dropdown-menu { z-index: 2000; }
+
     & * i { margin-left: 10px; }
-    
-    .btn-group.open .btn.dropdown-toggle { 
-        background-color: @white; 
+
+    .btn-group.open .btn.dropdown-toggle {
+        background-color: @white;
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
         color: @black;
     }
-    
-    .dh-dropdown .dropdown-toggle {
-        i.dropdown-icon {
+
+    & > .dh-select {
+
+        & a {
+            line-height: @accountLineHeight;
+            height: 22px;
+        }
+
+        & a.dropdown-toggle {
+            padding: 0;
+            border: none;
+
+            & i.dropdown-icon {
+                width: 10px;
+                height: 10px;
+                border: none;
+                background: url('/bundles/websitecharity/images/small-tick-sprite.png') no-repeat;
+                background-position: -20px -20px;
+            }
+            &:hover i.dropdown-icon { background-position: -20px 0px; }
+        }
+
+        &.open .dropdown-toggle i.dropdown-icon {
             width: 10px;
             height: 10px;
             border: none;
             background: url('/bundles/websitecharity/images/small-tick-sprite.png') no-repeat;
-            background-position: -20px -20px;
+            background-position: -20px 0px;
         }
-        &:hover i.dropdown-icon { background-position: -20px 0px; }
-    }
-    
-    .dh-dropdown.open .dropdown-toggle i.dropdown-icon {
-        width: 10px;
-        height: 10px;
-        border: none;
-        background: url('/bundles/websitecharity/images/small-tick-sprite.png') no-repeat;
-        background-position: -20px 0px; 
-    }
-    
-    .dropdown-menu {
-        .border-radius(0px);
-    }
-    
-    .tooltip { cursor: default; }
-    .tooltip.in { opacity: 1; }
-    .tooltip.bottom .tooltip-arrow { 
-        top: -3px;
-        left: 25%; 
-        border-width: 0 5px 8px;
-        border-bottom-color: @grayLight;
-    }
-    
-    .tooltip.bottom > .tooltip-inner { background-color: transparent; padding: 0; }
-    
-    .tooltip-ul {
-        padding: 10px 0;
-        font-size: 16px;
-        list-style-type: none;
-        background-color: @white;
-        width: 370px;
-        margin-left: 22px;
-        .box-shadow(@tooltipBorderShadow);
-    }
-    
-    .tooltip-ul li {
-        .cursor-hand;
-        margin-bottom: 10px;
-        color: @grayLight;
-        &:hover { color: @black; }
-    }
-    
-    ul.dropdown-menu {
-        margin-top: 10px;
-        background: @white;
-        border: 1px solid @grayLight;
-        .box-shadow(0px 0px 6px @grayLight)
-    }
-    
-    ul.dropdown-menu:after, ul.dropdown-menu:before {
-        bottom: 100%;
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-    }
-    
-    ul.dropdown-menu:after {
-        border-color: rgba(255, 255, 255, 0);
-        border-bottom-color: @white;
-        border-width: 10px;
-        left: 20%;
-        margin-left: -10px;
-    }
-    
-    ul.dropdown-menu:before {
-        border-color: rgba(85, 85, 85, 0);
-        border-bottom-color: @grayLight;
-        border-width: 12px;
-        left: 20%;
-        margin-left: -12px;
+
+        & * .dropdown-menu { z-index: 2000; }
+
+        & ul.dropdown-menu {
+            margin-top: 10px;
+            background: @white;
+            border: 1px solid @grayLight;
+            .box-shadow(0px 0px 6px @grayLight);
+            overflow: visible;
+            overflow-x: visible;
+            overflow-y: visible;
+        }
+
+        & ul.dropdown-menu:after, ul.dropdown-menu:before {
+            bottom: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        & ul.dropdown-menu:after {
+            border-color: rgba(255, 255, 255, 0);
+            border-bottom-color: @white;
+            border-width: 10px;
+            left: 20%;
+            margin-left: -10px;
+        }
+
+        & ul.dropdown-menu:before {
+            border-color: rgba(85, 85, 85, 0);
+            border-bottom-color: @grayLight;
+            border-width: 12px;
+            left: 20%;
+            margin-left: -12px;
+        }
+
     }
 }

@@ -54,7 +54,13 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
         );
 
         // data structure for language values
-        $scope.languages = {'de':'Deutsch', 'en':'Englisch', 'es':'Spanisch', 'la':'Latein'};
+        $scope.languages =
+            [
+                { key: 'de', label: 'Deutsch' },
+                { key: 'en', label: 'Englisch' },
+                { key: 'es', label: 'Spanisch' },
+                { key: 'fr', label: 'Französisch' }
+            ];
 
         $scope.$watch('domaineditbasic.$data.forwarding', function(forwarding) {
             if (forwarding == 'false')

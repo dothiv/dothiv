@@ -4,7 +4,7 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
     function($scope, $state, security, securityDialog, locale, $rootScope) {
         // make state information available
         $scope.state = $state;
-        
+
         $scope.urlOffset = 0;
         $scope.urls = [
                        {'name': 'www.google.hiv' },
@@ -13,13 +13,15 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
                        {'name': 'www.web.hiv' },
                        {'name': 'www.youtube.hiv' }
                    ];
-        
+
         $scope.locale = locale;
-        $scope.siteLanguages = {
-                                'de': 'Deutsch',
-                                'en': 'English',
-                                'key': 'Keys only'
-                               };
+        $scope.siteLanguages =
+            [
+                { key: 'de', label: 'Deutsch' },
+                { key: 'en', label: 'Englisch' },
+                { key: 'key',label: 'Keys only' },
+            ];
+
         $scope.$watch('locale.language', function() {
             locale.set(locale.language);
         });

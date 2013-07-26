@@ -1,0 +1,67 @@
+.dh-select {
+    position: relative;
+
+    &[class*="span"] {
+        float: none;
+        margin-left: 0;
+    }
+
+    & a {
+        height: @inputHeight - 8px - @inputBorderWidth;
+        line-height: @inputHeight - 8px - @inputBorderWidth;
+        cursor: pointer;
+        .user-select(none);
+    }
+
+    & a.dropdown-toggle {
+        background-color: white;
+        color: #555555;
+        display: block;
+        border: 2px solid white;
+        padding: 4px 15px;
+        margin-bottom: 15px;
+        &:hover { text-decoration: none; }
+        & i.dropdown-icon {
+            margin-top: 5px;
+            text-decoration: none;
+            display: block;
+            width: 10px;
+            height: 10px;
+            background: url('/bundles/websitecharity/images/small-tick-sprite.png') no-repeat;
+            background-position: -20px 0;
+        }
+    }
+
+    &.open a.dropdown-toggle i.dropdown-icon {
+        background-position-x: -30px;
+    }
+
+    & .dropdown-menu {
+        margin: 0;
+        width: 100%;
+        border: none;
+        max-height: 180px;
+        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .border-radius(0);
+        .box-shadow(none);
+
+        & > li {
+            padding: 0;
+        }
+
+        & > li > a {
+            color: #999999;
+            padding: 3px 15px;
+        }
+
+        & > li > a:hover {
+            background: none;
+            padding: 3px 15px;
+            color: #252525;
+        }
+    }
+}
+
+
