@@ -1,0 +1,87 @@
+#grid {
+
+  .fluid (@fluidGridColumnWidth, @fluidGridGutterWidth) {
+
+    .row-fluid-colfix-well {
+      margin-bottom: @wellPadding;
+
+      // fix vertical margin between "table rows"
+      .row-fluid-colfix {
+        margin-top: -20px;
+      }
+      .row-fluid-colfix:first-child {
+        margin-top: 0px;
+      }
+      .row-fluid-colfix + .row-fluid-colfix {
+        & .well {
+          padding-top: 0px;
+        }
+      }
+    }
+
+    .row-fluid-colfix {
+      .clearfix();
+      & > [class*="span"] {
+        .input-block-level();
+        float: none;
+        margin-left: 0;
+      }
+
+      &.well {
+        margin-bottom: @wellPadding;
+      }
+
+      display: table;
+      table-layout: auto;
+      //width: 100%;
+
+      & > [class*="span"] {
+        display: table-cell;
+        position: relative;
+      }
+
+      .spanX (@width) {
+        & > .span@{width} {
+          width: percentage(@width/12);
+        }
+      }
+
+      .spanX (1);
+      .spanX (2);
+      .spanX (3);
+      .spanX (4);
+      .spanX (5);
+      .spanX (6);
+      .spanX (7);
+      .spanX (8);
+      .spanX (9);
+      .spanX (10);
+      .spanX (11);
+      .spanX (12);
+
+      .marginXpx (@margin) {
+        &.margin@{margin} {
+          border-spacing: @margin 0;
+          margin-left: -(@margin * 4);
+          margin-right: -(@margin * 4);
+        }
+
+        // IE9 and IE10 need special treatment
+        @iehack: 0\0; // hack to trick the lessc
+        @media screen and (min-width: @iehack) {
+          &.margin@{margin} {
+            border-spacing: @margin 0;
+            margin-left: -(@margin * 3);
+            margin-right: -(@margin * 3);
+          }
+        }
+      }
+
+      .marginXpx (5px);
+      .marginXpx (10px);
+      .marginXpx (20px);
+    }
+
+  }
+
+}
