@@ -92,20 +92,30 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                     templateUrl: '/bundles/websitecharity/templates/profile/projects.html',
                     controller: 'ProfileProjectController'
                 })
-            .state('=.profile.domains', {
+            .state('=.profile.domain', {
+                    abstract: true,
                     url: '/domains',
+                    template: '<div ui-view></div>',
+                })
+            .state('=.profile.domain.list', {
+                    url: '/list',
                     templateUrl: '/bundles/websitecharity/templates/profile/domains.html',
                     controller: 'ProfileDomainController'
                 })
-            .state('=.profile.domaineditors', {
-                    url: '/domains/editors/:domainId',
+            .state('=.profile.domain.editors', {
+                    url: '/editors/:domainId',
                     templateUrl: '/bundles/websitecharity/templates/profile/domain-editors.html',
                     controller: 'ProfileDomainEditorsController'
                 })
-            .state('=.profile.domainedit', {
-                    url: '/domain/edit/:domainId',
+            .state('=.profile.domain.editbasic', {
+                    url: '/editbasic/:domainId',
                     templateUrl: '/bundles/websitecharity/templates/profile/domain-edit.html',
                     controller: 'ProfileDomainEditController'
+                })
+            .state('=.profile.domain.claim', {
+                    url: '/claim',
+                    templateUrl: '/bundles/websitecharity/templates/profile/domain-claim.html',
+                    controller: 'ProfileDomainClaimController'
                 })
             .state('=.profile.votes', {
                     url: '/votes',
@@ -115,14 +125,8 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                     url: '/comments',
                     templateUrl: '/bundles/websitecharity/templates/profile/comments.html'
                 })
-            .state('=.profile.domainclaim', {
-                    url: '/domain/claim',
-                    templateUrl: '/bundles/websitecharity/templates/profile/domain-claim.html',
-                    controller: 'ProfileDomainClaimController'
-                })
         }])
 
-        
     .run(['security', function(security) {
         // Get the current user when the application starts (in case they are still logged in from a previous session)
         security.updateUserInfo();

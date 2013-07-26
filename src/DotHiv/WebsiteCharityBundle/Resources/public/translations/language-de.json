@@ -179,5 +179,73 @@
             "history": "Die Geschichte",
             "quotes": "Zitate"
         }
+    },
+    "profile":
+    {
+        "domain":
+        {
+            "editors":
+            {
+                "headline": "Domainkonfiguration",
+                "backlink": "Zurück zur Übersicht Domainverwaltung",
+                "subheadline": "Click-Counter für [[domain]] einrichten",
+                "text": "Der Click Counter zeigt dem Besucher Ihrer .hiv Domain den gerade ausgelösten Mikrobetrag und den bisher ausgelösten Gesamtbetrag an. Und er kann noch mehr!",
+                "bold": "Jetzt wählen und konfigurieren – denn jeder Klick zählt.",
+                "basic":
+                {
+                    "headline": "Click-Counter",
+                    "subheadline": "Jeder Klick zählt!",
+                    "text": "Der Click Counter zählt automatisch jeden Klick auf Ihre Website. Er gibt dem User Feedback über den gerade ausgelösten Spendenbetrag und die gesamte Spendensumme.",
+                    "advantages":
+                    {
+                        "1": "Der User bekommt Feedback für seinen guten Klick",
+                        "2": "Gesteigerte Motivation wiederzukommen",
+                        "3": "Direkte Social Media-Anbindung",
+                        "4": "kostenlos und schnell eingerichtet"
+                    },
+                    "time": "3-5min",
+                    "button": "Jetzt einrichten"
+                },
+                "premium":
+                {
+                    "headline":
+                    {
+                        "text": "Click-Counter",
+                        "highlight": "Premium"
+                    },
+                    "subheadline": "Das Auge klickt mit!",
+                    "text": "Firmenlogo integrieren, eigene Inhalte einfügen und mehr – der Click Counter Premium bietet viele Vorteile. Präsentieren Sie z.B. firmeneigene CSR-Programme – und das in Ihrem Corporate Design.",
+                    "advantages":
+                    {
+                        "1": "Der User bekommt Feedback für seinen guten Klick",
+                        "2": "Gesteigerte Motivation wiederzukommen",
+                        "3": "Direkte Social Media-Anbindung",
+                        "4": "Einheitliches Auftreten durch eigenes Logo, Farben u.v.m.",
+                        "5": "Hohe Sichtbarkeit für eigene CSR-Programme",
+                        "6": "Einbindung von eigenem Content",
+                        "7": "Längere Verweildauer des Users",
+                        "highlight": "14 Tage gratis testen!"
+                    },
+                    "time": "10min",
+                    "button": "Jetzt einrichten"
+                },
+                "domains":
+                {
+                    "headline": "Sie möchten den Click-Counter basierend auf einer anderen Domain einrichten?",
+                    "label": "Folgende Domain als Basis verwenden",
+                    "button": "Jetzt einrichten"
+                },
+                "developer":
+                {
+                    "headline":
+                    {
+                        "text": "Click-Counter für",
+                        "highlight": "Developer"
+                    },
+                    "text": "Mit dem Click Counter Developer können Sie auf Ihrer .hiv Seite ein eigenes Feedbacksystem einrichten. Jeder Klick auf Ihre .hiv Domain löst weiterhin eine Mikrospende aus – es wird aber kein Click Counter angezeigt. Was genau angezeigt wird, entscheiden Sie.",
+                    "button": "Mehr erfahren"
+                }
+            }
+        }
     }
 }
