@@ -121,15 +121,19 @@
 // tab container content
 // -------------------------
 .profile .tab-content {
-    background-color: #E9E9E9;
+    background-color: @wellBackground;
     overflow: visible;
+
+    & .well {
+        background-color: @wellWellBackground;
+    }
 }
 
 .tab-content-container {
     padding: 45px 20px;
     font-style: italic;
 
-    & h3 {
+    & > h3 {
         font-style: normal;
         margin-bottom: 50px;
     }

@@ -1,0 +1,45 @@
+.circle (@radius) {
+    .circle@{radius} {
+        // position & geometry
+        width: 2*@radius;
+        height: 2*@radius;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -@radius;
+        margin-top: -@radius;
+        box-sizing: border-box;
+        border-radius: 50%;
+        display: table;
+
+        // style & text
+        &.circle-blue {
+            line-height: 2*@radius;
+            background: #1785be;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-family: @sansFontFamily;
+            text-align: center;
+        }
+
+        &.circle-well {
+            background: @wellBackground;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        &.circle-shadow {
+            .box-shadow(1px 1px 15px 5px #BBB);
+        }
+
+        & .circle-center {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+    }
+}
+
+.circle(28px);
+.circle(82px);
