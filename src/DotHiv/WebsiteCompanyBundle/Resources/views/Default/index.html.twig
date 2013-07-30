@@ -11,6 +11,7 @@
     </head>
     <body>
         <div ng-controller="HeaderController">
+            <div style="width: 100%; height: 100%; background: white; z-index: 10000; position: fixed;" ng-show="!finishedbooting"></div>
             <div style="height: 40px;"></div>
             <div class="container header">
                 <div class="row">
@@ -21,7 +22,7 @@
                             <li class="accountance"><a class="hover-arrow">[[ 'gmbh.header.back' | translate ]]</a></li>
                             <li class="accountance grey">
                                 <div class="language-chooser">
-                                    <dh-select class="" ng-model="locale.language" dh-options="siteLanguages"></dh-select>
+                                    <dh-select class="" model="locale.language" options="siteLanguages" label="label" assign="key"></dh-select>
                                 </div>
                             </li>
                         </ul>
