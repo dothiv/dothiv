@@ -40,7 +40,11 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
             .state('advantage', {
                     url: '/advantage',
                     templateUrl: '/bundles/websitecompany/templates/advantage.html'
-                })                   
+                })
+            .state('concepts', {
+                    url: '/concepts',
+                    templateUrl: '/bundles/websitecompany/templates/concepts.html'
+                })                     
         }])
 
     .run(['$rootScope', 'security', 'securityDialog', function($rootScope, security, securityDialog) {
