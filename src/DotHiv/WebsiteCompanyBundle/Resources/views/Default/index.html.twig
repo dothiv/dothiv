@@ -10,7 +10,8 @@
         <link rel="shortcut icon" href="{{ asset("bundles/websitecompany/images/favicon.png") }}" />
     </head>
     <body>
-        <div ng-controller="HeaderController">
+        <div class="page" ng-controller="HeaderController">
+            <div style="width: 100%; height: 100%; background: white; z-index: 10000; position: fixed;" ng-show="!finishedbooting"></div>
             <div style="height: 40px;"></div>
             <div class="container header">
                 <div class="row">
@@ -21,7 +22,7 @@
                             <li class="accountance"><a class="hover-arrow">[[ 'gmbh.header.back' | translate ]]</a></li>
                             <li class="accountance grey">
                                 <div class="language-chooser">
-                                    <dh-select class="" ng-model="locale.language" dh-options="siteLanguages"></dh-select>
+                                    <dh-select class="" model="locale.language" options="siteLanguages" label="label" assign="key"></dh-select>
                                 </div>
                             </li>
                         </ul>
@@ -52,7 +53,7 @@
                             <ul>
                                 <li class="accountance"><a href="#!/">[[ 'gmbh.menu.registrars' | translate ]]</a></li>
                                 <li class="accountance"><a href="#!/">[[ 'gmbh.menu.becomeregistrar' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.whois' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/whois">[[ 'gmbh.menu.whois' | translate ]]</a></li>
                                 <li class="accountance"><a href="#!/">[[ 'gmbh.menu.policies' | translate ]]</a></li>
                                 <li class="accountance"><a href="#!/">[[ 'gmbh.menu.stats' | translate ]]</a></li>
                                 <li class="accountance"><a href="#!/">[[ 'gmbh.menu.service' | translate ]]</a></li>
@@ -63,8 +64,8 @@
                         <div class="span1">
                             <h5 class="hivblue-text">[[ 'gmbh.menu.forcompanies' | translate ]]</h5>
                             <ul>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.advantage' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.concepts' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/advantage">[[ 'gmbh.menu.advantage' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/concepts">[[ 'gmbh.menu.concepts' | translate ]]</a></li>
                                 <li class="accountance"><a href="#!/">[[ 'gmbh.menu.registernow' | translate ]]</a></li>
                                 <li class="accountance"><a href="#!/">[[ 'gmbh.menu.registercharity' | translate ]]</a></li>
                             </ul>

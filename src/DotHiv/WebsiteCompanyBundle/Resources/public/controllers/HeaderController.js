@@ -6,11 +6,12 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
         $scope.state = $state;    
     
         $scope.locale = locale;
-        $scope.siteLanguages = {
-                                'de': 'Deutsch',
-                                'en': 'English',
-                                'key': 'Keys only'
-                               };
+        $scope.siteLanguages =
+            [
+                { key: 'de', label: 'Deutsch' },
+                { key: 'en', label: 'Englisch' },
+                { key: 'key',label: 'Keys only' },
+            ];
         
         $scope.$watch('locale.language', function() {
             locale.set(locale.language);

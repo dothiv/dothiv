@@ -32,6 +32,19 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                     templateUrl: '/bundles/websitecompany/templates/home.html',
                     controller: 'HomeController'
                 })
+            .state('whois', {
+                    url: '/whois',
+                    templateUrl: '/bundles/websitecompany/templates/whois.html',
+                    controller: 'WhoisController'
+                })
+            .state('advantage', {
+                    url: '/advantage',
+                    templateUrl: '/bundles/websitecompany/templates/advantage.html'
+                })
+            .state('concepts', {
+                    url: '/concepts',
+                    templateUrl: '/bundles/websitecompany/templates/concepts.html'
+                })                     
         }])
 
     .run(['$rootScope', 'security', 'securityDialog', function($rootScope, security, securityDialog) {

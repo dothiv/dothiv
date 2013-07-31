@@ -1,0 +1,44 @@
+<div class="container whois">
+    <div class="row">
+        <div class="span12 headline">
+            <h2>[[ 'gmbh.whois.headline' | translate ]]</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <p class="">[[ 'gmbh.whois.desc' | translate ]] bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a bla bl a</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12 box">
+            <div class="row-fluid">
+                <div class="span12 headline">
+                    <h4>[[ 'gmbh.whois.search' | translate ]]</h4>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12 search">
+                    <input placeholder="Domainname.hiv" class=" pull-left">
+                    <button class="btn"><div class="glass"></div></button>
+                </div>
+            </div>
+            
+        </div>
+        <div class="span12 box">
+            <div class="row-fluid">
+                <div class="span12 headline">
+                    <h4>[[ 'gmbh.whois.latest' | translate ]]</h4>
+                </div>           
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <ul>
+                        <li ng-repeat="r in (recent | limitTo: 6)" class="running-text bold-text"><a ng-href="[[ r.link ]]">[[ r.url ]]</a></li>
+                    </ul>
+                </div>           
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
