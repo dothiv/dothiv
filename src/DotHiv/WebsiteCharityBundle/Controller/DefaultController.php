@@ -12,18 +12,16 @@ class DefaultController extends Controller
         // get request
         $request = $this->getRequest();
 
-        // check for the '_escaped_fragment_' parameter
-        if($request->query->has('_escaped_fragment_') === false) {
-            // we go ahead and return the regular index site with our angular app
-            return $this->render('DotHivWebsiteCharityBundle:Default:index.html.twig');
-        } else {
-            // we need to return a pre-rendered version of the requested site
-            $fragment = $request->query->get('_escaped_fragment_');
-            $language = $request->getPreferredLanguage();
+	$url1 = "http://" . $request->getHost() . $request->getUri();
+	$url2 = preg_replace('/\?_escaped_fragment_=/', '#!', $url1);
 
-            // TODO: check for the requested path in table of pre-rendered sites
-            // TODO: return pre-rendered html instead of dummy output
-            return new Response("This site should show a pre-rendered version of: '" . $fragment ."' in language $language.");
-        }
+	if($url1 === $url2){
+		// we go ahead and return the regular index site with our angular app
+		return $this->render('DotHivWebsiteCharityBundle:Default:index.html.twig');
+	} else {
+		// we need to return a pre-rendered version of the requested site
+		// TODO: return dom from db
+		return new Response("gbot_switch test. url: " . $url1 . " Locale:  " . $request->getPreferredLanguage());
+	}
     }
 }
