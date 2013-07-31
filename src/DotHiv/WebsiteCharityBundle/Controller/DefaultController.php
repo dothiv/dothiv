@@ -12,7 +12,7 @@ class DefaultController extends Controller
         // get request
         $request = $this->getRequest();
 
-	$url1 = "http://" . $request->getHost() . $request->getUri();
+	$url1 = $request->getUri();
 	$url2 = preg_replace('/\?_escaped_fragment_=/', '#!', $url1);
 
 	if($url1 === $url2){
