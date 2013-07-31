@@ -22,6 +22,21 @@ class Page extends Entity
     protected $url;
 
     /**
+     * @ORM\Column(type="string",length=2048)
+     */
+    protected $protocol;
+
+    /**
+     * @ORM\Column(type="string",length=2048)
+     */
+    protected $host;
+
+    /**
+     * @ORM\Column(type="string",length=2048)
+     */
+    protected $fragment;
+
+    /**
      * @ORM\Column(type="string",length=16)
      */
     protected $locale;
