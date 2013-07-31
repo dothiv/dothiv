@@ -10,6 +10,7 @@ angular.module('dotHIVApp.directives').directive("dhSelect", function($compile) 
                 model: '=model',
                 options: '=options',
                 label: '@label',
+                defaultlabel: '@defaultlabel',
                 assign: '@assign'
                },
         template: '<div class="dh-select">' +
@@ -53,7 +54,7 @@ angular.module('dotHIVApp.directives').directive("dhSelect", function($compile) 
 
             // get the label for an option
             $scope.getLabel = function(option) {
-                if (!angular.isDefined(option)) return;
+                if (!angular.isDefined(option)) return $scope.defaultlabel;
                 return $scope.label ? option[$scope.label] : option;
             };
 
