@@ -160,7 +160,7 @@ describe('dotHIVApp', function() {
 
         beforeEach(function() {
             element('.language-chooser > div > a').click();
-            element('.language-chooser li > a[dh-value="key"]').click();
+            element('.language-chooser li:last-child > a').click();
             expect(element('.language-chooser > div > a').text()).toEqual('Keys only');
         });
 
