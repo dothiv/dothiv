@@ -15,7 +15,7 @@ class DefaultController extends Controller
         // check for the '_escaped_fragment_' parameter
         if($request->query->has('_escaped_fragment_') === false) {
             // check which browser is on the other end
-            if (preg_match('/MSIE [234567]/', $this->getRequest()->headers->get('user-agent'))) {
+            if (preg_match('/MSIE [2345678]/', $this->getRequest()->headers->get('user-agent'))) {
                 // send a "sorry, no support" page
                 return $this->render('DotHivWebsiteCharityBundle:Default:nosupport.html.twig');
             } else {
