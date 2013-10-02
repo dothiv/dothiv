@@ -51,7 +51,8 @@ class BannerController extends FOSRestController {
         $form->bind($this->getRequest());
 
         if ($form->isValid()) {
-            // TODO: immediate association with domain?
+            // push configuration
+            $this->get('clickcounter')->setup($banner->getDomain(), $banner);
 
             // persist the new banner
             $em = $this->getDoctrine()->getManager();
@@ -89,6 +90,9 @@ class BannerController extends FOSRestController {
         $form->bind($this->getRequest());
 
         if ($form->isValid()) {
+            // push configuration
+            $this->get('clickcounter')->setup($banner->getDomain(), $banner);
+
             // persist the updated banner
             $em->persist($banner);
             $em->flush();
