@@ -34,4 +34,13 @@ class Entity
         return $this->id;
     }
 
+    /**
+     * Does *NOT* change the id
+     * Throws error if any attempt is made to change the id of this entity.
+     */
+    public function setId($id) {
+        if ($id != $this->id)
+            throw new \Exception("Tried to change id of entity $this");
+    }
+
 }

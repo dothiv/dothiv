@@ -16,6 +16,7 @@ class BannerType extends AbstractType
             ->add('language')
             ->add('position')
             ->add('position_alternative')
+            ->add('domain', 'entity_id', array('class' => 'DotHiv\BusinessBundle\Entity\Domain'))
         ;
     }
 

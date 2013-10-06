@@ -1,7 +1,11 @@
 parameters:
     clickcounter.class: DotHiv\BusinessBundle\Service\ClickCounterConfig
+    dns.class: DotHiv\BusinessBundle\Service\DnsConfig
 
 services:
+    dns:
+        class: %dns.class%
+        arguments: ["@mailer"]
     clickcounter:
         class: %clickcounter.class%
         arguments: ["@mailer"]

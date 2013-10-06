@@ -74,6 +74,13 @@ class Domain extends Entity
     protected $activeBanner;
 
     /**
+     * Whether this domain shall be forwarded to dothiv's servers.
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $dnsForward = false;
+
+    /**
      * The constructor
      */
     public function __construct()
@@ -216,5 +223,13 @@ class Domain extends Entity
      */
     public function getActiveBanner() {
         return $this->activeBanner;
+    }
+
+    public function getDnsForward() {
+        return $this->dnsForward;
+    }
+
+    public function setDnsForward($val) {
+        $this->dnsForward = $val;
     }
 }

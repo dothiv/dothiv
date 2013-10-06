@@ -149,7 +149,7 @@ class Banner extends Entity {
     public function setDomain($newDomain = null) {
         // remove this banner from current domain's list, if any
         if ($this->domain !== null) {
-            $this->domain->getDomains()->removeElement($this);
+            $this->domain->getBanners()->removeElement($this);
             if ($this->domain->getActiveBanner() === $this)
                 $this->domain->setActiveBanner(null);
         }

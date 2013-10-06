@@ -8,5 +8,6 @@ angular.module('dotHIVApp.services').factory('dothivDomainResource', function($r
         'getBanners': {method:'GET', isArray:true, params: {id:'@id', sub:'banners'}},
         'claim':      {method:'POST', params: {claims:'claims'}},
         'save':       {method:'POST', params: {id:'@id'}},
+        'update':     {method:'PUT', params: {id:'@id'}},
     });
 });
