@@ -144,12 +144,23 @@ class DomainController extends FOSRestController {
         if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $domain->getOwner()->getUsername()) {
 
             // apply form
+            $oldForward = $domain->getDnsForward();
             $form = $this->createForm(new DomainType(), $domain);
             $form->bind($this->getRequest());
 
             if ($form->isValid()) {
                 $em->persist($domain);
                 $em->flush();
+
+                // check if we need to update the DNS
+                if ($oldForward != $domain->getDnsForward()) {
+                    // DNS forward configuration changed
+                    if ($domain->getDnsForward())
+                        $this->get('dns')->forward($domain);
+                    else
+                        $this->get('dns')->reset($domain);
+                }
+
                 return null;
             }
 
