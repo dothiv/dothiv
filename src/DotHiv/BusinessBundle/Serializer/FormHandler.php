@@ -50,7 +50,7 @@ class FormHandler extends FormErrorHandler {
                 if (count($child->all()) > 0) {
                     $form[$child->getName()] = $this->convertFormToArray($visitor, $child, true);
                 } else {
-                    $form[$child->getName()] = $child->getData();
+                    $form[$child->getName()] = $child->getViewData();
                 }
             }
 
