@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Gregwar\FormBundle\GregwarFormBundle(),
             new DotHiv\BusinessBundle\DotHivBusinessBundle(),
             new DotHiv\APIBundle\DotHivAPIBundle(),
             new DotHiv\WebsiteCharityBundle\DotHivWebsiteCharityBundle(),

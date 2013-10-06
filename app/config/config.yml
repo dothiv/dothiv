@@ -87,14 +87,42 @@ fos_rest:
     body_listener: true
     format_listener: true
     view:
-        view_response_listener: 'force'
+#        default_engine: php
+        view_response_listener: force
+        force_redirects:
+            html: true
+#            xml: true
+        formats:
+            jsonp: true
+            json: true
+            xml: true
+            rss: false
+        templating_formats:
+            html: true
+        mime_types:
+            json: ['application/json', 'application/x-json' ]
+            jpg: 'image/jpeg'
+            png: 'image/png'
+        jsonp_handler: ~
+    body_listener: true
+    param_fetcher_listener: force
+    allowed_methods_listener: true
+    access_denied_listener:
+        json: true
     format_listener:
-        default_priorities:
-            - html
-            - json
-            - xml
-            - rss
-            - "*/*"
+        rules:
+            - { path: ^/api/, priorities: [json, xml], fallback_format: ~, prefer_extension: false }
+            - { path: ^/js/, priorities: [ js ] }
+            - { path: ^/css/, priorities: [ css ] }
+            - { path: ^/, priorities: [ html, json, xml ] }
+    routing_loader:
+        default_format: ~
+    exception:
+        codes:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+        messages:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
 
 # FOSUserBundle
 fos_user:
@@ -132,6 +160,9 @@ services:
             facebook: "@fos_facebook.api"
             userManager: "@fos_user.user_manager"
             validator: "@validator"
+
+# Gregwar's form
+gregwar_form: ~
 
 parameters:
     # Email addresses 

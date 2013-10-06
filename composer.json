@@ -26,7 +26,8 @@
         "nelmio/api-doc-bundle": "dev-master@dev",
         "gedmo/doctrine-extensions": "dev-master@dev",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "friendsofsymfony/facebook-bundle": "1.2.*"
+        "friendsofsymfony/facebook-bundle": "1.2.*",
+        "gregwar/form-bundle": "*@dev"
     },
     "scripts": {
         "post-install-cmd": [
