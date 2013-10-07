@@ -20,6 +20,11 @@ parameters:
     facebook_app_id:   1234
     facebook_app_secret: yourfacebooksecret
 
+    dns_reseller:      dd24_reseller
+    dns_password:      dd24_password
+    dns_cid:           dd24_cid
+    dns_nameserver:    dd24_nameserver
+
     #
     # PARAMETERS USED IN DEV MODE
     #

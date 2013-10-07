@@ -1,11 +1,15 @@
 parameters:
     clickcounter.class: DotHiv\BusinessBundle\Service\ClickCounterConfig
     dns.class: DotHiv\BusinessBundle\Service\DnsConfig
+    dns.reseller: %dns_reseller%
+    dns.password: %dns_password%
+    dns.cid: %dns_cid%
+    dns.nameserver: %dns_nameserver%
 
 services:
     dns:
         class: %dns.class%
-        arguments: ["@mailer"]
+        arguments: ["@service_container","@mailer"]
     clickcounter:
         class: %clickcounter.class%
         arguments: ["@mailer"]
