@@ -25,6 +25,10 @@ parameters:
     dns_cid:           dd24_cid
     dns_nameserver:    dd24_nameserver
 
+    clickcounter_auth_username: some_username
+    clickcounter_auth_password: some_password
+    clickcounter_base_url: https://somewhere.on.appspot.com
+
     #
     # PARAMETERS USED IN DEV MODE
     #

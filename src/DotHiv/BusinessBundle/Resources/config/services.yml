@@ -5,6 +5,9 @@ parameters:
     dns.password: %dns_password%
     dns.cid: %dns_cid%
     dns.nameserver: %dns_nameserver%
+    clickcounter.authorization.username: %clickcounter_auth_username%
+    clickcounter.authorization.password: %clickcounter_auth_password%
+    clickcounter.base_url: %clickcounter_base_url%
 
 services:
     dns:
@@ -12,4 +15,4 @@ services:
         arguments: ["@service_container","@mailer"]
     clickcounter:
         class: %clickcounter.class%
-        arguments: ["@mailer"]
+        arguments: ["@service_container","@templating","@translator","@mailer"]

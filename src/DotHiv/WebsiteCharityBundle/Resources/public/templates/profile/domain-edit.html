@@ -156,59 +156,64 @@
                     <tab active="tab3.active" disabled="!(step1.$valid && step2.$valid)" select="submit(tab3)">
                         <tab-heading>Finalisieren</tab-heading>
                         <div class="tab-content-container" style="font-style: normal;">
-                            <h3>
-                                <div class="row-fluid">
-                                    <div class="span1 text-center">
-                                        <i class="icon-greentick"></i>
+                            <div ng-show="!banner.$resolved">
+                                <p class="text-center"><dh-loader></dh-loader></p>
+                            </div>
+                            <div ng-show="banner.$resolved">
+                                <h3>
+                                    <div class="row-fluid">
+                                        <div class="span1 text-center">
+                                            <i class="icon-greentick"></i>
+                                        </div>
+                                        <div class="span11">
+                                            Die Einstellungen für [[ domainName ]] wurden erfolgreich gespeichert! Aktivieren Sie nun die Anzeige Ihres Banners:
+                                        </div>
                                     </div>
-                                    <div class="span11">
-                                        Die Einstellungen für [[ domainName ]] wurden erfolgreich gespeichert! Aktivieren Sie nun die Anzeige Ihres Banners:
-                                    </div>
-                                </div>
-                            </h3>
+                                </h3>
 
-                            <div class="row-fluid-colfix-well" style="position: relative;">
-                                <div class="row-fluid-colfix margin20px">
-                                    <div class="span6 well">
-                                        <p class="text-center"><img src="/bundles/websitebase/images/clickcounterdns.png" alt="" /></p>
-                                        <h3>Direkt aktivieren</h3>
-                                        <p>
-                                            Sed nibh leo, congue accumsan magna at, varius luctus ipsum. Fusce porta eget ligula quis vulputate. Nunc tellus augue, tempus et iaculis elementum, ultrices mattis turpis. Nulla facilisi. Vivamus cursus ante nisi, vel tincidunt erat pretium et.
-                                        </p>
-                                        <div class="overlay" ng-hide="domaineditbasic.$data.forwarding == 'true'">
-                                            <div class="circle82px circle-well circle-shadow">
-                                                <div class="circle-center">
-                                                    Nur möglich, wenn die Weiterleitung aktiviert ist.
+                                <div class="row-fluid-colfix-well" style="position: relative;">
+                                    <div class="row-fluid-colfix margin20px">
+                                        <div class="span6 well">
+                                            <p class="text-center"><img src="/bundles/websitebase/images/clickcounterdns.png" alt="" /></p>
+                                            <h3>Direkt aktivieren</h3>
+                                            <p>
+                                                Sed nibh leo, congue accumsan magna at, varius luctus ipsum. Fusce porta eget ligula quis vulputate. Nunc tellus augue, tempus et iaculis elementum, ultrices mattis turpis. Nulla facilisi. Vivamus cursus ante nisi, vel tincidunt erat pretium et.
+                                            </p>
+                                            <div class="overlay" ng-hide="domaineditbasic.$data.forwarding == 'true'">
+                                                <div class="circle82px circle-well circle-shadow">
+                                                    <div class="circle-center">
+                                                        Nur möglich, wenn die Weiterleitung aktiviert ist.
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div class="row-fluid">
+                                                <a class="offset6 span6 btn btn-primary" ng-click="dnsForward()">
+                                                    <span ng-show="activated==0">
+                                                        Jetzt aktivieren
+                                                    </span>
+                                                    <span ng-show="activated==1">
+                                                        <img src="/bundles/websitebase/images/loader-button.gif" alt="activating ..." />
+                                                    </span>
+                                                    <span ng-show="activated==2">
+                                                        aktiviert ✓
+                                                    </span>
+                                                </a>
+                                            </div>
                                         </div>
-                                        <div class="row-fluid">
-                                            <a class="offset6 span6 btn btn-primary" ng-click="dnsForward()">
-                                                <span ng-show="activated==0">
-                                                    Jetzt aktivieren
-                                                </span>
-                                                <span ng-show="activated==1">
-                                                    <img src="/bundles/websitebase/images/loader-button.gif" alt="activating ..." />
-                                                </span>
-                                                <span ng-show="activated==2">
-                                                    aktiviert ✓
-                                                </span>
-                                            </a>
+                                        <div class="span6 well">
+                                            <p class="text-center"><img src="/bundles/websitebase/images/clickcounterjs.png" alt="" /></p>
+                                            <h3>Code einbetten</h3>
+                                            <p>
+                                                Duis dapibus ullamcorper nunc sed condimentum. Morbi tincidunt odio odio, in ornare quam ultricies eu. Curabitur rutrum a neque eu mattis. Nulla purus dui, mattis quis libero sodales, ullamcorper mollis orci.
+                                            </p>
+                                            <pre>&lt;script src="https://dothiv-registry.appspot.com/static/banner.min.js" type="text/javascript"&gt;&lt;/script&gt;</pre>
+                                            <p>
+                                                Quisque a dolor a lacus suscipit congue nec ac ligula. Nulla ut sagittis neque, convallis convallis mauris. Morbi hendrerit mollis arcu, id dictum nulla tincidunt pharetra. Fusce vel tincidunt lorem.
+                                            </p>
                                         </div>
                                     </div>
-                                    <div class="span6 well">
-                                        <p class="text-center"><img src="/bundles/websitebase/images/clickcounterjs.png" alt="" /></p>
-                                        <h3>Code einbetten</h3>
-                                        <p>
-                                            Duis dapibus ullamcorper nunc sed condimentum. Morbi tincidunt odio odio, in ornare quam ultricies eu. Curabitur rutrum a neque eu mattis. Nulla purus dui, mattis quis libero sodales, ullamcorper mollis orci.
-                                        </p>
-                                        <pre>&lt;script src="banner.min.js" type="text/javascript"&gt;&lt;/script&gt;</pre>
-                                        <p>
-                                            Quisque a dolor a lacus suscipit congue nec ac ligula. Nulla ut sagittis neque, convallis convallis mauris. Morbi hendrerit mollis arcu, id dictum nulla tincidunt pharetra. Fusce vel tincidunt lorem.
-                                        </p>
-                                    </div>
+                                    <div class="circle28px circle-blue" ng-show="domaineditbasic.$data.forwarding == 'true'">oder</div>
                                 </div>
-                                <div class="circle28px circle-blue" ng-show="domaineditbasic.$data.forwarding == 'true'">oder</div>
                             </div>
 
                             <div class="tab-bottom-buttons">
