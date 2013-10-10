@@ -2,6 +2,8 @@
 
 namespace DotHiv\BusinessBundle\Service;
 
+use Doctrine\Common\Persistence\ObjectManager;
+
 use DotHiv\BusinessBundle\Entity\Banner;
 use DotHiv\BusinessBundle\Entity\Domain;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -30,11 +32,17 @@ class ClickCounterConfig implements IClickCounterConfig {
      */
     protected $templating;
 
-    public function __construct(ContainerInterface $container, EngineInterface $templating, Translator $translator, \Swift_Mailer $mailer) {
+    /**
+     * @var ObjectManager
+     */
+    protected $om;
+
+    public function __construct(ContainerInterface $container, EngineInterface $templating, Translator $translator, ObjectManager $om, \Swift_Mailer $mailer) {
         $this->container = $container;
         $this->templating = $templating;
         $this->translator = $translator;
         $this->mailer = $mailer;
+        $this->om = $om;
     }
 
     public function setup(Domain $domain, Banner $banner) {
@@ -61,7 +69,71 @@ class ClickCounterConfig implements IClickCounterConfig {
             ->setBody('');
         $this->mailer->send($message);
 
-        return $status >= 200 && $status <= 299;
+        if ($status < 200 || $status >= 300)
+            throw new ClickCounterException('reset of domain ' . $domain->getName() . ' messed up, server responded status ' . $status);
+    }
+
+    public function retrieveByDomain(Domain $domain) {
+        $this->updateDomain($domain);
+        $this->om->flush();
+    }
+
+    public function retrieveByDate(\DateTime $notSince) {
+        $repo = $this->om->getRepository('DotHivBusinessBundle:Domain');
+        $query = $repo->createQueryBuilder('d')
+                    ->where('d.lastUpdate <= :notSince')
+                    ->orWhere('d.lastUpdate is null')
+                    ->setParameter('notSince', $notSince)
+                    ->getQuery();
+        $domains = $query->getResult();
+        $fail = 0;
+        foreach($domains as $domain) {
+            try {
+                $this->updateDomain($domain);
+            } catch (ClickCounterException $ex) {
+                $fail++;
+            }
+        }
+        $this->om->flush();
+        return array(count($domains), $fail);
+    }
+
+    /**
+     * Read the domain values from the click counter API and
+     * update the $domain object.
+     *
+     * @param Domain $domain
+     * @throws ClickCounterException
+     */
+    private function updateDomain(Domain $domain) {
+        // retrieve information
+        list($status, $response) = $this->getConfig($domain->getName());
+
+        if ($status < 200 || $status >= 300)
+            throw new ClickCounterException('cannot retrieve domain ' . $domain->getName() . ', server responded status ' . $status);
+
+        $information = json_decode($response);
+
+        // save information
+        $domain->setClickcount($information->clickcount);
+    }
+
+    /**
+     * Contact the click counter API to get domain information.
+     *
+     * This function uses cURL to do a GET request to the /config/{domain name}
+     * API endpoint.
+     *
+     * @param unknown_type $domainname
+     */
+    private function getConfig($domainname) {
+        $ch = curl_init($this->container->getParameter('clickcounter.base_url') . '/config/' . $domainname);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getHeaders());
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return array($status, $response);
     }
 
     /**

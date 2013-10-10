@@ -27,4 +27,21 @@ interface IClickCounterConfig {
      */
     function reset(Domain $domain);
 
+    /**
+     * Retrieves information about the given domain from the banner/
+     * click counter cloud application.
+     *
+     * @param Domain $domain The domain to enquiry about.
+     */
+    function retrieveByDomain(Domain $domain);
+
+    /**
+     * Retrieves information about all domains that were not updated
+     * since the given date.
+     *
+     * @param \DateTime $notSince All domains that were updated for the
+     * last time before that date will be updated.
+     */
+    function retrieveByDate(\DateTime $notSince);
+
 }

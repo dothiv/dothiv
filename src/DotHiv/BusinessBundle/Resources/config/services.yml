@@ -15,4 +15,4 @@ services:
         arguments: ["@service_container","@mailer"]
     clickcounter:
         class: %clickcounter.class%
-        arguments: ["@service_container","@templating","@translator","@mailer"]
+        arguments: ["@service_container","@templating","@translator","@doctrine.orm.entity_manager","@mailer"]
