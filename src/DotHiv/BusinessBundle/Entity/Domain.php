@@ -81,6 +81,21 @@ class Domain extends Entity
     protected $dnsForward = false;
 
     /**
+     * The number of clicks counted for this domain. For the last update
+     * of this field, see $this->lastUpdate.
+     *
+     * @ORM\Column(type="integer")
+     */
+    protected $clickcount = 0;
+
+    /**
+     * Instant of the last update of $this->clickcount and related values.
+     *
+     * @ORM\Column(type="datetime",nullable=true)
+     */
+    protected $lastUpdate = null;
+
+    /**
      * The constructor
      */
     public function __construct()
@@ -231,5 +246,14 @@ class Domain extends Entity
 
     public function setDnsForward($val) {
         $this->dnsForward = $val;
+    }
+
+    /**
+     * Sets the click count and updates the lastUpdate value to now.
+     * @param int $val Current click count
+     */
+    public function setClickcount($val) {
+        $this->clickcount = $val;
+        $this->lastUpdate = new \DateTime();
     }
 }
