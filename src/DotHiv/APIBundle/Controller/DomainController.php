@@ -85,6 +85,7 @@ class DomainController extends FOSRestController {
      * )
      */
     public function postDomainsAction() {
+        // TODO: this function is debug only and should be protected or removed.
         // TODO: security concern: who is allowed to create new domains?
         $domain = new Domain();
 
@@ -92,22 +93,7 @@ class DomainController extends FOSRestController {
         $form->bind($this->getRequest());
 
         if ($form->isValid()) {
-            // generate a random claiming token
-            $claimingToken = $this->newRandomCode();
-            $domain->setClaimingToken($claimingToken);
-
-            // persist the new domain
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($domain);
-            $em->flush();
-
-            // send email
-            $message = \Swift_Message::newInstance()
-                ->setSubject($this->renderView('DotHivAPIBundle:Emails:DomainMailSubject.txt.twig', array('domain' => $domain)))
-                ->setFrom($this->container->getParameter('domain_email_sender_address'))
-                ->setTo($domain->getEmailAddressFromRegistrar())
-                ->setBody($this->renderView('DotHivAPIBundle:Emails:DomainMailBody.txt.twig', array('domain' => $domain)));
-            $this->get('mailer')->send($message);
+            $domain = $this->get('registration')->registered($domain->getName(), $domain->getEmailAddressFromRegistrar());
 
             // prepare response
             $response = $this->redirectView($this->generateUrl('get_domain', array('slug' => $domain->getId())), Codes::HTTP_CREATED);

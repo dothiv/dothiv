@@ -1,6 +1,7 @@
 parameters:
     clickcounter.class: DotHiv\BusinessBundle\Service\ClickCounterConfig
     dns.class: DotHiv\BusinessBundle\Service\DnsConfig
+    registration.class: DotHiv\BusinessBundle\Service\Registration
     dns.reseller: %dns_reseller%
     dns.password: %dns_password%
     dns.cid: %dns_cid%
@@ -16,3 +17,6 @@ services:
     clickcounter:
         class: %clickcounter.class%
         arguments: ["@service_container","@templating","@translator","@doctrine.orm.entity_manager","@mailer"]
+    registration:
+        class: %registration.class%
+        arguments: ["@service_container","@doctrine.orm.entity_manager","@mailer","@templating"]
