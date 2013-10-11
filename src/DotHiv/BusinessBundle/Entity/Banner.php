@@ -54,6 +54,7 @@ class Banner extends Entity {
      * The domain that displays this banner
      *
      * @ORM\ManyToOne(targetEntity="Domain",inversedBy="banners")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @Serializer\Expose
      */
     protected $domain;
