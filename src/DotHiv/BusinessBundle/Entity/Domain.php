@@ -85,6 +85,7 @@ class Domain extends Entity
      * of this field, see $this->lastUpdate.
      *
      * @ORM\Column(type="integer")
+     * @Serializer\Expose
      */
     protected $clickcount = 0;
 

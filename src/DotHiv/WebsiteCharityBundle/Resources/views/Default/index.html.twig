@@ -21,7 +21,7 @@
                             <li class="accountance dummy" ng-show="!isAuthenticated()"></li>
                             <li class="accountance" ng-show="!isAuthenticated()"><a class="hover-arrow" ng-click="login()">[[ 'header.menu.login' | translate ]]</a></li>
                             <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" ng-click="logout()">[[ 'header.menu.logout' | translate ]]</a></li>
-                            <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" href="#!/profile" ng-class="{ active: state.includes('=.profile') }">[[ 'header.menu.myprofile' | translate ]] ([[ security.user.username ]])</a></li>
+                            <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" href="#!/profile" ng-class="{ active: state.includes('=.profile') }">[[ 'header.menu.myprofile' | translate ]]</a></li>
                             <!-- <li class="accountance"><a class="hover-arrow" ng-click="">[[ 'header.menu.createproject' | translate ]]</a></li>  -->
                             <li class="accountance"><a class="hover-arrow" href="#!/mock" ng-class="{ active: state.includes('mock') }">[[ 'header.menu.mockaction' | translate ]]</a></li>
                             <li class="accountance grey">

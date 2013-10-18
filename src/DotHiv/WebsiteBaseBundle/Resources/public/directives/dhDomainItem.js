@@ -15,7 +15,7 @@ angular.module('dotHIVApp.directives').directive('dhDomainItem', function() {
                         '<div class="profile-summary-item-lower">' +
                             '<a href="" class="pull-right" ng-click="edit(domain.id)">Domain bearbeiten<div class="item-arrow"></div></a>' +
                             '<div class="pull-left item-icon"></div>' +
-                            '<span>223.342 Hits&nbsp;&nbsp;|&nbsp;&nbsp;Standard-Banner</span>' +
+                            '<span><span ng-bind="domain.clickcount"></span> Hits&nbsp;&nbsp;|&nbsp;&nbsp;Standard-Banner</span>' +
                         '</div>' +
                     '</div>' +
                 '</div>' +
