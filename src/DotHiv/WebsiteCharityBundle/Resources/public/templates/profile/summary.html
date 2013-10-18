@@ -1,5 +1,6 @@
 <div class="container profile-summary">
-    <div class="row">
+
+    <!-- <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-projects-heading">
             <a class="pull-right next2h2" href="#"><div class="heading-arrow"></div>Neues Projekt anlegen</a>
             <h2 class="pull-left">Projekte ([[ projects.length ]])</h2>
@@ -15,12 +16,13 @@
                 <dh-project-item project="p"></dh-project-item>
             </li>
         </ul>
-    </div>
+    </div> -->
+
     <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-domains-heading">
             <a class="pull-right next2h2" href="#"><div class="heading-arrow"></div>Neue Domain registrieren</a>
             <h2 class="pull-left">Registrierte Domains ([[ domains.length ]])</h2>
-            <a class="next2h2" href="#!/profile/domains"><div class="heading-arrow"></div>Alle Domains anzeigen</a>
+            <a class="next2h2" href="#!/profile/domains/list"><div class="heading-arrow"></div>Alle Domains anzeigen</a>
         </div>
     </div>
     <div ng-hide="domains.$resolved">
@@ -33,7 +35,8 @@
             </li>
         </ul>
     </div>
-    <div class="row">
+
+    <!-- <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-votes-heading">
             <h2 class="pull-left">Abgegebene Votes ([[ votes.length ]])</h2>
             <a class="next2h2" href="#!/profile/votes"><div class="heading-arrow"></div>Alle abgegebenen Votes anzeigen</a>
@@ -48,8 +51,9 @@
                 <dh-vote-item vote="v"></dh-vote-item>
             </li>
         </ul>
-    </div>
-    <div class="row">
+    </div> -->
+
+    <!-- <div class="row">
         <div class="span12 profile-summary-list-heading profile-summary-comments-heading">
             <h2 class="pull-left">Abgegebene Kommentare ([[ comments.length ]])</h2>
             <a class="next2h2" href="#!/profile/comments"><div class="heading-arrow"></div>Alle abgegebenen Kommentare anzeigen</a>
@@ -64,5 +68,6 @@
                 <dh-comment-item comment="c"></dh-comment-item>
             </li>
         </ul>
-    </div>
+    </div> -->
+
 </div>
