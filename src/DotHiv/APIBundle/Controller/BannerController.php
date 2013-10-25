@@ -2,7 +2,7 @@
 
 namespace DotHiv\APIBundle\Controller;
 
-use FOS\Rest\Util\Codes;
+use FOS\RestBundle\Util\Codes;
 use DotHiv\BusinessBundle\Entity\Banner;
 use DotHiv\BusinessBundle\Form\BannerType;
 use FOS\RestBundle\Controller\FOSRestController;

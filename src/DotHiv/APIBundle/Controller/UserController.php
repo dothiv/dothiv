@@ -8,7 +8,7 @@ use DotHiv\BusinessBundle\Form\UserRegisterType;
 use DotHiv\BusinessBundle\Form\UserEditType;
 use DotHiv\BusinessBundle\Form\ProjectType;
 use DotHiv\BusinessBundle\Entity\Project;
-use FOS\Rest\Util\Codes;
+use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;

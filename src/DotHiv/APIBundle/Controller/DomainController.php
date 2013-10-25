@@ -6,7 +6,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use DotHiv\BusinessBundle\Form\DomainType;
 use DotHiv\BusinessBundle\Entity\Domain;
 use DotHiv\BusinessBundle\Entity\User;
-use FOS\Rest\Util\Codes;
+use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\QueryParam;

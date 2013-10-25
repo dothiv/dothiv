@@ -2,7 +2,7 @@
 
 namespace DotHiv\APIBundle\Controller;
 
-use FOS\Rest\Util\Codes;
+use FOS\RestBundle\Util\Codes;
 use DotHiv\BusinessBundle\Form\ProjectType;
 use DotHiv\BusinessBundle\Entity\Project;
 use FOS\RestBundle\Controller\FOSRestController;
