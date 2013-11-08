@@ -111,6 +111,7 @@ fos_rest:
         json: true
     format_listener:
         rules:
+            - { path: ^/api/login/facebook, priorities: [ html ] }
             - { path: ^/api/, priorities: [json, xml], fallback_format: ~, prefer_extension: false }
             - { path: ^/js/, priorities: [ js ] }
             - { path: ^/css/, priorities: [ css ] }
