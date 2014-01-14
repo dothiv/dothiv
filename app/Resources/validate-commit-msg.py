@@ -46,3 +46,4 @@ with open(commit_file) as commit:
         sys.exit(1)
  
 sys.exit(0)
+
