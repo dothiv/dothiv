@@ -30,6 +30,11 @@ with open(commit_file) as commit:
         sys.stderr.write("\n - Refer commit guide: %s\n\n" % help_address)
         sys.exit(1)
     commit_type, commit_scope, commit_message = m.groups()
+
+    if commit_message[-1] == ".":
+        sys.stderr.write("\nMessage must not end with a dot (.)!\n")
+        sys.exit(1)
+    
     if commit_type not in valid_commit_types:
         sys.stderr.write("\nCommit type not in valid ones: %s\n" % ", ".join(valid_commit_types))
         sys.stderr.write("\n - Refer commit guide: %s\n\n" % help_address)
