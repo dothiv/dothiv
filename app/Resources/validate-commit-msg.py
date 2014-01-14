@@ -32,7 +32,11 @@ with open(commit_file) as commit:
     commit_type, commit_scope, commit_message = m.groups()
 
     if commit_message[-1] == ".":
-        sys.stderr.write("\nMessage must not end with a dot (.)!\n")
+        sys.stderr.write("\nCommit subject must not end with a dot (.)!\n")
+        sys.exit(1)
+
+    if re.match('^[A-Z]', commit_message):
+        sys.stderr.write("\nCommit subject must not have a capital first letter!\n")
         sys.exit(1)
     
     if commit_type not in valid_commit_types:
