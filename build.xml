@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="app.wakeupscreen.com" default="build-stable">
+    <target name="build"
+            depends="install-deps-latest,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpunit,phpcb,reset-deps"/>
+
+    <target name="build-stable"
+            depends="install-deps,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpunit,phpcb,reset-deps"/>
+
+    <target name="test" depends="phpunit"/>
+
+    <target name="clean" description="Cleanup build artifacts">
+        <delete dir="${basedir}/build/api"/>
+        <delete dir="${basedir}/build/code-browser"/>
+        <delete dir="${basedir}/build/coverage"/>
+        <delete dir="${basedir}/build/logs"/>
+        <delete dir="${basedir}/build/pdepend"/>
+    </target>
+
+    <target name="prepare" depends="clean" description="Prepare for build">
+        <mkdir dir="${basedir}/build/api"/>
+        <mkdir dir="${basedir}/build/code-browser"/>
+        <mkdir dir="${basedir}/build/coverage"/>
+        <mkdir dir="${basedir}/build/logs"/>
+        <mkdir dir="${basedir}/build/pdepend"/>
+    </target>
+
+    <target name="lint" description="Perform syntax check of sourcecode files">
+        <apply executable="php" failonerror="true">
+            <arg value="-l"/>
+            <fileset dir="${basedir}/src">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
+            <fileset dir="${basedir}/app">
+                <include name="*.php"/>
+                <include name="console"/>
+                <modified/>
+            </fileset>
+            <fileset dir="${basedir}/web">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
+        </apply>
+    </target>
+
+    <target name="phploc" description="Measure project size using PHPLOC">
+        <exec executable="${basedir}/bin/phploc">
+            <arg value="--log-csv"/>
+            <arg value="${basedir}/build/logs/phploc.csv"/>
+            <arg path="${basedir}/src"/>
+        </exec>
+    </target>
+
+    <target name="pdepend" description="Calculate software metrics using PHP_Depend">
+        <exec executable="${basedir}/bin/pdepend">
+            <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml"/>
+            <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg"/>
+            <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg"/>
+            <arg value="${basedir}/src"/>
+        </exec>
+    </target>
+
+    <target name="phpmd-ci"
+            description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
+        <exec executable="${basedir}/bin/phpmd">
+            <arg value="${basedir}/src"/>
+            <arg value="xml"/>
+            <arg value="${basedir}/build/phpmd.xml"/>
+            <arg value="--reportfile"/>
+            <arg value="${basedir}/build/logs/pmd.xml"/>
+        </exec>
+    </target>
+
+    <target name="phpcs-ci"
+            description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
+        <exec executable="${basedir}/bin/phpcs" output="/dev/null">
+            <arg value="--report=checkstyle"/>
+            <arg value="--standard=${basedir}/build/codingstandards/coderbyheart"/>
+            <arg value="--extensions=php"/>
+            <arg path="${basedir}/src"/>
+        </exec>
+    </target>
+
+    <target name="phpcs"
+            description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
+        <exec executable="${basedir}/bin/phpcs">
+            <arg value="--standard=${basedir}/build/codingstandards/preflight"/>
+            <arg value="--extensions=php"/>
+            <arg value="-s"/>
+            <arg path="${basedir}/src"/>
+        </exec>
+    </target>
+
+    <target name="phpcpd" description="Find duplicate code using PHPCPD">
+        <exec executable="${basedir}/bin/phpcpd">
+            <arg value="--log-pmd"/>
+            <arg value="${basedir}/build/logs/pmd-cpd.xml"/>
+            <arg path="${basedir}/src"/>
+        </exec>
+    </target>
+
+    <target name="phpunit" description="Run unit tests with PHPUnit" depends="sf2clean,setup-test-db,setup-test-files">
+        <exec executable="${basedir}/bin/phpunit" failonerror="true">
+            <arg value="-c"/>
+            <arg value="${basedir}/app"/>
+        </exec>
+    </target>
+
+    <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+        <exec executable="${basedir}/bin/phpcb">
+            <arg value="--log"/>
+            <arg path="${basedir}/build/logs"/>
+            <arg value="--source"/>
+            <arg path="${basedir}/src"/>
+            <arg value="--output"/>
+            <arg path="${basedir}/build/code-browser"/>
+        </exec>
+    </target>
+
+    <property name="test_db" value="${basedir}/app/test/test.db"/>
+    <available file="${test_db}" property="test_db.present"/>
+    <target name="drop-test-db" if="test_db.present">
+        <exec dir="${basedir}" executable="app/console" failonerror="true">
+            <arg line="--env=test doctrine:schema:drop --force"/>
+        </exec>
+    </target>
+    <target name="setup-test-db" depends="setupsymfony,drop-test-db">
+        <mkdir dir="${basedir}/app/test"/>
+        <exec dir="${basedir}" executable="app/console" failonerror="true">
+            <arg line="--env=test doctrine:schema:create"/>
+        </exec>
+    </target>
+
+    <target name="setup-test-files"/>
+
+    <target name="behat" depends="sf2clean,setup-test-db,setup-test-files">
+        <exec dir="${basedir}" executable="${basedir}/bin/behat" failonerror="true">
+            <arg line="-f junit --out ${basedir}/report"/>
+            <arg line="@DeinBusApiBundle"/>
+        </exec>
+        <exec dir="${basedir}" executable="${basedir}/bin/behat" failonerror="true">
+            <arg line="-f junit --out ${basedir}/report"/>
+            <arg line="@DeinBusPartnerVMVApiBundle"/>
+        </exec>
+    </target>
+
+    <property name="parameters.yml" value="${basedir}/app/config/parameters.yml"/>
+    <target name="setupsymfony" description="Configure symfony">
+        <copy file="${basedir}/app/config/parameters.yml.jenkins" tofile="${parameters.yml}" overwrite="true"/>
+    </target>
+
+    <target name="sf2clean" description="Clear symfony2 cache" depends="setupsymfony">
+        <exec executable="app/console" failonerror="true">
+            <arg value="--env=test"/>
+            <arg value="cache:clear"/>
+            <arg value="--no-warmup"/>
+        </exec>
+    </target>
+
+    <property name="composer" value="composer"/>
+    <target name="install-deps-latest"
+            description="Install the latest verions of the dependencies. Useful for detecting future problems." depends="setupsymfony">
+        <exec executable="${composer}" failonerror="true">
+            <arg value="update"/>
+            <arg value="--dev"/>
+            <arg value="--no-progress"/>
+            <arg value="--no-interaction"/>
+        </exec>
+    </target>
+
+    <target name="install-deps" description="Install the dependencies."
+            depends="reset-deps,setupsymfony">
+        <exec executable="${composer}" failonerror="true">
+            <arg value="install"/>
+            <arg value="--dev"/>
+            <arg value="--no-progress"/>
+            <arg value="--no-interaction"/>
+        </exec>
+    </target>
+
+    <target name="reset-deps">
+        <exec executable="git" failonerror="true">
+            <arg value="checkout"/>
+            <arg value="--"/>
+            <arg value="composer.lock"/>
+        </exec>
+    </target>
+
+    <target name="update-sf2-routes" description="Updates the static routes for apache servers">
+        <exec executable="bash">
+            <arg value="-c"/>
+            <arg value="app/console router:dump-apache | sed &quot;s/app\.php/app_dev\.php/&quot; > hosting/includes/sf2-routes-dev.conf"/>
+        </exec>
+    </target>
+</project>

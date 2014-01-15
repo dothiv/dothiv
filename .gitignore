@@ -5,7 +5,6 @@
 /app/bootstrap.php.cache
 /app/cache/*
 /app/logs/*
-/build/
 /vendor/
 /bin/
 /composer.phar
@@ -13,3 +12,10 @@
 .project
 .buildpath
 /app/config/parameters.yml
+/build/code-browser
+/build/pdepend
+/build/coverage
+/build/logs
+/build/api
+/app/test
+
