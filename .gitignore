@@ -12,5 +12,4 @@
 .settings
 .project
 .buildpath
-/composer.lock
 /app/config/parameters.yml
