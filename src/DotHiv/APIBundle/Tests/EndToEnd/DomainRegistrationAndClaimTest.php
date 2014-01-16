@@ -28,7 +28,7 @@ class DomainRegistrationAndClaimTestTest extends DatabaseRestWebTestCase {
 
         $this->assertEquals(201, $s);
         $this->assertEquals("test.hiv", $r->name);
-        $this->assertEquals(32, strlen($r->claimingToken));
+        $this->assertEquals(64, strlen($r->claimingToken));
 
         $domains = self::$em->getRepository('DotHivBusinessBundle:Domain')->findBy(array('claimingToken' => $r->claimingToken));
         $this->assertCount(1, $domains);
