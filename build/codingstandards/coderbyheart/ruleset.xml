@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<ruleset name="DeinBus.de">
+    <description>coderbyheart coding standard</description>
+
+    <!-- Ignore Unit tests -->
+    <exclude-pattern>*/Tests/*</exclude-pattern>
+    <exclude-pattern>*/Features/*</exclude-pattern>
+
+    <!-- Default CS is PSR2 -->
+    <rule ref="PSR2"/>
+
+    <!-- Source code comments -->
+    <rule ref="Squiz.Commenting.ClassComment"/>
+    <rule ref="Squiz.Commenting.DocCommentAlignment"/>
+    <rule ref="Squiz.Commenting.EmptyCatchComment"/>
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag"/>
+    <rule ref="Squiz.Commenting.InlineComment"/>
+
+    <!-- Misc -->
+    <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
+    <rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>
+    <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="240"/>
+        </properties>
+        <severity>4</severity>
+    </rule>
+
+    <!-- Warns about TODO+FIXME comments. -->
+    <rule ref="Generic.Commenting.Todo">
+        <severity>2</severity>
+    </rule>
+    <rule ref="Generic.Commenting.Fixme">
+        <severity>5</severity>
+    </rule>
+
+    <rule ref="Generic.Files.LineEndings"/>
+
+    <rule ref="Generic.Formatting.MultipleStatementAlignment"/>
+    <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
+
+    <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+
+    <rule ref="Generic.NamingConventions.ConstructorName"/>
+    <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+    <rule ref="PEAR.NamingConventions.ValidClassName"/>
+
+    <rule ref="Generic.PHP.DisallowShortOpenTag"/>
+    <rule ref="Generic.PHP.NoSilencedErrors"/>
+
+    <!-- PSR2 disallows inline control structures, but we do. -->
+    <rule ref="Generic.ControlStructures.InlineControlStructure">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+
+    <rule ref="Squiz.Classes.ClassDeclaration.CloseBraceSameLine">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Classes.ClassDeclaration.EndFileAfterCloseBrace">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Commenting.ClassComment.TagNotAllowed">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.NewlineBeforeOpenBrace">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+
+</ruleset>

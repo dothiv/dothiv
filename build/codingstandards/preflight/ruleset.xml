@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset name="DeinBus.de">
+    <description>Preflight standard for checking before a commit</description>
+
+    <!-- Default CS is coderbyheart -->
+    <rule ref="../coderbyheart"/>
+
+    <!-- Do not warn about TODO+FIXME comments. -->
+    <rule ref="Generic.Commenting.Todo">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Commenting.Fixme">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+
+</ruleset>
