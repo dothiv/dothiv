@@ -76,6 +76,7 @@
             description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
         <exec executable="${basedir}/bin/phpcs" output="/dev/null">
             <arg value="--report=checkstyle"/>
+            <arg value="--report-file=${basedir}/build/logs/checkstyle.xml"/>
             <arg value="--standard=${basedir}/build/codingstandards/coderbyheart"/>
             <arg value="--extensions=php"/>
             <arg path="${basedir}/src"/>
