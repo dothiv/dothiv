@@ -99,7 +99,7 @@ class UserRegistrationAndLoginTest extends DatabaseRestWebTestCase {
     public function testSecureResourceWhenNotLoggedIn() {
         list($r, $s) = self::jsonRequest('GET', '/api/users/' . self::$username);
 
-        $this->assertEquals(401, $s);
+        $this->assertEquals(403, $s);
         $this->assertEquals(null, $r);
     }
 
