@@ -109,7 +109,7 @@ class DomainRegistrationAndClaimTestTest extends DatabaseRestWebTestCase {
                 )
         );
 
-        $this->assertEquals(403, $s);
+        $this->assertEquals(401, $s);
 
         $this->login();
 
