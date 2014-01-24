@@ -194,4 +194,13 @@
             <arg value="app/console router:dump-apache | sed &quot;s/app\.php/app_dev\.php/&quot; > hosting/includes/sf2-routes-dev.conf"/>
         </exec>
     </target>
+
+    <target name="karma" description="Run AngularJS Tests">
+        <echo message="Running the tests ..." />
+        <exec executable="karma" failonerror="true">
+            <arg value="start" />
+            <arg value="${basedir}/src/DotHiv/WebsiteBaseBundle/Resources/test/config/jenkins-karma.conf.js" />
+        </exec>
+        <echo message="Tests done" />
+    </target>
 </project>
