@@ -108,8 +108,6 @@ fos_rest:
     body_listener: true
     param_fetcher_listener: force
     allowed_methods_listener: true
-    access_denied_listener:
-        json: true
     format_listener:
         rules:
             - { path: ^/api/login/facebook, priorities: [ html ] }
