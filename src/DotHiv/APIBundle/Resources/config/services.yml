@@ -25,9 +25,3 @@ services:
         tags: 
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 254 }
         arguments: [ '@event_dispatcher', %cors_options% ]
-
-    dot_hiv.api.access_denied_http_listener:
-        class: DotHiv\APIBundle\Listener\AccessDeniedHttpListener
-        tags:
-            - { name: kernel.event_subscriber }
-        arguments: [ %twig.exception_listener.controller%, '@logger' ]
