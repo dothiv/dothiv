@@ -79,7 +79,7 @@ module.exports = function (config) {
         // if true, it capture browsers, run tests and exit
         singleRun: true,
         junitReporter: {
-            outputFile: '../build/logs/karma-results.xml'
+            outputFile: '../../build/logs/karma-results.xml'
         }
     });
 };
