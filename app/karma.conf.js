@@ -22,15 +22,12 @@ module.exports = function (config) {
             // WebsiteCharityBundle
             'WebsiteCharityBundle/Resources/public/app.js',
             'WebsiteCharityBundle/Resources/public/**/*.js',
-            'WebsiteCharityBundle/Resources/test/unit/**/*.js',
             'WebsiteCharityBundle/Resources/test/e2e/**/*.js',
             // WebsiteCompanyBundle
             'WebsiteCompanyBundle/Resources/public/app.js',
             'WebsiteCompanyBundle/Resources/public/**/*.js',
-            'WebsiteCompanyBundle/Resources/test/unit/**/*.js',
             'WebsiteCompanyBundle/Resources/test/e2e/**/*.js'
         ],
-
 
         // list of files to exclude
         exclude: [
