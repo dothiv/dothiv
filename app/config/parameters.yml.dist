@@ -36,3 +36,7 @@ parameters:
 
     # use this directive to set the recipient of local mail
     luser:  your_unix_user_name
+
+    # Node and modules
+    node_bin: /usr/bin/node
+    node_modules: %kernel.root_dir%/../node_modules
