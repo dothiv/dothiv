@@ -161,7 +161,8 @@
 
     <property name="composer" value="composer"/>
     <target name="install-deps-latest"
-            description="Install the latest verions of the dependencies. Useful for detecting future problems." depends="setupsymfony">
+            description="Install the latest verions of the dependencies. Useful for detecting future problems."
+            depends="setupsymfony">
         <exec executable="${composer}" failonerror="true">
             <arg value="update"/>
             <arg value="--dev"/>
@@ -170,8 +171,7 @@
         </exec>
     </target>
 
-    <property name="npm" value="npm"/>
-    <target name="install-deps" description="Install the dependencies."
+    <target name="install-deps-symfony" description="Install the required symfony packages."
             depends="reset-deps,setupsymfony">
         <exec executable="${composer}" failonerror="true">
             <arg value="install"/>
@@ -179,6 +179,13 @@
             <arg value="--no-progress"/>
             <arg value="--no-interaction"/>
         </exec>
+    </target>
+
+    <target name="install-deps" description="Install all required dependencies."
+            depends="install-deps-node,install-deps-symfony" />
+
+    <property name="npm" value="npm"/>
+    <target name="install-deps-node" description="Install required node packages">
         <exec executable="${npm}" failonerror="true">
             <arg value="install"/>
         </exec>
@@ -199,12 +206,12 @@
         </exec>
     </target>
 
-    <target name="karma" description="Run AngularJS Tests" depends="install-deps">
-        <echo message="Running the tests ..." />
+    <target name="karma" description="Run AngularJS Tests" depends="install-deps-node">
+        <echo message="Running the tests ..."/>
         <exec executable="${basedir}/node_modules/karma/bin/karma" failonerror="true">
-            <arg value="start" />
-            <arg value="${basedir}/src/DotHiv/WebsiteBaseBundle/Resources/test/config/jenkins-karma.conf.js" />
+            <arg value="start"/>
+            <arg value="${basedir}/src/DotHiv/WebsiteBaseBundle/Resources/test/config/jenkins-karma.conf.js"/>
         </exec>
-        <echo message="Tests done" />
+        <echo message="Tests done"/>
     </target>
 </project>
