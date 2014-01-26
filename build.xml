@@ -206,10 +206,10 @@
         </exec>
     </target>
 
-    <target name="karma" description="Run AngularJS Tests" depends="prepare,install-deps-node">
+    <target name="karma-jasmine" description="Run AngularJS Unit Tests" depends="prepare,install-deps-node">
         <exec executable="${basedir}/node_modules/karma/bin/karma" failonerror="true">
             <arg value="start"/>
-            <arg value="${basedir}/app/karma.conf.js"/>
+            <arg value="${basedir}/app/karma-jasmine.conf.js"/>
         </exec>
     </target>
 </project>
