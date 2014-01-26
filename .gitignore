@@ -19,4 +19,4 @@
 /build/logs
 /build/api
 /app/test
-
+/node_modules
