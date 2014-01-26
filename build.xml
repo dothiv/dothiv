@@ -170,6 +170,7 @@
         </exec>
     </target>
 
+    <property name="npm" value="npm"/>
     <target name="install-deps" description="Install the dependencies."
             depends="reset-deps,setupsymfony">
         <exec executable="${composer}" failonerror="true">
@@ -177,6 +178,9 @@
             <arg value="--dev"/>
             <arg value="--no-progress"/>
             <arg value="--no-interaction"/>
+        </exec>
+        <exec executable="${npm}" failonerror="true">
+            <arg value="install"/>
         </exec>
     </target>
 
@@ -195,9 +199,9 @@
         </exec>
     </target>
 
-    <target name="karma" description="Run AngularJS Tests">
+    <target name="karma" description="Run AngularJS Tests" depends="install-deps">
         <echo message="Running the tests ..." />
-        <exec executable="karma" failonerror="true">
+        <exec executable="${basedir}/node_modules/karma/bin/karma" failonerror="true">
             <arg value="start" />
             <arg value="${basedir}/src/DotHiv/WebsiteBaseBundle/Resources/test/config/jenkins-karma.conf.js" />
         </exec>
