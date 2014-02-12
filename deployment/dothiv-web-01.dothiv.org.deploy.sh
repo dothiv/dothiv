@@ -63,13 +63,24 @@ echo ""
 echo "# npm install ..."
 npm install
 
-echo ""
-V=`date +%s`
-echo "# Updating assets_version to $V"
-sed -i -r -e "s/(\W+)assets_version:(\W+)[^\n]+/\1assets_version:\2$V/" app/config/parameters.yml
-echo "# Updating assets"
-app/console --env=$ENV assets:install --symlink
-app/console --env=$ENV assetic:dump
+# Scans the dir in Arg $1 and finds the file with the latest modification time
+function findLatestAsset {
+    echo `find $1 -type f -name \*.css -o -type f -name \*.js -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "`
+}
+
+LATESTSRC=$(findLatestAsset src/)
+LATESTCACHE=$(findLatestAsset web/)
+
+if [ $LATESTSRC -nt $LATESTCACHE ]
+then
+    echo ""
+    V=`date +%s`
+    echo "# Updating assets_version to $V"
+    sed -i -r -e "s/(\W+)assets_version:(\W+)[^\n]+/\1assets_version:\2$V/" app/config/parameters.yml
+    echo "# Updating assets"
+    app/console --env=$ENV assets:install --symlink
+    app/console --env=$ENV assetic:dump
+fi
 
 echo ""
 echo "# Deactivating maintenance page ..."
