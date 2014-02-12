@@ -42,7 +42,8 @@ cd $BASEPATH
 
 ln -sf maintenance.php web/index.php
 
-# We could also do a git reset --hard or git stash here…
+# We could also do a git reset --hard here…
+git stash
 git pull
 
 app/console --env=$ENV cache:clear
