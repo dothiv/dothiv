@@ -40,7 +40,7 @@ echo "Updating $BASEPATH …"
 
 cd $BASEPATH
 
-ln -sf maintenance.php web/index.php
+ln -sfv maintenance.php web/index.php
 
 # We could also do a git reset --hard here…
 git stash
@@ -56,7 +56,7 @@ npm install
 app/console --env=$ENV assets:install --symlink
 app/console --env=$ENV assetic:dump
 
-ln -sf app.php web/index.php
+ln -sfv app.php web/index.php
 
-rm $UPDATEFLAG
-rm $UPDATELOCK
+rm -v $UPDATEFLAG
+rm -v $UPDATELOCK
