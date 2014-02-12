@@ -34,33 +34,33 @@ then
   exit -2
 fi
 
-echo "# Updating $BASEPATH …"
+echo "# Updating $BASEPATH ..."
 cd $BASEPATH
 
 echo ""
-echo "# Writing lock file …"
+echo "# Writing lock file ..."
 echo $UPDATELOCK
 echo `date '+%Y-%m-%d %H:%M:%S'` > $UPDATELOCK
 
 echo ""
-echo "# Activating maintenance page…"
+echo "# Activating maintenance page ..."
 ln -sfv maintenance.php web/index.php
 
 echo ""
-echo "# Stashing changes …"
-# We could also do a git reset --hard here…
+echo "# Stashing changes ..."
+# We could also do a git reset --hard here...
 git stash
-echo "# Pulling …"
+echo "# Pulling ..."
 git pull
 
 echo ""
 app/console --env=$ENV cache:clear
 
 echo ""
-echo "# composer install …"
+echo "# composer install ..."
 /var/lib/jenkins/bin/composer.phar install
 echo ""
-echo "# npm install …"
+echo "# npm install ..."
 npm install
 
 echo ""
@@ -72,11 +72,11 @@ app/console --env=$ENV assets:install --symlink
 app/console --env=$ENV assetic:dump
 
 echo ""
-echo "# Deactivating maintenance page…"
+echo "# Deactivating maintenance page ..."
 ln -sfv app.php web/index.php
 
 echo ""
-echo "# Removing update flag and lock file …"
+echo "# Removing update flag and lock file ..."
 rm -v $UPDATEFLAG
 rm -v $UPDATELOCK
 
