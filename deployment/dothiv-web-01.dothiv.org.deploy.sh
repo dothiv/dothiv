@@ -42,6 +42,9 @@ cd $BASEPATH
 
 ln -sf maintenance.php web/index.php
 
+# We could also do a git reset --hard or git stash here…
+git pull
+
 app/console --env=$ENV cache:clear
 
 V=`date +%s`; sed -i -r -e "s/(\W+)assets_version:(\W+)[^\n]+/\1assets_version:\2$V/" app/config/parameters.yml
