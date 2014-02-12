@@ -34,29 +34,51 @@ then
   exit -2
 fi
 
-echo `date '+%Y-%m-%d %H:%M:%S'` > $UPDATELOCK
-
-echo "Updating $BASEPATH …"
-
+echo "# Updating $BASEPATH …"
 cd $BASEPATH
 
+echo ""
+echo "# Writing lock file …"
+echo $UPDATELOCK
+echo `date '+%Y-%m-%d %H:%M:%S'` > $UPDATELOCK
+
+echo ""
+echo "# Activating maintenance page…"
 ln -sfv maintenance.php web/index.php
 
+echo ""
+echo "# Stashing changes …"
 # We could also do a git reset --hard here…
 git stash
+echo "# Pulling …"
 git pull
 
+echo ""
 app/console --env=$ENV cache:clear
 
-V=`date +%s`; sed -i -r -e "s/(\W+)assets_version:(\W+)[^\n]+/\1assets_version:\2$V/" app/config/parameters.yml
-
+echo ""
+echo "# composer install …"
 /var/lib/jenkins/bin/composer.phar install
+echo ""
+echo "# npm install …"
 npm install
 
+echo ""
+V=`date +%s`
+echo "# Updating assets_version to $V"
+sed -i -r -e "s/(\W+)assets_version:(\W+)[^\n]+/\1assets_version:\2$V/" app/config/parameters.yml
+echo "# Updating assets"
 app/console --env=$ENV assets:install --symlink
 app/console --env=$ENV assetic:dump
 
+echo ""
+echo "# Deactivating maintenance page…"
 ln -sfv app.php web/index.php
 
+echo ""
+echo "# Removing update flag and lock file …"
 rm -v $UPDATEFLAG
 rm -v $UPDATELOCK
+
+echo ""
+echo "# Done."
