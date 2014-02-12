@@ -21,10 +21,10 @@
 <body>
   <h1>Service Temporarily Unavailable</h1>
   <p>Sorry! We are upgrading our site.</p>
-  <p>In the meantime check out this beautiful pony:<br><img src="http://24.media.tumblr.com/63a0f448c5857ca8429d0e89519b412c/tumblr_mkbtnuqWwn1rl22k3o1_500.gif"></p>
+  <p>In the meantime check out this beautiful pony:<br><img src="//24.media.tumblr.com/63a0f448c5857ca8429d0e89519b412c/tumblr_mkbtnuqWwn1rl22k3o1_500.gif"></p>
   
   <p><small>This page will reload after <?php echo $retry; ?> seconds.</small></p>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
   <script type="text/javascript">
     if (!window.location.hash.length > 0) return; 
     $(function() {
