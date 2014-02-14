@@ -1,0 +1,9 @@
+{
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/dothiv/dothiv.git"
+    },
+    "dependencies": {
+        "less": "~1.6.1"
+    }
+}
