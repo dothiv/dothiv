@@ -1,162 +1,516 @@
 {
-    "header":
-    {
-        "menu":
-        {
-            "logout": "Log out",
-            "login": "Sign in",
-            "myprofile": "My Profile",
-            "createproject": "Add a Project",
-            "reportabuse": "Report Abuse",
-            "mockaction": "Mock Actions"
-        },
-        "bar":
-        {
-            "project": "Projects",
-            "aboutHIV": "About dotHIV",
-            "registerurl": "register Domain"
+  "Code": "Text Englisch",
+  "aaaaa": {
+    "this": {
+      "code": {
+        "is": {
+          "on": {
+            "top": "hello"
+          }
         }
-    },
-    "login":
-    {
-        "form":
-        {
-            "title": "Log in",
-            "text": "Welcome to dotHIV. Please log in.",
-            "submit": "Log in",
-            "passwordrecovery": "recover your password",
-            "username":
-            {
-                "label": "Email address",
-                "placeholder": "Your email address",
-                "tooltip":
-                {
-                    "default": "Please type in your email address",
-                    "invalid":
-                    {
-                        "email": "Sorry, no valid email address",
-                        "required": "Please enter your email address"
-                    }
-                }
-            },
-            "password":
-            {
-                "label": "Password",
-                "placeholder": "",
-                "tooltip":
-                {
-                    "default": "",
-                    "invalid":
-                    {
-                        "required": "Please enter your password"
-                    }
-                }
-            },
-            "thirdparty":
-            {
-                "title": "Login with ...",
-                "facebook":
-                {
-                    "button": "Facebook"
-                },
-                "twitter":
-                {
-                    "button": "Twitter"
-                },
-                "gplus":
-                {
-                    "button": "Google Plus"
-                }
-            }
-        }
-    },
-    "registration":
-    {
-        "form":
-        {
-            "title": "Sign up for dotHIV",
-            "text": "It's easy to get an account! Just use this form.",
-            "submit": "sign up now",
-            "name":
-            {
-                "label": "Your Name",
-                "placeholder": "Here goes your name",
-                "tooltip":
-                {
-                    "default": "Please type in your name",
-                    "invalid":
-                    {
-                        "required": "You need to tell us your name"
-                    }
-                }
-            },
-            "surname":
-            {
-                "label": "Your Last Name",
-                "placeholder": "Here goes your last name",
-                "tooltip":
-                {
-                    "default": "Please type in your last name",
-                    "invalid":
-                    {
-                        "required": "You need to tell us your last name"
-                    }
-                }
-            },
-            "email":
-            {
-                "label": "Your Email Address",
-                "placeholder": "yourname@gmail.com",
-                "tooltip":
-                {
-                    "default": "Please type in your address",
-                    "invalid":
-                    {
-                        "required": "We need your email address to contact you",
-                        "email": "Sorry, this is not a valid email address"
-                    }
-                }
-            },
-            "password":
-            {
-                "label": "Your password",
-                "placeholder": "used for login on this page",
-                "tooltip":
-                {
-                    "default": "a safe password uses upper- and lowercase characters as well as digits",
-                    "invalid":
-                    {
-                        "required": "You'll need a password to login ..."
-                    }
-                }
-            },
-            "passwordrepeat":
-            {
-                "label": "Again, your password",
-                "placeholder": "",
-                "tooltip":
-                {
-                    "default": "",
-                    "invalid":
-                    {
-                        "required": "please provider your password a second time",
-                        "repeat": "this password doesn't match the one provided above"
-                    }
-                }
-            },
-            "agreement": "I agree to the terms of use"
-        }
-    },
-    "home":
-    {
-        "about":
-        {
-            "oneclickheadline": "Click",
-            "voteheadline": "Vote",
-            "shareheadline": "Share",
-            "monitorheadline": "Video:",
-            "monitortext": "The idea in 111 seconds",
-            "arrowtext": "Sign in now"
-        }
+      }
     }
+  },
+  "header": {
+    "bar": {},
+    "menu": {},
+    "pinkbar": {}
+  },
+  "home": {
+    "pinkbar": {
+      "popover": {}
+    },
+    "about": {
+      "oneclick": {},
+      "vote": {},
+      "share": {}
+    },
+    "who": {},
+    "vote": {},
+    "firms": {},
+    "quotes": {},
+    "partners": {},
+    "help": {
+      "contact": {
+        "press": {},
+        "job": {},
+        "andere": {},
+        "feedback": {},
+        "address": {},
+        "impressum": {},
+        "use": {},
+        "data": {}
+      }
+    }
+  },
+  "footer": {
+    "adress": {},
+    "navi": {},
+    "social": {}
+  },
+  "about": {
+    "breadcrumb": {},
+    "nav": {},
+    "mission": {},
+    "goals": {},
+    "contribution": {},
+    "AIDS": {
+      "facts": {}
+    },
+    "whoisbehind": {
+      "manifesto": {}
+    },
+    "concept": {},
+    "usage": {},
+    "moneyusage": {},
+    "history": {},
+    "quotes": {
+      "quote1": {},
+      "quote2": {},
+      "quote3": {},
+      "quote4": {},
+      "quote5": {},
+      "quote6": {},
+      "quote7": {},
+      "quote8": {},
+      "quote9": {},
+      "quote10": {},
+      "quote11": {},
+      "quote12": {},
+      "quote13": {},
+      "quote14": {},
+      "quote15": {},
+      "quotes15": {}
+    },
+    "qoutes": {
+      "quote5": {}
+    },
+    "fororg": {
+      "headline": "dotHIV for the HIV response",
+      "charitydoamin": {},
+      "charitydomain": {},
+      "network": {
+        "org1": {},
+        "org2": {},
+        "org3": {},
+        "org4": {},
+        "org5": {},
+        "org6": {},
+        "org7": {},
+        "org8": {},
+        "org9": {},
+        "org10": {},
+        "org11": {},
+        "org12": {},
+        "org13": {},
+        "org14": {},
+        "org15": {},
+        "org16": {},
+        "org17": {},
+        "org18": {},
+        "org19": {},
+        "org20": {},
+        "org21": {},
+        "org22": {},
+        "org23": {},
+        "org24": {}
+      }
+    },
+    "guidelines": {},
+    "foroorg": {
+      "network": {}
+    },
+    "forrorg": {
+      "network": {
+        "org2": {}
+      }
+    },
+    "whosbehind": {},
+    "team": {
+      "association": {
+        "secondheadline": {},
+        "member1": {
+          "left": {}
+        },
+        "member2": {
+          "left": {}
+        },
+        "member3": {
+          "left": {}
+        },
+        "intern": {
+          "left": {}
+        }
+      },
+      "assocaition": {
+        "member1": {
+          "left": {}
+        }
+      },
+      "associaton": {
+        "intern": {
+          "left": {
+            "affiliation": "Intern"
+          }
+        }
+      },
+      "registry": {
+        "secondheadline": {
+          "right": "Registry"
+        },
+        "member1": {
+          "right": {}
+        },
+        "member2": {
+          "right": {}
+        },
+        "member3": {
+          "right": {}
+        },
+        "member4": {
+          "right": {},
+          "affiliation": "Sales & Marketing"
+        }
+      },
+      "regsitry": {
+        "member3": {
+          "right": {}
+        }
+      },
+      "communication": {
+        "member1": {},
+        "member2": {},
+        "member3": {}
+      }
+    },
+    "partnersupporter": {},
+    "partner": {
+      "thjnk": {},
+      "aidshilfe": {},
+      "afilias": {},
+      "keysystems": {},
+      "moniker": {}
+    },
+    "supporter": {
+      "atlassian": {},
+      "dotzon": {},
+      "elementc": {},
+      "engarde": {},
+      "fischerppelt": {},
+      "github": {},
+      "google": {},
+      "jovoto": {},
+      "change": {},
+      "liga01": {},
+      "loved": {},
+      "nccgroup": {},
+      "nhb": {},
+      "podio": {},
+      "positivesingles": {},
+      "refinedwiki": {},
+      "sedo": {},
+      "shareifyoulike": {},
+      "swipe": {},
+      "charity": {},
+      "uniteddoamin": {},
+      "universal": {},
+      "youtube": {},
+      "zakk": {}
+    },
+    "expertpool": {},
+    "board": {
+      "bernd": {},
+      "lars": {},
+      "jan": {
+        "text": "Jans long experience as a tax adviser and financial auditor is of great use to us again and again. He has been active in the social sector for years at organizations such as NestWerk e.V. and Hamburg Leuchtfeuer."
+      }
+    },
+    "association": {},
+    "heavystuff": {
+      "organization": {},
+      "status": {
+        "download2012": {},
+        "download2013": {}
+      },
+      "charter": {},
+      "financials": {},
+      "registry": {},
+      "resistry": {}
+    },
+    "getactive": {
+      "jobs": {},
+      "howto": {
+        "becomemember": {},
+        "ambassador": {},
+        "campus": {},
+        "activator": {}
+      }
+    },
+    "getactice": {
+      "howto": {
+        "ambassador": {}
+      }
+    },
+    "getacticve": {
+      "howto": {
+        "ambassador": {}
+      }
+    },
+    "newsletter": {},
+    "news": {
+      "socialmedia": {}
+    }
+  },
+  "aboute": {
+    "usage": {}
+  },
+  "login": {
+    "adress": {},
+    "socialmedia": {},
+    "facebook": {},
+    "twitter": {},
+    "google": {},
+    "registartion": {},
+    "registration": {
+      "adress": {}
+    },
+    "registation": {}
+  },
+  "profile": {
+    "overview": {
+      "nav": {
+        "aboutme": {}
+      },
+      "header": {
+        "overview": {},
+        "changeprofilee": {},
+        "changeproject": {},
+        "changedomain": {},
+        "logout": {}
+      },
+      "projects": {},
+      "project": {},
+      "domain": {},
+      "votes": {},
+      "comments": {},
+      "kommentare": {}
+    },
+    "aboutme": {},
+    "project": {
+      "overview": {},
+      "news": {},
+      "edit": {}
+    },
+    "projects": {
+      "profile": {},
+      "domains": {},
+      "logout": {}
+    }
+  },
+  "pofil": {
+    "overview": {
+      "nav": {
+        "project": {}
+      }
+    }
+  },
+  "project": {
+    "adjust": {
+      "project": {
+        "overview": {},
+        "profile": {},
+        "domains": {},
+        "logout": {},
+        "new": {},
+        "back": {},
+        "next": {}
+      },
+      "overview": {},
+      "profile": {},
+      "domains": {},
+      "logout": {},
+      "headline": {},
+      "wie": {},
+      "contactperson": {
+        "project": {},
+        "overview": {},
+        "profile": {},
+        "domains": {},
+        "logout": {},
+        "new": {}
+      },
+      "projectinfos": {
+        "overview": {},
+        "profile": {},
+        "domains": {},
+        "logout": {},
+        "new": {},
+        "lmoney": {},
+        "back": {},
+        "next": {}
+      },
+      "projectinfo": {},
+      "infos": {
+        "overview": {},
+        "profile": {},
+        "domains": {},
+        "logout": {},
+        "new": {},
+        "actionbox": {}
+      },
+      "info": {
+        "actionbox": {}
+      },
+      "finalize": {
+        "overview": {},
+        "profile": {},
+        "domains": {},
+        "logout": {},
+        "headline": {},
+        "preview": {},
+        "send": {},
+        "alternativ": {
+          "new": {}
+        },
+        "thankyou": {},
+        "feedback": {},
+        "back": {}
+      },
+      "projectpreview": {}
+    },
+    "einstellung": {
+      "infos": {
+        "back": {},
+        "next": {}
+      }
+    }
+  },
+  "domain": {
+    "administer": {
+      "overview": {},
+      "profile": {},
+      "project": {},
+      "logout": {},
+      "back": {},
+      "headline": {},
+      "click": {
+        "basic": {},
+        "premium": {}
+      },
+      "differentdoamain": {},
+      "button": {},
+      "developer": {
+        "overview": {},
+        "profile": {},
+        "project": {},
+        "logout": {},
+        "counter": {},
+        "button": {},
+        "code": {},
+        "back": {}
+      },
+      "more": {},
+      "step1": {
+        "overview": {},
+        "profile": {},
+        "project": {},
+        "logout": {},
+        "config": {
+          "forwarding": {}
+        },
+        "back": {},
+        "next": {}
+      },
+      "step2": {
+        "overview": {},
+        "profile": {},
+        "project": {},
+        "logout": {},
+        "config": {},
+        "back": {},
+        "save": {}
+      },
+      "finalize": {
+        "overview": {},
+        "profile": {},
+        "project": {},
+        "logout": {},
+        "einstellung": {},
+        "moeglichkeit": {},
+        "download": {},
+        "back": {}
+      },
+      "premium": {
+        "step1": {
+          "overview": {},
+          "profile": {},
+          "project": {},
+          "logout": {},
+          "config": {
+            "example": {}
+          },
+          "back": {},
+          "next": {}
+        },
+        "step2": {
+          "overview": {},
+          "profile": {},
+          "project": {},
+          "logout": {},
+          "config": {
+            "fowarding": {}
+          },
+          "back": {
+            "pay": {}
+          }
+        },
+        "step3": {
+          "overview": {},
+          "profile": {},
+          "project": {},
+          "logout": {},
+          "payment": {
+            "paypal": {}
+          },
+          "back": {},
+          "next": {}
+        },
+        "step": {
+          "payment": {}
+        },
+        "finalize": {
+          "overview": {},
+          "profile": {},
+          "project": {},
+          "logout": {},
+          "options": {},
+          "download": {},
+          "back": {}
+        }
+      }
+    },
+    "erwalten": {
+      "differentdomain": {}
+    },
+    "verwaltung": {
+      "premium": {
+        "step2": {
+          "back": {}
+        }
+      }
+    }
+  },
+  "domainverwalten": {
+    "finalisiereb": {}
+  },
+  "domian": {
+    "administer": {
+      "premium": {
+        "step": {}
+      },
+      "developer": {
+        "counter": {}
+      }
+    }
+  }
 }
