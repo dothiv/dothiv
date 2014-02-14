@@ -38,7 +38,7 @@ angular.module('dotHIVApp.controllers').controller('LoginDialogController', ['$s
         };
 
         $scope.thirdparty = function(url) {
-            var popup = $window.open(url, 'thirdpartyLogin', 'width=580,height=200,location=no,menubar=no', false);
+            var popup = $window.open($window.location.pathname + url, 'thirdpartyLogin', 'width=580,height=200,location=no,menubar=no', false);
             $window.addEventListener('message', receiveMessage, false);
         }
 
