@@ -63,13 +63,20 @@ echo ""
 echo "# npm install ..."
 npm install
 
-# Scans the dir in Arg $1 and finds the file with the latest modification time
-function findLatestAsset {
-    echo `find $1 -type f -name \*.css -o -type f -name \*.js -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "`
+# Scans the src dir and finds the js or css file with the latest modification time
+function findLatestSrc {
+    echo `find src/ -type f -name \*.css -o -type f -name \*.js -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "`
 }
 
-LATESTSRC=$(findLatestAsset src/)
-LATESTCACHE=$(findLatestAsset web/)
+# Scans the web dir and finds js or css file with the latest modification time
+# It specifically searches for the minified files as the other files may be copies of
+# the files in the src folder.
+function findLatestMin {
+    echo `find web/{css,js} -type f -name \*.css -o -type f -name \*.min.js -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "`
+}
+
+LATESTSRC=$(findLatestSrc)
+LATESTCACHE=$(findLatestMin)
 
 if [ $LATESTSRC -nt $LATESTCACHE ]
 then
