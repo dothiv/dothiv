@@ -1,13 +1,12 @@
 parameters:
     dothiv.websitebase.assetic.filter.ngmin.class: DotHiv\WebsiteBaseBundle\Assetic\Filter\NgMinFilter
-    dothiv.websitebase.assetic.filter.ngmin.bin: /usr/bin/ngmin
 
 services:
     dothiv.websitebase.assetic.filter.ngmin:
         class: %dothiv.websitebase.assetic.filter.ngmin.class%
         tags:
             - { name: assetic.filter, alias: ngmin }
-        arguments: [%dothiv.websitebase.assetic.filter.ngmin.bin%]
+        arguments: [%ngmin_bin%]
 
     dothiv.websitebase.assetic.filter.closureecma5:
         class: %assetic.filter.closure.jar.class%
