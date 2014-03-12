@@ -2,38 +2,42 @@
 
 angular.module('dotHIVApp.controllers').controller('ProfileDomainClaimController', ['$scope', '$location', 'security', 'dothivDomainResource', '$state',
     function($scope, $location, security, dothivDomainResource, $state) {
-        // retrieve token from query parameters
-        $scope.token = $location.search().token;
-        $scope.preset = !!$scope.token;
-        $scope.domain = { name: "" };
-        domainLookup();
+        // states: 0 -- enter token, 1 -- token found in URL, 2 -- success, 3 -- error
 
-        // look up corresponding domain
-        function domainLookup() {
-            if (!$scope.token) {
-                return;
-            }
+        // define registration function
+        $scope.register = function register(token) {
+            $scope.state = 1;
             $scope.domain = dothivDomainResource.search(
-                    {"token": $scope.token},
-                    function() { // success
-                    },
-                    function() { // error
-                        $scope.preset = false;
-                        $scope.token = "";
-                    }
+                {"token": token},
+                function() { // success
+                    dothivDomainResource.claim({"claimingToken": token, "username": security.state.user.username}, function(d, headers) {
+                        $scope.state = 2;
+                        //$state.transitionTo('=.profile.domain.editors', {'domainId': $scope.domain.id});
+                    }, function(a,b,c) {
+                        $scope.state = 3;
+                    });
+                },
+                function() { // error
+                    $scope.state = 3;
+                }
             );
         }
 
-        $scope.$watch('token', function() {
-            domainLookup();
-        })
+        // retrieve token from query parameters
+        $scope.state = !!$location.search().token ? 1 : 0;
+        if ($scope.state == 1) {
+            $scope.register($location.search().token);
+        }
 
-        $scope.claim = function() {
-            dothivDomainResource.claim({"claimingToken": $scope.token, "username": security.state.user.username}, function(d, headers) {
-                $state.transitionTo('=.profile.domain.editors', {'domainId': $scope.domain.id});
-            }, function(a,b,c) {
-                // TODO: Show error message
-            });
+        // restart the whole process
+        $scope.startover = function() {
+            $scope.token = '';
+            $scope.state = 0;
+        }
+
+        // switch to editor choice page for this domain
+        $scope.edit = function() {
+            $state.transitionTo('=.profile.domain.editors', { domainId: $scope.domain.id });
         };
     }
 ]);

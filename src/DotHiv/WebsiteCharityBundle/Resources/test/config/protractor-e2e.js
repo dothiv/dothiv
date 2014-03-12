@@ -9,7 +9,8 @@ exports.config = {
 
   // Spec patterns are relative to the location of the spec file. They may
   // include glob patterns.
-  specs: ['../e2e/loginlogout.js'],
+  // TODO put page object in seperate file, split up test cases by field
+  specs: ['../e2e/e2e.js'],
   baseUrl: 'http://dothiv.bp',
 
   // Options to be passed to Jasmine-node.

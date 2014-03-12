@@ -781,6 +781,42 @@
       "logout": {
         "link": "Logout"
       }
+    },
+    "domain": {
+      "claim": {
+        "token": {
+          "headline": "Zuordnungs-Token benötigt",
+          "text": "Bitte geben Sie Ihren Zuordnungs-Token ein. Ihr Token besteht aus einer 64-stelligen Zahlen- und Buchstabenkombination.",
+          "placeholder": "Ihr Token",
+          "button": "Domain zuordnen"
+        },
+        "claiming": {
+          "lookup": "Token überprüfen ...",
+          "claiming": "Domain zuordnen ..."
+        },
+        "success": {
+          "headline": "Glückwunsch! [[domain]] wurde erfolgreich verknüpft!",
+          "text": "Ihre Domain ist jetzt Ihrem Konto zugeordnet und kann in wenigen Schritten für das Mikrospendenprogramm aktiviert werden. So einfach geht's:",
+          "col2": {
+            "headline": "Warum konfigurieren?",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vehicula dui in bibendum placerat. Pellentesque pharetra quis erat vitae ullamcorper. Pellentesque sed erat quam.",
+            "link": "Mehr erfahren"
+          },
+          "col3": {
+            "headline": "Was muss ich beachten?",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vehicula dui in bibendum placerat. Pellentesque pharetra quis erat vitae ullamcorper. Pellentesque sed erat quam.",
+            "link": "dotHIV Policy ansehen"
+          }
+        },
+        "error": {
+          "headline": "Zuordnung fehlgeschlagen :-(",
+          "text": "Die Domain konnte Ihrem Konto nicht zugeordnet werden.",
+          "button": "Nochmal versuchen"
+        }
+      },
+      "success": {
+        "button": "Jetzt Domain einrichten"
+      }
     }
   },
   "pofil": {

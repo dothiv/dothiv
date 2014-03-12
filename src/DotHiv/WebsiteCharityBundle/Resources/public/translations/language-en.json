@@ -305,6 +305,42 @@
       "profile": {},
       "domains": {},
       "logout": {}
+    },
+    "domain": {
+      "claim": {
+        "token": {
+          "headline": "Claiming Token Required",
+          "text": "To claim your domain, please enter the your claiming token in the box below. The token is a 64 digit sequence of numbers and characters.",
+          "placeholder": "Your token",
+          "button": "claim domain"
+        },
+        "claiming": {
+          "lookup": "Validating your token ...",
+          "claiming": "Claiming your domain ..."
+        },
+        "success": {
+          "headline": "Congratulations! [[domain]] successfully claimed",
+          "text": "You just claimed your domain. See how easy it is to set up your domain for the microdonation program:",
+          "col2": {
+            "headline": "Why set up?",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vehicula dui in bibendum placerat. Pellentesque pharetra quis erat vitae ullamcorper. Pellentesque sed erat quam.",
+            "link": "See more"
+          },
+          "col3": {
+            "headline": "Rules and Regulations",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vehicula dui in bibendum placerat. Pellentesque pharetra quis erat vitae ullamcorper. Pellentesque sed erat quam.",
+            "link": "See the dotHIV Policy"
+          }
+        },
+        "error": {
+          "headline": "Domain Claim Failed :-(",
+          "text": "Your domain could not be claimed into your account.",
+          "button": "try again"
+        }
+      },
+      "success": {
+        "button": "Set up now"
+      }
     }
   },
   "pofil": {

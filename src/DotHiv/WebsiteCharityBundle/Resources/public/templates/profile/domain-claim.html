@@ -1,24 +1,77 @@
-<div class="container">
-    <div class="row">
-        <div class="span12 profile-heading">
-            <h2 class="pull-left">Domain-Registrierung abschließen</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span12">
-            <div class="form-well" ng-show="preset">
-                Mit dem Abschluss der Domain-Registrierung wird die Domain <br><br>
-                <strong>[[ domain.name ]]</strong> für <strong>[[ security.user.name + " " + security.user.surname ]]</strong> mit dem Token <strong>[[ token ]]</strong><br><br>
-                registiert.
-                <button ng-click="claim()" class="btn btn-primary pull-right" >weiter</button>
-            </div>
-            <div class="form-well" ng-show="!preset">
-                <form class="form-inline">
-                    <input type="text" ng-model="token" required placeholder="Ihr Token">
-                    <input type="text" ng-model="domain.name" required ng-disabled="true" placeholder="Domainname">
-                    <button class="btn btn-primary" ng-click="claim()">Registrierung abschließen</button>
-                </form>
+<header class="jumbotron profile-header">
+    <div class="container">
+        <div ng-show="state==0">
+            <div class="row">
+                <div class="span12 profile-heading">
+                    <h2 class="pink-text" translate="profile.domain.claim.token.headline"></h2>
+                    <p translate="profile.domain.claim.token.text"></p>
+                    <div class="form-well">
+                        <form class="form-inline simple-form" novalidate>
+                            <input type="text" placeholder="[[ 'profile.domain.claim.token.placeholder' | translate ]]" ng-model="token" required>
+                            <button type="submit" class="btn btn-primary" ng-disabled="!token" ng-click="register(token)" translate="profile.domain.claim.token.button"></button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
+        <div ng-show="state==1">
+            <div class="row">
+                <div class="span12 profile-heading">
+                    <h2 class="pink-text" ng-hide="domain" translate="profile.domain.claim.claiming.lookup"></h2>
+                    <h2 class="pink-text" ng-show="domain" translate="profile.domain.claim.claiming.claiming"></h2>
+                    <p class="text-center"><dh-loader></dh-loader></p>
+                </div>
+            </div>
+        </div>
+        <div ng-show="state==2">
+            <div class="row">
+                <div class="span12 profile-heading">
+                    <h2 class="pink-text">[[ 'profile.domain.claim.success.headline' | translate:{domain: domain.name} ]]</h2>
+                    <strong><em translate="profile.domain.claim.success.text"></em></strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <iframe width="300" height="169" src="//www.youtube.com/embed/l3ZHd8qbSpE" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="span4">
+                    <p>
+                        <strong><em translate="profile.domain.claim.success.col2.headline"></em></strong>
+                    </p>
+                    <p translate="profile.domain.claim.success.col2.text"></p>
+                    <a href="#"><span translate="profile.domain.claim.success.col2.link"></span> <div class="heading-arrow"></div></a>
+                </div>
+                <div class="span4">
+                    <p>
+                        <strong><em translate="profile.domain.claim.success.col3.headline"></em></strong>
+                    </p>
+                    <p translate="profile.domain.claim.success.col3.text"></p>
+                    <a href="#"><span translate="profile.domain.claim.success.col3.link"></span> <div class="heading-arrow"></div></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <p>
+                        <a href="#" class="btn btn-primary pull-right" ng-click="edit()" translate="profile.domain.success.button"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div ng-show="state==3">
+            <div class="row">
+                <div class="span12 profile-heading">
+                    <h2 class="pink-text" translate="profile.domain.claim.error.headline"></h2>
+                    <p translate="profile.domain.claim.error.text"></p>
+                    <p>
+                        <button type="submit" class="btn btn-primary" ng-click="startover()" translate="profile.domain.claim.error.button"></button>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="clearfix"></div>
+</header>

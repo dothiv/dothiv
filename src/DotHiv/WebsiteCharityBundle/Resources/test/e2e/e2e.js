@@ -52,6 +52,22 @@ var dotHIVApp = function() {
         profile: '/#!/profile$',
     }
 
+    this.mock = {
+        domain: {
+            register: function(name,email) {
+                browser.get('/#!/mock');
+                element(by.xpath('//form[@name="registerdomainform"]/input[1]')).sendKeys(email);
+                element(by.xpath('//form[@name="registerdomainform"]/input[2]')).sendKeys(name);
+                element(by.xpath('//form[@name="registerdomainform"]/button')).click();
+                return element(by.xpath('//div[contains(concat(" ",@class," ")," modal ")]/p')).getText().then(function(resp) {
+                    var token = JSON.parse(resp).claimingToken;
+                    expect(token.length).toBe(64);
+                    return token;
+                });
+            }
+        }
+    }
+
     /**
      * Returns the text content of the currently shown tooltip. If no tooltip is shown, undefined is returned.
      * To make sure the tooltip is at a certain place, specify an XPath context by giving a XPath query for the first argument.
@@ -384,6 +400,97 @@ describe('dotHIVApp', function() {
         });
 
     });
+
+  });
+
+  describe('domain claims', function() {
+
+      describe('when already logged in', function() {
+
+          beforeEach(function() {
+              browser.get('/#!/');
+              app.register();
+              app.buttons.language.chooser().click();
+              app.buttons.language.keysonly().click();
+              expect(app.buttons.language.chooser().getText()).toEqual('Keys only');
+          }, 60000);
+
+          it('should claim the domain immediately if browser open the provided link', function() {
+              var name = 'e2etest-' + Math.random().toString(36).substring(7) + '.hiv';
+              app.mock.domain.register('e2etest-' + Math.random().toString(36).substring(7) + '.hiv', 'some@different-email.de').then(function(token) {
+                  expect(app.state.authenticated()).toBe(true);
+                  browser.get('/#!/profile/domains/claim?token=' + token);
+              }).then(function() {
+                  expect(element(by.xpath('//*[.="profile.domain.claim.success.headline"]')).isDisplayed()).toBe(true);
+              });
+          }, 60000);
+
+          it('should not claim the domain if there is a problem with the token and then accept the correct token with the input field', function() {
+              var name = 'e2etest-' + Math.random().toString(36).substring(7) + '.hiv';
+              app.mock.domain.register('e2etest-' + Math.random().toString(36).substring(7) + '.hiv', app.username).then(function(token) {
+                  expect(app.state.authenticated()).toBe(true);
+                  browser.get('/#!/profile/domains/claim?token=' + token + '1');
+                  return token;
+              }).then(function(token) {
+                  expect(element(by.xpath('//*[.="profile.domain.claim.error.headline"]')).isDisplayed()).toBe(true);
+                  expect(element(by.xpath('//button[.="profile.domain.claim.error.button"]')).isDisplayed()).toBe(true);
+
+                  element(by.xpath('//button[.="profile.domain.claim.error.button"]')).click();
+                  var input = element(by.xpath('//input[@placeholder="profile.domain.claim.token.placeholder"]'));
+                  expect(input.isDisplayed()).toBe(true);
+
+                  input.sendKeys(token + "XXXwrong");
+                  element(by.xpath('//button[.="profile.domain.claim.token.button"]')).click();
+                  expect(element(by.xpath('//*[.="profile.domain.claim.error.headline"]')).isDisplayed()).toBe(true);
+                  expect(element(by.xpath('//button[.="profile.domain.claim.error.button"]')).isDisplayed()).toBe(true);
+
+                  element(by.xpath('//button[.="profile.domain.claim.error.button"]')).click();
+                  input = element(by.xpath('//input[@placeholder="profile.domain.claim.token.placeholder"]'));
+                  expect(input.isDisplayed()).toBe(true);
+
+                  input.sendKeys(token);
+                  element(by.xpath('//button[.="profile.domain.claim.token.button"]')).click();
+                  expect(element(by.xpath('//*[.="profile.domain.claim.success.headline"]')).isDisplayed()).toBe(true);
+              });
+          }, 60000);
+
+          it('should show the input field if no token is supplied', function() {
+              var name = 'e2etest-' + Math.random().toString(36).substring(7) + '.hiv';
+              app.mock.domain.register('e2etest-' + Math.random().toString(36).substring(7) + '.hiv', app.username).then(function(token) {
+                  expect(app.state.authenticated()).toBe(true);
+                  browser.get('/#!/profile/domains/claim');
+                  return token;
+              }).then(function(token) {
+                  expect(element(by.xpath('//*[.="profile.domain.claim.token.headline"]')).isDisplayed()).toBe(true);
+                  var input = element(by.xpath('//input[@placeholder="profile.domain.claim.token.placeholder"]'));
+                  expect(input.isDisplayed()).toBe(true);
+
+                  input.sendKeys(token);
+                  element(by.xpath('//button[.="profile.domain.claim.token.button"]')).click();
+                  expect(element(by.xpath('//*[.="profile.domain.claim.success.headline"]')).isDisplayed()).toBe(true);
+              });
+          }, 60000)
+
+          it('should show the domain in the domain list after claiming', function() {
+              var name = 'e2etest-' + Math.random().toString(36).substring(7) + '.hiv';
+              app.mock.domain.register('e2etest-' + Math.random().toString(36).substring(7) + '.hiv', 'some@different-email.de').then(function(token) {
+                  expect(app.state.authenticated()).toBe(true);
+                  browser.get('/#!/profile/domains/claim?token=' + token);
+              }).then(function() {
+                  expect(element(by.xpath('//*[.="profile.domain.claim.success.headline"]')).isDisplayed()).toBe(true);
+                  browser.get('/#!/profile/domains/list');
+                  element(by.xpath('//input[@ng-model="searchText.name"]')).sendKeys(name);
+              }).then(function() {
+                  debugger;
+                  expect(element(by.xpath('//h3[.="'+name+'"]')).isDisplayed()).toBe(true);
+              });
+          }, 60000)
+
+          afterEach(function() {
+              app.logout();
+          });
+
+      });
 
   });
 
