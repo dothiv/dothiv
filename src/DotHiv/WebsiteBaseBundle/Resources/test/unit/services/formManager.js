@@ -185,7 +185,7 @@ describe('the form manager service', function() {
 
     describe('showServerFormError() function', function() {
 
-        var response = { data: { form: { children: { password: { errors: [ "foo", "bar" ] } } } } };
+        var response = { data: { errors: { children: { password: { errors: [ "foo", "bar" ] } } } } };
 
         beforeEach(function() {
             scope.myForm.$failed = true;
