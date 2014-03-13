@@ -158,7 +158,7 @@
       "jobs": "Jobs",
       "help": "Wie kann ich helfen",
       "newsletter": "Newsletter",
-      "newstream": "Newsstream",
+      "newsstream": "Newsstream",
       "registry": "Die .hiv Regsistry"
     },
     "mission": {
@@ -276,9 +276,7 @@
         "name": "Peter Dengate Thrush\nPeter Dengate Thrush ist seit der Gründung in die ICANN involviert und war von 2007 bis 2011 ihr Aufsichtsratsvorsitzender .\n\n"
       },
       "quote15": {
-        "text": "GMHC ist die älteste HIV und AIDS Service-Organisation der Welt und ist stolz offizieller Unterstützer von dotHIV zu sein."
-      },
-      "quotes15": {
+        "text": "GMHC ist die älteste HIV und AIDS Service-Organisation der Welt und ist stolz offizieller Unterstützer von dotHIV zu sein.",
         "name": "Janet Weinberg, CEO/COO GMHC, New York"
       }
     },
@@ -288,11 +286,15 @@
     "fororg": {
       "text": "Kurze Einleitung zu Thema \"Was macht dotHIV für Organisationen\"\n\n",
       "charitydoamin": {
-        "headline": "Gratis Non-profit Domain sichern",
+        "headline": "Die .hiv non-profit Domain\n",
         "text": "Die .hiv non-profit Domain ist gleich im doppelten Sinne non-profit: Zum einen vergeben wir die Domain ausschließlich an non-profit Organisationen mit einem Schwerpunkt im Bereich HIV und Aids. Zum anderen ist die non-profit Domain für diese Organisationen kostenlos – die Kosten übernimmt dotHIV. Damit möchten wir Initiativen, die sich im Bereich HIV und Aids engagieren, einen gemeinsamen themengebundenen Raum im Internet geben. \n",
         "dropdown": "Mehr erfahren"
       },
       "charitydomain": {
+        "secondheadline": {
+          "what": "Was ist eine .hiv non-profit Domain",
+          "why": "Was sind die Vorteile einer .hiv non-profit Domain?"
+        },
         "expand": "\nMit der kostenlosen .hiv Domain wollen wir für Organisationen im Bereich HIV und Aids einen eigenen Platz im Internet schaffen. Durch die gemeinsame Nutzung dieses Platzes verstärkt sich die Wirkung des Einzelnen – durch die Entstehung besserer Sichtbarkeit und die Bildung eines globalen Netzwerkes.\n\nDie  Verwendung einer .hiv Domain verbessert die Suchmaschinenergebnisse und erhöht somit die Sichtbarkeit im Internet. Gleichzeitig erhöht ein gemeinsamer Namensraum die Transparenz über die Arbeit im Feld - sowohl für Internetuser als auch für Organisationen. Diesen wird eine einfache Möglichkeit gegeben, ein globales Netzwerk aufzubauen und das ganz ohne Kosten und intensive Bemühungen.\n\nUnd last but not least: auch in die kostenlose non-profit Domain wird unser Mikrospendensystem integriert. Das heißt auch für diese Seiten gilt: Jeder Klick auf eine .hiv Domain löst eine Mikrospende aus, die an HIV projects überall auf der Welt weiter gegeben wird.\n\n",
         "link": "Non-profit Domain beantragen"
       },
@@ -376,10 +378,9 @@
       "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
       "link": "Zu den Projekten"
     },
-    "foroorg": {
-      "network": {
-        "headline": "Unser Organisationsnetzwerk"
-      }
+    "expertpool": {
+      "headline": "HIV Expert Pool",
+      "text": "Um sicherzustellen, dass die Registrierungsrichtlinien für .hiv-Domains und die Förderrichtlinien für die künftige Spendenvergabe im Einklang mit den HIV Communities, sowie Spezialisten aus dem Bereich IT, Recht und technische Innovationen stattfinden un, stellen wir einen Kreis aus Beratern zusammen. Sie sollen Feedback geben, Wissen in Bereichen beisteuern, wo es dem dotHIV-Team noch fehlt und die regionale und thematische Vielfalt des Themas widerspiegeln. Hier ist eine Übersicht der Menschen, die uns bereits unterstützen:"
     },
     "forrorg": {
       "network": {
@@ -394,80 +395,47 @@
       "headline": "Team",
       "text": "Seit 2009 arbeiten wir daran, dotHIV wahr werden zu lassen. Ein Kernteam bringt Erfahrung in Sozialunternehmertum, Gemeinnützigkeitsarbeit, Marketing, Kommunikation und Social Media mit. Finde heraus, wer hinter der Idee der Roten Schleife des digitalen Zeitalters steht.",
       "picture": "Teamfoto",
-      "association": {
-        "secondheadline": {
-          "left": "Der Verein"
-        },
+      "charity": {
+        "headline": "Der Verein",
         "member1": {
-          "left": {}
+          "affiliation": "Geschäftsführerin"
         },
         "member2": {
-          "left": {
-            "name": "Greta Philine Jeske",
-            "affiliation": "Community Managerin"
-          }
+          "name": "Greta Philine Jeske",
+          "affiliation": "Community Managerin"
         },
         "member3": {
-          "left": {
-            "name": "Peter Thomassen",
-            "affiliation": "??"
-          }
-        },
-        "intern": {
-          "left": {
-            "name": "Lubumbe Van de Velde"
-          }
-        }
-      },
-      "assocaition": {
-        "member1": {
-          "left": {
-            "affiliation": "Geschäftsführerin"
-          }
-        }
-      },
-      "associaton": {
-        "intern": {
-          "left": {
-            "affiliation": "Praktikantin"
-          }
-        }
-      },
-      "registry": {
-        "secondheadline": {
-          "right": "Registry"
-        },
-        "member1": {
-          "right": {
-            "name": "Carolin Silbernagl",
-            "affiliation": "Geschäftsführerin",
-            "founder": "Gründerin dotHIV"
-          }
-        },
-        "member2": {
-          "right": {
-            "name": "Maria Schönfeld",
-            "affiliation": "Fianzen & Unternehmensentwicklung"
-          }
-        },
-        "member3": {
-          "right": {
-            "affiliation": "CTO"
-          }
+          "name": "Peter Thomassen",
+          "affiliation": "??"
         },
         "member4": {
-          "right": {}
+          "name": "Lubumbe Van de Velde",
+          "affiliation": "Praktikantin"
         }
       },
-      "regsitry": {
+      "chairty": {
+        "member1": {}
+      },
+      "company": {
+        "headline": "Registry",
+        "member1": {
+          "name": "Carolin Silbernagl",
+          "affiliation": "Geschäftsführerin",
+          "founder": "Gründerin dotHIV"
+        },
+        "member2": {
+          "name": "Maria Schönfeld",
+          "affiliation": "Fianzen & Unternehmensentwicklung"
+        },
         "member3": {
-          "right": {}
-        }
+          "affiliation": "CTO"
+        },
+        "member4": {}
       },
       "communication": {
         "member1": {
           "name": "Philipp Kafkoulas",
-          "founder": "Gründer dotHIV"
+          "affiliation": "Gründer dotHIV"
         },
         "member2": {
           "name": "Stefan Förster"
@@ -484,71 +452,155 @@
     },
     "partner": {
       "secondheadline": "Unsere Partner",
-      "thjnk": {},
-      "aidshilfe": {},
-      "afilias": {},
-      "keysystems": {},
-      "moniker": {}
+      "partner1": {
+        "link": "thjnk"
+      },
+      "partner2": {
+        "link": "aidshilfe"
+      },
+      "partner3": {
+        "link": "afillias"
+      },
+      "partner4": {
+        "link": "keysystems"
+      },
+      "partner5": {
+        "link": "moniker"
+      }
     },
     "supporter": {
-      "atlassian": {},
-      "dotzon": {},
-      "elementc": {},
-      "engarde": {},
-      "fischerppelt": {},
-      "github": {},
-      "google": {},
-      "jovoto": {},
-      "change": {},
-      "liga01": {},
-      "loved": {},
-      "nccgroup": {},
-      "nhb": {},
-      "podio": {},
-      "positivesingles": {},
-      "refinedwiki": {},
-      "sedo": {},
-      "shareifyoulike": {},
-      "swipe": {},
-      "charity": {},
-      "uniteddoamin": {},
-      "universal": {},
-      "youtube": {},
-      "zakk": {},
+      "supporter1": {
+        "link": "atlassian"
+      },
+      "supporter2": {
+        "link": "dotzon"
+      },
+      "supporter3": {
+        "link": "elementc"
+      },
+      "supporter4": {
+        "link": "engarde"
+      },
+      "supporter5": {
+        "link": "fischerppelt"
+      },
+      "supporter6": {
+        "link": "github"
+      },
+      "supporter7": {
+        "link": "google"
+      },
+      "supporter8": {
+        "link": "jovoto"
+      },
+      "supporter9": {
+        "link": "change"
+      },
+      "supporter10": {
+        "link": "liga01"
+      },
+      "supporter11": {
+        "link": "loved"
+      },
+      "supporter12": {
+        "link": "nccgroup"
+      },
+      "supporter13": {
+        "link": "nhb"
+      },
+      "supporter14": {
+        "link": "podio"
+      },
+      "supporter15": {
+        "link": "positivesingles"
+      },
+      "supporter16": {
+        "link": "refinedwiki"
+      },
+      "supporter17": {
+        "link": "sedo"
+      },
+      "supporter18": {
+        "link": "shareifyoulike"
+      },
+      "supporter19": {
+        "link": "aswipe"
+      },
+      "supporter20": {
+        "link": "charity"
+      },
+      "supporter21": {
+        "link": "uniteddoamin"
+      },
+      "supporter22": {
+        "link": "universal"
+      },
+      "supporter23": {
+        "link": "youtube"
+      },
+      "supporter24": {
+        "link": "zakk"
+      },
       "dropdown": "Finde hier weitere Unterstützer von dotHIV",
-      "name1": "Alan Orpin",
-      "name2": "Atlassian (Confluence)",
-      "name3": "Böger Knittel KG",
-      "name4": "Hainke Schüler Alleyne Fumagalli Rechtsanwälte",
-      "name5": "Marita Locmele",
-      "name6": "New Zealand Bobsled Team",
-      "name7": "RöverBrönnerSusat ",
-      "name8": "The Young Turks",
-      "name9": "Timm Specht Druck & Produktion GmbH",
-      "name10": "The iqconsult team, Norbert Kunz, SAP and the great company of social entrepreneurs at the Social Impact Lab"
-    },
-    "expertpool": {
-      "headline": "HIV Expert Pool",
-      "text": "Um sicherzustellen, dass die Registrierungsrichtlinien für .hiv-Domains und die Förderrichtlinien für die künftige Spendenvergabe im Einklang mit den HIV Communities, sowie Spezialisten aus dem Bereich IT, Recht und technische Innovationen stattfinden un, stellen wir einen Kreis aus Beratern zusammen. Sie sollen Feedback geben, Wissen in Bereichen beisteuern, wo es dem dotHIV-Team noch fehlt und die regionale und thematische Vielfalt des Themas widerspiegeln. Hier ist eine Übersicht der Menschen, die uns bereits unterstützen:"
+      "more": {
+        "name1": "Alan Orpin",
+        "name2": "Atlassian (Confluence)",
+        "name3": "Böger Knittel KG",
+        "name4": "Hainke Schüler Alleyne Fumagalli Rechtsanwälte",
+        "name5": "Marita Locmele",
+        "name6": "New Zealand Bobsled Team",
+        "name7": "RöverBrönnerSusat ",
+        "name8": "The Young Turks",
+        "name9": "Timm Specht Druck & Produktion GmbH",
+        "name10": "The iqconsult team, Norbert Kunz, SAP and the great company of social entrepreneurs at the Social Impact Lab"
+      }
     },
     "board": {
-      "headline": "Unser Beirat",
-      "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\n",
-      "bernd": {
+      "headline": {
+        "left": "Unser Beirat"
+      },
+      "text": {
+        "left": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\n"
+      },
+      "board1": {
         "name": "Bernd Kundrun",
-        "text": "Bernd supports the initiative with his valuable experience and great network. He used to be chairman of the board at Gruner + Jahr AG and now functions as the chairman of the gut.org gAG.",
-        "link": "gut.org gAG"
+        "text": "Bernd supports the initiative with his valuable experience and great network. He used to be chairman of the board at Gruner + Jahr AG and now functions as the chairman of the gut.org gAG."
       },
-      "lars": {
+      "board2": {
         "name": "Lars Witte-Winter",
-        "text": "As the CEO of the Bplus – Moodmarketing & Events mbH, Lars realizes events for important companies. He has been using his experience and contacts for the initiative „Vergessen ist ansteckend“ for years.",
-        "link": "Vergessen ist ansteckend"
+        "text": "As the CEO of the Bplus – Moodmarketing & Events mbH, Lars realizes events for important companies. He has been using his experience and contacts for the initiative „Vergessen ist ansteckend“ for years."
       },
-      "jan": {
-        "name": "Jan Foertsch",
-        "link1": "NestWerk e.V.",
-        "link2": "Hamburg Leuchtfeuer"
+      "board3": {
+        "name": "Jan Foertsch"
       }
+    },
+    "angels": {
+      "headline": {
+        "left": "Unsere Business Angels"
+      },
+      "text": {
+        "left": "Unsere Business Angels sind ..."
+      },
+      "michael": {
+        "photo": {},
+        "name": {},
+        "text": {}
+      },
+      "dropdown": {},
+      "one": {},
+      "two": {},
+      "three": {},
+      "four": {},
+      "five": {},
+      "six": {},
+      "seven": {},
+      "eight": {},
+      "nine": {},
+      "ten": {},
+      "eleven": {},
+      "twelve": {},
+      "thirteen": {},
+      "fourteen": {}
     },
     "association": {
       "headline": "Organisationstruktur"
@@ -593,56 +645,49 @@
       "text": "Es gibt viele Möglichkeiten, Teil der dotHIV Bewegung zu werden. Hier kannst du rausfiden, wir du helfen kannst. Falls du eigene ideen hast, wie du dotHIV unterstützen möchtest schreib uns gerne eine Mail an mail@dothiv.org. Wir freuen uns auf deine ideen!",
       "jobs": {
         "headline": "Jobs\n",
-        "download": "Stellenausschreibung runterladen"
+        "position": {},
+        "deadline": {},
+        "download": {}
       },
       "howto": {
         "headline": "Wie kann ich helfen",
-        "text": "Hier findet sich eine Auswahl an Möglichkeiten um dotHIV zu unterstützen. Von der Fördermitgliedschaft bis hin zum Campus Captain\n\n",
-        "becomemember": {
-          "headline": "Werde Fördermitglied",
-          "text": "kurze Beschreibung der Fördermitgliedschaft und Aufzählung der unterschiedlichen Formen der Fördermitgliedschaft\n\n"
+        "text": "Hier findet sich eine Auswahl an Möglichkeiten um dotHIV zu unterstützen. Von der Fördermitgliedschaft bis hin zum Techi for good.\n\n",
+        "clickvoteshare": {
+          "headline": "Das dotHIV Prinzip: Click-Vote-Share"
         },
-        "ambassador": {
-          "text": "kurze Beschreibung des Prinzips “City Ambassador”\n\n"
+        "member": {
+          "headline": "Werde dotHIV Fördermitglied",
+          "text": "Kurze Erklärung über das Prinzip der Fördermitglieschaft udn die drei unterschiedlichen Varianten\n",
+          "download1": "Fördermitgliedschaft für Schüler",
+          "download2": "Fördermitgliedschaft für Privatpersonen",
+          "download3": "Fördermitgliedschaft für Firmen"
         },
         "campus": {
           "headline": "Werde Campus Captain\n",
           "text": "kurze Erklärung des Prinzip “Campus Captain”\n\n",
           "download": "Campus Captain Handbuch"
         },
-        "activator": {
-          "headline": "Schaffe Aufmerksamkeit",
-          "text": "Kurze Beschreibung wie man Social Media Kanäle (Facebook und Twitter) nutzen kann, um Aufmerksamkeit für dotHIV zu schaffen\n\n"
+        "tech": {
+          "headline": "Hilf uns .hiv noch besser zu machen\n",
+          "text": "Ein paar Worte zu der Idee von Tech for good \n"
         }
       }
     },
-    "getactice": {
-      "howto": {
-        "ambassador": {
-          "headline": "Werde City Ambassador \n\n"
-        }
-      }
+    "newsstream": {
+      "headline": "News",
+      "dropdown": "Ältere News"
     },
-    "getacticve": {
-      "howto": {
-        "ambassador": {
-          "download": "City Ambassador Handbuch "
-        }
-      }
-    },
-    "newsletter": {
-      "headline": "Newsletter",
-      "text": "eine kurze Einletung zum dotHIV Newsletter (wie oft erscheint er, was kommt rein etc.) und die Aufforderung, ihn zu abonieren\n\n",
-      "link": "Newsletter abbonieren "
-    },
-    "newsevents": "News",
-    "news": {
-      "text": "aktuelle News",
-      "socialmedia": {
-        "headline": "Social Media",
-        "facebook": "Facebook Stream\n",
-        "twitter": "Twitter Stream",
-        "pinterest": "Pinterest Stream"
+    "oldernews": {},
+    "socialmedia": {
+      "headline": "dotHIV in den Medien",
+      "facebook": {
+        "headline": "Facebook Stream\n"
+      },
+      "twitter": {
+        "headline": "Twitter Stream"
+      },
+      "pinterest": {
+        "headline": "Pinterest Stream"
       }
     }
   },
@@ -701,11 +746,11 @@
         "overview": {
           "link": "Übersicht"
         },
-        "changeprofilee": {
-          "link": "profile bearbeiten"
+        "changeprofile": {
+          "link": "Profil bearbeiten"
         },
         "changeproject": {
-          "link": "projects verwalten"
+          "link": "Projekte verwalten"
         },
         "changedomain": {
           "link": "Domains verwalten "
@@ -885,7 +930,6 @@
       "wie": {
         "text": "Wie stelle ich ein project ein "
       },
-      "text": "Blindtext 4.2.2.1b",
       "download": "dotHIV Policy ansehen",
       "link2": "Mindesststandards ansehen ",
       "button": "Jetzt Projekt eintragen",
@@ -1031,7 +1075,7 @@
           "button": "Abschicken "
         },
         "alternativ": {
-          "text": "Alternativ, falls noch nicht alle Felder ausgeuellt sind:",
+          "text": "Alternativ, falls noch nicht alle Felder ausgefüllt sind:",
           "new": {
             "headline": "Neues project einstellen"
           }
@@ -1133,6 +1177,7 @@
         },
         "counter": {
           "headline": "Domain xyz.hiv",
+          "who": "Click Counter für Developer",
           "text": "Sie haben eine besondere Idee, wie Sie Ihre .hiv-Domain nutzen wollen oder wollen sich insperieren?",
           "question": "Ihre Frage/Bitte um Kontaktaufnahme",
           "contact": "E-Mail / Telefon"
@@ -1340,9 +1385,7 @@
           }
         },
         "step": {
-          "payment": {
-            "who": "Auftrag durch"
-          }
+          "payment": "Premium Banner - Bezeahlung"
         },
         "finalize": {
           "link": "Domains verwalten",
@@ -1396,20 +1439,6 @@
   "domainverwalten": {
     "finalisiereb": {
       "sternchen": "nur möglich bei aktivierter Weiterleitung"
-    }
-  },
-  "domian": {
-    "administer": {
-      "premium": {
-        "step": {
-          "payment": "Premium Banner - Bezeahlung"
-        }
-      },
-      "developer": {
-        "counter": {
-          "who": "Click Counter für Developer"
-        }
-      }
     }
   }
 }
