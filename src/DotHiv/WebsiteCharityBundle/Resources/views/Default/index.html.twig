@@ -8,9 +8,27 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
         <link rel="shortcut icon" href="{{ asset("bundles/websitecharity/images/favicon.png") }}" />
-        <script src="//use.edgefonts.net/source-sans-pro:n6.js"></script> 
+        <script src="//use.edgefonts.net/source-sans-pro:n6.js"></script>
     </head>
     <body>
+
+        <!-- FACEBOOK SDK -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=557254000987057";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+        <!-- /FACEBOOK SDK -->
+        <!-- TWITTER WIDGET -->
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        <!-- /TWITTER WIDGET -->
+        <!-- PINTEREST -->
+            <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>
+        <!-- /PINTEREST -->
+
         <div ng-controller="HeaderController">
             <div style="width: 100%; height: 100%; background: white; z-index: 10000; position: fixed;" ng-show="!finishedbooting"></div>
             <div class="container header">
