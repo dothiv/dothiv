@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotHIVApp.filters', 'dotHIVApp.controllers', 'ui.state', 'pascalprecht.translate'])
+angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotHIVApp.filters', 'dotHIVApp.controllers', 'ui.state', 'pascalprecht.translate', 'FacebookPluginDirectives'])
     .config(['$urlRouterProvider', function($urlRouter) {
         $urlRouter.otherwise('/');
     }])
@@ -38,18 +38,41 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                     templateUrl: '/bundles/websitecharity/templates/about/index.html',
                     controller: 'AboutController'
                 })
-            .state('about.start', {
-                    url: '',
-                    templateUrl: '/bundles/websitecharity/templates/about/idea.html'
+            
+            /**
+             * The following states are decendants of the about state, and should
+             * match up with the menu structure defined in AboutController.js.
+             * TODO eventually to be replaced with a dynamic solution.
+             */
+            .state('about.mission', {
+                    url: '/mission',
+                    templateUrl: '/bundles/websitecharity/templates/about/mission.html'
                 })
-            .state('about.idea', {
-                    url: '/idea',
-                    templateUrl: '/bundles/websitecharity/templates/about/idea.html'
+            .state('about.aboutHIV', {
+                    url: '/aboutHIV',
+                    templateUrl: '/bundles/websitecharity/templates/about/aboutHIV.html'
                 })
-            .state('about.whosbehind', {
-                    url: '/whosbehind',
-                    templateUrl: '/bundles/websitecharity/templates/about/whosbehind.html'
+            .state('about.fororg', {
+                    url: '/fororg',
+                    templateUrl: '/bundles/websitecharity/templates/about/fororg.html'
                 })
+            .state('about.whoisbehind', {
+                    url: '/whoisbehind',
+                    templateUrl: '/bundles/websitecharity/templates/about/whoisbehind.html'
+                })
+            .state('about.getactive', {
+                    url: '/getactive',
+                    templateUrl: '/bundles/websitecharity/templates/about/getactive.html'
+                })
+            .state('about.newsstream', {
+                    url: '/newsstream',
+                    templateUrl: '/bundles/websitecharity/templates/about/newsstream.html'
+                })
+            .state('about.registry', {
+                    url: '/registry',
+                    templateUrl: '/bundles/websitecharity/templates/about/registry.html'
+                })
+
 
             /**
              * This state is useful for development use only. It provides
