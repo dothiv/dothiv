@@ -1,13 +1,15 @@
 {
-  "devDependencies": {
-    "karma": "~0.10",
-    "karma-junit-reporter": "~0.2.1"
-  },
   "repository": {
     "type": "git",
     "url": "http://github.com/dothiv/dothiv.git"
   },
   "dependencies": {
     "less": "~1.6.1"
+    "less": "~1.6.1",
+    "ngmin": "~0.4.1"
+  },
+  "devDependencies": {
+    "karma": "~0.10",
+    "karma-junit-reporter": "~0.2.1"
   }
 }

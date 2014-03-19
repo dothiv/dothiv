@@ -8,74 +8,24 @@
 
 <hr class="bottom-shadow about-nav">
 
-<div class="container">    
+<div class="container">
     <div class="row">
         <div class="span3 about-nav">
             <ul>
-                <li><a href="#!/about/idea" ng-class="{ active: state.includes('about.idea') }">[[ 'about.nav.idea' | translate ]]</a></li>
-                <li>
-                    <ul>
-                        <li><a href="#!/about/idea" ng-click="scrollTo('film')">[[ 'about.nav.film' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.manifesto' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.concept' | translate ]]</a></li>
-                        <li><a href="#!/about/idea" ng-click="scrollTo('history')">[[ 'about.nav.history' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.quotes' | translate ]]</a></li>
-                    </ul>
-                </li>
-                <li class="dummy"></li>
-                <li><a href="#!/about/whosbehind" ng-class="{ active: state.includes('about.whosbehind') }">[[ 'about.nav.whosbehind' | translate ]]</a></li>
-                <li>
-                    <ul>
-                        <li><a href="#!/about">[[ 'about.nav.partners' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.supporters' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.team' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.politica' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.org' | translate ]]</a></li>
-                    </ul>
-                </li>
-                <li class="dummy"></li> 
-                <li><a href="#!/about">[[ 'about.nav.fororg' | translate ]]</a></li>
-                <li>
-                    <ul>
-                        <li><a href="#!/about">[[ 'about.nav.charitydomains' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.apply' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.coop' | translate ]]</a></li>
-                    </ul>
-                </li>
-                <li class="dummy"></li>
-                <li><a href="#!/about">[[ 'about.nav.AIDS' | translate ]]</a></li>
-                <li>
-                    <ul>
-                        <li><a href="#!/about">[[ 'about.nav.facts' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.background' | translate ]]</a></li>
-                    </ul>
-                </li>
-                <li class="dummy"></li>
-                <li><a href="#!/about">[[ 'about.nav.newsevents' | translate ]]</a></li>
-                <li>
-                    <ul>
-                        <li><a href="#!/about">[[ 'about.nav.news' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.events' | translate ]]</a></li>
-                    </ul>
-                </li>
-                <li class="dummy"></li>
-                <li><a href="#!/about">[[ 'about.nav.association' | translate ]]</a></li>
-                <li>
-                    <ul>
-                        <li><a href="#!/about">[[ 'about.nav.charter' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.moneyusage' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.report' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.structure' | translate ]]</a></li>
-                        <li><a href="#!/about">[[ 'about.nav.becomemember' | translate ]]</a></li>
-                    </ul>
-                </li>
-                <li class="dummy"></li>
-                
+                <span ng-repeat="item in menu">
+                    <li><a href="#!/about/[[item.name]]" ng-class="{ active: state.includes('about.'+item.name) }">[[ 'about.nav.' + item.name | translate ]]</a></li>
+                    <li ng-show="item.menu.length > 0">
+                        <ul>
+                            <li ng-repeat="subitem in item.menu">
+                                <a href="#!/about/[[item.name]]#[[subitem]]" ng-click="scrollTo('[[subitem]]')">[[ 'about.nav.' + subitem | translate]]</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dummy" ng-show="item.menu.length == 0"></li>
+                </span>
             </ul>
         </div>
-        
-        
-        
+
         <div class="span9 about-cont">
             <div ui-view></div>
         </div>

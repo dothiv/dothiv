@@ -111,12 +111,12 @@ angular.module('dotHIVApp.services').factory('formManager', function($translate)
                 setFocusOn(key);
             },
             showServerFormError: function(form) {
-                if (!angular.isDefined(form.data.form.children)) {
+                if (!angular.isDefined(form.data.errors.children)) {
                     return;
                 }
 
                 var errorFound = false;
-                angular.forEach(form.data.form.children, function(value, key) {
+                angular.forEach(form.data.errors.children, function(value, key) {
                     if (errorFound) return;
 
                     if (angular.isDefined(value.errors)) {

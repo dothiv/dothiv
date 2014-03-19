@@ -56,6 +56,9 @@
         color: @darkpink;
         line-height: 1em;
     }
+    & h2 {
+        color: @darkpink;
+    }
     & p {
         margin-top: 17px;
     }
@@ -79,6 +82,13 @@
     }
 }
 
+.profile-header + .profile-header,
+.profile-header + * > .profile-header,
+.profile-header + * > * > .profile-header {
+    margin-top: -65px;
+    height: 100%;
+    padding: 30px 0px;
+}
 
 // profile summary lists
 // -------------------------

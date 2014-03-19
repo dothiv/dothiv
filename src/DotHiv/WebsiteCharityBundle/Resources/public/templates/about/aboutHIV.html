@@ -1,0 +1,63 @@
+<h3 class="pink-text" translate="about.aboutHIV.headline"></h3>
+<iframe width="700" height="394" src="//www.youtube.com/embed/ZAk0NTZgZ0c" frameborder="0" allowfullscreen></iframe>
+<p translate="about.aboutHIV.text"></p>
+
+<div class="anchor-dummy"></div>
+<a name="manifesto"></a>
+<h3 class="pink-text" translate="about.manifesto.headline"></h3>
+<dh-teaser prefix="about.manifesto"></dh-teaser>
+
+<div class="anchor-dummy"></div>
+<a name="concept"></a>
+<h3 class="pink-text" translate="about.concept.headline"></h3>
+<p translate="about.concept.graphic"></p>
+<dh-teaser prefix="about.concept"></dh-teaser>
+
+<div class="anchor-dummy"></div>
+<a name="usage"></a>
+<h3 class="pink-text" translate="about.usage.headline"></h3>
+<p translate="about.usage.text"></p>
+<div class="row-fluid">
+    <div class="span4">
+        <p translate="about.usage.claim1"></p>
+        <p translate="about.usage.link1"></p>
+    </div>
+    <div class="span4">
+        <p translate="about.usage.claim2"></p>
+        <p translate="about.usage.link2"></p>
+    </div>
+    <div class="span4">
+        <p translate="about.usage.claim3"></p>
+        <p translate="about.usage.link3"></p>
+    </div>
+</div>
+
+<div class="anchor-dummy"></div>
+<a name="moneyusage"></a>
+<h3 class="pink-text" translate="about.moneyusage.headline"></h3>
+<p translate="about.moneyusage.text"></p>
+
+<div class="anchor-dummy"></div>
+<a name="history"></a>
+<h3 class="pink-text" translate="about.history.headline"></h3>
+<dh-teaser prefix="about.history"></dh-teaser>
+
+<div class="anchor-dummy"></div>
+<a name="quotes"></a>
+<div class="row-fluid">
+    <div class="span12">
+        <h3 class="pink-text pull-left" translate="about.quotes.headline"></h3>
+        <div class="next2h3 pull-right">
+            <button class="scroll" ng-click="quotes = quotes+1;"><i class="icon-tick-left"></i></button>
+            <button class="scroll" ng-click="quotes = quotes-1"><i class="icon-tick-right"></i></button>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span4" ng-repeat="i in ([1,2,3,4,5,6,7,8,9,10,11,12] | carousel: quotes | limitTo: 3)">
+        <p translate="about.quotes.quote[[ i ]].picture"></p>
+        <p translate="about.quotes.quote[[ i ]].text"></p>
+        <p translate="about.quotes.quote[[ i ]].name"></p>
+    </div>
+</div>
+
