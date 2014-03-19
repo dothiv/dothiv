@@ -4,7 +4,6 @@
     "url": "http://github.com/dothiv/dothiv.git"
   },
   "dependencies": {
-    "less": "~1.6.1"
     "less": "~1.6.1",
     "ngmin": "~0.4.1"
   },
