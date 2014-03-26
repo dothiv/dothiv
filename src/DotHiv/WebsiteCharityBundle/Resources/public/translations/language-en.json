@@ -79,8 +79,7 @@
       "quote12": {},
       "quote13": {},
       "quote14": {},
-      "quote15": {},
-      "quotes15": {}
+      "quote15": {}
     },
     "qoutes": {
       "quote5": {}
@@ -88,7 +87,9 @@
     "fororg": {
       "headline": "dotHIV for the HIV response",
       "charitydoamin": {},
-      "charitydomain": {},
+      "charitydomain": {
+        "secondheadline": {}
+      },
       "network": {
         "org1": {},
         "org2": {},
@@ -117,9 +118,7 @@
       }
     },
     "guidelines": {},
-    "foroorg": {
-      "network": {}
-    },
+    "expertpool": {},
     "forrorg": {
       "network": {
         "org2": {}
@@ -127,54 +126,24 @@
     },
     "whosbehind": {},
     "team": {
-      "association": {
-        "secondheadline": {},
-        "member1": {
-          "left": {}
-        },
-        "member2": {
-          "left": {}
-        },
-        "member3": {
-          "left": {}
-        },
-        "intern": {
-          "left": {}
-        }
-      },
-      "assocaition": {
-        "member1": {
-          "left": {}
-        }
-      },
-      "associaton": {
-        "intern": {
-          "left": {
-            "affiliation": "Intern"
-          }
-        }
-      },
-      "registry": {
-        "secondheadline": {
-          "right": "Registry"
-        },
-        "member1": {
-          "right": {}
-        },
-        "member2": {
-          "right": {}
-        },
-        "member3": {
-          "right": {}
-        },
+      "charity": {
+        "member1": {},
+        "member2": {},
+        "member3": {},
         "member4": {
-          "right": {},
-          "affiliation": "Sales & Marketing"
+          "affiliation": "Intern"
         }
       },
-      "regsitry": {
-        "member3": {
-          "right": {}
+      "chairty": {
+        "member1": {}
+      },
+      "company": {
+        "headline": "Registry",
+        "member1": {},
+        "member2": {},
+        "member3": {},
+        "member4": {
+          "affiliation": "Sales & Marketing"
         }
       },
       "communication": {
@@ -185,45 +154,71 @@
     },
     "partnersupporter": {},
     "partner": {
-      "thjnk": {},
-      "aidshilfe": {},
-      "afilias": {},
-      "keysystems": {},
-      "moniker": {}
+      "partner1": {},
+      "partner2": {},
+      "partner3": {},
+      "partner4": {},
+      "partner5": {}
     },
     "supporter": {
-      "atlassian": {},
-      "dotzon": {},
-      "elementc": {},
-      "engarde": {},
-      "fischerppelt": {},
-      "github": {},
-      "google": {},
-      "jovoto": {},
-      "change": {},
-      "liga01": {},
-      "loved": {},
-      "nccgroup": {},
-      "nhb": {},
-      "podio": {},
-      "positivesingles": {},
-      "refinedwiki": {},
-      "sedo": {},
-      "shareifyoulike": {},
-      "swipe": {},
-      "charity": {},
-      "uniteddoamin": {},
-      "universal": {},
-      "youtube": {},
-      "zakk": {}
+      "supporter1": {},
+      "supporter2": {},
+      "supporter3": {},
+      "supporter4": {},
+      "supporter5": {},
+      "supporter6": {},
+      "supporter7": {},
+      "supporter8": {},
+      "supporter9": {},
+      "supporter10": {},
+      "supporter11": {},
+      "supporter12": {},
+      "supporter13": {},
+      "supporter14": {},
+      "supporter15": {},
+      "supporter16": {},
+      "supporter17": {},
+      "supporter18": {},
+      "supporter19": {},
+      "supporter20": {},
+      "supporter21": {},
+      "supporter22": {},
+      "supporter23": {},
+      "supporter24": {},
+      "more": {}
     },
-    "expertpool": {},
     "board": {
-      "bernd": {},
-      "lars": {},
-      "jan": {
+      "headline": {},
+      "text": {},
+      "board1": {},
+      "board2": {},
+      "board3": {
         "text": "Jans long experience as a tax adviser and financial auditor is of great use to us again and again. He has been active in the social sector for years at organizations such as NestWerk e.V. and Hamburg Leuchtfeuer."
       }
+    },
+    "angels": {
+      "headline": {},
+      "text": {},
+      "michael": {
+        "photo": {},
+        "name": {},
+        "text": {}
+      },
+      "dropdown": {},
+      "one": {},
+      "two": {},
+      "three": {},
+      "four": {},
+      "five": {},
+      "six": {},
+      "seven": {},
+      "eight": {},
+      "nine": {},
+      "ten": {},
+      "eleven": {},
+      "twelve": {},
+      "thirteen": {},
+      "fourteen": {}
     },
     "association": {},
     "heavystuff": {
@@ -238,27 +233,24 @@
       "resistry": {}
     },
     "getactive": {
-      "jobs": {},
+      "jobs": {
+        "position": {},
+        "deadline": {},
+        "download": {}
+      },
       "howto": {
-        "becomemember": {},
-        "ambassador": {},
+        "clickvoteshare": {},
+        "member": {},
         "campus": {},
-        "activator": {}
+        "tech": {}
       }
     },
-    "getactice": {
-      "howto": {
-        "ambassador": {}
-      }
-    },
-    "getacticve": {
-      "howto": {
-        "ambassador": {}
-      }
-    },
-    "newsletter": {},
-    "news": {
-      "socialmedia": {}
+    "newsstream": {},
+    "oldernews": {},
+    "socialmedia": {
+      "facebook": {},
+      "twitter": {},
+      "pinterest": {}
     }
   },
   "aboute": {
@@ -283,7 +275,7 @@
       },
       "header": {
         "overview": {},
-        "changeprofilee": {},
+        "changeprofile": {},
         "changeproject": {},
         "changedomain": {},
         "logout": {}
@@ -538,15 +530,5 @@
   },
   "domainverwalten": {
     "finalisiereb": {}
-  },
-  "domian": {
-    "administer": {
-      "premium": {
-        "step": {}
-      },
-      "developer": {
-        "counter": {}
-      }
-    }
   }
 }
