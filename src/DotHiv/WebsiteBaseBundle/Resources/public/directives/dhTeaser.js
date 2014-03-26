@@ -19,12 +19,16 @@ angular.module('dotHIVApp.directives').directive('dhTeaser', function($interpola
         scope: {
             prefix: '@prefix',
         },
-        template: '<span>' + 
-        '<p>' + 
-        '<span translate="' + startSym + 'prefix + \'.text\'' + endSym + '"></span> ' + 
-        '<div class="heading-arrow" ng-hide="show"></div><a href="" ng-click="show=true" ng-hide="show"><span translate="' + startSym + 'prefix + \'.dropdown\'' + endSym + '"></span></a>' + 
-        '</p>' + 
-        '<p ng-show="show" translate="' + startSym + 'prefix + \'.expand\'' + endSym + '"></p>' + 
+        template:
+        '<span>' +
+            '<p>' +
+                '<span translate="' + startSym + 'prefix + \'.text\'' + endSym + '"></span> ' +
+                '<a href="" ng-click="show=true" ng-hide="show"><span class="heading-arrow" ng-hide="show"></span><span translate="' + startSym + 'prefix + \'.dropdown\'' + endSym + '"></span></a>' + 
+            '</p>' +
+            '<p ng-show="show">' +
+                '<span translate="' + startSym + 'prefix + \'.expand\'' + endSym + '"></span>' +
+                '<a href="" ng-click="show=undefined" class="heading-arrow-rev" ng-show="show"></a>' +
+            '</p>' +
         '</span>',
     };
 });
