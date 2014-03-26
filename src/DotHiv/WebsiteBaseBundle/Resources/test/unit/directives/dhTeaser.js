@@ -2,7 +2,7 @@
 
 describe('the dhTeaser directive', function() {
 
-    var rootElement, scope;
+    var rootElement, scope, extraTextElement;
 
     beforeEach(module(function($provide) {
         $provide.factory('translateFilter', function() {
@@ -20,6 +20,7 @@ describe('the dhTeaser directive', function() {
         scope = $rootScope;
         $compile(rootElement)(scope);
         scope.$digest();
+        extraTextElement = rootElement.children().next().next().next().next(); // didn't find a nicer way to find the element :-(
     }));
 
     it('should show a span tag', function() {
@@ -33,12 +34,26 @@ describe('the dhTeaser directive', function() {
         expect(rootElement.parent().html()).toMatch(/translate=['"]my.prefix.expand['"]/);
     });
 
-    // TODO
+    // TODO not yet implemented
     it('should have a fallback if there is no translation for the label key', function() {});
 
-    // TODO add unit tests for show / hide behaviour
-    it('should hide the extra text by default', function() {});
-    it('should show the more link by default', function() {});
-    it('should show the extra text after clicking on more', function() {});
-    it('should hide the more button after clicking on it', function() {});
+    it('should hide the extra text by default', function() {
+        expect(extraTextElement.css('display')).toBe('none');
+    });
+
+    it('should show the more link by default', function() {
+        expect(rootElement.find('a').css('display')).toBe('');
+    });
+
+    it('should show the extra text when show is set to true', function() {
+        scope.$$childHead.show = true;
+        scope.$digest();
+        expect(extraTextElement.css('display')).toBe('');
+    });
+
+    it('should hide the more button when show is set to true', function() {
+        scope.$$childHead.show = true;
+        scope.$digest();
+        expect(rootElement.find('a').css('display')).toBe('none');
+    });
 });
