@@ -1,20 +1,9 @@
 {
   "Code": "Text Deutsch",
-  "aaaaa": {
-    "this": {
-      "code": {
-        "is": {
-          "on": {
-            "top": "dsdddd"
-          }
-        }
-      }
-    }
-  },
   "header": {
     "bar": {
-      "projecthead": "projects",
-      "aboutHIV": "Ueber dotHIV",
+      "projecthead": "Projekte",
+      "aboutHIV": "Über dotHIV",
       "registerurl": "Domain registrieren"
     },
     "menu": {
@@ -33,7 +22,7 @@
       },
       "vote": {
         "headline": "Voten",
-        "text": "Du klickst das Geld frei – also kannst du auch entscheiden, an welches project es geht. Wir unterstützen HIV und Aids-projects von überall auf der Welt. Schau sie dir an und gib ihnen deine Stimme. "
+        "text": "Du klickst das Geld frei – also kannst du auch entscheiden, an welches Projekt es geht. Wir unterstützen HIV und AIDS Projekte weltweit. Schau sie dir an und gib ihnen deine Stimme. "
       },
       "share": {
         "headline": "Teilen",
@@ -43,14 +32,14 @@
     "who": {
       "headline": "Über dotHIV",
       "text": "Seit über 4 Jahren arbeiten wir daran, die Idee .hiv wahr werden zu lassen. Über die Zeit sind immer mehr tolle Menschen aus den verschiedensten Bereichen zu unserem Team gestoßen und haben es mit ihrer Expertise weitergebracht. Hier erfährst du mehr über die Leute hinter der Idee. ",
-      "votefor": "Für ein project voten",
+      "votefor": "Für ein Projekt voten",
       "yourpage": "Deine .hiv Domain",
-      "howto": "Wie stelle ich ein project ein?"
+      "howto": "Wie stelle ich ein Projekt ein?"
     },
     "vote": {
       "headline": "Wohin geht das Geld?",
       "allprojects": "Alle anzeigen",
-      "header": "Gib deinem Klick eine Stimme! Mit dem Geld aus dem Domainverkauf unterstützen wir HIV und Aids-projects auf der ganzen Welt. Und du entscheidest, welches project gefördert wird. Hier ist eine Übersicht aller projects. "
+      "header": "Gib deinem Klick eine Stimme! Mit dem Geld aus dem Domainverkauf unterstützen wir HIV und AIDS Projekte auf der ganzen Welt. Und du entscheidest, welches Projekt gefördert wird. Hier ist eine Übersicht aller projects. "
     },
     "firms": {
       "headline": "Diese Unternehmen sind dabei",
@@ -117,17 +106,21 @@
       "terms": "Nutzungsbedingungen/Datenschutz",
       "privacy": "Datenschutz"
     },
-    "social": {}
+    "social": {
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "pinterest": "Pinterest"
+    }
   },
   "about": {
     "breadcrumb": {
       "mission": "Die Mission",
-      "aboutHIV": "Über dotHIV",
+      "about": "Über dotHIV",
       "fororg": "dotHIV für Communities",
       "whoisbehind": "Wer ist dotHIV",
-      "getactive": "Werde aktiv",
-      "newsevents": "News und Events",
-      "association": "Die .hiv Regsistry"
+      "getiactive": "Werde aktiv",
+      "news": "News",
+      "registry": "Die .hiv Regsistry"
     },
     "nav": {
       "mission": "Die Mission",
@@ -144,20 +137,21 @@
       "history": "Die Geschichte",
       "quotes": "Zitate",
       "fororg": "dotHIV für Communities",
+      "criteria": "Unsere Förderrichtlinien",
       "charitydomains": "Non-profit Domain",
       "apply": "Non-profit Domain sichern",
-      "guidelines": "Förderrichtlinien",
+      "experts": "Unser Experten Pool",
+      "network": "Netzwerkorganisationen",
       "whoisbehind": "Wer ist dotHIV",
       "team": "Team",
+      "organization": "Die Organisation im Überbick",
       "partnersupporter": "Partner & Supporter",
-      "policyca": "Policy Advisor",
-      "org": "Organisationsstruktur",
+      "partner": "Unsere Partner",
+      "supporter": "Unserer Unterstützer",
+      "policyca": "Unser Beirat",
+      "angels": "Unsere Business Angel",
       "heavystuff": "Schwere Kost",
-      "association": "Die .hiv Regsistry",
       "getactive": "Werde aktiv",
-      "jobs": "Jobs",
-      "help": "Wie kann ich helfen",
-      "newsletter": "Newsletter",
       "newsstream": "Newsstream",
       "registry": "Die .hiv Regsistry"
     },
@@ -193,7 +187,10 @@
       "manifesto": {
         "headline": "dotHIV - Das Mission Statement",
         "popup": "Lies unser Mission Statment",
-        "text": "dotHIV is a Social Enterprise.\nWith the domain-ending “.hiv”, we implant the fight against AIDS in the DNA of the Internet. \nWe join forces with all those who are active in the global HIV response. \nAs an organization, we are mission driven. Our work is based on values. We are committed to continuous learning\nas we are working in an innovative field of technology with a new approach to fight AIDS. \nWe sell .hiv-domains to raise awareness, reduce HIV-related stigma and financially support the \ninitiatives of the AIDS response. We believe in the power of networks and in bottom-up approaches. \nTogether, we will establish .hiv as the digital Red Ribbon. \n.hiv – the Top-Level Domain. \n.hiv is:\nAn open, global technical infrastructure. \nTo support all diverse communities. \nA place for free expression. \nReady to be filled with life. \nAn innovative, decentralized network. \nThat tackles a global problem with local power. \nWhat is .hiv? \nThe digital Red Ribbon! \nWho is .hiv? Everyone! \nTogether, we will ignite even more. \n.hiv creates an Internet with a bigger meaning: \nA web with a purpose. \nAt the service of anyone who shares our goal: \nThe end of AIDS. \n        dotHIV – the charitable organization. \ndotHIV is: \nTransparent and mission-driven.\nReady to forge new paths.\nBundling the power of the AIDS response.\nTo give the fight a new momentum.\nNot a service organization. \nBut a booster for aid organizations. \nWe stand for a new perception. \nAnd encourage communication without using fear. \nWe eliminate outdated prejudices. \nWith empathy instead of pity. \nIn touch with our communities,\nhere is what we want to do:\nOpen minds and power small initiatives.\nGive HIV a new visibility on the web.\nTogether, behind the same goal:\nThe end of AIDS. \n\nBecause .hiv (Logo) makes helping easy: click.\n\n"
+        "middle1": "dotHIV is a Social Enterprise.\nWith the domain-ending “.hiv”, we implant the fight against AIDS in the DNA of the Internet. \nWe join forces with all those who are active in the global HIV response. \nAs an organization, we are mission driven. Our work is based on values. We are committed to continuous learning\nas we are working in an innovative field of technology with a new approach to fight AIDS. \nWe sell .hiv-domains to raise awareness, reduce HIV-related stigma and financially support the \ninitiatives of the AIDS response. We believe in the power of networks and in bottom-up approaches. \nTogether, we will establish .hiv as the digital Red Ribbon. ",
+        "left": ".hiv – the Top-Level Domain. \n.hiv is:\nAn open, global technical infrastructure. \nTo support all diverse communities. \nA place for free expression. \nReady to be filled with life. \nAn innovative, decentralized network. \nThat tackles a global problem with local power. \nWhat is .hiv? \nThe digital Red Ribbon! \nWho is .hiv? Everyone! \nTogether, we will ignite even more. \n.hiv creates an Internet with a bigger meaning: \nA web with a purpose. \nAt the service of anyone who shares our goal: \nThe end of AIDS.",
+        "right": " dotHIV – the charitable organization. \ndotHIV is: \nTransparent and mission-driven.\nReady to forge new paths.\nBundling the power of the AIDS response.\nTo give the fight a new momentum.\nNot a service organization. \nBut a booster for aid organizations. \nWe stand for a new perception. \nAnd encourage communication without using fear. \nWe eliminate outdated prejudices. \nWith empathy instead of pity. \nIn touch with our communities,\nhere is what we want to do:\nOpen minds and power small initiatives.\nGive HIV a new visibility on the web.\nTogether, behind the same goal:\nThe end of AIDS. ",
+        "middle2": "Because .hiv (Logo) makes helping easy: click."
       }
     },
     "concept": {
@@ -284,6 +281,7 @@
       "quote5": {}
     },
     "fororg": {
+      "headline": "dotHIV für die AIDS response",
       "text": "Kurze Einleitung zu Thema \"Was macht dotHIV für Organisationen\"\n\n",
       "charitydoamin": {
         "headline": "Die .hiv non-profit Domain\n",
@@ -292,85 +290,11 @@
       },
       "charitydomain": {
         "secondheadline": {
-          "what": "Was ist eine .hiv non-profit Domain",
+          "what": "Was ist eine .hiv non-profit Domain?",
           "why": "Was sind die Vorteile einer .hiv non-profit Domain?"
         },
         "expand": "\nMit der kostenlosen .hiv Domain wollen wir für Organisationen im Bereich HIV und Aids einen eigenen Platz im Internet schaffen. Durch die gemeinsame Nutzung dieses Platzes verstärkt sich die Wirkung des Einzelnen – durch die Entstehung besserer Sichtbarkeit und die Bildung eines globalen Netzwerkes.\n\nDie  Verwendung einer .hiv Domain verbessert die Suchmaschinenergebnisse und erhöht somit die Sichtbarkeit im Internet. Gleichzeitig erhöht ein gemeinsamer Namensraum die Transparenz über die Arbeit im Feld - sowohl für Internetuser als auch für Organisationen. Diesen wird eine einfache Möglichkeit gegeben, ein globales Netzwerk aufzubauen und das ganz ohne Kosten und intensive Bemühungen.\n\nUnd last but not least: auch in die kostenlose non-profit Domain wird unser Mikrospendensystem integriert. Das heißt auch für diese Seiten gilt: Jeder Klick auf eine .hiv Domain löst eine Mikrospende aus, die an HIV projects überall auf der Welt weiter gegeben wird.\n\n",
         "link": "Non-profit Domain beantragen"
-      },
-      "network": {
-        "org1": {
-          "name": "ALAFA - Apparel Lesotho Alliance to Fight AIDS "
-        },
-        "org2": {
-          "name": "BelAIDS Network - Belarussian NGO AIDS Network"
-        },
-        "org3": {
-          "name": "Create Future e.V."
-        },
-        "org4": {
-          "name": "Croix-Rouge Luxembourgeoise"
-        },
-        "org5": {
-          "name": "Czech AIDS Help Center"
-        },
-        "org6": {
-          "name": "danebi.org Apothekennetzwerk"
-        },
-        "org7": {
-          "name": "GAGA UK – Goodwill and Growth for Africa"
-        },
-        "org8": {
-          "name": "Gegenpol"
-        },
-        "org9": {
-          "name": "GoAhead!"
-        },
-        "org10": {
-          "name": "Hamburg Leuchtfeuer"
-        },
-        "org11": {
-          "name": "HIV 360°"
-        },
-        "org12": {
-          "name": "HIV Disclosure Mission"
-        },
-        "org13": {
-          "name": "HIVplus Italia"
-        },
-        "org14": {
-          "name": "i-magine e.V."
-        },
-        "org15": {
-          "name": "The Load Zero Foundation"
-        },
-        "org16": {
-          "name": "LOVE ROCKS"
-        },
-        "org17": {
-          "name": "Michael Stich Stiftung"
-        },
-        "org18": {
-          "name": "die Multis"
-        },
-        "org19": {
-          "name": "Rafi.ki"
-        },
-        "org20": {
-          "name": "Stop AIDS Now / Access"
-        },
-        "org21": {
-          "name": "think red! ribbonize your life!"
-        },
-        "org22": {
-          "name": "Vergessen ist ansteckend"
-        },
-        "org23": {
-          "name": "Vijana Amani Pamoja (VAP)"
-        },
-        "org24": {
-          "name": "Yabonga e.V."
-        }
       }
     },
     "guidelines": {
@@ -382,9 +306,79 @@
       "headline": "HIV Expert Pool",
       "text": "Um sicherzustellen, dass die Registrierungsrichtlinien für .hiv-Domains und die Förderrichtlinien für die künftige Spendenvergabe im Einklang mit den HIV Communities, sowie Spezialisten aus dem Bereich IT, Recht und technische Innovationen stattfinden un, stellen wir einen Kreis aus Beratern zusammen. Sie sollen Feedback geben, Wissen in Bereichen beisteuern, wo es dem dotHIV-Team noch fehlt und die regionale und thematische Vielfalt des Themas widerspiegeln. Hier ist eine Übersicht der Menschen, die uns bereits unterstützen:"
     },
-    "forrorg": {
-      "network": {
-        "org2": {}
+    "network": {
+      "headline": "Unser Organisationsnetzwerk",
+      "org1": {
+        "name": "ALAFA - Apparel Lesotho Alliance to Fight AIDS "
+      },
+      "org2": {
+        "name": "BelAIDS Network - Belarussian NGO AIDS Network"
+      },
+      "org3": {
+        "name": "Create Future e.V."
+      },
+      "org4": {
+        "name": "Croix-Rouge Luxembourgeoise"
+      },
+      "org5": {
+        "name": "Czech AIDS Help Center"
+      },
+      "org6": {
+        "name": "danebi.org Apothekennetzwerk"
+      },
+      "org7": {
+        "name": "GAGA UK – Goodwill and Growth for Africa"
+      },
+      "org8": {
+        "name": "Gegenpol"
+      },
+      "org9": {
+        "name": "GoAhead!"
+      },
+      "org10": {
+        "name": "Hamburg Leuchtfeuer"
+      },
+      "org11": {
+        "name": "HIV 360°"
+      },
+      "org12": {
+        "name": "HIV Disclosure Mission"
+      },
+      "org13": {
+        "name": "HIVplus Italia"
+      },
+      "org14": {
+        "name": "i-magine e.V."
+      },
+      "org15": {
+        "name": "The Load Zero Foundation"
+      },
+      "org16": {
+        "name": "LOVE ROCKS"
+      },
+      "org17": {
+        "name": "Michael Stich Stiftung"
+      },
+      "org18": {
+        "name": "die Multis"
+      },
+      "org19": {
+        "name": "Rafi.ki"
+      },
+      "org20": {
+        "name": "Stop AIDS Now / Access"
+      },
+      "org21": {
+        "name": "think red! ribbonize your life!"
+      },
+      "org22": {
+        "name": "Vergessen ist ansteckend"
+      },
+      "org23": {
+        "name": "Vijana Amani Pamoja (VAP)"
+      },
+      "org24": {
+        "name": "Yabonga e.V."
       }
     },
     "whosbehind": {
@@ -428,9 +422,13 @@
           "affiliation": "Fianzen & Unternehmensentwicklung"
         },
         "member3": {
+          "name": "Markus Tacker ",
           "affiliation": "CTO"
         },
-        "member4": {}
+        "member4": {
+          "name": "Michael Twist",
+          "affiliation": "Marketing & Sales"
+        }
       },
       "communication": {
         "member1": {
@@ -469,6 +467,7 @@
       }
     },
     "supporter": {
+      "headline": "dotHIV Unterstützer",
       "supporter1": {
         "link": "atlassian"
       },
@@ -575,32 +574,57 @@
       }
     },
     "angels": {
-      "headline": {
-        "left": "Unsere Business Angels"
-      },
-      "text": {
-        "left": "Unsere Business Angels sind ..."
-      },
+      "headline": "Unsere Business Angels",
+      "text": "Unsere Business Angels sind ...",
       "michael": {
         "photo": {},
-        "name": {},
+        "name": {
+          "left": "Dr. Michael Trautmann"
+        },
         "text": {}
       },
-      "dropdown": {},
-      "one": {},
-      "two": {},
-      "three": {},
-      "four": {},
-      "five": {},
-      "six": {},
-      "seven": {},
-      "eight": {},
-      "nine": {},
-      "ten": {},
-      "eleven": {},
-      "twelve": {},
-      "thirteen": {},
-      "fourteen": {}
+      "one": {
+        "left": "Thjnk"
+      },
+      "two": {
+        "left": "Henkler-Cöllen GbR"
+      },
+      "three": {
+        "left": "Hans-Jochen Holthausen"
+      },
+      "four": {
+        "left": "Dr. Bernd Kortüm"
+      },
+      "five": {
+        "left": "Michael Stich"
+      },
+      "six": {
+        "left": "Dr. Jesko Perrey"
+      },
+      "seven": {
+        "left": "Boston I-Venture GmbH"
+      },
+      "eight": {
+        "right": "Matthias Schrader"
+      },
+      "nine": {
+        "right": "Thomas Wünsche "
+      },
+      "ten": {
+        "right": "Clemens Lansing"
+      },
+      "eleven": {
+        "right": "SCD Invest GmbH"
+      },
+      "twelve": {
+        "right": "whatever mobile GmbH"
+      },
+      "thirteen": {
+        "right": "Solanus GmbH"
+      },
+      "fourteen": {
+        "right": "Philipp Grabensee"
+      }
     },
     "association": {
       "headline": "Organisationstruktur"
@@ -608,10 +632,6 @@
     "heavystuff": {
       "headline": "Schwere Kost",
       "text": "Hier stehen die wichtigsten Dokumente über den Verein zur Verfügung. Neben der Organisationsstruktur und der Vereinssatzung auch die Statusberichte die bereits veröffentlicht werden und den Nachweis unserer Gemeinnützigkeit.\n\n",
-      "organization": {
-        "secondheadline": "Organisationstruktur\n",
-        "download": "Organigramm\n"
-      },
       "status": {
         "secondheadline": "Unsere Statusberichte",
         "download2012": {
@@ -679,7 +699,7 @@
     },
     "oldernews": {},
     "socialmedia": {
-      "headline": "dotHIV in den Medien",
+      "headline": "Social Media",
       "facebook": {
         "headline": "Facebook Stream\n"
       },
@@ -689,6 +709,9 @@
       "pinterest": {
         "headline": "Pinterest Stream"
       }
+    },
+    "media": {
+      "headline": "dotHIV in den Medien"
     }
   },
   "aboute": {
@@ -696,12 +719,12 @@
   },
   "login": {
     "headline": "Log in",
-    "text": "Pleas log in to continue ",
+    "text": "Bitte log dich ein",
     "adress": {
       "email": "E-mail",
-      "passwort": "Password"
+      "passwort": "Passwort"
     },
-    "link": "I forgot my password",
+    "link": "Passwort veregssen?",
     "button": "Log in",
     "socialmedia": {
       "headline": "Log in mit..."
@@ -721,10 +744,10 @@
     "registration": {
       "text": "Neu bei dotHIV? Lege hier deinen eigenen Account an",
       "adress": {
-        "password": "Password*",
-        "reenter": "Re enter Password*"
+        "password": "Passwort*",
+        "reenter": "Passwort erneut eingeben*"
       },
-      "privacypolicy": "By sinig up you agree to our terms of use and privacy policy "
+      "privacypolicy": "By signing up you agree to our terms of use and privacy policy "
     },
     "registation": {
       "button": "Jetzt Registrieren"
@@ -760,20 +783,20 @@
         }
       },
       "projects": {
-        "headline": "projectoverview",
-        "button": "Neues project einstellen ",
-        "text": "project beschreibung ",
-        "link1": "Zur projectansicht ",
+        "headline": "Projektübersicht",
+        "button": "Neues Projekt einstellen ",
+        "text": "Projektbeschreibung ",
+        "link1": "Zur Projektansicht ",
         "link2": "Neuigkeiten hinzufühgen ",
-        "link3": "project bearbeiten "
+        "link3": "Projekt bearbeiten "
       },
       "project": {
         "download": "Privcy Policy runterladen"
       },
       "domain": {
-        "headline": "Domainoverview ",
+        "headline": "Domain Übersicht",
         "button": "Neue Domain erstellen",
-        "text": "Beschriebung der Domain",
+        "text": "Beschreibung der Domain",
         "link1": "Statistiken downloaden",
         "link2": "Einstellungen zurücksetzen ",
         "link3": "Domain bearbeiten"
@@ -781,22 +804,23 @@
       "votes": {
         "headline": "Votes",
         "link1": "Alle Votes anzeigen ",
-        "text": "Auflistung projects ",
-        "link2": "Gehe zum project"
+        "text": "Auflistung Projekte",
+        "link2": "Gehe zum Projekt"
       },
       "comments": {
-        "headline": "Angegeben Kommentare ",
+        "headline": "Abgegeben Kommentare ",
         "link": "Alle Kommentare anzeigen "
       },
       "kommentare": {
-        "text": "Auflistung projects und Kommentare",
-        "link": "Gehe zum project"
+        "text": "Auflistung Projekte und Kommentare",
+        "link": "Gehe zum Projekt"
       }
     },
     "aboutme": {
-      "headline": "Mein profile bearbeiten ",
-      "name": "Information über die Person ",
+      "headline": "Mein Porfil bearbeiten ",
+      "name": "Name ",
       "lastname": "Nachname",
+      "email": "E-Mail Adresse",
       "passwordold": "Altes Password",
       "password": "Neues Passwaort",
       "repeatpassword": "Passwort erneut eingeben",
@@ -806,19 +830,19 @@
       "headline": "Projekte verwalten",
       "overview": {
         "link1": "Overview",
-        "link2": "Zur projectansicht "
+        "link2": "Zur Projektansicht "
       },
       "news": {
         "link": "Neuigkeiten hinzufühgen "
       },
       "edit": {
-        "link": "project bearbeiten "
+        "link": "Projekt bearbeiten "
       },
       "button": "Neues Projekt einstellen "
     },
     "projects": {
       "profile": {
-        "link": "profile bearbeiten "
+        "link": "Profil bearbeiten "
       },
       "domains": {
         "link": "Domains verwalten "
@@ -868,7 +892,7 @@
     "overview": {
       "nav": {
         "project": {
-          "link": "project einstellen"
+          "link": "Projekt einstellen"
         }
       }
     }
@@ -896,7 +920,7 @@
           "headline": "Neues Projekt einstellen"
         },
         "name": "Name des Projekt",
-        "category": "Dropdownmenü: Promote ICT as a ressource; Support youth led/targeted; Foster prevention & education; Focus on key populations; Develop/support rights of PLHIV ",
+        "category": "Funding Section",
         "web": "Webadresse des Projekt",
         "who": "Ansprechpartner für das Projekt",
         "mail": "E-mail Adresse des Ansprechpartners",
@@ -912,10 +936,10 @@
         }
       },
       "overview": {
-        "link": "overview"
+        "link": "Overview"
       },
       "profile": {
-        "link": "profile bearbeiten"
+        "link": "Profil bearbeiten"
       },
       "domains": {
         "link": "Domains verwalten"
@@ -923,33 +947,31 @@
       "logout": {
         "link": "Logout"
       },
-      "link1": "Zurück zur overview Projektverwaltung",
+      "link1": "Zurück zur  Projektverwaltung",
       "headline": {
         "neues": "Neues Projekt einstellen"
       },
       "wie": {
-        "text": "Wie stelle ich ein project ein "
+        "text": "Wie stelle ich ein Projekt ein "
       },
       "download": "dotHIV Policy ansehen",
       "link2": "Mindesststandards ansehen ",
-      "button": "Jetzt Projekt eintragen",
+      "button": "Jetzt Projekt einstellen",
       "contactperson": {
         "project": {
           "link": "Projekte verwalten"
         },
         "overview": {
-          "link": "overview"
+          "link": "Overview"
         },
         "profile": {
-          "link": "profile bearbeiten"
+          "link": "Profil bearbeiten"
         },
-        "domains": {
-          "link": "Domains verwalten"
-        },
+        "domains": {},
         "logout": {
           "link": "Logout"
         },
-        "link": "Zurück zur overview Projektverwaltung",
+        "link": "Zurück zur Projektverwaltung",
         "button1": "Ansprechpartner",
         "new": {
           "headline": "Neues Projekt einstellen",
@@ -1385,7 +1407,10 @@
           }
         },
         "step": {
-          "payment": "Premium Banner - Bezeahlung"
+          "payment": {
+            "headline": "Premium Banner - Bezeahlung",
+            "who": "Auftrag durch"
+          }
         },
         "finalize": {
           "link": "Domains verwalten",
