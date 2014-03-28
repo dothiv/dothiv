@@ -23,7 +23,6 @@ class Domain extends Entity
      * FQDN, no trailing dot.
      * 
      * @ORM\Column(type="string",length=255,unique=true)
-     * @Assert\Regex("/^[^.]{1,67}\.hiv$/")
      * @Serializer\Expose
      */
     protected $name;
