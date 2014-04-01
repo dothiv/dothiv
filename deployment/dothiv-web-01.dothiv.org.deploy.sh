@@ -60,7 +60,8 @@ app/console --env=$ENV cache:clear
 
 echo ""
 echo "# composer install ..."
-/var/lib/jenkins/bin/composer.phar install
+COMPOSER_BIN=${COMPOSER_BIN:=composer.phar}
+$COMPOSER_BIN install
 echo ""
 echo "# npm install ..."
 npm install
