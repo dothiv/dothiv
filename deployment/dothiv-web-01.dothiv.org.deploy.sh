@@ -50,6 +50,8 @@ echo ""
 echo "# Stashing changes ..."
 # We could also do a git reset --hard here...
 git stash
+
+echo ""
 echo "# Pulling ..."
 git pull
 
@@ -62,6 +64,7 @@ echo "# composer install ..."
 echo ""
 echo "# npm install ..."
 npm install
+echo ""
 
 # Scans the src dir and finds the js or css file with the latest modification time
 function findLatestSrc {
