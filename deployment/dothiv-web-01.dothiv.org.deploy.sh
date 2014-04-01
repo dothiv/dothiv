@@ -82,7 +82,7 @@ function findLatestMin {
 LATESTSRC=$(findLatestSrc)
 LATESTCACHE=$(findLatestMin)
 
-if [ $LATESTSRC -nt $LATESTCACHE ]
+if [ "$LATESTSRC" -nt "$LATESTCACHE" ]
 then
     echo ""
     V=`date +%s`
