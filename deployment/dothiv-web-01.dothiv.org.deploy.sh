@@ -89,6 +89,37 @@ then
     app/console --env=$ENV assetic:dump
 fi
 
+# Check if there is already a new update.
+git fetch origin
+# We specifically use the return code of the next command.
+set +e
+git diff --exit-code --quiet origin/master
+if [ $? != 0 ]
+then
+    echo "# New version exist on origin. Restarting ..."
+
+    # Protect against infinite loops
+    LOOPCOUNT=$[$1 +1]
+    if [ "$LOOPCOUNT" -lt "1" ]
+    then
+        echo "Invalid loopcount supplied."
+        exit 1
+    fi
+    if [ "$LOOPCOUNT" -gt "10" ]
+    then
+        echo "Infinite loop detected."
+        exit 1
+    fi
+
+    # Remove the lock only. Update will then pickup again.
+    rm -v $UPDATELOCK
+    # Launch again.
+    bash $0 $LOOPCOUNT
+else
+    echo "# Nothing has changed in the meantime."
+fi
+set -e
+
 echo ""
 echo "# Deactivating maintenance page ..."
 ln -sfv app.php web/index.php
