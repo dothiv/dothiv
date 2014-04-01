@@ -1,19 +1,14 @@
 {
   "Code": "Text Englisch",
-  "aaaaa": {
-    "this": {
-      "code": {
-        "is": {
-          "on": {
-            "top": "hello"
-          }
-        }
-      }
-    }
-  },
   "header": {
-    "bar": {},
-    "menu": {},
+    "bar": {
+      "projecthead": "Project",
+      "aboutHIV": "About dotHIV",
+      "registerurl": "Register Domain"
+    },
+    "menu": {
+      "reportabuse": "Report something"
+    },
     "pinkbar": {}
   },
   "home": {
@@ -21,15 +16,42 @@
       "popover": {}
     },
     "about": {
-      "oneclick": {},
-      "vote": {},
-      "share": {}
+      "oneclick": {
+        "headline": "Click",
+        "text": "We present: the good Click! Every click on a .hiv website triggers a microdonation for the fight aigainst HIV and AIDS. That is your possibiliy to lin up wit website operators and do something good. "
+      },
+      "vote": {
+        "headline": "Vote",
+        "text": "You activate the money by clicking on .hiv websites - so you can choose where the mones goes. Wie suppoprt HIV and AIDS project worldwide. Have a look and vote for them!"
+      },
+      "share": {
+        "headline": "Share",
+        "text": "To really change things the whole world needs to know about .hiv. Help us to get people to know about us and tell all your friends about .hiv - the digital Red Ribbon."
+      }
     },
-    "who": {},
-    "vote": {},
-    "firms": {},
-    "quotes": {},
-    "partners": {},
+    "who": {
+      "headline": "About dotHIV",
+      "text": "for more than 4 years we've been working on making the digital Red Ribbon a reality. Over the time a lot of great and talented people from differnt fields of work joined our team and helped us to go ahead. Here you get to know more about the people behind dotHIV.",
+      "votefor": "Vote for a Project",
+      "yourpage": "Your .hiv Domain",
+      "howto": "Who to upload a Project"
+    },
+    "vote": {
+      "headline": "Where does the money go?",
+      "allprojects": "Show all",
+      "header": "Give your click a voice! With the money from the doamin sale we support HIV and AIDS projects all around the world. And you decide, which projects get funded. You can have look at all projects here."
+    },
+    "firms": {
+      "headline": "These companies are on board",
+      "allfirms": "See all"
+    },
+    "quotes": {
+      "headline": "What others say",
+      "allquotes": "More"
+    },
+    "partners": {
+      "headline": "Our partners"
+    },
     "help": {
       "contact": {
         "press": {},
@@ -43,16 +65,77 @@
       }
     }
   },
+  "projects": "Projects",
   "footer": {
-    "adress": {},
-    "navi": {},
-    "social": {}
+    "adress": {
+      "name": "dotHIV geimeinnütziger e.V.",
+      "street": "Lehmbruckstraße 3",
+      "city": "10245 Berlin "
+    },
+    "navi": {
+      "help": "Help",
+      "forum": "Forum",
+      "contact": "Contact",
+      "impressum": "Impressum",
+      "terms": "Terms of Use/Privacy policy",
+      "privacy": "Privacy policy"
+    },
+    "social": {
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "pinterest": "Pinterest"
+    }
   },
   "about": {
-    "breadcrumb": {},
-    "nav": {},
-    "mission": {},
-    "goals": {},
+    "breadcrumb": {
+      "mission": "The Mission",
+      "about": "About dotHIV",
+      "fororg": "dotHIV for the HIV response",
+      "whoisbehind": "Who is dotHIV",
+      "getiactive": "Get involved",
+      "news": "News",
+      "registry": "The .hiv Registry"
+    },
+    "nav": {
+      "mission": "The Mission",
+      "goals": "Our Goal",
+      "contribution": "Our Contribution ",
+      "AIDS": "HIV & AIDS - The Situation",
+      "aboutHIV": "About dotHIV",
+      "idea": "The Idea",
+      "film": "The Movie",
+      "manifesto": "Our Mission Statement",
+      "concept": "The good Click",
+      "usage": "Top .hiv Utalization concept",
+      "moneyusage": "Where the money goes",
+      "history": "The History",
+      "quotes": "Quotes",
+      "fororg": "dotHIV for the HIV response",
+      "criteria": "Our Funding Guidelines",
+      "charitydomains": "Non-profit Domain",
+      "apply": "Get your Non-profit Domain",
+      "experts": "Our Pool of Experts",
+      "network": "Network Organizations",
+      "whoisbehind": "Who is dotHIV",
+      "team": "Team",
+      "organization": "Organigram ",
+      "partnersupporter": "Partner & Supporter",
+      "partner": "Our Partners",
+      "supporter": "Our Supporters",
+      "policyca": "Our Advisory Board",
+      "angels": "Our Business Angels",
+      "heavystuff": "Heavy stuff",
+      "getactive": "Get involved",
+      "newsstream": "Newsstream",
+      "registry": "The .hiv Registry"
+    },
+    "mission": {
+      "headline": "The Mission",
+      "text": "The fight against AIDS is at a crossroad: owning to research and the commitment of activists worldwide an end of AIDS is in sight for the first time in the history of the virus. A HIV infection is no longer a death sentence. Thanks to modern maedication a long and happy life with HIV is possible. Bus still: people living with HIV have to deal with driscrimination and stigmatization."
+    },
+    "goals": {
+      "headline": "Our Goal"
+    },
     "contribution": {},
     "AIDS": {
       "facts": {}
@@ -86,43 +169,53 @@
     },
     "fororg": {
       "headline": "dotHIV for the HIV response",
-      "charitydoamin": {},
-      "charitydomain": {
-        "secondheadline": {}
+      "charitydoamin": {
+        "headline": "The .hiv Non-profit Domain",
+        "text": "The .hiv non-profit domain is non-profit in two\nways:  firstly, it is exclusively for non-profit organizations whose work focuses on the HIV and AIDS. Secondly, it is free of charge because dotHIV carries the cost. The reasoning behind this is to create an Internet realm in which HIV and AIDS initiatives would be united.\n\n\n\n\n\n",
+        "dropdown": "More"
       },
-      "network": {
-        "org1": {},
-        "org2": {},
-        "org3": {},
-        "org4": {},
-        "org5": {},
-        "org6": {},
-        "org7": {},
-        "org8": {},
-        "org9": {},
-        "org10": {},
-        "org11": {},
-        "org12": {},
-        "org13": {},
-        "org14": {},
-        "org15": {},
-        "org16": {},
-        "org17": {},
-        "org18": {},
-        "org19": {},
-        "org20": {},
-        "org21": {},
-        "org22": {},
-        "org23": {},
-        "org24": {}
+      "charitydomain": {
+        "secondheadline": {
+          "what": "What is a .hiv Non-prfit Domain?",
+          "why": "What are the Benefits of a .hiv Non-profit Domain?"
+        },
+        "expand": "The .hiv domain would help create a global network that amplifies the work of each and every initiative with a focus on HIV and AIDS. Therefore creating an area where the efforts of each initiative are visible.  Using the .hiv domain improves search engine results for the organization, but also adds to its visibility on the Internet. All in all the usage of a .hiv createsa universal realm that improves the transparency of fieldwork for both the Internet users as the organizations themselves. Moreover the opportunity to create this global network is free of charge.\n\nLast but least, all non- profit domains have a micro- donation system integrated in them. Making it possible for Internet users to click free a certain amount that is to be donated to HIV projects worldwide.\n\n\n\n\n\n",
+        "link": "Get your own .hiv Non-profit Domain"
       }
     },
-    "guidelines": {},
-    "expertpool": {},
-    "forrorg": {
-      "network": {
-        "org2": {}
-      }
+    "guidelines": {
+      "headline": "Funding Principles",
+      "link": "Go to Projects"
+    },
+    "expertpool": {
+      "headline": "Expert Pool",
+      "text": "To ensure that the registration policies for .hiv-domains and the funding guidelines for the future donation allocation happen in conformity with the HIV/AIDS-communities, we are assembling a circle of advisors. They are to give feedback, contribute knowledge in fields, where the dotHIV-team is lacking it and display the regional and thematic diversity of the topic. Here is an overview of the people, who have already pledged their support:"
+    },
+    "network": {
+      "org1": {},
+      "org2": {},
+      "org3": {},
+      "org4": {},
+      "org5": {},
+      "org6": {},
+      "org7": {},
+      "org8": {},
+      "org9": {},
+      "org10": {},
+      "org11": {},
+      "org12": {},
+      "org13": {},
+      "org14": {},
+      "org15": {},
+      "org16": {},
+      "org17": {},
+      "org18": {},
+      "org19": {},
+      "org20": {},
+      "org21": {},
+      "org22": {},
+      "org23": {},
+      "org24": {}
     },
     "whosbehind": {},
     "team": {
@@ -143,7 +236,7 @@
         "member2": {},
         "member3": {},
         "member4": {
-          "affiliation": "Sales & Marketing"
+          "affiliation": "Marketing & Sales"
         }
       },
       "communication": {
@@ -197,14 +290,11 @@
       }
     },
     "angels": {
-      "headline": {},
-      "text": {},
       "michael": {
         "photo": {},
         "name": {},
         "text": {}
       },
-      "dropdown": {},
       "one": {},
       "two": {},
       "three": {},
@@ -222,7 +312,6 @@
     },
     "association": {},
     "heavystuff": {
-      "organization": {},
       "status": {
         "download2012": {},
         "download2013": {}
@@ -251,52 +340,143 @@
       "facebook": {},
       "twitter": {},
       "pinterest": {}
-    }
+    },
+    "media": {}
   },
   "aboute": {
     "usage": {}
   },
   "login": {
-    "adress": {},
-    "socialmedia": {},
-    "facebook": {},
-    "twitter": {},
-    "google": {},
-    "registartion": {},
-    "registration": {
-      "adress": {}
+    "headline": "Log in",
+    "text": "Pleas log in to continue ",
+    "adress": {
+      "email": "E-mail",
+      "passwort": "Password"
     },
-    "registation": {}
+    "link": "Forgotten your password?",
+    "button": "Login",
+    "socialmedia": {
+      "headline": "Log in with"
+    },
+    "facebook": {
+      "link": "Facebook connect"
+    },
+    "twitter": {
+      "link": "Twitter connect"
+    },
+    "google": {
+      "link": "Google connect"
+    },
+    "registartion": {
+      "headline": "New? Create Account"
+    },
+    "registration": {
+      "text": "Password*",
+      "adress": {
+        "reenter": "Re-enter Password*"
+      }
+    },
+    "registation": {
+      "button": "Register now"
+    }
   },
   "profile": {
     "overview": {
       "nav": {
-        "aboutme": {}
+        "aboutme": {
+          "link": "My Profile"
+        },
+        "language": "Language"
       },
       "header": {
-        "overview": {},
-        "changeprofile": {},
-        "changeproject": {},
-        "changedomain": {},
-        "logout": {}
+        "headline": "Hello ",
+        "lastlogin": "Last Login",
+        "votes": "Votes",
+        "comments": "Comments posted",
+        "overview": {
+          "link": "Overview"
+        },
+        "changeprofile": {
+          "link": "Edit Profile"
+        },
+        "changeproject": {
+          "link": "Manage Projects"
+        },
+        "changedomain": {
+          "link": "Manage Domains "
+        },
+        "logout": {
+          "link": "Logout"
+        }
       },
-      "projects": {},
-      "project": {},
-      "domain": {},
-      "votes": {},
-      "comments": {},
-      "kommentare": {}
+      "projects": {
+        "headline": "Project overview",
+        "button": "Upload new Project",
+        "text": "Project ",
+        "link1": "Go to Projects",
+        "link2": "Add News",
+        "link3": "Edit Project"
+      },
+      "project": {
+        "download": "Download Privacy Policy"
+      },
+      "domain": {
+        "headline": "Domainoverview",
+        "button": "Register new Domain",
+        "text": "Domain decribtion",
+        "link1": "Dowonload statistics",
+        "link2": "Reset settings",
+        "link3": "Edit Domain"
+      },
+      "votes": {
+        "headline": "Votes",
+        "link1": "Show all Votes",
+        "text": "List of all Projects",
+        "link2": "Go to Project"
+      },
+      "comments": {
+        "headline": "Posted Comments",
+        "link": "Schow all Comments"
+      },
+      "kommentare": {
+        "text": "List of Projects and Comments",
+        "link": "Go to project"
+      }
     },
-    "aboutme": {},
+    "aboutme": {
+      "headline": "Edit proflie",
+      "name": "Name",
+      "lastname": "Last name",
+      "email": "E-Mail",
+      "passwordold": "Previous Password",
+      "password": "New Password",
+      "repeatpassword": "Re-enter new Password",
+      "button": "Save"
+    },
     "project": {
-      "overview": {},
-      "news": {},
-      "edit": {}
+      "headline": "Manage Projects",
+      "overview": {
+        "link1": "Overview",
+        "link2": "Go to Project"
+      },
+      "news": {
+        "link": "Add News"
+      },
+      "edit": {
+        "link": "Edit Project"
+      },
+      "button": "Upload new Project"
     },
     "projects": {
-      "profile": {},
-      "domains": {},
-      "logout": {}
+      "profile": {
+        "link": "Edit Profile"
+      },
+      "domains": {
+        "link": "Manage Domains "
+      },
+      "logout": {
+        "link": "Logout"
+      }
     },
     "domain": {
       "claim": {
@@ -338,13 +518,16 @@
   "pofil": {
     "overview": {
       "nav": {
-        "project": {}
+        "project": {
+          "link": "Upload Project"
+        }
       }
     }
   },
   "project": {
     "adjust": {
       "project": {
+        "link": "Manage Project",
         "overview": {},
         "profile": {},
         "domains": {},
@@ -353,19 +536,49 @@
         "back": {},
         "next": {}
       },
-      "overview": {},
-      "profile": {},
-      "domains": {},
-      "logout": {},
-      "headline": {},
-      "wie": {},
+      "overview": {
+        "link": "Overview"
+      },
+      "profile": {
+        "link": "Edit Profile"
+      },
+      "domains": {
+        "link": "Manage Domains "
+      },
+      "logout": {
+        "link": "Logout"
+      },
+      "link1": "Back to Project management",
+      "headline": {
+        "neues": "Upload new Project"
+      },
+      "wie": {
+        "text": "How to upload a new project"
+      },
+      "download": "dotHIV Policy",
+      "link2": "Eligibility criteria",
+      "button": "Upload Project now",
       "contactperson": {
-        "project": {},
-        "overview": {},
-        "profile": {},
+        "project": {
+          "link": "Manage Project"
+        },
+        "overview": {
+          "link": "Overview"
+        },
+        "profile": {
+          "link": "Edit Profile"
+        },
         "domains": {},
-        "logout": {},
-        "new": {}
+        "logout": {
+          "link": "Logout"
+        },
+        "link": "Back to Project management",
+        "button1": "Contact Person",
+        "new": {
+          "headline": "Upload new Project",
+          "text": "Please extend your profile data",
+          "download": "dotHIV Policy"
+        }
       },
       "projectinfos": {
         "overview": {},
