@@ -19,6 +19,5 @@
 /build/logs
 /build/api
 /app/test
-
-web/index.php
-node_modules
+/node_modules
+/web/index.php
