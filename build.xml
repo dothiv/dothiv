@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="app.wakeupscreen.com" default="build-stable">
+<project name="dotHIV Platform" default="build-stable">
     <target name="build"
             depends="install-deps-latest,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpunit,phpcb,reset-deps"/>
 
