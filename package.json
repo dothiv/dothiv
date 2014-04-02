@@ -10,6 +10,8 @@
   "devDependencies": {
     "karma": "~0.12",
     "karma-junit-reporter": "~0.2.1",
-    "protractor": "^0.20.1"
+    "protractor": "^0.20.1",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.3"
   }
 }
