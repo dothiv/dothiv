@@ -62,4 +62,7 @@ after_failure:
   - sudo cat app/logs/prod.log
   - sudo cat app/logs/dev.log
   - sudo cat app/logs/test.log
+  - sudo cat app/logs/prod.log | grep CRITICAL
+  - sudo cat app/logs/dev.log | grep CRITICAL
+  - sudo cat app/logs/test.log | grep CRITICAL
   - sudo cat /var/log/apache2/error.log
