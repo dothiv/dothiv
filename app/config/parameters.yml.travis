@@ -24,3 +24,6 @@ parameters:
     clickcounter_auth_password: some_password
     clickcounter_base_url: 'https://somewhere.on.appspot.com'
     luser: nobody
+    node_bin: /usr/bin/node
+    node_modules: '%kernel.root_dir%/../node_modules'
+    ngmin_bin: '%kernel.root_dir%/../node_modules/ngmin/bin/ngmin'

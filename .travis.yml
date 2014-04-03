@@ -27,10 +27,7 @@ before_script:
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get update
   - sudo apt-get install nodejs
-  - sudo npm install -g karma
-# install lessc, ngmin
-  - sudo npm install -g less
-  - sudo npm install -g ngmin
+  - npm install
 # install dothiv
   - composer install
   - mysql -e 'create database dothiv;'
