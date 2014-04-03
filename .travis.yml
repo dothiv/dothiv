@@ -44,10 +44,10 @@ script:
 # PHP testing
   - phpunit -c app
 # Javascript testing
-  - DISPLAY=:99.0 ./src/DotHiv/WebsiteBaseBundle/Resources/test/travis-test.sh
-  - DISPLAY=:99.0 ./src/DotHiv/WebsiteCharityBundle/Resources/test/travis-test.sh
-  - DISPLAY=:99.0 ./src/DotHiv/WebsiteCharityBundle/Resources/test/travis-e2e-test.sh
-  - DISPLAY=:99.0 ./src/DotHiv/WebsiteCompanyBundle/Resources/test/travis-test.sh
+  - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/DotHiv/WebsiteBaseBundle/Resources/test/travis-test.sh
+  - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/DotHiv/WebsiteCharityBundle/Resources/test/travis-test.sh
+  - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/DotHiv/WebsiteCharityBundle/Resources/test/travis-e2e-test.sh
+  - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/DotHiv/WebsiteCompanyBundle/Resources/test/travis-test.sh
   # not yet supported: (need a second vhost)
   #- DISPLAY=:99.0 ./src/DotHiv/WebsiteCompanyBundle/Resources/test/travis-e2e-test.sh
 
