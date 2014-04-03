@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="app.wakeupscreen.com" default="build-stable">
+<project name="dotHIV Platform" default="build-stable">
     <target name="build"
             depends="install-deps-latest,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpunit,phpcb,reset-deps"/>
 
@@ -161,7 +161,8 @@
 
     <property name="composer" value="composer"/>
     <target name="install-deps-latest"
-            description="Install the latest verions of the dependencies. Useful for detecting future problems." depends="setupsymfony">
+            description="Install the latest verions of the dependencies. Useful for detecting future problems."
+            depends="setupsymfony">
         <exec executable="${composer}" failonerror="true">
             <arg value="update"/>
             <arg value="--dev"/>
@@ -170,13 +171,23 @@
         </exec>
     </target>
 
-    <target name="install-deps" description="Install the dependencies."
+    <target name="install-deps-symfony" description="Install the required symfony packages."
             depends="reset-deps,setupsymfony">
         <exec executable="${composer}" failonerror="true">
             <arg value="install"/>
             <arg value="--dev"/>
             <arg value="--no-progress"/>
             <arg value="--no-interaction"/>
+        </exec>
+    </target>
+
+    <target name="install-deps" description="Install all required dependencies."
+            depends="install-deps-node,install-deps-symfony" />
+
+    <property name="npm" value="npm"/>
+    <target name="install-deps-node" description="Install required node packages">
+        <exec executable="${npm}" failonerror="true">
+            <arg value="install"/>
         </exec>
     </target>
 
@@ -192,6 +203,13 @@
         <exec executable="bash">
             <arg value="-c"/>
             <arg value="app/console router:dump-apache | sed &quot;s/app\.php/app_dev\.php/&quot; > hosting/includes/sf2-routes-dev.conf"/>
+        </exec>
+    </target>
+
+    <target name="karma-jasmine" description="Run AngularJS Unit Tests" depends="prepare,install-deps-node">
+        <exec executable="${basedir}/node_modules/karma/bin/karma" failonerror="true">
+            <arg value="start"/>
+            <arg value="${basedir}/app/karma-jasmine.conf.js"/>
         </exec>
     </target>
 </project>
