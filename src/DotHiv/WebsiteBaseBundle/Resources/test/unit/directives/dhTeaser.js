@@ -20,7 +20,13 @@ describe('the dhTeaser directive', function() {
         scope = $rootScope;
         $compile(rootElement)(scope);
         scope.$digest();
-        extraTextElement = rootElement.children().next().next().next().next(); // didn't find a nicer way to find the element :-(
+        var ps = rootElement.find('p');  // find() - Limited to lookups by tag name
+        for(var i = 0; i < ps.length; i++) {
+            var p = angular.element(ps[i]);
+            if (p.attr('ng-show') == 'show') {
+                extraTextElement = p;
+            }
+        }
     }));
 
     it('should show a span tag', function() {
