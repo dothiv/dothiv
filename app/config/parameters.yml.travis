@@ -1,11 +1,11 @@
 parameters:
-    database_driver: pdo_sqlite
-    database_host: ~
+    database_driver: pdo_mysql
+    database_host: localhost
     database_port: ~
-    database_name: ~
-    database_user: ~
+    database_name: dothiv
+    database_user: travis
     database_password: ~
-    database_path: %kernel.root_dir%/test/test.db
+    database_path: ~
     mailer_transport: smtp
     mailer_host: mailtrap.io
     mailer_user: wakeupscreen-31d0773e296c04b0
