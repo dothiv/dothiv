@@ -22,12 +22,14 @@ before_script:
   - sudo service apache2 restart
 # install java
   - sudo apt-get install openjdk-7-jre
-# install karma
+# install nodejs
   - sudo apt-get install python-software-properties python g++ make software-properties-common
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get update
   - sudo apt-get install nodejs
   - npm install
+# install webdrivers for protractor
+  - ./node_modules/protractor/bin/webdriver-manager update
 # install dothiv
   - composer install
   - mysql -e 'create database dothiv;'
