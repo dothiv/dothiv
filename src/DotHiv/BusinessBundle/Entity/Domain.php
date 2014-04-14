@@ -7,14 +7,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
+use DotHiv\BusinessBundle\Validator\Constraints\ValidDomain;
 
 /**
  * Represents a registered .hiv-Domain.
  * 
  * @ORM\Entity
  * @Serializer\ExclusionPolicy("all")
+ * @ValidDomain()
  * 
  * @author Nils Wisiol <mail@nils-wisiol.de>
+ * @author Markus Tacker <m@dotHIV.org>
  */
 class Domain extends Entity
 {

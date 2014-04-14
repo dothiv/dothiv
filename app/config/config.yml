@@ -164,6 +164,11 @@ services:
 # Gregwar's form
 gregwar_form: ~
 
+dot_hiv_business:
+    allowed_tlds:
+      # - hiv
+      ~
+
 parameters:
     # Email addresses 
     domain_email_sender_address: mail@dothiv.bp
