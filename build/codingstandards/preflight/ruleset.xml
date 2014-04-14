@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<ruleset name="DeinBus.de">
+<ruleset name="dotHIV">
     <description>Preflight standard for checking before a commit</description>
 
     <!-- Default CS is coderbyheart -->
-    <rule ref="../coderbyheart"/>
+    <rule ref="../dotHIV"/>
 
     <!-- Do not warn about TODO+FIXME comments. -->
     <rule ref="Generic.Commenting.Todo">
