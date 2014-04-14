@@ -3,9 +3,17 @@
 namespace DotHiv\BusinessBundle\Validator\Constraints;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use DotHiv\BusinessBundle\Entity\Domain;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
+/**
+ * Validate the TLD of domain entities.
+ *
+ * Validates entites to have a $name property which is a domain with an
+ * allowed TLD. Allowed TLDs are configured via dot_hiv_business.allowd_tlds
+ * configuration option.
+ */
 class ValidDomainValidator extends ConstraintValidator
 {
     /**
@@ -23,16 +31,18 @@ class ValidDomainValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        $regexp = "/^[^.]{1,67}\..{2,67}$/"; // Allow all TLDs.
+        /* @var Domain $value */
+        /* @var ValidDomain $constraint */
+        $regexp = "/^[^.]{1,67}\.[^\.]{2,67}$/"; // Allow all TLDs.
         if (!$this->allowedTLDs->isEmpty()) {
-            // configured TLDs
+            // Allow configured TLDs.
             $regexp = sprintf(
-                "/^[^.]{1,67}\..(%s)$/",
+                "/^[^.]{1,67}\.(%s)$/",
                 join('|', $this->allowedTLDs->toArray())
             );
         }
-        if (!preg_match($regexp, $value->getName())) {
-            $this->context->addViolation($constraint->message, array('{{ value }}' => $value));
+        if (!preg_match($regexp, strtoupper($value->getName()))) {
+            $this->context->addViolation($constraint->message, array('{{ value }}' => $value->getName()));
         }
     }
 
@@ -44,9 +54,16 @@ class ValidDomainValidator extends ConstraintValidator
     public function setAllowedTLDs($allowedTLDs)
     {
         if (!is_array($allowedTLDs)) {
-            // TODO: Convert to bundle level exception.
-            throw new \InvalidArgumentException('Argument must be array.');
+            $allowedTLDs = array($allowedTLDs);
         }
-        $this->allowedTLDs = new ArrayCollection($allowedTLDs);
+        $tlds = array_map(function ($tld) {
+            return strtoupper($tld);
+        }, $allowedTLDs);
+        foreach ($tlds as $tld) {
+            if (!preg_match('/^[^\.]{2,67}$/', $tld)) {
+                throw new \InvalidArgumentException(sprintf('Invalid TLD specification: "%s".', $tld));
+            }
+        }
+        $this->allowedTLDs = new ArrayCollection($tlds);
     }
 }
