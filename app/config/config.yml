@@ -187,7 +187,3 @@ parameters:
 
     # handler for serialization of forms
     jms_serializer.form_error_handler.class: DotHiv\BusinessBundle\Serializer\FormHandler
-
-dot_hiv_business:
-  allowed_tlds: ~
-  # - HIV
