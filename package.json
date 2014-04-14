@@ -4,7 +4,14 @@
     "url": "http://github.com/dothiv/dothiv.git"
   },
   "dependencies": {
-    "less": "~1.6.1",
+    "less": "~1.7",
     "ngmin": "~0.4.1"
+  },
+  "devDependencies": {
+    "karma": "~0.12",
+    "karma-junit-reporter": "~0.2.1",
+    "protractor": "^0.20.1",
+    "karma-jasmine": "^0.1.5",
+    "karma-firefox-launcher": "^0.1.3"
   }
 }

@@ -50,6 +50,8 @@ echo ""
 echo "# Stashing changes ..."
 # We could also do a git reset --hard here...
 git stash
+
+echo ""
 echo "# Pulling ..."
 git pull
 
@@ -58,10 +60,12 @@ app/console --env=$ENV cache:clear
 
 echo ""
 echo "# composer install ..."
-/var/lib/jenkins/bin/composer.phar install
+COMPOSER_BIN=${COMPOSER_BIN:=composer.phar}
+$COMPOSER_BIN install
 echo ""
 echo "# npm install ..."
 npm install
+echo ""
 
 # Scans the src dir and finds the js or css file with the latest modification time
 function findLatestSrc {
@@ -78,7 +82,7 @@ function findLatestMin {
 LATESTSRC=$(findLatestSrc)
 LATESTCACHE=$(findLatestMin)
 
-if [ $LATESTSRC -nt $LATESTCACHE ]
+if [ "$LATESTSRC" -nt "$LATESTCACHE" ]
 then
     echo ""
     V=`date +%s`
@@ -88,6 +92,37 @@ then
     app/console --env=$ENV assets:install --symlink
     app/console --env=$ENV assetic:dump
 fi
+
+# Check if there is already a new update.
+git fetch origin
+# We specifically use the return code of the next command.
+set +e
+git diff --exit-code --quiet origin/master
+if [ $? != 0 ]
+then
+    echo "# New version exist on origin. Restarting ..."
+
+    # Protect against infinite loops
+    LOOPCOUNT=$[$1 +1]
+    if [ "$LOOPCOUNT" -lt "1" ]
+    then
+        echo "Invalid loopcount supplied."
+        exit 1
+    fi
+    if [ "$LOOPCOUNT" -gt "10" ]
+    then
+        echo "Infinite loop detected."
+        exit 1
+    fi
+
+    # Remove the lock only. Update will then pickup again.
+    rm -v $UPDATELOCK
+    # Launch again.
+    bash $0 $LOOPCOUNT
+else
+    echo "# Nothing has changed in the meantime."
+fi
+set -e
 
 echo ""
 echo "# Deactivating maintenance page ..."
