@@ -1,0 +1,9 @@
+parameters:
+    dothiv.repository.banner.entity: 'DotHivBusinessBundle:Banner'
+
+services:
+    dothiv.repository.banner:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory_service: doctrine
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.banner.entity% ]

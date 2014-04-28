@@ -1,10 +1,7 @@
 banner:
-    heading: Vielen Dank!
-    subheading: Dein Klick auf domain.hiv hat soeben einen Gegenwert von 1&thinsp;ct ausgel&ouml;st.
-    claim: Wir sind Teil der Bewegung
-    about: &Uuml;ber dotHIV
-    vote: Vote
-    activated: Bisher aktiviert:
-    currency: &euro;
-    corresponding: entspricht
-    clicks: Klicks
+    heading: Danke!
+    subheading: Jeder Klick hilft mit %s ct
+    about: Mehr über die <strong>dotHIV</strong> Initiative
+    activated: Bereits %s &euro; gespendet:
+    currency: %s &euro;
+    clicks: %s Klicks
