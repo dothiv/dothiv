@@ -39,7 +39,7 @@
     "vote": {
       "headline": "Wohin geht das Geld?",
       "allprojects": "Alle anzeigen",
-      "header": "Gib deinem Klick eine Stimme! Mit dem Geld aus dem Domainverkauf unterstützen wir HIV und AIDS Projekte auf der ganzen Welt. Und du entscheidest, welches Projekt gefördert wird. Hier ist eine Übersicht aller projects. "
+      "header": "Gib deinem Klick eine Stimme! Mit dem Geld aus dem Domainverkauf unterstützen wir HIV und AIDS Projekte auf der ganzen Welt. Und du entscheidest, welches Projekt gefördert wird. Hier ist eine Übersicht aller Projekte. "
     },
     "firms": {
       "headline": "Diese Unternehmen sind dabei",
@@ -91,7 +91,7 @@
       }
     }
   },
-  "projects": "Projekte",
+  "Projekte": "Projekte",
   "footer": {
     "adress": {
       "name": "dothiv gemeinnütziger e.V.",
@@ -116,9 +116,9 @@
     "breadcrumb": {
       "mission": "Die Mission",
       "about": "Über dotHIV",
-      "fororg": "dotHIV für Communities",
+      "fororg": "dotHIV für Engagierte",
       "whoisbehind": "Wer ist dotHIV",
-      "getiactive": "Werde aktiv",
+      "getiactive": "Werde Teil von dotHIV",
       "news": "News",
       "registry": "Die .hiv Regsistry"
     },
@@ -136,12 +136,11 @@
       "moneyusage": "Wohin geht das Geld",
       "history": "Die Geschichte",
       "quotes": "Zitate",
-      "fororg": "dotHIV für Communities",
+      "fororg": "dotHIV für Engagierte",
       "criteria": "Unsere Förderrichtlinien",
       "charitydomains": "Non-profit Domain",
       "apply": "Non-profit Domain sichern",
       "experts": "Unser Experten Pool",
-      "network": "Netzwerkorganisationen",
       "whoisbehind": "Wer ist dotHIV",
       "team": "Team",
       "organization": "Die Organisation im Überbick",
@@ -151,7 +150,7 @@
       "policyca": "Unser Beirat",
       "angels": "Unsere Business Angel",
       "heavystuff": "Schwere Kost",
-      "getactive": "Werde aktiv",
+      "getactive": "Werde Teil von dotHIV",
       "newsstream": "Newsstream",
       "registry": "Die .hiv Regsistry"
     },
@@ -182,8 +181,7 @@
       }
     },
     "whoisbehind": {
-      "headline": "dotHIV - Ein Netzwerk für den guten Zweck",
-      "text": "Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten. Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten meines großen Bruders »Lorem Ipsum«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen lesen. Denn esse est percipi - Sein ist wahrgenommen werden. Und weil Sie nun schon die Güte haben, mich ein paar weitere Sätze lang zu begleiten, möchte ich diese Gelegenheit nutzen, Ihnen nicht nur als Lückenfüller zu dienen, sondern auf etwas hinzuweisen, das\n\n",
+      "film": "Über dotHIV\n",
       "manifesto": {
         "headline": "dotHIV - Das Mission Statement",
         "popup": "Lies unser Mission Statment",
@@ -300,10 +298,10 @@
     "guidelines": {
       "headline": "Förderrichtlinien",
       "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-      "link": "Zu den Projekten"
+      "link": "Zu unseren Förderrichtlinien"
     },
     "expertpool": {
-      "headline": "HIV Expert Pool",
+      "headline": "Experten Pool",
       "text": "Um sicherzustellen, dass die Registrierungsrichtlinien für .hiv-Domains und die Förderrichtlinien für die künftige Spendenvergabe im Einklang mit den HIV Communities, sowie Spezialisten aus dem Bereich IT, Recht und technische Innovationen stattfinden un, stellen wir einen Kreis aus Beratern zusammen. Sie sollen Feedback geben, Wissen in Bereichen beisteuern, wo es dem dotHIV-Team noch fehlt und die regionale und thematische Vielfalt des Themas widerspiegeln. Hier ist eine Übersicht der Menschen, die uns bereits unterstützen:"
     },
     "network": {
@@ -382,7 +380,7 @@
       }
     },
     "whosbehind": {
-      "headline": "Wer ist dotHIV",
+      "headline": "dotHIV - ein Netzwerk für den guten Zweck",
       "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien."
     },
     "team": {
@@ -563,68 +561,69 @@
       },
       "board1": {
         "name": "Bernd Kundrun",
-        "text": "Bernd supports the initiative with his valuable experience and great network. He used to be chairman of the board at Gruner + Jahr AG and now functions as the chairman of the gut.org gAG."
+        "text": "Bernd unterstützt die Initiative mit seiner großen Erfahrung und seinem wertvollen Netzwerk. Er war Aufsichtsratsvorsitzender der Gruner + Jahr AG und ist heute Vorsitzender des Aufsichtsrats der gut.org gAG."
       },
       "board2": {
         "name": "Lars Witte-Winter",
-        "text": "As the CEO of the Bplus – Moodmarketing & Events mbH, Lars realizes events for important companies. He has been using his experience and contacts for the initiative „Vergessen ist ansteckend“ for years."
+        "text": "Als Geschäftsführer der Bplus – Moodmarketing & Events mbH \norganisiert Lars Events für große Unternehmen. Seine Erfahrung und \nKontakte setzt er seit  Jahren für die Initiative „Vergessen ist ansteckend“ ein."
       },
       "board3": {
-        "name": "Jan Foertsch"
+        "name": "Jan Foertsch",
+        "text": "Jans lange Erfahrung als Steuerberater und Wirtschaftsprüfer ist immer wieder von großem Nutzen. Er engagiert sich schon lange im sozialen Sektor für Einrichtungen wie NestWerk e.V. und Hamburg Leuchtfeuer."
       }
     },
     "angels": {
       "headline": "Unsere Business Angels",
-      "text": "Unsere Business Angels sind ...",
+      "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
       "michael": {
         "photo": {},
         "name": {
           "left": "Dr. Michael Trautmann"
         },
         "text": {}
-      },
-      "one": {
-        "left": "Thjnk"
-      },
-      "two": {
-        "left": "Henkler-Cöllen GbR"
-      },
-      "three": {
-        "left": "Hans-Jochen Holthausen"
-      },
-      "four": {
-        "left": "Dr. Bernd Kortüm"
-      },
-      "five": {
-        "left": "Michael Stich"
-      },
-      "six": {
-        "left": "Dr. Jesko Perrey"
-      },
-      "seven": {
-        "left": "Boston I-Venture GmbH"
-      },
-      "eight": {
-        "right": "Matthias Schrader"
-      },
-      "nine": {
-        "right": "Thomas Wünsche "
-      },
-      "ten": {
-        "right": "Clemens Lansing"
-      },
-      "eleven": {
-        "right": "SCD Invest GmbH"
-      },
-      "twelve": {
-        "right": "whatever mobile GmbH"
-      },
-      "thirteen": {
-        "right": "Solanus GmbH"
-      },
-      "fourteen": {
-        "right": "Philipp Grabensee"
       }
+    },
+    "angels1": {
+      "left": "Thjnk"
+    },
+    "angels2": {
+      "left": "Henkler-Cöllen GbR"
+    },
+    "angels3": {
+      "left": "Hans-Jochen Holthausen"
+    },
+    "angels4": {
+      "left": "Dr. Bernd Kortüm"
+    },
+    "angels5": {
+      "left": "Michael Stich"
+    },
+    "angels6": {
+      "left": "Dr. Jesko Perrey"
+    },
+    "angels7": {
+      "left": "Boston I-Venture GmbH"
+    },
+    "angels8": {
+      "right": "Matthias Schrader"
+    },
+    "angels9": {
+      "right": "Thomas Wünsche "
+    },
+    "angels10": {
+      "right": "Clemens Lansing"
+    },
+    "angels11": {
+      "right": "SCD Invest GmbH"
+    },
+    "angels12": {
+      "right": "whatever mobile GmbH"
+    },
+    "angels13": {
+      "right": "Solanus GmbH"
+    },
+    "angels14": {
+      "right": "Philipp Grabensee"
     },
     "association": {
       "headline": "Organisationstruktur"
@@ -632,33 +631,40 @@
     "heavystuff": {
       "headline": "Schwere Kost",
       "text": "Hier stehen die wichtigsten Dokumente über den Verein zur Verfügung. Neben der Organisationsstruktur und der Vereinssatzung auch die Statusberichte die bereits veröffentlicht werden und den Nachweis unserer Gemeinnützigkeit.\n\n",
-      "status": {
-        "secondheadline": "Unsere Statusberichte",
-        "download2012": {
-          "one": "Statusbericht 2012/01",
-          "two": "Statusbericht 2012/02"
-        },
-        "download2013": {
-          "one": "Statusbericht 2013/01"
-        },
-        "download": "Unser Gemeinnützigkeits-Status"
+      "secondheadline": {
+        "status": "Unsere Statusberichte",
+        "charter": "Unsere Vereinssatzung und Gemeinnützigkeit",
+        "financials": "Unsere Finanzen",
+        "registry": "Die dotHIV Registry"
+      },
+      "status1": {
+        "download": "Statusbericht 2012/01"
+      },
+      "status2": {
+        "dowload": "Statusbericht 2012/02"
+      },
+      "status3": {
+        "download": "Statusbericht 2013/01"
       },
       "charter": {
-        "secondheadline": "Unsere Vereinssatzung und Gemeinnützigkeit",
         "download": "Unsere Vereinssatzung"
       },
-      "financials": {
-        "secondheadline": "Unsere Finanzen",
-        "download2011": "Jahresabschlussbericht 2011",
-        "download2012": "Jahresabschlussbericht 2012\n",
-        "download2013": "Jahresabschlussbericht 2013"
+      "charity": {
+        "download": "Unser Gemeinnützigkeits-Status"
       },
-      "registry": {
-        "secondheadline": "Die dotHIV Registry"
+      "financials1": {
+        "download": "Jahresabschlussbericht 2011"
+      },
+      "financials2": {
+        "download": "Jahresabschlussbericht 2012\n"
+      },
+      "financials3": {
+        "download": "Jahresabschlussbericht 2013"
       },
       "resistry": {
         "text": "Finde mehr Information zu unserem Top Level Domain Antrag auf der Website der dotHIV TLD Registry"
-      }
+      },
+      "registry": {}
     },
     "getactive": {
       "headline": "Werde aktiv ",
@@ -671,7 +677,7 @@
       },
       "howto": {
         "headline": "Wie kann ich helfen",
-        "text": "Hier findet sich eine Auswahl an Möglichkeiten um dotHIV zu unterstützen. Von der Fördermitgliedschaft bis hin zum Techi for good.\n\n",
+        "text": "Hier findet sich eine Auswahl an Möglichkeiten um dotHIV zu unterstützen. Von der Fördermitgliedschaft bis hin zum Tech for good.\n\n",
         "clickvoteshare": {
           "headline": "Das dotHIV Prinzip: Click-Vote-Share"
         },
@@ -1007,7 +1013,7 @@
         "link2": "Zurück zur overview projectverwaltung",
         "button": "projectinfos",
         "new": {
-          "headline": "Neues project einstellen"
+          "headline": "Neues Projekt einstellen"
         },
         "organisation": "Kurzzusammenfassung \"Über die Organisation\"*",
         "headline": "Beschreibung des Projekts",

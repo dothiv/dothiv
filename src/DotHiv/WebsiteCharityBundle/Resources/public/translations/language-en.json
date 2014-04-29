@@ -2,7 +2,7 @@
   "Code": "Text Englisch",
   "header": {
     "bar": {
-      "projecthead": "Project",
+      "projecthead": "Projects",
       "aboutHIV": "About dotHIV",
       "registerurl": "Register Domain"
     },
@@ -65,7 +65,7 @@
       }
     }
   },
-  "projects": "Projects",
+  "Projekte": "Projects",
   "footer": {
     "adress": {
       "name": "dotHIV geimeinnütziger e.V.",
@@ -92,7 +92,7 @@
       "about": "About dotHIV",
       "fororg": "dotHIV for the HIV response",
       "whoisbehind": "Who is dotHIV",
-      "getiactive": "Get involved",
+      "getiactive": "Become part of dotHIV",
       "news": "News",
       "registry": "The .hiv Registry"
     },
@@ -115,7 +115,6 @@
       "charitydomains": "Non-profit Domain",
       "apply": "Get your Non-profit Domain",
       "experts": "Our Pool of Experts",
-      "network": "Network Organizations",
       "whoisbehind": "Who is dotHIV",
       "team": "Team",
       "organization": "Organigram ",
@@ -125,7 +124,7 @@
       "policyca": "Our Advisory Board",
       "angels": "Our Business Angels",
       "heavystuff": "Heavy stuff",
-      "getactive": "Get involved",
+      "getactive": "Become part of dotHIV",
       "newsstream": "Newsstream",
       "registry": "The .hiv Registry"
     },
@@ -185,7 +184,7 @@
     },
     "guidelines": {
       "headline": "Funding Principles",
-      "link": "Go to Projects"
+      "link": "Go to funding funding principles"
     },
     "expertpool": {
       "headline": "Expert Pool",
@@ -283,8 +282,14 @@
     "board": {
       "headline": {},
       "text": {},
-      "board1": {},
-      "board2": {},
+      "board1": {
+        "name": "Bernd Kundrun",
+        "text": "Bernd supports the initiative with his valuable experience and great network. He used to be chairman of the board at Gruner + Jahr AG and now functions as the chairman of the gut.org gAG."
+      },
+      "board2": {
+        "name": "Lars Witte-Winter",
+        "text": "As the CEO of the Bplus – Moodmarketing & Events mbH, Lars realizes events for important companies. He has been using his experience and contacts for the initiative „Vergessen ist ansteckend“ for years."
+      },
       "board3": {
         "text": "Jans long experience as a tax adviser and financial auditor is of great use to us again and again. He has been active in the social sector for years at organizations such as NestWerk e.V. and Hamburg Leuchtfeuer."
       }
@@ -294,32 +299,35 @@
         "photo": {},
         "name": {},
         "text": {}
-      },
-      "one": {},
-      "two": {},
-      "three": {},
-      "four": {},
-      "five": {},
-      "six": {},
-      "seven": {},
-      "eight": {},
-      "nine": {},
-      "ten": {},
-      "eleven": {},
-      "twelve": {},
-      "thirteen": {},
-      "fourteen": {}
+      }
     },
+    "angels1": {},
+    "angels2": {},
+    "angels3": {},
+    "angels4": {},
+    "angels5": {},
+    "angels6": {},
+    "angels7": {},
+    "angels8": {},
+    "angels9": {},
+    "angels10": {},
+    "angels11": {},
+    "angels12": {},
+    "angels13": {},
+    "angels14": {},
     "association": {},
     "heavystuff": {
-      "status": {
-        "download2012": {},
-        "download2013": {}
-      },
+      "secondheadline": {},
+      "status1": {},
+      "status2": {},
+      "status3": {},
       "charter": {},
-      "financials": {},
-      "registry": {},
-      "resistry": {}
+      "charity": {},
+      "financials1": {},
+      "financials2": {},
+      "financials3": {},
+      "resistry": {},
+      "registry": {}
     },
     "getactive": {
       "jobs": {
