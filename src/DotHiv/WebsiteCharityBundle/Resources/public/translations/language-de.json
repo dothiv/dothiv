@@ -22,16 +22,16 @@
       },
       "vote": {
         "headline": "Voten",
-        "text": "Du klickst das Geld frei – also kannst du auch entscheiden, an welches Projekt es geht. Wir unterstützen HIV und AIDS Projekte weltweit. Schau sie dir an und gib ihnen deine Stimme. "
+        "text": "Du klickst das Geld frei – also kannst du auch entscheiden, an welches Projekt es geht. Wir unterstützen HIV Projekte weltweit beim Kampf gegen AIDS und helfen so, Leben zu retten. Hilf auch du mit und gib den Projekten deine Stimme."
       },
       "share": {
         "headline": "Teilen",
-        "text": "Damit wir wirklich etwas bewegen können, muss die ganze Welt von .hiv erfahren. Hilf mit und erzähle deinen Freunden von .hiv – der digitalen Roten Schleife. "
+        "text": "Je mehr desto besser. Das ist der perfekte Slogan für .hiv.Je mehr Menschen .hiv kennen und nutzen, desto mehr Kraft bekommt es. Unterstütze uns dabei, .hiv bekannt zu machen."
       }
     },
     "who": {
       "headline": "Über dotHIV",
-      "text": "Seit über 4 Jahren arbeiten wir daran, die Idee .hiv wahr werden zu lassen. Über die Zeit sind immer mehr tolle Menschen aus den verschiedensten Bereichen zu unserem Team gestoßen und haben es mit ihrer Expertise weitergebracht. Hier erfährst du mehr über die Leute hinter der Idee. ",
+      "text": "dotHIV bringt die Domainendung .hiv als digitale Rote Schleife ins Internet. Zum ersten mal in der Geschichte des Internets nutzen wir eine Top Level Domain für einen rein sozialen Zweck: das Ende von AIDS! Erfahrt hier mehr über die Mission, das Ziel und den Beitrag von dotHIV im Kampf gegen AIDS. ",
       "votefor": "Für ein Projekt voten",
       "yourpage": "Deine .hiv Domain",
       "howto": "Wie stelle ich ein Projekt ein?"
@@ -156,15 +156,15 @@
     },
     "mission": {
       "headline": "Die Mission",
-      "text": "Der Kampf gegen Aids steht am Scheideweg: dank Forschung und des Engagements von Aktivisten auf der ganzen Welt, ist das erste Mal in der Geschichte des Virus sein Ende möglich. Eine HIV-Infektion ist kein Todesurteil mehr, durch moderne Medikamente ist ein langes, glückliches Leben möglich. Und doch: HIV-positive Menschen werden immer noch ausgegrenzt und leiden unter dem Stigma der Krankheit. "
+      "text": "Der Kampf gegen AIDS steht dank großer Erfolge von Forschung und der Bemühungen von Aktivisten weltweit an einem entscheidenden Punkt. Erstmals in der Geschichte der Krankheit ist ein Ende von AIDS möglich. Zwei Dinge braucht es dafür: neue Gelder und eine verstärkte, internationale Aufmerksamkeit für das Thema. Genau hier setzt dotHIV an."
     },
     "goals": {
-      "headline": "Unsere Ziele",
-      "text": "Die Top-Level Domain .hiv soll dem Kampf gegen Aids neuen Schwung verleihen. Sie soll auf die Probleme im Feld HIV und Aids aufmerksam machen und die Welt gleichzeitig daran erinnern, dass das Ende von Aids in Sicht ist. Aber auch daran, dass der Kampf noch nicht gewonnen ist. Und dass wir ihn nur gewinnen können, wenn wir unsere Bemühungen intensivieren und bündeln. Die Plattform dafür: .hiv"
+      "headline": "Das Ziel",
+      "text": ".hiv soll dem Kampf gegen Aids neuen Schwung verleihen. Sie soll auf die Probleme im Feld HIV und Aids aufmerksam machen. Gleichzeit soll sie dran erinnern, dass ein Ende von AIDS in Sicht ist. Aber auch daran, dass der Kampf noch nicht gewonnen ist. Und dass wir ihn nur gewinnen können, wenn wir unsere Bemühungen verstärken und bündeln. Das ist das Ziel von .hiv."
     },
     "contribution": {
       "headline": "Unser Beitrag",
-      "text": ".hiv ist die erste Domain in der Geschichte des Internets, die einen rein sozialen Zweck verfolgt. Mit der Spekulation und dem Handel mit Webadressen wird viel Geld verdient, wir haben uns erfolgreich um die Lizenz für .hiv beworben, um damit ausschließlich Gutes zu tun. Und zwar so:\n\n\n",
+      "text": ".hiv ist die erste und bisher einzige Domainendung in der Geschichte des Internets, die einem rein sozialen Zweck dient: dem Ende von AIDS. Wir nutzen die Dynamik des Domainmarkts um die Domainendung .hiv als digitale Rote Schleife ins Internet zu bringen. Damit erreichen wir 4 unterschiedliche Ziele:",
       "dropdown": "Mehr erfahren",
       "expand": "Finanzielle Unterstützung: dotHIV generiert finanzielle Mittel, um Engagierte zu unterstützen.\nAufmerksamkeit: dotHIV bringt das Thema HIV zurück ins Bewusstsein der Menschen.\nEntstigmatisierung: dotHIV reduziert die Stigmatisierung derer, die mit HIV leben.\n\nDie Rote Schleife des digitalen Zeitalters – .hiv \n\n"
     },

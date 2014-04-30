@@ -22,16 +22,16 @@
       },
       "vote": {
         "headline": "Vote",
-        "text": "You activate the money by clicking on .hiv websites - so you can choose where the mones goes. Wie suppoprt HIV and AIDS project worldwide. Have a look and vote for them!"
+        "text": "Your click activates the money - so you can also decide where it goes. We support HIV projects around the world in their fight against AIDS and by that help to save lifes. You can help aswell: give the projects your vote."
       },
       "share": {
         "headline": "Share",
-        "text": "To really change things the whole world needs to know about .hiv. Help us to get people to know about us and tell all your friends about .hiv - the digital Red Ribbon."
+        "text": "The more the merrier! This is the perfect slogan for .hiv. The more people know about .hiv the more power it gains. Help us to make .hiv as popular as possible!"
       }
     },
     "who": {
       "headline": "About dotHIV",
-      "text": "for more than 4 years we've been working on making the digital Red Ribbon a reality. Over the time a lot of great and talented people from differnt fields of work joined our team and helped us to go ahead. Here you get to know more about the people behind dotHIV.",
+      "text": "dotHIV brings the domainending .hiv to the Internet - as the digital Red Ribbon. For the first time in the history of the Internet a Top Level Domain is designed solely for a social cause: the end of AIDS! get to know more about our Mission, the Goal and the contribution of dotHIV in the fight against AIDS.",
       "votefor": "Vote for a Project",
       "yourpage": "Your .hiv Domain",
       "howto": "Who to upload a Project"
@@ -130,12 +130,16 @@
     },
     "mission": {
       "headline": "The Mission",
-      "text": "The fight against AIDS is at a crossroad: owning to research and the commitment of activists worldwide an end of AIDS is in sight for the first time in the history of the virus. A HIV infection is no longer a death sentence. Thanks to modern maedication a long and happy life with HIV is possible. Bus still: people living with HIV have to deal with driscrimination and stigmatization."
+      "text": "As a result of tremendous progress in science and thanks to the work of activists all around the world, the fight against AIDS is at a crucial point. For the first time in the  history of the disease an end of the AIDS is possible. Two things a essential to reach that goal: new money and boosted, international awareness for the topic. Thats where dotHIV approaches. "
     },
     "goals": {
-      "headline": "Our Goal"
+      "headline": "Our Goal",
+      "text": ".hiv will bring new momentum to the fight against AIDS. It is suppost to not only draw the attention to the problems in the field of HIV and AIDS, but to also remind people that the end of AIDS is in sight. At the same time it shall remind them that we haven’t won the fight against AIDS by now. And that we can only the fight  win if we reinforce and unite our efforts. That is what .hiv is going to do."
     },
-    "contribution": {},
+    "contribution": {
+      "headline": "Our Contribution ",
+      "text": ".hiv ist the first and only domainending in the history of the Internet that serves a social purpose: the end of AIDS. We use the dynamics of the domain market to establish the domainending .hiv as the digital Red Ribbon. That way we achieve 4 different goals."
+    },
     "AIDS": {
       "facts": {}
     },
