@@ -12,7 +12,11 @@
 <hr class="bottom-shadow">
 <div class="container domain-chooser">
     <div class="row">
-        <h2 class="pull-left">[[ 'gmbh.home.latest' | translate ]]</h2>
+        <div class="span8 pull-left">
+            <h2>[[ 'gmbh.home.latest.title' | translate ]]</h2>
+            <p>[[ 'gmbh.home.latest.text' | translate ]]</p>
+        </div>
+
         <div class="span4 pull-right">
             <button class="scroll pull-left" ng-click="urlOffset = urlOffset+1;"><i class="icon-tick-left icon-white icon-small"></i></button>
             <div ng-repeat="u in ( urls | carousel: urlOffset | limitTo: 1)" class="running-text bold-text display pull-left">[[ u.name ]]</div>
