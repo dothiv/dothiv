@@ -1,7 +1,8 @@
 banner:
+    locale: de
     heading: Danke!
-    subheading: Jeder Klick hilft mit %s ct
-    about: Mehr über die <strong>dotHIV</strong> Initiative
-    activated: Bereits %s &euro; gespendet:
-    currency: %s &euro;
-    clicks: %s Klicks
+    subheading: "Jeder Klick hilft mit {increment}"
+    about: "Mehr über die <strong>dotHIV</strong> Initiative"
+    activated: "Bereits {donated} gespendet:"
+    money: "{unlocked}"
+    clickcount: "{clicks} Klicks"

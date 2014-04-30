@@ -1,7 +1,7 @@
 banner:
     heading: Thanks!
-    subheading: Every click is worth %s ct
+    subheading: "Every click is worth {increment}"
     about: More about the <strong>dotHIV</strong> initiative
-    activated: Already %s &euro; contributed:
-    currency: %s &euro;
-    clicks: %s clicks
+    activated: "Already {donated} contributed:"
+    money: "{unlocked}"
+    clickcount: "{clicks} clicks"
