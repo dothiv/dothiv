@@ -11,7 +11,7 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
                                'headline': 'Projekt 1',
                                'votes': 123,
                                'place': 4,
-                               'pictureurl': '/bundles/websitecharity/images/projects/schoolclass.jpg'
+                               'pictureurl': '/bundles/dothivwebsitecharity/images/projects/schoolclass.jpg'
                                
                            },
                            {
@@ -19,7 +19,7 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
                                'headline': 'Kinder und AIDS, Hilfe für HIV-betroffene Familien bla bla blablabla bla bla blablabla bla bla blablabla',
                                'votes': 124,
                                'place': 3,
-                               'pictureurl': '/bundles/websitecharity/images/projects/papermen.jpg'
+                               'pictureurl': '/bundles/dothivwebsitecharity/images/projects/papermen.jpg'
                                
                            },
                            {
@@ -27,7 +27,7 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
                                'headline': 'Projekt 3',
                                'votes': 127,
                                'place': 2,
-                               'pictureurl': '/bundles/websitecharity/images/projects/trees.jpg'
+                               'pictureurl': '/bundles/dothivwebsitecharity/images/projects/trees.jpg'
                                
                            },
                            {
@@ -35,7 +35,7 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
                                'headline': 'Projekt 4',
                                'votes': 12123,
                                'place': 1,
-                               'pictureurl': '/bundles/websitecharity/images/projects/trees.jpg'
+                               'pictureurl': '/bundles/dothivwebsitecharity/images/projects/trees.jpg'
                                
                            }
                        ]
@@ -44,35 +44,35 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
 
         $scope.firms = [
                         { 
-                                'img': '/bundles/websitecharity/images/firms/github.jpg',
+                                'img': '/bundles/dothivwebsitecharity/images/firms/github.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecharity/images/firms/liga01.jpg', 
+                                'img': '/bundles/dothivwebsitecharity/images/firms/liga01.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecharity/images/firms/jovoto.jpg', 
+                                'img': '/bundles/dothivwebsitecharity/images/firms/jovoto.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecharity/images/firms/swipe.jpg', 
+                                'img': '/bundles/dothivwebsitecharity/images/firms/swipe.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecharity/images/firms/github.jpg', 
+                                'img': '/bundles/dothivwebsitecharity/images/firms/github.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecharity/images/firms/liga01.jpg', 
+                                'img': '/bundles/dothivwebsitecharity/images/firms/liga01.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecharity/images/firms/jovoto.jpg', 
+                                'img': '/bundles/dothivwebsitecharity/images/firms/jovoto.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecharity/images/firms/swipe.jpg', 
+                                'img': '/bundles/dothivwebsitecharity/images/firms/swipe.jpg',
                                 'url': '#!/'
                         }
                     ]

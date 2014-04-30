@@ -20,7 +20,7 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
     }])
     .config(['$translateProvider', function($translateProvider) {
         $translateProvider.useStaticFilesLoader({
-            prefix: '/bundles/websitecompany/translations/language-',
+            prefix: '/bundles/dothivwebsitecompany/translations/language-',
             suffix: '.json'
         });
     }])
@@ -29,21 +29,21 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
         $stateProvider
             .state('home', {
                     url: '/',
-                    templateUrl: '/bundles/websitecompany/templates/home.html',
+                    templateUrl: '/bundles/dothivwebsitecompany/templates/home.html',
                     controller: 'HomeController'
                 })
             .state('whois', {
                     url: '/whois',
-                    templateUrl: '/bundles/websitecompany/templates/whois.html',
+                    templateUrl: '/bundles/dothivwebsitecompany/templates/whois.html',
                     controller: 'WhoisController'
                 })
             .state('advantage', {
                     url: '/advantage',
-                    templateUrl: '/bundles/websitecompany/templates/advantage.html'
+                    templateUrl: '/bundles/dothivwebsitecompany/templates/advantage.html'
                 })
             .state('concepts', {
                     url: '/concepts',
-                    templateUrl: '/bundles/websitecompany/templates/concepts.html'
+                    templateUrl: '/bundles/dothivwebsitecompany/templates/concepts.html'
                 })                     
         }])
 

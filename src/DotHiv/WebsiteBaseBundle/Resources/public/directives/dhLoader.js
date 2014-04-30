@@ -13,6 +13,6 @@ angular.module('dotHIVApp.directives').directive('dhLoader', function($interpola
     return {
         restrict: 'E',
         replace: 'true',
-        template: '<img src="/bundles/websitebase/images/loader.gif" alt="' + startSym + ' \'loading.imgalt\' | translate ' + endSym + '"/>'
+        template: '<img src="/bundles/dothivwebsitebase/images/loader.gif" alt="' + startSym + ' \'loading.imgalt\' | translate ' + endSym + '"/>'
     };
 });

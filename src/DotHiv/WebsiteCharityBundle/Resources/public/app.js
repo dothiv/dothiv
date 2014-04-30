@@ -20,7 +20,7 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
     }])
     .config(['$translateProvider', function($translateProvider) {
         $translateProvider.useStaticFilesLoader({
-            prefix: '/bundles/websitecharity/translations/language-',
+            prefix: '/bundles/dothivwebsitecharity/translations/language-',
             suffix: '.json'
         });
     }])
@@ -29,13 +29,13 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
         $stateProvider
             .state('home', {
                     url: '/',
-                    templateUrl: '/bundles/websitecharity/templates/home.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/home.html',
                     controller: 'HomeController'
                 })
             .state('about', {
                     abstract: true,
                     url: '/about',
-                    templateUrl: '/bundles/websitecharity/templates/about/index.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/about/index.html',
                     controller: 'AboutController'
                 })
             
@@ -46,31 +46,31 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
              */
             .state('about.mission', {
                     url: '/mission',
-                    templateUrl: '/bundles/websitecharity/templates/about/mission.html'
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/about/mission.html'
                 })
             .state('about.aboutHIV', {
                     url: '/aboutHIV',
-                    templateUrl: '/bundles/websitecharity/templates/about/aboutHIV.html'
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/about/aboutHIV.html'
                 })
             .state('about.fororg', {
                     url: '/fororg',
-                    templateUrl: '/bundles/websitecharity/templates/about/fororg.html'
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/about/fororg.html'
                 })
             .state('about.whoisbehind', {
                     url: '/whoisbehind',
-                    templateUrl: '/bundles/websitecharity/templates/about/whoisbehind.html'
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/about/whoisbehind.html'
                 })
             .state('about.getactive', {
                     url: '/getactive',
-                    templateUrl: '/bundles/websitecharity/templates/about/getactive.html'
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/about/getactive.html'
                 })
             .state('about.newsstream', {
                     url: '/newsstream',
-                    templateUrl: '/bundles/websitecharity/templates/about/newsstream.html'
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/about/newsstream.html'
                 })
             .state('about.registry', {
                     url: '/registry',
-                    templateUrl: '/bundles/websitecharity/templates/about/registry.html'
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/about/registry.html'
                 })
 
 
@@ -81,7 +81,7 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
              */
             .state('mock', {
                     url: '/mock',
-                    templateUrl: '/bundles/websitecharity/templates/mock.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/mock.html',
                     controller: 'MockController'
                 })
 
@@ -97,22 +97,22 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
             .state('=.profile', {
                     abstract: true,
                     url: '/profile',
-                    templateUrl: '/bundles/websitecharity/templates/profile/index.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/profile/index.html',
                     controller: 'ProfileController'
                 })
             .state('=.profile.summary', {
                     url: '',
-                    templateUrl: '/bundles/websitecharity/templates/profile/summary.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/profile/summary.html',
                     controller: 'ProfileSummaryController'
                 })
             .state('=.profile.edit', {
                     url: '/edit',
-                    templateUrl: '/bundles/websitecharity/templates/profile/edit.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/profile/edit.html',
                     controller: 'ProfileEditController'
                 })
             .state('=.profile.projects', {
                     url: '/projects',
-                    templateUrl: '/bundles/websitecharity/templates/profile/projects.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/profile/projects.html',
                     controller: 'ProfileProjectController'
                 })
             .state('=.profile.domain', {
@@ -122,31 +122,31 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                 })
             .state('=.profile.domain.list', {
                     url: '/list',
-                    templateUrl: '/bundles/websitecharity/templates/profile/domains.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/profile/domains.html',
                     controller: 'ProfileDomainController'
                 })
             .state('=.profile.domain.editors', {
                     url: '/editors/:domainId',
-                    templateUrl: '/bundles/websitecharity/templates/profile/domain-editors.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/profile/domain-editors.html',
                     controller: 'ProfileDomainEditorsController'
                 })
             .state('=.profile.domain.editbasic', {
                     url: '/editbasic/:domainId',
-                    templateUrl: '/bundles/websitecharity/templates/profile/domain-edit.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/profile/domain-edit.html',
                     controller: 'ProfileDomainEditController'
                 })
             .state('=.profile.domain.claim', {
                     url: '/claim',
-                    templateUrl: '/bundles/websitecharity/templates/profile/domain-claim.html',
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/profile/domain-claim.html',
                     controller: 'ProfileDomainClaimController'
                 })
             .state('=.profile.votes', {
                     url: '/votes',
-                    templateUrl: '/bundles/websitecharity/templates/profile/votes.html'
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/profile/votes.html'
                 })
             .state('=.profile.comments', {
                     url: '/comments',
-                    templateUrl: '/bundles/websitecharity/templates/profile/comments.html'
+                    templateUrl: '/bundles/dothivwebsitecharity/templates/profile/comments.html'
                 })
         }])
 

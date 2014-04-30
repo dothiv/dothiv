@@ -13,7 +13,7 @@ angular.module('dotHIVApp.services').factory('securityDialog', function($dialog,
             backdropClick: true, // TODO make these values default
             dialogFade: true, // TODO make these values default
             backdropFade: true, // TODO make these values default
-            templateUrl: '/bundles/websitecharity/templates/login.html',
+            templateUrl: '/bundles/dothivwebsitecharity/templates/login.html',
             controller: 'LoginDialogController'
         }).open().then(function(result) {
             dialogOpen = false;

@@ -14,35 +14,35 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
         $scope.firmOffset = 0 ;
         $scope.firms = [
                         { 
-                                'img': '/bundles/websitecompany/images/firms/github.jpg',
+                                'img': '/bundles/dothivwebsitecompany/images/firms/github.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecompany/images/firms/liga01.jpg', 
+                                'img': '/bundles/dothivwebsitecompany/images/firms/liga01.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecompany/images/firms/jovoto.jpg', 
+                                'img': '/bundles/dothivwebsitecompany/images/firms/jovoto.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecompany/images/firms/swipe.jpg', 
+                                'img': '/bundles/dothivwebsitecompany/images/firms/swipe.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecompany/images/firms/github.jpg', 
+                                'img': '/bundles/dothivwebsitecompany/images/firms/github.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecompany/images/firms/liga01.jpg', 
+                                'img': '/bundles/dothivwebsitecompany/images/firms/liga01.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecompany/images/firms/jovoto.jpg', 
+                                'img': '/bundles/dothivwebsitecompany/images/firms/jovoto.jpg',
                                 'url': '#!/'
                         },
                         { 
-                                'img': '/bundles/websitecompany/images/firms/swipe.jpg', 
+                                'img': '/bundles/dothivwebsitecompany/images/firms/swipe.jpg',
                                 'url': '#!/'
                         }
                     ]
@@ -50,19 +50,19 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
         $scope.charityOffset = 0 ;
         $scope.charity = [
                         { 
-                            'img': '/bundles/websitecompany/images/charitylogos/dah.png', 
+                            'img': '/bundles/dothivwebsitecompany/images/charitylogos/dah.png',
                             'url': '#!/'
                         },
                         { 
-                            'img': '/bundles/websitecompany/images/charitylogos/crl.png', 
+                            'img': '/bundles/dothivwebsitecompany/images/charitylogos/crl.png',
                             'url': '#!/'
                         },
                         { 
-                            'img': '/bundles/websitecompany/images/charitylogos/iev.png', 
+                            'img': '/bundles/dothivwebsitecompany/images/charitylogos/iev.png',
                             'url': '#!/'
                         },
                         { 
-                            'img': '/bundles/websitecompany/images/charitylogos/lr.png', 
+                            'img': '/bundles/dothivwebsitecompany/images/charitylogos/lr.png',
                             'url': '#!/'
                         }
                     ]
