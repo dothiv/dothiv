@@ -1,334 +1,1475 @@
 {
   "Code": "Text Deutsch",
-  "gmbh": {
-    "header": {
-      "title": "TLD dotHIV Registry GmbH",
-      "config": "Ihre .hiv Domain konfigurieren",
-      "back": "Zur dotHIV Initiative",
-      "language": "Deutsch"
+  "header": {
+    "bar": {
+      "projecthead": "Projekte",
+      "aboutHIV": "Über dotHIV",
+      "registerurl": "Domain registrieren"
     },
     "menu": {
-      "header1": "Die .hiv Top Level Domain",
-      "policies": "TLD Policies",
-      "launch": "Launch Plan",
-      "whois": "Whois/ Domainticker",
-      "registrars": ".hiv für Registrare",
-      "stats": "Statistiken & Material",
-      "forcompanies": "Ihre .hiv-Domain",
-      "roteschleife": "Die digitale Rote Schleife",
-      "registercharity": ".hiv für die HIV-Arbeit",
-      "concepts": "Best Practice",
-      "registernow": ".hiv-Domain registrieren",
-      "domainconfig": "Ihre .hiv Domain konfigurieren",
-      "ourregistry": "Unsere Registry",
-      "support": "Unterstützer werden",
-      "gmbh": "Die TLD dotHIV Registry GmbH",
-      "icann": "Ein Mitglied der Internet Community",
-      "team": "Team und Jobs",
-      "contact": "Kontakt"
+      "reportabuse": "Etwas melden"
     },
-    "home": {
-      "aboutus": {
-        "headline": "Die .hiv Domain – Ihre digitale rote Aids-Schleife",
-        "left": ".hiv Domains sind digitale Rote Aids-Schleifen. Sie zeigen Solidarität mit dem internationalen Kampf gegen Aids und geben Webseitenbesuchern die Möglichkeit, mit einem Klick Gutes zu tun.",
-        "right": "Denn für jeden Besuch auf einer Internetseite mit der Endung .hiv unterstützt dotHIV die Arbeit von HIV-Projekten auf der ganzen Welt."
+    "pinkbar": {}
+  },
+  "home": {
+    "pinkbar": {
+      "popover": {}
+    },
+    "about": {
+      "oneclick": {
+        "headline": "Klicken",
+        "text": "Wir präsentieren: der gute Klick! Jeder Klick auf eine Seite mit .hiv-Endung unterstützt den Kampf gegen Aids mit einer Mikrospende. So tust du gemeinsam mit dem Betreiber der Website Gutes! "
       },
-      "latest": {
-        "title": ".hiv Domainticker",
-        "text": "Diese .hiv-Domains wurden gerade registriert:"
+      "vote": {
+        "headline": "Voten",
+        "text": "Du klickst das Geld frei – also kannst du auch entscheiden, an welches Projekt es geht. Wir unterstützen HIV und AIDS Projekte weltweit. Schau sie dir an und gib ihnen deine Stimme. "
       },
-      "companies": {
-        "headline": ".hiv Best Practice & Click Champions",
-        "text": ".hiv-Domains bieten unendliche Nutzungsmöglichkeiten. Hier finden Sie besonders innovative Ideen, sinnvolle Anwendungen und gelungene Wege. Lassen Sie sich inspirieren.",
-        "all": "Mehr anzeigen"
-      },
-      "charity": {
-        "headline": "Non-profit Domains für HIV-Organisationen",
-        "all": "Kostenlose Domain beantragen"
+      "share": {
+        "headline": "Teilen",
+        "text": "Damit wir wirklich etwas bewegen können, muss die ganze Welt von .hiv erfahren. Hilf mit und erzähle deinen Freunden von .hiv – der digitalen Roten Schleife. "
       }
     },
-    "footer": {
-      "slogan": ".hiv - Building a web with a purpose",
-      "name": "TLD dotHIV Registry GmbH",
-      "street": "Melchiorstraße 26",
-      "city": "10179 Berlin ",
-      "navi": {
-        "contact": "Etwas melden",
-        "impressum": "Impressum/Nutzungsbedingungen/Datenschutz"
+    "who": {
+      "headline": "Über dotHIV",
+      "text": "Seit über 4 Jahren arbeiten wir daran, die Idee .hiv wahr werden zu lassen. Über die Zeit sind immer mehr tolle Menschen aus den verschiedensten Bereichen zu unserem Team gestoßen und haben es mit ihrer Expertise weitergebracht. Hier erfährst du mehr über die Leute hinter der Idee. ",
+      "votefor": "Für ein Projekt voten",
+      "yourpage": "Deine .hiv Domain",
+      "howto": "Wie stelle ich ein Projekt ein?"
+    },
+    "vote": {
+      "headline": "Wohin geht das Geld?",
+      "allprojects": "Alle anzeigen",
+      "header": "Gib deinem Klick eine Stimme! Mit dem Geld aus dem Domainverkauf unterstützen wir HIV und AIDS Projekte auf der ganzen Welt. Und du entscheidest, welches Projekt gefördert wird. Hier ist eine Übersicht aller Projekte. "
+    },
+    "firms": {
+      "headline": "Diese Unternehmen sind dabei",
+      "allfirms": "Ganze Liste ansehen"
+    },
+    "quotes": {
+      "headline": "Was andere sagen:",
+      "allquotes": "Mehr"
+    },
+    "partners": {
+      "headline": "Unsere Partner"
+    },
+    "help": {
+      "headline": "Hilfe",
+      "contact": {
+        "headline": "Kontakt",
+        "press": {
+          "headline": "Presseanfragen",
+          "text": "Blindtext 5.2a Press"
+        },
+        "job": {
+          "headline": "Jobanfragen ",
+          "text": "Blindtext 5.2a Job"
+        },
+        "andere": {
+          "headline": "Andere Anfragen",
+          "text": "Blindtext 5.2a Andere"
+        },
+        "feedback": {
+          "headline": "Feedback zur Website",
+          "text": "Blindtext 5.2b Feedback"
+        },
+        "address": {
+          "headline": "Anschrift ",
+          "text": "Blindtext 5.2c Anschrift"
+        },
+        "impressum": {
+          "headline": "Impressum",
+          "text": "Blindtext 5.2d Impressum"
+        },
+        "use": {
+          "headline": "Nutzungsbedingungen ",
+          "text": "Blindtext 5.3a Nutzung"
+        },
+        "data": {
+          "headline": "Datenschutz",
+          "text": "Blindtext 5.3b Daten"
+        }
+      }
+    }
+  },
+  "Projekte": "Projekte",
+  "footer": {
+    "adress": {
+      "name": "dothiv gemeinnütziger e.V.",
+      "street": "Lehmbruckstraße 3",
+      "city": "10245 Berlin "
+    },
+    "navi": {
+      "help": "Hilfe",
+      "forum": "Forum",
+      "contact": "Kontakt",
+      "impressum": "Impressum",
+      "terms": "Nutzungsbedingungen/Datenschutz",
+      "privacy": "Datenschutz"
+    },
+    "social": {
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "pinterest": "Pinterest"
+    }
+  },
+  "about": {
+    "breadcrumb": {
+      "mission": "Die Mission",
+      "about": "Über dotHIV",
+      "fororg": "dotHIV für Engagierte",
+      "whoisbehind": "Wer ist dotHIV",
+      "getiactive": "Werde Teil von dotHIV",
+      "news": "News",
+      "registry": "Die .hiv Regsistry"
+    },
+    "nav": {
+      "mission": "Die Mission",
+      "goals": "Unsere Ziele",
+      "contribution": "Unser Beitrag",
+      "AIDS": "HIV & Aids - die Situation",
+      "aboutHIV": "Über dotHIV",
+      "idea": "Die Idee",
+      "film": "Der Film",
+      "manifesto": "Unser Mission Statement",
+      "concept": "Der gute Klick",
+      "usage": "Top .hiv Nutzungskonzepte",
+      "moneyusage": "Wohin geht das Geld",
+      "history": "Die Geschichte",
+      "quotes": "Zitate",
+      "fororg": "dotHIV für Engagierte",
+      "criteria": "Unsere Förderrichtlinien",
+      "charitydomains": "Non-profit Domain",
+      "apply": "Non-profit Domain sichern",
+      "experts": "Unser Experten Pool",
+      "whoisbehind": "Wer ist dotHIV",
+      "team": "Team",
+      "organization": "Die Organisation im Überbick",
+      "partnersupporter": "Partner & Supporter",
+      "partner": "Unsere Partner",
+      "supporter": "Unserer Unterstützer",
+      "policyca": "Unser Beirat",
+      "angels": "Unsere Business Angel",
+      "heavystuff": "Schwere Kost",
+      "getactive": "Werde Teil von dotHIV",
+      "newsstream": "Newsstream",
+      "registry": "Die .hiv Regsistry"
+    },
+    "mission": {
+      "headline": "Die Mission",
+      "text": "Der Kampf gegen Aids steht am Scheideweg: dank Forschung und des Engagements von Aktivisten auf der ganzen Welt, ist das erste Mal in der Geschichte des Virus sein Ende möglich. Eine HIV-Infektion ist kein Todesurteil mehr, durch moderne Medikamente ist ein langes, glückliches Leben möglich. Und doch: HIV-positive Menschen werden immer noch ausgegrenzt und leiden unter dem Stigma der Krankheit. "
+    },
+    "goals": {
+      "headline": "Unsere Ziele",
+      "text": "Die Top-Level Domain .hiv soll dem Kampf gegen Aids neuen Schwung verleihen. Sie soll auf die Probleme im Feld HIV und Aids aufmerksam machen und die Welt gleichzeitig daran erinnern, dass das Ende von Aids in Sicht ist. Aber auch daran, dass der Kampf noch nicht gewonnen ist. Und dass wir ihn nur gewinnen können, wenn wir unsere Bemühungen intensivieren und bündeln. Die Plattform dafür: .hiv"
+    },
+    "contribution": {
+      "headline": "Unser Beitrag",
+      "text": ".hiv ist die erste Domain in der Geschichte des Internets, die einen rein sozialen Zweck verfolgt. Mit der Spekulation und dem Handel mit Webadressen wird viel Geld verdient, wir haben uns erfolgreich um die Lizenz für .hiv beworben, um damit ausschließlich Gutes zu tun. Und zwar so:\n\n\n",
+      "dropdown": "Mehr erfahren",
+      "expand": "Finanzielle Unterstützung: dotHIV generiert finanzielle Mittel, um Engagierte zu unterstützen.\nAufmerksamkeit: dotHIV bringt das Thema HIV zurück ins Bewusstsein der Menschen.\nEntstigmatisierung: dotHIV reduziert die Stigmatisierung derer, die mit HIV leben.\n\nDie Rote Schleife des digitalen Zeitalters – .hiv \n\n"
+    },
+    "AIDS": {
+      "headline": "HIV & Aids - die Situation",
+      "text": "Vor über 30 Jahren tauchte die Krankheit AIDS zum ersten mal auf und kein Mensch wusste, was es war, wo es her kommt, wie es sich überträgt und wie man es richtig behandelt. Seit dem hat sich viel getan - bei der Behandlung von HIV, der weltweiten Verbreitung des Virus und den Herausforderung die ein Leben mit HIV mich sich bringt. Seht hier einige der entscheidenden Ereignisse der vergangenen 30 Jahre.\n\n",
+      "dropdown": "Mehr erfahren",
+      "expand": "Die 1980er\n1981- Die ersten Fälle von Aids tauchen in den USA auf - nur weiß damals noch niemand, dass es sich um Aids handelt. Die Krankheit bekommt zunächst den Namen Gay-related immune deficiency (GRID).\n\n1982 - Da es sich bei den ersten Patienten um homosexuelle Männer handelt, kommt die erste HIV Organisation aus der Schwulenszene - Gay Men’s Health Crisis bildet sich in New York und besteht bis heute.\n\n1983 - Bereits ein Jahr später gründete sich in Berlin die Deutsche AIDS-Hilfe. Inzwischen sind 120 weitere, lokale Aids-Hilfen dazu gekommen.\n \n1986 - Bereits damals gab es erste Erfolge auf der Suche nach einer geeigneten Medikation bei einer HIV Infektion. Das bis dahin wirkungslos gegen Krebs eingesetzte Azidothymidin AZT zeigt Wirkung bei der Behandlung von HIV Patienten\n\n1987 - AZT wird zur Behandlung von HIV zugelassen und war zu diesem Zeitpunkt das teuerste verschreibungspflichtige Medikament der Welt. Die Behandlung eines HIV Patienten hat damals ca. 10.000 USD pro Jahr gekostet. \n\n1988 - Die WHO ruft am 1. Dezember zum ersten Mal den Welt-Aids Tag aus \n\nDie 1990er\n\n1991 - Die Künstlergruppe Visual AIDS entwirft die Rote Schleife als internationales Symbol der Solidarität mit HIV Infizierten und an Aids Erkrankten. \n\n1992 - 100.000 dieser Schleifen werden bei einem Konzert zu Gedenken des Queen Sängers Freddy Mercury verteilt - er war kurz zuvor an Aids gestorben. \n\n1996 - Die UN ruft das Programm UNAIDS ins Leben, um die internationale Maßnahmen bezüglich der Infektionskrankheit zu bündeln. \n\n1999 - Trotz all der Bemühungen erreicht die Krankheit einen traurigen Rekord und wird zur 4häufigsten Todesursache aller Zeiten.\n\nAb 2000\n\n2002 - Als Reaktion auf die Pandemie wird der Global Fund zur Bekämpfung von Aids, Tuberkulose und Malaria ins Leben gerufen. \n\n2003 - Die WHO veröffentlicht den Plan “3by5” mit dem Ziele, im Jahre 2005 3 Millionen Menschen in Entwicklungsländern mit antiretroviraler Therapie zu versorgen.\n\n2004 - Die UN veröffentlich einen Bericht, demzufolge HIV sich in Russland und Osteuropa schneller verbreitet, als irgendwo anders auf der Welt.\n\n2005 - der Sohn des südafrikanischen Freiheitskämpfers Nelson Mandela, Makgatho Mandela, stirbt an den Folgen von Aids. \n\n2006 - Rocksänger Bono ruft die Marke RED ins Leben und unterstützt mit dem Verkauf von RED Artikeln den Global Fund. \n\n2008 - Amerikanischer Senat und Repräsentantenhaus unterzeichnen den President’s Emergency Plan for AIDS. Das Einreiseverbot für HIV Positive wird jedoch erst zwei Jahre später, nach über 22 Jahren, aufgehoben. \n\n2009 - UNAIDS und die WHO veröffentlichen einen Bericht demzufolge die Zahl der HIV Infizierten mit Zugang zu Behandlung haben innerhalb eines Jahres um 36,% gestiegen ist.\n\n2011 - der Global Fund muss aus mangelnder Finanzierung durch Geberländer die 11. Vergaberunde streichen.\n\nQuellen:\nAvert: \nhttp://www.avert.org/hiv-aids-history.htm\nDeutsche Aids Hilfe:\nhttp://www.aidshilfe.de/de/faq/chronik\nondamaris:\nhttp://www.ondamaris.de/?page_id=1109 \n\n",
+      "facts": {
+        "headline": "Daten & Fakten",
+        "text": "Hier findet ihr einige Daten und Fakten zur momentan Situation im Bereich HIV und AIDS. Falls ihr mehr Faktenwissen haben möchtet, haben wir euch noch ein paar Links zu Seiten zusammengetsellt, die einen guten Überblick bieten.",
+        "dropdown": "Mehr erfahren",
+        "expand": "·           Zahl der HIV-Infizierten weltweit:\n34.2 Millionen\n \n·           Zahl der HIV-Neuinfizierungen:\n2.5 Millionen\n \n·           Zahl der AIDS-Toten:\n1.7 Millionen\n \n·           Zahl der HIV-positiven Kinder unter 15 Jahren:\n3.4 Millionen\n \n·           Rückgang der HIV Infizierungen in 10 Jahren (2001-2011): 21%\n \n·           HIV-Infizierte, die lebensnotwendige ART erhielten:\n8 Millionen\n \n·           Kosten für ART pro Jahr/Kopf:\n200 USD\n \n·           Versorgung mit ART in unterschiedlichen Regionen\n-        Sub-Sahara Afrika: 56%\n-        Lateinamerika: 70%\n-        Karibik: 67%\n-        Osteuropa/Zentralasien: 23%\n-        Nordafrika: 13%\n \n·           Kinder, deren Eltern an AIDS gestorben sind weltweit:\n17.3 Millionen\n \n·           Anzahl HIV-positiver, schwangerer Frauen: \n1.5 Millionen\n \n·           Davon Frauen, denen ART zur Verfügung stand:\n57%\n \n·           Global geleistet Ausgaben zur Bekämpfung von HIV/AIDS: \n16.8 Milliarden USD\n \n·           Jährlich fehlende Gelder zur HIV/AIDS-Bekämpfung laut UNAIDS:\n7 Milliarden USD\n \n \n \nWusstet ihr schon?\n \n·           HIV/AIDS ist weltweit die häufigste Todesursache für Frauen im gebärfähigen Alter.\n \n·           63% aller jungen Erwachsenen (zwischen 15 und 24), die mit HIV leben, sind Frauen.\n \n·           Jeden tag stecken sich weltweit 2400 junge Erwachsene im Alter zwischen 15 und 24 Jahren mit HIV an.\n \n·           Eine funktionierende medikamentöse HIV Therapie bedeutet, dass die Ansteckungsgefahr um 96% sinkt.\n \n·           Nach wie vor erhalten alleine im südlichen Afrika 7 Millionen HIV-Infizierte keine Behandlung, weil sie nicht um ihren HIV Status wissen\n \n·           In Zentralasien und Osteuropa hat sich die Zahl der HIV Infizierten seit 2001 verdreifacht.\n \n·           Täglich stecken sich nach wie vor 1000 Kinder mit HIV an.\n \n\n\nVerlinkungen\n\nUNAIDS Report on the global AIDS Epidemic 2012:\nhttp://www.unaids.org/en/media/unaids/contentassets/documents/epidemiology/2012/gr2012/20121120_UNAIDS_Global_Report_2012_with_annexes_en.pdf \n \nUNAIDS: Together we will end AIDS\nhttp://www.unaids.org/en/media/unaids/contentassets/documents/epidemiology/2012/20120718_togetherwewillendaids_en.pdf\n\nUNAIDS: 2012 Progress reports submitted by countries\nhttp://www.unaids.org/en/dataanalysis/knowyourresponse/countryprogressreports/2012countries/ \n\n\n\n\nVerlinkungen\nHintergrundinformationen zum Virus – was ist das HI-Virus, wie breitet es sich aus, wie entwickelt es sich, wie steckt man sich an und wie nicht, was mache ich, wenn ich HIV+ bin usw. sind hier als PDF-Downloads hinterlegt. \n\nAuf englisch:\n \nnamaidsmap.com:\nhttp://www.aidsmap.com/hiv-basics/HIV-AIDS/page/1412437/\n \nthebody.com:\nhttp://www.thebody.com/content/art49930.html\n \nAuf deutsch:\n\ngib-aids-keine-chance.de:\nhttp://www.gib-aids-keine-chance.de/wissen/hiv_aids.php\n\naidshilfe.de:\nhttp://www.aidshilfe.de/de/faq/chronik \n\n"
       }
     },
-    "policies": {
-      "headline": "Policies",
-      "text1": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.",
-      "launch": {
-        "secondheadline": "Policies zum Launch und zur Domainregistrierung",
-        "text": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "textbold1": "1.0  GENERAL PROVISIONS         ",
-        "dropdown1": "> mehr lesen",
-        "expand1": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "textbold2": "2.0  SUNRISE RULES",
-        "dropdown2": "> mehr lesen",
-        "expand2": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "textbold3": "3.0  GENERAL AVAILABILITY",
-        "dropdown3": "> mehr lesen",
-        "expand3": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "textbold4": "4.0  WHO IS Policy",
-        "dropdown4": "> mehr lesen",
-        "expand4": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "textbold5": "5.0   Regeln zu reservierten Namen und Premiumdomains",
-        "dropdown5": "> mehr lesen",
-        "expand5": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "link": "Launch-Policies Herunterladen"
-      },
-      "abuse": {
-        "secondheadline": "dotHIV Namensraum Policy zur Handhabung von Missbrauch und unangemessener Nutzung",
-        "text": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "graphic": "Etwas melden",
-        "textbold1": "1.0 Markenschutz",
-        "dropdown1": "> mehr lesen",
-        "expand1": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "Link1": "Herunterladen",
-        "textbold2": "2.0 Domainmissbrauch",
-        "dropdown2": "> mehr lesen",
-        "expand2": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "textbold3": "3.0 Akzeptierte Nutzung",
-        "dropdown3": "> mehr lesen",
-        "expand3": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "textbold4": "4.0 Weiterführende Maßnahmen",
-        "dropdown4": "> mehr lesen",
-        "expand4": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-        "Link2": "Herunterladen"
-      },
-      "RA": {
-        "secondheadline": "Das dotHIV Registry Agreement",
-        "text": "Wie bei jeder Top-Level Domain bildet auch bei .hiv das Registry Agreement mit ICANN die Grundlage für den Ver- und Betrieb der Domains. Bei dotHIV steht die gemeinnützige Leitorganisation der Initiative, der dotHIV gemeinnützige e.V., in diesem zentralen Vertragsverhältnis. Die dotHIV Registry managt das operative Geschäft im Auftrag des Vereins, ein Lizenzvertrag regelt das Geschäftsverhältnis.",
-        "link": "Herunterladen"
+    "whoisbehind": {
+      "film": "Über dotHIV\n",
+      "manifesto": {
+        "headline": "dotHIV - Das Mission Statement",
+        "popup": "Lies unser Mission Statment",
+        "middle1": "dotHIV is a Social Enterprise.\nWith the domain-ending “.hiv”, we implant the fight against AIDS in the DNA of the Internet. \nWe join forces with all those who are active in the global HIV response. \nAs an organization, we are mission driven. Our work is based on values. We are committed to continuous learning\nas we are working in an innovative field of technology with a new approach to fight AIDS. \nWe sell .hiv-domains to raise awareness, reduce HIV-related stigma and financially support the \ninitiatives of the AIDS response. We believe in the power of networks and in bottom-up approaches. \nTogether, we will establish .hiv as the digital Red Ribbon. ",
+        "left": ".hiv – the Top-Level Domain. \n.hiv is:\nAn open, global technical infrastructure. \nTo support all diverse communities. \nA place for free expression. \nReady to be filled with life. \nAn innovative, decentralized network. \nThat tackles a global problem with local power. \nWhat is .hiv? \nThe digital Red Ribbon! \nWho is .hiv? Everyone! \nTogether, we will ignite even more. \n.hiv creates an Internet with a bigger meaning: \nA web with a purpose. \nAt the service of anyone who shares our goal: \nThe end of AIDS.",
+        "right": " dotHIV – the charitable organization. \ndotHIV is: \nTransparent and mission-driven.\nReady to forge new paths.\nBundling the power of the AIDS response.\nTo give the fight a new momentum.\nNot a service organization. \nBut a booster for aid organizations. \nWe stand for a new perception. \nAnd encourage communication without using fear. \nWe eliminate outdated prejudices. \nWith empathy instead of pity. \nIn touch with our communities,\nhere is what we want to do:\nOpen minds and power small initiatives.\nGive HIV a new visibility on the web.\nTogether, behind the same goal:\nThe end of AIDS. ",
+        "middle2": "Because .hiv (Logo) makes helping easy: click."
       }
     },
-    "launch": {
-      "headline": "Launch Plan",
-      "text1": "2008 hat die ICANN den Prozess zur Einführung neuer Top-Level Domains gestartet – knapp 6 Jahre später ist es soweit: mit .hiv kommt die digitale Rote Schleife ins Internet. Hier sind unsere finalen Schritte bis zum Go-Live.\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
-      "graphic": "//Graphik//",
-      "text2": "Darunter folgt weiterer erklärender Text. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben."
+    "concept": {
+      "headline": "Der gute Klick",
+      "text": "Bei dotHIV tut jeder Klick etwas Gutes, hier steht, wie Geld gesammelt, verteilt und weitergeleitet wird. Klick- und Abstimmungsrunden werden erklärt und die Funktion der User im Voting-Prozess. \n\n",
+      "dropdown": "Mehr erfahren",
+      "expand": "Von Mitte 2014 an kann jeder eine .hiv-Domain registrieren. Eine .hiv-Website kann dann entweder als Hauptwebsite oder Schwester-Seite einer bekannten Seite genutzt werden: User haben das gleiche Resultat auf pepsi.com und pepsi.hiv – ein Klick auf eine .hiv-Seite leitet auf die Standard-Homepage weiter. Und in beiden Fällen tut ein Klick etwas Gutes: Jeder Besuch einer .hiv-Website löst eine Mikrospende aus.\nDie Spenden sind durch den Domain-Verkauf finanziert: Der größte Teil des Preises jeder verkauften .hiv-Adresse ist für soziale Zwecke reserviert. Natürlich können Unternehmen ihr Engagement durch weitere fundraising-Kampagnen auf .hiv-Seiten erweitern. Also, kurz gesagt: Das Betreiben und Verkaufen von Domains füllt einen wachsenden Spendentopf, den die Internet-User mit jedem Klick auf eine .hiv-Domain aktivieren.\nDieses Prinzip macht dem Kampf gegen Aids zu einer gemeinsamen Sache: Website-Betreiber und Internet-User erwecken die .hiv-Domains zum Leben.\n\n"
     },
-    "launchurl1": "Neue Domain bestellen",
-    "launchurl2": "Registrar werden",
-    "launchurl3": "Launch Policies",
-    "whois": {
-      "headline": ".hiv Whois ",
-      "text1": "Diese kleine Fenster sagt Ihnen, ob Ihre Wunschdomain noch frei ist und wer der Inhaber einer bestimmten .hiv-Domain ist. Einfach ausprobieren: ",
-      "field": "Domainname.hiv",
-      "latest": ".hiv Domainticker",
-      "text2": "Diese .hiv-Domains gingen gerade online:",
-      "link1": "ww.domain1.hiv",
-      "link2": "ww.domain2.hiv",
-      "link3": "ww.domain3.hiv",
-      "link4": "ww.domain4.hiv",
-      "link5": "ww.domain5.hiv"
+    "usage": {
+      "headline": "Top .hiv-Nutzungskonzepte\n",
+      "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien."
     },
-    "registrars": {
-      "headline": ".hiv für Registrare",
-      "text1": "Mit der .hiv Top-Level Domain ergänzen Registrare ihr Portfolio um eine einzigartiges Domainprodukt. Hier lesen Sie die wichtigesten Infos zum .hiv-Vertrieb auf einen Blick und finden Informationen zum Thema On-Boarding und Zusammenarbeit.",
-      "secondheadline1": "In 5 Schritten zum .hiv Registrar",
-      "text2": "Sie wollen Ihren Kunden die digitale Rote Schleife anbieten? Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
-      "button1": ".hiv Infopaket anfordern",
-      "link": "Unsere Registrare",
-      "secondheadline2": "Registrar Login",
+    "moneyusage": {
+      "headline": "Wohin geht das Geld",
+      "text": "Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten. Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten meines großen Bruders »Lorem Ipsum«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen lesen. Denn esse est percipi - Sein ist wahrgenommen werden. Und weil Sie nun schon die Güte haben, mich ein paar weitere Sätze lang zu begleiten, möchte ich diese Gelegenheit nutzen, Ihnen nicht nur als Lückenfüller zu dienen, sondern auf etwas hinzuweisen, das\n\n",
+      "link": "Umgesetzte Projekte"
+    },
+    "history": {
+      "headline": "Geschichte von dotHIV",
+      "text": "Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten. Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten meines großen Bruders »Lorem Ipsum«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen lesen. Denn esse est percipi - Sein ist wahrgenommen werden. Und weil Sie nun schon die Güte haben, mich ein paar weitere Sätze lang zu begleiten, möchte ich diese Gelegenheit nutzen, Ihnen nicht nur als Lückenfüller zu dienen, sondern auf etwas hinzuweisen, das\n\n\n",
+      "dropdown": "Mehr erfahren",
+      "expand": "Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten. Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten meines großen Bruders »Lorem Ipsum«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen lesen. Denn esse est percipi - Sein ist wahrgenommen werden.\n\nUnd weil Sie nun schon die Güte haben, mich ein paar weitere Sätze lang zu begleiten, möchte ich diese Gelegenheit nutzen, Ihnen nicht nur als Lückenfüller zu dienen, sondern auf etwas hinzuweisen, das es ebenso verdient wahrgenommen zu werden: Webstandards nämlich. Sehen Sie, Webstandards sind das Regelwerk, auf dem Webseiten aufbauen. So gibt es Regeln für HTML, CSS, JavaScript oder auch XML; Worte, die Sie vielleicht schon einmal von Ihrem Entwickler gehört haben. Diese Standards sorgen dafür, dass alle Beteiligten aus einer Webseite den größten Nutzen ziehen. Im Gegensatz zu früheren Webseiten müssen wir zum Beispiel nicht mehr zwei verschiedene Webseiten für den Internet Explorer und einen anderen Browser programmieren. Es reicht eine Seite, die - richtig angelegt - sowohl auf verschiedenen Browsern im Netz funktioniert, aber ebenso gut für den Ausdruck oder\n\n"
+    },
+    "quotes": {
+      "headline": "Was andere sagen",
+      "quote1": {
+        "text": "“An dotHIV gefällt mir besonders gut, dass es nicht einfach nur eine Top-Level Domain ist. Es ist ein großartiges Werkzeug für Unternehmen, NGOs und Menschen, die Unterstützung zeigen und Verantwortung übernehmen wollen.”\n\n\n",
+        "name": "Raul Krauthausen\nRaul Krauthausen ist Sozialunternehmer, Gründer von wheelmap.org und Ashoka fellow.\n\n"
+      },
+      "quote2": {
+        "text": "“Ich liebe diese Idee. Das ist genau die Art von Kreativität, die wir brauchen.”\n\n\n\n",
+        "name": "Dr. Brian Brinks\nDr. Brian Brinks ist Board Member und Vertreter des Private Sectors beim Global Fund"
+      },
+      "quote3": {
+        "text": "Ich finde dotHIV großartig, weil es dem Thema HIV/Aids einen eigenen Raum im Internet gibt. Es erreicht vor allem junge Menschen – eine der wichtigsten Zielgruppen für Prävention und wird so dabei helfen, gemeinsam das Blatt zu wenden.”",
+        "name": "Marcel ist ein 23 Jahre alter Aktivist und aktiver Internetuser. Als ein HIV+ Botschafter für Kampagnen wie ”I know what I’m doing” und ”Living together in a positive way”, ist er ein Mitglied des größten deutschen HIV-Vereinigung Deutsche Aids Hilfe"
+      },
+      "quote4": {
+        "text": "“Ihr habt meine Unterstützung!”\n\n\n",
+        "name": "Fadi Chehadé\nVorstandsvorsitzender der ICANN.\n\n"
+      },
+      "quote5": {
+        "text": "“HIV ist immer noch ein Problem für viele Menschen – und ich meine nicht die, die HIV-positiv sind. Es gibt so viel Ausgrenzung und Angst. dotHIV hilft dabei, diese Vorurteile zu bekämpfen und das hilft denen, die unter HIV leiden. Eine wirklich gute Idee.”\n\n",
+        "name": "Michael Michalsky\nMichael Michalsky ist einer der erfolgreichsten und respektiertesten Modedesigner Deutschlands. Er unterstützt diverse soziale projects und Initiativen, unter Anderem Save Darfur und den WWF.\n\n"
+      },
+      "quote6": {
+        "text": "„dotHIV ist ein großartiges project, das gleichzeitig mehrere Wirkungsfelder hat: Es sammelt Mittel, um die Krankheit zu bekämpfen, hilft infizierten Menschen und bietet den vielen Organisationen und Aktivisten in diesem Bereich eine Plattform für Kommunikation und Netzwerkarbeit.\nAußerdem wird es die Aufmerksamkeit auf die anhaltende Bedrohung durch HIV/Aids lenken – auch in Deutschland, wo der Zugang zu lebensrettenden Medikamenten zu einem gewissen Desinteresse gegenüber der Pandemie geführt hat. Und das obwohl sie noch lange nicht besiegt ist.”\n\n",
+        "name": "Prof. Dr. Wolfgang Hein\nProf. Dr. Wolfgang Hein ist Senior Research Fellow am GIGA Institut der Lateinamerika Studien in Hamburg und Autor von Global Health Governance and the Fight Against HIV/AIDS, Basingstoke, Palgrave 2007 (mit Lars Kohlmorgen und Sonja Bartsch, eds.)."
+      },
+      "quote7": {
+        "text": "“Carolin Silbernagl und ihr Team sind bei ihrer Pro-Bono Arbeit wirklich mit ganzem Herzen dabei. Sie haben uns mit ihrem Enthusiasmus und ihrem Einsatz dafür, anders zu denken inspiriert.\nWir sind fest davon überzeugt, dass dotHIV eine einmalige Möglichkeit ist, dieses globale Problem auf einer globalen Skala zu bekämpfen und dabei eine breite Masse von Unternehmen, Organisationen und Internetusern einzubinden.”\n\n",
+        "name": "Dr. med. Keikawus Arastéh\nDr. Arastéh ist Chefarzt für Innere Medizin, Infektiologie und HIV am Vivantes Auguste-Viktoria-Klinikum in Berlin.\n\n"
+      },
+      "quote8": {
+        "text": "“Technologie fasziniert uns. Wir glauben: Welche Herausforderung auch immer sich einem stellt – es gibt eine Technologie, um sie zu meistern. In dotHIV sehen wir das Potential, eine essentiellen Beitrag zu leisten, um ein globales Problem mit intelligent genutzter Technologie einzudämmen – und vielleicht sogar ein Teil der Lösung zu sein.”\n\n\n",
+        "name": "Michael Finke\nInternationaler Werbeleiter bei der AUDI AG\n\n"
+      },
+      "quote9": {
+        "text": "”Aids? Das geht mich nichts an. – Diese Position ist recht häufig aber sich für “sicher” zu halten wäre trügerisch. Weltweite Aufklärung gehört zu den wichtigsten Maßnahmen in der Bekämpfung und Vorbeugung von Aids. Denn Schritte gegen diese Krankheit können nur auf einer globalen Ebene passieren. dotHIV macht das auf eine äußerst clevere Art – nicht belehrend, sondern innovativ und ohne Zweifel sehr erfolgreich.”\n\n\n\n",
+        "name": "Reinhold Beckmann\nJournalist und Moderator"
+      },
+      "quote10": {
+        "text": "“Wir brauchen Kreativität und maximale Aufmerksamkeit, um die immerwährende Bedrohung durch HIV/Aids zurück ins Bewusstsein der Menschen zu bringen und die Stigmatisierung der Krankheit zu reduzieren.\ndotHIV verbindet beide Aspekte auf beeindruckende Weise, indem es die gewaltige Kraft des Internets nutzt, um relevante Inhalte unterstreicht und Spenden sammelt, um wichtige Aufklärungsarbeit zu unterstützen. “Vergessen ist ansteckend” und “Update Your Life” unterstützen diese bahnbrechende Initiative.”\n\n\n",
+        "name": "Lars Witte-Winter\nHat die “Vergessen ist ansteckend gGmbH” gegründet und aufgebaut. Wir sind froh, ihn in unserem Beirat zu haben, denn er bringt viel Erfahrung mit.\n\n"
+      },
+      "quote11": {
+        "text": "“Für mich ist dotHIV ein fortschrittlicher Ansatz im Kampf gegen Aids. Es nutzt das Internet auf bestmögliche Weise um Spenden zu sammeln und Aufmerksamkeit zu schaffen. Ich bin mir sicher, dass dotHIV wichtige Beiträge im Kampf gegen das Virus leisten wird.”\n\n",
+        "name": "Michael Stich\nHat als Tennisspieler Wimbledon und die Olympischen Spiele gewonnen – seit 1994 setzt er sich mit der Michael Stich Stiftung für HIV-infizierte Kinder in Deutschland ein."
+      },
+      "quote12": {
+        "text": "“dotHIV ist eine großartige Idee, wirklich gut durchdacht und ein solides soziales Geschäftsmodell, das mich fasziniert – genau so wie betterplace. Ich bin fest davon überzeugt, dass dotHIV die Rote Schleife des digitalen Zeitalters wird.”\n\n\n",
+        "name": "Dr. Bernd Kundrun\nBernd Kundrun ist einer unserer ersten Unterstützer. Der ehemalige Aufsichtsratsvorsitzende der Gruner + Jahr AG und Mitinitiator der Kampagne “Du bist Deutschland” ist heute Vorsitzender des Aufsichtsrats der gut.org gAG."
+      },
+      "quote13": {
+        "text": "Aufmerksamkeit und Geld bilden die Grundlage für einen erfolgreichen Kampf gegen Aids. dotHIV ist ein sehr innovativer Ansatz, um beide Aspekte zu verbinden und so die Pandemie einzudämmen und letztendlich zu besiegen.",
+        "name": "Prof. Dr. Peter H. Seeberger\nProf. Dr. Peter H. Seeberger ist Leiter der Abteilung für Kolloid- und Grenzflächenforschung am Max-Planck Institut, Potsdam. Außerdem ist er ein Gründungsmitglied der “Hope for Africa”-Stiftung, die sich zum Ziel gesetzt hat, das Gesundheitswesen in Afrika zu verbessern, indem sie Zugang zu Malaria-Impfungen und HIV-Behandlung gibt."
+      },
+      "quote14": {
+        "text": "“Einige Mitglieder der ICANN-community waren der Meinung, dass ein neues Top-Level Programm überflüssig sei. Es ist großartig zu sehen, dass Initiativen wie dotHIV den ganzen Prozess rechtfertigen. Vielen Dank!”\n\n",
+        "name": "Peter Dengate Thrush\nPeter Dengate Thrush ist seit der Gründung in die ICANN involviert und war von 2007 bis 2011 ihr Aufsichtsratsvorsitzender .\n\n"
+      },
+      "quote15": {
+        "text": "GMHC ist die älteste HIV und AIDS Service-Organisation der Welt und ist stolz offizieller Unterstützer von dotHIV zu sein.",
+        "name": "Janet Weinberg, CEO/COO GMHC, New York"
+      }
+    },
+    "qoutes": {
+      "quote5": {}
+    },
+    "fororg": {
+      "headline": "dotHIV für die AIDS response",
+      "text": "Kurze Einleitung zu Thema \"Was macht dotHIV für Organisationen\"\n\n",
+      "charitydoamin": {
+        "headline": "Die .hiv non-profit Domain\n",
+        "text": "Die .hiv non-profit Domain ist gleich im doppelten Sinne non-profit: Zum einen vergeben wir die Domain ausschließlich an non-profit Organisationen mit einem Schwerpunkt im Bereich HIV und Aids. Zum anderen ist die non-profit Domain für diese Organisationen kostenlos – die Kosten übernimmt dotHIV. Damit möchten wir Initiativen, die sich im Bereich HIV und Aids engagieren, einen gemeinsamen themengebundenen Raum im Internet geben. \n",
+        "dropdown": "Mehr erfahren"
+      },
+      "charitydomain": {
+        "secondheadline": {
+          "what": "Was ist eine .hiv non-profit Domain?",
+          "why": "Was sind die Vorteile einer .hiv non-profit Domain?"
+        },
+        "expand": "\nMit der kostenlosen .hiv Domain wollen wir für Organisationen im Bereich HIV und Aids einen eigenen Platz im Internet schaffen. Durch die gemeinsame Nutzung dieses Platzes verstärkt sich die Wirkung des Einzelnen – durch die Entstehung besserer Sichtbarkeit und die Bildung eines globalen Netzwerkes.\n\nDie  Verwendung einer .hiv Domain verbessert die Suchmaschinenergebnisse und erhöht somit die Sichtbarkeit im Internet. Gleichzeitig erhöht ein gemeinsamer Namensraum die Transparenz über die Arbeit im Feld - sowohl für Internetuser als auch für Organisationen. Diesen wird eine einfache Möglichkeit gegeben, ein globales Netzwerk aufzubauen und das ganz ohne Kosten und intensive Bemühungen.\n\nUnd last but not least: auch in die kostenlose non-profit Domain wird unser Mikrospendensystem integriert. Das heißt auch für diese Seiten gilt: Jeder Klick auf eine .hiv Domain löst eine Mikrospende aus, die an HIV projects überall auf der Welt weiter gegeben wird.\n\n",
+        "link": "Non-profit Domain beantragen"
+      }
+    },
+    "guidelines": {
+      "headline": "Förderrichtlinien",
       "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-      "button2": "ORMS"
+      "link": "Zu unseren Förderrichtlinien"
     },
-    "registrar": {
-      "listnum1": "1. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
-      "listnum2": "2. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
-      "listnum3": "3. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
-      "listnum4": "4. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
-      "listnum5": "5. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben."
+    "expertpool": {
+      "headline": "Experten Pool",
+      "text": "Um sicherzustellen, dass die Registrierungsrichtlinien für .hiv-Domains und die Förderrichtlinien für die künftige Spendenvergabe im Einklang mit den HIV Communities, sowie Spezialisten aus dem Bereich IT, Recht und technische Innovationen stattfinden un, stellen wir einen Kreis aus Beratern zusammen. Sie sollen Feedback geben, Wissen in Bereichen beisteuern, wo es dem dotHIV-Team noch fehlt und die regionale und thematische Vielfalt des Themas widerspiegeln. Hier ist eine Übersicht der Menschen, die uns bereits unterstützen:"
     },
-    "stats": {
-      "headline1": "Statistiken und Berichte",
-      "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-      "listbull": "Download Registrierungsreport 2014/1; \nDownload Registrierungsreport 2014/2",
-      "headline2": "IDN-Infos",
-      "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-      "link": "Download IDN Table",
-      "headline3": "Zonefile Download",
-      "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-      "button1": "Download beantragen",
-      "headline4": "Logos und Kommuniationsmaterial",
-      "text4": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-      "logos": {
-        "left": {
-          "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans",
-          "link": "Download"
-        },
-        "right": {
-          "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans",
-          "link": "Download"
-        },
-        "list1": {
-          "left": "13.03.2014",
-          "middle": "Pressemitteilung Vertragsunterschrift",
-          "right": "Download"
-        },
-        "list2": {
-          "left": "//Datum",
-          "middle": "Pressemitteilung xxyy",
-          "right": "Download"
-        }
+    "network": {
+      "headline": "Unser Organisationsnetzwerk",
+      "org1": {
+        "name": "ALAFA - Apparel Lesotho Alliance to Fight AIDS "
+      },
+      "org2": {
+        "name": "BelAIDS Network - Belarussian NGO AIDS Network"
+      },
+      "org3": {
+        "name": "Create Future e.V."
+      },
+      "org4": {
+        "name": "Croix-Rouge Luxembourgeoise"
+      },
+      "org5": {
+        "name": "Czech AIDS Help Center"
+      },
+      "org6": {
+        "name": "danebi.org Apothekennetzwerk"
+      },
+      "org7": {
+        "name": "GAGA UK – Goodwill and Growth for Africa"
+      },
+      "org8": {
+        "name": "Gegenpol"
+      },
+      "org9": {
+        "name": "GoAhead!"
+      },
+      "org10": {
+        "name": "Hamburg Leuchtfeuer"
+      },
+      "org11": {
+        "name": "HIV 360°"
+      },
+      "org12": {
+        "name": "HIV Disclosure Mission"
+      },
+      "org13": {
+        "name": "HIVplus Italia"
+      },
+      "org14": {
+        "name": "i-magine e.V."
+      },
+      "org15": {
+        "name": "The Load Zero Foundation"
+      },
+      "org16": {
+        "name": "LOVE ROCKS"
+      },
+      "org17": {
+        "name": "Michael Stich Stiftung"
+      },
+      "org18": {
+        "name": "die Multis"
+      },
+      "org19": {
+        "name": "Rafi.ki"
+      },
+      "org20": {
+        "name": "Stop AIDS Now / Access"
+      },
+      "org21": {
+        "name": "think red! ribbonize your life!"
+      },
+      "org22": {
+        "name": "Vergessen ist ansteckend"
+      },
+      "org23": {
+        "name": "Vijana Amani Pamoja (VAP)"
+      },
+      "org24": {
+        "name": "Yabonga e.V."
       }
     },
-    "digitale": {
-      "headline1": "Die Idee hinter der .hiv Adresse ",
-      "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n",
-      "headline2": "So funktioniert's",
-      "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-      "graphik": "Clickcounter-Graphik",
-      "link1": "Mehr erfahren auf dothiv.hiv",
-      "headline3": "Ihre Vorteile",
-      "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.",
-      "headline4": "Ziele des Namensraums",
-      "text4": "lorem ipsum",
-      "link": "Mehr dazu auf stop.hiv"
-    },
-    "advantage": {
-      "left": "//Vorteile für alle Unternehmen",
-      "middle": "Zielgruppengenaues Content-Marketing für ihr Firmenengagement im Feld HIV",
-      "right": "//Vorteile für Medizinunternehmen",
-      "link": "Hier geht's zu Ihrer .hiv Domain"
-    },
-    "nonprofit": {
-      "headline": ".hiv für die HIV Arbeit",
-      "text1a": "Vorteile für HIV-Organisationen; Blindtext wieso das alles supersuper ist.",
-      "secondheadline": {
-        "what": "Die kostenlose non-profit Domain",
-        "who": "Wer kann sich um Charity-Domains bewerben?"
-      },
-      "text1b": "Die .hiv non-profit Domain ist gleich im doppelten Sinne non-profit: Zum einen vergeben wir die Domain ausschließlich an non-profit Organisationen mit einem Schwerpunkt im Bereich HIV und Aids. Zum anderen ist die non-profit Domain für diese Organisationen kostenlos – die Kosten übernimmt dotHIV. Damit möchten wir Initiativen, die sich im Bereich HIV und Aids engagieren, einen gemeinsamen themengebundenen Raum im Internet geben. ",
-      "dropdown": {
-        "what": "Mehr erfahren",
-        "who": "Mehr erfahren"
-      },
-      "text2": "Mit der kostenlosen .hiv Domain wollen wir für Organisationen im Bereich HIV und Aids einen eigenen Platz im Internet schaffen. Durch die gemeinsame Nutzung dieses Platzes verstärkt sich die Wirkung des Einzelnen – durch die Entstehung besserer Sichtbarkeit und die Bildung eines globalen Netzwerkes.\n\nDie  Verwendung einer .hiv Domain verbessert die Suchmaschinenergebnisse und erhöht somit die Sichtbarkeit im Internet. Gleichzeitig erhöht ein gemeinsamer Namensraum die Transparenz über die Arbeit im Feld - sowohl für Internetuser als auch für Organisationen. Diesen wird eine einfache Möglichkeit gegeben, ein globales Netzwerk aufzubauen und das ganz ohne Kosten und intensive Bemühungen.\n\nUnd last but not least: auch in die kostenlose non-profit Domain wird unser Mikrospendensystem integriert. Das heißt auch für diese Seiten gilt: Jeder Klick auf eine .hiv Domain löst eine Mikrospende aus, die an HIV Projekte überall auf der Welt weiter gegeben wird.\n\n",
-      "text3": "Text: Non-profit Organisationen, die sich im Bereich HIV und Aids engagieren, können ihre eigene kostenlose .hiv non-profit  Domain bei uns beantragen. Dafür bitten wir euch lediglich, mit den dotHIV Grundlagen konform zu gehen.\n\n",
-      "text4": "Dazu gehört, dass ihr mit uns für ein großes gemeinsames Ziel kämpft – das Ende von Aids! Aber bekanntermaßen ist ja auch der Weg schon das Ziel. Das heißt, uns interessiert auch, wie deine Organisation das Ziel erreichen will. Zeigt uns also, wer ihr seid, was ihr tut und warum ihr euch mit uns und unseren Leitlinien identifizieren könnt (Link zu den non-profit Domain Leitlinien).\n\nAußerdem bitten wir euch, eure .hiv Domain tatsächlich zu nutzen! Das Mindeste, das wir uns von euch wünschen, ist die Weiterleitung auf eure Standardhomepage. Aber natürlich sind individuelle Nutzungskonzepte sehr gerne gesehen. Nur durch die Nutzung erwacht der virtuelle Raum den wir bieten auch zum Leben!\n\nHabt ihr euren Antrag erfolgreich bei uns eingereicht, bekommt ihr die non-profit Domain zunächst für 3 Jahre, anschließend müsst ihr sie erneut beantragen.\n\nFindet sich deine Organisation in dieser Beschreibung wieder? Dann geht’s hier zu eurer ganz eignen kostenlosen .hiv Domain! \n\n",
-      "button": "Verlinkung: Button “Jetzt bewerben”\n",
-      "bewerbung": {
-        "headline": "Jetzt bewerben",
-        "text1": "Nur noch wenige Schritte trennen Dich und Deine Organisation davon, Teil des .hiv-Online Netzwerks zu werden. Los geht’s",
-        "secondheadline": "Die Nutzungsbedingungen",
-        "text2": "Die kostenlose non-profit .hiv Domain bekommt ihr unter drei Voraussetzungen:\n1. Ihr seid eine eingetragen non-profit Organisation die im Bereich HIV und Aids tätig ist.\n\n2. Ihr nutzt die Domain. Die Weiterleitung auf eure Standardseite ist völlig ausreichend, aber natürlich freuen wir uns auch über ganz individuelle Nutzungskonzepte.\n\n3. Der Inhalt eurer .hiv Seite spiegelt die Leitlinien und Grundsätze von dotHIV wider.\n\nDie kostenlose non-profit Domain bekommt ihr zunächst für 3 Jahre. Wenn ihr die Laufzeit gerne verlängern möchtet, müsst ihr lediglich 3 Monate vor Ablauf einen Verlängerungsantrag stellen. \nWenn ihr das nicht möchtet, endet die Laufzeit automaisch nach den drei Jahren.\n\nWie immer bestätigen auch hier Ausnahmen die Regel und deshalb gibt es drei Fälle, bei denen der Ablauf ein bisschen anders aussieht.\n1. Wenn ihr die .hiv länger als drei Monate nicht nutzt, fangen wir an nachzufragen. Zunächst habt ihr in diesen Fall die Möglichkeit, einfach die reguläre Registrierungsgebühr für eure .hiv Domain zu zahlen. Falls auch das von euch nicht gemacht wird, nehmen wir die Domain vom Netzt und geben sie für anderer Bewerber wider frei.\n\n2. Ähnlich sieht der Prozess aus, falls Inhalte auf eurer .hiv Homepage auftauchen, die nicht widerspiegeln wofür dotHIV steht. Auch hier werden wir euch auffordern, für die Domain zu bezahlen oder in Zukunft auf die Nutzung zu verzichten. Für den Fall, dass eure .hiv Homepage über unser Abuse system bei uns gemeldet wird, ist auch ein direkter Take Down nicht ausgeschlossen.\n\n3. Vielleicht möchtet ihr ja die kostenlose Domain schon vor Ablauf der 3 Jahre nicht mehr haben (auch wenn wir bei dotHIV uns das nicht vorstellen können). Dann kündigt sie einfach rechtzeitig zum 30. November eines Jahres und ab dem Jahreswechsel ist der ganze .hiv Spaß für euch vorbei.\n\nAlles klar soweit? Dann füllt einfach die untenstehenden Fragen aus und los geht es mit eurer Domain!",
-        "link1": "dotHIV non-profit Leitlinien",
-        "antrag": {
-          "headline": "Der Antrag",
-          "secondheadline": "Wer seid ihr?",
-          "field1": "Name der Organisation:",
-          "field2": "Land: ",
-          "field3": "Straße/Hausnummer:",
-          "field4": " Ort/Postleitzahl:",
-          "upload1": "Nachweis hier hochladen",
-          "field5": "Website/URL:",
-          "field6": "Gewünschte .hiv Domain*:",
-          "field7": "Telefon- / Faxnummer:\n",
-          "dropdown1": "In welchem Bereich arbeitet deine Organisation:                                                                                                                        Dropdown Menü zum anklicken: Aufklärung, Prävention, Pflege, Versorgung, Jugendarbeit, Onlinearbeit, Mutter-Kind-Übertragung, STIs, Stigmatisierung und Diskriminierung",
-          "footnote": "Wir versuchen dir natürlich die Domain zu geben, die du möchtest. Überleg dir aber bitte auch schon mal eine Alternative, falls deine Wunsch-Domain schon vergeben ist.",
-          "secondheadline2": "Wer ist unser Ansprechpartner?\n",
-          "field8": "Name: Vorname:",
-          "field9": "E-Mail Adresse: ",
-          "field10": "Position:",
-          "secondheadline3": "Was macht ihr?",
-          "field11": "Beschreibe deine Organisation und eure Arbeite (Mission und Vision) in max. 200 Wörtern",
-          "secondheadline4": "Wie wollt ihr eure kostenlose .hiv Domain nutzen?",
-          "field12": "Erkläre euer Nutzungskonzept in max. 200 Wörtern"
-        },
-        "agbs": {
-          "headline": "AGBs",
-          "text": "klickt auf den Link um die AGBs für deine dotHIV non-profit Domain zu lesen und stimmt ihnen anschließend zu",
-          "link": "AGBs",
-          "button": "Absenden"
-        }
-      },
-      "headline4": "Bisher registrierte Non-profit Domains",
-      "text5": "Blindtext",
-      "table": {
-        "left": "Domain, Links",
-        "right": "Organisation, Organisationsnamen"
-      }
-    },
-    "concepts": {
-      "headline": "Best Practice",
-      "desc": "Das wünschen wir uns von best Practice Beispielen",
-      "bsp1": {
-        "title": "thjnk.hiv",
-        "text": "lorem ipsum",
-        "url": "zu thjnk.hiv"
-      },
-      "bsp2": {
-        "title": "bsp2.hiv",
-        "text": "lorem ipsum",
-        "url": "zu bsp2.hiv"
-      },
-      "button": "Neue Domain bestellen"
-    },
-    "registrieren": {
-      "headline1": "Ihr Weg zur eigenen .hiv Domain",
-      "text1": "lorem ipsum",
-      "headline3": "Was Sie bei der Registrierung beachten sollten",
-      "text3": "lorem ipsum",
-      "headline4": "Hier können Sie ihre Domain registrieren",
-      "text4": "lorem ipsum",
-      "tabelle": {
-        "left": "Registrar",
-        "middle": "Land",
-        "right": "Preis/Jahr"
-      }
-    },
-    "support": {
-      "headline": "Werden Sie Unterstützer",
-      "text": "lorem ipsum",
-      "button": "Weiter auf stop.hiv"
-    },
-    "registry": {
-      "headline1": "Organisation",
-      "text1": "lorem ipsum",
-      "headline2": "Investoren",
-      "text2": "lorem ipsum",
-      "headline3": "Gesellschaftervertrag",
-      "text3": "lorem ipsum",
-      "link1": "Gesellschaftervertrag herunterladen",
-      "headline4": "Geschäftsbericht",
-      "text4": "lorem ipsum",
-      "link2": "Geschäftsbericht herunterladen",
-      "headline5": "Mittelverwendung",
-      "text5": "lorem ipsum",
-      "link": "Mehr dazu herunterladen"
-    },
-    "stakeholder": {
-      "headline1": "dothiv in der Registry Stakeholder Group",
-      "text1": "lorem ipsum",
-      "headline2": "dothiv in Euralo",
-      "text2": "lorem ipsum",
-      "headline3": "Sonstige Mitgliedschaften",
-      "text3": "lorem ipsum"
+    "whosbehind": {
+      "headline": "dotHIV - ein Netzwerk für den guten Zweck",
+      "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien."
     },
     "team": {
-      "headline1": "Team",
-      "text1": "lorem ipsum",
-      "headline2": "Jobs",
-      "text2": "lorem ipsum"
-    },
-    "kontakt": {
-      "headline": "Kontakt",
-      "text": "lorem ipsum",
-      "ausfuellen": {
-        "wer": "Name",
-        "unternehmen": "Unternehmen/Organisation",
-        "mail": "E-Mail",
-        "hivadresse": "Meine .hiv-Adresse",
-        "keine": "Ich habe keine .hiv-Adresse",
-        "warum": "Betreff",
-        "info": "Nachricht"
+      "headline": "Team",
+      "text": "Seit 2009 arbeiten wir daran, dotHIV wahr werden zu lassen. Ein Kernteam bringt Erfahrung in Sozialunternehmertum, Gemeinnützigkeitsarbeit, Marketing, Kommunikation und Social Media mit. Finde heraus, wer hinter der Idee der Roten Schleife des digitalen Zeitalters steht.",
+      "picture": "Teamfoto",
+      "charity": {
+        "headline": "Der Verein",
+        "member1": {
+          "affiliation": "Geschäftsführerin"
+        },
+        "member2": {
+          "name": "Greta Philine Jeske",
+          "affiliation": "Community Managerin"
+        },
+        "member3": {
+          "name": "Peter Thomassen",
+          "affiliation": "??"
+        },
+        "member4": {
+          "name": "Lubumbe Van de Velde",
+          "affiliation": "Praktikantin"
+        }
       },
-      "button": "Abschicken"
+      "chairty": {
+        "member1": {}
+      },
+      "company": {
+        "headline": "Registry",
+        "member1": {
+          "name": "Carolin Silbernagl",
+          "affiliation": "Geschäftsführerin",
+          "founder": "Gründerin dotHIV"
+        },
+        "member2": {
+          "name": "Maria Schönfeld",
+          "affiliation": "Fianzen & Unternehmensentwicklung"
+        },
+        "member3": {
+          "name": "Markus Tacker ",
+          "affiliation": "CTO"
+        },
+        "member4": {
+          "name": "Michael Twist",
+          "affiliation": "Marketing & Sales"
+        }
+      },
+      "communication": {
+        "member1": {
+          "name": "Philipp Kafkoulas",
+          "affiliation": "Gründer dotHIV"
+        },
+        "member2": {
+          "name": "Stefan Förster"
+        },
+        "member3": {
+          "name": "Michel Förtsch"
+        }
+      },
+      "dropdown": "Findet hier weiter Unterstützer von dotHIV"
+    },
+    "partnersupporter": {
+      "headline": "Partner & Supporter",
+      "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien."
+    },
+    "partner": {
+      "secondheadline": "Unsere Partner",
+      "partner1": {
+        "link": "thjnk"
+      },
+      "partner2": {
+        "link": "aidshilfe"
+      },
+      "partner3": {
+        "link": "afillias"
+      },
+      "partner4": {
+        "link": "keysystems"
+      },
+      "partner5": {
+        "link": "moniker"
+      }
+    },
+    "supporter": {
+      "headline": "dotHIV Unterstützer",
+      "supporter1": {
+        "link": "atlassian"
+      },
+      "supporter2": {
+        "link": "dotzon"
+      },
+      "supporter3": {
+        "link": "elementc"
+      },
+      "supporter4": {
+        "link": "engarde"
+      },
+      "supporter5": {
+        "link": "fischerppelt"
+      },
+      "supporter6": {
+        "link": "github"
+      },
+      "supporter7": {
+        "link": "google"
+      },
+      "supporter8": {
+        "link": "jovoto"
+      },
+      "supporter9": {
+        "link": "change"
+      },
+      "supporter10": {
+        "link": "liga01"
+      },
+      "supporter11": {
+        "link": "loved"
+      },
+      "supporter12": {
+        "link": "nccgroup"
+      },
+      "supporter13": {
+        "link": "nhb"
+      },
+      "supporter14": {
+        "link": "podio"
+      },
+      "supporter15": {
+        "link": "positivesingles"
+      },
+      "supporter16": {
+        "link": "refinedwiki"
+      },
+      "supporter17": {
+        "link": "sedo"
+      },
+      "supporter18": {
+        "link": "shareifyoulike"
+      },
+      "supporter19": {
+        "link": "aswipe"
+      },
+      "supporter20": {
+        "link": "charity"
+      },
+      "supporter21": {
+        "link": "uniteddoamin"
+      },
+      "supporter22": {
+        "link": "universal"
+      },
+      "supporter23": {
+        "link": "youtube"
+      },
+      "supporter24": {
+        "link": "zakk"
+      },
+      "dropdown": "Finde hier weitere Unterstützer von dotHIV",
+      "more": {
+        "name1": "Alan Orpin",
+        "name2": "Atlassian (Confluence)",
+        "name3": "Böger Knittel KG",
+        "name4": "Hainke Schüler Alleyne Fumagalli Rechtsanwälte",
+        "name5": "Marita Locmele",
+        "name6": "New Zealand Bobsled Team",
+        "name7": "RöverBrönnerSusat ",
+        "name8": "The Young Turks",
+        "name9": "Timm Specht Druck & Produktion GmbH",
+        "name10": "The iqconsult team, Norbert Kunz, SAP and the great company of social entrepreneurs at the Social Impact Lab"
+      }
+    },
+    "board": {
+      "headline": {
+        "left": "Unser Beirat"
+      },
+      "text": {
+        "left": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\n"
+      },
+      "board1": {
+        "name": "Bernd Kundrun",
+        "text": "Bernd unterstützt die Initiative mit seiner großen Erfahrung und seinem wertvollen Netzwerk. Er war Aufsichtsratsvorsitzender der Gruner + Jahr AG und ist heute Vorsitzender des Aufsichtsrats der gut.org gAG."
+      },
+      "board2": {
+        "name": "Lars Witte-Winter",
+        "text": "Als Geschäftsführer der Bplus – Moodmarketing & Events mbH \norganisiert Lars Events für große Unternehmen. Seine Erfahrung und \nKontakte setzt er seit  Jahren für die Initiative „Vergessen ist ansteckend“ ein."
+      },
+      "board3": {
+        "name": "Jan Foertsch",
+        "text": "Jans lange Erfahrung als Steuerberater und Wirtschaftsprüfer ist immer wieder von großem Nutzen. Er engagiert sich schon lange im sozialen Sektor für Einrichtungen wie NestWerk e.V. und Hamburg Leuchtfeuer."
+      }
+    },
+    "angels": {
+      "headline": "Unsere Business Angels",
+      "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+      "michael": {
+        "photo": {},
+        "name": {
+          "left": "Dr. Michael Trautmann"
+        },
+        "text": {}
+      }
+    },
+    "angels1": {
+      "left": "Thjnk"
+    },
+    "angels2": {
+      "left": "Henkler-Cöllen GbR"
+    },
+    "angels3": {
+      "left": "Hans-Jochen Holthausen"
+    },
+    "angels4": {
+      "left": "Dr. Bernd Kortüm"
+    },
+    "angels5": {
+      "left": "Michael Stich"
+    },
+    "angels6": {
+      "left": "Dr. Jesko Perrey"
+    },
+    "angels7": {
+      "left": "Boston I-Venture GmbH"
+    },
+    "angels8": {
+      "right": "Matthias Schrader"
+    },
+    "angels9": {
+      "right": "Thomas Wünsche "
+    },
+    "angels10": {
+      "right": "Clemens Lansing"
+    },
+    "angels11": {
+      "right": "SCD Invest GmbH"
+    },
+    "angels12": {
+      "right": "whatever mobile GmbH"
+    },
+    "angels13": {
+      "right": "Solanus GmbH"
+    },
+    "angels14": {
+      "right": "Philipp Grabensee"
+    },
+    "association": {
+      "headline": "Organisationstruktur"
+    },
+    "heavystuff": {
+      "headline": "Schwere Kost",
+      "text": "Hier stehen die wichtigsten Dokumente über den Verein zur Verfügung. Neben der Organisationsstruktur und der Vereinssatzung auch die Statusberichte die bereits veröffentlicht werden und den Nachweis unserer Gemeinnützigkeit.\n\n",
+      "secondheadline": {
+        "status": "Unsere Statusberichte",
+        "charter": "Unsere Vereinssatzung und Gemeinnützigkeit",
+        "financials": "Unsere Finanzen",
+        "registry": "Die dotHIV Registry"
+      },
+      "status1": {
+        "download": "Statusbericht 2012/01"
+      },
+      "status2": {
+        "dowload": "Statusbericht 2012/02"
+      },
+      "status3": {
+        "download": "Statusbericht 2013/01"
+      },
+      "charter": {
+        "download": "Unsere Vereinssatzung"
+      },
+      "charity": {
+        "download": "Unser Gemeinnützigkeits-Status"
+      },
+      "financials1": {
+        "download": "Jahresabschlussbericht 2011"
+      },
+      "financials2": {
+        "download": "Jahresabschlussbericht 2012\n"
+      },
+      "financials3": {
+        "download": "Jahresabschlussbericht 2013"
+      },
+      "resistry": {
+        "text": "Finde mehr Information zu unserem Top Level Domain Antrag auf der Website der dotHIV TLD Registry"
+      },
+      "registry": {}
+    },
+    "getactive": {
+      "headline": "Werde aktiv ",
+      "text": "Es gibt viele Möglichkeiten, Teil der dotHIV Bewegung zu werden. Hier kannst du rausfiden, wir du helfen kannst. Falls du eigene ideen hast, wie du dotHIV unterstützen möchtest schreib uns gerne eine Mail an mail@dothiv.org. Wir freuen uns auf deine ideen!",
+      "jobs": {
+        "headline": "Jobs\n",
+        "position": {},
+        "deadline": {},
+        "download": {}
+      },
+      "howto": {
+        "headline": "Wie kann ich helfen",
+        "text": "Hier findet sich eine Auswahl an Möglichkeiten um dotHIV zu unterstützen. Von der Fördermitgliedschaft bis hin zum Tech for good.\n\n",
+        "clickvoteshare": {
+          "headline": "Das dotHIV Prinzip: Click-Vote-Share"
+        },
+        "member": {
+          "headline": "Werde dotHIV Fördermitglied",
+          "text": "Kurze Erklärung über das Prinzip der Fördermitglieschaft udn die drei unterschiedlichen Varianten\n",
+          "download1": "Fördermitgliedschaft für Schüler",
+          "download2": "Fördermitgliedschaft für Privatpersonen",
+          "download3": "Fördermitgliedschaft für Firmen"
+        },
+        "campus": {
+          "headline": "Werde Campus Captain\n",
+          "text": "kurze Erklärung des Prinzip “Campus Captain”\n\n",
+          "download": "Campus Captain Handbuch"
+        },
+        "tech": {
+          "headline": "Hilf uns .hiv noch besser zu machen\n",
+          "text": "Ein paar Worte zu der Idee von Tech for good \n"
+        }
+      }
+    },
+    "newsstream": {
+      "headline": "News",
+      "dropdown": "Ältere News"
+    },
+    "oldernews": {},
+    "socialmedia": {
+      "headline": "Social Media",
+      "facebook": {
+        "headline": "Facebook Stream\n"
+      },
+      "twitter": {
+        "headline": "Twitter Stream"
+      },
+      "pinterest": {
+        "headline": "Pinterest Stream"
+      }
+    },
+    "media": {
+      "headline": "dotHIV in den Medien"
+    }
+  },
+  "aboute": {
+    "usage": {}
+  },
+  "login": {
+    "headline": "Log in",
+    "text": "Bitte log dich ein",
+    "adress": {
+      "email": "E-mail",
+      "passwort": "Passwort"
+    },
+    "link": "Passwort veregssen?",
+    "button": "Log in",
+    "socialmedia": {
+      "headline": "Log in mit..."
+    },
+    "facebook": {
+      "link": "Facebook connect\n"
+    },
+    "twitter": {
+      "link": "Twitter connect"
+    },
+    "google": {
+      "link": "Google connect"
+    },
+    "registartion": {
+      "headline": "Anmeldung"
+    },
+    "registration": {
+      "text": "Neu bei dotHIV? Lege hier deinen eigenen Account an",
+      "adress": {
+        "password": "Passwort*",
+        "reenter": "Passwort erneut eingeben*"
+      },
+      "privacypolicy": "By signing up you agree to our terms of use and privacy policy "
+    },
+    "registation": {
+      "button": "Jetzt Registrieren"
+    }
+  },
+  "profile": {
+    "overview": {
+      "nav": {
+        "aboutme": {
+          "link": "Mein profile\n"
+        },
+        "language": "Sprache wählen"
+      },
+      "header": {
+        "headline": "Hallo Max Mustermann",
+        "lastlogin": "Letzter Login",
+        "votes": "Votes",
+        "comments": "Abgegebne Kommentare",
+        "overview": {
+          "link": "Übersicht"
+        },
+        "changeprofile": {
+          "link": "Profil bearbeiten"
+        },
+        "changeproject": {
+          "link": "Projekte verwalten"
+        },
+        "changedomain": {
+          "link": "Domains verwalten "
+        },
+        "logout": {
+          "link": "Logout"
+        }
+      },
+      "projects": {
+        "headline": "Projektübersicht",
+        "button": "Neues Projekt einstellen ",
+        "text": "Projektbeschreibung ",
+        "link1": "Zur Projektansicht ",
+        "link2": "Neuigkeiten hinzufühgen ",
+        "link3": "Projekt bearbeiten "
+      },
+      "project": {
+        "download": "Privcy Policy runterladen"
+      },
+      "domain": {
+        "headline": "Domain Übersicht",
+        "button": "Neue Domain erstellen",
+        "text": "Beschreibung der Domain",
+        "link1": "Statistiken downloaden",
+        "link2": "Einstellungen zurücksetzen ",
+        "link3": "Domain bearbeiten"
+      },
+      "votes": {
+        "headline": "Votes",
+        "link1": "Alle Votes anzeigen ",
+        "text": "Auflistung Projekte",
+        "link2": "Gehe zum Projekt"
+      },
+      "comments": {
+        "headline": "Abgegeben Kommentare ",
+        "link": "Alle Kommentare anzeigen "
+      },
+      "kommentare": {
+        "text": "Auflistung Projekte und Kommentare",
+        "link": "Gehe zum Projekt"
+      }
+    },
+    "aboutme": {
+      "headline": "Mein Porfil bearbeiten ",
+      "name": "Name ",
+      "lastname": "Nachname",
+      "email": "E-Mail Adresse",
+      "passwordold": "Altes Password",
+      "password": "Neues Passwaort",
+      "repeatpassword": "Passwort erneut eingeben",
+      "button": "Spreichern "
+    },
+    "project": {
+      "headline": "Projekte verwalten",
+      "overview": {
+        "link1": "Overview",
+        "link2": "Zur Projektansicht "
+      },
+      "news": {
+        "link": "Neuigkeiten hinzufühgen "
+      },
+      "edit": {
+        "link": "Projekt bearbeiten "
+      },
+      "button": "Neues Projekt einstellen "
+    },
+    "projects": {
+      "profile": {
+        "link": "Profil bearbeiten "
+      },
+      "domains": {
+        "link": "Domains verwalten "
+      },
+      "logout": {
+        "link": "Logout"
+      }
+    },
+    "domain": {
+      "claim": {
+        "token": {
+          "headline": "Zuordnungs-Token benötigt",
+          "text": "Bitte geben Sie Ihren Zuordnungs-Token ein. Ihr Token besteht aus einer 64-stelligen Zahlen- und Buchstabenkombination.",
+          "placeholder": "Ihr Token",
+          "button": "Domain zuordnen"
+        },
+        "claiming": {
+          "lookup": "Token überprüfen ...",
+          "claiming": "Domain zuordnen ..."
+        },
+        "success": {
+          "headline": "Glückwunsch! [[domain]] wurde erfolgreich verknüpft!",
+          "text": "Ihre Domain ist jetzt Ihrem Konto zugeordnet und kann in wenigen Schritten für das Mikrospendenprogramm aktiviert werden. So einfach geht's:",
+          "col2": {
+            "headline": "Warum konfigurieren?",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vehicula dui in bibendum placerat. Pellentesque pharetra quis erat vitae ullamcorper. Pellentesque sed erat quam.",
+            "link": "Mehr erfahren"
+          },
+          "col3": {
+            "headline": "Was muss ich beachten?",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vehicula dui in bibendum placerat. Pellentesque pharetra quis erat vitae ullamcorper. Pellentesque sed erat quam.",
+            "link": "dotHIV Policy ansehen"
+          }
+        },
+        "error": {
+          "headline": "Zuordnung fehlgeschlagen :-(",
+          "text": "Die Domain konnte Ihrem Konto nicht zugeordnet werden.",
+          "button": "Nochmal versuchen"
+        }
+      },
+      "success": {
+        "button": "Jetzt Domain einrichten"
+      }
+    }
+  },
+  "pofil": {
+    "overview": {
+      "nav": {
+        "project": {
+          "link": "Projekt einstellen"
+        }
+      }
+    }
+  },
+  "project": {
+    "adjust": {
+      "project": {
+        "link": "Projekt verwalten",
+        "link1": "Projekte verwalten",
+        "overview": {
+          "link": "overview"
+        },
+        "profile": {
+          "link": "profile bearbeiten"
+        },
+        "domains": {
+          "link": "Domains verwalten"
+        },
+        "logout": {
+          "link": "Logout"
+        },
+        "link2": "Zurück zur overview Projektverwaltung",
+        "button": "Projekt ",
+        "new": {
+          "headline": "Neues Projekt einstellen"
+        },
+        "name": "Name des Projekt",
+        "category": "Funding Section",
+        "web": "Webadresse des Projekt",
+        "who": "Ansprechpartner für das Projekt",
+        "mail": "E-mail Adresse des Ansprechpartners",
+        "headline": "Durchfuehrungsort des Projekts",
+        "organisation": "Organisation",
+        "country": "Land",
+        "address": "Straße/Hausnummer",
+        "back": {
+          "button": "Schritt zurueck"
+        },
+        "next": {
+          "button": "Naechster Schritt"
+        }
+      },
+      "overview": {
+        "link": "Overview"
+      },
+      "profile": {
+        "link": "Profil bearbeiten"
+      },
+      "domains": {
+        "link": "Domains verwalten"
+      },
+      "logout": {
+        "link": "Logout"
+      },
+      "link1": "Zurück zur  Projektverwaltung",
+      "headline": {
+        "neues": "Neues Projekt einstellen"
+      },
+      "wie": {
+        "text": "Wie stelle ich ein Projekt ein "
+      },
+      "download": "dotHIV Policy ansehen",
+      "link2": "Mindesststandards ansehen ",
+      "button": "Jetzt Projekt einstellen",
+      "contactperson": {
+        "project": {
+          "link": "Projekte verwalten"
+        },
+        "overview": {
+          "link": "Overview"
+        },
+        "profile": {
+          "link": "Profil bearbeiten"
+        },
+        "domains": {},
+        "logout": {
+          "link": "Logout"
+        },
+        "link": "Zurück zur Projektverwaltung",
+        "button1": "Ansprechpartner",
+        "new": {
+          "headline": "Neues Projekt einstellen",
+          "text": "Bitte erweitern Sie Ihre Profiledaten",
+          "download": "dotHIV Policy ansehen"
+        },
+        "name": "Vorname",
+        "lastname": "Nachname",
+        "mail": "E-Mail Adresse",
+        "organisation": "Organisation",
+        "country": "Land",
+        "adress": "Straße/Hausnummer",
+        "countrycode": "Postleitzahl",
+        "location": "Ort",
+        "button2": "Naechster Schritt "
+      },
+      "countrycode": "PLZ",
+      "location": "Ort",
+      "projectinfos": {
+        "link1": "projects verwalten",
+        "overview": {
+          "link": "overview"
+        },
+        "profile": {
+          "link": "profile bearbeiten"
+        },
+        "domains": {
+          "link": "Domains verwalten"
+        },
+        "logout": {
+          "link": "Logout"
+        },
+        "link2": "Zurück zur overview projectverwaltung",
+        "button": "projectinfos",
+        "new": {
+          "headline": "Neues Projekt einstellen"
+        },
+        "organisation": "Kurzzusammenfassung \"Über die Organisation\"*",
+        "headline": "Beschreibung des Projekts",
+        "about": "Inhaltsangabe",
+        "upload": "Bilder/Video hochladen",
+        "lmoney": {
+          "ink": "Zum Währungsrecher"
+        },
+        "back": {
+          "button": "Schritt zurueck"
+        },
+        "next": {
+          "button": "Naechster Schritt"
+        }
+      },
+      "projectinfo": {
+        "abstract": "Überschrift ",
+        "money": "Benötigter Betrag"
+      },
+      "infos": {
+        "link1": "projects verwalten",
+        "overview": {
+          "link": "overview"
+        },
+        "profile": {
+          "link": "profile bearbeiten"
+        },
+        "domains": {
+          "link": "Domains verwalten"
+        },
+        "logout": {
+          "link": "Logout"
+        },
+        "link2": "Zurück zur overview Projektverwaltung",
+        "button": "Aktuelle Infos",
+        "new": {
+          "headline": "Neues Projekt einstellen"
+        },
+        "news": "News",
+        "actionbox": {
+          "headline": "Überschrift ",
+          "text": "Text",
+          "link": "Link",
+          "upload": "Datei hochladen",
+          "twitter": "Twitter"
+        },
+        "actionboxsocialmedia": "Social Media Intergartion",
+        "google": "Google+"
+      },
+      "info": {
+        "actionbox": {
+          "facebook": "Facebook"
+        }
+      },
+      "finalize": {
+        "link1": "Projekt verwalten",
+        "overview": {
+          "link": "overview",
+          "link1": "overview"
+        },
+        "profile": {
+          "link": "profile bearbeiten",
+          "link1": "profile bearbeiten"
+        },
+        "domains": {
+          "link": "Domains verwalten",
+          "link1": "Domains verwalten"
+        },
+        "logout": {
+          "link": "Logout",
+          "link1": "Logout"
+        },
+        "link2": "Zurück zur overview Projektverwaltung",
+        "button": "Finalisieren",
+        "headline": {
+          "new": "Neues Projekte einstellen",
+          "finish": "Finalisierung"
+        },
+        "done": "Dein Projekt kann nun abgeschickt werden",
+        "text": "Blindtext 4.2.2.6c)",
+        "now": "schnellstmöglich freischalten (mit Kästchen zum ankreuze)",
+        "nexttime": "zur nächsten Abstimmungsrunde am xx.xx freischalten (mit Kästchen zum ankreuzen)\n\n",
+        "preview": {
+          "button": "Vorschau"
+        },
+        "send": {
+          "button": "Abschicken "
+        },
+        "alternativ": {
+          "text": "Alternativ, falls noch nicht alle Felder ausgefüllt sind:",
+          "new": {
+            "headline": "Neues project einstellen"
+          }
+        },
+        "missing": "Finalisierung; Folgende Punkte müssen noch ausgefült werden",
+        "link3": "Projekt verwalten",
+        "link4": "Zurück zur overview projectverwaltung",
+        "button1": "Finalisieren",
+        "thankyou": {
+          "headline": "Danke fürs Einstellen"
+        },
+        "feedback": {
+          "headline": "Sie erhalten in Kuerze Feedback",
+          "text": "Blindtext 4.2.2.8c)"
+        },
+        "back": {
+          "button": "Zur Startseite"
+        }
+      },
+      "projectpreview": {
+        "headline": "projectvorschau",
+        "name": "projectname",
+        "news": "News/Update",
+        "projectcopy": "Projekt copy",
+        "status": "Status",
+        "characteristics": "Steckbrief",
+        "share": "Jetzt teilen ",
+        "actions": "Aktionen",
+        "button": "Fenster schließen"
+      }
+    },
+    "einstellung": {
+      "infos": {
+        "back": {
+          "button": "Schritt zurueck"
+        },
+        "next": {
+          "button": "Naechster Schritt"
+        }
+      }
+    }
+  },
+  "domain": {
+    "administer": {
+      "welcome": "Glückwunsch! yxz.hiv wurde erfolgreich verknüpft! \nDeine Domain ist jetzt deinem Konto zugeordnet. Jetzt kannst du sie in wenigen Schritten für das Mikrospenden-Programm aktivieren und dafür sorgen, dass jeder Klick auf deine .hiv Seite etwas Gutes tut! ",
+      "link": "Domains verwalten",
+      "overview": {
+        "link": "overview"
+      },
+      "profile": {
+        "link": "profile bearbeiten"
+      },
+      "project": {
+        "link": "projects verwalten"
+      },
+      "logout": {
+        "link": "Logout"
+      },
+      "back": {
+        "link": "Zurueck zur Domainoverview"
+      },
+      "headline": {
+        "click": "Click-Counter fuer meinedomain.hiv einrichten"
+      },
+      "click": {
+        "text": "Der Click Counter zeigt dem Besucher Ihrer .hiv Domain den gerade ausgeloesten Mikrobetrag und den bisher ausgeloesten Gesamtbetrag an. Und er kann noch mehr! Jetzt waehlen und konfigurieren - den jeder klick zählt!",
+        "about": "Informationen ueber den Click-Counter",
+        "basic": {
+          "button": "Jetzt einrichten "
+        },
+        "info": "Informationen ueber den Click-Counter Premium",
+        "premium": {
+          "button": "Jetzt einrichten "
+        }
+      },
+      "differentdoamain": {
+        "headline": "Sie moechten den Click-Counter basierent auf einer anderen Domain einrichten?",
+        "text": "Blindtext 4.3.2.1e)"
+      },
+      "button": {
+        "now": "Jetzt einrichten "
+      },
+      "developer": {
+        "headline": "Click-Counter fuer Developer",
+        "text": "Mit dem Click Counter Developer koennen Sie auf Ihrer .hiv Seite ein eigens Feedbacksystem einrichten. Jeder Klick auf Ihre .hiv Domain loest weiterhin eine Mikrospende aus - es wird aber kein Click Counter angezeigt. Was genau angezeigt wird, entscheiden Sie.",
+        "link": "Domains verwalten",
+        "overview": {
+          "link1": "overview",
+          "link": "Zurueck zur Domainoverview"
+        },
+        "profile": {
+          "link": "profile bearbeiten"
+        },
+        "project": {
+          "link": "projects verwalten"
+        },
+        "logout": {
+          "link": "Logout"
+        },
+        "counter": {
+          "headline": "Domain xyz.hiv",
+          "who": "Click Counter für Developer",
+          "text": "Sie haben eine besondere Idee, wie Sie Ihre .hiv-Domain nutzen wollen oder wollen sich insperieren?",
+          "question": "Ihre Frage/Bitte um Kontaktaufnahme",
+          "contact": "E-Mail / Telefon"
+        },
+        "button": {
+          "send": "Abschicken",
+          "download": "Download"
+        },
+        "code": {
+          "text": "Code direkt downloaden"
+        },
+        "back": {
+          "button": "Schritt zurueck"
+        }
+      },
+      "more": {
+        "button": "Mehr erfahren"
+      },
+      "step1": {
+        "link": "Domains verwalten",
+        "overview": {
+          "link1": "overview",
+          "link": "Zurueck zur Domainoverview"
+        },
+        "profile": {
+          "link": "profile bearbeiten"
+        },
+        "project": {
+          "link": "projects verwalten"
+        },
+        "logout": {
+          "link": "Logout"
+        },
+        "button": "Schritt 1",
+        "config": {
+          "headline": "Standard Banner - Konfiguration ",
+          "forwarding": {
+            "home": "Weiterleitungsziel",
+            "name": "Zieldomain (mit Feld zum anklicken)"
+          },
+          "noforwarding": "Ich möchte keine Weiterleitung",
+          "language": "In welcher Sprache soll der Banner angezeigt werden? (mit dropdown: deutsch; englisch)"
+        },
+        "back": {
+          "button": "Schritt zurueck"
+        },
+        "next": {
+          "button": "Weiter "
+        }
+      },
+      "step2": {
+        "link1": "Domains verwalten",
+        "overview": {
+          "link1": "overview",
+          "link2": "Zurueck zur Domainoverview"
+        },
+        "profile": {
+          "link": "profile bearbeiten"
+        },
+        "project": {
+          "link": "projects verwalten"
+        },
+        "logout": {
+          "link": "Logout"
+        },
+        "button": "Schritt 2",
+        "config": {
+          "headline": "Standard Banner - Konfiguration",
+          "design": "Welcher Bannser soll den Besuchern bei deinem Besuch von xyz.hiv angezeigt werden?",
+          "design2": "Ab dem zweiten täglichen Besuch soll ein anderer Banner angezeigten werden (mit Fled zum anklicken)"
+        },
+        "back": {
+          "button": "Schritt zurueck"
+        },
+        "save": {
+          "button": "Speichern"
+        }
+      },
+      "finalize": {
+        "link1": "Domains verwalten",
+        "overview": {
+          "link1": "Overview",
+          "link2": "Zurueck zur Domainoverview"
+        },
+        "profile": {
+          "link": "profile bearbeiten"
+        },
+        "project": {
+          "link": "projects verwalten"
+        },
+        "logout": {
+          "link": "Logout"
+        },
+        "button1": "Finalisieren",
+        "einstellung": {
+          "text": "Die Einstellung fuer audi.hiv wurden erfolgreich gespeichert!"
+        },
+        "activate": "Aktivieren Sie nun die Anzeige Ihres Banners",
+        "opportunity1": "Möglichkeit 1: Aktivieren bei dotHIV*",
+        "moeglichkeit": {
+          "text": "Moeglichkeit 2: Code downloaden"
+        },
+        "download": {
+          "button": "Jetzt Downloaden"
+        },
+        "back": {
+          "button": "Schritt zurueck"
+        }
+      },
+      "premium": {
+        "step1": {
+          "link1": "Domains verwalten",
+          "overview": {
+            "link": "overview",
+            "link1": "Zurueck zur Domainoverview"
+          },
+          "profile": {
+            "link": "profile bearbeiten"
+          },
+          "project": {
+            "link": "projects verwalten"
+          },
+          "logout": {
+            "link": "Logout"
+          },
+          "button": "Schritt 1",
+          "config": {
+            "headline": "Premium Banner - Konfiguration ",
+            "design": "Welcher Bannser soll den Besuchern bei deinem Besuch von xyz.hiv angezeigt werden?",
+            "design2": "Ab dem zweiten täglichen Besuch soll ein anderer Banner angezeigten werden (mit Fled zum anklicken)",
+            "example": {
+              "link": "Beispiele anzeigen"
+            }
+          },
+          "back": {
+            "button": "Schritt zurueck"
+          },
+          "next": {
+            "button": "Weiter "
+          }
+        },
+        "step2": {
+          "link": "Domains verwalten",
+          "overview": {
+            "link1": "Overview",
+            "link": "Zurueck zur Domainoverview"
+          },
+          "profile": {
+            "link": "profile bearbeiten"
+          },
+          "project": {
+            "link": "projects verwalten"
+          },
+          "logout": {
+            "link": "Logout"
+          },
+          "button": "Schritt 2",
+          "config": {
+            "headline": "Premium Banner - Konfiguration",
+            "fowarding": {
+              "home": "Weiterleitungsziel"
+            },
+            "forwarding": "Zieldomain (mit Feld zum anklicken)",
+            "noforwardin": "Ich möchte keine Weiterleitung"
+          },
+          "back": {
+            "pay": {
+              "button": "Zur Bezahlung"
+            }
+          }
+        },
+        "step3": {
+          "link": "Domains verwalten",
+          "overview": {
+            "link1": "Overview",
+            "link": "Zurueck zur Domainoverview"
+          },
+          "profile": {
+            "link": "profile bearbeiten"
+          },
+          "project": {
+            "link": "projects verwalten"
+          },
+          "logout": {
+            "link": "Logout"
+          },
+          "button": "Schritt 3",
+          "headline": "Domain xyz.hiv",
+          "payment": {
+            "price": "Kosten",
+            "howto": "Bezahlung",
+            "card": "Wähle Kreditkarte (mit Dorpdown: VISA, MasterCard; American Express)",
+            "cardnr": "Kredikartennummer",
+            "safety": "Prüfnummer",
+            "owner": "Name auf der Karte",
+            "paypal": {
+              "butten": "PayPal"
+            }
+          },
+          "back": {
+            "link": "Schritt zurück"
+          },
+          "next": {
+            "link": "Bezahlen und weiter"
+          }
+        },
+        "step": {
+          "payment": {
+            "headline": "Premium Banner - Bezeahlung",
+            "who": "Auftrag durch"
+          }
+        },
+        "finalize": {
+          "link": "Domains verwalten",
+          "overview": {
+            "link1": "overview",
+            "link": "Zurueck zur Domainoverview"
+          },
+          "profile": {
+            "link": "profile bearbeiten"
+          },
+          "project": {
+            "link": "projects verwalten"
+          },
+          "logout": {
+            "link": "Logout"
+          },
+          "button": "Finalisieren",
+          "options": {
+            "text": "Die Einstellung fuer audi.hiv wurden erfolgreich gespeichert!"
+          },
+          "activate": "Aktivieren Sie nun die Anzeige Ihres Banners",
+          "opportunity1": "Möglichkeit 1: Aktivieren bei dotHIV*",
+          "note": "nur möglich bei aktivierter Weiterleitung",
+          "opportunity2": "Moeglichkeit 2: Code downloaden",
+          "download": {
+            "button": "Jetzt Downloaden"
+          },
+          "back": {
+            "button": "Schritt zurueck"
+          }
+        }
+      }
+    },
+    "erwalten": {
+      "differentdomain": {
+        "chose": "Dropdownmenü: Auswahl der zu konfigurierenden .hiv Domain"
+      }
+    },
+    "verwaltung": {
+      "premium": {
+        "step2": {
+          "language": "In welcher Sprache soll der Banner angezeigt werden? (mit dropdown: deutsch; englisch)",
+          "main": "Banner konfiguration",
+          "back": {
+            "button": "Schritt zurück"
+          }
+        }
+      }
+    }
+  },
+  "domainverwalten": {
+    "finalisiereb": {
+      "sternchen": "nur möglich bei aktivierter Weiterleitung"
     }
   }
 }
