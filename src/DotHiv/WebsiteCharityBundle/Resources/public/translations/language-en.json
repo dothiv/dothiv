@@ -1,755 +1,217 @@
 {
   "Code": "Text Englisch",
-  "header": {
-    "bar": {
-      "projecthead": "Projects",
-      "aboutHIV": "About dotHIV",
-      "registerurl": "Register Domain"
+  "gmbh": {
+    "header": {
+      "title": "TLD dotHIV Registry GmbH",
+      "config": "Configer your .hiv domain",
+      "back": "The dotHIV Initiative",
+      "language": "English"
     },
     "menu": {
-      "reportabuse": "Report something"
+      "header1": "The .hiv Top-Level Domain",
+      "policies": "TLD Policies",
+      "launch": "Launch Plan",
+      "whois": "Whois/ Domainticker",
+      "registrars": ".hiv for Registrars",
+      "stats": "Stats & Downloads",
+      "forcompanies": "Your .hiv domain",
+      "roteschleife": "The digital Red Ribbon",
+      "registercharity": ".hiv for the HIV response",
+      "concepts": "Best Practice",
+      "registernow": "Get your .hiv domain",
+      "domainconfig": "Configuer your .hiv domain",
+      "ourregistry": "Our Registry",
+      "support": "Support dotHIV now!",
+      "gmbh": "The TLD dotHIV Registry GmbH",
+      "icann": "A member of the global Internet Community",
+      "team": "Team and Jobs",
+      "contact": "Get in touch"
     },
-    "pinkbar": {}
-  },
-  "home": {
-    "pinkbar": {
-      "popover": {}
-    },
-    "about": {
-      "oneclick": {
-        "headline": "Click",
-        "text": "We present: the good Click! Every click on a .hiv website triggers a microdonation for the fight aigainst HIV and AIDS. That is your possibiliy to lin up wit website operators and do something good. "
+    "home": {
+      "aboutus": {
+        "headline": "The .hiv domain – Your digital Red Ribbon",
+        "left": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "right": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
       },
-      "vote": {
-        "headline": "Vote",
-        "text": "You activate the money by clicking on .hiv websites - so you can choose where the mones goes. Wie suppoprt HIV and AIDS project worldwide. Have a look and vote for them!"
+      "latest": {
+        "title": ".hiv domain ticker",
+        "text": "These domain names are just joining the .hiv family: "
       },
-      "share": {
-        "headline": "Share",
-        "text": "To really change things the whole world needs to know about .hiv. Help us to get people to know about us and tell all your friends about .hiv - the digital Red Ribbon."
-      }
-    },
-    "who": {
-      "headline": "About dotHIV",
-      "text": "for more than 4 years we've been working on making the digital Red Ribbon a reality. Over the time a lot of great and talented people from differnt fields of work joined our team and helped us to go ahead. Here you get to know more about the people behind dotHIV.",
-      "votefor": "Vote for a Project",
-      "yourpage": "Your .hiv Domain",
-      "howto": "Who to upload a Project"
-    },
-    "vote": {
-      "headline": "Where does the money go?",
-      "allprojects": "Show all",
-      "header": "Give your click a voice! With the money from the doamin sale we support HIV and AIDS projects all around the world. And you decide, which projects get funded. You can have look at all projects here."
-    },
-    "firms": {
-      "headline": "These companies are on board",
-      "allfirms": "See all"
-    },
-    "quotes": {
-      "headline": "What others say",
-      "allquotes": "More"
-    },
-    "partners": {
-      "headline": "Our partners"
-    },
-    "help": {
-      "contact": {
-        "press": {},
-        "job": {},
-        "andere": {},
-        "feedback": {},
-        "address": {},
-        "impressum": {},
-        "use": {},
-        "data": {}
-      }
-    }
-  },
-  "Projekte": "Projects",
-  "footer": {
-    "adress": {
-      "name": "dotHIV geimeinnütziger e.V.",
-      "street": "Lehmbruckstraße 3",
-      "city": "10245 Berlin "
-    },
-    "navi": {
-      "help": "Help",
-      "forum": "Forum",
-      "contact": "Contact",
-      "impressum": "Impressum",
-      "terms": "Terms of Use/Privacy policy",
-      "privacy": "Privacy policy"
-    },
-    "social": {
-      "facebook": "Facebook",
-      "twitter": "Twitter",
-      "pinterest": "Pinterest"
-    }
-  },
-  "about": {
-    "breadcrumb": {
-      "mission": "The Mission",
-      "about": "About dotHIV",
-      "fororg": "dotHIV for the HIV response",
-      "whoisbehind": "Who is dotHIV",
-      "getiactive": "Become part of dotHIV",
-      "news": "News",
-      "registry": "The .hiv Registry"
-    },
-    "nav": {
-      "mission": "The Mission",
-      "goals": "Our Goal",
-      "contribution": "Our Contribution ",
-      "AIDS": "HIV & AIDS - The Situation",
-      "aboutHIV": "About dotHIV",
-      "idea": "The Idea",
-      "film": "The Movie",
-      "manifesto": "Our Mission Statement",
-      "concept": "The good Click",
-      "usage": "Top .hiv Utalization concept",
-      "moneyusage": "Where the money goes",
-      "history": "The History",
-      "quotes": "Quotes",
-      "fororg": "dotHIV for the HIV response",
-      "criteria": "Our Funding Guidelines",
-      "charitydomains": "Non-profit Domain",
-      "apply": "Get your Non-profit Domain",
-      "experts": "Our Pool of Experts",
-      "whoisbehind": "Who is dotHIV",
-      "team": "Team",
-      "organization": "Organigram ",
-      "partnersupporter": "Partner & Supporter",
-      "partner": "Our Partners",
-      "supporter": "Our Supporters",
-      "policyca": "Our Advisory Board",
-      "angels": "Our Business Angels",
-      "heavystuff": "Heavy stuff",
-      "getactive": "Become part of dotHIV",
-      "newsstream": "Newsstream",
-      "registry": "The .hiv Registry"
-    },
-    "mission": {
-      "headline": "The Mission",
-      "text": "The fight against AIDS is at a crossroad: owning to research and the commitment of activists worldwide an end of AIDS is in sight for the first time in the history of the virus. A HIV infection is no longer a death sentence. Thanks to modern maedication a long and happy life with HIV is possible. Bus still: people living with HIV have to deal with driscrimination and stigmatization."
-    },
-    "goals": {
-      "headline": "Our Goal"
-    },
-    "contribution": {},
-    "AIDS": {
-      "facts": {}
-    },
-    "whoisbehind": {
-      "manifesto": {}
-    },
-    "concept": {},
-    "usage": {},
-    "moneyusage": {},
-    "history": {},
-    "quotes": {
-      "quote1": {},
-      "quote2": {},
-      "quote3": {},
-      "quote4": {},
-      "quote5": {},
-      "quote6": {},
-      "quote7": {},
-      "quote8": {},
-      "quote9": {},
-      "quote10": {},
-      "quote11": {},
-      "quote12": {},
-      "quote13": {},
-      "quote14": {},
-      "quote15": {}
-    },
-    "qoutes": {
-      "quote5": {}
-    },
-    "fororg": {
-      "headline": "dotHIV for the HIV response",
-      "charitydoamin": {
-        "headline": "The .hiv Non-profit Domain",
-        "text": "The .hiv non-profit domain is non-profit in two\nways:  firstly, it is exclusively for non-profit organizations whose work focuses on the HIV and AIDS. Secondly, it is free of charge because dotHIV carries the cost. The reasoning behind this is to create an Internet realm in which HIV and AIDS initiatives would be united.\n\n\n\n\n\n",
-        "dropdown": "More"
+      "companies": {
+        "headline": ".hiv Best Practice & Click Champions",
+        "text": ".hiv domains offer uncountable usage models. Come and browse through some of the most innovative ideas, useful applications and successful deployments. Get inspired!",
+        "all": "Show more"
       },
-      "charitydomain": {
-        "secondheadline": {
-          "what": "What is a .hiv Non-prfit Domain?",
-          "why": "What are the Benefits of a .hiv Non-profit Domain?"
-        },
-        "expand": "The .hiv domain would help create a global network that amplifies the work of each and every initiative with a focus on HIV and AIDS. Therefore creating an area where the efforts of each initiative are visible.  Using the .hiv domain improves search engine results for the organization, but also adds to its visibility on the Internet. All in all the usage of a .hiv createsa universal realm that improves the transparency of fieldwork for both the Internet users as the organizations themselves. Moreover the opportunity to create this global network is free of charge.\n\nLast but least, all non- profit domains have a micro- donation system integrated in them. Making it possible for Internet users to click free a certain amount that is to be donated to HIV projects worldwide.\n\n\n\n\n\n",
-        "link": "Get your own .hiv Non-profit Domain"
-      }
-    },
-    "guidelines": {
-      "headline": "Funding Principles",
-      "link": "Go to funding funding principles"
-    },
-    "expertpool": {
-      "headline": "Expert Pool",
-      "text": "To ensure that the registration policies for .hiv-domains and the funding guidelines for the future donation allocation happen in conformity with the HIV/AIDS-communities, we are assembling a circle of advisors. They are to give feedback, contribute knowledge in fields, where the dotHIV-team is lacking it and display the regional and thematic diversity of the topic. Here is an overview of the people, who have already pledged their support:"
-    },
-    "network": {
-      "org1": {},
-      "org2": {},
-      "org3": {},
-      "org4": {},
-      "org5": {},
-      "org6": {},
-      "org7": {},
-      "org8": {},
-      "org9": {},
-      "org10": {},
-      "org11": {},
-      "org12": {},
-      "org13": {},
-      "org14": {},
-      "org15": {},
-      "org16": {},
-      "org17": {},
-      "org18": {},
-      "org19": {},
-      "org20": {},
-      "org21": {},
-      "org22": {},
-      "org23": {},
-      "org24": {}
-    },
-    "whosbehind": {},
-    "team": {
       "charity": {
-        "member1": {},
-        "member2": {},
-        "member3": {},
-        "member4": {
-          "affiliation": "Intern"
+        "headline": "Non-profit Domains for the HIV response",
+        "all": "Get your free non-profit domain"
+      }
+    },
+    "footer": {
+      "slogan": ".hiv - Building a web with a purpose",
+      "name": "TLD dotHIV Registry GmbH",
+      "street": "Melchiorstraße 26",
+      "city": "10179 Berlin ",
+      "navi": {
+        "contact": "Report something",
+        "impressum": "Imprint / Terms and Conditions / Data Security"
+      }
+    },
+    "policies": {
+      "headline": "Policies",
+      "text1": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.",
+      "launch": {
+        "secondheadline": "Launch and Registration Policies",
+        "text": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "textbold1": "1.0  GENERAL PROVISIONS         ",
+        "dropdown1": "> read more",
+        "expand1": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "textbold2": "2.0  SUNRISE RULES",
+        "dropdown2": "> read more",
+        "expand2": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "dropdown3": "> read more",
+        "expand3": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "textbold4": "4.0 WHO IS Policy",
+        "dropdown4": "> read more",
+        "expand4": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "textbold5": "5.0 Reserved Names Policy",
+        "dropdown5": "> read more",
+        "expand5": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "link": "Download Launch and Registration Policies"
+      },
+      "abuse": {
+        "secondheadline": "dotHIV namespace policies for the mitigation of abuse and unacceptable use",
+        "text": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "graphic": "Report something",
+        "textbold1": "1.0 Protect your Trademark",
+        "dropdown1": "> read more",
+        "expand1": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "Link1": "Download now",
+        "textbold2": "2.0 Abuse Policy",
+        "dropdown2": "> read more",
+        "expand2": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "textbold3": "3.0 Acceptable Use Policy",
+        "dropdown3": "> read more",
+        "expand3": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "textbold4": "4.0 Additional Safeguards",
+        "dropdown4": "> read more",
+        "expand4": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+        "Link2": "Download now"
+      },
+      "RA": {
+        "secondheadline": "The dotHIV Registry Agreement",
+        "text": "Wie bei jeder Top-Level Domain bildet auch bei .hiv das Registry Agreement mit ICANN die Grundlage für den Ver- und Betrieb der Domains. Bei dotHIV steht die gemeinnützige Leitorganisation der Initiative, der dotHIV gemeinnützige e.V., in diesem zentralen Vertragsverhältnis. Die dotHIV Registry managt das operative Geschäft im Auftrag des Vereins, ein Lizenzvertrag regelt das Geschäftsverhältnis.",
+        "link": "Download now"
+      }
+    },
+    "launch": {
+      "text1": "In 2008 ICANN introduced a new generation of Top-Level Domains- just over 6 years later, the realisation of the digital red ribbon is a fact. Here is a summary of our final steps until the Go-Live. Further behind,"
+    },
+    "whois": {
+      "headline": ".hiv Whois",
+      "text1": "This little window will tell you, if the .hiv domain of your dreams is still free, and who is running any specific .hiv website out there. Go try it out:",
+      "field": "Domainname.hiv",
+      "text2": "These .hiv- Domains just went online:",
+      "link1": "ww.domain1.hiv",
+      "link2": "ww.domain2.hiv",
+      "link3": "ww.domain3.hiv",
+      "link4": "ww.domain4.hiv",
+      "link5": "ww.domain5.hiv"
+    },
+    "registrars": {
+      "headline": ".hiv for registrars",
+      "text1": "By offering the .hiv Top-Level Domain, registrars add a one of a kind domain product to their portfolio. Here, you can find key info on .hiv at a glance as well as more on on-boarding and cooperation.",
+      "secondheadline1": "5 easy steps to on-boarding",
+      "text2": "You want to offer the digital Red Ribbon to your clients? Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
+      "button1": "Get your .hiv info Package.",
+      "link": "Our Registrars",
+      "secondheadline2": "Registrar Login",
+      "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+      "button2": "ORMS"
+    },
+    "registrar": {
+      "listnum1": "1. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
+      "listnum2": "2. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
+      "listnum3": "3. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
+      "listnum4": "4. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
+      "listnum5": "5. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben."
+    },
+    "stats": {
+      "headline1": "Stats and Reports",
+      "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+      "listbull": "Download Registrierungsreport 2014/1; \nDownload Registrierungsreport 2014/2",
+      "headline2": "IDN-Infos",
+      "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+      "link": "Download IDN Table",
+      "headline3": "Zonefile Download",
+      "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+      "button1": "Apply for access",
+      "headline4": "Logos and Communication Material",
+      "text4": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+      "logos": {
+        "left": {
+          "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans",
+          "link": "Download"
+        },
+        "right": {
+          "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans",
+          "link": "Download"
+        },
+        "list1": {
+          "left": "March 13, 2014",
+          "middle": "Press release Contract Signing",
+          "right": "Download"
+        },
+        "list2": {
+          "left": "//Date",
+          "middle": "Press release xxyy",
+          "right": "Download"
         }
-      },
-      "chairty": {
-        "member1": {}
-      },
-      "company": {
-        "headline": "Registry",
-        "member1": {},
-        "member2": {},
-        "member3": {},
-        "member4": {
-          "affiliation": "Marketing & Sales"
-        }
-      },
-      "communication": {
-        "member1": {},
-        "member2": {},
-        "member3": {}
       }
     },
-    "partnersupporter": {},
-    "partner": {
-      "partner1": {},
-      "partner2": {},
-      "partner3": {},
-      "partner4": {},
-      "partner5": {}
+    "digitale": {
+      "headline1": "The idea behind the .hiv domain",
+      "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n",
+      "headline2": "This is how it works",
+      "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+      "graphik": "Clickcounter-Graphik",
+      "link1": "Learn more on dothiv.hiv",
+      "headline3": "Key advantages",
+      "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans."
     },
-    "supporter": {
-      "supporter1": {},
-      "supporter2": {},
-      "supporter3": {},
-      "supporter4": {},
-      "supporter5": {},
-      "supporter6": {},
-      "supporter7": {},
-      "supporter8": {},
-      "supporter9": {},
-      "supporter10": {},
-      "supporter11": {},
-      "supporter12": {},
-      "supporter13": {},
-      "supporter14": {},
-      "supporter15": {},
-      "supporter16": {},
-      "supporter17": {},
-      "supporter18": {},
-      "supporter19": {},
-      "supporter20": {},
-      "supporter21": {},
-      "supporter22": {},
-      "supporter23": {},
-      "supporter24": {},
-      "more": {}
+    "advantage": {
+      "left": "//Vorteile für alle Unternehmen",
+      "middle": "Zielgruppengenaues Content-Marketing für ihr Firmenengagement im Feld HIV",
+      "right": "//Vorteile für Medizinunternehmen",
+      "link": "Your .hiv domain - this way"
     },
-    "board": {
-      "headline": {},
-      "text": {},
-      "board1": {
-        "name": "Bernd Kundrun",
-        "text": "Bernd supports the initiative with his valuable experience and great network. He used to be chairman of the board at Gruner + Jahr AG and now functions as the chairman of the gut.org gAG."
-      },
-      "board2": {
-        "name": "Lars Witte-Winter",
-        "text": "As the CEO of the Bplus – Moodmarketing & Events mbH, Lars realizes events for important companies. He has been using his experience and contacts for the initiative „Vergessen ist ansteckend“ for years."
-      },
-      "board3": {
-        "text": "Jans long experience as a tax adviser and financial auditor is of great use to us again and again. He has been active in the social sector for years at organizations such as NestWerk e.V. and Hamburg Leuchtfeuer."
-      }
-    },
-    "angels": {
-      "michael": {
-        "photo": {},
-        "name": {},
-        "text": {}
-      }
-    },
-    "angels1": {},
-    "angels2": {},
-    "angels3": {},
-    "angels4": {},
-    "angels5": {},
-    "angels6": {},
-    "angels7": {},
-    "angels8": {},
-    "angels9": {},
-    "angels10": {},
-    "angels11": {},
-    "angels12": {},
-    "angels13": {},
-    "angels14": {},
-    "association": {},
-    "heavystuff": {
+    "nonprofit": {
       "secondheadline": {},
-      "status1": {},
-      "status2": {},
-      "status3": {},
-      "charter": {},
-      "charity": {},
-      "financials1": {},
-      "financials2": {},
-      "financials3": {},
-      "resistry": {},
-      "registry": {}
-    },
-    "getactive": {
-      "jobs": {
-        "position": {},
-        "deadline": {},
-        "download": {}
+      "text1b": "The .hiv non-profit Domain is non-profit in two ways: first and foremost, the Domain is exclusively awarded to non-profit Organizations whose focus point is HIV and AIDS. Moreover, the non-profit Domain is free for these Organizations- the cost of which is beared by dotHIV. The aim is to create a thematic network, through the Internet, of HIV and AIDS Intiatives.",
+      "dropdown": {},
+      "text2": " .hiv non-profit Domain is non-profit in two ways: first and foremost, the Domain is exclusively awarded to non-profit Organizations whose focus point is HIV and AIDS. Moreover, the non-profit Domain is free for these Organizations- the cost of which is beared by dotHIV. The aim is to create a thematic network, through the Internet, of HIV and AIDS Intiatives.",
+      "bewerbung": {
+        "antrag": {},
+        "agbs": {
+          "headline": "Terms & Conditions"
+        }
       },
-      "howto": {
-        "clickvoteshare": {},
-        "member": {},
-        "campus": {},
-        "tech": {}
-      }
+      "text5": "Domain",
+      "table": {}
     },
-    "newsstream": {},
-    "oldernews": {},
-    "socialmedia": {
-      "facebook": {},
-      "twitter": {},
-      "pinterest": {}
+    "concepts": {
+      "bsp1": {},
+      "bsp2": {}
     },
-    "media": {}
-  },
-  "aboute": {
-    "usage": {}
-  },
-  "login": {
-    "headline": "Log in",
-    "text": "Pleas log in to continue ",
-    "adress": {
-      "email": "E-mail",
-      "passwort": "Password"
+    "registrieren": {
+      "tabelle": {}
     },
-    "link": "Forgotten your password?",
-    "button": "Login",
-    "socialmedia": {
-      "headline": "Log in with"
-    },
-    "facebook": {
-      "link": "Facebook connect"
-    },
-    "twitter": {
-      "link": "Twitter connect"
-    },
-    "google": {
-      "link": "Google connect"
-    },
-    "registartion": {
-      "headline": "New? Create Account"
-    },
-    "registration": {
-      "text": "Password*",
-      "adress": {
-        "reenter": "Re-enter Password*"
-      }
-    },
-    "registation": {
-      "button": "Register now"
+    "support": {},
+    "registry": {},
+    "stakeholder": {},
+    "team": {},
+    "kontakt": {
+      "ausfuellen": {}
     }
-  },
-  "profile": {
-    "overview": {
-      "nav": {
-        "aboutme": {
-          "link": "My Profile"
-        },
-        "language": "Language"
-      },
-      "header": {
-        "headline": "Hello ",
-        "lastlogin": "Last Login",
-        "votes": "Votes",
-        "comments": "Comments posted",
-        "overview": {
-          "link": "Overview"
-        },
-        "changeprofile": {
-          "link": "Edit Profile"
-        },
-        "changeproject": {
-          "link": "Manage Projects"
-        },
-        "changedomain": {
-          "link": "Manage Domains "
-        },
-        "logout": {
-          "link": "Logout"
-        }
-      },
-      "projects": {
-        "headline": "Project overview",
-        "button": "Upload new Project",
-        "text": "Project ",
-        "link1": "Go to Projects",
-        "link2": "Add News",
-        "link3": "Edit Project"
-      },
-      "project": {
-        "download": "Download Privacy Policy"
-      },
-      "domain": {
-        "headline": "Domainoverview",
-        "button": "Register new Domain",
-        "text": "Domain decribtion",
-        "link1": "Dowonload statistics",
-        "link2": "Reset settings",
-        "link3": "Edit Domain"
-      },
-      "votes": {
-        "headline": "Votes",
-        "link1": "Show all Votes",
-        "text": "List of all Projects",
-        "link2": "Go to Project"
-      },
-      "comments": {
-        "headline": "Posted Comments",
-        "link": "Schow all Comments"
-      },
-      "kommentare": {
-        "text": "List of Projects and Comments",
-        "link": "Go to project"
-      }
-    },
-    "aboutme": {
-      "headline": "Edit proflie",
-      "name": "Name",
-      "lastname": "Last name",
-      "email": "E-Mail",
-      "passwordold": "Previous Password",
-      "password": "New Password",
-      "repeatpassword": "Re-enter new Password",
-      "button": "Save"
-    },
-    "project": {
-      "headline": "Manage Projects",
-      "overview": {
-        "link1": "Overview",
-        "link2": "Go to Project"
-      },
-      "news": {
-        "link": "Add News"
-      },
-      "edit": {
-        "link": "Edit Project"
-      },
-      "button": "Upload new Project"
-    },
-    "projects": {
-      "profile": {
-        "link": "Edit Profile"
-      },
-      "domains": {
-        "link": "Manage Domains "
-      },
-      "logout": {
-        "link": "Logout"
-      }
-    },
-    "domain": {
-      "claim": {
-        "token": {
-          "headline": "Claiming Token Required",
-          "text": "To claim your domain, please enter the your claiming token in the box below. The token is a 64 digit sequence of numbers and characters.",
-          "placeholder": "Your token",
-          "button": "claim domain"
-        },
-        "claiming": {
-          "lookup": "Validating your token ...",
-          "claiming": "Claiming your domain ..."
-        },
-        "success": {
-          "headline": "Congratulations! [[domain]] successfully claimed",
-          "text": "You just claimed your domain. See how easy it is to set up your domain for the microdonation program:",
-          "col2": {
-            "headline": "Why set up?",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vehicula dui in bibendum placerat. Pellentesque pharetra quis erat vitae ullamcorper. Pellentesque sed erat quam.",
-            "link": "See more"
-          },
-          "col3": {
-            "headline": "Rules and Regulations",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vehicula dui in bibendum placerat. Pellentesque pharetra quis erat vitae ullamcorper. Pellentesque sed erat quam.",
-            "link": "See the dotHIV Policy"
-          }
-        },
-        "error": {
-          "headline": "Domain Claim Failed :-(",
-          "text": "Your domain could not be claimed into your account.",
-          "button": "try again"
-        }
-      },
-      "success": {
-        "button": "Set up now"
-      }
-    }
-  },
-  "pofil": {
-    "overview": {
-      "nav": {
-        "project": {
-          "link": "Upload Project"
-        }
-      }
-    }
-  },
-  "project": {
-    "adjust": {
-      "project": {
-        "link": "Manage Project",
-        "overview": {},
-        "profile": {},
-        "domains": {},
-        "logout": {},
-        "new": {},
-        "back": {},
-        "next": {}
-      },
-      "overview": {
-        "link": "Overview"
-      },
-      "profile": {
-        "link": "Edit Profile"
-      },
-      "domains": {
-        "link": "Manage Domains "
-      },
-      "logout": {
-        "link": "Logout"
-      },
-      "link1": "Back to Project management",
-      "headline": {
-        "neues": "Upload new Project"
-      },
-      "wie": {
-        "text": "How to upload a new project"
-      },
-      "download": "dotHIV Policy",
-      "link2": "Eligibility criteria",
-      "button": "Upload Project now",
-      "contactperson": {
-        "project": {
-          "link": "Manage Project"
-        },
-        "overview": {
-          "link": "Overview"
-        },
-        "profile": {
-          "link": "Edit Profile"
-        },
-        "domains": {},
-        "logout": {
-          "link": "Logout"
-        },
-        "link": "Back to Project management",
-        "button1": "Contact Person",
-        "new": {
-          "headline": "Upload new Project",
-          "text": "Please extend your profile data",
-          "download": "dotHIV Policy"
-        }
-      },
-      "projectinfos": {
-        "overview": {},
-        "profile": {},
-        "domains": {},
-        "logout": {},
-        "new": {},
-        "lmoney": {},
-        "back": {},
-        "next": {}
-      },
-      "projectinfo": {},
-      "infos": {
-        "overview": {},
-        "profile": {},
-        "domains": {},
-        "logout": {},
-        "new": {},
-        "actionbox": {}
-      },
-      "info": {
-        "actionbox": {}
-      },
-      "finalize": {
-        "overview": {},
-        "profile": {},
-        "domains": {},
-        "logout": {},
-        "headline": {},
-        "preview": {},
-        "send": {},
-        "alternativ": {
-          "new": {}
-        },
-        "thankyou": {},
-        "feedback": {},
-        "back": {}
-      },
-      "projectpreview": {}
-    },
-    "einstellung": {
-      "infos": {
-        "back": {},
-        "next": {}
-      }
-    }
-  },
-  "domain": {
-    "administer": {
-      "overview": {},
-      "profile": {},
-      "project": {},
-      "logout": {},
-      "back": {},
-      "headline": {},
-      "click": {
-        "basic": {},
-        "premium": {}
-      },
-      "differentdoamain": {},
-      "button": {},
-      "developer": {
-        "overview": {},
-        "profile": {},
-        "project": {},
-        "logout": {},
-        "counter": {},
-        "button": {},
-        "code": {},
-        "back": {}
-      },
-      "more": {},
-      "step1": {
-        "overview": {},
-        "profile": {},
-        "project": {},
-        "logout": {},
-        "config": {
-          "forwarding": {}
-        },
-        "back": {},
-        "next": {}
-      },
-      "step2": {
-        "overview": {},
-        "profile": {},
-        "project": {},
-        "logout": {},
-        "config": {},
-        "back": {},
-        "save": {}
-      },
-      "finalize": {
-        "overview": {},
-        "profile": {},
-        "project": {},
-        "logout": {},
-        "einstellung": {},
-        "moeglichkeit": {},
-        "download": {},
-        "back": {}
-      },
-      "premium": {
-        "step1": {
-          "overview": {},
-          "profile": {},
-          "project": {},
-          "logout": {},
-          "config": {
-            "example": {}
-          },
-          "back": {},
-          "next": {}
-        },
-        "step2": {
-          "overview": {},
-          "profile": {},
-          "project": {},
-          "logout": {},
-          "config": {
-            "fowarding": {}
-          },
-          "back": {
-            "pay": {}
-          }
-        },
-        "step3": {
-          "overview": {},
-          "profile": {},
-          "project": {},
-          "logout": {},
-          "payment": {
-            "paypal": {}
-          },
-          "back": {},
-          "next": {}
-        },
-        "step": {
-          "payment": {}
-        },
-        "finalize": {
-          "overview": {},
-          "profile": {},
-          "project": {},
-          "logout": {},
-          "options": {},
-          "download": {},
-          "back": {}
-        }
-      }
-    },
-    "erwalten": {
-      "differentdomain": {}
-    },
-    "verwaltung": {
-      "premium": {
-        "step2": {
-          "back": {}
-        }
-      }
-    }
-  },
-  "domainverwalten": {
-    "finalisiereb": {}
   }
 }
