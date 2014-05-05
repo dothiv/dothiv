@@ -3,7 +3,7 @@ banner:
     heading: Danke!
     subheading: "Jeder Klick hilft mit {increment}"
     activated: Mehr über die <strong>dotHIV</strong> Initiative
-    about: Diese Projekt wird unterstützt
+    about: Dieses Projekt wird unterstützt
     # TODO: change to text below after stretch 1
     # activated: "Bereits {donated} gespendet:"
     # about: "Mehr über die <strong>dotHIV</strong> Initiative"
