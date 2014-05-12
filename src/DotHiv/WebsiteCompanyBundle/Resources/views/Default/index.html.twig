@@ -19,8 +19,8 @@
                     <div class="span2 pull-right"></div>
                     <div class="span1 usermenu pull-right">
                         <ul class="">
-                            <li class="accountance"><a class="hover-arrow">[[ 'gmbh.header.config' | translate ]]</a></li>
-                            <li class="accountance"><a class="hover-arrow">[[ 'gmbh.header.back' | translate ]]</a></li>
+                            <li class="accountance"><a href="#!/configure" class="hover-arrow">[[ 'gmbh.header.config' | translate ]]</a></li>
+                            <li class="accountance"><a href="http://dotHIV.org/" rel="friend met" class="hover-arrow">[[ 'gmbh.header.back' | translate ]]</a></li>
                             <li class="accountance grey">
                                 <div class="language-chooser">
                                     <dh-select class="" model="locale.language" options="siteLanguages" label="label" assign="key"></dh-select>
@@ -33,10 +33,13 @@
                     <div class="pos-rel">
                         <div class="overflow-up">
                             <div>
-                                <a href="#!/">
-                                    <img class="pull-left" src="{{ asset("bundles/dothivwebsitecompany/images/hiv-logo.png") }}">
+                                <a href="/" rel="index">
+                                    <img class="pull-left" src="{{ asset("bundles/dothivwebsitecompany/images/hiv-logo.png") }}" alt="[[ 'gmbh.logo.alt' | translate ]]">
                                     <div class="headline pull-left">
-                                        <div class="space">TLD dotHIV<br>Registry GmbH</div>
+                                        <div class="space" class="title">
+                                            [[ 'gmbh.header.title.line01' | translate ]]<br>
+                                            [[ 'gmbh.header.title.line02' | translate ]]
+                                        </div>
                                     </div>
                                 </a>                        
                             </div>
@@ -50,36 +53,35 @@
                 <div class="container">
                     <div class="row">
                         <div class="span1">
-                            <h5 class="hivblue-text">[[ 'gmbh.menu.asTLD' | translate ]]</h5>
+                            <h5 class="hivblue-text">[[ 'gmbh.menu.main' | translate ]]</h5>
                             <ul>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.registrars' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.becomeregistrar' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/policies">[[ 'gmbh.menu.policies' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/launch">[[ 'gmbh.menu.launch' | translate ]]</a></li>
                                 <li class="accountance"><a href="#!/whois">[[ 'gmbh.menu.whois' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.policies' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.stats' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.service' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.ICANN' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/registrars">[[ 'gmbh.menu.registrars' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/stats">[[ 'gmbh.menu.stats' | translate ]]</a></li>
                             </ul>
                         </div>
                         <div class="span3"></div>
                         <div class="span1">
                             <h5 class="hivblue-text">[[ 'gmbh.menu.forcompanies' | translate ]]</h5>
                             <ul>
-                                <li class="accountance"><a href="#!/advantage">[[ 'gmbh.menu.advantage' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/red-ribbon">[[ 'gmbh.menu.redribbon' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/register/charity">[[ 'gmbh.menu.registercharity' | translate ]]</a></li>
                                 <li class="accountance"><a href="#!/concepts">[[ 'gmbh.menu.concepts' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.registernow' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.registercharity' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/register">[[ 'gmbh.menu.registernow' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/configure">[[ 'gmbh.menu.domainconfig' | translate ]]</a></li>
                             </ul>
                         </div>
                         <div class="span3"></div>
                         <div class="span1">
                             <h5 class="hivblue-text">[[ 'gmbh.menu.ourregistry' | translate ]]</h5>
                             <ul>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.contract' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.usage' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.reports' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/support-us">[[ 'gmbh.menu.supportus' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/company">[[ 'gmbh.menu.company' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/icann">[[ 'gmbh.menu.icann' | translate ]]</a></li>
                                 <li class="accountance"><a href="#!/team">[[ 'gmbh.menu.team' | translate ]]</a></li>
-                                <li class="accountance"><a href="#!/">[[ 'gmbh.menu.jobs' | translate ]]</a></li>
+                                <li class="accountance"><a href="#!/contact">[[ 'gmbh.menu.contact' | translate ]]</a></li>
                             </ul>
                         </div>
                         <div class="span3"></div>
@@ -94,26 +96,25 @@
                 <div class="container">
                     <div class="row">
                         <div class="span12 center footer-margin">
-                            <img class="hiv-42px" src="{{ asset("bundles/dothivwebsitecompany/images/hiv-logo.png") }}">
+                            <img class="hiv-42px" src="{{ asset("bundles/dothivwebsitecompany/images/hiv-logo.png") }}" alt="[[ 'gmbh.logo.alt' | translate ]]">
                             <div class="container">
                                 <div class="row">
                                     <div class="span4">
                                         <p class="running-text bold-text">[[ 'gmbh.footer.slogan' | translate ]]</p>
                                     </div>
                                     <div class="span4">
-                                        <ul>
-                                            <li class="running-text">[[ 'gmbh.footer.name' | translate ]]</li>    
-                                            <li class="running-text">[[ 'gmbh.footer.street' | translate ]]</li>
-                                            <li class="running-text">[[ 'gmbh.footer.city' | translate ]]</li>
-                                            <li class="running-text">[[ 'gmbh.footer.phone' | translate ]]</li>
-                                        </ul>
+                                        <p class="running-text">
+                                            [[ 'gmbh.footer.name' | translate ]]<br>
+                                            [[ 'gmbh.footer.street' | translate ]]<br>
+                                            [[ 'gmbh.footer.city' | translate ]]<br>
+                                            <a href="tel:[[ 'gmbh.footer.phone' | translate ]]">[[ 'gmbh.footer.phone' | translate ]]</a>
+                                        </p>
                                     </div>
                                     <div class="span4">
                                         <ul>
-                                            <li><a class="running-text" src="">[[ 'gmbh.footer.navi.help' | translate ]]</a> / <a class="running-text" src="">[[ 'gmbh.footer.navi.forum' | translate ]]</a></li>
-                                            <li><a class="running-text" src="">[[ 'gmbh.footer.navi.contact' | translate ]]</a> / <a class="running-text" src="">[[ 'gmbh.footer.navi.impressum' | translate ]]</a></li>
-                                            <li><a class="running-text" src="">[[ 'gmbh.footer.navi.usage' | translate ]]</a> / <a class="running-text" src="">[[ 'gmbh.footer.navi.privacy' | translate ]]</a></li>
-                                            <li><a class="running-text" src="">[[ 'gmbh.footer.navi.configurebanner' | translate ]]</a></li>    
+                                            <li><a href="#!/contact" class="running-text">[[ 'gmbh.footer.navi.contact' | translate ]]</a></li>
+                                            <li><a href="#!/report" class="running-text">[[ 'gmbh.footer.navi.report' | translate ]]</a></li>
+                                            <li><a href="#!/imprint" class="running-text">[[ 'gmbh.footer.navi.imprint' | translate ]]</a></li>
                                         </ul>
                                     </div>
                                 </div>

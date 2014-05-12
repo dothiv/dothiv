@@ -1,3 +1,342 @@
 {
-    
+    "gmbh": {
+        "advantage": {
+            "left": "gmbh.advantage.left",
+            "link": "gmbh.advantage.link",
+            "middle": "gmbh.advantage.middle",
+            "right": "gmbh.advantage.right"
+        },
+        "concepts": {
+            "bsp1": {
+                "text": "gmbh.concepts.bsp1.text",
+                "title": "gmbh.concepts.bsp1.title",
+                "url": "gmbh.concepts.bsp1.url"
+            },
+            "bsp2": {
+                "text": "gmbh.concepts.bsp2.text",
+                "title": "gmbh.concepts.bsp2.title",
+                "url": "gmbh.concepts.bsp2.url"
+            },
+            "button": "gmbh.concepts.button",
+            "desc": "gmbh.concepts.desc",
+            "headline": "gmbh.concepts.headline"
+        },
+        "digitale": {
+            "graphik": "gmbh.digitale.graphik",
+            "headline1": "gmbh.digitale.headline1",
+            "headline2": "gmbh.digitale.headline2",
+            "headline3": "gmbh.digitale.headline3",
+            "headline4": "gmbh.digitale.headline4",
+            "link": "gmbh.digitale.link",
+            "link1": "gmbh.digitale.link1",
+            "text1": "gmbh.digitale.text1",
+            "text2": "gmbh.digitale.text2",
+            "text3": "gmbh.digitale.text3",
+            "text4": "gmbh.digitale.text4"
+        },
+        "footer": {
+            "city": "gmbh.footer.city",
+            "name": "gmbh.footer.name",
+            "navi": {
+                "contact": "gmbh.footer.navi.contact",
+                "imprint": "gmbh.footer.navi.imprint",
+                "report": "gmbh.footer.navi.report"
+            },
+            "phone": "gmbh.footer.phone",
+            "slogan": "gmbh.footer.slogan",
+            "street": "gmbh.footer.street"
+        },
+        "header": {
+            "back": "gmbh.header.back",
+            "config": "gmbh.header.config",
+            "title": {
+                "line01": "gmbh.header.title.line01",
+                "line02": "gmbh.header.title.line02"
+            }
+        },
+        "home": {
+            "aboutus": {
+                "headline": "gmbh.home.aboutus.headline",
+                "left": "gmbh.home.aboutus.left",
+                "right": "gmbh.home.aboutus.right"
+            },
+            "charity": {
+                "all": "gmbh.home.charity.all",
+                "headline": "gmbh.home.charity.headline"
+            },
+            "companies": {
+                "all": "gmbh.home.companies.all",
+                "headline": "gmbh.home.companies.headline",
+                "text": "gmbh.home.companies.text"
+            },
+            "latest": {
+                "text": "gmbh.home.latest.text",
+                "title": "gmbh.home.latest.title"
+            }
+        },
+        "kontakt": {
+            "ausfuellen": {
+                "hivadresse": "gmbh.kontakt.ausfuellen.hivadresse",
+                "info": "gmbh.kontakt.ausfuellen.info",
+                "keine": "gmbh.kontakt.ausfuellen.keine",
+                "mail": "gmbh.kontakt.ausfuellen.mail",
+                "unternehmen": "gmbh.kontakt.ausfuellen.unternehmen",
+                "warum": "gmbh.kontakt.ausfuellen.warum",
+                "wer": "gmbh.kontakt.ausfuellen.wer"
+            },
+            "button": "gmbh.kontakt.button",
+            "headline": "gmbh.kontakt.headline",
+            "text": "gmbh.kontakt.text"
+        },
+        "launch": {
+            "graphic": "gmbh.launch.graphic",
+            "headline": "gmbh.launch.headline",
+            "text1": "gmbh.launch.text1",
+            "text2": "gmbh.launch.text2"
+        },
+        "launchurl1": "gmbh.launchurl1",
+        "launchurl2": "gmbh.launchurl2",
+        "launchurl3": "gmbh.launchurl3",
+        "logo": {
+            "alt": "gmbh.logo.alt"
+        },
+        "menu": {
+            "company": "gmbh.menu.company",
+            "concepts": "gmbh.menu.concepts",
+            "contact": "gmbh.menu.contact",
+            "domainconfig": "gmbh.menu.domainconfig",
+            "forcompanies": "gmbh.menu.forcompanies",
+            "icann": "gmbh.menu.icann",
+            "launch": "gmbh.menu.launch",
+            "main": "gmbh.menu.main",
+            "ourregistry": "gmbh.menu.ourregistry",
+            "policies": "gmbh.menu.policies",
+            "redribbon": "gmbh.menu.redribbon",
+            "registercharity": "gmbh.menu.registercharity",
+            "registernow": "gmbh.menu.registernow",
+            "registrars": "gmbh.menu.registrars",
+            "stats": "gmbh.menu.stats",
+            "supportus": "gmbh.menu.supportus",
+            "team": "gmbh.menu.team",
+            "whois": "gmbh.menu.whois"
+        },
+        "nonprofit": {
+            "bewerbung": {
+                "agbs": {
+                    "button": "gmbh.nonprofit.bewerbung.agbs.button",
+                    "headline": "gmbh.nonprofit.bewerbung.agbs.headline",
+                    "klick": "gmbh.nonprofit.bewerbung.agbs.klick",
+                    "link": "gmbh.nonprofit.bewerbung.agbs.link",
+                    "text": "gmbh.nonprofit.bewerbung.agbs.text"
+                },
+                "antrag": {
+                    "dropdown1": "gmbh.nonprofit.bewerbung.antrag.dropdown1",
+                    "field1": "gmbh.nonprofit.bewerbung.antrag.field1",
+                    "field10": "gmbh.nonprofit.bewerbung.antrag.field10",
+                    "field11": "gmbh.nonprofit.bewerbung.antrag.field11",
+                    "field12": "gmbh.nonprofit.bewerbung.antrag.field12",
+                    "field2": "gmbh.nonprofit.bewerbung.antrag.field2",
+                    "field3": "gmbh.nonprofit.bewerbung.antrag.field3",
+                    "field4": "gmbh.nonprofit.bewerbung.antrag.field4",
+                    "field5": "gmbh.nonprofit.bewerbung.antrag.field5",
+                    "field6": "gmbh.nonprofit.bewerbung.antrag.field6",
+                    "field7": "gmbh.nonprofit.bewerbung.antrag.field7",
+                    "field8": "gmbh.nonprofit.bewerbung.antrag.field8",
+                    "field9": "gmbh.nonprofit.bewerbung.antrag.field9",
+                    "footnote": "gmbh.nonprofit.bewerbung.antrag.footnote",
+                    "headline": "gmbh.nonprofit.bewerbung.antrag.headline",
+                    "secondheadline": "gmbh.nonprofit.bewerbung.antrag.secondheadline",
+                    "secondheadline2": "gmbh.nonprofit.bewerbung.antrag.secondheadline2",
+                    "secondheadline3": "gmbh.nonprofit.bewerbung.antrag.secondheadline3",
+                    "secondheadline4": "gmbh.nonprofit.bewerbung.antrag.secondheadline4",
+                    "upload1": "gmbh.nonprofit.bewerbung.antrag.upload1"
+                },
+                "headline": "gmbh.nonprofit.bewerbung.headline",
+                "link1": "gmbh.nonprofit.bewerbung.link1",
+                "secondheadline": "gmbh.nonprofit.bewerbung.secondheadline",
+                "text1": "gmbh.nonprofit.bewerbung.text1",
+                "text2": "gmbh.nonprofit.bewerbung.text2"
+            },
+            "button": "gmbh.nonprofit.button",
+            "dropdown": {
+                "what": "gmbh.nonprofit.dropdown.what",
+                "who": "gmbh.nonprofit.dropdown.who"
+            },
+            "headline": "gmbh.nonprofit.headline",
+            "headline4": "gmbh.nonprofit.headline4",
+            "secondheadline": {
+                "what": "gmbh.nonprofit.secondheadline.what",
+                "who": "gmbh.nonprofit.secondheadline.who"
+            },
+            "table": {
+                "left": "gmbh.nonprofit.table.left",
+                "right": "gmbh.nonprofit.table.right"
+            },
+            "text1a": "gmbh.nonprofit.text1a",
+            "text1b": "gmbh.nonprofit.text1b",
+            "text2": "gmbh.nonprofit.text2",
+            "text3": "gmbh.nonprofit.text3",
+            "text4": "gmbh.nonprofit.text4",
+            "text5": "gmbh.nonprofit.text5"
+        },
+        "policies": {
+            "RA": {
+                "link": "gmbh.policies.RA.link",
+                "secondheadline": "gmbh.policies.RA.secondheadline",
+                "text": "gmbh.policies.RA.text"
+            },
+            "abuse": {
+                "Link1": "gmbh.policies.abuse.Link1",
+                "Link2": "gmbh.policies.abuse.Link2",
+                "dropdown1": "gmbh.policies.abuse.dropdown1",
+                "dropdown2": "gmbh.policies.abuse.dropdown2",
+                "dropdown3": "gmbh.policies.abuse.dropdown3",
+                "dropdown4": "gmbh.policies.abuse.dropdown4",
+                "expand1": "gmbh.policies.abuse.expand1",
+                "expand2": "gmbh.policies.abuse.expand2",
+                "expand3": "gmbh.policies.abuse.expand3",
+                "expand4": "gmbh.policies.abuse.expand4",
+                "graphic": "gmbh.policies.abuse.graphic",
+                "secondheadline": "gmbh.policies.abuse.secondheadline",
+                "text": "gmbh.policies.abuse.text",
+                "textbold1": "gmbh.policies.abuse.textbold1",
+                "textbold2": "gmbh.policies.abuse.textbold2",
+                "textbold3": "gmbh.policies.abuse.textbold3",
+                "textbold4": "gmbh.policies.abuse.textbold4"
+            },
+            "headline": "gmbh.policies.headline",
+            "launch": {
+                "dropdown1": "gmbh.policies.launch.dropdown1",
+                "dropdown2": "gmbh.policies.launch.dropdown2",
+                "dropdown3": "gmbh.policies.launch.dropdown3",
+                "dropdown4": "gmbh.policies.launch.dropdown4",
+                "dropdown5": "gmbh.policies.launch.dropdown5",
+                "expand1": "gmbh.policies.launch.expand1",
+                "expand2": "gmbh.policies.launch.expand2",
+                "expand3": "gmbh.policies.launch.expand3",
+                "expand4": "gmbh.policies.launch.expand4",
+                "expand5": "gmbh.policies.launch.expand5",
+                "link": "gmbh.policies.launch.link",
+                "secondheadline": "gmbh.policies.launch.secondheadline",
+                "text": "gmbh.policies.launch.text",
+                "textbold1": "gmbh.policies.launch.textbold1",
+                "textbold2": "gmbh.policies.launch.textbold2",
+                "textbold3": "gmbh.policies.launch.textbold3",
+                "textbold4": "gmbh.policies.launch.textbold4",
+                "textbold5": "gmbh.policies.launch.textbold5"
+            },
+            "text1": "gmbh.policies.text1"
+        },
+        "registrar": {
+            "listnum1": "gmbh.registrar.listnum1",
+            "listnum2": "gmbh.registrar.listnum2",
+            "listnum3": "gmbh.registrar.listnum3",
+            "listnum4": "gmbh.registrar.listnum4",
+            "listnum5": "gmbh.registrar.listnum5"
+        },
+        "registrars": {
+            "button1": "gmbh.registrars.button1",
+            "button2": "gmbh.registrars.button2",
+            "field": "gmbh.registrars.field",
+            "headline": "gmbh.registrars.headline",
+            "link": "gmbh.registrars.link",
+            "secondheadline1": "gmbh.registrars.secondheadline1",
+            "secondheadline2": "gmbh.registrars.secondheadline2",
+            "text": "gmbh.registrars.text",
+            "text1": "gmbh.registrars.text1",
+            "text2": "gmbh.registrars.text2"
+        },
+        "registrieren": {
+            "headline1": "gmbh.registrieren.headline1",
+            "headline3": "gmbh.registrieren.headline3",
+            "headline4": "gmbh.registrieren.headline4",
+            "tabelle": {
+                "left": "gmbh.registrieren.tabelle.left",
+                "middle": "gmbh.registrieren.tabelle.middle",
+                "right": "gmbh.registrieren.tabelle.right"
+            },
+            "text1": "gmbh.registrieren.text1",
+            "text3": "gmbh.registrieren.text3",
+            "text4": "gmbh.registrieren.text4"
+        },
+        "registry": {
+            "headline1": "gmbh.registry.headline1",
+            "headline2": "gmbh.registry.headline2",
+            "headline3": "gmbh.registry.headline3",
+            "headline4": "gmbh.registry.headline4",
+            "headline5": "gmbh.registry.headline5",
+            "link": "gmbh.registry.link",
+            "link1": "gmbh.registry.link1",
+            "link2": "gmbh.registry.link2",
+            "text1": "gmbh.registry.text1",
+            "text2": "gmbh.registry.text2",
+            "text3": "gmbh.registry.text3",
+            "text4": "gmbh.registry.text4",
+            "text5": "gmbh.registry.text5"
+        },
+        "stakeholder": {
+            "headline1": "gmbh.stakeholder.headline1",
+            "headline2": "gmbh.stakeholder.headline2",
+            "headline3": "gmbh.stakeholder.headline3",
+            "text1": "gmbh.stakeholder.text1",
+            "text2": "gmbh.stakeholder.text2",
+            "text3": "gmbh.stakeholder.text3"
+        },
+        "stats": {
+            "button1": "gmbh.stats.button1",
+            "headline1": "gmbh.stats.headline1",
+            "headline2": "gmbh.stats.headline2",
+            "headline3": "gmbh.stats.headline3",
+            "headline4": "gmbh.stats.headline4",
+            "link": "gmbh.stats.link",
+            "listbull": "gmbh.stats.listbull",
+            "logos": {
+                "left": {
+                    "link": "gmbh.stats.logos.left.link",
+                    "text": "gmbh.stats.logos.left.text"
+                },
+                "list1": {
+                    "left": "gmbh.stats.logos.list1.left",
+                    "middle": "gmbh.stats.logos.list1.middle",
+                    "right": "gmbh.stats.logos.list1.right"
+                },
+                "list2": {
+                    "left": "gmbh.stats.logos.list2.left",
+                    "middle": "gmbh.stats.logos.list2.middle",
+                    "right": "gmbh.stats.logos.list2.right"
+                },
+                "right": {
+                    "link": "gmbh.stats.logos.right.link",
+                    "text": "gmbh.stats.logos.right.text"
+                }
+            },
+            "text1": "gmbh.stats.text1",
+            "text2": "gmbh.stats.text2",
+            "text3": "gmbh.stats.text3",
+            "text4": "gmbh.stats.text4"
+        },
+        "support": {
+            "button": "gmbh.support.button",
+            "headline": "gmbh.support.headline",
+            "text": "gmbh.support.text"
+        },
+        "team": {
+            "headline1": "gmbh.team.headline1",
+            "headline2": "gmbh.team.headline2",
+            "text1": "gmbh.team.text1",
+            "text2": "gmbh.team.text2"
+        },
+        "whois": {
+            "field": "gmbh.whois.field",
+            "headline": "gmbh.whois.headline",
+            "latest": "gmbh.whois.latest",
+            "link1": "gmbh.whois.link1",
+            "link2": "gmbh.whois.link2",
+            "link3": "gmbh.whois.link3",
+            "link4": "gmbh.whois.link4",
+            "link5": "gmbh.whois.link5",
+            "text1": "gmbh.whois.text1",
+            "text2": "gmbh.whois.text2"
+        }
+    }
 }
