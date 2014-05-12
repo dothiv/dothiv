@@ -186,36 +186,65 @@
                 "text": "gmbh.policies.RA.text"
             },
             "abuse": {
-                "Link1": "gmbh.policies.abuse.Link1",
-                "Link2": "gmbh.policies.abuse.Link2",
-                "dropdown1": "gmbh.policies.abuse.dropdown1",
-                "dropdown2": "gmbh.policies.abuse.dropdown2",
-                "dropdown3": "gmbh.policies.abuse.dropdown3",
-                "dropdown4": "gmbh.policies.abuse.dropdown4",
-                "expand1": "gmbh.policies.abuse.expand1",
-                "expand2": "gmbh.policies.abuse.expand2",
-                "expand3": "gmbh.policies.abuse.expand3",
-                "expand4": "gmbh.policies.abuse.expand4",
+                "expand1": {
+                    "dropdown": "gmbh.policies.abuse.expand1.dropdown",
+                    "expand": "gmbh.policies.abuse.expand1.expand",
+                    "text": "gmbh.policies.abuse.expand1.text"
+                },
+                "expand2": {
+                    "dropdown": "gmbh.policies.abuse.expand2.dropdown",
+                    "expand": "gmbh.policies.abuse.expand2.expand",
+                    "text": "gmbh.policies.abuse.expand2.text"
+                },
+                "expand3": {
+                    "dropdown": "gmbh.policies.abuse.expand3.dropdown",
+                    "expand": "gmbh.policies.abuse.expand3.expand",
+                    "text": "gmbh.policies.abuse.expand3.text"
+                },
+                "expand4": {
+                    "dropdown": "gmbh.policies.abuse.expand4.dropdown",
+                    "expand": "gmbh.policies.abuse.expand4.expand",
+                    "text": "gmbh.policies.abuse.expand4.text"
+                },
                 "graphic": "gmbh.policies.abuse.graphic",
+                "link": "gmbh.policies.abuse.link",
                 "secondheadline": "gmbh.policies.abuse.secondheadline",
                 "text": "gmbh.policies.abuse.text",
                 "textbold1": "gmbh.policies.abuse.textbold1",
                 "textbold2": "gmbh.policies.abuse.textbold2",
                 "textbold3": "gmbh.policies.abuse.textbold3",
-                "textbold4": "gmbh.policies.abuse.textbold4"
+                "textbold4": "gmbh.policies.abuse.textbold4",
+                "trademark": {
+                    "link": "gmbh.policies.abuse.trademark.link"
+                }
             },
             "headline": "gmbh.policies.headline",
             "launch": {
-                "dropdown1": "gmbh.policies.launch.dropdown1",
-                "dropdown2": "gmbh.policies.launch.dropdown2",
-                "dropdown3": "gmbh.policies.launch.dropdown3",
-                "dropdown4": "gmbh.policies.launch.dropdown4",
-                "dropdown5": "gmbh.policies.launch.dropdown5",
-                "expand1": "gmbh.policies.launch.expand1",
-                "expand2": "gmbh.policies.launch.expand2",
-                "expand3": "gmbh.policies.launch.expand3",
-                "expand4": "gmbh.policies.launch.expand4",
-                "expand5": "gmbh.policies.launch.expand5",
+                "expand1": {
+                    "dropdown": "gmbh.policies.launch.expand1.dropdown",
+                    "expand": "gmbh.policies.launch.expand1.expand",
+                    "text": "gmbh.policies.launch.expand1.text"
+                },
+                "expand2": {
+                    "dropdown": "gmbh.policies.launch.expand2.dropdown",
+                    "expand": "gmbh.policies.launch.expand2.expand",
+                    "text": "gmbh.policies.launch.expand2.text"
+                },
+                "expand3": {
+                    "dropdown": "gmbh.policies.launch.expand3.dropdown",
+                    "expand": "gmbh.policies.launch.expand3.expand",
+                    "text": "gmbh.policies.launch.expand3.text"
+                },
+                "expand4": {
+                    "dropdown": "gmbh.policies.launch.expand4.dropdown",
+                    "expand": "gmbh.policies.launch.expand4.expand",
+                    "text": "gmbh.policies.launch.expand4.text"
+                },
+                "expand5": {
+                    "dropdown": "gmbh.policies.launch.expand5.dropdown",
+                    "expand": "gmbh.policies.launch.expand5.expand",
+                    "text": "gmbh.policies.launch.expand5.text"
+                },
                 "link": "gmbh.policies.launch.link",
                 "secondheadline": "gmbh.policies.launch.secondheadline",
                 "text": "gmbh.policies.launch.text",

@@ -186,36 +186,65 @@
                 "text": "Wie bei jeder Top-Level Domain bildet auch bei .hiv das Registry Agreement mit ICANN die Grundlage für den Ver- und Betrieb der Domains. Bei dotHIV steht die gemeinnützige Leitorganisation der Initiative, der dotHIV gemeinnützige e.V., in diesem zentralen Vertragsverhältnis. Die dotHIV Registry managt das operative Geschäft im Auftrag des Vereins, ein Lizenzvertrag regelt das Geschäftsverhältnis."
             },
             "abuse": {
-                "Link1": "Download now",
-                "Link2": "Download now",
-                "dropdown1": "\u003e read more",
-                "dropdown2": "\u003e read more",
-                "dropdown3": "\u003e read more",
-                "dropdown4": "\u003e read more",
-                "expand1": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-                "expand2": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-                "expand3": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-                "expand4": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                "expand1": {
+                    "dropdown": "\u003e read more",
+                    "expand": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                    "text": "Lorem ipsum"
+                },
+                "expand2": {
+                    "dropdown": "\u003e read more",
+                    "expand": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                    "text": "Lorem ipsum"
+                },
+                "expand3": {
+                    "dropdown": "\u003e read more",
+                    "expand": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                    "text": "Lorem ipsum"
+                },
+                "expand4": {
+                    "dropdown": "\u003e read more",
+                    "expand": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                    "text": "Lorem ipsum"
+                },
                 "graphic": "Report something",
+                "link": "Download now",
                 "secondheadline": "dotHIV namespace policies for the mitigation of abuse and unacceptable use",
                 "text": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
                 "textbold1": "1.0 Protect your Trademark",
                 "textbold2": "2.0 Abuse Policy",
                 "textbold3": "3.0 Acceptable Use Policy",
-                "textbold4": "4.0 Additional Safeguards"
+                "textbold4": "4.0 Additional Safeguards",
+                "trademark": {
+                    "link": "Download now"
+                }
             },
             "headline": "Policies",
             "launch": {
-                "dropdown1": "\u003e read more",
-                "dropdown2": "\u003e read more",
-                "dropdown3": "\u003e read more",
-                "dropdown4": "\u003e read more",
-                "dropdown5": "\u003e read more",
-                "expand1": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-                "expand2": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-                "expand3": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-                "expand4": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-                "expand5": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                "expand1": {
+                    "dropdown": "\u003e read more",
+                    "expand": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                    "text": "Lorem ipsum"
+                },
+                "expand2": {
+                    "dropdown": "\u003e read more",
+                    "expand": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                    "text": "Lorem ipsum"
+                },
+                "expand3": {
+                    "dropdown": "\u003e read more",
+                    "expand": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                    "text": "Lorem ipsum"
+                },
+                "expand4": {
+                    "dropdown": "\u003e read more",
+                    "expand": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                    "text": "Lorem ipsum"
+                },
+                "expand5": {
+                    "dropdown": "\u003e read more",
+                    "expand": "Paragraphen. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+                    "text": "Lorem ipsum"
+                },
                 "link": "Download Launch and Registration Policies",
                 "secondheadline": "Launch and Registration Policies",
                 "text": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
