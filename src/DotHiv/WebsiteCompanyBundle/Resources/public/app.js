@@ -32,6 +32,10 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                     templateUrl: '/bundles/dothivwebsitecompany/templates/home.html',
                     controller: 'HomeController'
                 })
+            .state('policies', {
+                    url: '/policies',
+                    templateUrl: '/bundles/dothivwebsitecompany/templates/policies.html'
+                })
             .state('whois', {
                     url: '/whois',
                     templateUrl: '/bundles/dothivwebsitecompany/templates/whois.html',
