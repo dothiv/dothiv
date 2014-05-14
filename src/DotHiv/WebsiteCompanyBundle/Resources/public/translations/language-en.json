@@ -331,9 +331,9 @@
             "text5": ""
         },
         "stakeholder": {
-            "headline1": "",
-            "headline2": "",
-            "headline3": "",
+            "headline": "",
+            "secondheadline1": "",
+            "secondheadline2": "",
             "text1": "",
             "text2": "",
             "text3": ""

@@ -331,9 +331,9 @@
             "text5": "lorem ipsum"
         },
         "stakeholder": {
-            "headline1": "dothiv in der Registry Stakeholder Group",
-            "headline2": "dothiv in Euralo",
-            "headline3": "Sonstige Mitgliedschaften",
+            "headline": "dothiv in der Registry Stakeholder Group",
+            "secondheadline1": "dothiv in Euralo",
+            "secondheadline2": "Sonstige Mitgliedschaften",
             "text1": "lorem ipsum",
             "text2": "lorem ipsum",
             "text3": "lorem ipsum"

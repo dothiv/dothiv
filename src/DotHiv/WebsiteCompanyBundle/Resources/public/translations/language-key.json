@@ -331,9 +331,9 @@
             "text5": "gmbh.registry.text5"
         },
         "stakeholder": {
-            "headline1": "gmbh.stakeholder.headline1",
-            "headline2": "gmbh.stakeholder.headline2",
-            "headline3": "gmbh.stakeholder.headline3",
+            "headline": "gmbh.stakeholder.headline",
+            "secondheadline1": "gmbh.stakeholder.secondheadline1",
+            "secondheadline2": "gmbh.stakeholder.secondheadline2",
             "text1": "gmbh.stakeholder.text1",
             "text2": "gmbh.stakeholder.text2",
             "text3": "gmbh.stakeholder.text3"
