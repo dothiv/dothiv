@@ -33,9 +33,13 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                     controller: 'HomeController'
                 })
             .state('policies', {
-                    url: '/policies',
-                    templateUrl: '/bundles/dothivwebsitecompany/templates/policies.html'
-                })
+                url: '/policies',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/policies.html'
+            })
+            .state('launch', {
+                url: '/launch',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/launch.html'
+            })
             .state('whois', {
                     url: '/whois',
                     templateUrl: '/bundles/dothivwebsitecompany/templates/whois.html',

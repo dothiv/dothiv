@@ -91,12 +91,14 @@
         "launch": {
             "graphic": "//Graphik//",
             "headline": "Launch Plan",
+            "link": {
+                "policies": "Launch Policies",
+                "register": "Neue Domain bestellen",
+                "registrars": "Registrar werden"
+            },
             "text1": "2008 hat die ICANN den Prozess zur Einführung neuer Top-Level Domains gestartet – knapp 6 Jahre später ist es soweit: mit .hiv kommt die digitale Rote Schleife ins Internet. Hier sind unsere finalen Schritte bis zum Go-Live.\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
             "text2": "Darunter folgt weiterer erklärender Text. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben."
         },
-        "launchurl1": "Neue Domain bestellen",
-        "launchurl2": "Registrar werden",
-        "launchurl3": "Launch Policies",
         "logo": {
             "alt": ".hiv"
         },
