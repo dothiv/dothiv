@@ -60,6 +60,10 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                 url: '/register/nonprofit',
                 templateUrl: '/bundles/dothivwebsitecompany/templates/register-nonprofit.html'
             })
+            .state('register-nonprofit-start', {
+                url: '/register/nonprofit/start',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/register-nonprofit-form.html'
+            })
             .state('whois', {
                     url: '/whois',
                     templateUrl: '/bundles/dothivwebsitecompany/templates/whois.html',

@@ -170,6 +170,7 @@
                     "policies": "gmbh.nonprofit.bewerbung.link.policies"
                 },
                 "secondheadline": "gmbh.nonprofit.bewerbung.secondheadline",
+                "start": "gmbh.nonprofit.bewerbung.start",
                 "terms": {
                     "bullet1": "gmbh.nonprofit.bewerbung.terms.bullet1",
                     "bullet2": "gmbh.nonprofit.bewerbung.terms.bullet2",
@@ -195,15 +196,15 @@
                 "text": "gmbh.nonprofit.expand2.text"
             },
             "headline": "gmbh.nonprofit.headline",
-            "headline4": "gmbh.nonprofit.headline4",
             "secondheadline1": "gmbh.nonprofit.secondheadline1",
             "secondheadline2": "gmbh.nonprofit.secondheadline2",
+            "secondheadline3": "gmbh.nonprofit.secondheadline3",
             "table": {
                 "left": "gmbh.nonprofit.table.left",
                 "right": "gmbh.nonprofit.table.right"
             },
             "text1": "gmbh.nonprofit.text1",
-            "text5": "gmbh.nonprofit.text5"
+            "text4": "gmbh.nonprofit.text4"
         },
         "policies": {
             "RA": {

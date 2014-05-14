@@ -170,6 +170,7 @@
                     "policies": ""
                 },
                 "secondheadline": "",
+                "start": "",
                 "terms": {
                     "bullet1": "",
                     "bullet2": "",
@@ -195,15 +196,15 @@
                 "text": ""
             },
             "headline": "",
-            "headline4": "",
             "secondheadline1": "",
             "secondheadline2": "",
+            "secondheadline3": "",
             "table": {
                 "left": "",
                 "right": ""
             },
             "text1": "",
-            "text5": "Domain"
+            "text4": "Domain"
         },
         "policies": {
             "RA": {

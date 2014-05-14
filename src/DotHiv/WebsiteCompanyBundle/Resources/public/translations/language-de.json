@@ -170,6 +170,7 @@
                     "policies": "dotHIV non-profit Leitlinien"
                 },
                 "secondheadline": "Die Nutzungsbedingungen",
+                "start": "Jetzt bewerben",
                 "terms": {
                     "bullet1": "Ihr seid eine eingetragen non-profit Organisation die im Bereich HIV und Aids tätig ist.",
                     "bullet2": "Ihr nutzt die Domain. Die Weiterleitung auf eure Standardseite ist völlig ausreichend, aber natürlich freuen wir uns auch über ganz individuelle Nutzungskonzepte.",
@@ -195,15 +196,15 @@
                 "text": "Text: Non-profit Organisationen, die sich im Bereich HIV und Aids engagieren, können ihre eigene kostenlose .hiv non-profit  Domain bei uns beantragen. Dafür bitten wir euch lediglich, mit den dotHIV Grundlagen konform zu gehen.\n\n"
             },
             "headline": ".hiv für die HIV Arbeit",
-            "headline4": "Bisher registrierte Non-profit Domains",
             "secondheadline1": "Die kostenlose non-profit Domain",
             "secondheadline2": "Wer kann sich um Charity-Domains bewerben?",
+            "secondheadline3": "Bisher registrierte Non-profit Domains",
             "table": {
                 "left": "Domain, Links",
                 "right": "Organisation, Organisationsnamen"
             },
             "text1": "Vorteile für HIV-Organisationen; Blindtext wieso das alles supersuper ist.",
-            "text5": "Blindtext"
+            "text4": "Blindtext"
         },
         "policies": {
             "RA": {
