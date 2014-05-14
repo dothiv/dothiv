@@ -331,7 +331,9 @@
                 }
             },
             "pr": {
-                "download": "gmbh.stats.pr.download"
+                "date": "gmbh.stats.pr.date",
+                "download": "gmbh.stats.pr.download",
+                "title": "gmbh.stats.pr.title"
             },
             "secondheadline1": "gmbh.stats.secondheadline1",
             "secondheadline2": "gmbh.stats.secondheadline2",

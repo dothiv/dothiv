@@ -331,7 +331,9 @@
                 }
             },
             "pr": {
-                "download": "Pressemeldung herunterladen"
+                "date": "Datum",
+                "download": "Pressemeldung herunterladen",
+                "title": "Titel"
             },
             "secondheadline1": "IDN-Infos",
             "secondheadline2": "Zonefile Download",
