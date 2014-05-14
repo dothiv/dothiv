@@ -15,6 +15,19 @@
             "desc": "Das wünschen wir uns von best Practice Beispielen",
             "headline": "Best Practice"
         },
+        "contact": {
+            "button": "Abschicken",
+            "form": {
+                "email": "E-Mail",
+                "hivdomain": "Meine .hiv-Domain",
+                "message": "Nachricht",
+                "name": "Name",
+                "organization": "Unternehmen/Organisation",
+                "subject": "Betreff"
+            },
+            "headline": "Kontakt",
+            "text": "lorem ipsum"
+        },
         "footer": {
             "city": "10179 Berlin ",
             "name": "TLD dotHIV Registry GmbH",
@@ -77,19 +90,25 @@
             "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.",
             "text4": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans."
         },
-        "kontakt": {
-            "ausfuellen": {
-                "hivadresse": "Meine .hiv-Adresse",
-                "info": "Nachricht",
-                "keine": "Ich habe keine .hiv-Adresse",
-                "mail": "E-Mail",
-                "unternehmen": "Unternehmen/Organisation",
-                "warum": "Betreff",
-                "wer": "Name"
+        "imprint": {
+            "country": "Deutschland",
+            "email": "mail@nic.hiv",
+            "fax": "Fax: (0 30) 55 22 90 87",
+            "headline": "Impressum",
+            "legal": "HRB 138864 Amtsgericht Berlin (Charlottenburg), Geschäftsführung: Nils Möller",
+            "location": "10179 Berlin",
+            "name": "TLD dotHIV Registry GmbH",
+            "phone": "Telefon: (0 30) 91 56 47 07\n",
+            "privacy": {
+                "headline": "Datenschutz",
+                "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans."
             },
-            "button": "Abschicken",
-            "headline": "Kontakt",
-            "text": "lorem ipsum"
+            "street": "Melchiorstraße 26",
+            "terms": {
+                "headline": "Nutzungsbedingungen",
+                "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans."
+            },
+            "website": "https://nic.hiv/"
         },
         "launch": {
             "headline": "Launch Plan",
@@ -329,6 +348,19 @@
             "text3": "lorem ipsum",
             "text4": "lorem ipsum",
             "text5": "lorem ipsum"
+        },
+        "report": {
+            "button": "Abschicken",
+            "form": {
+                "email": "E-Mail",
+                "hivdomain": ".hiv-Domain",
+                "message": "Nachricht",
+                "name": "Name",
+                "organization": "Unternehmen/Organisation",
+                "subject": "Betreff"
+            },
+            "headline": "Etwas melden",
+            "text": "lorem ipsum"
         },
         "stakeholder": {
             "headline": "dothiv in der Registry Stakeholder Group",

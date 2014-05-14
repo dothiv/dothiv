@@ -15,6 +15,19 @@
             "desc": "gmbh.concepts.desc",
             "headline": "gmbh.concepts.headline"
         },
+        "contact": {
+            "button": "gmbh.contact.button",
+            "form": {
+                "email": "gmbh.contact.form.email",
+                "hivdomain": "gmbh.contact.form.hivdomain",
+                "message": "gmbh.contact.form.message",
+                "name": "gmbh.contact.form.name",
+                "organization": "gmbh.contact.form.organization",
+                "subject": "gmbh.contact.form.subject"
+            },
+            "headline": "gmbh.contact.headline",
+            "text": "gmbh.contact.text"
+        },
         "footer": {
             "city": "gmbh.footer.city",
             "name": "gmbh.footer.name",
@@ -77,19 +90,25 @@
             "text3": "gmbh.idea.text3",
             "text4": "gmbh.idea.text4"
         },
-        "kontakt": {
-            "ausfuellen": {
-                "hivadresse": "gmbh.kontakt.ausfuellen.hivadresse",
-                "info": "gmbh.kontakt.ausfuellen.info",
-                "keine": "gmbh.kontakt.ausfuellen.keine",
-                "mail": "gmbh.kontakt.ausfuellen.mail",
-                "unternehmen": "gmbh.kontakt.ausfuellen.unternehmen",
-                "warum": "gmbh.kontakt.ausfuellen.warum",
-                "wer": "gmbh.kontakt.ausfuellen.wer"
+        "imprint": {
+            "country": "gmbh.imprint.country",
+            "email": "gmbh.imprint.email",
+            "fax": "gmbh.imprint.fax",
+            "headline": "gmbh.imprint.headline",
+            "legal": "gmbh.imprint.legal",
+            "location": "gmbh.imprint.location",
+            "name": "gmbh.imprint.name",
+            "phone": "gmbh.imprint.phone",
+            "privacy": {
+                "headline": "gmbh.imprint.privacy.headline",
+                "text": "gmbh.imprint.privacy.text"
             },
-            "button": "gmbh.kontakt.button",
-            "headline": "gmbh.kontakt.headline",
-            "text": "gmbh.kontakt.text"
+            "street": "gmbh.imprint.street",
+            "terms": {
+                "headline": "gmbh.imprint.terms.headline",
+                "text": "gmbh.imprint.terms.text"
+            },
+            "website": "gmbh.imprint.website"
         },
         "launch": {
             "headline": "gmbh.launch.headline",
@@ -329,6 +348,19 @@
             "text3": "gmbh.registry.text3",
             "text4": "gmbh.registry.text4",
             "text5": "gmbh.registry.text5"
+        },
+        "report": {
+            "button": "gmbh.report.button",
+            "form": {
+                "email": "gmbh.report.form.email",
+                "hivdomain": "gmbh.report.form.hivdomain",
+                "message": "gmbh.report.form.message",
+                "name": "gmbh.report.form.name",
+                "organization": "gmbh.report.form.organization",
+                "subject": "gmbh.report.form.subject"
+            },
+            "headline": "gmbh.report.headline",
+            "text": "gmbh.report.text"
         },
         "stakeholder": {
             "headline": "gmbh.stakeholder.headline",

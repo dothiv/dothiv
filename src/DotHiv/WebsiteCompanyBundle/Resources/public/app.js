@@ -72,6 +72,18 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                 url: '/icann',
                 templateUrl: '/bundles/dothivwebsitecompany/templates/icann.html'
             })
+            .state('contact', {
+                url: '/contact',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/contact.html'
+            })
+            .state('report', {
+                url: '/report',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/report.html'
+            })
+            .state('imprint', {
+                url: '/imprint',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/imprint.html'
+            })
             .state('register', {
                 url: '/register',
                 templateUrl: '/bundles/dothivwebsitecompany/templates/register.html'

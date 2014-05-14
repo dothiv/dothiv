@@ -15,6 +15,19 @@
             "desc": "",
             "headline": ""
         },
+        "contact": {
+            "button": "",
+            "form": {
+                "email": "",
+                "hivdomain": "",
+                "message": "",
+                "name": "",
+                "organization": "",
+                "subject": ""
+            },
+            "headline": "",
+            "text": ""
+        },
         "footer": {
             "city": "D-10179 Berlin ",
             "name": "TLD dotHIV Registry GmbH",
@@ -77,19 +90,25 @@
             "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.",
             "text4": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans."
         },
-        "kontakt": {
-            "ausfuellen": {
-                "hivadresse": "",
-                "info": "",
-                "keine": "",
-                "mail": "",
-                "unternehmen": "",
-                "warum": "",
-                "wer": ""
+        "imprint": {
+            "country": "Germany",
+            "email": "mail@nic.hiv",
+            "fax": "Fax: +49 30 55 22 90 87",
+            "headline": "Imprint",
+            "legal": "HRB 138864 Amtsgericht Berlin (Charlottenburg), Geschäftsführung: Nils Möller",
+            "location": "10179 Berlin",
+            "name": "TLD dotHIV Registry GmbH",
+            "phone": "Phone: +49 30 91 56 47 07",
+            "privacy": {
+                "headline": "Privacy",
+                "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans."
             },
-            "button": "",
-            "headline": "",
-            "text": ""
+            "street": "Melchiorstraße 26",
+            "terms": {
+                "headline": "Terms of Use",
+                "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans."
+            },
+            "website": "https://nic.hiv/"
         },
         "launch": {
             "headline": "",
@@ -329,6 +348,19 @@
             "text3": "",
             "text4": "",
             "text5": ""
+        },
+        "report": {
+            "button": "",
+            "form": {
+                "email": "",
+                "hivdomain": "",
+                "message": "",
+                "name": "",
+                "organization": "",
+                "subject": ""
+            },
+            "headline": "",
+            "text": ""
         },
         "stakeholder": {
             "headline": "",
