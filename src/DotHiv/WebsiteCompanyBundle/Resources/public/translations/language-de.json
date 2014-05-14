@@ -376,8 +376,8 @@
             "text": "lorem ipsum"
         },
         "team": {
-            "headline1": "Team",
-            "headline2": "Jobs",
+            "headline": "Team",
+            "secondheadline1": "Jobs",
             "text1": "lorem ipsum",
             "text2": "lorem ipsum"
         },

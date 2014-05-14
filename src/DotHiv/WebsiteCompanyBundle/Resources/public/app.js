@@ -64,6 +64,10 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                 url: '/registry',
                 templateUrl: '/bundles/dothivwebsitecompany/templates/registry.html'
             })
+            .state('team', {
+                url: '/team',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/team.html'
+            })
             .state('icann', {
                 url: '/icann',
                 templateUrl: '/bundles/dothivwebsitecompany/templates/icann.html'

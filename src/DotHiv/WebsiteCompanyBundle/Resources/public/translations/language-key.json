@@ -376,8 +376,8 @@
             "text": "gmbh.supportus.text"
         },
         "team": {
-            "headline1": "gmbh.team.headline1",
-            "headline2": "gmbh.team.headline2",
+            "headline": "gmbh.team.headline",
+            "secondheadline1": "gmbh.team.secondheadline1",
             "text1": "gmbh.team.text1",
             "text2": "gmbh.team.text2"
         },
