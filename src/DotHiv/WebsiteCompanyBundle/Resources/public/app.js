@@ -40,6 +40,10 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                 url: '/launch',
                 templateUrl: '/bundles/dothivwebsitecompany/templates/launch.html'
             })
+            .state('registrars', {
+                url: '/registrars',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/registrars.html'
+            })
             .state('whois', {
                     url: '/whois',
                     templateUrl: '/bundles/dothivwebsitecompany/templates/whois.html',
@@ -52,7 +56,7 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
             .state('concepts', {
                     url: '/concepts',
                     templateUrl: '/bundles/dothivwebsitecompany/templates/concepts.html'
-                })                     
+                })
         }])
 
     .run(['$rootScope', 'security', 'securityDialog', function($rootScope, security, securityDialog) {
