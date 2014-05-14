@@ -314,14 +314,16 @@
             "text3": "gmbh.registrars.text3"
         },
         "registry": {
-            "headline1": "gmbh.registry.headline1",
-            "headline2": "gmbh.registry.headline2",
-            "headline3": "gmbh.registry.headline3",
-            "headline4": "gmbh.registry.headline4",
-            "headline5": "gmbh.registry.headline5",
-            "link": "gmbh.registry.link",
-            "link1": "gmbh.registry.link1",
-            "link2": "gmbh.registry.link2",
+            "headline": "gmbh.registry.headline",
+            "links": {
+                "contract": "gmbh.registry.links.contract",
+                "funds": "gmbh.registry.links.funds",
+                "report": "gmbh.registry.links.report"
+            },
+            "secondheadline1": "gmbh.registry.secondheadline1",
+            "secondheadline2": "gmbh.registry.secondheadline2",
+            "secondheadline3": "gmbh.registry.secondheadline3",
+            "secondheadline4": "gmbh.registry.secondheadline4",
             "text1": "gmbh.registry.text1",
             "text2": "gmbh.registry.text2",
             "text3": "gmbh.registry.text3",

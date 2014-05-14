@@ -314,14 +314,16 @@
             "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien."
         },
         "registry": {
-            "headline1": "Organisation",
-            "headline2": "Investoren",
-            "headline3": "Gesellschaftervertrag",
-            "headline4": "Geschäftsbericht",
-            "headline5": "Mittelverwendung",
-            "link": "Mehr dazu herunterladen",
-            "link1": "Gesellschaftervertrag herunterladen",
-            "link2": "Geschäftsbericht herunterladen",
+            "headline": "Organisation",
+            "links": {
+                "contract": "Gesellschaftervertrag herunterladen",
+                "funds": "Mehr dazu herunterladen",
+                "report": "Geschäftsbericht herunterladen"
+            },
+            "secondheadline1": "Investoren",
+            "secondheadline2": "Gesellschaftervertrag",
+            "secondheadline3": "Geschäftsbericht",
+            "secondheadline4": "Mittelverwendung",
             "text1": "lorem ipsum",
             "text2": "lorem ipsum",
             "text3": "lorem ipsum",

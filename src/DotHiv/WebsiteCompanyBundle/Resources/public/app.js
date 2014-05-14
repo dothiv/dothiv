@@ -60,6 +60,10 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                 url: '/support-us',
                 templateUrl: '/bundles/dothivwebsitecompany/templates/support-us.html'
             })
+            .state('registry', {
+                url: '/registry',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/registry.html'
+            })
             .state('register', {
                 url: '/register',
                 templateUrl: '/bundles/dothivwebsitecompany/templates/register.html'
