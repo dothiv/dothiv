@@ -66,6 +66,9 @@
             "link": {
                 "charity": "Mehr erfahren auf dothiv.hiv"
             },
+            "policies": {
+                "link": "Zu unseren Policies"
+            },
             "secondheadline1": "So funktioniert's",
             "secondheadline2": "Ihre Vorteile",
             "secondheadline3": "Ziele des Namensraums",
@@ -123,61 +126,83 @@
         },
         "nonprofit": {
             "bewerbung": {
-                "agbs": {
-                    "button": "Absenden",
-                    "headline": "AGBs",
-                    "klick": "",
-                    "link": "AGBs",
-                    "text": "klickt auf den Link um die AGBs für deine dotHIV non-profit Domain zu lesen und stimmt ihnen anschließend zu"
-                },
                 "antrag": {
-                    "dropdown1": "In welchem Bereich arbeitet deine Organisation:                                                                                                                        Dropdown Menü zum anklicken: Aufklärung, Prävention, Pflege, Versorgung, Jugendarbeit, Onlinearbeit, Mutter-Kind-Übertragung, STIs, Stigmatisierung und Diskriminierung",
-                    "field1": "Name der Organisation:",
-                    "field10": "Position:",
-                    "field11": "Beschreibe deine Organisation und eure Arbeite (Mission und Vision) in max. 200 Wörtern",
-                    "field12": "Erkläre euer Nutzungskonzept in max. 200 Wörtern",
-                    "field2": "Land: ",
-                    "field3": "Straße/Hausnummer:",
-                    "field4": " Ort/Postleitzahl:",
-                    "field5": "Website/URL:",
-                    "field6": "Gewünschte .hiv Domain*:",
-                    "field7": "Telefon- / Faxnummer:\n",
-                    "field8": "Name: Vorname:",
-                    "field9": "E-Mail Adresse: ",
+                    "about": "Beschreibe deine Organisation und eure Arbeite (Mission und Vision) in max. 200 Wörtern",
+                    "agbs": {
+                        "headline": "AGBs",
+                        "link": "AGBs",
+                        "text": "klickt auf den Link um die AGBs für deine dotHIV non-profit Domain zu lesen und stimmt ihnen anschließend zu"
+                    },
+                    "contact": "Wer ist unser Ansprechpartner?\n",
+                    "country": "Land: ",
+                    "domain": "Gewünschte .hiv Domain:",
+                    "email": "E-Mail",
+                    "fax": "Faxnummer",
                     "footnote": "Wir versuchen dir natürlich die Domain zu geben, die du möchtest. Überleg dir aber bitte auch schon mal eine Alternative, falls deine Wunsch-Domain schon vergeben ist.",
                     "headline": "Der Antrag",
+                    "hiv": "Eure .hiv Domain",
+                    "location": " Ort/Postleitzahl:",
+                    "name": "Name der Organisation:",
+                    "phone": "Telefonnummer\n",
+                    "position": "Position:",
                     "secondheadline": "Wer seid ihr?",
-                    "secondheadline2": "Wer ist unser Ansprechpartner?\n",
                     "secondheadline3": "Was macht ihr?",
-                    "secondheadline4": "Wie wollt ihr eure kostenlose .hiv Domain nutzen?",
-                    "upload1": "Nachweis hier hochladen"
+                    "sector": {
+                        "label": "In welchem Bereich arbeitet deine Organisation:",
+                        "option1": "Aufklärung",
+                        "option2": "Prävention",
+                        "option3": "Pflege",
+                        "option4": "Versorgung",
+                        "option5": "Jugendarbeit",
+                        "option6": "Onlinearbeit",
+                        "option7": "Mutter-Kind-Übertragung",
+                        "option8": "STIs",
+                        "option9": "Stigmatisierung und Diskriminierung"
+                    },
+                    "street": "Straße/Hausnummer:",
+                    "upload": "Nachweis hier hochladen",
+                    "usage": "Erkläre euer Nutzungskonzept in max. 200 Wörtern",
+                    "website": "Website/URL:"
                 },
+                "button": "Absenden",
                 "headline": "Jetzt bewerben",
-                "link1": "dotHIV non-profit Leitlinien",
+                "link": {
+                    "policies": "dotHIV non-profit Leitlinien"
+                },
                 "secondheadline": "Die Nutzungsbedingungen",
-                "text1": "Nur noch wenige Schritte trennen Dich und Deine Organisation davon, Teil des .hiv-Online Netzwerks zu werden. Los geht’s",
-                "text2": "Die kostenlose non-profit .hiv Domain bekommt ihr unter drei Voraussetzungen:\n1. Ihr seid eine eingetragen non-profit Organisation die im Bereich HIV und Aids tätig ist.\n\n2. Ihr nutzt die Domain. Die Weiterleitung auf eure Standardseite ist völlig ausreichend, aber natürlich freuen wir uns auch über ganz individuelle Nutzungskonzepte.\n\n3. Der Inhalt eurer .hiv Seite spiegelt die Leitlinien und Grundsätze von dotHIV wider.\n\nDie kostenlose non-profit Domain bekommt ihr zunächst für 3 Jahre. Wenn ihr die Laufzeit gerne verlängern möchtet, müsst ihr lediglich 3 Monate vor Ablauf einen Verlängerungsantrag stellen. \nWenn ihr das nicht möchtet, endet die Laufzeit automaisch nach den drei Jahren.\n\nWie immer bestätigen auch hier Ausnahmen die Regel und deshalb gibt es drei Fälle, bei denen der Ablauf ein bisschen anders aussieht.\n1. Wenn ihr die .hiv länger als drei Monate nicht nutzt, fangen wir an nachzufragen. Zunächst habt ihr in diesen Fall die Möglichkeit, einfach die reguläre Registrierungsgebühr für eure .hiv Domain zu zahlen. Falls auch das von euch nicht gemacht wird, nehmen wir die Domain vom Netzt und geben sie für anderer Bewerber wider frei.\n\n2. Ähnlich sieht der Prozess aus, falls Inhalte auf eurer .hiv Homepage auftauchen, die nicht widerspiegeln wofür dotHIV steht. Auch hier werden wir euch auffordern, für die Domain zu bezahlen oder in Zukunft auf die Nutzung zu verzichten. Für den Fall, dass eure .hiv Homepage über unser Abuse system bei uns gemeldet wird, ist auch ein direkter Take Down nicht ausgeschlossen.\n\n3. Vielleicht möchtet ihr ja die kostenlose Domain schon vor Ablauf der 3 Jahre nicht mehr haben (auch wenn wir bei dotHIV uns das nicht vorstellen können). Dann kündigt sie einfach rechtzeitig zum 30. November eines Jahres und ab dem Jahreswechsel ist der ganze .hiv Spaß für euch vorbei.\n\nAlles klar soweit? Dann füllt einfach die untenstehenden Fragen aus und los geht es mit eurer Domain!"
+                "terms": {
+                    "bullet1": "Ihr seid eine eingetragen non-profit Organisation die im Bereich HIV und Aids tätig ist.",
+                    "bullet2": "Ihr nutzt die Domain. Die Weiterleitung auf eure Standardseite ist völlig ausreichend, aber natürlich freuen wir uns auch über ganz individuelle Nutzungskonzepte.",
+                    "bullet3": "Der Inhalt eurer .hiv Seite spiegelt die Leitlinien und Grundsätze von dotHIV wider.",
+                    "bullet4": "Wenn ihr die .hiv länger als drei Monate nicht nutzt, fangen wir an nachzufragen. Zunächst habt ihr in diesen Fall die Möglichkeit, einfach die reguläre Registrierungsgebühr für eure .hiv Domain zu zahlen. Falls auch das von euch nicht gemacht wird, nehmen wir die Domain vom Netzt und geben sie für anderer Bewerber wider frei.",
+                    "bullet5": "Ähnlich sieht der Prozess aus, falls Inhalte auf eurer .hiv Homepage auftauchen, die nicht widerspiegeln wofür dotHIV steht. Auch hier werden wir euch auffordern, für die Domain zu bezahlen oder in Zukunft auf die Nutzung zu verzichten. Für den Fall, dass eure .hiv Homepage über unser Abuse system bei uns gemeldet wird, ist auch ein direkter Take Down nicht ausgeschlossen.",
+                    "bullet6": "Vielleicht möchtet ihr ja die kostenlose Domain schon vor Ablauf der 3 Jahre nicht mehr haben (auch wenn wir bei dotHIV uns das nicht vorstellen können). Dann kündigt sie einfach rechtzeitig zum 30. November eines Jahres und ab dem Jahreswechsel ist der ganze .hiv Spaß für euch vorbei.",
+                    "text1": "Die kostenlose non-profit .hiv Domain bekommt ihr unter drei Voraussetzungen:",
+                    "text2": "Die kostenlose non-profit Domain bekommt ihr zunächst für 3 Jahre. Wenn ihr die Laufzeit gerne verlängern möchtet, müsst ihr lediglich 3 Monate vor Ablauf einen Verlängerungsantrag stellen. Wenn ihr das nicht möchtet, endet die Laufzeit automaisch nach den drei Jahren.",
+                    "text3": "Wie immer bestätigen auch hier Ausnahmen die Regel und deshalb gibt es drei Fälle, bei denen der Ablauf ein bisschen anders aussieht.\n",
+                    "text4": "Alles klar soweit? Dann füllt einfach die untenstehenden Fragen aus und los geht es mit eurer Domain!"
+                },
+                "text1": "Nur noch wenige Schritte trennen Dich und Deine Organisation davon, Teil des .hiv-Online Netzwerks zu werden. Los geht’s"
             },
-            "button": "Verlinkung: Button “Jetzt bewerben”\n",
-            "dropdown": {
-                "what": "Mehr erfahren",
-                "who": "Mehr erfahren"
+            "expand1": {
+                "dropdown": "Mehr erfahren",
+                "expand": "Mit der kostenlosen .hiv Domain wollen wir für Organisationen im Bereich HIV und Aids einen eigenen Platz im Internet schaffen. Durch die gemeinsame Nutzung dieses Platzes verstärkt sich die Wirkung des Einzelnen – durch die Entstehung besserer Sichtbarkeit und die Bildung eines globalen Netzwerkes.\n\nDie  Verwendung einer .hiv Domain verbessert die Suchmaschinenergebnisse und erhöht somit die Sichtbarkeit im Internet. Gleichzeitig erhöht ein gemeinsamer Namensraum die Transparenz über die Arbeit im Feld - sowohl für Internetuser als auch für Organisationen. Diesen wird eine einfache Möglichkeit gegeben, ein globales Netzwerk aufzubauen und das ganz ohne Kosten und intensive Bemühungen.\n\nUnd last but not least: auch in die kostenlose non-profit Domain wird unser Mikrospendensystem integriert. Das heißt auch für diese Seiten gilt: Jeder Klick auf eine .hiv Domain löst eine Mikrospende aus, die an HIV Projekte überall auf der Welt weiter gegeben wird.\n\n",
+                "text": "Die .hiv non-profit Domain ist gleich im doppelten Sinne non-profit: Zum einen vergeben wir die Domain ausschließlich an non-profit Organisationen mit einem Schwerpunkt im Bereich HIV und Aids. Zum anderen ist die non-profit Domain für diese Organisationen kostenlos – die Kosten übernimmt dotHIV. Damit möchten wir Initiativen, die sich im Bereich HIV und Aids engagieren, einen gemeinsamen themengebundenen Raum im Internet geben. "
+            },
+            "expand2": {
+                "dropdown": "Mehr erfahren",
+                "expand": "Dazu gehört, dass ihr mit uns für ein großes gemeinsames Ziel kämpft – das Ende von Aids! Aber bekanntermaßen ist ja auch der Weg schon das Ziel. Das heißt, uns interessiert auch, wie deine Organisation das Ziel erreichen will. Zeigt uns also, wer ihr seid, was ihr tut und warum ihr euch mit uns und unseren Leitlinien identifizieren könnt (Link zu den non-profit Domain Leitlinien).\n\nAußerdem bitten wir euch, eure .hiv Domain tatsächlich zu nutzen! Das Mindeste, das wir uns von euch wünschen, ist die Weiterleitung auf eure Standardhomepage. Aber natürlich sind individuelle Nutzungskonzepte sehr gerne gesehen. Nur durch die Nutzung erwacht der virtuelle Raum den wir bieten auch zum Leben!\n\nHabt ihr euren Antrag erfolgreich bei uns eingereicht, bekommt ihr die non-profit Domain zunächst für 3 Jahre, anschließend müsst ihr sie erneut beantragen.\n\nFindet sich deine Organisation in dieser Beschreibung wieder? Dann geht’s hier zu eurer ganz eignen kostenlosen .hiv Domain! \n\n",
+                "text": "Text: Non-profit Organisationen, die sich im Bereich HIV und Aids engagieren, können ihre eigene kostenlose .hiv non-profit  Domain bei uns beantragen. Dafür bitten wir euch lediglich, mit den dotHIV Grundlagen konform zu gehen.\n\n"
             },
             "headline": ".hiv für die HIV Arbeit",
             "headline4": "Bisher registrierte Non-profit Domains",
-            "secondheadline": {
-                "what": "Die kostenlose non-profit Domain",
-                "who": "Wer kann sich um Charity-Domains bewerben?"
-            },
+            "secondheadline1": "Die kostenlose non-profit Domain",
+            "secondheadline2": "Wer kann sich um Charity-Domains bewerben?",
             "table": {
                 "left": "Domain, Links",
                 "right": "Organisation, Organisationsnamen"
             },
-            "text1a": "Vorteile für HIV-Organisationen; Blindtext wieso das alles supersuper ist.",
-            "text1b": "Die .hiv non-profit Domain ist gleich im doppelten Sinne non-profit: Zum einen vergeben wir die Domain ausschließlich an non-profit Organisationen mit einem Schwerpunkt im Bereich HIV und Aids. Zum anderen ist die non-profit Domain für diese Organisationen kostenlos – die Kosten übernimmt dotHIV. Damit möchten wir Initiativen, die sich im Bereich HIV und Aids engagieren, einen gemeinsamen themengebundenen Raum im Internet geben. ",
-            "text2": "Mit der kostenlosen .hiv Domain wollen wir für Organisationen im Bereich HIV und Aids einen eigenen Platz im Internet schaffen. Durch die gemeinsame Nutzung dieses Platzes verstärkt sich die Wirkung des Einzelnen – durch die Entstehung besserer Sichtbarkeit und die Bildung eines globalen Netzwerkes.\n\nDie  Verwendung einer .hiv Domain verbessert die Suchmaschinenergebnisse und erhöht somit die Sichtbarkeit im Internet. Gleichzeitig erhöht ein gemeinsamer Namensraum die Transparenz über die Arbeit im Feld - sowohl für Internetuser als auch für Organisationen. Diesen wird eine einfache Möglichkeit gegeben, ein globales Netzwerk aufzubauen und das ganz ohne Kosten und intensive Bemühungen.\n\nUnd last but not least: auch in die kostenlose non-profit Domain wird unser Mikrospendensystem integriert. Das heißt auch für diese Seiten gilt: Jeder Klick auf eine .hiv Domain löst eine Mikrospende aus, die an HIV Projekte überall auf der Welt weiter gegeben wird.\n\n",
-            "text3": "Text: Non-profit Organisationen, die sich im Bereich HIV und Aids engagieren, können ihre eigene kostenlose .hiv non-profit  Domain bei uns beantragen. Dafür bitten wir euch lediglich, mit den dotHIV Grundlagen konform zu gehen.\n\n",
-            "text4": "Dazu gehört, dass ihr mit uns für ein großes gemeinsames Ziel kämpft – das Ende von Aids! Aber bekanntermaßen ist ja auch der Weg schon das Ziel. Das heißt, uns interessiert auch, wie deine Organisation das Ziel erreichen will. Zeigt uns also, wer ihr seid, was ihr tut und warum ihr euch mit uns und unseren Leitlinien identifizieren könnt (Link zu den non-profit Domain Leitlinien).\n\nAußerdem bitten wir euch, eure .hiv Domain tatsächlich zu nutzen! Das Mindeste, das wir uns von euch wünschen, ist die Weiterleitung auf eure Standardhomepage. Aber natürlich sind individuelle Nutzungskonzepte sehr gerne gesehen. Nur durch die Nutzung erwacht der virtuelle Raum den wir bieten auch zum Leben!\n\nHabt ihr euren Antrag erfolgreich bei uns eingereicht, bekommt ihr die non-profit Domain zunächst für 3 Jahre, anschließend müsst ihr sie erneut beantragen.\n\nFindet sich deine Organisation in dieser Beschreibung wieder? Dann geht’s hier zu eurer ganz eignen kostenlosen .hiv Domain! \n\n",
+            "text1": "Vorteile für HIV-Organisationen; Blindtext wieso das alles supersuper ist.",
             "text5": "Blindtext"
         },
         "policies": {

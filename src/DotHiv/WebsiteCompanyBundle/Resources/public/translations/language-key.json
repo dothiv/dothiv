@@ -66,6 +66,9 @@
             "link": {
                 "charity": "gmbh.idea.link.charity"
             },
+            "policies": {
+                "link": "gmbh.idea.policies.link"
+            },
             "secondheadline1": "gmbh.idea.secondheadline1",
             "secondheadline2": "gmbh.idea.secondheadline2",
             "secondheadline3": "gmbh.idea.secondheadline3",
@@ -123,61 +126,83 @@
         },
         "nonprofit": {
             "bewerbung": {
-                "agbs": {
-                    "button": "gmbh.nonprofit.bewerbung.agbs.button",
-                    "headline": "gmbh.nonprofit.bewerbung.agbs.headline",
-                    "klick": "gmbh.nonprofit.bewerbung.agbs.klick",
-                    "link": "gmbh.nonprofit.bewerbung.agbs.link",
-                    "text": "gmbh.nonprofit.bewerbung.agbs.text"
-                },
                 "antrag": {
-                    "dropdown1": "gmbh.nonprofit.bewerbung.antrag.dropdown1",
-                    "field1": "gmbh.nonprofit.bewerbung.antrag.field1",
-                    "field10": "gmbh.nonprofit.bewerbung.antrag.field10",
-                    "field11": "gmbh.nonprofit.bewerbung.antrag.field11",
-                    "field12": "gmbh.nonprofit.bewerbung.antrag.field12",
-                    "field2": "gmbh.nonprofit.bewerbung.antrag.field2",
-                    "field3": "gmbh.nonprofit.bewerbung.antrag.field3",
-                    "field4": "gmbh.nonprofit.bewerbung.antrag.field4",
-                    "field5": "gmbh.nonprofit.bewerbung.antrag.field5",
-                    "field6": "gmbh.nonprofit.bewerbung.antrag.field6",
-                    "field7": "gmbh.nonprofit.bewerbung.antrag.field7",
-                    "field8": "gmbh.nonprofit.bewerbung.antrag.field8",
-                    "field9": "gmbh.nonprofit.bewerbung.antrag.field9",
+                    "about": "gmbh.nonprofit.bewerbung.antrag.about",
+                    "agbs": {
+                        "headline": "gmbh.nonprofit.bewerbung.antrag.agbs.headline",
+                        "link": "gmbh.nonprofit.bewerbung.antrag.agbs.link",
+                        "text": "gmbh.nonprofit.bewerbung.antrag.agbs.text"
+                    },
+                    "contact": "gmbh.nonprofit.bewerbung.antrag.contact",
+                    "country": "gmbh.nonprofit.bewerbung.antrag.country",
+                    "domain": "gmbh.nonprofit.bewerbung.antrag.domain",
+                    "email": "gmbh.nonprofit.bewerbung.antrag.email",
+                    "fax": "gmbh.nonprofit.bewerbung.antrag.fax",
                     "footnote": "gmbh.nonprofit.bewerbung.antrag.footnote",
                     "headline": "gmbh.nonprofit.bewerbung.antrag.headline",
+                    "hiv": "gmbh.nonprofit.bewerbung.antrag.hiv",
+                    "location": "gmbh.nonprofit.bewerbung.antrag.location",
+                    "name": "gmbh.nonprofit.bewerbung.antrag.name",
+                    "phone": "gmbh.nonprofit.bewerbung.antrag.phone",
+                    "position": "gmbh.nonprofit.bewerbung.antrag.position",
                     "secondheadline": "gmbh.nonprofit.bewerbung.antrag.secondheadline",
-                    "secondheadline2": "gmbh.nonprofit.bewerbung.antrag.secondheadline2",
                     "secondheadline3": "gmbh.nonprofit.bewerbung.antrag.secondheadline3",
-                    "secondheadline4": "gmbh.nonprofit.bewerbung.antrag.secondheadline4",
-                    "upload1": "gmbh.nonprofit.bewerbung.antrag.upload1"
+                    "sector": {
+                        "label": "gmbh.nonprofit.bewerbung.antrag.sector.label",
+                        "option1": "gmbh.nonprofit.bewerbung.antrag.sector.option1",
+                        "option2": "gmbh.nonprofit.bewerbung.antrag.sector.option2",
+                        "option3": "gmbh.nonprofit.bewerbung.antrag.sector.option3",
+                        "option4": "gmbh.nonprofit.bewerbung.antrag.sector.option4",
+                        "option5": "gmbh.nonprofit.bewerbung.antrag.sector.option5",
+                        "option6": "gmbh.nonprofit.bewerbung.antrag.sector.option6",
+                        "option7": "gmbh.nonprofit.bewerbung.antrag.sector.option7",
+                        "option8": "gmbh.nonprofit.bewerbung.antrag.sector.option8",
+                        "option9": "gmbh.nonprofit.bewerbung.antrag.sector.option9"
+                    },
+                    "street": "gmbh.nonprofit.bewerbung.antrag.street",
+                    "upload": "gmbh.nonprofit.bewerbung.antrag.upload",
+                    "usage": "gmbh.nonprofit.bewerbung.antrag.usage",
+                    "website": "gmbh.nonprofit.bewerbung.antrag.website"
                 },
+                "button": "gmbh.nonprofit.bewerbung.button",
                 "headline": "gmbh.nonprofit.bewerbung.headline",
-                "link1": "gmbh.nonprofit.bewerbung.link1",
+                "link": {
+                    "policies": "gmbh.nonprofit.bewerbung.link.policies"
+                },
                 "secondheadline": "gmbh.nonprofit.bewerbung.secondheadline",
-                "text1": "gmbh.nonprofit.bewerbung.text1",
-                "text2": "gmbh.nonprofit.bewerbung.text2"
+                "terms": {
+                    "bullet1": "gmbh.nonprofit.bewerbung.terms.bullet1",
+                    "bullet2": "gmbh.nonprofit.bewerbung.terms.bullet2",
+                    "bullet3": "gmbh.nonprofit.bewerbung.terms.bullet3",
+                    "bullet4": "gmbh.nonprofit.bewerbung.terms.bullet4",
+                    "bullet5": "gmbh.nonprofit.bewerbung.terms.bullet5",
+                    "bullet6": "gmbh.nonprofit.bewerbung.terms.bullet6",
+                    "text1": "gmbh.nonprofit.bewerbung.terms.text1",
+                    "text2": "gmbh.nonprofit.bewerbung.terms.text2",
+                    "text3": "gmbh.nonprofit.bewerbung.terms.text3",
+                    "text4": "gmbh.nonprofit.bewerbung.terms.text4"
+                },
+                "text1": "gmbh.nonprofit.bewerbung.text1"
             },
-            "button": "gmbh.nonprofit.button",
-            "dropdown": {
-                "what": "gmbh.nonprofit.dropdown.what",
-                "who": "gmbh.nonprofit.dropdown.who"
+            "expand1": {
+                "dropdown": "gmbh.nonprofit.expand1.dropdown",
+                "expand": "gmbh.nonprofit.expand1.expand",
+                "text": "gmbh.nonprofit.expand1.text"
+            },
+            "expand2": {
+                "dropdown": "gmbh.nonprofit.expand2.dropdown",
+                "expand": "gmbh.nonprofit.expand2.expand",
+                "text": "gmbh.nonprofit.expand2.text"
             },
             "headline": "gmbh.nonprofit.headline",
             "headline4": "gmbh.nonprofit.headline4",
-            "secondheadline": {
-                "what": "gmbh.nonprofit.secondheadline.what",
-                "who": "gmbh.nonprofit.secondheadline.who"
-            },
+            "secondheadline1": "gmbh.nonprofit.secondheadline1",
+            "secondheadline2": "gmbh.nonprofit.secondheadline2",
             "table": {
                 "left": "gmbh.nonprofit.table.left",
                 "right": "gmbh.nonprofit.table.right"
             },
-            "text1a": "gmbh.nonprofit.text1a",
-            "text1b": "gmbh.nonprofit.text1b",
-            "text2": "gmbh.nonprofit.text2",
-            "text3": "gmbh.nonprofit.text3",
-            "text4": "gmbh.nonprofit.text4",
+            "text1": "gmbh.nonprofit.text1",
             "text5": "gmbh.nonprofit.text5"
         },
         "policies": {

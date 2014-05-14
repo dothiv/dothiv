@@ -56,6 +56,10 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                 url: '/red-ribbon',
                 templateUrl: '/bundles/dothivwebsitecompany/templates/red-ribbon.html'
             })
+            .state('register-nonprofit', {
+                url: '/register/nonprofit',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/register-nonprofit.html'
+            })
             .state('whois', {
                     url: '/whois',
                     templateUrl: '/bundles/dothivwebsitecompany/templates/whois.html',

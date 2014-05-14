@@ -66,6 +66,9 @@
             "link": {
                 "charity": "Learn more on dothiv.hiv"
             },
+            "policies": {
+                "link": "Our policies"
+            },
             "secondheadline1": "This is how it works",
             "secondheadline2": "Key advantages",
             "secondheadline3": "",
@@ -123,61 +126,83 @@
         },
         "nonprofit": {
             "bewerbung": {
-                "agbs": {
-                    "button": "",
-                    "headline": "Terms \u0026 Conditions",
-                    "klick": "",
-                    "link": "",
-                    "text": ""
-                },
                 "antrag": {
-                    "dropdown1": "",
-                    "field1": "",
-                    "field10": "",
-                    "field11": "",
-                    "field12": "",
-                    "field2": "",
-                    "field3": "",
-                    "field4": "",
-                    "field5": "",
-                    "field6": "",
-                    "field7": "",
-                    "field8": "",
-                    "field9": "",
+                    "about": "",
+                    "agbs": {
+                        "headline": "Terms \u0026 Conditions",
+                        "link": "",
+                        "text": ""
+                    },
+                    "contact": "",
+                    "country": "",
+                    "domain": "",
+                    "email": "",
+                    "fax": "",
                     "footnote": "",
                     "headline": "",
+                    "hiv": "",
+                    "location": "",
+                    "name": "",
+                    "phone": "",
+                    "position": "",
                     "secondheadline": "",
-                    "secondheadline2": "",
                     "secondheadline3": "",
-                    "secondheadline4": "",
-                    "upload1": ""
+                    "sector": {
+                        "label": "",
+                        "option1": "",
+                        "option2": "",
+                        "option3": "",
+                        "option4": "",
+                        "option5": "",
+                        "option6": "",
+                        "option7": "",
+                        "option8": "",
+                        "option9": ""
+                    },
+                    "street": "",
+                    "upload": "",
+                    "usage": "",
+                    "website": ""
                 },
+                "button": "",
                 "headline": "",
-                "link1": "",
+                "link": {
+                    "policies": ""
+                },
                 "secondheadline": "",
-                "text1": "",
-                "text2": ""
+                "terms": {
+                    "bullet1": "",
+                    "bullet2": "",
+                    "bullet3": "",
+                    "bullet4": "",
+                    "bullet5": "",
+                    "bullet6": "",
+                    "text1": "",
+                    "text2": "",
+                    "text3": "",
+                    "text4": ""
+                },
+                "text1": ""
             },
-            "button": "",
-            "dropdown": {
-                "what": "",
-                "who": ""
+            "expand1": {
+                "dropdown": "",
+                "expand": " .hiv non-profit Domain is non-profit in two ways: first and foremost, the Domain is exclusively awarded to non-profit Organizations whose focus point is HIV and AIDS. Moreover, the non-profit Domain is free for these Organizations- the cost of which is beared by dotHIV. The aim is to create a thematic network, through the Internet, of HIV and AIDS Intiatives.",
+                "text": "The .hiv non-profit Domain is non-profit in two ways: first and foremost, the Domain is exclusively awarded to non-profit Organizations whose focus point is HIV and AIDS. Moreover, the non-profit Domain is free for these Organizations- the cost of which is beared by dotHIV. The aim is to create a thematic network, through the Internet, of HIV and AIDS Intiatives."
+            },
+            "expand2": {
+                "dropdown": "",
+                "expand": "",
+                "text": ""
             },
             "headline": "",
             "headline4": "",
-            "secondheadline": {
-                "what": "",
-                "who": ""
-            },
+            "secondheadline1": "",
+            "secondheadline2": "",
             "table": {
                 "left": "",
                 "right": ""
             },
-            "text1a": "",
-            "text1b": "The .hiv non-profit Domain is non-profit in two ways: first and foremost, the Domain is exclusively awarded to non-profit Organizations whose focus point is HIV and AIDS. Moreover, the non-profit Domain is free for these Organizations- the cost of which is beared by dotHIV. The aim is to create a thematic network, through the Internet, of HIV and AIDS Intiatives.",
-            "text2": " .hiv non-profit Domain is non-profit in two ways: first and foremost, the Domain is exclusively awarded to non-profit Organizations whose focus point is HIV and AIDS. Moreover, the non-profit Domain is free for these Organizations- the cost of which is beared by dotHIV. The aim is to create a thematic network, through the Internet, of HIV and AIDS Intiatives.",
-            "text3": "",
-            "text4": "",
+            "text1": "",
             "text5": "Domain"
         },
         "policies": {
