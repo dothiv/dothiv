@@ -204,7 +204,7 @@
                 "right": ""
             },
             "text1": "",
-            "text4": "Domain"
+            "text4": ""
         },
         "policies": {
             "RA": {
@@ -283,6 +283,19 @@
             },
             "text1": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen."
         },
+        "register": {
+            "headline": "",
+            "secondheadline1": "",
+            "secondheadline2": "",
+            "table": {
+                "left": "",
+                "middle": "",
+                "right": ""
+            },
+            "text1": "",
+            "text2": "",
+            "text3": ""
+        },
         "registrars": {
             "button1": "Get your .hiv info Package.",
             "button2": "ORMS",
@@ -299,19 +312,6 @@
             "text1": "By offering the .hiv Top-Level Domain, registrars add a one of a kind domain product to their portfolio. Here, you can find key info on .hiv at a glance as well as more on on-boarding and cooperation.",
             "text2": "You want to offer the digital Red Ribbon to your clients? Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
             "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien."
-        },
-        "registrieren": {
-            "headline1": "",
-            "headline3": "",
-            "headline4": "",
-            "tabelle": {
-                "left": "",
-                "middle": "",
-                "right": ""
-            },
-            "text1": "",
-            "text3": "",
-            "text4": ""
         },
         "registry": {
             "headline1": "",

@@ -283,6 +283,19 @@
             },
             "text1": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen."
         },
+        "register": {
+            "headline": "Ihr Weg zur eigenen .hiv Domain",
+            "secondheadline1": "Was Sie bei der Registrierung beachten sollten",
+            "secondheadline2": "Hier können Sie ihre Domain registrieren",
+            "table": {
+                "left": "Registrar",
+                "middle": "Land",
+                "right": "Preis/Jahr"
+            },
+            "text1": "lorem ipsum",
+            "text2": "lorem ipsum",
+            "text3": "lorem ipsum"
+        },
         "registrars": {
             "button1": ".hiv Infopaket anfordern",
             "button2": "ORMS",
@@ -299,19 +312,6 @@
             "text1": "Mit der .hiv Top-Level Domain ergänzen Registrare ihr Portfolio um eine einzigartiges Domainprodukt. Hier lesen Sie die wichtigesten Infos zum .hiv-Vertrieb auf einen Blick und finden Informationen zum Thema On-Boarding und Zusammenarbeit.",
             "text2": "Sie wollen Ihren Kunden die digitale Rote Schleife anbieten? Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben.",
             "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien."
-        },
-        "registrieren": {
-            "headline1": "Ihr Weg zur eigenen .hiv Domain",
-            "headline3": "Was Sie bei der Registrierung beachten sollten",
-            "headline4": "Hier können Sie ihre Domain registrieren",
-            "tabelle": {
-                "left": "Registrar",
-                "middle": "Land",
-                "right": "Preis/Jahr"
-            },
-            "text1": "lorem ipsum",
-            "text3": "lorem ipsum",
-            "text4": "lorem ipsum"
         },
         "registry": {
             "headline1": "Organisation",

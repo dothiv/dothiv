@@ -283,6 +283,19 @@
             },
             "text1": "gmbh.policies.text1"
         },
+        "register": {
+            "headline": "gmbh.register.headline",
+            "secondheadline1": "gmbh.register.secondheadline1",
+            "secondheadline2": "gmbh.register.secondheadline2",
+            "table": {
+                "left": "gmbh.register.table.left",
+                "middle": "gmbh.register.table.middle",
+                "right": "gmbh.register.table.right"
+            },
+            "text1": "gmbh.register.text1",
+            "text2": "gmbh.register.text2",
+            "text3": "gmbh.register.text3"
+        },
         "registrars": {
             "button1": "gmbh.registrars.button1",
             "button2": "gmbh.registrars.button2",
@@ -299,19 +312,6 @@
             "text1": "gmbh.registrars.text1",
             "text2": "gmbh.registrars.text2",
             "text3": "gmbh.registrars.text3"
-        },
-        "registrieren": {
-            "headline1": "gmbh.registrieren.headline1",
-            "headline3": "gmbh.registrieren.headline3",
-            "headline4": "gmbh.registrieren.headline4",
-            "tabelle": {
-                "left": "gmbh.registrieren.tabelle.left",
-                "middle": "gmbh.registrieren.tabelle.middle",
-                "right": "gmbh.registrieren.tabelle.right"
-            },
-            "text1": "gmbh.registrieren.text1",
-            "text3": "gmbh.registrieren.text3",
-            "text4": "gmbh.registrieren.text4"
         },
         "registry": {
             "headline1": "gmbh.registry.headline1",
