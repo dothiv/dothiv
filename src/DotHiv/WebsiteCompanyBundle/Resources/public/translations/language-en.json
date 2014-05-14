@@ -1,11 +1,5 @@
 {
     "gmbh": {
-        "advantage": {
-            "left": "//Vorteile für alle Unternehmen",
-            "link": "Your .hiv domain - this way",
-            "middle": "Zielgruppengenaues Content-Marketing für ihr Firmenengagement im Feld HIV",
-            "right": "//Vorteile für Medizinunternehmen"
-        },
         "concepts": {
             "bsp1": {
                 "text": "",
@@ -20,19 +14,6 @@
             "button": "",
             "desc": "",
             "headline": ""
-        },
-        "digitale": {
-            "graphik": "Clickcounter-Graphik",
-            "headline1": "The idea behind the .hiv domain",
-            "headline2": "This is how it works",
-            "headline3": "Key advantages",
-            "headline4": "",
-            "link": "",
-            "link1": "Learn more on dothiv.hiv",
-            "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n",
-            "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-            "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.",
-            "text4": ""
         },
         "footer": {
             "city": "D-10179 Berlin ",
@@ -74,6 +55,25 @@
                 "title": ".hiv domain ticker"
             }
         },
+        "idea": {
+            "advantage": {
+                "left": "//Vorteile für alle Unternehmen",
+                "link": "Your .hiv domain - this way",
+                "middle": "Zielgruppengenaues Content-Marketing für ihr Firmenengagement im Feld HIV",
+                "right": "//Vorteile für Medizinunternehmen"
+            },
+            "headline": "The idea behind the .hiv domain",
+            "link": {
+                "charity": "Learn more on dothiv.hiv"
+            },
+            "secondheadline1": "This is how it works",
+            "secondheadline2": "Key advantages",
+            "secondheadline3": "",
+            "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n",
+            "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+            "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.",
+            "text4": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans."
+        },
         "kontakt": {
             "ausfuellen": {
                 "hivadresse": "",
@@ -89,7 +89,6 @@
             "text": ""
         },
         "launch": {
-            "graphic": "",
             "headline": "",
             "link": {
                 "policies": "",

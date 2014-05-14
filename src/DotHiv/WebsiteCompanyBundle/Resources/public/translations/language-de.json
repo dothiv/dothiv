@@ -1,11 +1,5 @@
 {
     "gmbh": {
-        "advantage": {
-            "left": "//Vorteile für alle Unternehmen",
-            "link": "Hier geht's zu Ihrer .hiv Domain",
-            "middle": "Zielgruppengenaues Content-Marketing für ihr Firmenengagement im Feld HIV",
-            "right": "//Vorteile für Medizinunternehmen"
-        },
         "concepts": {
             "bsp1": {
                 "text": "lorem ipsum",
@@ -20,19 +14,6 @@
             "button": "Neue Domain bestellen",
             "desc": "Das wünschen wir uns von best Practice Beispielen",
             "headline": "Best Practice"
-        },
-        "digitale": {
-            "graphik": "Clickcounter-Graphik",
-            "headline1": "Die Idee hinter der .hiv Adresse ",
-            "headline2": "So funktioniert's",
-            "headline3": "Ihre Vorteile",
-            "headline4": "Ziele des Namensraums",
-            "link": "Mehr dazu auf stop.hiv",
-            "link1": "Mehr erfahren auf dothiv.hiv",
-            "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n",
-            "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
-            "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.",
-            "text4": "lorem ipsum"
         },
         "footer": {
             "city": "10179 Berlin ",
@@ -74,6 +55,25 @@
                 "title": ".hiv Domainticker"
             }
         },
+        "idea": {
+            "advantage": {
+                "left": "//Vorteile für alle Unternehmen",
+                "link": "Hier geht's zu Ihrer .hiv Domain",
+                "middle": "Zielgruppengenaues Content-Marketing für ihr Firmenengagement im Feld HIV",
+                "right": "//Vorteile für Medizinunternehmen"
+            },
+            "headline": "Die Idee hinter der .hiv Adresse ",
+            "link": {
+                "charity": "Mehr erfahren auf dothiv.hiv"
+            },
+            "secondheadline1": "So funktioniert's",
+            "secondheadline2": "Ihre Vorteile",
+            "secondheadline3": "Ziele des Namensraums",
+            "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n",
+            "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
+            "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.",
+            "text4": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans."
+        },
         "kontakt": {
             "ausfuellen": {
                 "hivadresse": "Meine .hiv-Adresse",
@@ -89,7 +89,6 @@
             "text": "lorem ipsum"
         },
         "launch": {
-            "graphic": "//Graphik//",
             "headline": "Launch Plan",
             "link": {
                 "policies": "Launch Policies",

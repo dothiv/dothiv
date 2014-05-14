@@ -1,11 +1,5 @@
 {
     "gmbh": {
-        "advantage": {
-            "left": "gmbh.advantage.left",
-            "link": "gmbh.advantage.link",
-            "middle": "gmbh.advantage.middle",
-            "right": "gmbh.advantage.right"
-        },
         "concepts": {
             "bsp1": {
                 "text": "gmbh.concepts.bsp1.text",
@@ -20,19 +14,6 @@
             "button": "gmbh.concepts.button",
             "desc": "gmbh.concepts.desc",
             "headline": "gmbh.concepts.headline"
-        },
-        "digitale": {
-            "graphik": "gmbh.digitale.graphik",
-            "headline1": "gmbh.digitale.headline1",
-            "headline2": "gmbh.digitale.headline2",
-            "headline3": "gmbh.digitale.headline3",
-            "headline4": "gmbh.digitale.headline4",
-            "link": "gmbh.digitale.link",
-            "link1": "gmbh.digitale.link1",
-            "text1": "gmbh.digitale.text1",
-            "text2": "gmbh.digitale.text2",
-            "text3": "gmbh.digitale.text3",
-            "text4": "gmbh.digitale.text4"
         },
         "footer": {
             "city": "gmbh.footer.city",
@@ -74,6 +55,25 @@
                 "title": "gmbh.home.latest.title"
             }
         },
+        "idea": {
+            "advantage": {
+                "left": "gmbh.idea.advantage.left",
+                "link": "gmbh.idea.advantage.link",
+                "middle": "gmbh.idea.advantage.middle",
+                "right": "gmbh.idea.advantage.right"
+            },
+            "headline": "gmbh.idea.headline",
+            "link": {
+                "charity": "gmbh.idea.link.charity"
+            },
+            "secondheadline1": "gmbh.idea.secondheadline1",
+            "secondheadline2": "gmbh.idea.secondheadline2",
+            "secondheadline3": "gmbh.idea.secondheadline3",
+            "text1": "gmbh.idea.text1",
+            "text2": "gmbh.idea.text2",
+            "text3": "gmbh.idea.text3",
+            "text4": "gmbh.idea.text4"
+        },
         "kontakt": {
             "ausfuellen": {
                 "hivadresse": "gmbh.kontakt.ausfuellen.hivadresse",
@@ -89,7 +89,6 @@
             "text": "gmbh.kontakt.text"
         },
         "launch": {
-            "graphic": "gmbh.launch.graphic",
             "headline": "gmbh.launch.headline",
             "link": {
                 "policies": "gmbh.launch.link.policies",
