@@ -1,61 +1,53 @@
 @searchHeigth: 46px;
-.whois {
-    .headline { margin: 40px 0 8px; }
-    
-    * .box { 
-        background-color: @wellBackground;
-        margin-bottom: 11px;
+
+form.whois {
+  height: @searchHeigth;
+  margin-bottom: 41px;
+
+  input {
+    height: @searchHeigth;
+    width: 380px;
+    border: none;
+    padding: 0;
+    padding-left: 20px;
+    background-color: #eee;
+  }
+
+  button {
+    height: @searchHeigth;
+    width: 61px;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: @hivblue;
+
+    .glass {
+      height: @searchHeigth;
+      width: 21px;
+      background: url('/bundles/dothivwebsitecompany/images/glass.png') no-repeat 50% 50%;
+      margin: 0 auto;
+      display: inline-block;
     }
-    
-    * .row-fluid .span12 {
-        margin-left: 20px;
-        h4 { font-size: 26px; }
-        &.headline { margin: 40px 20px 2px; }
+    &:hover {
+      background-color: @colordark;
     }
-    
-    .search {
-        height: @searchHeigth;
-        margin-bottom: 41px;
-    
-        input {
-            height: 100%;      
-            width: 380px;
-            border: none;
-            padding: 0;
-            padding-left: 20px;
-        }
-        
-        button {
-            height: 100%;
-            width: 61px;
-            border: none;
-            padding: 0;
-            margin: 0;
-            background-color: @hivblue;
-            
-            .glass {
-                height: 23px;
-                width: 21px;
-                background-image: url('/bundles/dothivwebsitecompany/images/glass.png');
-                margin: 0 auto;
-            }
-            &:hover { background-color: @colordark; }
-        }
+  }
+}
+
+.content {
+  ul.domains {
+    margin-top: 15px;
+    margin-bottom: 36px;
+    li {
+      position: relative;
+      list-style-image: url('/bundles/dothivwebsitecompany/images/bluemouse.png');
+      margin-bottom: 5px;
+
+      a {
+        position: absolute;
+        bottom: 6px;
+        margin-left: 10px;
+      }
     }
-    ul {
-        margin-top: 15px;
-        margin-bottom: 36px;
-        
-        li { 
-            position: relative;
-            list-style-image: url('/bundles/dothivwebsitecompany/images/bluemouse.png');
-            margin-bottom: 5px;
-            
-            a { 
-                position: absolute;
-                bottom: 6px;
-                margin-left: 10px;
-            }   
-        }
-    }
+  }
 }
