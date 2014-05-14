@@ -312,33 +312,30 @@
             "text3": "lorem ipsum"
         },
         "stats": {
-            "button1": "Download beantragen",
-            "headline1": "Statistiken und Berichte",
-            "headline2": "IDN-Infos",
-            "headline3": "Zonefile Download",
-            "headline4": "Logos und Kommuniationsmaterial",
-            "link": "Download IDN Table",
-            "listbull": "Download Registrierungsreport 2014/1; \nDownload Registrierungsreport 2014/2",
+            "button": {
+                "idn": "Download IDN Table"
+            },
+            "headline": "Statistiken und Berichte",
+            "link": {
+                "czds": "Zonefile Download"
+            },
+            "listbull": "Download Registrierungsreport",
             "logos": {
                 "left": {
                     "link": "Download",
                     "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans"
-                },
-                "list1": {
-                    "left": "13.03.2014",
-                    "middle": "Pressemitteilung Vertragsunterschrift",
-                    "right": "Download"
-                },
-                "list2": {
-                    "left": "//Datum",
-                    "middle": "Pressemitteilung xxyy",
-                    "right": "Download"
                 },
                 "right": {
                     "link": "Download",
                     "text": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans"
                 }
             },
+            "pr": {
+                "download": "Pressemeldung herunterladen"
+            },
+            "secondheadline1": "IDN-Infos",
+            "secondheadline2": "Zonefile Download",
+            "secondheadline3": "Logos und Kommuniationsmaterial",
             "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
             "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
             "text3": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",

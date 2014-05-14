@@ -48,7 +48,7 @@
         },
         "header": {
             "back": "gmbh.header.back",
-            "config": "gmbh.header.config",
+            "domainconfig": "gmbh.header.domainconfig",
             "title": {
                 "line01": "gmbh.header.title.line01",
                 "line02": "gmbh.header.title.line02"
@@ -91,12 +91,14 @@
         "launch": {
             "graphic": "gmbh.launch.graphic",
             "headline": "gmbh.launch.headline",
+            "link": {
+                "policies": "gmbh.launch.link.policies",
+                "register": "gmbh.launch.link.register",
+                "registrars": "gmbh.launch.link.registrars"
+            },
             "text1": "gmbh.launch.text1",
             "text2": "gmbh.launch.text2"
         },
-        "launchurl1": "gmbh.launchurl1",
-        "launchurl2": "gmbh.launchurl2",
-        "launchurl3": "gmbh.launchurl3",
         "logo": {
             "alt": "gmbh.logo.alt"
         },
@@ -256,24 +258,22 @@
             },
             "text1": "gmbh.policies.text1"
         },
-        "registrar": {
-            "listnum1": "gmbh.registrar.listnum1",
-            "listnum2": "gmbh.registrar.listnum2",
-            "listnum3": "gmbh.registrar.listnum3",
-            "listnum4": "gmbh.registrar.listnum4",
-            "listnum5": "gmbh.registrar.listnum5"
-        },
         "registrars": {
             "button1": "gmbh.registrars.button1",
             "button2": "gmbh.registrars.button2",
             "field": "gmbh.registrars.field",
             "headline": "gmbh.registrars.headline",
             "link": "gmbh.registrars.link",
+            "listnum1": "gmbh.registrars.listnum1",
+            "listnum2": "gmbh.registrars.listnum2",
+            "listnum3": "gmbh.registrars.listnum3",
+            "listnum4": "gmbh.registrars.listnum4",
+            "listnum5": "gmbh.registrars.listnum5",
             "secondheadline1": "gmbh.registrars.secondheadline1",
             "secondheadline2": "gmbh.registrars.secondheadline2",
-            "text": "gmbh.registrars.text",
             "text1": "gmbh.registrars.text1",
-            "text2": "gmbh.registrars.text2"
+            "text2": "gmbh.registrars.text2",
+            "text3": "gmbh.registrars.text3"
         },
         "registrieren": {
             "headline1": "gmbh.registrieren.headline1",
@@ -312,33 +312,30 @@
             "text3": "gmbh.stakeholder.text3"
         },
         "stats": {
-            "button1": "gmbh.stats.button1",
-            "headline1": "gmbh.stats.headline1",
-            "headline2": "gmbh.stats.headline2",
-            "headline3": "gmbh.stats.headline3",
-            "headline4": "gmbh.stats.headline4",
-            "link": "gmbh.stats.link",
+            "button": {
+                "idn": "gmbh.stats.button.idn"
+            },
+            "headline": "gmbh.stats.headline",
+            "link": {
+                "czds": "gmbh.stats.link.czds"
+            },
             "listbull": "gmbh.stats.listbull",
             "logos": {
                 "left": {
                     "link": "gmbh.stats.logos.left.link",
                     "text": "gmbh.stats.logos.left.text"
                 },
-                "list1": {
-                    "left": "gmbh.stats.logos.list1.left",
-                    "middle": "gmbh.stats.logos.list1.middle",
-                    "right": "gmbh.stats.logos.list1.right"
-                },
-                "list2": {
-                    "left": "gmbh.stats.logos.list2.left",
-                    "middle": "gmbh.stats.logos.list2.middle",
-                    "right": "gmbh.stats.logos.list2.right"
-                },
                 "right": {
                     "link": "gmbh.stats.logos.right.link",
                     "text": "gmbh.stats.logos.right.text"
                 }
             },
+            "pr": {
+                "download": "gmbh.stats.pr.download"
+            },
+            "secondheadline1": "gmbh.stats.secondheadline1",
+            "secondheadline2": "gmbh.stats.secondheadline2",
+            "secondheadline3": "gmbh.stats.secondheadline3",
             "text1": "gmbh.stats.text1",
             "text2": "gmbh.stats.text2",
             "text3": "gmbh.stats.text3",
@@ -359,11 +356,6 @@
             "field": "gmbh.whois.field",
             "headline": "gmbh.whois.headline",
             "latest": "gmbh.whois.latest",
-            "link1": "gmbh.whois.link1",
-            "link2": "gmbh.whois.link2",
-            "link3": "gmbh.whois.link3",
-            "link4": "gmbh.whois.link4",
-            "link5": "gmbh.whois.link5",
             "text1": "gmbh.whois.text1",
             "text2": "gmbh.whois.text2"
         }

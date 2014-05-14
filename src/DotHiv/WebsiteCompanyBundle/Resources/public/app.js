@@ -44,6 +44,14 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
                 url: '/registrars',
                 templateUrl: '/bundles/dothivwebsitecompany/templates/registrars.html'
             })
+            .state('registrars-list', {
+                url: '/registrars/list',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/registrars-list.html'
+            })
+            .state('stats', {
+                url: '/stats',
+                templateUrl: '/bundles/dothivwebsitecompany/templates/stats.html'
+            })
             .state('whois', {
                     url: '/whois',
                     templateUrl: '/bundles/dothivwebsitecompany/templates/whois.html',
