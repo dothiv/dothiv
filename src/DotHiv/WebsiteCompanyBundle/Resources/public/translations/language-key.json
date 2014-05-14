@@ -368,10 +368,10 @@
             "text3": "gmbh.stats.text3",
             "text4": "gmbh.stats.text4"
         },
-        "support": {
-            "button": "gmbh.support.button",
-            "headline": "gmbh.support.headline",
-            "text": "gmbh.support.text"
+        "supportus": {
+            "button": "gmbh.supportus.button",
+            "headline": "gmbh.supportus.headline",
+            "text": "gmbh.supportus.text"
         },
         "team": {
             "headline1": "gmbh.team.headline1",
