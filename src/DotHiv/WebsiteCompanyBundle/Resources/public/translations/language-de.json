@@ -48,7 +48,7 @@
         },
         "header": {
             "back": "Zur dotHIV Initiative",
-            "config": "Ihre .hiv Domain konfigurieren",
+            "domainconfig": "Ihre .hiv Domain konfigurieren",
             "title": {
                 "line01": "TLD dotHIV",
                 "line02": "Registry GmbH"

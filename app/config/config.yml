@@ -26,8 +26,8 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        charitydomain: %charitydomain%
-        companydomain: %companydomain%
+        charitydomain: http://%charitydomain%
+        companydomain: http://%companydomain%
 
 # Assetic Configuration
 assetic:
