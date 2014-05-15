@@ -54,12 +54,12 @@
                     <div class="pos-rel">
                         <div class="overflow-up">
                             <div class="span2 hiv-logo">
-                                <a href="#!/" class="crawlme"><img src="{{ asset("bundles/dothivwebsitecharity/images/dotHiv-logo.png") }}"></a>
+                                <a href="/" rel="index" class="crawlme"><img src="{{ asset("bundles/dothivwebsitecharity/images/dotHiv-logo.png") }}"></a>
                             </div>
                             <div class="span7 menubar">
-                                <div class="barmenu first"><a class="crawlme" href="#!"><h4>[[ 'header.bar.project' | translate ]]</h4></a></div>
-                                <div class="barmenu secound"><a class="crawlme" href="#!/about/mission"><h4 ng-class="{ active: state.includes('about') }">[[ 'header.bar.aboutHIV' | translate ]]</h4></a></div>
-                                <div class="barmenu third"><a class="crawlme" href="#!"><h4>[[ 'header.bar.registerurl' | translate ]]</h4></a></div>
+                                <div class="barmenu first"><a class="crawlme" href="#!/projects"><h4 translate="header.bar.project"></h4></a></div>
+                                <div class="barmenu secound"><a class="crawlme" href="#!/about/mission"><h4 ng-class="{ active: state.includes('about') }" translate="header.bar.aboutHIV"></h4></a></div>
+                                <div class="barmenu third"><a class="crawlme" href="{{ companydomain }}/register"><h4 translate="header.bar.registerurl"></h4></a></div>
                             </div>
                         </div>
                     </div>
