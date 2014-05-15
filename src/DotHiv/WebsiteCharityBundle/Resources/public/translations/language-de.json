@@ -1084,20 +1084,18 @@
         "adress": {
             "city": "10245 Berlin ",
             "name": "dothiv gemeinnütziger e.V.",
-            "phone": "0049 (0)30 91564707",
+            "phone": "0 30 91 56 47 07",
             "street": "Lehmbruckstraße 3"
         },
         "navi": {
             "contact": "Kontakt",
             "forum": "Forum",
             "help": "Hilfe",
-            "impressum": "Impressum",
-            "privacy": "Datenschutz",
-            "terms": "Nutzungsbedingungen/Datenschutz"
+            "imprint": "Impressum/Nutzungsbedingungen/Datenschutz"
         },
+        "slogan": "The Red Ribbon of the digital age",
         "social": {
             "facebook": "Facebook",
-            "pinterest": "Pinterest",
             "twitter": "Twitter"
         }
     },
@@ -1108,6 +1106,7 @@
             "registerurl": "Domain registrieren"
         },
         "menu": {
+            "login": "Anmelden",
             "reportabuse": "Etwas melden"
         },
         "pinkbar": {

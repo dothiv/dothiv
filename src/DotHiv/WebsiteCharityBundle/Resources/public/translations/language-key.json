@@ -1091,13 +1091,11 @@
             "contact": "footer.navi.contact",
             "forum": "footer.navi.forum",
             "help": "footer.navi.help",
-            "impressum": "footer.navi.impressum",
-            "privacy": "footer.navi.privacy",
-            "terms": "footer.navi.terms"
+            "imprint": "footer.navi.imprint"
         },
+        "slogan": "footer.slogan",
         "social": {
             "facebook": "footer.social.facebook",
-            "pinterest": "footer.social.pinterest",
             "twitter": "footer.social.twitter"
         }
     },
@@ -1108,6 +1106,7 @@
             "registerurl": "header.bar.registerurl"
         },
         "menu": {
+            "login": "header.menu.login",
             "reportabuse": "header.menu.reportabuse"
         },
         "pinkbar": {

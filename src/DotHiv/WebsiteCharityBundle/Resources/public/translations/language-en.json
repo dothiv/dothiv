@@ -1082,22 +1082,20 @@
     },
     "footer": {
         "adress": {
-            "city": "10245 Berlin ",
+            "city": "D-10245 Berlin",
             "name": "dotHIV geimeinnütziger e.V.",
-            "phone": "0049 (0)30 91564707",
+            "phone": "+49 30 91 56 47 07",
             "street": "Lehmbruckstraße 3"
         },
         "navi": {
             "contact": "Contact",
             "forum": "Forum",
             "help": "Help",
-            "impressum": "Impressum",
-            "privacy": "Privacy policy",
-            "terms": "Terms of Use/Privacy policy"
+            "imprint": "Imprint/Terms of Use/Privacy policy"
         },
+        "slogan": "The Red Ribbon of the digital age",
         "social": {
             "facebook": "Facebook",
-            "pinterest": "Pinterest",
             "twitter": "Twitter"
         }
     },
@@ -1108,6 +1106,7 @@
             "registerurl": "Register Domain"
         },
         "menu": {
+            "login": "Login",
             "reportabuse": "Report something"
         },
         "pinkbar": {
