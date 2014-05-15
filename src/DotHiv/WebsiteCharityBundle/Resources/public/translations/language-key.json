@@ -1201,6 +1201,7 @@
         "who": {
             "headline": "home.who.headline",
             "howto": "home.who.howto",
+            "knowmore": "home.who.knowmore",
             "text": "home.who.text",
             "votefor": "home.who.votefor",
             "yourpage": "home.who.yourpage"
