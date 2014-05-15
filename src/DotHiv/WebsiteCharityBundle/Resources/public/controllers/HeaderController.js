@@ -48,6 +48,10 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
 
         $scope.showfunding = false;
 
+        $scope.toggle = function() {
+            $scope.showfunding = !$scope.showfunding;
+        }
+
         $scope.$on('localeInitialized', function() {
             $scope.finishedbooting = true;
         });

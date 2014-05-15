@@ -95,9 +95,10 @@ angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope',
                              'text': 'Erstma schön nen pull-Request machen...',
                              'person': 'Komplize M'
                          }
-                     ]
-                
-                
-    
+                     ];
+
+        $scope.toggleHeader = function() {
+            angular.element(document.getElementById('header')).scope().toggle();
+        }
     }
 ]);
