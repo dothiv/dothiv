@@ -10,10 +10,10 @@ angular.module('dotHIVApp.controllers').controller('AboutController', ['$scope',
         $scope.menu = [
             { name: 'mission', menu: [ 'goals', 'contribution', 'AIDS' ] },
             { name: 'aboutHIV', menu: [ 'manifesto', 'concept', 'usage', 'moneyusage', 'history', 'quotes' ] },
-            { name: 'fororg', menu: [ 'apply', 'guidelines', 'expertpool' ] },
-            { name: 'whoisbehind', menu: [ 'team', 'partnersupporter', 'policyca', 'board', 'heavystuff' ] },
+            { name: 'fororg', menu: [ 'charitydomain', 'guidelines', 'expertpool' ] },
+            { name: 'whoisbehind', menu: [ 'team', 'partnersupporter', 'board', 'heavystuff' ] },
             { name: 'getactive', menu: [ 'jobs', 'help' ] },
-            { name: 'newsstream', menu: [ 'socialmedia' ] },
+            { name: 'newsstream', menu: [ 'news', 'inthenews', 'socialmedia' ] },
             { name: 'registry', menu: [] },
         ];
 
