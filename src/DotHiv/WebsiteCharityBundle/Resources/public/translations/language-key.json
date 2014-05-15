@@ -1107,6 +1107,8 @@
         },
         "menu": {
             "login": "header.menu.login",
+            "logout": "header.menu.logout",
+            "myprofile": "header.menu.myprofile",
             "reportabuse": "header.menu.reportabuse"
         },
         "pinkbar": {
@@ -1208,39 +1210,43 @@
         }
     },
     "login": {
-        "adress": {
-            "email": "login.adress.email",
-            "passwort": "login.adress.passwort"
-        },
-        "button": "login.button",
-        "facebook": {
-            "link": "login.facebook.link"
-        },
-        "google": {
-            "link": "login.google.link"
-        },
-        "headline": "login.headline",
-        "link": "login.link",
-        "registartion": {
-            "headline": "login.registartion.headline"
-        },
-        "registation": {
-            "button": "login.registation.button"
-        },
-        "registration": {
-            "adress": {
-                "password": "login.registration.adress.password",
-                "reenter": "login.registration.adress.reenter"
+        "form": {
+            "password": {
+                "label": "login.form.password.label",
+                "placeholder": "login.form.password.placeholder",
+                "tooltip": {
+                    "default": "login.form.password.tooltip.default",
+                    "invalid": {
+                        "required": "login.form.password.tooltip.invalid.required"
+                    }
+                }
             },
-            "privacypolicy": "login.registration.privacypolicy",
-            "text": "login.registration.text"
-        },
-        "socialmedia": {
-            "headline": "login.socialmedia.headline"
-        },
-        "text": "login.text",
-        "twitter": {
-            "link": "login.twitter.link"
+            "passwordrecovery": "login.form.passwordrecovery",
+            "submit": "login.form.submit",
+            "text": "login.form.text",
+            "thirdparty": {
+                "facebook": {
+                    "button": "login.form.thirdparty.facebook.button"
+                },
+                "google": {
+                    "button": "login.form.thirdparty.google.button"
+                },
+                "title": "login.form.thirdparty.title",
+                "twitter": {
+                    "button": "login.form.thirdparty.twitter.button"
+                }
+            },
+            "title": "login.form.title",
+            "username": {
+                "label": "login.form.username.label",
+                "placeholder": "login.form.username.placeholder",
+                "tooltip": {
+                    "default": "login.form.username.tooltip.default",
+                    "invalid": {
+                        "required": "login.form.username.tooltip.invalid.required"
+                    }
+                }
+            }
         }
     },
     "pofil": {
@@ -1299,6 +1305,7 @@
                 "button": "profile.domain.success.button"
             }
         },
+        "greeting": "profile.greeting",
         "overview": {
             "comments": {
                 "headline": "profile.overview.comments.headline",
@@ -1631,6 +1638,64 @@
                     "button": "project.einstellung.infos.next.button"
                 }
             }
+        }
+    },
+    "registration": {
+        "form": {
+            "agreement": "registration.form.agreement",
+            "email": {
+                "label": "registration.form.email.label",
+                "placeholder": "registration.form.email.placeholder",
+                "tooltip": {
+                    "default": "registration.form.email.tooltip.default",
+                    "invalid": {
+                        "required": "registration.form.email.tooltip.invalid.required"
+                    }
+                }
+            },
+            "name": {
+                "label": "registration.form.name.label",
+                "placeholder": "registration.form.name.placeholder",
+                "tooltip": {
+                    "default": "registration.form.name.tooltip.default",
+                    "invalid": {
+                        "required": "registration.form.name.tooltip.invalid.required"
+                    }
+                }
+            },
+            "password": {
+                "label": "registration.form.password.label",
+                "placeholder": "registration.form.password.placeholder",
+                "tooltip": {
+                    "default": "registration.form.password.tooltip.default",
+                    "invalid": {
+                        "required": "registration.form.password.tooltip.invalid.required"
+                    }
+                }
+            },
+            "passwordrepeat": {
+                "label": "registration.form.passwordrepeat.label",
+                "placeholder": "registration.form.passwordrepeat.placeholder",
+                "tooltip": {
+                    "default": "registration.form.passwordrepeat.tooltip.default",
+                    "invalid": {
+                        "required": "registration.form.passwordrepeat.tooltip.invalid.required"
+                    }
+                }
+            },
+            "submit": "registration.form.submit",
+            "surname": {
+                "label": "registration.form.surname.label",
+                "placeholder": "registration.form.surname.placeholder",
+                "tooltip": {
+                    "default": "registration.form.surname.tooltip.default",
+                    "invalid": {
+                        "required": "registration.form.surname.tooltip.invalid.required"
+                    }
+                }
+            },
+            "text": "registration.form.text",
+            "title": "registration.form.title"
         }
     }
 }

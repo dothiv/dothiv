@@ -1107,6 +1107,8 @@
         },
         "menu": {
             "login": "Anmelden",
+            "logout": "Abmelden",
+            "myprofile": "Mein Profil",
             "reportabuse": "Etwas melden"
         },
         "pinkbar": {
@@ -1208,39 +1210,43 @@
         }
     },
     "login": {
-        "adress": {
-            "email": "E-mail",
-            "passwort": "Passwort"
-        },
-        "button": "Log in",
-        "facebook": {
-            "link": "Facebook connect\n"
-        },
-        "google": {
-            "link": "Google connect"
-        },
-        "headline": "Log in",
-        "link": "Passwort veregssen?",
-        "registartion": {
-            "headline": "Anmeldung"
-        },
-        "registation": {
-            "button": "Jetzt Registrieren"
-        },
-        "registration": {
-            "adress": {
-                "password": "Passwort*",
-                "reenter": "Passwort erneut eingeben*"
+        "form": {
+            "password": {
+                "label": "Passwort",
+                "placeholder": "Passwort",
+                "tooltip": {
+                    "default": "Bitte gib dein Passwort an",
+                    "invalid": {
+                        "required": "Du musst dein Passwort angeben"
+                    }
+                }
             },
-            "privacypolicy": "Mit deiner Unterschrift stimmst du den dotHIV terms of use und unserer privacy policy zu",
-            "text": "Neu bei dotHIV? Lege hier deinen eigenen Account an"
-        },
-        "socialmedia": {
-            "headline": "Log in mit..."
-        },
-        "text": "Bitte log dich ein",
-        "twitter": {
-            "link": "Twitter connect"
+            "passwordrecovery": "Passwort veregssen?",
+            "submit": "Log in",
+            "text": "Bitte log dich ein",
+            "thirdparty": {
+                "facebook": {
+                    "button": "Facebook connect\n"
+                },
+                "google": {
+                    "button": "Google connect"
+                },
+                "title": "Log in mit...",
+                "twitter": {
+                    "button": "Twitter connect"
+                }
+            },
+            "title": "Log in",
+            "username": {
+                "label": "E-mail",
+                "placeholder": "meike@mustermann.hiv",
+                "tooltip": {
+                    "default": "Bitte gib deine E-Mail-Adresse an",
+                    "invalid": {
+                        "required": "Du musst deine E-Mail-Adresse angeben"
+                    }
+                }
+            }
         }
     },
     "pofil": {
@@ -1299,6 +1305,7 @@
                 "button": "Jetzt Domain einrichten"
             }
         },
+        "greeting": "Hallo",
         "overview": {
             "comments": {
                 "headline": "Abgegeben Kommentare ",
@@ -1631,6 +1638,64 @@
                     "button": "Nächster Schritt"
                 }
             }
+        }
+    },
+    "registration": {
+        "form": {
+            "agreement": "Mit deiner Unterschrift stimmst du den dotHIV terms of use und unserer privacy policy zu",
+            "email": {
+                "label": "E-Mail",
+                "placeholder": "meike@mustermann.hiv",
+                "tooltip": {
+                    "default": "Bitte gib deine E-Mail-Adresse an",
+                    "invalid": {
+                        "required": "Du musst uns deine E-Mail-Adresse nennen"
+                    }
+                }
+            },
+            "name": {
+                "label": "Nachname",
+                "placeholder": "Meike",
+                "tooltip": {
+                    "default": "Bitte gib deinen Vornamen an",
+                    "invalid": {
+                        "required": "Du musst uns deinen Vornamen nennen"
+                    }
+                }
+            },
+            "password": {
+                "label": "Passwort*",
+                "placeholder": "Passwort",
+                "tooltip": {
+                    "default": "Bitte wähle ein Passwort",
+                    "invalid": {
+                        "required": "Du musst ein Passwort wählen"
+                    }
+                }
+            },
+            "passwordrepeat": {
+                "label": "Passwort erneut eingeben*",
+                "placeholder": "Passwort wiederholen",
+                "tooltip": {
+                    "default": "Bitte wiederhole das Passwort",
+                    "invalid": {
+                        "required": "Du musst das Passwort wiederholen"
+                    }
+                }
+            },
+            "submit": "Jetzt Registrieren",
+            "surname": {
+                "label": "Vorname",
+                "placeholder": "Mustermann",
+                "tooltip": {
+                    "default": "Bitte gib deinen Nachnamen an",
+                    "invalid": {
+                        "required": "Du musst uns deinen Nachnamen nenne"
+                    }
+                }
+            },
+            "text": "Neu bei dotHIV? Lege hier deinen eigenen Account an",
+            "title": "Anmeldung"
         }
     }
 }

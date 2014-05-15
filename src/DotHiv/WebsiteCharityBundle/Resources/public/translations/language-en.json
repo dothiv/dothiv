@@ -1107,6 +1107,8 @@
         },
         "menu": {
             "login": "Login",
+            "logout": "Logout",
+            "myprofile": "My Profile",
             "reportabuse": "Report something"
         },
         "pinkbar": {
@@ -1208,39 +1210,43 @@
         }
     },
     "login": {
-        "adress": {
-            "email": "E-mail",
-            "passwort": "Password"
-        },
-        "button": "Login",
-        "facebook": {
-            "link": "Facebook connect"
-        },
-        "google": {
-            "link": "Google connect"
-        },
-        "headline": "Log in",
-        "link": "Forgotten your password?",
-        "registartion": {
-            "headline": "New? Create Account"
-        },
-        "registation": {
-            "button": "Register now"
-        },
-        "registration": {
-            "adress": {
-                "password": "Password",
-                "reenter": "Re-enter Password*"
+        "form": {
+            "password": {
+                "label": "Password",
+                "placeholder": "Password",
+                "tooltip": {
+                    "default": "Please enter your password",
+                    "invalid": {
+                        "required": "You have to provide your password"
+                    }
+                }
             },
-            "privacypolicy": "By signing up you agree to our terms of use and privacy policy ",
-            "text": "Password*"
-        },
-        "socialmedia": {
-            "headline": "Log in with"
-        },
-        "text": "Pleas log in to continue ",
-        "twitter": {
-            "link": "Twitter connect"
+            "passwordrecovery": "Forgotten your password?",
+            "submit": "Login",
+            "text": "Pleas log in to continue ",
+            "thirdparty": {
+                "facebook": {
+                    "button": "Facebook connect"
+                },
+                "google": {
+                    "button": "Google connect"
+                },
+                "title": "Log in with",
+                "twitter": {
+                    "button": "Twitter connect"
+                }
+            },
+            "title": "Log in",
+            "username": {
+                "label": "Email",
+                "placeholder": "jane@doe.hiv",
+                "tooltip": {
+                    "default": "Please enter your email address",
+                    "invalid": {
+                        "required": "You have to enter your email address"
+                    }
+                }
+            }
         }
     },
     "pofil": {
@@ -1299,6 +1305,7 @@
                 "button": "Set up now"
             }
         },
+        "greeting": "Hello",
         "overview": {
             "comments": {
                 "headline": "Posted Comments",
@@ -1631,6 +1638,64 @@
                     "button": "Next"
                 }
             }
+        }
+    },
+    "registration": {
+        "form": {
+            "agreement": "By signing up you agree to our terms of use and privacy policy ",
+            "email": {
+                "label": "E-mail",
+                "placeholder": "jane@doe.hiv",
+                "tooltip": {
+                    "default": "Please provide your email address",
+                    "invalid": {
+                        "required": "You have to provide your email address"
+                    }
+                }
+            },
+            "name": {
+                "label": "Last name",
+                "placeholder": "Jane",
+                "tooltip": {
+                    "default": "Please provide your first name",
+                    "invalid": {
+                        "required": "You have to provide your first name"
+                    }
+                }
+            },
+            "password": {
+                "label": "Password",
+                "placeholder": "Password",
+                "tooltip": {
+                    "default": "Please pick a password",
+                    "invalid": {
+                        "required": "You have to pick a password"
+                    }
+                }
+            },
+            "passwordrepeat": {
+                "label": "Re-enter Password*",
+                "placeholder": "Repeat password",
+                "tooltip": {
+                    "default": "Please repeat your password",
+                    "invalid": {
+                        "required": "You have to repeat your password"
+                    }
+                }
+            },
+            "submit": "Register now",
+            "surname": {
+                "label": "First name",
+                "placeholder": "Doe",
+                "tooltip": {
+                    "default": "Please provide your last name",
+                    "invalid": {
+                        "required": "You have to provide your last name"
+                    }
+                }
+            },
+            "text": "Password*",
+            "title": "New? Create Account"
         }
     }
 }
