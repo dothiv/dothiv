@@ -18,17 +18,6 @@
                     </div>
                     <div class="lower"><p class="running-text" translate="home.about.oneclick.text"></p></div>
                 </div>
-                <!-- <div class="span4">
-                    <div class="upper">
-                        <h3 class="oneup hivblue-text">[[ 'home.about.voteheadline' | translate ]]</h3>
-                        <div class="image-container arrow">
-                            <div class="text">
-                                [[ 'home.about.arrowtext' | translate ]]
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lower"><p class="running-text">[[ 'home.about.vote' | translate ]] baba baba babab baba baba babab baba baba babab baba baba babab baba baba babab baba baba babab baba baba babab baba baba babab baba baba babab </p></div>
-                </div> -->
                 <div class="span6">
                     <div class="upper">
                         <h3 class="oneup colordark-text" translate="home.about.share.headline"></h3>
@@ -39,7 +28,6 @@
             </div>
             <div class="row colorfooter-container">
                 <div class="colorfooter6 color-pink medium-height"></div>
-                <!-- <div class="colorfooter4 color-blue medium-height"></div> -->
                 <div class="colorfooter6 color-dark medium-height colorfooter-last-dark"></div>
             </div>
         </div>
@@ -54,20 +42,18 @@
             <h5 class="pink-text">[[ 'home.who.headline' | translate ]]</h5>
             <p class="running-text">
                 [[ 'home.who.text' | translate ]] 
-                <a class="bold-text" href="#!">[[ 'home.who.knowmore' | translate ]]</a>
+                <a class="bold-text" href="#!/about/mission" translate="home.who.knowmore"></a>
             </p>
             <div class="colorfooter6 color-pink small-height"></div>
-            <!-- <h5><a href="#!/">[[ 'home.who.votefor' | translate ]]</a></h5>
-            <div class="colorfooter6 color-dark xsmall-height"></div> -->
-            <h5><a href="#!/">[[ 'home.who.yourpage' | translate ]]</a></h5>
+            <h5><a href="{{ companydomain }}/register">[[ 'home.who.yourpage' | translate ]]</a></h5>
             <div class="colorfooter6 color-dark xsmall-height"></div>
-            <h5><a href="#!/">[[ 'home.who.howto' | translate ]]</a></h5>
+            <h5><a href="#!/about/fororg">[[ 'home.who.howto' | translate ]]</a></h5>
             <div class="colorfooter6 color-dark xsmall-height"></div>
         </div>
     </div>
     <div class="row bottom-hack">
         <div class="pos-rel">
-            <img class="overflow-up" src="/bundles/dothivwebsitecharity/images/whosbehind.png"></img>
+            <img class="overflow-up" src="/bundles/dothivwebsitecharity/images/whosbehind.png">
         </div>
     </div>
 </div>
@@ -78,7 +64,7 @@
     <div class="row">
         <div class="span12">
             <h3 class="hivblue-text pull-left">[[ 'home.vote.headline' | translate ]]</h3>
-            <a class="next2h3 pull-left" href="#!/">
+            <a class="next2h3 pull-left" href="#!/projects">
                 <div class="heading-arrow"></div>
                 [[ 'home.vote.allprojects' | translate ]]
             </a>
@@ -95,7 +81,7 @@
         <div class="row projects-container">
 
             <div class="span4" ng-repeat="pro in (projects | carousel: projectOffset | limitTo: 3)">
-                <img ng-src="[[ pro.pictureurl ]]"></img>
+                <img ng-src="[[ pro.pictureurl ]]">
                 <!-- <span class="colordark-text running-text">[[ pro.votes ]] Votes | Rangliste Platz [[ pro.place ]]</span> -->
                 <div class="separator4 color-dark small-height"></div>
                 <div class="ellip">
@@ -118,7 +104,7 @@
     <div class="row headline">
         <div class="span12">
             <h3 class="pink-text pull-left">[[ 'home.firms.headline' | translate ]]</h3>
-            <a class="next2h3 pull-left" href="#!/">
+            <a class="next2h3 pull-left" href="#!/about/whoisbehind#partnersupporter">
                 <div class="heading-arrow"></div>
                 [[ 'home.firms.allfirms' | translate ]]
             </a>
@@ -131,7 +117,7 @@
     <div class="row">
         <div class="span2" ng-repeat="f in (firms | carousel: firmOffset | limitTo: 6)">
             <a ng-href="[[ f.url ]]">
-                <img ng-src="[[ f.img ]]"></img>
+                <img ng-src="[[ f.img ]]">
             </a>
         </div>
     </div>
@@ -143,12 +129,12 @@
     <div class="row">
         <div class="span12">
             <h3 class="colordark-text pull-left">[[ 'home.quotes.headline' | translate ]]</h3>
-            <a class="next2h3 pull-left" href="#!/">
+            <a class="next2h3 pull-left" href="#!/voices">
                 <div class="heading-arrow"></div>
                 [[ 'home.quotes.allquotes' | translate ]]
             </a>
             <div class="pos-rel pull-left">
-                <img class="quote-bubbles" src="/bundles/dothivwebsitecharity/images/quote-bubbles.png"></img>
+                <img class="quote-bubbles" src="/bundles/dothivwebsitecharity/images/quote-bubbles.png">
             </div>
             <div class="next2h3 pull-right">
                 <button class="scroll" ng-click="quoteOffset = quoteOffset+1"><i class="icon-tick-left"></i></button>
@@ -177,36 +163,36 @@
     <div class="row">
         <div class="span2">
             <a href="#!/">
-                <img src="/bundles/dothivwebsitecharity/images/partners/liga01.jpg"></img>
+                <img src="/bundles/dothivwebsitecharity/images/partners/liga01.jpg">
             </a>
         </div>
         <div class="span2">
             <a href="#!/">
-                <img src="/bundles/dothivwebsitecharity/images/partners/jovoto.jpg"></img>
+                <img src="/bundles/dothivwebsitecharity/images/partners/jovoto.jpg">
             </a>
         </div>
         <div class="span2">
             <a href="#!/">
-                <img src="/bundles/dothivwebsitecharity/images/partners/github.jpg"></img>
+                <img src="/bundles/dothivwebsitecharity/images/partners/github.jpg">
             </a>
         </div>
         <div class="span2">
             <a href="#!/">
-                <img src="/bundles/dothivwebsitecharity/images/partners/github.jpg"></img>
+                <img src="/bundles/dothivwebsitecharity/images/partners/github.jpg">
             </a>
         </div>
         <div class="span2">
             <a href="#!/">
-                <img src="/bundles/dothivwebsitecharity/images/partners/swipe.jpg"></img>
+                <img src="/bundles/dothivwebsitecharity/images/partners/swipe.jpg">
             </a>
         </div>
         <div class="span2">
             <a href="#!/">
-                <img src="/bundles/dothivwebsitecharity/images/firms/liga01.jpg"></img>
+                <img src="/bundles/dothivwebsitecharity/images/firms/liga01.jpg">
             </a>
         </div>
     </div>
     <div class="pull-right couple">
-        <img src="/bundles/dothivwebsitecharity/images/partners.png"></img>
+        <img src="/bundles/dothivwebsitecharity/images/partners.png">
     </div>
 </div>
