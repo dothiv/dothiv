@@ -1,6 +1,8 @@
 dothiv
 ======
 
+[![Code Climate](https://codeclimate.com/github/dothiv/dothiv.png)](https://codeclimate.com/github/dothiv/dothiv)
+
 What is this?
 -------------
 
