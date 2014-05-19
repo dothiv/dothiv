@@ -12,7 +12,7 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
-    locale:            en_US
+    locale:            en
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
 
     charitydomain:     localhost

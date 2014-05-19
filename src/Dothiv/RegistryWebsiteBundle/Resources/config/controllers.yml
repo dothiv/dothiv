@@ -1,0 +1,5 @@
+services:
+    dothiv.registry.web.controller.page:
+        class: Dothiv\RegistryWebsiteBundle\Controller\PageController
+        arguments:
+          - @templating

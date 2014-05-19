@@ -44,8 +44,8 @@
             "back": "The dotHIV Initiative",
             "domainconfig": "Configer your .hiv domain",
             "title": {
-                "line01": "TLD dotHIV",
-                "line02": "Registry GmbH"
+                "line01": "dotHIV",
+                "line02": "Registry"
             }
         },
         "home": {
@@ -56,7 +56,7 @@
             },
             "charity": {
                 "all": "Get your free non-profit domain",
-                "headline": "Non-profit Domains for the HIV response"
+                "headline": "Non-profit domains for the HIV response"
             },
             "companies": {
                 "all": "Show more",
@@ -75,7 +75,7 @@
                 "middle": "Zielgruppengenaues Content-Marketing für ihr Firmenengagement im Feld HIV",
                 "right": "//Vorteile für Medizinunternehmen"
             },
-            "headline": "The idea behind the .hiv domain",
+            "headline": "The idea behind .hiv domain names",
             "link": {
                 "charity": "Learn more on dothiv.hiv"
             },
@@ -111,14 +111,14 @@
             "website": "https://nic.hiv/"
         },
         "launch": {
-            "headline": "",
+            "headline": "Launch Plan",
             "link": {
-                "policies": "",
-                "register": "",
-                "registrars": ""
+                "policies": "Launch Policies",
+                "register": "Get your .hiv domain now!",
+                "registrars": "Become a .hiv Registrar"
             },
             "text1": "In 2008 ICANN introduced a new generation of Top-Level Domains- just over 6 years later, the realisation of the digital red ribbon is a fact. Here is a summary of our final steps until the Go-Live. Further behind,",
-            "text2": ""
+            "text2": "Darunter folgt weiterer erklärender Text. Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben."
         },
         "logo": {
             "alt": ".hiv"
@@ -131,7 +131,7 @@
             "forcompanies": "Your .hiv domain",
             "icann": "A member of the global Internet Community",
             "launch": "Launch Plan",
-            "main": "The .hiv Top-Level Domain",
+            "main": "The .hiv TLD",
             "ourregistry": "Our Registry",
             "policies": "TLD Policies",
             "redribbon": "The digital Red Ribbon",
@@ -141,7 +141,7 @@
             "stats": "Stats \u0026 Downloads",
             "supportus": "Support dotHIV now!",
             "team": "Team and Jobs",
-            "whois": "Whois/ Domainticker"
+            "whois": "Whois / Domainticker"
         },
         "nonprofit": {
             "bewerbung": {
@@ -254,7 +254,7 @@
                 },
                 "graphic": "Report something",
                 "link": "Download now",
-                "secondheadline": "dotHIV namespace policies for the mitigation of abuse and unacceptable use",
+                "secondheadline": "Policies for the mitigation of abuse and unacceptable use",
                 "text": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
                 "textbold1": "1.0 Protect your Trademark",
                 "textbold2": "2.0 Abuse Policy",
@@ -296,7 +296,7 @@
                 "text": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
                 "textbold1": "1.0  GENERAL PROVISIONS         ",
                 "textbold2": "2.0  SUNRISE RULES",
-                "textbold3": "",
+                "textbold3": "3.0  GENERAL AVAILABILITY",
                 "textbold4": "4.0 WHO IS Policy",
                 "textbold5": "5.0 Reserved Names Policy"
             },
@@ -395,7 +395,7 @@
                 "title": "Title"
             },
             "secondheadline1": "IDN-Infos",
-            "secondheadline2": "Zonefile Download",
+            "secondheadline2": ".hiv Zonefile",
             "secondheadline3": "Logos and Communication Material",
             "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
             "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
@@ -416,8 +416,8 @@
         "whois": {
             "field": "Domainname.hiv",
             "headline": ".hiv Whois",
-            "latest": "",
-            "text1": "This little window will tell you, if the .hiv domain of your dreams is still free, and who is running any specific .hiv website out there. Go try it out:",
+            "latest": ".hiv Domainticker",
+            "text1": "This little window will tell you, if the .hiv domain of your dreams is still free, or who is running any specific .hiv website out there. \nGo try it out:",
             "text2": "These .hiv- Domains just went online:"
         }
     }

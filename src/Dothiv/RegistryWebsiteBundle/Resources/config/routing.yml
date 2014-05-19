@@ -1,3 +1,15 @@
-dothiv_registry_web_app:
+# Redirect to default locale: en
+dothiv_registry_index_nolang:
     pattern:  /
-    defaults: { _controller: DothivRegistryWebsiteBundle:Default:index }
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /en
+        permanent: true
+
+dothiv_registry_page:
+    pattern:  /{locale}/{page}
+    defaults:
+        _controller: dothiv.registry.web.controller.page:pageAction
+        page: index
+    requirements:
+        locale:  en|de|ky

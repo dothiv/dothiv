@@ -17,3 +17,8 @@ services:
             - [ setTimeout, [%assetic.filter.closure.timeout%] ]
             - [ setCompilationLevel, [%assetic.filter.closure.compilation_level%] ]
             - [ setLanguage, ['ECMASCRIPT5'] ]
+
+    dothiv.websitebase.translation.json_loader:
+        class: Dothiv\BaseWebsiteBundle\Translation\JsonLoader
+        tags:
+            - { name: translation.loader, alias: json }

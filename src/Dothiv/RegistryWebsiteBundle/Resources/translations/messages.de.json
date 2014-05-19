@@ -29,14 +29,14 @@
             "text": "lorem ipsum"
         },
         "footer": {
-            "city": "10179 Berlin ",
+            "city": "D-10179 Berlin ",
             "name": "TLD dotHIV Registry GmbH",
             "navi": {
                 "contact": "Kontakt",
-                "imprint": "Impressum/Nutzungsbedingungen/Datenschutz",
+                "imprint": "Impressum / Nutzungsbedingungen / Datenschutz",
                 "report": "Etwas melden"
             },
-            "phone": "(0 30) 91 56 47 07",
+            "phone": "+49 (0)30 91 56 47 ",
             "slogan": ".hiv - Building a web with a purpose",
             "street": "Melchiorstraße 26"
         },
@@ -44,8 +44,8 @@
             "back": "Zur dotHIV Initiative",
             "domainconfig": "Ihre .hiv Domain konfigurieren",
             "title": {
-                "line01": "TLD dotHIV",
-                "line02": "Registry GmbH"
+                "line01": "dotHIV",
+                "line02": "Registry"
             }
         },
         "home": {
@@ -64,7 +64,7 @@
                 "text": ".hiv-Domains bieten unendliche Nutzungsmöglichkeiten. Hier finden Sie besonders innovative Ideen, sinnvolle Anwendungen und gelungene Wege. Lassen Sie sich inspirieren."
             },
             "latest": {
-                "text": "Diese .hiv-Domains wurden gerade registriert:",
+                "text": "Diese .hiv-Domains gehen gerade online:",
                 "title": ".hiv Domainticker"
             }
         },
@@ -75,7 +75,7 @@
                 "middle": "Zielgruppengenaues Content-Marketing für ihr Firmenengagement im Feld HIV",
                 "right": "//Vorteile für Medizinunternehmen"
             },
-            "headline": "Die Idee hinter der .hiv Adresse ",
+            "headline": "Die Idee hinter der .hiv Webadresse",
             "link": {
                 "charity": "Mehr erfahren auf dothiv.hiv"
             },
@@ -128,20 +128,20 @@
             "concepts": "Best Practice",
             "contact": "Kontakt",
             "domainconfig": "Ihre .hiv Domain konfigurieren",
-            "forcompanies": "Ihre .hiv-Domain",
+            "forcompanies": "Ihre .hiv Domain",
             "icann": "Ein Mitglied der Internet Community",
             "launch": "Launch Plan",
-            "main": "Die .hiv Top Level Domain",
+            "main": "Die .hiv TLD",
             "ourregistry": "Unsere Registry",
             "policies": "TLD Policies",
             "redribbon": "Die digitale Rote Schleife",
             "registercharity": ".hiv für die HIV-Arbeit",
             "registernow": ".hiv-Domain registrieren",
             "registrars": ".hiv für Registrare",
-            "stats": "Statistiken \u0026 Material",
+            "stats": "Statistiken \u0026 Downloads",
             "supportus": "Unterstützer werden",
             "team": "Team und Jobs",
-            "whois": "Whois/ Domainticker"
+            "whois": "Whois / Domainticker"
         },
         "nonprofit": {
             "bewerbung": {
@@ -254,7 +254,7 @@
                 },
                 "graphic": "Etwas melden",
                 "link": "Herunterladen",
-                "secondheadline": "dotHIV Namensraum Policy zur Handhabung von Missbrauch und unangemessener Nutzung",
+                "secondheadline": "Policy zur Handhabung von Missbrauch und unangemessener Nutzung",
                 "text": "Kurzes Intro, Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
                 "textbold1": "1.0 Markenschutz",
                 "textbold2": "2.0 Domainmissbrauch",
@@ -395,7 +395,7 @@
                 "title": "Titel"
             },
             "secondheadline1": "IDN-Infos",
-            "secondheadline2": "Zonefile Download",
+            "secondheadline2": ".hiv Zonefile",
             "secondheadline3": "Logos und Kommuniationsmaterial",
             "text1": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
             "text2": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.\n\nWeit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien.",
@@ -417,7 +417,7 @@
             "field": "Domainname.hiv",
             "headline": ".hiv Whois ",
             "latest": ".hiv Domainticker",
-            "text1": "Diese kleine Fenster sagt Ihnen, ob Ihre Wunschdomain noch frei ist und wer der Inhaber einer bestimmten .hiv-Domain ist. Einfach ausprobieren: ",
+            "text1": "Diese kleine Fenster sagt Ihnen, ob Ihre Wunschdomain noch frei oder wer der Inhaber einer bestimmten .hiv-Domain ist. \nEinfach ausprobieren: ",
             "text2": "Diese .hiv-Domains gingen gerade online:"
         }
     }

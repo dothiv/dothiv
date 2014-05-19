@@ -1,3 +1,6 @@
 dothiv_charity_web_app:
     pattern:  /
     defaults: { _controller: DothivCharityWebsiteBundle:Default:index }
+
+dothiv_charity_domainconfig:
+    pattern:  /domainconfig
