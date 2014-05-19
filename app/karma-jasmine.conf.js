@@ -11,15 +11,15 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             // Angular and other vendor stuff
-            'src/DotHiv/WebsiteBaseBundle/Resources/public/vendor/angular/angular.js',
-            'src/DotHiv/WebsiteBaseBundle/Resources/public/vendor/angular/angular-*.js',
-            'src/DotHiv/WebsiteBaseBundle/Resources/test/lib/angular/angular-mocks.js',
-            'src/DotHiv/WebsiteBaseBundle/Resources/public/vendor/angular-translate.js',
-            'src/DotHiv/WebsiteBaseBundle/Resources/public/vendor/**/*.js',
-            // WebsiteBaseBundle
-            'src/DotHiv/WebsiteBaseBundle/Resources/test/test.js',
-            'src/DotHiv/WebsiteBaseBundle/Resources/public/**/*.js',
-            'src/DotHiv/WebsiteBaseBundle/Resources/test/unit/**/*.js'
+            'src/Dothiv/BaseWebsiteBundle/Resources/public/vendor/angular/angular.js',
+            'src/Dothiv/BaseWebsiteBundle/Resources/public/vendor/angular/angular-*.js',
+            'src/Dothiv/BaseWebsiteBundle/Resources/test/lib/angular/angular-mocks.js',
+            'src/Dothiv/BaseWebsiteBundle/Resources/public/vendor/angular-translate.js',
+            'src/Dothiv/BaseWebsiteBundle/Resources/public/vendor/**/*.js',
+            // BaseWebsiteBundle
+            'src/Dothiv/BaseWebsiteBundle/Resources/test/test.js',
+            'src/Dothiv/BaseWebsiteBundle/Resources/public/**/*.js',
+            'src/Dothiv/BaseWebsiteBundle/Resources/test/unit/**/*.js'
         ],
 
         // list of files to exclude

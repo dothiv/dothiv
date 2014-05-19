@@ -23,12 +23,12 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Gregwar\FormBundle\GregwarFormBundle(),
-            new DotHiv\BusinessBundle\DotHivBusinessBundle(),
-            new DotHiv\APIBundle\DotHivAPIBundle(),
-            new DotHiv\WebsiteCharityBundle\DotHivWebsiteCharityBundle(),
-            new DotHiv\WebsiteCompanyBundle\DotHivWebsiteCompanyBundle(),
+            new Dothiv\BusinessBundle\DothivBusinessBundle(),
+            new Dothiv\APIBundle\DothivAPIBundle(),
+            new Dothiv\CharityWebsiteBundle\DothivCharityWebsiteBundle(),
+            new Dothiv\RegistryWebsiteBundle\DothivRegistryWebsiteBundle(),
             new FOS\FacebookBundle\FOSFacebookBundle(),
-            new DotHiv\WebsiteBaseBundle\DotHivWebsiteBaseBundle(),
+            new Dothiv\BaseWebsiteBundle\DothivBaseWebsiteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

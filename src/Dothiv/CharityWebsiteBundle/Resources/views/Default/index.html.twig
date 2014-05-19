@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dotHIVApp" xmlns:fb="http://www.facebook.com/2008/fbml">
+    <head>
+        <meta charset="utf-8">
+        <meta name="fragment" content="!">
+        <title ng-translate="title">dotHIV</title>
+        {% stylesheets '@DothivCharityWebsiteBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}" />
+        <script src="//use.edgefonts.net/source-sans-pro:n6.js"></script>
+    </head>
+    <body>
+
+        <!-- FACEBOOK SDK -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=557254000987057";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+        <!-- /FACEBOOK SDK -->
+        <!-- TWITTER WIDGET -->
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        <!-- /TWITTER WIDGET -->
+        <!-- PINTEREST -->
+            <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>
+        <!-- /PINTEREST -->
+
+        <div ng-controller="HeaderController" id="header">
+            <div style="width: 100%; height: 100%; background: white; z-index: 10000; position: fixed;" ng-show="!finishedbooting"></div>
+            <div class="container header">
+                <div class="row">
+                    <div class="span2 pull-right"></div>
+                    <div class="span1 usermenu pull-right">
+                        <ul>
+                            <li class="accountance dummy" ng-show="!isAuthenticated()"></li>
+                            <li class="accountance" ng-show="!isAuthenticated()"><a class="hover-arrow" ng-click="login()">[[ 'header.menu.login' | translate ]]</a></li>
+                            <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" ng-click="logout()">[[ 'header.menu.logout' | translate ]]</a></li>
+                            <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" href="#!/profile" ng-class="{ active: state.includes('=.profile') }">[[ 'header.menu.myprofile' | translate ]]</a></li>
+                            <!-- <li class="accountance"><a class="hover-arrow" ng-click="">[[ 'header.menu.createproject' | translate ]]</a></li>  -->
+                            <li class="accountance"><a class="hover-arrow" href="#!/mock" ng-class="{ active: state.includes('mock') }">[[ 'header.menu.mockaction' | translate ]]</a></li>
+                            <li class="accountance grey">
+                                <div class="language-chooser">
+                                    <dh-select class="" model="locale.language" options="siteLanguages" label="label" assign="key"></dh-select>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row bottom-hack">
+                    <div class="pos-rel">
+                        <div class="overflow-up">
+                            <div class="span2 hiv-logo">
+                                <a href="/" rel="index" class="crawlme"><img src="{{ asset("bundles/dothivcharitywebsite/images/dotHiv-logo.png") }}"></a>
+                            </div>
+                            <div class="span7 menubar">
+                                <div class="barmenu first"><a class="crawlme" href="#!/projects"><h4 translate="header.bar.project"></h4></a></div>
+                                <div class="barmenu secound"><a class="crawlme" href="#!/about/mission"><h4 ng-class="{ active: state.includes('about') }" translate="header.bar.aboutHIV"></h4></a></div>
+                                <div class="barmenu third"><a class="crawlme" href="{{ companydomain }}/register"><h4 translate="header.bar.registerurl"></h4></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- adopt for mobile useage -->
+            <div class="pink-bar rightside">
+                <div class="pink-bar leftside text-right" ng-style="{ width: bar.current / bar.total *100 + '%' }">
+                    <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 > 4">
+                        <p>
+                            <span class="pink-bar-text">[[ 'home.pinkbar.activated' | translate ]]</span>
+                            <span class="pink-bar-text bold" id="active-money">€ [[ bar.current ]]</span>
+                            <i ng-show="!showfunding" class="icon-tick-lower icon-white"></i>
+                            <i ng-show="showfunding" class="icon-tick-upper icon-white"></i>
+                        </p>
+                    </button>
+                </div>
+                <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 < 4">
+                    <p>
+                        <i ng-show="!showfunding" class="icon-tick-lower"></i>
+                        <i ng-show="showfunding" class="icon-tick-upper"></i>
+                        <span class="pink-bar-text right" >[[ 'home.pinkbar.activated' | translate ]]</span>
+                        <span class="pink-bar-text right bold" id="active-money">€ [[ bar.current ]]</span>
+                    </p>
+                </button>
+            </div>
+            <div class="pink-bar-popover-handle">
+                <div ng-show="showfunding" ng-animate="{show: 'pink-bar-popover-show', hide: 'pink-bar-popover-hide'}" class="pink-bar-popover">
+                    <div class="container">
+                        <div class="row first">
+                            <div class="span6 pink-bar-text">
+                                <p>[[ 'home.pinkbar.popover.currentStatus' | translate ]]</p>
+                                <p><span class="activeMoney" id="active-money-popover">€ [[ bar.current ]]</span>
+                                [[ 'home.pinkbar.popover.areActivated' | translate ]]</p>
+                                <p><span class="activeMoney" id="clicks-popover">[[ bar.click ]] Klicks</span>
+                                [[ 'home.pinkbar.popover.missing' | translate ]]</p>
+                                <hr>
+                                <p>[[ 'home.pinkbar.popover.shareNow' | translate ]]</p>
+                            </div>
+                            <div class="span6 pink-bar-text">
+                                <iframe ng-show="showfunding" ng-src="//www.youtube.com/embed/l3ZHd8qbSpE" allowfullscreen></iframe>
+                                <p>[[ 'home.pinkbar.popover.viewVideo' | translate ]]
+                                <br>[[ 'home.pinkbar.popover.how' | translate ]]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="clear: both;"></div>
+        <div ui-view></div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="span12 center footer-margin">
+                        <img class="hiv-42px" src="{{ asset("bundles/dothivcharitywebsite/images/dotHiv-logo.png") }}">
+                        <p class="running-text footer-slogan">[[ 'footer.slogan' | translate ]]</p>
+                        <div class="container">
+                            <div class="row">
+                                <div class="span4">
+                                    <p>
+                                        <strong translate="footer.adress.name"></strong><br>
+                                        <span translate="footer.adress.street"></span><br>
+                                        <span translate="footer.adress.city"></span><br>
+                                        <span translate="footer.adress.phone"></span>
+                                    </p>
+                                </div>
+                                <div class="span4">
+                                    <ul>
+                                        <li><a class="running-text" href="{{ companydomain }}#!/report">[[ 'header.menu.reportabuse' | translate ]]</a></li>
+                                        <li><a class="running-text" href="#!/support">[[ 'footer.navi.help' | translate ]]</a> / <a class="running-text" href="#">[[ 'footer.navi.forum' | translate ]]</a></li>
+                                        <li><a class="running-text" href="#!/contact">[[ 'footer.navi.contact' | translate ]]</a></li>
+                                        <li><a class="running-text" href="#!/imprint">[[ 'footer.navi.imprint' | translate ]]</a></li>
+                                    </ul>
+                                </div>
+                                <div class="span4">
+                                    <ul>
+                                        <li><a class="social-link" href="https://www.facebook.com/dothiv" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-fb.png") }}">[[ 'footer.social.facebook' | translate ]]</a></li>
+                                        <li><a class="social-link" href="https://twitter.com/dotHIV" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-tw.png") }}">[[ 'footer.social.twitter' | translate ]]</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        {% include 'DothivCharityWebsiteBundle:Default:app.html.twig' %}
+    </body>
+</html>

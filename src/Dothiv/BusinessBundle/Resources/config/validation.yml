@@ -1,0 +1,4 @@
+Dothiv\BusinessBundle\Entity\User:
+    properties:
+        email:
+            - NotBlank: ~

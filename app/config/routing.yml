@@ -1,5 +1,5 @@
-dot_hiv_website_base:
-    resource: "@DotHivWebsiteBaseBundle/Resources/config/routing.yml"
+dothiv_base_web:
+    resource: "@DothivBaseWebsiteBundle/Resources/config/routing.yml"
     prefix:   /
 
 # security routing
@@ -8,47 +8,47 @@ fos_user_security:
 
 fos_user_security_check:
     pattern: /api/login
-    defaults: { _controller: DotHivAPIBundle:Security:postLogin }
+    defaults: { _controller: DothivAPIBundle:Security:postLogin }
     methods: [ POST ]
 
-dot_hiv_api_security_login:
+dothiv_api_security_login:
     pattern: /api/login
-    defaults: { _controller: DotHivAPIBundle:Security:getLogin }
+    defaults: { _controller: DothivAPIBundle:Security:getLogin }
     methods: [ GET ]
 
 fos_user_security_logout:
     pattern: /api/login
-    defaults: { _controller: DotHivAPIBundle:Security:deleteLogin }
+    defaults: { _controller: DothivAPIBundle:Security:deleteLogin }
     methods: [ DELETE ]
 
-dot_hiv_security_options:
+dothiv_security_options:
     pattern: /api/login
-    defaults: { _controller: DotHivAPIBundle:Security:optionsLogin }
+    defaults: { _controller: DothivAPIBundle:Security:optionsLogin }
     methods: [ OPTIONS ]
 
-dot_hiv_api_security_facebook_login_start:
+dothiv_api_security_facebook_login_start:
     pattern: /api/login/facebook/start
-    defaults: { _controller: DotHivAPIBundle:Security:facebookLoginStart }
+    defaults: { _controller: DothivAPIBundle:Security:facebookLoginStart }
     methods: [ GET ]
 
-dot_hiv_api_security_facebook_login_return:
+dothiv_api_security_facebook_login_return:
     pattern: /api/login/facebook/return
-    defaults: { _controller: DotHivAPIBundle:Security:facebookLoginReturn }
+    defaults: { _controller: DothivAPIBundle:Security:facebookLoginReturn }
     methods: [ GET ]
 
 # API routing
-dot_hiv_api:
-    resource: "@DotHivAPIBundle/Resources/config/routing.yml"
+dothiv_api:
+    resource: "@DothivAPIBundle/Resources/config/routing.yml"
     prefix:   /api/
 
 # routing for charity website
-dot_hiv_website_charity:
+dothiv_charity_web:
     host: %charitydomain%
-    resource: "@DotHivWebsiteCharityBundle/Resources/config/routing.yml"
+    resource: "@DothivCharityWebsiteBundle/Resources/config/routing.yml"
     prefix:   /
 
 # routing for company website
-dot_hiv_website_company:
+dothiv_registry_web:
     host: %companydomain%
-    resource: "@DotHivWebsiteCompanyBundle/Resources/config/routing.yml"
+    resource: "@DothivRegistryWebsiteBundle/Resources/config/routing.yml"
     prefix:   /

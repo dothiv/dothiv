@@ -1,3 +1,0 @@
-dot_hiv_website_base_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: DotHivWebsiteBaseBundle:Default:index }

@@ -1,0 +1,17 @@
+{% javascripts
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular/angular.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular/angular-resource.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/http-auth-interceptor.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/ui-bootstrap-tpls.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular-ui-router.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular-translate.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular-translate-loader-static-files.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular/i18n/angular-locale_de.js'
+    '@DothivCharityWebsiteBundle/Resources/public/app.js'
+    '@DothivBaseWebsiteBundle/Resources/public/services/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/services/**/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/directives/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/filters/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/*.js' filter='?ngmin,?closureecma5' output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}

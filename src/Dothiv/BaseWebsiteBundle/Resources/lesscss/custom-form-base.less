@@ -1,0 +1,85 @@
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    .box-shadow(none);
+
+    &:focus, &:invalid, &:focus:invalid {
+        color: inherit;
+        outline: 0;
+        outline: thin dotted \9; /* IE6-9 */
+        .box-shadow(none);
+    }
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+
+}
+
+.valid {
+    background: @white;
+    border-color: @white;
+
+}
+
+.invalid {
+
+}
+
+form.clean input.ng-dirty.ng-invalid,
+form.unclean input.ng-dirty.ng-invalid {
+    .invalid;
+}
+
+form.clean input.ng-dirty.ng-invalid-required,
+form.clean input.ng-pristine.ng-invalid,  
+input.ng-dirty.ng-valid {
+    .valid;
+}
+
+form.unclean input.ng-invalid-required {
+    .invalid;
+}
+
+form input[type="url"].ng-valid.span6 + span {
+    display: block;
+    position: relative;
+    &:after {
+        content: '';
+        width: 36px;
+        height: 36px;
+        display: block;
+        position: absolute;
+        top: -52px;
+        left: 470px;
+        background: url(/bundles/dothivcharitywebsite/images/green-tick.png) 0 0 no-repeat;
+    }
+}

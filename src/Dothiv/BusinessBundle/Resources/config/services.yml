@@ -1,0 +1,22 @@
+parameters:
+    clickcounter.class: Dothiv\BusinessBundle\Service\ClickCounterConfig
+    dns.class: Dothiv\BusinessBundle\Service\DnsConfig
+    registration.class: Dothiv\BusinessBundle\Service\Registration
+    dns.reseller: %dns_reseller%
+    dns.password: %dns_password%
+    dns.cid: %dns_cid%
+    dns.nameserver: %dns_nameserver%
+    clickcounter.authorization.username: %clickcounter_auth_username%
+    clickcounter.authorization.password: %clickcounter_auth_password%
+    clickcounter.base_url: %clickcounter_base_url%
+
+services:
+    dns:
+        class: %dns.class%
+        arguments: ["@service_container","@mailer"]
+    clickcounter:
+        class: %clickcounter.class%
+        arguments: ["@service_container","@templating","@translator","@doctrine.orm.entity_manager","@mailer"]
+    registration:
+        class: %registration.class%
+        arguments: ["@service_container","@doctrine.orm.entity_manager","@mailer","@templating"]

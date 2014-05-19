@@ -1,0 +1,3 @@
+dothiv_registry_web_app:
+    pattern:  /
+    defaults: { _controller: DothivRegistryWebsiteBundle:Default:index }

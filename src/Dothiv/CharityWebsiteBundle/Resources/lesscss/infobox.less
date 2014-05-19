@@ -1,0 +1,45 @@
+.infobox {
+    p {
+        margin: 10px 0 16px;
+    }
+}
+
+// image-container-classes for infobox
+//---------------------------------------------
+.image-container {
+    position: absolute;
+    right: 0px;
+    text-align: center;
+
+    &.monitor { 
+        background: url('/bundles/dothivcharitywebsite/images/infobox/monitor.png') no-repeat;
+        height: 128px;
+        width: 128px;
+        right: 20px;
+        .text {
+            top: 18px;
+            left: 7px;
+            width: 108px;
+        }
+    }
+    
+    &.arrow { 
+        background: url('/bundles/dothivcharitywebsite/images/infobox/arrow.png') no-repeat;
+        height: 128px;
+        width: 220px;
+        right: -20px; 
+        .text {
+            font-size: 20px;
+            top: 10px;
+            left: 40px;
+        }
+    }
+    
+    &.people { 
+        background: url('/bundles/dothivcharitywebsite/images/infobox/people.png') no-repeat;
+        width: 103px;
+        height: 105px;
+        bottom: 10px; 
+    }
+    .text { position: absolute; }
+}
