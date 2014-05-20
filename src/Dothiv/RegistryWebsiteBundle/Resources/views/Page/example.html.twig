@@ -1,0 +1,22 @@
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
+{% block content %}
+    <div class="container content">
+        {% for block in page.blocks %}
+            <div class="row">
+                <div class="span12">
+                    <h1>{{ block.title }}</h1>
+
+                    {{ block.text|extra_markdown }}
+                </div>
+            </div>
+            {% if block.image %}
+                <div class="row">
+                    <div class="span12">
+                        <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" title="{{ block.image.description }}">
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

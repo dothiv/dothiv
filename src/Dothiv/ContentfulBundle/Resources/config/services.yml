@@ -1,0 +1,16 @@
+parameters:
+    dothiv_contentful.adapter.class: Dothiv\ContentfulBundle\Adapter\HttpClientAdapter
+    dothiv_contentful.http_client.class: Dothiv\ContentfulBundle\Client\CachingHttpClient
+
+services:
+    dothiv_contentful.http_client:
+        class: %dothiv_contentful.http_client.class%
+        arguments:
+          - @doctrine_cache.providers.contentful_cache
+
+    dothiv_contentful.adapter:
+        class: %dothiv_contentful.adapter.class%
+        arguments:
+          - %dothiv_contentful.space_id%
+          - %dothiv_contentful.access_token%
+          - @dothiv_contentful.http_client

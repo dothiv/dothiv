@@ -41,3 +41,8 @@ parameters:
     node_bin: /usr/bin/node
     node_modules: %kernel.root_dir%/../node_modules
     ngmin_bin: '%kernel.root_dir%/../node_modules/ngmin/bin/ngmin'
+
+    # Contentful settings
+    contentful_access_token: 872d3b646d8690f2697641031e7d6afa87d5b0670b07f46cf3eb4fa68988ee3d
+    contentful_space_id: xfj3l4zlkg3j
+    contentful.content_type.page: FQQgYtMZWMKsiomikwmIy

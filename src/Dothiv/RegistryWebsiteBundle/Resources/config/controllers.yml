@@ -3,3 +3,5 @@ services:
         class: Dothiv\RegistryWebsiteBundle\Controller\PageController
         arguments:
           - @templating
+          - @dothiv_contentful.adapter
+          - %contentful.content_type.page%

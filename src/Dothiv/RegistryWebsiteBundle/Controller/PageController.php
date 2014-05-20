@@ -9,6 +9,7 @@
 
 namespace Dothiv\RegistryWebsiteBundle\Controller;
 
+use Dothiv\ContentfulBundle\Adapter\ContentfulApiAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,9 +22,25 @@ class PageController
      */
     private $renderer;
 
-    public function __construct(EngineInterface $renderer)
+    /**
+     * @var \Dothiv\ContentfulBundle\Adapter\ContentfulApiAdapter
+     */
+    private $contentfulApi;
+
+    /**
+     * @var string
+     */
+    private $pageContentType;
+
+    /**
+     * @param EngineInterface      $renderer
+     * @param ContentfulApiAdapter $contentfulApi
+     */
+    public function __construct(EngineInterface $renderer, ContentfulApiAdapter $contentfulApi, $pageContentType)
     {
-        $this->renderer = $renderer;
+        $this->renderer        = $renderer;
+        $this->contentfulApi   = $contentfulApi;
+        $this->pageContentType = $pageContentType;
     }
 
     public function pageAction(Request $request, $locale, $page)
@@ -42,7 +59,13 @@ class PageController
         }
         $response = new Response();
         $template = sprintf('DothivRegistryWebsiteBundle:Page:%s.html.twig', $page);
-        $data     = array();
+        $pageId = $page . '.page';
+        // TODO: use sync API
+        $entries = $this->contentfulApi->queryEntries(array('content_type' => $this->pageContentType, 'fields.code' => $pageId));
+        $data = array(
+            'locale' => $locale,
+            'page'   => $entries[0]
+        );
         return $this->renderer->renderResponse($template, $data, $response);
     }
 } 

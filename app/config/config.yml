@@ -169,6 +169,17 @@ dothiv_business:
       # - hiv
       ~
 
+# TODO: Move to bundle
+doctrine_cache:
+    providers:
+        contentful_cache:
+            type: file_system
+            namespace: contentful_api
+
+dothiv_contentful:
+    access_token: %contentful_access_token%
+    space_id: %contentful_space_id%
+
 parameters:
     # Email addresses 
     domain_email_sender_address: mail@dothiv.bp
@@ -187,3 +198,4 @@ parameters:
 
     # handler for serialization of forms
     jms_serializer.form_error_handler.class: Dothiv\BusinessBundle\Serializer\FormHandler
+
