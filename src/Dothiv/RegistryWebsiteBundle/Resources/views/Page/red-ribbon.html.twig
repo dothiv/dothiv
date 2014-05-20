@@ -1,0 +1,83 @@
+{% set title %}{% trans %}gmbh.idea.headline{% endtrans %}{% endset %}
+{% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
+{% block content %}
+    <div class="container content">
+        <div class="row">
+            <div class="span12">
+                <h1>{% trans %}gmbh.idea.headline{% endtrans %}</h1>
+
+                <p class="running-text">{% trans %}gmbh.idea.text1{% endtrans %}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <img src="http://dummyimage.com/950x300/ccc/fff" alt="{% trans %}gmbh.idea.headline{% endtrans %}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <h2>{% trans %}gmbh.idea.secondheadline1{% endtrans %}</h2>
+            </div>
+
+            <div class="span12">
+                <p class="running-text">{% trans %}gmbh.idea.text2{% endtrans %}</p>
+            </div>
+            <div class="span12">
+                <a class="pull-right" href="{{ charitydomain }}"> {% trans %}gmbh.idea.link.charity{% endtrans %}
+                    <div class="heading-arrow"></div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <h2>{% trans %}gmbh.idea.secondheadline2{% endtrans %}</h2>
+
+                <p class="running-text">{% trans %}gmbh.idea.text3{% endtrans %}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+                <p>
+                    <img src="http://dummyimage.com/250x150/ccc/fff" alt="{% trans %}gmbh.idea.advantage.left{% endtrans %}">
+                </p>
+
+                <p class="running-text">{% trans %}gmbh.idea.advantage.left{% endtrans %}
+            </div>
+            <div class="span4">
+                <p>
+                    <img src="http://dummyimage.com/250x150/ccc/fff" alt="{% trans %}gmbh.idea.advantage.middle{% endtrans %}">
+                </p>
+
+                <p class="running-text">{% trans %}gmbh.idea.advantage.middle{% endtrans %}
+            </div>
+            <div class="span4">
+                <p>
+                    <img src="http://dummyimage.com/250x150/ccc/fff" alt="{% trans %}gmbh.idea.advantage.right{% endtrans %}">
+                </p>
+
+                <p class="running-text">{% trans %}gmbh.idea.advantage.right{% endtrans %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <p class="pull-right">
+                    <a class="btn btn-primary" href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'register'}) }}"> {% trans %}
+                        gmbh.idea.advantage.link{% endtrans %} </a>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <h2>{% trans %}gmbh.idea.secondheadline3{% endtrans %}</h2>
+
+                <p class="running-text">{% trans %}gmbh.idea.text4{% endtrans %}</p>
+            </div>
+            <div class="span12">
+                <a class="pull-right" href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'policies'}) }}"> {% trans %}
+                    gmbh.idea.policies.link{% endtrans %}
+                    <div class="heading-arrow"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

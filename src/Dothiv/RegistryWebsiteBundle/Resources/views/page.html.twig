@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-{% set locale = app.request.locale|slice(0,2) %}
 <html lang="{{ locale }}" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
     <meta charset="utf-8">
     <meta name="fragment" content="!">
-    <title>{% trans %}gmbh.header.title.line01{% endtrans %} {% trans %}gmbh.header.title.line02{% endtrans %}</title>
+    <title>
+        {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
+        {% trans %}gmbh.header.title.line01{% endtrans %} {% trans %}gmbh.header.title.line02{% endtrans %}
+    </title>
     {% stylesheets '@DothivRegistryWebsiteBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
@@ -72,7 +74,7 @@
                 <div class="span1">
                     <h5 class="hivblue-text">{% trans %}gmbh.menu.forcompanies{% endtrans %}</h5>
                     <ul>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'redribbon'}) }}">{% trans %}gmbh.menu.redribbon{% endtrans %}</a></li>
+                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'red-ribbon'}) }}">{% trans %}gmbh.menu.redribbon{% endtrans %}</a></li>
                         <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'register_nonprofit'}) }}">{% trans %}gmbh.menu.registercharity{% endtrans %}</a></li>
                         <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'concepts'}) }}">{% trans %}gmbh.menu.concepts{% endtrans %}</a></li>
                         <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'register'}) }}">{% trans %}gmbh.menu.registernow{% endtrans %}</a></li>
