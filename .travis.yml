@@ -53,9 +53,6 @@ script:
   - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/Dothiv/CharityWebsiteBundle/Resources/test/travis-test.sh
 # FIXME: e2e tests currently disabled. See https://trello.com/c/8hPycUYE
 # - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/Dothiv/CharityWebsiteBundle/Resources/test/travis-e2e-test.sh
-  - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/Dothiv/RegistryWebsiteBundle/Resources/test/travis-test.sh
-  # not yet supported: (need a second vhost)
-  #- DISPLAY=:99.0 ./src/Dothiv/RegistryWebsiteBundle/Resources/test/travis-e2e-test.sh
 
 after_failure:
   - wget --save-headers --output-document - http://localhost/app_dev_travis.php
