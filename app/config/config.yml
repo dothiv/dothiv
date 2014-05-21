@@ -169,13 +169,6 @@ dothiv_business:
       # - hiv
       ~
 
-# TODO: Move to bundle
-doctrine_cache:
-    providers:
-        contentful_cache:
-            type: file_system
-            namespace: contentful_api
-
 dothiv_contentful:
     access_token: %contentful_access_token%
     space_id: %contentful_space_id%

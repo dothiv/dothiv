@@ -3,5 +3,6 @@ services:
         class: Dothiv\RegistryWebsiteBundle\Controller\PageController
         arguments:
           - @templating
-          - @dothiv_contentful.adapter
+          - @dothiv_contentful.repo.entry
           - %contentful.content_type.page%
+          - @dothiv_contentful.repo.asset

@@ -4,10 +4,11 @@ namespace Dothiv\ContentfulBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-class DothivContentfulExtension extends Extension
+class DothivContentfulExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritDoc}
@@ -20,5 +21,29 @@ class DothivContentfulExtension extends Extension
         $container->setParameter('dothiv_contentful.space_id', $config['space_id']);
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
+        $loader->load('listener.yml');
+        $loader->load('persistence.yml');
+    }
+
+    /**
+     * Allow an extension to prepend the extension configurations.
+     *
+     * @param ContainerBuilder $container
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        $cacheConfig    = array();
+        $doctrineConfig = array();
+
+        $cacheConfig['providers']['contentful_api_cache'] = array('namespace' => 'contentful_api', 'type' => 'file_system');
+        $container->prependExtensionConfig('doctrine_cache', $cacheConfig);
+
+        $doctrineConfig['orm']['mappings']['contentful_bundle'] = array(
+            'type' => 'annotation',
+            'alias' => 'ContentfulBundle',
+            'dir' => __DIR__ . '/../Item',
+            'prefix' => 'Dothiv\ContentfulBundle\Item'
+        );
+        $container->prependExtensionConfig('doctrine', $doctrineConfig);
     }
 }

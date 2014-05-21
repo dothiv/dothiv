@@ -2,14 +2,12 @@
 
 namespace Dothiv\ContentfulBundle\Adapter;
 
-use Dothiv\ContentfulBundle\Item\ContentfulEntry;
+use Dothiv\ContentfulBundle\Item\ContentfulItem;
 
-interface ContentfulApiAdapter
+use Psr\Log\LoggerAwareInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
+interface ContentfulApiAdapter extends LoggerAwareInterface
 {
-    /**
-     * @param array $filter
-     *
-     * @return ContentfulEntry[]
-     */
-    function queryEntries(array $filter);
-} 
+    function sync();
+}
