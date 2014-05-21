@@ -169,10 +169,6 @@ dothiv_business:
       # - hiv
       ~
 
-dothiv_contentful:
-    access_token: %contentful_access_token%
-    space_id: %contentful_space_id%
-
 parameters:
     # Email addresses 
     domain_email_sender_address: mail@dothiv.bp

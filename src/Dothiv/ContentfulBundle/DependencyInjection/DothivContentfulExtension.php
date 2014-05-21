@@ -17,9 +17,7 @@ class DothivContentfulExtension extends Extension implements PrependExtensionInt
     {
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('dothiv_contentful.access_token', $config['access_token']);
-        $container->setParameter('dothiv_contentful.space_id', $config['space_id']);
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader        = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('listener.yml');
         $loader->load('persistence.yml');
@@ -39,9 +37,9 @@ class DothivContentfulExtension extends Extension implements PrependExtensionInt
         $container->prependExtensionConfig('doctrine_cache', $cacheConfig);
 
         $doctrineConfig['orm']['mappings']['contentful_bundle'] = array(
-            'type' => 'annotation',
-            'alias' => 'ContentfulBundle',
-            'dir' => __DIR__ . '/../Item',
+            'type'   => 'annotation',
+            'alias'  => 'ContentfulBundle',
+            'dir'    => __DIR__ . '/../Item',
             'prefix' => 'Dothiv\ContentfulBundle\Item'
         );
         $container->prependExtensionConfig('doctrine', $doctrineConfig);

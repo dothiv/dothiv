@@ -27,3 +27,4 @@ parameters:
     node_bin: /usr/bin/node
     node_modules: '%kernel.root_dir%/../node_modules'
     ngmin_bin: '%kernel.root_dir%/../node_modules/ngmin/bin/ngmin'
+    contentful.content_type.page: some-id

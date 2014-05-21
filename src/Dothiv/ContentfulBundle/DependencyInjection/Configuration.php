@@ -10,12 +10,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode    = $treeBuilder->root('dothiv_contentful');
-        $rootNode
-            ->children()
-                ->scalarNode('space_id')->end()
-                ->scalarNode('access_token')->end()
-            ->end();
+        $treeBuilder->root('dothiv_contentful');
         return $treeBuilder;
     }
 }
