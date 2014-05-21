@@ -38,6 +38,7 @@ before_script:
 # FIXME: e2e tests currently disabled. See https://trello.com/c/8hPycUYE
 # Assets only needed for e2e tests
 # - php app/console assetic:dump --env prod
+  - php app/console assets:install --env prod --symlink
   - sudo chown -R www-data app/cache app/logs
   - sudo chmod -R 777 app/cache app/logs
   - cp web/app_dev.php web/app_dev_travis.php
