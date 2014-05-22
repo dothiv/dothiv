@@ -2,6 +2,7 @@
 
 namespace Dothiv\ContentfulBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use PhpOption\Option;
 
@@ -20,4 +21,9 @@ interface ContentfulAssetRepository
      * @return void
      */
     function persist(ContentfulAsset $asset);
+
+    /**
+     * @return ContentfulAsset[]|ArrayCollection
+     */
+    function findAll();
 } 

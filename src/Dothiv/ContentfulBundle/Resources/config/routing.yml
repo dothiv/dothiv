@@ -1,4 +1,0 @@
-dothiv_contentful_asset:
-  pattern:  /contentful/asset/{id}/{locale}
-  defaults:
-      _controller: dothiv_contentful.controller.asset:assetAction

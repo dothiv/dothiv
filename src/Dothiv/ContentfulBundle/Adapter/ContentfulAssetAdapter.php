@@ -11,4 +11,12 @@ interface ContentfulAssetAdapter
      * @return string
      */
     function getRoute($assetId, $locale);
+
+    /**
+     * @param string $assetId
+     * @param string $locale
+     *
+     * @return \SplFileInfo
+     */
+    function getLocalFile($assetId, $locale);
 } 

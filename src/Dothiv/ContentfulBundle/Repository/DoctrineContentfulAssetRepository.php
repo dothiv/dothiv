@@ -2,6 +2,7 @@
 
 namespace Dothiv\ContentfulBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use PhpOption\Option;
@@ -25,4 +26,15 @@ class DoctrineContentfulAssetRepository extends EntityRepository implements Cont
         $this->getEntityManager()->persist($asset);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function findAll()
+    {
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT a1 FROM Dothiv\ContentfulBundle\Item\ContentfulAsset a1 '
+            . 'WHERE a1.revision = (SELECT MAX(a2.revision) FROM Dothiv\ContentfulBundle\Item\ContentfulAsset a2 WHERE a2.id = a1.id)'
+        );
+        return new ArrayCollection($query->getResult());
+    }
 }

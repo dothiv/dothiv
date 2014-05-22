@@ -1,7 +1,7 @@
 parameters:
     dothiv_contentful.http_client.class: Dothiv\ContentfulBundle\Client\CachingHttpClient
     dothiv_contentful.content.class: Dothiv\ContentfulBundle\Adapter\RepositoryContentAdapter
-    dothiv_contentful.asset.class: Dothiv\ContentfulBundle\Adapter\CachingAssetAdapter
+    dothiv_contentful.asset.class: Dothiv\ContentfulBundle\Adapter\FilesystemAssetAdapter
 
 services:
     dothiv_contentful.http_client:
@@ -12,7 +12,8 @@ services:
     dothiv_contentful.asset:
         class: %dothiv_contentful.asset.class%
         arguments:
-          - @router
+          - %dothiv_contentful.web_path%
+          - %dothiv_contentful.local_path%
           - @dothiv_contentful.repo.asset
 
     dothiv_contentful.content:
@@ -22,8 +23,3 @@ services:
           - @dothiv_contentful.repo.entry
           - @dothiv_contentful.repo.asset
           - @dothiv_contentful.asset
-
-    dothiv_contentful.routing_loader:
-        class: Dothiv\ContentfulBundle\DependencyInjection\RoutingLoader
-        tags:
-          - { name: routing.loader }
