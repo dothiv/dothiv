@@ -85,7 +85,7 @@ class ContentfulContentType
     {
         $displayField = $this->getDisplayField();
         $values       = array_values((array)$entry->{$displayField});
-        $this->setName($values[0]);
+        $entry->setName($values[0]);
     }
 
     /**
