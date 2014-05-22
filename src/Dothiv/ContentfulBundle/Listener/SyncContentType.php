@@ -48,8 +48,7 @@ class SyncContentType
                 if ($existingContentType->getDisplayField() != $syncContentType->getDisplayField()) {
                     // Update entries as the display field has changed.
                     foreach ($this->entryRepository->findByContentType($syncContentType) as $entry) {
-                        Debug::dump($entry);
-                        $entry->updateName();
+                        $syncContentType->updateEntryName($entry);
                         $this->entryRepository->persist($entry);
                     }
                 }

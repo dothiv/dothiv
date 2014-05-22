@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="contentful_asset__id_rev_uniq",columns={"id", "revision"})})
  * @ORM\Entity(repositoryClass="Dothiv\ContentfulBundle\Repository\DoctrineContentfulAssetRepository")
  */
-class ContentfulAsset
+class ContentfulAsset implements ContentfulItem
 {
     use Traits\ContentfulSys;
     use Traits\ContentfulItem;

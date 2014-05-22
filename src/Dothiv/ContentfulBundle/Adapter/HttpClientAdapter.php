@@ -73,10 +73,17 @@ class HttpClientAdapter implements ContentfulApiAdapter
      */
     protected function getEntry(\stdClass $data, ArrayCollection $contentTypes)
     {
+        $postFill = function () {
+        };
         switch ($data->sys->type) {
             case 'Entry':
+                /** @var ContentfulContentType $contentType */
+                $contentType = $contentTypes->get($data->sys->contentType->sys->id);
                 $entry = new ContentfulEntry();
-                $entry->setContentType($contentTypes->get($data->sys->contentType->sys->id));
+                $entry->setContentTypeId($contentType->getId());
+                $postFill = function () use ($contentType, $entry) {
+                    $contentType->updateEntryName($entry);
+                };
                 break;
             case 'Asset':
                 $entry = new ContentfulAsset();
@@ -104,9 +111,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
             }
         }
 
-        if ($entry instanceof ContentfulEntry) {
-            $entry->updateName();
-        }
+        $postFill();
 
         return $entry;
     }

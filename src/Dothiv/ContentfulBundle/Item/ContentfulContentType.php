@@ -74,6 +74,18 @@ class ContentfulContentType
     }
 
     /**
+     * Updates the name according to the display field of the content type.
+     *
+     * @param ContentfulEntry $entry
+     */
+    public function updateEntryName(ContentfulEntry $entry)
+    {
+        $displayField = $this->getDisplayField();
+        $values       = array_values((array)$entry->{$displayField});
+        $this->setName($values[0]);
+    }
+
+    /**
      * @return string
      */
     public function __toString()

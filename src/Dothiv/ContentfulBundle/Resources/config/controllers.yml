@@ -1,0 +1,6 @@
+parameters:
+    dothiv_contentful.controller.asset.class: Dothiv\ContentfulBundle\Controller\AssetController
+
+services:
+    dothiv_contentful.controller.asset:
+        class: %dothiv_contentful.controller.asset.class%

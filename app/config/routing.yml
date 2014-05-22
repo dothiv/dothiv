@@ -52,3 +52,8 @@ dothiv_registry_web:
     host: %companydomain%
     resource: "@DothivRegistryWebsiteBundle/Resources/config/routing.yml"
     prefix:   /
+
+# Contentful assets
+DothivContentfulBundle:
+    resource: .
+    type: dothiv_contentful

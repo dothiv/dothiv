@@ -21,6 +21,7 @@ class DothivContentfulExtension extends Extension implements PrependExtensionInt
         $loader->load('services.yml');
         $loader->load('listener.yml');
         $loader->load('persistence.yml');
+        $loader->load('controllers.yml');
     }
 
     /**

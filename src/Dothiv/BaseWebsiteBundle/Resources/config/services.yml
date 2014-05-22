@@ -1,5 +1,7 @@
 parameters:
     dothiv.websitebase.assetic.filter.ngmin.class: Dothiv\BaseWebsiteBundle\Assetic\Filter\NgMinFilter
+    dothiv.websitebase.contentful.content.class: Dothiv\BaseWebsiteBundle\Contentful\Content
+    dothiv.websitebase.contentful.view_builder.class: Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder
 
 services:
     dothiv.websitebase.assetic.filter.ngmin:
@@ -22,3 +24,15 @@ services:
         class: Dothiv\BaseWebsiteBundle\Translation\JsonLoader
         tags:
             - { name: translation.loader, alias: json }
+
+    dothiv.websitebase.contentful.view_builder:
+            class: %dothiv.websitebase.contentful.view_builder.class%
+            arguments:
+                - 'en'
+                - @dothiv_contentful.content
+                
+    dothiv.websitebase.contentful.content:
+        class: %dothiv.websitebase.contentful.content.class%
+        arguments:
+            - @dothiv_contentful.content
+            - @dothiv.websitebase.contentful.view_builder
