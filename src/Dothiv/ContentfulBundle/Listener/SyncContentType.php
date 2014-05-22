@@ -2,7 +2,6 @@
 
 namespace Dothiv\ContentfulBundle\Listener;
 
-use Doctrine\Common\Util\Debug;
 use Dothiv\ContentfulBundle\Event\ContentfulContentTypeEvent;
 use Dothiv\ContentfulBundle\Item\ContentfulContentType;
 use Dothiv\ContentfulBundle\Item\Traits\ContentfulItem;

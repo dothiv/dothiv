@@ -2,7 +2,6 @@
 
 namespace Dothiv\BaseWebsiteBundle\Contentful;
 
-use Doctrine\Common\Util\Debug;
 use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
 use Dothiv\ContentfulBundle\Adapter\ContentfulContentAdapter;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;

@@ -38,6 +38,14 @@ class PageController
 
     public function pageAction(Request $request, $locale, $page)
     {
+        $data         = array(
+            'locale' => $locale,
+            'link'   => array(
+                'de' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '/%', '/de/', $request->getPathInfo()),
+                'en' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '/%', '/en/', $request->getPathInfo()),
+                'ky' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '/%', '/ky/', $request->getPathInfo()),
+            )
+        );
         // TODO: Cache.
         switch ($locale) {
             case 'de':
@@ -54,11 +62,7 @@ class PageController
         $response = new Response();
         $template = sprintf('DothivRegistryWebsiteBundle:Page:%s.html.twig', $page);
         $pageId   = $page . '.page';
-        $pageData = $this->content->buildEntry('Page', $pageId, $locale);
-        $data = array(
-            'locale' => $locale,
-            'page'   => $pageData
-        );
+        $data['page'] = $this->content->buildEntry('Page', $pageId, $locale);
         return $this->renderer->renderResponse($template, $data, $response);
     }
 }

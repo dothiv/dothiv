@@ -27,6 +27,15 @@ trait ContentfulSys
     private $revision;
 
     /**
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     * @Assert\Type("string")
+     * @var string
+     */
+    private $spaceId;
+
+    /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank()
      * @Assert\NotNull()
@@ -90,6 +99,22 @@ trait ContentfulSys
     public function getRevision()
     {
         return $this->revision;
+    }
+
+    /**
+     * @param string $spaceId
+     */
+    public function setSpaceId($spaceId)
+    {
+        $this->spaceId = $spaceId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpaceId()
+    {
+        return $this->spaceId;
     }
 
     /**

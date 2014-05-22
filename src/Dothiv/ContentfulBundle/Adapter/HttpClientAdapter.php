@@ -49,6 +49,11 @@ class HttpClientAdapter implements ContentfulApiAdapter
     private $dispatcher;
 
     /**
+     * @var string
+     */
+    private $spaceId;
+
+    /**
      * @param string                   $spaceId
      * @param string                   $accessToken
      * @param HttpClient               $client
@@ -56,6 +61,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
      */
     public function __construct($spaceId, $accessToken, HttpClient $client, EventDispatcherInterface $dispatcher)
     {
+        $this->spaceId = $spaceId;
         $this->baseUrl     = sprintf(
             'https://cdn.contentful.com/spaces/%s/',
             urlencode($spaceId)
@@ -94,6 +100,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
 
         $entry->setId($data->sys->id);
         $entry->setRevision($data->sys->revision);
+        $entry->setSpaceId($this->spaceId);
         $entry->setCreatedAt(new \DateTime($data->sys->createdAt));
         $entry->setUpdatedAt(new \DateTime($data->sys->updatedAt));
 
@@ -141,6 +148,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
             $contentType->setDisplayField($ctype->displayField);
             $contentType->setId($ctype->sys->id);
             $contentType->setRevision($ctype->sys->revision);
+            $contentType->setSpaceId($this->spaceId);
             $contentType->setCreatedAt(new \DateTime($ctype->sys->createdAt));
             $contentType->setUpdatedAt(new \DateTime($ctype->sys->updatedAt));
             $this->log('Sync: %s', $contentType);

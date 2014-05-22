@@ -1,0 +1,6 @@
+{% macro link(item, editable) %}
+    {% if editable %}
+        <a href="{{ item.cfMeta.url }}"><i class="icon icon-pencil"></i> {{ item.cfMeta.contentType }} {{ item.cfMeta.itemName }}
+        </a>
+    {% endif %}
+{% endmacro %}

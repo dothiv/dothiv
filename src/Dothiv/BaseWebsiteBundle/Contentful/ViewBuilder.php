@@ -44,43 +44,21 @@ class ViewBuilder
      */
     public function buildView(ContentfulEntry $entry, $locale)
     {
-        $fields = $this->localize($entry, $locale);
-
-        $view = $this->createView($fields, $locale);
-        print_r($view);
-        /*
-
-
-
-
-
-        $pageData = array(
-            'title'  => $page->title[$locale],
-            'blocks' => array()
-        );
-        // TODO: Automate content discovery.
-        $blocks = isset($page->blocks[$locale]) ? $page->blocks[$locale] : $page->blocks[$this->defaultLocale];
-        foreach ($blocks as $block) {
-            $blockEntry = $this->entryRepository->findNewestById($block['sys']['id']);
-            $blockData  = array();
-            foreach ($blockEntry->get()->getFields() as $k => $v) {
-                $value         = isset($v[$locale]) ? $v[$locale] : $v[$this->defaultLocale];
-                $blockData[$k] = $value;
-            }
-            // TODO: Automate.
-            // TODO: Save assets locally.
-            $imageEntry           = $this->assetRepository->findNewestById($blockData['image']['sys']['id'])->get();
-            $blockData['image']   = array(
-                'file'        => $imageEntry->file[$locale],
-                'title'       => $imageEntry->title[$locale],
-                'description' => $imageEntry->description[$locale]
-            );
-            $pageData['blocks'][] = $blockData;
-        }
-        #*/
+        $fields                          = $this->localize($entry, $locale);
+        $fields['cfMeta']                = array();
+        $fields['cfMeta']['url']         = $entry->getContentfulUrl();
+        $fields['cfMeta']['contentType'] = $this->contentAdapter->getContentTypeById($entry->getContentTypeId())->getName();
+        $fields['cfMeta']['itemName']    = $entry->getName();
+        $view                            = $this->createView($fields, $locale);
         return $view;
     }
 
+    /**
+     * @param ContentfulItem $entry
+     * @param                $locale
+     *
+     * @return array
+     */
     protected function localize(ContentfulItem $entry, $locale)
     {
         $fields = array();
@@ -117,12 +95,21 @@ class ViewBuilder
                     }
                 );
 
-                $fields               = $this->localize($entry, $locale);
-                $fields['__itemType'] = $value['sys']['linkType'];
-                $fields['__itemId']   = $value['sys']['id'];
+                $fields                       = $this->localize($entry, $locale);
+                $fields['cfMeta']             = array();
+                $fields['cfMeta']['itemType'] = $value['sys']['linkType'];
+                $fields['cfMeta']['itemId']   = $value['sys']['id'];
+                $fields['cfMeta']['url']      = $entry->getContentfulUrl();
                 if ($entry instanceof ContentfulEntry) {
                     /** @var ContentfulEntry $entry */
-                    $fields['__contentType'] = $this->contentAdapter->getContentTypeById($entry->getContentTypeId())->getName();
+                    $fields['cfMeta']['contentType'] = $this->contentAdapter->getContentTypeById($entry->getContentTypeId())->getName();
+                    $fields['cfMeta']['itemName']    = $entry->getName();
+                }
+                if ($entry instanceof ContentfulAsset) {
+                    /** @var ContentfulAsset $entry */
+                    $fields['cfMeta']['itemName']    = $fields['title'];
+                    $fields['cfMeta']['contentType'] = 'Asset';
+
                 }
                 return $this->createView($fields, $locale);
             } else {

@@ -10,7 +10,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\Table(
  *      uniqueConstraints={@ORM\UniqueConstraint(name="contentful_contenttype__id_rev_uniq",columns={"id", "revision"})},
- *      indexes={@ORM\Index(name="contentful_contenttype__name_idx", columns={"name"})}
+ *      indexes={
+ *          @ORM\Index(name="contentful_contenttype__name_idx", columns={"name"}),
+ *          @ORM\Index(name="contentful_contenttype__spaceId_idx", columns={"spaceId"})
+ *      }
  * )
  * @ORM\Entity(repositoryClass="Dothiv\ContentfulBundle\Repository\DoctrineContentfulContentTypeRepository")
  */

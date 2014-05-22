@@ -7,7 +7,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="contentful_asset__id_rev_uniq",columns={"id", "revision"})})
+ * @ORM\Table(
+ *      uniqueConstraints={@ORM\UniqueConstraint(name="contentful_asset__id_rev_uniq",columns={"id", "revision"})},
+ *      indexes={
+ *          @ORM\Index(name="contentful_asset__spaceId_idx", columns={"spaceId"})
+ *      }
+ * )
  * @ORM\Entity(repositoryClass="Dothiv\ContentfulBundle\Repository\DoctrineContentfulAssetRepository")
  */
 class ContentfulAsset implements ContentfulItem
@@ -22,4 +27,13 @@ class ContentfulAsset implements ContentfulItem
     {
         return sprintf('ContentfulAsset: %s, v%d', $this->getId(), $this->getRevision());
     }
+
+    /**
+     * @return string
+     */
+    public function getContentfulUrl()
+    {
+        return sprintf('https://app.contentful.com/spaces/%s/assets/%s', $this->getSpaceId(), $this->getId());
+    }
+
 }
