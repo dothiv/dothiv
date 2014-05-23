@@ -8,16 +8,18 @@ use Dothiv\ContentfulBundle\ContentfulEvents;
 use Dothiv\ContentfulBundle\Event\ContentfulAssetEvent;
 use Dothiv\ContentfulBundle\Event\ContentfulContentTypeEvent;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
+use Dothiv\ContentfulBundle\Exception\RuntimeException;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Item\ContentfulContentType;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
-use Dothiv\ContentfulBundle\Repository\ContentfulContentTypeRepository;
+use Dothiv\ContentfulBundle\Logger\LoggerAwareTrait;
 use PhpOption\Option;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class HttpClientAdapter implements ContentfulApiAdapter
 {
+    use LoggerAwareTrait;
+
     /**
      * @var string
      */
@@ -32,11 +34,6 @@ class HttpClientAdapter implements ContentfulApiAdapter
      * @var HttpClient
      */
     private $client;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
 
     /**
      * @var string
@@ -61,7 +58,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
      */
     public function __construct($spaceId, $accessToken, HttpClient $client, EventDispatcherInterface $dispatcher)
     {
-        $this->spaceId = $spaceId;
+        $this->spaceId     = $spaceId;
         $this->baseUrl     = sprintf(
             'https://cdn.contentful.com/spaces/%s/',
             urlencode($spaceId)
@@ -85,7 +82,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
             case 'Entry':
                 /** @var ContentfulContentType $contentType */
                 $contentType = $contentTypes->get($data->sys->contentType->sys->id);
-                $entry = new ContentfulEntry();
+                $entry       = new ContentfulEntry();
                 $entry->setContentTypeId($contentType->getId());
                 $postFill = function () use ($contentType, $entry) {
                     $contentType->updateEntryName($entry);
@@ -139,9 +136,8 @@ class HttpClientAdapter implements ContentfulApiAdapter
      */
     protected function syncContentTypes()
     {
-        $response = $this->client->get($this->buildUrl('content_types'));
-        $data     = json_decode($response);
-        $types    = new ArrayCollection();
+        $data  = $this->fetch($this->buildUrl('content_types'));
+        $types = new ArrayCollection();
         foreach ($data->items as $ctype) {
             $contentType = new ContentfulContentType();
             $contentType->setName($ctype->name);
@@ -164,9 +160,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
 
     protected function syncFrom($url, ArrayCollection $contentTypes)
     {
-        $response = $this->client->get($url);
-        $data     = json_decode($response);
-        $this->log('Fetched %d items.', count($data->items));
+        $data = $this->fetch($url);
         foreach ($data->items as $item) {
             $entry = $this->getEntry($item, $contentTypes);
             if ($entry) {
@@ -203,26 +197,6 @@ class HttpClientAdapter implements ContentfulApiAdapter
     }
 
     /**
-     * Sets a logger instance on the object
-     *
-     * @param LoggerInterface $logger
-     *
-     * @return null
-     */
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
-
-    protected function log()
-    {
-        $args = func_get_args();
-        Option::fromValue($this->logger)->map(function (LoggerInterface $logger) use ($args) {
-            $logger->debug(call_user_func_array('sprintf', $args));
-        });
-    }
-
-    /**
      * @param string $path
      * @param array  $params
      *
@@ -236,5 +210,27 @@ class HttpClientAdapter implements ContentfulApiAdapter
         $params['access_token'] = $this->accessToken;
         $url                    = $this->baseUrl . $path . '?' . http_build_query($params);
         return $url;
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return object
+     * @throws \Dothiv\ContentfulBundle\Exception\RuntimeException
+     */
+    protected function fetch($url)
+    {
+        $response = $this->client->get($url);
+        $data     = json_decode($response);
+        if (!is_object($data) || !property_exists($data, 'items')) {
+            throw new RuntimeException(
+                sprintf(
+                    'Missing items in response for "%s"',
+                    $url
+                )
+            );
+        }
+        $this->log('Fetched %d items.', count($data->items));
+        return $data;
     }
 }

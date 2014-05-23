@@ -44,12 +44,13 @@ class ViewBuilder
      */
     public function buildView(ContentfulEntry $entry, $locale)
     {
+        $spaceId                         = $entry->getSpaceId();
         $fields                          = $this->localize($entry, $locale);
         $fields['cfMeta']                = array();
         $fields['cfMeta']['url']         = $entry->getContentfulUrl();
-        $fields['cfMeta']['contentType'] = $this->contentAdapter->getContentTypeById($entry->getContentTypeId())->getName();
+        $fields['cfMeta']['contentType'] = $this->contentAdapter->getContentTypeById($spaceId, $entry->getContentTypeId())->getName();
         $fields['cfMeta']['itemName']    = $entry->getName();
-        $view                            = $this->createView($fields, $locale);
+        $view                            = $this->createView($fields, $spaceId, $locale);
         return $view;
     }
 
@@ -71,12 +72,13 @@ class ViewBuilder
 
     /**
      * @param mixed  $value
+     * @param string $spaceId
      * @param string $locale
      *
      * @return mixed
      * @throws RuntimeException If a link cannot be resolved.
      */
-    protected function getValue($value, $locale)
+    protected function getValue($value, $spaceId, $locale)
     {
         if (is_scalar($value)) {
             return $value;
@@ -84,7 +86,7 @@ class ViewBuilder
         if (is_array($value)) {
             if ($this->isLink($value)) {
                 /** @var ContentfulItem $entry */
-                $entry = $this->contentAdapter->findByTypeAndId($value['sys']['linkType'], $value['sys']['id'])->getOrCall(function () use ($value) {
+                $entry = $this->contentAdapter->findByTypeAndId($spaceId, $value['sys']['linkType'], $value['sys']['id'])->getOrCall(function () use ($value) {
                         throw new RuntimeException(
                             sprintf(
                                 'Failed to fetch link %s:%s!',
@@ -102,7 +104,7 @@ class ViewBuilder
                 $fields['cfMeta']['url']      = $entry->getContentfulUrl();
                 if ($entry instanceof ContentfulEntry) {
                     /** @var ContentfulEntry $entry */
-                    $fields['cfMeta']['contentType'] = $this->contentAdapter->getContentTypeById($entry->getContentTypeId())->getName();
+                    $fields['cfMeta']['contentType'] = $this->contentAdapter->getContentTypeById($spaceId, $entry->getContentTypeId())->getName();
                     $fields['cfMeta']['itemName']    = $entry->getName();
                 }
                 if ($entry instanceof ContentfulAsset) {
@@ -111,22 +113,22 @@ class ViewBuilder
                     $fields['cfMeta']['contentType'] = 'Asset';
 
                 }
-                return $this->createView($fields, $locale);
+                return $this->createView($fields, $spaceId, $locale);
             } else {
                 $newValue = array();
                 foreach ($value as $k => $v) {
-                    $newValue[$k] = $this->getValue($v, $locale);
+                    $newValue[$k] = $this->getValue($v, $spaceId, $locale);
                 }
                 return $newValue;
             }
         }
     }
 
-    protected function createView(array $fields, $locale)
+    protected function createView(array $fields, $spaceId, $locale)
     {
         $view = new \stdClass();
         foreach ($fields as $k => $v) {
-            $view->$k = $this->getValue($v, $locale);
+            $view->$k = $this->getValue($v, $spaceId, $locale);
         }
         return $view;
     }

@@ -48,8 +48,8 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
 
     /**
      * @param string $spaceId
-     * @param $contentTypeName
-     * @param $entryName
+     * @param string $contentTypeName
+     * @param string $entryName
      *
      * @return Option
      * @throws InvalidArgumentException If a content type with the given name cannot be found.
@@ -77,7 +77,7 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
             );
         }
         $contentType = $contentTypes->first();
-        return $this->entryRepo->findByContentTypeIdAndName($contentType->getId(), $entryName);
+        return $this->entryRepo->findByContentTypeIdAndName($spaceId, $contentType->getId(), $entryName);
     }
 
     /**
@@ -98,7 +98,7 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
                     $asset = $assetOptional->get();
                     $files = $asset->file;
                     foreach ($files as $locale => $file) {
-                        $files[$locale]['url'] = $this->assetAdapter->getRoute($asset->getId(), $locale);
+                        $files[$locale]['url'] = $this->assetAdapter->getRoute($asset, $locale);
                     }
                     $asset->file = $files;
                 }

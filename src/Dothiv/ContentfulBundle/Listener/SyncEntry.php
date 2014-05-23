@@ -28,7 +28,7 @@ class SyncEntry
     public function onEntrySync(ContentfulEntryEvent $event)
     {
         $syncEntry     = $event->getEntry();
-        $entryOptional = $this->entryRepo->findNewestById($syncEntry->getId());
+        $entryOptional = $this->entryRepo->findNewestById($syncEntry->getSpaceId(), $syncEntry->getId());
         if ($entryOptional->isEmpty()) {
             $this->entryRepo->persist($syncEntry);
         } else {

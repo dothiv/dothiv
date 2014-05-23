@@ -36,7 +36,7 @@ class SyncContentType
     public function onContentTypeSync(ContentfulContentTypeEvent $event)
     {
         $syncContentType     = $event->getContentType();
-        $contentTypeOptional = $this->contentTypeRepo->findNewestById($syncContentType->getId());
+        $contentTypeOptional = $this->contentTypeRepo->findNewestById($syncContentType->getSpaceId(), $syncContentType->getId());
         if ($contentTypeOptional->isEmpty()) {
             $this->contentTypeRepo->persist($syncContentType);
         } else {

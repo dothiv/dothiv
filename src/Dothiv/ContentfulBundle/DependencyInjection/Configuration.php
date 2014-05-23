@@ -13,7 +13,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('dothiv_contentful');
         $rootNode
             ->children()
-                ->scalarNode('web_path')->defaultValue('contentful')->end()
+                ->scalarNode('web_path')->defaultValue('/contentful')->end()
                 ->scalarNode('local_path')->defaultValue('%kernel.root_dir%/../web/contentful')->end()
             ->end();
         return $treeBuilder;

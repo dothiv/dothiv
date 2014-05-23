@@ -28,5 +28,10 @@ interface ContentfulAssetRepository
      *
      * @return ContentfulAsset[]|ArrayCollection
      */
-    function findAll($spaceId);
+    function findAllBySpaceId($spaceId);
+
+    /**
+     * @return ContentfulAsset[]|ArrayCollection
+     */
+    function findAll();
 } 

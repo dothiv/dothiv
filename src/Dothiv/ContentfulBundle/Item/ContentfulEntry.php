@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity()
  * @ORM\Table(
- *      uniqueConstraints={@ORM\UniqueConstraint(name="contentful_entry__id_rev_uniq",columns={"id", "revision"})},
+ *      uniqueConstraints={@ORM\UniqueConstraint(name="contentful_entry__space_id_rev_uniq",columns={"spaceId", "id", "revision"})},
  *      indexes={
  *          @ORM\Index(name="contentful_entry__name_idx", columns={"name"}),
  *          @ORM\Index(name="contentful_entry__spaceId_idx", columns={"spaceId"})
@@ -76,7 +76,7 @@ class ContentfulEntry implements ContentfulItem
      */
     public function __toString()
     {
-        return sprintf('ContentfulEntry: %s, v%d [%s: %s]', $this->getId(), $this->getRevision(), $this->getContentTypeId(), $this->getName());
+        return sprintf('ContentfulEntry: %s@%s, v%d [%s: %s]', $this->getId(), $this->getSpaceId(), $this->getRevision(), $this->getContentTypeId(), $this->getName());
     }
 
     /**

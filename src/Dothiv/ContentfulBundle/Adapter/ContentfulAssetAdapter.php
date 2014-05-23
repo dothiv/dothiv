@@ -2,21 +2,31 @@
 
 namespace Dothiv\ContentfulBundle\Adapter;
 
-interface ContentfulAssetAdapter
+use Dothiv\ContentfulBundle\Item\ContentfulAsset;
+use Psr\Log\LoggerAwareInterface;
+
+interface ContentfulAssetAdapter extends LoggerAwareInterface
 {
     /**
-     * @param string $assetId
+     * @param ContentfulAsset $asset
      * @param string $locale
      *
      * @return string
      */
-    function getRoute($assetId, $locale);
+    function getRoute(ContentfulAsset $asset, $locale);
 
     /**
-     * @param string $assetId
+     * @param ContentfulAsset $asset
      * @param string $locale
      *
      * @return \SplFileInfo
      */
-    function getLocalFile($assetId, $locale);
-} 
+    function getLocalFile(ContentfulAsset $asset, $locale);
+
+    /**
+     * @param ContentfulAsset $asset
+     *
+     * @return void
+     */
+    function cache(ContentfulAsset $asset);
+}

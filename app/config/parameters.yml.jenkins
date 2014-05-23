@@ -24,4 +24,6 @@ parameters:
     clickcounter_auth_password: some_password
     clickcounter_base_url: 'https://somewhere.on.appspot.com'
     luser: nobody
-    contentful.content_type.page: some-id
+
+    # Contentful settings
+    contenful_registry_space: xfj3l4zlkg3j

@@ -34,7 +34,7 @@ class DoctrineContentfulContentTypeRepository extends EntityRepository implement
         $query = $this->getEntityManager()->createQuery(
             'SELECT c1 FROM Dothiv\ContentfulBundle\Item\ContentfulContentType c1 '
             . 'WHERE c1.name = :name '
-            . 'AND c1.spaceId = :spaceId'
+            . 'AND c1.spaceId = :spaceId '
             . 'AND c1.revision = (SELECT MAX(c2.revision) FROM Dothiv\ContentfulBundle\Item\ContentfulContentType c2 WHERE c2.id = c1.id AND c2.spaceId = :spaceId)'
         )
             ->setParameter('name', $name)

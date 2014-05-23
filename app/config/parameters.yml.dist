@@ -43,4 +43,4 @@ parameters:
     ngmin_bin: '%kernel.root_dir%/../node_modules/ngmin/bin/ngmin'
 
     # Contentful settings
-    contentful.content_type.page: some-id
+    contenful_registry_space: xfj3l4zlkg3j

@@ -56,7 +56,10 @@ class DoctrineContentfulEntryRepository extends EntityRepository implements Cont
     {
         $query = $this->getEntityManager()->createQuery(
             'SELECT e1 FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e1 '
-            . ' WHERE e1.contentTypeId = :contentTypeId AND e1.revision = (SELECT MAX(e2.revision) FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e2 WHERE e2.id = e1.id) AND e1.name = :name'
+            . 'WHERE e1.name = :name '
+            . 'AND e1.contentTypeId = :contentTypeId '
+            . 'AND e1.spaceId = :spaceId '
+            . 'AND e1.revision = (SELECT MAX(e2.revision) FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e2 WHERE e2.id = e1.id AND e2.spaceId = :spaceId)'
         )
             ->setParameter('contentTypeId', $contentTypeId)
             ->setParameter('spaceId', $spaceId)

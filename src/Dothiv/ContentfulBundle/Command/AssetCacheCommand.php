@@ -27,47 +27,9 @@ class AssetCacheCommand extends ContainerAwareCommand
         /** @var $assetRepo \Dothiv\ContentfulBundle\Repository\ContentfulAssetRepository */
         $adapter   = $this->getContainer()->get('dothiv_contentful.asset');
         $assetRepo = $this->getContainer()->get('dothiv_contentful.repo.asset');
-        $totalSize = 0;
+        $adapter->setLogger(new OutputInterfaceLogger($output));
         foreach ($assetRepo->findAll() as $asset) {
-            foreach ($asset->file as $locale => $file) {
-                $localFile = $adapter->getLocalFile($asset->getId(), $locale);
-                if ($localFile->isFile()) {
-                    continue;
-                }
-                $output->writeln(
-                    sprintf(
-                        'Caching "%s" file for asset "%s" as "%s" ...',
-                        $locale,
-                        $asset->getId(),
-                        $localFile->getPathname()
-                    )
-                );
-                $dir = new \SplFileInfo($localFile->getPath());
-                if (!$dir->isWritable()) {
-                    throw new RuntimeException(
-                        sprintf(
-                            'Target directory "%s" is not writeable!',
-                            $localFile->getPath()
-                        )
-                    );
-                    exit(1);
-                }
-                copy(str_replace('//', 'https://', $file['url']), $localFile->getPathname());
-                $size = filesize($localFile->getPathname());
-                $output->writeln(
-                    sprintf(
-                        '%d bytes saved.',
-                        $size
-                    )
-                );
-                $totalSize += $size;
-            }
+            $adapter->cache($asset);
         }
-        $output->writeln(
-            sprintf(
-                '%d total bytes saved.',
-                $totalSize
-            )
-        );
     }
 } 

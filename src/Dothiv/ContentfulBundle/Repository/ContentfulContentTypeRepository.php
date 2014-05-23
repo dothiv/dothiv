@@ -32,4 +32,9 @@ interface ContentfulContentTypeRepository
      * @return void
      */
     function persist(ContentfulContentType $contentType);
+
+    /**
+     * @return ContentfulContentType[]|ArrayCollection
+     */
+    function findAll();
 } 

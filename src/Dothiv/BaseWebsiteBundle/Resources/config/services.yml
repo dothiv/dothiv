@@ -31,8 +31,9 @@ services:
                 - 'en'
                 - @dothiv_contentful.content
                 
-    dothiv.websitebase.contentful.content:
+    dothiv.websitebase.contentful.registry_content:
         class: %dothiv.websitebase.contentful.content.class%
         arguments:
             - @dothiv_contentful.content
             - @dothiv.websitebase.contentful.view_builder
+            - %contenful_registry_space%

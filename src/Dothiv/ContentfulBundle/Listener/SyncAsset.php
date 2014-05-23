@@ -28,7 +28,7 @@ class SyncAsset
     public function onAssetSync(ContentfulAssetEvent $event)
     {
         $syncAsset     = $event->getAsset();
-        $assetOptional = $this->assetRepo->findNewestById($syncAsset->getId());
+        $assetOptional = $this->assetRepo->findNewestById($syncAsset->getSpaceId(), $syncAsset->getId());
         if ($assetOptional->isEmpty()) {
             $this->assetRepo->persist($syncAsset);
         } else {

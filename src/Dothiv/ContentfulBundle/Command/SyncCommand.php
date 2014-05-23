@@ -41,7 +41,7 @@ class SyncCommand extends ContainerAwareCommand
 
         $nextSyncUrl = null;
         $etag        = null;
-        $cacheKey    = 'sync.next_sync_url';
+        $cacheKey    = 'sync.next_sync_url' . $input->getOption('space');
         if ($cache->contains($cacheKey)) {
             $nextSyncUrl = $cache->fetch($cacheKey);
             $etag        = $cache->fetch($cacheKey . '.etag');

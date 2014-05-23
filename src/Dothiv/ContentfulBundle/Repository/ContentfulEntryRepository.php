@@ -2,6 +2,7 @@
 
 namespace Dothiv\ContentfulBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\ContentfulBundle\Item\ContentfulContentType;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
 use PhpOption\Option;
@@ -38,4 +39,9 @@ interface ContentfulEntryRepository
      * @return Option
      */
     function findByContentTypeIdAndName($spaceId, $contentTypeId, $name);
+
+    /**
+     * @return ContentfulEntry[]|ArrayCollection
+     */
+    function findAll();
 } 

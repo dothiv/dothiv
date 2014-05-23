@@ -16,8 +16,8 @@ trait ContentfulSys
     private $id;
 
     /**
-     * @ORM\Id
      * @ORM\Column(type="integer")
+     * @ORM\Id
      * @Assert\NotBlank()
      * @Assert\NotNull()
      * @Assert\Range(min=1)
@@ -28,6 +28,7 @@ trait ContentfulSys
 
     /**
      * @ORM\Column(type="string")
+     * @ORM\Id
      * @Assert\NotBlank()
      * @Assert\NotNull()
      * @Assert\Type("string")

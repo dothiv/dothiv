@@ -4,6 +4,8 @@ namespace Dothiv\ContentfulBundle\Client;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Collections\ArrayCollection;
+use Dothiv\ContentfulBundle\Exception\RuntimeException;
+use Symfony\Component\Validator\Constraints\True;
 
 class CachingHttpClient implements HttpClient
 {
@@ -27,7 +29,7 @@ class CachingHttpClient implements HttpClient
      */
     public function __construct(Cache $cache)
     {
-        $this->cache = $cache;
+        $this->cache   = $cache;
         $this->headers = new ArrayCollection();
     }
 
@@ -38,13 +40,14 @@ class CachingHttpClient implements HttpClient
     {
         $key = sha1($uri);
         if (!$this->cache->contains($key)) {
-            $this->cache->save($key, '{}', 60);
+            $this->cache->save($key, '{"items": []}', 60);
 
             $opts = array(
                 'http' =>
                     array(
-                        'method' => 'GET',
-                        'header' => "Content-type: application/vnd.contentful.delivery.v1+json"
+                        'method'        => 'GET',
+                        'header'        => "Content-type: application/vnd.contentful.delivery.v1+json",
+                        'ignore_errors' => true,
                     )
             );
             if ($this->etag != null) {
@@ -52,6 +55,18 @@ class CachingHttpClient implements HttpClient
             }
             $context = stream_context_create($opts);
             $body    = file_get_contents($uri, false, $context);
+            $status  = $http_response_header[0];
+            list(, $statusCode,) = explode(' ', $status, 3);
+            if (intval($statusCode) != 200) {
+                $this->cache->delete($key);
+                throw new RuntimeException(
+                    sprintf(
+                        'Failed to fetch "%s": %s!',
+                        $uri,
+                        $status
+                    )
+                );
+            }
             $this->parseResponseHeader($http_response_header);
 
             $this->cache->save($key, $body, 0);

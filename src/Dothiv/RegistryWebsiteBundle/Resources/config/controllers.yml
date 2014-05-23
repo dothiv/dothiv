@@ -3,4 +3,4 @@ services:
         class: Dothiv\RegistryWebsiteBundle\Controller\PageController
         arguments:
           - @templating
-          - @dothiv.websitebase.contentful.content
+          - @dothiv.websitebase.contentful.registry_content
