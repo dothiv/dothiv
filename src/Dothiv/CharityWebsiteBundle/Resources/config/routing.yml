@@ -1,6 +1,22 @@
-dothiv_charity_web_app:
+# Redirect to default locale: en
+dothiv_charity_index_nolang:
     pattern:  /
-    defaults: { _controller: DothivCharityWebsiteBundle:Default:index }
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /en
+        permanent: true
 
-dothiv_charity_domainconfig:
-    pattern:  /domainconfig
+dothiv_charity_index:
+    pattern:  /{locale}
+    defaults:
+        _controller: dothiv.charity.web.controller.index:indexAction
+    requirements:
+        locale:  en|de|ky
+
+dothiv_charity_page:
+    pattern:  /{locale}/{page}
+    defaults:
+        _controller: dothiv.base.web.controller.charity_page:pageAction
+        page: index
+    requirements:
+        locale:  en|de|ky

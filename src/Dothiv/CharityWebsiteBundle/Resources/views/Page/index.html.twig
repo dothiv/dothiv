@@ -1,0 +1,196 @@
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivCharityWebsiteBundle::page.html.twig" %}
+{% block content %}
+    <div>
+        <div class="jumbotron infobox bottom-shadow" ng-hide="isClosed">
+            <div class="container">
+                <div class="row"></div>
+                <div class="row">
+                    <div class="span6">
+                        <div class="upper">
+                            <h3 class="oneup pink-text">{% trans %}home.about.oneclick.headline{% endtrans %}</h3>
+                            <a href="" ng-click="toggleHeader()">
+                                <div class="image-container monitor">
+                                    <div class="text">
+                                        {% trans %}home.about.monitorheadline{% endtrans %}<br> {% trans %}home.about.monitortext{% endtrans %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="lower"><p class="running-text">{% trans %}home.about.oneclick.text{% endtrans %}</p></div>
+                    </div>
+                    <div class="span6">
+                        <div class="upper">
+                            <h3 class="oneup colordark-text">{% trans %}home.about.share.headline{% endtrans %}</h3>
+
+                            <div class="image-container people"></div>
+                        </div>
+                        <div class="lower"><p class="running-text">{% trans %}home.about.share.text{% endtrans %}</p></div>
+                    </div>
+                </div>
+                <div class="row colorfooter-container">
+                    <div class="colorfooter6 color-pink medium-height"></div>
+                    <div class="colorfooter6 color-dark medium-height colorfooter-last-dark"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="container whosbehind">
+        <div class="row">
+            <div class="offset6 span6">
+                <h5 class="pink-text">{% trans %}home.who.headline{% endtrans %}</h5>
+
+                <p class="running-text">
+                    {% trans %}home.who.text{% endtrans %}
+                    <a class="bold-text" href="#!/about/mission">{% trans %}home.who.knowmore{% endtrans %}</a>
+                </p>
+
+                <div class="colorfooter6 color-pink small-height"></div>
+                <h5><a href="{{ path('dothiv_registry_register', {'locale': locale}) }}">{% trans %}home.who.yourpage{% endtrans %}</a></h5>
+
+                <div class="colorfooter6 color-dark xsmall-height"></div>
+                <h5><a href="#!/about/fororg">{% trans %}home.who.howto{% endtrans %}</a></h5>
+
+                <div class="colorfooter6 color-dark xsmall-height"></div>
+            </div>
+        </div>
+        <div class="row bottom-hack">
+            <div class="pos-rel">
+                <img class="overflow-up" src="/bundles/dothivcharitywebsite/images/whosbehind.png">
+            </div>
+        </div>
+    </div>
+
+    <hr class="bottom-shadow">
+
+    <div class="container voteproject">
+        <div class="row">
+            <div class="span12">
+                <h3 class="hivblue-text pull-left">{% trans %}home.vote.headline{% endtrans %}</h3>
+                <a class="next2h3 pull-left" href="#!/projects">
+                    <div class="heading-arrow"></div>
+                    {% trans %}home.vote.allprojects{% endtrans %} </a>
+
+                <div class="next2h3 pull-right">
+                    <button class="scroll" ng-click="projectOffset = projectOffset+1;"><i class="icon-tick-left"></i>
+                    </button>
+                    <button class="scroll" ng-click="projectOffset = projectOffset-1"><i class="icon-tick-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="span12">
+                <p class="running-text">{% trans %}home.vote.header{% endtrans %}</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row projects-container">
+
+                <div class="span4" ng-repeat="pro in (projects | carousel: projectOffset | limitTo: 3)">
+                    <img ng-src="[[ pro.pictureurl ]]">
+                    <!-- <span class="colordark-text running-text">[[ pro.votes ]] Votes | Rangliste Platz [[ pro.place ]]</span> -->
+                    <div class="separator4 color-dark small-height"></div>
+                    <div class="ellip">
+                        <h5>[[ pro.headline ]]</h5>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="btn-group btn-group-vertical span12">
+                            <button class="btn btn-primary span12">{% trans %}home.vote.button{% endtrans %}</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <hr class="bottom-shadow">
+
+    <div class="container firms">
+        <div class="row headline">
+            <div class="span12">
+                <h3 class="pink-text pull-left">{% trans %}home.firms.headline{% endtrans %}</h3>
+                <a class="next2h3 pull-left" href="#!/about/whoisbehind#partnersupporter">
+                    <div class="heading-arrow"></div>
+                    {% trans %}home.firms.allfirms{% endtrans %} </a>
+
+                <div class="next2h3 pull-right">
+                    <button class="scroll" ng-click="firmOffset = firmOffset+1"><i class="icon-tick-left"></i></button>
+                    <button class="scroll" ng-click="firmOffset = firmOffset-1"><i class="icon-tick-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span2" ng-repeat="f in (firms | carousel: firmOffset | limitTo: 6)">
+                <a ng-href="[[ f.url ]]"> <img ng-src="[[ f.img ]]"> </a>
+            </div>
+        </div>
+    </div>
+
+    <hr class="bottom-shadow">
+
+    <div class="container quotes">
+        <div class="row">
+            <div class="span12">
+                <h3 class="colordark-text pull-left">{% trans %}home.quotes.headline{% endtrans %}</h3>
+                <a class="next2h3 pull-left" href="#!/about/aboutHIV#quotes">
+                    <div class="heading-arrow"></div>
+                    {% trans %}home.quotes.allquotes{% endtrans %} </a>
+
+                <div class="pos-rel pull-left">
+                    <img class="quote-bubbles" src="/bundles/dothivcharitywebsite/images/quote-bubbles.png">
+                </div>
+                <div class="next2h3 pull-right">
+                    <button class="scroll" ng-click="quoteOffset = quoteOffset+1"><i class="icon-tick-left"></i>
+                    </button>
+                    <button class="scroll" ng-click="quoteOffset = quoteOffset-1"><i class="icon-tick-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row quote-container">
+            <div class="span6" ng-repeat="q in (quotes | carousel: quoteOffset | limitTo: 2)">
+                <div class="separator6 color-blue small-height"></div>
+                <p class="quote hivblue-text">[[ q.text ]]</p>
+
+                <div class="separator6 color-blue small-height"></div>
+                <p class="quoted">[[ q.person ]]</p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="bottom-shadow">
+
+    <div class="container partners">
+        <div class="row">
+            <div class="span12">
+                <h3 class="pink-text pull-left">{% trans %}home.partners.headline{% endtrans %}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span2">
+                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/partners/liga01.jpg"> </a>
+            </div>
+            <div class="span2">
+                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/partners/jovoto.jpg"> </a>
+            </div>
+            <div class="span2">
+                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/partners/github.jpg"> </a>
+            </div>
+            <div class="span2">
+                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/partners/github.jpg"> </a>
+            </div>
+            <div class="span2">
+                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/partners/swipe.jpg"> </a>
+            </div>
+            <div class="span2">
+                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/firms/liga01.jpg"> </a>
+            </div>
+        </div>
+        <div class="pull-right couple">
+            <img src="/bundles/dothivcharitywebsite/images/partners.png">
+        </div>
+    </div>
+{% endblock %}

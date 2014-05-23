@@ -16,7 +16,7 @@ parameters:
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
 
     charitydomain:     localhost
-    companydomain:     registry.hiv
+    registrydomain:     registry.hiv
 
     facebook_app_id:   1234
     facebook_app_secret: yourfacebooksecret
@@ -43,4 +43,4 @@ parameters:
     ngmin_bin: '%kernel.root_dir%/../node_modules/ngmin/bin/ngmin'
 
     # Contentful settings
-    contenful_registry_space: xfj3l4zlkg3j
+    contenful_portals_space: xfj3l4zlkg3j

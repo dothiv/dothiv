@@ -1,0 +1,7 @@
+services:
+    dothiv.charity.web.controller.index:
+        class: Dothiv\CharityWebsiteBundle\Controller\IndexController
+        arguments:
+          - @templating
+          - @dothiv.websitebase.contentful.portals_content
+          - "DothivCharityWebsiteBundle"

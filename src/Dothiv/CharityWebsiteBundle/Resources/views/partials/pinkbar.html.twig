@@ -1,0 +1,81 @@
+<div ng-controller="HeaderController" id="header">
+    <div class="container header">
+        <div class="row">
+            <div class="span2 pull-right"></div>
+            <div class="span1 usermenu pull-right">
+                <ul>
+                    <li class="accountance dummy" ng-show="!isAuthenticated()"></li>
+                    <li class="accountance" ng-show="!isAuthenticated()"><a class="hover-arrow" ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
+                    <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
+                    <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" href="#!/profile" ng-class="{ active: state.includes('=.profile') }">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
+                    <!-- <li class="accountance"><a class="hover-arrow" ng-click="">{% trans %}header.menu.createproject{% endtrans %}</a></li>  -->
+                    <li class="accountance"><a class="hover-arrow" href="#!/mock" ng-class="{ active: state.includes('mock') }">{% trans %}header.menu.mockaction{% endtrans %}</a></li>
+                    <li class="accountance grey">
+                        <div class="language-chooser">
+                            <dh-select class="" model="locale.language" options="siteLanguages" label="label" assign="key"></dh-select>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row bottom-hack">
+            <div class="pos-rel">
+                <div class="overflow-up">
+                    <div class="span2 hiv-logo">
+                        <a href="/" rel="index" class="crawlme"><img src="{{ asset("bundles/dothivcharitywebsite/images/dotHiv-logo.png") }}"></a>
+                    </div>
+                    <div class="span7 menubar">
+                        <div class="barmenu first"><a class="crawlme" href="#!/projects"><h4>{% trans %}header.bar.project{% endtrans %}</h4></a></div>
+                        <div class="barmenu secound"><a class="crawlme" href="#!/about/mission"><h4 ng-class="{ active: state.includes('about') }">{% trans %}header.bar.aboutHIV{% endtrans %}</h4></a></div>
+                        <div class="barmenu third"><a class="crawlme" href="{{ path('dothiv_registry_register', {'locale': locale}) }}"><h4>{% trans %}header.bar.registerurl{% endtrans %}</h4></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- adopt for mobile useage -->
+    <div class="pink-bar rightside">
+        <div class="pink-bar leftside text-right" ng-style="{ width: bar.current / bar.total *100 + '%' }">
+            <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 > 4">
+                <p>
+                    <span class="pink-bar-text">{% trans %}home.pinkbar.activated{% endtrans %}</span>
+                    <span class="pink-bar-text bold" id="active-money">€ [[ bar.current ]]</span>
+                    <i ng-show="!showfunding" class="icon-tick-lower icon-white"></i>
+                    <i ng-show="showfunding" class="icon-tick-upper icon-white"></i>
+                </p>
+            </button>
+        </div>
+        <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 < 4">
+            <p>
+                <i ng-show="!showfunding" class="icon-tick-lower"></i>
+                <i ng-show="showfunding" class="icon-tick-upper"></i>
+                <span class="pink-bar-text right" >{% trans %}home.pinkbar.activated{% endtrans %}</span>
+                <span class="pink-bar-text right bold" id="active-money">€ [[ bar.current ]]</span>
+            </p>
+        </button>
+    </div>
+    <div class="pink-bar-popover-handle">
+        <div ng-show="showfunding" ng-animate="{show: 'pink-bar-popover-show', hide: 'pink-bar-popover-hide'}" class="pink-bar-popover">
+            <div class="container">
+                <div class="row first">
+                    <div class="span6 pink-bar-text">
+                        <p>{% trans %}home.pinkbar.popover.currentStatus{% endtrans %}</p>
+                        <p><span class="activeMoney" id="active-money-popover">€ [[ bar.current ]]</span>
+                            {% trans %}home.pinkbar.popover.areActivated{% endtrans %}</p>
+                        <p><span class="activeMoney" id="clicks-popover">[[ bar.click ]] Klicks</span>
+                            {% trans %}home.pinkbar.popover.missing{% endtrans %}</p>
+                        <hr>
+                        <p>{% trans %}home.pinkbar.popover.shareNow{% endtrans %}</p>
+                    </div>
+                    <div class="span6 pink-bar-text">
+                        <iframe ng-show="showfunding" ng-src="//www.youtube.com/embed/l3ZHd8qbSpE" allowfullscreen></iframe>
+                        <p>{% trans %}home.pinkbar.popover.viewVideo{% endtrans %}
+                            <br>{% trans %}home.pinkbar.popover.how{% endtrans %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="clear: both;"></div>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" ng-app="dotHIVApp" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
+        {% trans %}header.title.line01{% endtrans %} {% trans %}header.title.line02{% endtrans %}
+    </title>
+    {% stylesheets '@DothivCharityWebsiteBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}" />
+    <script src="//use.edgefonts.net/source-sans-pro:n6.js"></script>
+</head>
+<body>
+{#
+    {% include "DothivCharityWebsiteBundle:partials:pinkbar.html.twig" %}
+#}
+
+<div class="content">
+    {% block content %}
+    {% endblock content %}
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="span12 center footer-margin">
+                <img class="hiv-42px" src="{{ asset("bundles/dothivcharitywebsite/images/dotHiv-logo.png") }}">
+                <p class="running-text footer-slogan">{% trans %}footer.slogan{% endtrans %}</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="span4">
+                            <p>
+                                <strong translate="footer.adress.name"></strong><br>
+                                <span translate="footer.adress.street"></span><br>
+                                <span translate="footer.adress.city"></span><br>
+                                <span translate="footer.adress.phone"></span>
+                            </p>
+                        </div>
+                        <div class="span4">
+                            <ul>
+                                <li><a class="running-text" href="{{ path('dothiv_registry_report', {'locale': locale}) }}">{% trans %}header.menu.reportabuse{% endtrans %}</a></li>
+                                <li><a class="running-text" href="#!/support">{% trans %}footer.navi.help{% endtrans %}</a> / <a class="running-text" href="#">{% trans %}footer.navi.forum{% endtrans %}</a></li>
+                                <li><a class="running-text" href="#!/contact">{% trans %}footer.navi.contact{% endtrans %}</a></li>
+                                <li><a class="running-text" href="#!/imprint">{% trans %}footer.navi.imprint{% endtrans %}</a></li>
+                            </ul>
+                        </div>
+                        <div class="span4">
+                            <ul>
+                                <li><a class="social-link" href="https://www.facebook.com/dothiv" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-fb.png") }}">{% trans %}footer.social.facebook{% endtrans %}</a></li>
+                                <li><a class="social-link" href="https://twitter.com/dotHIV" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-tw.png") }}">{% trans %}footer.social.twitter{% endtrans %}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

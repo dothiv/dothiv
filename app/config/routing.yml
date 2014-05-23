@@ -49,6 +49,6 @@ dothiv_charity_web:
 
 # routing for company website
 dothiv_registry_web:
-    host: %companydomain%
+    host: %registrydomain%
     resource: "@DothivRegistryWebsiteBundle/Resources/config/routing.yml"
     prefix:   /

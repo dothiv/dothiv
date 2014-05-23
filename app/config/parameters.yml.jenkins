@@ -13,7 +13,7 @@ parameters:
     locale: de
     secret: bZ7AR7KC
     charitydomain: charity.test.hiv
-    companydomain: org.test.hiv
+    registrydomain: org.test.hiv
     facebook_app_id: 1234
     facebook_app_secret: yourfacebooksecret
     dns_reseller: dd24_reseller
@@ -26,4 +26,4 @@ parameters:
     luser: nobody
 
     # Contentful settings
-    contenful_registry_space: xfj3l4zlkg3j
+    contenful_portals_space: xfj3l4zlkg3j

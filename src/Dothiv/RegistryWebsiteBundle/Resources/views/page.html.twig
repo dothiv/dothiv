@@ -2,7 +2,6 @@
 <html lang="{{ locale }}" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
     <meta charset="utf-8">
-    <meta name="fragment" content="!">
     <title>
         {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
         {% trans %}gmbh.header.title.line01{% endtrans %} {% trans %}gmbh.header.title.line02{% endtrans %}
@@ -98,7 +97,7 @@
     </div>
 
     <div style="clear: both;"></div>
-    <div class="content" ui-view>
+    <div class="content">
         {% block content %}
         {% endblock content %}
     </div>

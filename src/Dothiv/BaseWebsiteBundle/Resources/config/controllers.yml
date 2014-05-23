@@ -1,0 +1,14 @@
+services:
+    dothiv.base.web.controller.registry_page:
+        class: Dothiv\BaseWebsiteBundle\Controller\PageController
+        arguments:
+          - @templating
+          - @dothiv.websitebase.contentful.portals_content
+          - "DothivRegistryWebsiteBundle"
+
+    dothiv.base.web.controller.charity_page:
+        class: Dothiv\BaseWebsiteBundle\Controller\PageController
+        arguments:
+          - @templating
+          - @dothiv.websitebase.contentful.portals_content
+          - "DothivCharityWebsiteBundle"
