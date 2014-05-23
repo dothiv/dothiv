@@ -12,9 +12,9 @@ class DoctrineContentfulAssetRepository extends EntityRepository implements Cont
     /**
      * {@inheritdoc}
      */
-    function findNewestById($id)
+    function findNewestById($spaceId, $id)
     {
-        $result = $this->findBy(array('id' => $id), array('revision' => 'DESC'), 1);
+        $result = $this->findBy(array('id' => $id, 'spaceId' => $spaceId), array('revision' => 'DESC'), 1);
         return Option::fromValue(count($result) == 1 ? array_shift($result) : null);
     }
 
@@ -29,12 +29,13 @@ class DoctrineContentfulAssetRepository extends EntityRepository implements Cont
     /**
      * {@inheritdoc}
      */
-    public function findAll()
+    public function findAll($spaceId)
     {
         $query = $this->getEntityManager()->createQuery(
             'SELECT a1 FROM Dothiv\ContentfulBundle\Item\ContentfulAsset a1 '
-            . 'WHERE a1.revision = (SELECT MAX(a2.revision) FROM Dothiv\ContentfulBundle\Item\ContentfulAsset a2 WHERE a2.id = a1.id)'
-        );
+            . 'WHERE a1.revision = (SELECT MAX(a2.revision) FROM Dothiv\ContentfulBundle\Item\ContentfulAsset a2 WHERE a2.id = a1.id AND a2.spaceId = :spaceId) '
+            . 'AND a1.spaceId = :spaceId'
+        )->setParameter('spaceId', $spaceId);
         return new ArrayCollection($query->getResult());
     }
 }

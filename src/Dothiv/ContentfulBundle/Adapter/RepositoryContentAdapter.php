@@ -47,6 +47,7 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
     }
 
     /**
+     * @param string $spaceId
      * @param $contentTypeName
      * @param $entryName
      *
@@ -54,22 +55,24 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
      * @throws InvalidArgumentException If a content type with the given name cannot be found.
      * @throws InvalidArgumentException If multiple content type with the name are found.
      */
-    function findByContentTypeNameAndEntryName($contentTypeName, $entryName)
+    function findByContentTypeNameAndEntryName($spaceId, $contentTypeName, $entryName)
     {
-        $contentTypes = $this->contentTypeRepo->findNewestByName($contentTypeName);
+        $contentTypes = $this->contentTypeRepo->findNewestByName($spaceId, $contentTypeName);
         if ($contentTypes->isEmpty()) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Content type "%s" not found!',
-                    $contentTypeName
+                    'Content type "%s" in space "%s" not found!',
+                    $contentTypeName,
+                    $spaceId
                 )
             );
         }
         if ($contentTypes->count() > 1) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Multiple content types with name "%s" found!',
-                    $contentTypeName
+                    'Multiple content types with name "%s" found in space "%s"!',
+                    $contentTypeName,
+                    $spaceId
                 )
             );
         }
@@ -78,17 +81,18 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
     }
 
     /**
+     * @param string $spaceId
      * @param string $type
      * @param string $id
      *
      * @return Option
      * @throws InvalidArgumentException If type is unknown.
      */
-    public function findByTypeAndId($type, $id)
+    public function findByTypeAndId($spaceId, $type, $id)
     {
         switch ($type) {
             case ContentfulContentAdapter::CONTENT_TYPE_ASSET:
-                $assetOptional = $this->assetRepo->findNewestById($id);
+                $assetOptional = $this->assetRepo->findNewestById($spaceId, $id);
                 if ($assetOptional->isDefined()) {
                     /** @var ContentfulAsset $asset */
                     $asset = $assetOptional->get();
@@ -100,7 +104,7 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
                 }
                 return $assetOptional;
             case ContentfulContentAdapter::CONTENT_TYPE_ENTRY:
-                return $this->entryRepo->findNewestById($id);
+                return $this->entryRepo->findNewestById($spaceId, $id);
             default:
                 throw new InvalidArgumentException(
                     sprintf(
@@ -112,19 +116,21 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
     }
 
     /**
+     * @param string $spaceId
      * @param string $id
      *
      * @return ContentfulContentType
      *
      * @throws InvalidArgumentException If contenty type cannot be found.
      */
-    function getContentTypeById($id)
+    function getContentTypeById($spaceId, $id)
     {
-        return $this->contentTypeRepo->findNewestById($id)->getOrCall(function () use ($id) {
+        return $this->contentTypeRepo->findNewestById($spaceId, $id)->getOrCall(function () use ($spaceId, $id) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Content type "%s" not found!',
-                    $id
+                    'Content type "%s" in space "%s" not found!',
+                    $id,
+                    $spaceId
                 )
             );
         });

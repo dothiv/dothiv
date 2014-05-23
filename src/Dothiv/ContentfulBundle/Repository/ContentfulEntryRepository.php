@@ -9,11 +9,12 @@ use PhpOption\Option;
 interface ContentfulEntryRepository
 {
     /**
+     * @param string $spaceId
      * @param string $id
      *
      * @return Option
      */
-    function findNewestById($id);
+    function findNewestById($spaceId, $id);
 
     /**
      * @param ContentfulContentType $contentType
@@ -30,10 +31,11 @@ interface ContentfulEntryRepository
     function persist(ContentfulEntry $entry);
 
     /**
+     * @param string $spaceId
      * @param string $contentTypeId
      * @param string $name
      *
      * @return Option
      */
-    function findByContentTypeIdAndName($contentTypeId, $name);
+    function findByContentTypeIdAndName($spaceId, $contentTypeId, $name);
 } 

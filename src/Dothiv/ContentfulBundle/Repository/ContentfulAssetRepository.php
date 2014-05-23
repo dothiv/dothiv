@@ -9,11 +9,12 @@ use PhpOption\Option;
 interface ContentfulAssetRepository
 {
     /**
+     * @param string $spaceId
      * @param string $id
      *
      * @return Option
      */
-    function findNewestById($id);
+    function findNewestById($spaceId, $id);
 
     /**
      * @param ContentfulAsset $asset
@@ -23,7 +24,9 @@ interface ContentfulAssetRepository
     function persist(ContentfulAsset $asset);
 
     /**
+     * @param string $spaceId
+     *
      * @return ContentfulAsset[]|ArrayCollection
      */
-    function findAll();
+    function findAll($spaceId);
 } 

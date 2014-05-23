@@ -12,9 +12,9 @@ class DoctrineContentfulEntryRepository extends EntityRepository implements Cont
     /**
      * {@inheritdoc}
      */
-    function findNewestById($id)
+    function findNewestById($spaceId, $id)
     {
-        $result = $this->findBy(array('id' => $id), array('revision' => 'DESC'), 1);
+        $result = $this->findBy(array('id' => $id, 'spaceId' => $spaceId), array('revision' => 'DESC'), 1);
         return Option::fromValue(count($result) == 1 ? array_shift($result) : null);
     }
 
@@ -34,25 +34,34 @@ class DoctrineContentfulEntryRepository extends EntityRepository implements Cont
     function findByContentType(ContentfulContentType $contentType)
     {
         // Do not rely on Mysql Group By.
-        $query   = $this->getEntityManager()->createQuery('SELECT e1 FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e1 WHERE e1.contentTypeId = :contentTypeId AND e1.revision = (SELECT MAX(e2.revision) FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e2 WHERE e2.id = e1.id)')->setParameter('contentTypeId', $contentType->getId());
-        $entries = $query->getResult();
-        array_map(function (ContentfulEntry $entry) use ($contentType) {
-            $entry->setContentType($contentType);
-        }, $entries);
-        return $entries;
+        $query   = $this->getEntityManager()->createQuery(
+            'SELECT e1 FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e1 '
+            . 'WHERE e1.contentTypeId = :contentTypeId '
+            . 'AND e1.spaceId = :spaceId'
+            . 'AND e1.revision = (SELECT MAX(e2.revision) FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e2 WHERE e2.id = e1.id AND e2.spaceId = :spaceId)')
+            ->setParameter('contentTypeId', $contentType->getId())
+            ->setParameter('spaceId', $contentType->getSpaceId())
+        ;
+        return $query->getResult();
     }
 
     /**
+     * @param string $spaceId
      * @param string $contentTypeId
      * @param string $name
      *
      * @return Option
      */
-    function findByContentTypeIdAndName($contentTypeId, $name)
+    function findByContentTypeIdAndName($spaceId, $contentTypeId, $name)
     {
-        $query = $this->getEntityManager()->createQuery('SELECT e1 FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e1 WHERE e1.contentTypeId = :contentTypeId AND e1.revision = (SELECT MAX(e2.revision) FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e2 WHERE e2.id = e1.id) AND e1.name = :name')
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT e1 FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e1 '
+            . ' WHERE e1.contentTypeId = :contentTypeId AND e1.revision = (SELECT MAX(e2.revision) FROM Dothiv\ContentfulBundle\Item\ContentfulEntry e2 WHERE e2.id = e1.id) AND e1.name = :name'
+        )
             ->setParameter('contentTypeId', $contentTypeId)
-            ->setParameter('name', $name);
+            ->setParameter('spaceId', $spaceId)
+            ->setParameter('name', $name)
+        ;
         return Option::fromValue($query->getOneOrNullResult());
     }
 }

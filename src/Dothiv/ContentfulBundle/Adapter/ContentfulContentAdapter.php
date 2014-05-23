@@ -13,27 +13,30 @@ interface ContentfulContentAdapter
     const CONTENT_TYPE_ENTRY = 'Entry';
 
     /**
-     * @param $contentTypeName
-     * @param $entryName
+     * @param string $spaceId
+     * @param string $contentTypeName
+     * @param string $entryName
      *
      * @return Option
      */
-    function findByContentTypeNameAndEntryName($contentTypeName, $entryName);
+    function findByContentTypeNameAndEntryName($spaceId, $contentTypeName, $entryName);
 
     /**
+     * @param string $spaceId
      * @param string $type
      * @param string $id
      *
      * @return Option
      */
-    function findByTypeAndId($type, $id);
+    function findByTypeAndId($spaceId, $type, $id);
 
     /**
+     * @param string $spaceId
      * @param string $id
      *
      * @return ContentfulContentType
      *
      * @throws InvalidArgumentException If contenty type cannot be found.
      */
-    function getContentTypeById($id);
+    function getContentTypeById($spaceId, $id);
 } 

@@ -9,20 +9,22 @@ use PhpOption\Option;
 interface ContentfulContentTypeRepository
 {
     /**
+     * @param string $spaceId
      * @param string $id
      *
      * @return Option
      */
-    function findNewestById($id);
+    function findNewestById($spaceId, $id);
 
     /**
      * Finds ContentTypes by their name. As the name is not unique for content types, multiple entries may be returned.
      *
+     * @param string $spaceId
      * @param string $name
      *
      * @return ContentfulContentType[]|ArrayCollection
      */
-    function findNewestByName($name);
+    function findNewestByName($spaceId, $name);
 
     /**
      * @param ContentfulContentType $contentType
