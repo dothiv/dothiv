@@ -29,7 +29,7 @@
         "friendsofsymfony/facebook-bundle": "1.2.*",
         "gregwar/form-bundle": "*@dev",
         "doctrine/doctrine-cache-bundle": "1.0.x",
-        "knplabs/knp-markdown-bundle": "1.2.*"
+        "dothiv/dothiv-parsedown-bundle": "dev-master"
     },
     "require-dev": {
         "phploc/phploc": "*",

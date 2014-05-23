@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new Dothiv\BaseWebsiteBundle\DothivBaseWebsiteBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Dothiv\ContentfulBundle\DothivContentfulBundle(),
+            new Dothiv\Bundle\ParsedownBundle\DothivParsedownBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
