@@ -1,26 +1,7 @@
 {% set title %}{{ page.title }}{% endset %}
 {% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
-{% import "DothivRegistryWebsiteBundle:Macros:cf.html.twig" as cf %}
 {% block content %}
     <div class="container content">
-        {% for block in page.blocks %}
-
-            <div class="row">
-                <div class="span12">
-                    <h1>{{ block.title }}{{ cf.link(block, locale == "ky") }}</h1>
-
-                    {{ block.text|extra_markdown }}
-                </div>
-            </div>
-            {% if block.image %}
-                <div class="row">
-                    <div class="span12">
-                        <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" title="{{ block.image.description }}">
-                        {{ cf.link(block.image, locale == "ky") }}
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-        <p>{{ cf.link(page, locale == "ky") }}</p>
+        {% include "DothivRegistryWebsiteBundle:partials:cfpage.html.twig" with {'page': page} %}
     </div>
 {% endblock %}

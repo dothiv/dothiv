@@ -1,14 +1,19 @@
+{% set title %}{{ page.title }}{% endset %}
 {% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
 {% block content %}
     <div class="container aboutus">
         <div class="row">
             <div class="span12">
-                <h2>{% trans %}gmbh.home.aboutus.headline{% endtrans %}</h2>
+                <h2>{{ page.blocks[0].title }}</h2>
             </div>
         </div>
         <div class="row">
-            <div class="span6"><p class="running-text">{% trans %}gmbh.home.aboutus.left{% endtrans %}</p></div>
-            <div class="span6"><p class="running-text">{% trans %}gmbh.home.aboutus.right{% endtrans %}</p></div>
+            <div class="span6">
+                {{ page.blocks[0].text|markdown }}
+            </div>
+            <div class="span6">
+                {{ page.blocks[1].text|markdown }}
+            </div>
         </div>
     </div>
     <hr class="bottom-shadow">
