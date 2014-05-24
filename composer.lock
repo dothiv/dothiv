@@ -709,12 +709,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dothiv/DothivParsedownBundle.git",
-                "reference": "70429a739743fd6475bba23d2d228137f557383d"
+                "reference": "8c9e466fc0b56937e63e3d598e19deac84262e93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dothiv/DothivParsedownBundle/zipball/70429a739743fd6475bba23d2d228137f557383d",
-                "reference": "70429a739743fd6475bba23d2d228137f557383d",
+                "url": "https://api.github.com/repos/dothiv/DothivParsedownBundle/zipball/8c9e466fc0b56937e63e3d598e19deac84262e93",
+                "reference": "8c9e466fc0b56937e63e3d598e19deac84262e93",
                 "shasum": ""
             },
             "require": {
