@@ -20,7 +20,7 @@ interface ContentfulEntryRepository
     /**
      * @param ContentfulContentType $contentType
      *
-     * @return ContentfulEntry[]
+     * @return ContentfulEntry[]|ArrayCollection
      */
     function findByContentType(ContentfulContentType $contentType);
 

@@ -10,10 +10,11 @@ class IndexController extends PageController
 {
     public function indexAction(Request $request, $locale)
     {
-        // TODO: Fetch entries for a content type and build.
-        $data     = $this->buildPageObject($request, $locale, 'index');
-        $response = new Response();
-        $template = $this->getBundle() . ':Page:index.html.twig';
+        // TODO: Cache
+        $data             = $this->buildPageObject($request, $locale, 'index');
+        $data['projects'] = $this->getContent()->buildEntries('Project', $locale);
+        $response         = new Response();
+        $template         = $this->getBundle() . ':Page:index.html.twig';
         return $this->getRenderer()->renderResponse($template, $data, $response);
     }
 }

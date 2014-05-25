@@ -32,7 +32,7 @@ class Content
     {
         $this->contentAdapter = $contentAdapter;
         $this->viewBuilder    = $viewBuilder;
-        $this->spaceId = $spaceId;
+        $this->spaceId        = $spaceId;
     }
 
     /**
@@ -61,5 +61,24 @@ class Content
             }
         );
         return $this->viewBuilder->buildView($entry, $locale);
+    }
+
+    /**
+     * Builds the view data for entrys of the given content type.
+     *
+     * @param string $contentTypeName
+     * @param string $locale
+     *
+     * @return object[]
+     */
+    public function buildEntries($contentTypeName, $locale)
+    {
+        /** @var ContentfulEntry $entry */
+        $entries = $this->contentAdapter->findByContentTypeName($this->spaceId, $contentTypeName);
+        $view    = array();
+        foreach ($entries as $entry) {
+            $view[] = $this->viewBuilder->buildView($entry, $locale);
+        }
+        return $view;
     }
 } 

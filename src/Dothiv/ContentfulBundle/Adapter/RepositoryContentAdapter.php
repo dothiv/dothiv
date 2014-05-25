@@ -2,6 +2,7 @@
 
 namespace Dothiv\ContentfulBundle\Adapter;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\ContentfulBundle\Exception\InvalidArgumentException;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Item\ContentfulContentType;
@@ -52,32 +53,23 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
      * @param string $entryName
      *
      * @return Option
-     * @throws InvalidArgumentException If a content type with the given name cannot be found.
-     * @throws InvalidArgumentException If multiple content type with the name are found.
      */
     function findByContentTypeNameAndEntryName($spaceId, $contentTypeName, $entryName)
     {
-        $contentTypes = $this->contentTypeRepo->findNewestByName($spaceId, $contentTypeName);
-        if ($contentTypes->isEmpty()) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Content type "%s" in space "%s" not found!',
-                    $contentTypeName,
-                    $spaceId
-                )
-            );
-        }
-        if ($contentTypes->count() > 1) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Multiple content types with name "%s" found in space "%s"!',
-                    $contentTypeName,
-                    $spaceId
-                )
-            );
-        }
-        $contentType = $contentTypes->first();
+        $contentType = $this->findContentType($spaceId, $contentTypeName);
         return $this->entryRepo->findByContentTypeIdAndName($spaceId, $contentType->getId(), $entryName);
+    }
+
+    /**
+     * @param string $spaceId
+     * @param string $contentTypeName
+     *
+     * @return ArrayCollection
+     */
+    function findByContentTypeName($spaceId, $contentTypeName)
+    {
+        $contentType = $this->findContentType($spaceId, $contentTypeName);
+        return $this->entryRepo->findByContentType($contentType);
     }
 
     /**
@@ -134,6 +126,41 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
                 )
             );
         });
+    }
+
+    /**
+     * Finds one content type by it's name.
+     *
+     * @param $spaceId
+     * @param $contentTypeName
+     *
+     * @return ContentfulContentType
+     * @throws InvalidArgumentException If a content type with the given name cannot be found.
+     * @throws InvalidArgumentException If multiple content type with the name are found.
+     */
+    protected function findContentType($spaceId, $contentTypeName)
+    {
+        $contentTypes = $this->contentTypeRepo->findNewestByName($spaceId, $contentTypeName);
+        if ($contentTypes->isEmpty()) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Content type "%s" in space "%s" not found!',
+                    $contentTypeName,
+                    $spaceId
+                )
+            );
+        }
+        if ($contentTypes->count() > 1) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Multiple content types with name "%s" found in space "%s"!',
+                    $contentTypeName,
+                    $spaceId
+                )
+            );
+        }
+        $contentType = $contentTypes->first();
+        return $contentType;
     }
 
 }

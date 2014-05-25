@@ -2,6 +2,7 @@
 
 namespace Dothiv\ContentfulBundle\Adapter;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\ContentfulBundle\Exception\InvalidArgumentException;
 use Dothiv\ContentfulBundle\Item\ContentfulContentType;
 use PhpOption\Option;
@@ -20,6 +21,14 @@ interface ContentfulContentAdapter
      * @return Option
      */
     function findByContentTypeNameAndEntryName($spaceId, $contentTypeName, $entryName);
+
+    /**
+     * @param string $spaceId
+     * @param string $contentTypeName
+     *
+     * @return ArrayCollection
+     */
+    function findByContentTypeName($spaceId, $contentTypeName);
 
     /**
      * @param string $spaceId
