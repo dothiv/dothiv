@@ -40,7 +40,7 @@ class PageController
     {
         $this->renderer = $renderer;
         $this->content  = $content;
-        $this->bundle = $bundle;
+        $this->bundle   = $bundle;
     }
 
     public function pageAction(Request $request, $locale, $page)
@@ -82,7 +82,7 @@ class PageController
                 break;
         }
 
-        $pageId = $page . '.page';
+        $pageId       = $page . '.page';
         $data['page'] = $this->content->buildEntry('Page', $pageId, $locale);
         return $data;
     }
@@ -109,5 +109,25 @@ class PageController
     public function getContent()
     {
         return $this->content;
+    }
+
+    public function contentAction(Request $request, $locale, $type)
+    {
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
+        $view = $this->content->buildEntries($type, $locale);
+        if ($request->get('markdown')) {
+            $parsedown = new \Parsedown();
+            $fields    = explode(',', $request->get('markdown'));
+            foreach ($fields as $field) {
+                foreach ($view as $k => $v) {
+                    if (property_exists($view[$k], $field)) {
+                        $view[$k]->$field = $parsedown->text($view[$k]->$field);
+                    }
+                }
+            }
+        }
+        $response->setContent(json_encode($view));
+        return $response;
     }
 }
