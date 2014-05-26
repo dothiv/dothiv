@@ -13,8 +13,14 @@ class IndexController extends PageController
         // TODO: Cache
         $data             = $this->buildPageObject($request, $locale, 'index');
         $data['projects'] = $this->getContent()->buildEntries('Project', $locale);
-        $response         = new Response();
-        $template         = $this->getBundle() . ':Page:index.html.twig';
+        usort($data['projects'], function (\stdClass $projectA, \stdClass $projectB) {
+            if ($projectA->order == $projectB->order) {
+                return 0;
+            }
+            return ($projectA->order < $projectB->order) ? -1 : 1;
+        });
+        $response = new Response();
+        $template = $this->getBundle() . ':Page:index.html.twig';
         return $this->getRenderer()->renderResponse($template, $data, $response);
     }
 }
