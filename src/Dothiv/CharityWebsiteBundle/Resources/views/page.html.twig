@@ -13,9 +13,11 @@
     <script src="//use.edgefonts.net/source-sans-pro:n6.js"></script>
 </head>
 <body>
-{#
+<div ng-controller="HeaderController" id="header">
+    {% include "DothivCharityWebsiteBundle:partials:headnav.html.twig" %}
     {% include "DothivCharityWebsiteBundle:partials:pinkbar.html.twig" %}
-#}
+</div>
+<div style="clear: both;"></div>
 
 <div class="content">
     {% block content %}
