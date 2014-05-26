@@ -3,42 +3,6 @@
 angular.module('dotHIVApp.controllers').controller('HomeController', ['$scope', 
     function($scope) {
     
-        $scope.firmOffset = 0 ;
-
-        $scope.firms = [
-                        { 
-                                'img': '/bundles/dothivcharitywebsite/images/firms/github.jpg',
-                                'url': '#!/'
-                        },
-                        { 
-                                'img': '/bundles/dothivcharitywebsite/images/firms/liga01.jpg',
-                                'url': '#!/'
-                        },
-                        { 
-                                'img': '/bundles/dothivcharitywebsite/images/firms/jovoto.jpg',
-                                'url': '#!/'
-                        },
-                        { 
-                                'img': '/bundles/dothivcharitywebsite/images/firms/swipe.jpg',
-                                'url': '#!/'
-                        },
-                        { 
-                                'img': '/bundles/dothivcharitywebsite/images/firms/github.jpg',
-                                'url': '#!/'
-                        },
-                        { 
-                                'img': '/bundles/dothivcharitywebsite/images/firms/liga01.jpg',
-                                'url': '#!/'
-                        },
-                        { 
-                                'img': '/bundles/dothivcharitywebsite/images/firms/jovoto.jpg',
-                                'url': '#!/'
-                        },
-                        { 
-                                'img': '/bundles/dothivcharitywebsite/images/firms/swipe.jpg',
-                                'url': '#!/'
-                        }
-                    ]
         $scope.quoteOffset = 0 ;
 
         $scope.quotes = [
