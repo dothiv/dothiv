@@ -20,7 +20,7 @@
     {% endjavascripts %}
 </head>
 <body ng-app="dotHIVApp">
-<div ng-controller="HeaderController" id="header">
+<div id="header">
     {% include "DothivCharityWebsiteBundle:partials:headnav.html.twig" %}
     {% include "DothivCharityWebsiteBundle:partials:pinkbar.html.twig" %}
 </div>
@@ -80,19 +80,9 @@
 </footer>
 
 {% javascripts
-    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular/angular-resource.js'
-    '@DothivBaseWebsiteBundle/Resources/public/vendor/http-auth-interceptor.js'
-    '@DothivBaseWebsiteBundle/Resources/public/vendor/ui-bootstrap-tpls.js'
-    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular-ui-router.js'
-    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular-translate.js'
-    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular-translate-loader-static-files.js'
-    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular/i18n/angular-locale_de.js'
-    '@DothivCharityWebsiteBundle/Resources/public/app.js'
-    '@DothivBaseWebsiteBundle/Resources/public/services/*.js'
-    '@DothivBaseWebsiteBundle/Resources/public/services/**/*.js'
-    '@DothivBaseWebsiteBundle/Resources/public/directives/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/app2.js'
     '@DothivBaseWebsiteBundle/Resources/public/filters/*.js'
-    '@DothivCharityWebsiteBundle/Resources/public/controllers/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/QuoteController.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js'
 %}

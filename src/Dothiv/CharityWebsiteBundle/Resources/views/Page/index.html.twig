@@ -130,7 +130,7 @@
                 <blockquote class="span6" ng-repeat="q in (quotes | carousel: quoteOffset | limitTo: 2)">
                     <article ng-bind-html-unsafe="q.quote"></article>
                     <footer>
-                        <cite>[[ q.person ]]</cite>
+                        <cite ng-bind="q.person"></cite>
                     </footer>
                 </blockquote>
             </div>
