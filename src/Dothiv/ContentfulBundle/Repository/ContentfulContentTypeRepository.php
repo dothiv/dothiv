@@ -34,7 +34,21 @@ interface ContentfulContentTypeRepository
     function persist(ContentfulContentType $contentType);
 
     /**
+     * @param ContentfulContentType $contentType
+     *
+     * @return void
+     */
+    function remove(ContentfulContentType $contentType);
+
+    /**
      * @return ContentfulContentType[]|ArrayCollection
      */
     function findAll();
+
+    /**
+     * @param string $spaceId
+     *
+     * @return ContentfulContentType[]|ArrayCollection
+     */
+    function findAllBySpaceId($spaceId);
 } 

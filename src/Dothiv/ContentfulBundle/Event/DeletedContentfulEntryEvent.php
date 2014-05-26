@@ -2,26 +2,26 @@
 
 namespace Dothiv\ContentfulBundle\Event;
 
-use Dothiv\ContentfulBundle\Item\ContentfulEntry;
+use Dothiv\ContentfulBundle\Item\DeletedContentfulEntry;
 use Symfony\Component\EventDispatcher\Event;
 
-class ContentfulEntryEvent extends Event
+class DeletedContentfulEntryEvent extends Event
 {
     /**
-     * @var ContentfulEntry
+     * @var DeletedContentfulEntry
      */
     private $entry;
 
     /**
-     * @param ContentfulEntry $entry
+     * @param DeletedContentfulEntry $entry
      */
-    public function __construct(ContentfulEntry $entry)
+    public function __construct(DeletedContentfulEntry $entry)
     {
         $this->entry = $entry;
     }
 
     /**
-     * @return ContentfulEntry
+     * @return DeletedContentfulEntry
      */
     public function getEntry()
     {
@@ -29,11 +29,10 @@ class ContentfulEntryEvent extends Event
     }
 
     /**
-     * @param ContentfulEntry $entry
+     * @param DeletedContentfulEntry $entry
      */
     public function setEntry($entry)
     {
         $this->entry = $entry;
     }
 }
-

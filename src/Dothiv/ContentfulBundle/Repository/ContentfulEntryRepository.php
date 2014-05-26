@@ -32,6 +32,13 @@ interface ContentfulEntryRepository
     function persist(ContentfulEntry $entry);
 
     /**
+     * @param ContentfulEntry $entry
+     *
+     * @return void
+     */
+    function remove(ContentfulEntry $entry);
+
+    /**
      * @param string $spaceId
      * @param string $contentTypeId
      * @param string $name

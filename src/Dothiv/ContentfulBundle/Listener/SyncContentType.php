@@ -2,7 +2,10 @@
 
 namespace Dothiv\ContentfulBundle\Listener;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Dothiv\ContentfulBundle\ContentfulEvents;
 use Dothiv\ContentfulBundle\Event\ContentfulContentTypeEvent;
+use Dothiv\ContentfulBundle\Event\ContentfulContentTypesEvent;
 use Dothiv\ContentfulBundle\Item\ContentfulContentType;
 use Dothiv\ContentfulBundle\Item\Traits\ContentfulItem;
 use Dothiv\ContentfulBundle\Repository\ContentfulContentTypeRepository;
@@ -53,6 +56,35 @@ class SyncContentType
                 }
             } else {
                 $event->setContentType($existingContentType);
+            }
+        }
+    }
+
+    /**
+     * @param ContentfulContentTypesEvent $event
+     */
+    public function onContentTypesSync(ContentfulContentTypesEvent $event)
+    {
+        $contentTypesToSpaceId = new ArrayCollection();
+        foreach ($event->getContentTypes() as $contentType) {
+            if (!$contentTypesToSpaceId->containsKey($contentType->getSpaceId())) {
+                $contentTypesToSpaceId->set($contentType->getSpaceId(), new ArrayCollection());
+            }
+            $contentTypesToSpaceId[$contentType->getSpaceId()][] = $contentType;
+        }
+        $idsMap = function (ContentfulContentType $type) {
+            return $type->getId();
+        };
+        foreach ($contentTypesToSpaceId as $spaceId => $contentTypes) {
+            /** @var ArrayCollection $contentTypes */
+            $currentContentTypes = $this->contentTypeRepo->findAllBySpaceId($spaceId)->map($idsMap);
+            $newContentTypes     = $contentTypes->map($idsMap);
+            $old                 = $currentContentTypes->toArray();
+            $new                 = $newContentTypes->toArray();
+            foreach (array_diff($old, $new) as $deleted) {
+                $event->getDispatcher()->dispatch(ContentfulEvents::CONTENT_TYPE_DELETE, new ContentfulContentTypeEvent(
+                    $this->contentTypeRepo->findNewestById($spaceId, $deleted)->get()
+                ));
             }
         }
     }

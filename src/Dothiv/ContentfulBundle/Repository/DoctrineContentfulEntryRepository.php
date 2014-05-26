@@ -28,6 +28,14 @@ class DoctrineContentfulEntryRepository extends EntityRepository implements Cont
     }
 
     /**
+     * {@inheritdoc}
+     */
+    function remove(ContentfulEntry $entry)
+    {
+        $this->getEntityManager()->remove($entry);
+    }
+
+    /**
      * @param ContentfulContentType $contentType
      *
      * @return ContentfulEntry[]|ArrayCollection
