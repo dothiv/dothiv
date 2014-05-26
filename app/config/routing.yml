@@ -1,7 +1,3 @@
-dothiv_base_web:
-    resource: "@DothivBaseWebsiteBundle/Resources/config/routing.yml"
-    prefix:   /
-
 # security routing
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
