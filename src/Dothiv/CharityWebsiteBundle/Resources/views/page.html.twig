@@ -28,7 +28,7 @@
     <div class="container">
         <div class="row">
             <div class="span12 center footer-margin">
-                {% set dothiv = cfBlock('footer.dotHIV') %}
+                {% set dothiv = content('Block', 'footer.dotHIV') %}
                 <img class="hiv-42px" src="{{ dothiv.image.file.url }}" alt="{{ dothiv.image.title }}">
 
                 <p class="running-text footer-slogan">{{ dothiv.title }}</p>

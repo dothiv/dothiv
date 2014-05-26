@@ -25,13 +25,13 @@ class ContentfulTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('cfBlock', array($this, 'buildBlock'), array('needs_context' => true))
+            new \Twig_SimpleFunction('content', array($this, 'buildItem'), array('needs_context' => true))
         );
     }
 
-    public function buildBlock(array $ctx, $name, $locale = null)
+    public function buildItem(array $ctx, $type, $name, $locale = null)
     {
-        return $this->content->buildEntry('Block', $name, Option::fromValue($locale)->getOrElse($ctx['locale']));
+        return $this->content->buildEntry($type, $name, Option::fromValue($locale)->getOrElse($ctx['locale']));
     }
 
     public function getName()

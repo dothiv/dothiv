@@ -36,8 +36,8 @@ class ContentfulTest extends \PHPUnit_Framework_TestCase
         foreach ($ext->getFunctions() as $func) {
             /** @var \Twig_SimpleFunction $func */
             $this->assertInstanceOf('\Twig_SimpleFunction', $func);
-            $this->assertEquals('cfBlock', $func->getName());
-            $b = call_user_func($func->getCallable(), array('locale' => 'de'), 'example.block');
+            $this->assertEquals('content', $func->getName());
+            $b = call_user_func($func->getCallable(), array('locale' => 'de'), 'Block', 'example.block');
             $this->assertSame($block, $b);
         }
     }
