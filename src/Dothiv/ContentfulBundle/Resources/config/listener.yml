@@ -1,5 +1,6 @@
 parameters:
     dothiv_contentful.sync.content_type_listener.class: Dothiv\ContentfulBundle\Listener\SyncContentType
+    dothiv_contentful.delete.content_type_listener.class: Dothiv\ContentfulBundle\Listener\DeleteContentType
     dothiv_contentful.sync.entry_listener.class: Dothiv\ContentfulBundle\Listener\SyncEntry
     dothiv_contentful.sync.asset_listener.class: Dothiv\ContentfulBundle\Listener\SyncAsset
 

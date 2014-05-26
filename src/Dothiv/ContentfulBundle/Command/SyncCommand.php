@@ -25,7 +25,7 @@ class SyncCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var $client \Dothiv\ContentfulBundle\Client\HttpClient */
+        /** @var $client \Dothiv\ContentfulBundle\Client\HttpClientInterface */
         /** @var Cache $cache */
         /** @var EntityManager $em */
         $client  = $this->getContainer()->get('dothiv_contentful.http_client');

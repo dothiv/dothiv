@@ -3,15 +3,18 @@
 namespace Dothiv\ContentfulBundle\Adapter;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Dothiv\ContentfulBundle\Client\HttpClient;
+use Dothiv\ContentfulBundle\Client\HttpClientInterface;
 use Dothiv\ContentfulBundle\ContentfulEvents;
 use Dothiv\ContentfulBundle\Event\ContentfulAssetEvent;
 use Dothiv\ContentfulBundle\Event\ContentfulContentTypeEvent;
+use Dothiv\ContentfulBundle\Event\ContentfulContentTypesEvent;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
+use Dothiv\ContentfulBundle\Event\DeletedContentfulEntryEvent;
 use Dothiv\ContentfulBundle\Exception\RuntimeException;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Item\ContentfulContentType;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
+use Dothiv\ContentfulBundle\Item\DeletedContentfulEntry;
 use Dothiv\ContentfulBundle\Logger\LoggerAwareTrait;
 use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -31,7 +34,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
     private $accessToken;
 
     /**
-     * @var HttpClient
+     * @var HttpClientInterface
      */
     private $client;
 
@@ -53,10 +56,10 @@ class HttpClientAdapter implements ContentfulApiAdapter
     /**
      * @param string                   $spaceId
      * @param string                   $accessToken
-     * @param HttpClient               $client
+     * @param HttpClientInterface      $client
      * @param EventDispatcherInterface $dispatcher
      */
-    public function __construct($spaceId, $accessToken, HttpClient $client, EventDispatcherInterface $dispatcher)
+    public function __construct($spaceId, $accessToken, HttpClientInterface $client, EventDispatcherInterface $dispatcher)
     {
         $this->spaceId     = $spaceId;
         $this->baseUrl     = sprintf(
@@ -91,6 +94,9 @@ class HttpClientAdapter implements ContentfulApiAdapter
             case 'Asset':
                 $entry = new ContentfulAsset();
                 break;
+            case 'DeletedEntry':
+                $entry = new DeletedContentfulEntry();
+                break;
             default:
                 return;
         }
@@ -101,17 +107,19 @@ class HttpClientAdapter implements ContentfulApiAdapter
         $entry->setCreatedAt(new \DateTime($data->sys->createdAt));
         $entry->setUpdatedAt(new \DateTime($data->sys->updatedAt));
 
-        foreach ($data->fields as $k => $field) {
-            if (is_array($field)) {
-                $fieldValue = array();
-                foreach ($field as $subItem) {
-                    $fieldValue[] = $this->getEntry($subItem, $contentTypes);
+        if (property_exists($data, 'fields')) {
+            foreach ($data->fields as $k => $field) {
+                if (is_array($field)) {
+                    $fieldValue = array();
+                    foreach ($field as $subItem) {
+                        $fieldValue[] = $this->getEntry($subItem, $contentTypes);
+                    }
+                    $entry->$k = $fieldValue;
+                } else if (is_object($field) && property_exists($field, 'sys')) {
+                    $entry->$k = $this->getEntry($field, $contentTypes);
+                } else {
+                    $entry->$k = $field;
                 }
-                $entry->$k = $fieldValue;
-            } else if (is_object($field) && property_exists($field, 'sys')) {
-                $entry->$k = $this->getEntry($field, $contentTypes);
-            } else {
-                $entry->$k = $field;
             }
         }
 
@@ -155,6 +163,10 @@ class HttpClientAdapter implements ContentfulApiAdapter
             );
             $types[$contentType->getId()] = $event->getContentType();
         }
+        $this->dispatcher->dispatch(
+            ContentfulEvents::CONTENT_TYPE_SYNC_ALL,
+            new ContentfulContentTypesEvent($types)
+        );
         return $types;
     }
 
@@ -164,10 +176,14 @@ class HttpClientAdapter implements ContentfulApiAdapter
         foreach ($data->items as $item) {
             $entry = $this->getEntry($item, $contentTypes);
             if ($entry) {
-                $this->log('Sync: %s', $entry);
-                if ($entry instanceof ContentfulAsset) {
+                if ($entry instanceof DeletedContentfulEntry) {
+                    $this->log('Delete: %s', $entry);
+                    $this->dispatcher->dispatch(ContentfulEvents::ENTRY_DELETE, new DeletedContentfulEntryEvent($entry));
+                } elseif ($entry instanceof ContentfulAsset) {
+                    $this->log('Sync: %s', $entry);
                     $this->dispatcher->dispatch(ContentfulEvents::ASSET_SYNC, new ContentfulAssetEvent($entry));
                 } else {
+                    $this->log('Sync: %s', $entry);
                     $this->dispatcher->dispatch(ContentfulEvents::ENTRY_SYNC, new ContentfulEntryEvent($entry));
                 }
             }

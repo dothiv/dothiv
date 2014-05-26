@@ -1,5 +1,5 @@
 parameters:
-    dothiv_contentful.http_client.class: Dothiv\ContentfulBundle\Client\CachingHttpClient
+    dothiv_contentful.http_client.class: Dothiv\ContentfulBundle\Client\HttpClient
     dothiv_contentful.content.class: Dothiv\ContentfulBundle\Adapter\RepositoryContentAdapter
     dothiv_contentful.asset.class: Dothiv\ContentfulBundle\Adapter\FilesystemAssetAdapter
 
