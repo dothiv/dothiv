@@ -11,8 +11,15 @@
     {% endstylesheets %}
     <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}"/>
     <script src="//use.edgefonts.net/source-sans-pro:n6.js"></script>
+    {% javascripts
+        '@DothivBaseWebsiteBundle/Resources/public/vendor/angular/angular.js'
+        filter='?ngmin,?closureecma5'
+        output='js/*.min.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 </head>
-<body>
+<body ng-app="dotHIVApp">
 <div ng-controller="HeaderController" id="header">
     {% include "DothivCharityWebsiteBundle:partials:headnav.html.twig" %}
     {% include "DothivCharityWebsiteBundle:partials:pinkbar.html.twig" %}
@@ -72,5 +79,34 @@
     </div>
 </footer>
 
+{% javascripts
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular/angular-resource.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/http-auth-interceptor.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/ui-bootstrap-tpls.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular-ui-router.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular-translate.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular-translate-loader-static-files.js'
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/angular/i18n/angular-locale_de.js'
+    '@DothivCharityWebsiteBundle/Resources/public/app.js'
+    '@DothivBaseWebsiteBundle/Resources/public/services/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/services/**/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/directives/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/filters/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/*.js'
+    filter='?ngmin,?closureecma5'
+    output='js/*.min.js'
+%}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script type="text/javascript">
+    'use strict';
+    angular.module('dotHIVApp.services').factory('config', function() {
+        var config = {
+            locale: '{{ locale }}'
+        };
+        return config;
+    });
+</script>
 </body>
 </html>

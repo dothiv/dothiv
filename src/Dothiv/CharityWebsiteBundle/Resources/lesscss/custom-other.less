@@ -6,11 +6,11 @@
 // --------------------------------
 .upper { position: relative; height: 128px; }
 .lower { clear: both; }
-.oneup { 
+.oneup {
     z-index: 1;
     position: absolute;
     float: left;
-    bottom: 0px; 
+    bottom: 0px;
 }
 
 .whosbehind {
@@ -22,7 +22,7 @@
         top: -10px;
         min-height: 270px;
     }
-    
+
     img {
         left: 57px;
     }
@@ -31,79 +31,94 @@
 .voteproject {
     & .span12 { margin-left: 0px; }
     & > .row { margin: 52px 0 13px; }
-    
+
     & .ellip {
-        h5 { 
+        h5 {
             font-size: 28px;
-            line-height: 1.1em; 
+            line-height: 1.1em;
             height: 90px;
             width: 100%;
-            
+
             white-space: preline;
             overflow: hidden;
             text-overflow: ellipsis;
             clear: both;
         }
     }
-    
+
     & .row-fluid {
         position: absolute;
         bottom: 0px;
     }
-    
-    & * .span4 { 
-        margin-top: 0; 
+
+    & * .span4 {
+        margin-top: 0;
         height: 464px;
         position: relative;
     }
-    
+
     & * img { margin-bottom: 12px; }
-    & * .separator4 { 
+    & * .separator4 {
         margin-top: 14px;
-        margin-bottom: 15px; 
+        margin-bottom: 15px;
     }
-    
+
     .projects-container {
         margin-bottom: 38px;
     }
-    
+
     & .btn {
         height: 46px;
     }
 }
 
 .quotes {
-    .row {
-        margin-top: 69px;
-        margin-bottom: 0px;
-    
-        .quote-bubbles {
-            position: absolute;
-            right: -62px;
-            top: -38px;
-        }
-                
-        &.quote-container {
-            margin-top: 12px;
-            margin-bottom: 36px;
-            
-            .span6 { height: 200px; }    
-        }
+  .row {
+    margin-top: 69px;
+    margin-bottom: 0px;
+
+    .quote-bubbles {
+      position: absolute;
+      right: -62px;
+      top: -38px;
     }
 
-    p.quote {
-        margin-top: 39px;
-        margin-bottom: 39px;
-        font-size: 28px;
-        font-family: @headingsFontFamily;
-        line-height: 1.2em;
+    &.quote-container {
+      margin-top: 12px;
+      margin-bottom: 36px;
     }
-    
-    p.quoted {
-        margin-top: 55px;
-        margin-bottom: 0px;
-        font-style: italic;
+  }
+
+  blockquote {
+    margin: 39px 0 39px 0;
+    font-family: @headingsFontFamily;
+    line-height: 1.2em;
+    color: @hivblue;
+    border-left: 0;
+    article {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-top: 2px solid @hivblue;
+      border-bottom: 2px solid @hivblue;
     }
+    p {
+      font-size: 28px;
+
+    }
+    footer {
+      padding-top: 10px;
+      font-style: normal;
+      color: @textColor;
+      font-weight: normal;
+      font-family: @serifFontFamily;
+    }
+  }
+
+  cite {
+    margin-top: 55px;
+    margin-bottom: 0px;
+    font-style: italic;
+  }
 }
 
 .partners {
@@ -113,7 +128,7 @@
     }
     .couple {
         position: relative;
-        
+
         img {
             position: absolute;
             bottom: -130px;
