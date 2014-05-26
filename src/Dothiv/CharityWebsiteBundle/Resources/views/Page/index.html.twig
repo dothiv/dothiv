@@ -45,14 +45,14 @@
 
                 <p class="running-text">
                     {% trans %}home.who.text{% endtrans %}
-                    <a class="bold-text" href="#!/about/mission">{% trans %}home.who.knowmore{% endtrans %}</a>
+                    <a class="bold-text" href="{{ path('dothiv_charity_page', {'page': 'about/mission', 'locale': locale}) }}">{% trans %}home.who.knowmore{% endtrans %}</a>
                 </p>
 
                 <div class="colorfooter6 color-pink small-height"></div>
                 <h5><a href="{{ path('dothiv_registry_register', {'locale': locale}) }}">{% trans %}home.who.yourpage{% endtrans %}</a></h5>
 
                 <div class="colorfooter6 color-dark xsmall-height"></div>
-                <h5><a href="#!/about/fororg">{% trans %}home.who.howto{% endtrans %}</a></h5>
+                <h5><a href="{{ path('dothiv_charity_page', {'page': 'about/fororg', 'locale': locale}) }}">{% trans %}home.who.howto{% endtrans %}</a></h5>
 
                 <div class="colorfooter6 color-dark xsmall-height"></div>
             </div>
