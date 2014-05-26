@@ -168,34 +168,27 @@
 
     <hr class="bottom-shadow">
 
-    <div class="container partners">
-        <div class="row">
-            <div class="span12">
-                <h3 class="pink-text pull-left">{% trans %}home.partners.headline{% endtrans %}</h3>
+    {% for partner in partners %}
+        {% if loop.first %}
+        <div class="container partners">
+            <div class="row">
+                <div class="span12">
+                    <h3 class="pink-text pull-left">{% trans %}home.partners.headline{% endtrans %}</h3>
+                </div>
+            </div>
+            <div class="row">
+        {% endif %}
+            <div class="span3 offset1">
+                <a href="{{ partner.url }}" rel="me friend" title="{{ partner.description|default('') }}">
+                    <img src="{{ partner.logo.file.url }}" alt="{{ partner.organization }}">
+                </a>
+            </div>
+        {% if loop.last %}
+            </div>
+            <div class="pull-right couple">
+                <img src="/bundles/dothivcharitywebsite/images/partners.png">
             </div>
         </div>
-        <div class="row">
-            <div class="span2">
-                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/partners/liga01.jpg"> </a>
-            </div>
-            <div class="span2">
-                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/partners/jovoto.jpg"> </a>
-            </div>
-            <div class="span2">
-                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/partners/github.jpg"> </a>
-            </div>
-            <div class="span2">
-                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/partners/github.jpg"> </a>
-            </div>
-            <div class="span2">
-                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/partners/swipe.jpg"> </a>
-            </div>
-            <div class="span2">
-                <a href="#!/"> <img src="/bundles/dothivcharitywebsite/images/firms/liga01.jpg"> </a>
-            </div>
-        </div>
-        <div class="pull-right couple">
-            <img src="/bundles/dothivcharitywebsite/images/partners.png">
-        </div>
-    </div>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

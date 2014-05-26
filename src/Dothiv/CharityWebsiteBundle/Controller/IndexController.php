@@ -35,6 +35,11 @@ class IndexController extends PageController
             }
             return ($projectA->order < $projectB->order) ? -1 : 1;
         });
+        // Partners
+        $data['partners'] = $this->getContent()->buildEntries('Partner', $locale);
+        usort($data['partners'], function (\stdClass $partnerA, \stdClass $partnerB) {
+            return strcmp($partnerA->organization, $partnerB->organization);
+        });
         // Build pinkbar data
         // TODO: Money format
         // FIXME: Remove random once live.
