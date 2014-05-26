@@ -22,3 +22,4 @@
 /node_modules
 /web/index.php
 web/contentful
+app/phpunit.xml
