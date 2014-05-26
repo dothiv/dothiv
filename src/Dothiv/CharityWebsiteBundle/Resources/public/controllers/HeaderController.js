@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope', '$state', 'security', 'securityDialog', 'locale', '$rootScope',
-    function($scope, $state, security, securityDialog, locale, $rootScope) {
+angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope', '$state', 'security', 'securityDialog', '$rootScope',
+    function($scope, $state, security, securityDialog, $rootScope) {
         // make state information available
         $scope.state = $state;
 
@@ -13,18 +13,6 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
                        {'name': 'www.web.hiv' },
                        {'name': 'www.youtube.hiv' }
                    ];
-
-        $scope.locale = locale;
-        $scope.siteLanguages =
-            [
-                { key: 'de', label: 'Deutsch' },
-                { key: 'en', label: 'Englisch' },
-                { key: 'key',label: 'Keys only' },
-            ];
-
-        $scope.$watch('locale.language', function() {
-            locale.set(locale.language);
-        });
 
         $scope.isAuthenticated = function() {
             return security.isAuthenticated();
@@ -51,9 +39,5 @@ angular.module('dotHIVApp.controllers').controller('HeaderController', ['$scope'
         $scope.toggle = function() {
             $scope.showfunding = !$scope.showfunding;
         }
-
-        $scope.$on('localeInitialized', function() {
-            $scope.finishedbooting = true;
-        });
     }
 ]);

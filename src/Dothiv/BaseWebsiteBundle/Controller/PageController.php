@@ -63,9 +63,9 @@ class PageController
         $data = array(
             'locale' => $locale,
             'link'   => array(
-                'de' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '/%', '/de/', $request->getPathInfo()),
-                'en' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '/%', '/en/', $request->getPathInfo()),
-                'ky' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '/%', '/ky/', $request->getPathInfo()),
+                'de' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/de$1', $request->getPathInfo()),
+                'en' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/en$1', $request->getPathInfo()),
+                'ky' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/ky$1', $request->getPathInfo()),
             )
         );
         // TODO: Cache.

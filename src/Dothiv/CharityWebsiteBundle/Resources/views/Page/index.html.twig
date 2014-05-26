@@ -74,7 +74,7 @@
                 <div class="span12">
                     <h3 class="hivblue-text pull-left">{% trans %}home.vote.headline{% endtrans %}</h3>
                     <a class="next2h3 pull-left"
-                       href="{{ path('dothiv_charity_page', {'page': 'projects', 'locale': 'de'}) }}">
+                       href="{{ path('dothiv_charity_page', {'page': 'projects', 'locale': locale}) }}">
                         <div class="heading-arrow"></div>
                         {% trans %}home.vote.allprojects{% endtrans %} </a>
                 </div>
@@ -86,7 +86,7 @@
 
         {% endif %}
         {% set image = project.images[0] %}
-        <a href="{{ path('dothiv_charity_page', {'page': 'projects', 'locale': 'de'}) }}">
+        <a href="{{ path('dothiv_charity_page', {'page': 'projects', 'locale': locale}) }}">
             <div class="{{ "span" ~ (12 / projects|length) }}">
                 <img src="{{ image.file.url }}" alt="{{ project.organization }}">
 
