@@ -105,8 +105,8 @@
     {% endfor %}
 
     {# Quotes #}
-    <div ng-cloak>
-        <div class="container quotes" ng-controller="QuoteController" ng-init="locale='{{ locale }}'">
+    <div ng-cloak ng-controller="QuoteController" ng-init="locale='{{ locale }}'" ng-show="visible">
+        <div class="container quotes">
             <div class="row">
                 <div class="span12">
                     <h3 class="colordark-text pull-left">{% trans %}home.quotes.headline{% endtrans %}</h3>
