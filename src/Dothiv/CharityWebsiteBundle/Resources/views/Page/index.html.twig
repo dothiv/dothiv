@@ -1,8 +1,7 @@
 {% set title %}{{ page.title }}{% endset %}
 {% extends "DothivCharityWebsiteBundle::page.html.twig" %}
 {% block content %}
-    <div>
-        <div class="jumbotron infobox bottom-shadow" ng-hide="isClosed">
+        <div class="jumbotron infobox bottom-shadow" ng-hide="isClosed" ng-controller="HowitWorksController">
             <div class="container">
                 <div class="row"></div>
                 <div class="row">
@@ -34,7 +33,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <hr>
 
@@ -105,7 +103,7 @@
     {% endfor %}
 
     {# Quotes #}
-    <div ng-cloak ng-controller="QuoteController" ng-init="locale='{{ locale }}'" ng-show="visible">
+    <div ng-cloak ng-controller="QuoteController" ng-show="visible">
         <div class="container quotes">
             <div class="row">
                 <div class="span12">

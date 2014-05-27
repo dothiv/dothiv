@@ -1,6 +1,6 @@
 <?php
 
-namespace Dothiv\BaseWebsiteBundle\Test\Twig\Extension;
+namespace Dothiv\BaseWebsiteBundle\Tests\Twig\Extension;
 
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BaseWebsiteBundle\Twig\Extension\ContentfulTwigExtension;

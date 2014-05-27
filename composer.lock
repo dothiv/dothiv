@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "79377379d92cc447ddc8e9296789ad82",
+    "hash": "00ddaa04809bccf53b88595ec886b45a",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -750,7 +750,7 @@
                 "parsedown",
                 "twig"
             ],
-            "time": "2014-05-23 11:13:07"
+            "time": "2014-05-23 11:29:35"
         },
         {
             "name": "erusev/parsedown",
@@ -904,12 +904,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "b1304871830f9059b22118a3ab93d1e8cdd3674f"
+                "reference": "6b384c108fa89a5ace02124d200bd916ab5ac380"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/b1304871830f9059b22118a3ab93d1e8cdd3674f",
-                "reference": "b1304871830f9059b22118a3ab93d1e8cdd3674f",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/6b384c108fa89a5ace02124d200bd916ab5ac380",
+                "reference": "6b384c108fa89a5ace02124d200bd916ab5ac380",
                 "shasum": ""
             },
             "require": {
@@ -974,7 +974,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2014-05-21 20:42:38"
+            "time": "2014-05-27 08:47:40"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -1913,12 +1913,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "221f109ad63bfd8777dc9f6619ea3a375adabfa6"
+                "reference": "dfb089f99385faee5dbe21aa150e6fac28f7d0b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/221f109ad63bfd8777dc9f6619ea3a375adabfa6",
-                "reference": "221f109ad63bfd8777dc9f6619ea3a375adabfa6",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/dfb089f99385faee5dbe21aa150e6fac28f7d0b3",
+                "reference": "dfb089f99385faee5dbe21aa150e6fac28f7d0b3",
                 "shasum": ""
             },
             "require": {
@@ -1979,7 +1979,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2014-05-19 10:03:46"
+            "time": "2014-05-26 08:51:28"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -2846,46 +2846,6 @@
     ],
     "packages-dev": [
         {
-            "name": "alexandresalome/php-selenium",
-            "version": "v1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/alexandresalome/PHP-Selenium.git",
-                "reference": "a9997e74d8016a5cdb995ca8d06263d1843e3cc0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/alexandresalome/PHP-Selenium/zipball/a9997e74d8016a5cdb995ca8d06263d1843e3cc0",
-                "reference": "a9997e74d8016a5cdb995ca8d06263d1843e3cc0",
-                "shasum": ""
-            },
-            "require-dev": {
-                "symfony/dom-crawler": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Selenium": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alexandre Salomé",
-                    "email": "alexandre.salome@gmail.com",
-                    "homepage": "http://alexandre-salome.fr/"
-                }
-            ],
-            "description": "PHP Library for Selenium",
-            "keywords": [
-                "selenium"
-            ],
-            "time": "2014-02-05 08:32:37"
-        },
-        {
             "name": "behat/behat",
             "version": "v2.5.3",
             "source": {
@@ -3120,7 +3080,7 @@
         },
         {
             "name": "behat/mink-extension",
-            "version": "v1.3.3",
+            "version": "1.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/MinkExtension.git",
@@ -3221,220 +3181,8 @@
             "time": "2013-07-03 18:43:54"
         },
         {
-            "name": "behat/mink-sahi-driver",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Behat/MinkSahiDriver.git",
-                "reference": "c2a963e747590526d24ad7c725f649607c47118a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkSahiDriver/zipball/c2a963e747590526d24ad7c725f649607c47118a",
-                "reference": "c2a963e747590526d24ad7c725f649607c47118a",
-                "shasum": ""
-            },
-            "require": {
-                "behat/mink": "~1.5.0",
-                "behat/sahi-client": "~1.1.0",
-                "php": ">=5.3.1"
-            },
-            "type": "mink-driver",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Behat\\Mink\\Driver": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com",
-                    "homepage": "http://everzet.com"
-                }
-            ],
-            "description": "Sahi.JS driver for Mink framework",
-            "homepage": "http://mink.behat.org/",
-            "keywords": [
-                "ajax",
-                "browser",
-                "javascript",
-                "sahi",
-                "testing"
-            ],
-            "time": "2013-04-13 23:49:06"
-        },
-        {
-            "name": "behat/mink-selenium-driver",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Behat/MinkSeleniumDriver.git",
-                "reference": "a782b031cb8a94b449b9ccecdcd0e79206bbc882"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkSeleniumDriver/zipball/a782b031cb8a94b449b9ccecdcd0e79206bbc882",
-                "reference": "a782b031cb8a94b449b9ccecdcd0e79206bbc882",
-                "shasum": ""
-            },
-            "require": {
-                "alexandresalome/php-selenium": "~1.0.1",
-                "behat/mink": "~1.5.0",
-                "php": ">=5.3.1",
-                "symfony/dom-crawler": "~2.0"
-            },
-            "type": "mink-driver",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Behat\\Mink\\Driver": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com",
-                    "homepage": "http://everzet.com"
-                }
-            ],
-            "description": "Selenium driver for Mink framework",
-            "homepage": "http://mink.behat.org/",
-            "keywords": [
-                "ajax",
-                "browser",
-                "javascript",
-                "selenium",
-                "testing"
-            ],
-            "time": "2013-04-13 23:50:14"
-        },
-        {
-            "name": "behat/mink-selenium2-driver",
-            "version": "v1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Behat/MinkSelenium2Driver.git",
-                "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
-                "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
-                "shasum": ""
-            },
-            "require": {
-                "behat/mink": "~1.5.0",
-                "instaclick/php-webdriver": "~1.0.12",
-                "php": ">=5.3.1"
-            },
-            "type": "mink-driver",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Behat\\Mink\\Driver": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com",
-                    "homepage": "http://everzet.com"
-                },
-                {
-                    "name": "Pete Otaqui",
-                    "email": "pete@otaqui.com",
-                    "homepage": "https://github.com/pete-otaqui"
-                }
-            ],
-            "description": "Selenium2 (WebDriver) driver for Mink framework",
-            "homepage": "http://mink.behat.org/",
-            "keywords": [
-                "ajax",
-                "browser",
-                "javascript",
-                "selenium",
-                "testing",
-                "webdriver"
-            ],
-            "time": "2013-06-02 19:09:45"
-        },
-        {
-            "name": "behat/sahi-client",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Behat/SahiClient.git",
-                "reference": "c3e09cc80cf7934a9230cba0440192147492f4e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Behat/SahiClient/zipball/c3e09cc80cf7934a9230cba0440192147492f4e5",
-                "reference": "c3e09cc80cf7934a9230cba0440192147492f4e5",
-                "shasum": ""
-            },
-            "require": {
-                "kriswallsmith/buzz": ">=0.7,<0.9-dev",
-                "php": ">=5.3.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Behat\\SahiClient": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com",
-                    "homepage": "http://everzet.com"
-                }
-            ],
-            "description": "Sahi.js client for PHP 5.3",
-            "homepage": "http://sahi.co.in/w/",
-            "keywords": [
-                "JS",
-                "browser",
-                "testing"
-            ],
-            "time": "2013-02-17 12:17:51"
-        },
-        {
             "name": "behat/symfony2-extension",
-            "version": "v1.1.2",
+            "version": "1.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Symfony2Extension.git",
@@ -3791,64 +3539,6 @@
             "time": "2014-05-01 21:36:02"
         },
         {
-            "name": "instaclick/php-webdriver",
-            "version": "1.0.17",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/instaclick/php-webdriver.git",
-                "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
-                "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.3.2"
-            },
-            "bin": [
-                "bin/webunit"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "WebDriver": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Bishop",
-                    "email": "jubishop@gmail.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Anthon Pang",
-                    "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
-                }
-            ],
-            "description": "PHP WebDriver for Selenium 2",
-            "homepage": "http://instaclick.com/",
-            "keywords": [
-                "browser",
-                "selenium",
-                "webdriver",
-                "webtest"
-            ],
-            "time": "2013-10-04 15:03:51"
-        },
-        {
             "name": "justinrainbow/json-schema",
             "version": "1.3.6",
             "source": {
@@ -3915,51 +3605,6 @@
                 "schema"
             ],
             "time": "2014-03-05 15:03:52"
-        },
-        {
-            "name": "kriswallsmith/buzz",
-            "version": "v0.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kriswallsmith/Buzz.git",
-                "reference": "8ff1d1910b9e04ac571bcf6d639559e065093136"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/8ff1d1910b9e04ac571bcf6d639559e065093136",
-                "reference": "8ff1d1910b9e04ac571bcf6d639559e065093136",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "suggest": {
-                "ext-curl": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Buzz": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kris Wallsmith",
-                    "email": "kris.wallsmith@gmail.com",
-                    "homepage": "http://kriswallsmith.net/"
-                }
-            ],
-            "description": "Lightweight HTTP client",
-            "homepage": "https://github.com/kriswallsmith/Buzz",
-            "keywords": [
-                "curl",
-                "http client"
-            ],
-            "time": "2013-01-14 16:07:06"
         },
         {
             "name": "pdepend/pdepend",
@@ -4094,16 +3739,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.0.6",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "bccecf50645068b44f49a84009e2a0499a500b99"
+                "reference": "58401826c8cfc8fd689b60026e91c337df374bca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/bccecf50645068b44f49a84009e2a0499a500b99",
-                "reference": "bccecf50645068b44f49a84009e2a0499a500b99",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/58401826c8cfc8fd689b60026e91c337df374bca",
+                "reference": "58401826c8cfc8fd689b60026e91c337df374bca",
                 "shasum": ""
             },
             "require": {
@@ -4155,7 +3800,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-30 09:01:21"
+            "time": "2014-05-26 14:55:24"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -4342,16 +3987,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.1.0",
+            "version": "4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "efb1b1334605594417a3bd466477772d06d460a8"
+                "reference": "1d6b554732382879045e11c56decd4be76130720"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/efb1b1334605594417a3bd466477772d06d460a8",
-                "reference": "efb1b1334605594417a3bd466477772d06d460a8",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1d6b554732382879045e11c56decd4be76130720",
+                "reference": "1d6b554732382879045e11c56decd4be76130720",
                 "shasum": ""
             },
             "require": {
@@ -4412,7 +4057,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-05-02 07:13:40"
+            "time": "2014-05-24 10:48:51"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5047,7 +4692,9 @@
         "friendsofsymfony/user-bundle": 20,
         "gregwar/form-bundle": 20,
         "dothiv/dothiv-parsedown-bundle": 20,
-        "sanpi/behatch-contexts": 20
+        "behat/symfony2-extension": 20,
+        "sanpi/behatch-contexts": 20,
+        "behat/mink-extension": 20
     },
     "platform": {
         "php": ">=5.4.0"

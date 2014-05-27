@@ -1,12 +1,11 @@
-<div class="container header">
-    <div class="row">
+<div class="container header" ng-controller="HeaderController">
+    <div class="row" id="logorow">
         <div class="span2 pull-right"></div>
         <div class="span1 usermenu pull-right">
             <ul>
-                <li class="accountance dummy" ng-show="!isAuthenticated()"></li>
                 <li class="accountance" ng-show="!isAuthenticated()"><a class="hover-arrow" ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
-                <li class="accountance hidden" ng-show="isAuthenticated()"><a class="hover-arrow" ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
-                <li class="accountance hidden" ng-show="isAuthenticated()"><a class="hover-arrow" href="{{ path('dothiv_charity_page', {'page': 'profile', 'locale': locale}) }}" ng-class="{ active: state.includes('=.profile') }">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
+                <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
+                <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" href="{{ path('dothiv_charity_page', {'page': 'profile', 'locale': locale}) }}">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
                 <li class="accountance grey">
                     {% if app.request.locale|slice(0,2) != 'en' %}
                         <a href="{{ link.en }}">English</a>
@@ -25,12 +24,12 @@
         <div class="pos-rel">
             <div class="overflow-up">
                 <div class="span2 hiv-logo">
-                    <a href="/" rel="index" class="crawlme"><img src="{{ asset("bundles/dothivcharitywebsite/images/dotHiv-logo.png") }}"></a>
+                    <a href="/" rel="index"><img src="{{ asset("bundles/dothivcharitywebsite/images/dotHiv-logo.png") }}"></a>
                 </div>
                 <div class="span7 menubar">
-                    <div class="barmenu first"><a class="crawlme" href="{{ path('dothiv_charity_page', {'page': 'projects', 'locale': locale}) }}"><h4>{% trans %}header.bar.project{% endtrans %}</h4></a></div>
-                    <div class="barmenu secound"><a class="crawlme" href="{{ path('dothiv_charity_page', {'page': 'about/mission', 'locale': locale}) }}"><h4 ng-class="{ active: state.includes('about') }">{% trans %}header.bar.aboutHIV{% endtrans %}</h4></a></div>
-                    <div class="barmenu third"><a class="crawlme" href="{{ path('dothiv_registry_register', {'locale': locale}) }}"><h4>{% trans %}header.bar.registerurl{% endtrans %}</h4></a></div>
+                    <div class="barmenu first"><a href="{{ path('dothiv_charity_page', {'page': 'projects', 'locale': locale}) }}"><h4>{% trans %}header.bar.project{% endtrans %}</h4></a></div>
+                    <div class="barmenu secound"><a href="{{ path('dothiv_charity_page', {'page': 'about/mission', 'locale': locale}) }}"><h4>{% trans %}header.bar.aboutHIV{% endtrans %}</h4></a></div>
+                    <div class="barmenu third"><a href="{{ path('dothiv_registry_register', {'locale': locale}) }}"><h4>{% trans %}header.bar.registerurl{% endtrans %}</h4></a></div>
                 </div>
             </div>
         </div>

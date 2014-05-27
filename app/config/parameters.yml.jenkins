@@ -12,8 +12,8 @@ parameters:
     mailer_password: 2b0661dbd61ee5d7
     locale: de
     secret: bZ7AR7KC
-    charitydomain: charity.test.hiv
-    registrydomain: org.test.hiv
+    charitydomain: dot.hiv.dev
+    registrydomain: nic.hiv.dev
     facebook_app_id: 1234
     facebook_app_secret: yourfacebooksecret
     dns_reseller: dd24_reseller

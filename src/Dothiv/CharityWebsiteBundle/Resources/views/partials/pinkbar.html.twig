@@ -1,48 +1,48 @@
 <!-- adopt for mobile useage -->
-<div id="pinbkar" data-unlocked="{{ pinkbar.unlocked }}" data-percent="{{ pinkbar.percent }}">
+<div id="pinbkar" ng-controller="PinkbarController">
     <div class="pink-bar rightside">
 
-        <div class="pink-bar leftside text-right" style="width: {{ pinkbar.percent * 100 }}%;" ng-style="{ width: bar.unlocked / bar.total *100 + '%' }">
-            {% if pinkbar.percent > 0.4 %}
-            <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.unlocked / bar.total * 10 > 4">
+        <div class="pink-bar leftside text-right" ng-style="{ width: bar.percent * 100 + '%' }">
+            <button type="button" ng-click="toggle()" btn-checkbox ng-show="bar.percent * 10 > 4">
                 <p>
-                    <span class="pink-bar-text">{% trans %}home.pinkbar.activated{% endtrans %}</span>
-                    <span class="pink-bar-text bold" id="active-money">{{ pinkbar.unlocked_label }}</span>
+                    <span class="pink-bar-text" ng-show="bar.enabled">{% trans %}home.pinkbar.activated{% endtrans %}</span>
+                    <span class="pink-bar-text bold" id="active-money" ng-bind="bar.unlocked_label"></span>
                     <i ng-show="!showfunding" class="icon-tick-lower icon-white"></i>
-                    <i ng-show="showfunding" class="hidden icon-tick-upper icon-white"></i>
+                    <i ng-show="showfunding" class="icon-tick-upper icon-white"></i>
                 </p>
             </button>
-            {% endif %}
         </div>
-        {% if pinkbar.percent < 0.4 %}
-        <button type="button" ng-model="showfunding" btn-checkbox ng-show="bar.current / bar.total * 10 < 4">
+        <button type="button" btn-checkbox ng-show="bar.percent * 10 < 4" ng-click="toggle()">
             <p>
                 <i ng-show="!showfunding" class="icon-tick-lower"></i>
-                <i ng-show="showfunding" class="hidden icon-tick-upper"></i>
+                <i ng-show="showfunding" class="icon-tick-upper"></i>
                 <span class="pink-bar-text right">{% trans %}home.pinkbar.activated{% endtrans %}</span>
-                <span class="pink-bar-text right bold" id="active-money">{{ pinkbar.unlocked_label }}</span>
+                <span class="pink-bar-text right bold" id="active-money" ng-bind="bar.unlocked_label"></span>
             </p>
         </button>
-        {% endif %}
     </div>
     <div class="pink-bar-popover-handle">
         <div ng-show="showfunding" ng-animate="{show: 'pink-bar-popover-show', hide: 'pink-bar-popover-hide'}"
-             class="hidden pink-bar-popover">
+             class="pink-bar-popover">
             <div class="container">
                 <div class="row first">
                     <div class="span6 pink-bar-text">
-                        <p>{% trans %}home.pinkbar.popover.currentStatus{% endtrans %}</p>
+                        <div ng-show="bar.enabled">
+                            <p>{% trans %}home.pinkbar.popover.currentStatus{% endtrans %}</p>
 
-                        <p><span class="activeMoney" id="active-money-popover">€ [[ bar.current ]]</span>
-                            {% trans %}home.pinkbar.popover.areActivated{% endtrans %}</p>
+                            <p><span class="activeMoney" id="active-money-popover">€ [[ bar.current ]]</span>
+                                {% trans %}home.pinkbar.popover.areActivated{% endtrans %}</p>
 
-                        <p><span class="activeMoney" id="clicks-popover">[[ bar.click ]] Klicks</span>
-                            {% trans %}home.pinkbar.popover.missing{% endtrans %}</p>
-                        <hr>
+                            <p><span class="activeMoney" id="clicks-popover" ng-bind="bar.clicks"></span>
+                                {% trans %}home.pinkbar.popover.missing{% endtrans %}</p>
+                            <hr>
+                        </div>
                         <p>{% trans %}home.pinkbar.popover.shareNow{% endtrans %}</p>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-text="{% trans %}share.twitter.text{% endtrans %}">{% trans %}share.twitter.button{% endtrans %}</a>
+                        <div class="fb-like" data-href="{{ app.request.uri }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
                     </div>
                     <div class="span6 pink-bar-text">
-                        <iframe ng-show="showfunding" class="hidden" ng-src="//www.youtube.com/embed/l3ZHd8qbSpE"
+                        <iframe ng-show="showfunding" ng-src="//www.youtube.com/embed/l3ZHd8qbSpE"
                                 allowfullscreen></iframe>
                         <p>{% trans %}home.pinkbar.popover.viewVideo{% endtrans %}
                             <br>{% trans %}home.pinkbar.popover.how{% endtrans %}</p>

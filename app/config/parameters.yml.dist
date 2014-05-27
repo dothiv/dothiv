@@ -15,10 +15,10 @@ parameters:
     locale:            en
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
 
-    charitydomain:     localhost
-    registrydomain:     registry.hiv
+    charitydomain:     dot.hiv
+    registrydomain:    nic.hiv
 
-    facebook_app_id:   1234
+    facebook_app_id:   557254000987057
     facebook_app_secret: yourfacebooksecret
 
     dns_reseller:      dd24_reseller
