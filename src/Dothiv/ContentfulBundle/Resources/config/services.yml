@@ -1,14 +1,8 @@
 parameters:
-    dothiv_contentful.http_client.class: Dothiv\ContentfulBundle\Client\HttpClient
     dothiv_contentful.content.class: Dothiv\ContentfulBundle\Adapter\RepositoryContentAdapter
     dothiv_contentful.asset.class: Dothiv\ContentfulBundle\Adapter\FilesystemAssetAdapter
 
 services:
-    dothiv_contentful.http_client:
-        class: %dothiv_contentful.http_client.class%
-        arguments:
-          - @doctrine_cache.providers.contentful_api_cache
-
     dothiv_contentful.asset:
         class: %dothiv_contentful.asset.class%
         arguments:

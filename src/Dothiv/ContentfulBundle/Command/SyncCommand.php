@@ -5,6 +5,7 @@ namespace Dothiv\ContentfulBundle\Command;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\EntityManager;
 use Dothiv\ContentfulBundle\Adapter\HttpClientAdapter;
+use Dothiv\ContentfulBundle\Client\HttpClient;
 use Dothiv\ContentfulBundle\Logger\OutputInterfaceLogger;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,15 +26,13 @@ class SyncCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var $client \Dothiv\ContentfulBundle\Client\HttpClientInterface */
         /** @var Cache $cache */
         /** @var EntityManager $em */
-        $client  = $this->getContainer()->get('dothiv_contentful.http_client');
+        $client  = new HttpClient($input->getOption('access_token'));
         $cache   = $this->getContainer()->get('doctrine_cache.providers.contentful_api_cache');
         $em      = $this->getContainer()->get('doctrine.orm.entity_manager');
         $adapter = new HttpClientAdapter(
             $input->getOption('space'),
-            $input->getOption('access_token'),
             $client,
             $this->getContainer()->get('event_dispatcher')
         );

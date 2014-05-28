@@ -14,13 +14,14 @@ class CachingHttpClient implements HttpClientInterface
     private $cache;
 
     /**
-     * @param Cache $cache
+     * @param Cache  $cache
+     * @param string $accessToken
      */
-    public function __construct(Cache $cache)
+    public function __construct(Cache $cache, $accessToken)
     {
         $this->cache   = $cache;
         $this->headers = new ArrayCollection();
-        $this->client  = new HttpClient();
+        $this->client  = new HttpClient($accessToken);
     }
 
     /**

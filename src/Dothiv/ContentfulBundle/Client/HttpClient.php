@@ -17,9 +17,15 @@ class HttpClient implements HttpClientInterface
      */
     private $etag;
 
-    public function __construct()
+    /**
+     * @var string
+     */
+    private $accessToken;
+
+    public function __construct($accessToken)
     {
-        $this->headers = new ArrayCollection();
+        $this->headers     = new ArrayCollection();
+        $this->accessToken = $accessToken;
     }
 
     /**
@@ -31,7 +37,8 @@ class HttpClient implements HttpClientInterface
             'http' =>
                 array(
                     'method'        => 'GET',
-                    'header'        => "Content-type: application/vnd.contentful.delivery.v1+json",
+                    'header'        => "Content-type: application/vnd.contentful.delivery.v1+json\n" .
+                        'Authorization: Bearer ' . $this->accessToken,
                     'ignore_errors' => true,
                 )
         );

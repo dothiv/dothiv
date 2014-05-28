@@ -29,11 +29,6 @@ class HttpClientAdapter implements ContentfulApiAdapter
     private $baseUrl;
 
     /**
-     * @var string
-     */
-    private $accessToken;
-
-    /**
      * @var HttpClientInterface
      */
     private $client;
@@ -55,20 +50,18 @@ class HttpClientAdapter implements ContentfulApiAdapter
 
     /**
      * @param string                   $spaceId
-     * @param string                   $accessToken
      * @param HttpClientInterface      $client
      * @param EventDispatcherInterface $dispatcher
      */
-    public function __construct($spaceId, $accessToken, HttpClientInterface $client, EventDispatcherInterface $dispatcher)
+    public function __construct($spaceId, HttpClientInterface $client, EventDispatcherInterface $dispatcher)
     {
-        $this->spaceId     = $spaceId;
-        $this->baseUrl     = sprintf(
+        $this->spaceId    = $spaceId;
+        $this->baseUrl    = sprintf(
             'https://cdn.contentful.com/spaces/%s/',
             urlencode($spaceId)
         );
-        $this->accessToken = $accessToken;
-        $this->client      = $client;
-        $this->dispatcher  = $dispatcher;
+        $this->client     = $client;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -133,7 +126,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
      */
     public function sync()
     {
-        $this->log('Syncing from %s ...', str_replace($this->accessToken, '*****', $this->getNextSyncUrl()));
+        $this->log('Syncing from %s ...', $this->getNextSyncUrl());
         $types = $this->syncContentTypes();
         $this->syncFrom($this->getNextSyncUrl(), $types);
         return $this->nextSyncUrl;
@@ -209,7 +202,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
 
     public function setNextSyncUrl($nextSyncUrl)
     {
-        $this->nextSyncUrl = $nextSyncUrl . '&access_token=' . $this->accessToken;
+        $this->nextSyncUrl = $nextSyncUrl;
     }
 
     /**
@@ -223,8 +216,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
         if ($params == null) {
             $params = array();
         }
-        $params['access_token'] = $this->accessToken;
-        $url                    = $this->baseUrl . $path . '?' . http_build_query($params);
+        $url = $this->baseUrl . $path . '?' . http_build_query($params);
         return $url;
     }
 
