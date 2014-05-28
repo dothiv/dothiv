@@ -142,19 +142,19 @@ class PageController
 
         // TODO: Money format
         // FIXME: Remove random once live.
-        $already_donated                    = round($this->alreadyDonated * (mt_rand() / mt_getrandmax()), 2);
-        $clicks                             = intval(($this->eurGoal * (1 / $this->eurIncrement)) * (mt_rand() / mt_getrandmax()));
+        $already_donated         = round($this->alreadyDonated * (mt_rand() / mt_getrandmax()), 2);
+        $clicks                  = intval(($this->eurGoal * (1 / $this->eurIncrement)) * (mt_rand() / mt_getrandmax()));
         $data                    = array();
         $data['donated']         = $already_donated;
         $data['donated_label']   = $this->moneyFormat($already_donated, $locale);
-        $unlocked                           = $clicks * $this->eurIncrement;
+        $unlocked                = $clicks * $this->eurIncrement;
         $data['unlocked']        = $unlocked;
         $data['unlocked_label']  = $this->moneyFormat($unlocked, $locale);
         $data['percent']         = $unlocked / $this->eurGoal;
         $data['clicks']          = $clicks;
         $data['increment']       = $this->eurIncrement;
         $data['increment_label'] = $this->moneyFormat($this->eurIncrement, $locale);
-        
+
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json');
         $response->setContent(json_encode($data));
