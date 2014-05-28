@@ -33,6 +33,6 @@ angular.module('dotHIVApp.controllers').controller('PinkbarController', ['$scope
             }
         }
 
-        $http({method: 'GET', url: config.locale + '/pinkbar'}).success(success);
+        $http({method: 'GET', url: '/' + config.locale + '/pinkbar'}).success(success);
     }
 ]);
