@@ -45,7 +45,8 @@ class PageController
 
     public function pageAction(Request $request, $locale, $page)
     {
-        $data     = $this->buildPageObject($request, $locale, $page);
+        $pageId   = str_replace('/', '.', $page);
+        $data     = $this->buildPageObject($request, $locale, $pageId);
         $response = new Response();
         $template = sprintf($this->bundle . ':Page:%s.html.twig', $page);
         return $this->renderer->renderResponse($template, $data, $response);

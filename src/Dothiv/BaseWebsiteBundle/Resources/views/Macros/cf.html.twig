@@ -1,0 +1,33 @@
+{% macro block(block, level) %}
+    <div id="{{ block.cfMeta.itemId }}" class="cf-{{ block.cfMeta.contentType }}" data-cf-url="{{ block.cfMeta.url }}" ng-controller="BlockController">
+        <div class="row">
+            <div class="span12">
+                <h{{ level }} >{{ block.title }}</h{{ level }}>
+                <div class="cfblock-text">
+                    {{ block.text|markdown }}
+                </div>
+                {% if block.textMore is defined %}
+                    <a href="" ng-click="textMoreVisible=1" ng-hide="textMoreVisible"><span class="heading-arrow"></span>{% trans %}expand.text.label{% endtrans %}</a>
+                    <div class="cfblock-textMore" ng-show="textMoreVisible">
+                        {{ block.textMore|markdown }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% if block.image is defined %}
+            <div class="row">
+                <div class="span12">
+                    <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" title="{{ block.image.description }}">
+                    {{ cf.link(block.image, locale == "ky") }}
+                </div>
+            </div>
+        {% endif %}
+        {% if block.children is defined %}
+            {% for child in block.children %}
+                {{ _self.block(child, level+1) }}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+

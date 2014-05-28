@@ -1,0 +1,32 @@
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivCharityWebsiteBundle::page.html.twig" %}
+{% block content %}
+    <article class="about">
+        <hr class="bottom-shadow">
+
+        <div class="container">
+            <div class="row">
+                <aside class="span3">
+                    <nav>
+                        <ul>
+                            <li>{{ page.title }}</li>
+                            {% for block in page.blocks %}
+                                {% if loop.first %}
+                                    <ul>
+                                {% endif %}
+                                <li><a href="#{{ block.cfMeta.itemId }}">{{ block.title }}</a></li>
+                                {% if loop.last %}
+                                    </ul>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </aside>
+
+                <section class="span9">
+                    <div>{% block inner_content %}{% endblock %}</div>
+                </section>
+            </div>
+        </div>
+    </article>
+{% endblock %}
