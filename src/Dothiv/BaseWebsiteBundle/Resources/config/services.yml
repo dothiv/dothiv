@@ -25,6 +25,15 @@ services:
         tags:
             - { name: translation.loader, alias: json }
 
+    dothiv.websitebase.translation.strings_loader:
+        class: Dothiv\BaseWebsiteBundle\Translation\ContentfulStringsLoader
+        arguments:
+         - @dothiv.websitebase.contentful.portals_content
+         - 'String'
+         - 'ky'
+        tags:
+         - { name: translation.loader, alias: contenful_strings }
+
     dothiv.websitebase.contentful.view_builder:
             class: %dothiv.websitebase.contentful.view_builder.class%
             arguments:

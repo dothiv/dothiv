@@ -18,12 +18,13 @@ class ContentfulTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldBeInstantiable()
     {
-        $this->getTestObject();
+        $this->assertInstanceOf('\Dothiv\BaseWebsiteBundle\Twig\Extension\ContentfulTwigExtension', $this->getTestObject());
     }
 
     /**
      * @test
-     * @group BaseWebsiteBundle
+     * @group   BaseWebsiteBundle
+     * @depends itShouldBeInstantiable
      */
     public function itShouldFetchABlock()
     {

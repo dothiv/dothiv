@@ -21,5 +21,5 @@ class DothivBaseWebsiteExtension extends Extension
         $loader->load('services.yml');
         $loader->load('controllers.yml');
         $loader->load('twig_extensions.yml');
-    }
+   }
 }
