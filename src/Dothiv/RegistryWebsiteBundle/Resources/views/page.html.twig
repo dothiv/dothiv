@@ -20,8 +20,8 @@
             <div class="span2 pull-right"></div>
             <div class="span1 usermenu pull-right">
                 <ul class="">
-                    <li class="accountance"><a href="{{ path('dothiv_charity_domainconfig') }}" class="hover-arrow">{% trans %}gmbh.header.domainconfig{% endtrans %}</a></li>
-                    <li class="accountance"><a href="{{ charitydomain }}" rel="friend met" class="hover-arrow">{% trans %}gmbh.header.back{% endtrans %}</a></li>
+                    <li class="accountance"><a href="{{ path('dothiv_charity_page', {'locale': locale, 'page': 'domain/configure'}) }}" class="hover-arrow">{% trans %}gmbh.header.domainconfig{% endtrans %}</a></li>
+                    <li class="accountance"><a href="{{ path('dothiv_charity_index', {'locale': locale}) }}" rel="friend met" class="hover-arrow">{% trans %}gmbh.header.back{% endtrans %}</a></li>
                     <li class="accountance grey">
                         {% if app.request.locale|slice(0,2) != 'en' %}
                         <a href="{{ link.en }}">English</a>
@@ -77,7 +77,7 @@
                         <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'register_nonprofit'}) }}">{% trans %}gmbh.menu.registercharity{% endtrans %}</a></li>
                         <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'concepts'}) }}">{% trans %}gmbh.menu.concepts{% endtrans %}</a></li>
                         <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'register'}) }}">{% trans %}gmbh.menu.registernow{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_charity_domainconfig') }}">{% trans %}gmbh.menu.domainconfig{% endtrans %}</a></li>
+                        <li class="accountance"><a href="{{ path('dothiv_charity_page', {'locale': locale, 'page': 'domain/configure'}) }}">{% trans %}gmbh.menu.domainconfig{% endtrans %}</a></li>
                     </ul>
                 </div>
                 <div class="span3"></div>
