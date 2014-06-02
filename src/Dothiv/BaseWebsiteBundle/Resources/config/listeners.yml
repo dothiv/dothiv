@@ -1,0 +1,9 @@
+parameters:
+    dothiv.base.web.contentul.video_block_listener.class: Dothiv\BaseWebsiteBundle\Listener\Contentful\ViewCreate\VideoBlockListener
+
+services:
+    dothiv.base.web.contentul.video_block_listener:
+            class: %dothiv.base.web.contentul.video_block_listener.class%
+            tags:
+                - { name: kernel.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
+

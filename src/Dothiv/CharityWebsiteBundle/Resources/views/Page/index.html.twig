@@ -43,7 +43,7 @@
 
                 <p class="running-text">
                     {% trans %}home.who.text{% endtrans %}
-                    <a class="bold-text" href="{{ path('dothiv_charity_page', {'page': 'about/mission', 'locale': locale}) }}">{% trans %}home.who.knowmore{% endtrans %}</a>
+                    <a class="bold-text" href="{{ path('dothiv_charity_about_index', {'locale': locale}) }}">{% trans %}home.who.knowmore{% endtrans %}</a>
                 </p>
 
                 <div class="colorfooter6 color-pink small-height"></div>
@@ -109,7 +109,7 @@
                 <div class="span12">
                     <h3 class="colordark-text pull-left">{% trans %}home.quotes.headline{% endtrans %}</h3>
                     <a class="next2h3 pull-left"
-                       href="{{ path('dothiv_charity_page', {'page': 'about/aboutHIV', 'locale': locale}) }}#quotes">
+                            href="{{ path('dothiv_charity_page', {'page': 'about/dotHIV', 'locale': locale}) }}#about-abouthiv-quotes">
                         <div class="heading-arrow"></div>
                         {% trans %}home.quotes.allquotes{% endtrans %}
                     </a>

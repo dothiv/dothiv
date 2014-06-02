@@ -39,6 +39,7 @@ services:
             arguments:
                 - 'en'
                 - @dothiv_contentful.content
+                - @event_dispatcher
                 
     dothiv.websitebase.contentful.portals_content:
         class: %dothiv.websitebase.contentful.content.class%

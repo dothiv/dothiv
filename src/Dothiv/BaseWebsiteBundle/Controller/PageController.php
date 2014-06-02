@@ -10,6 +10,7 @@
 namespace Dothiv\BaseWebsiteBundle\Controller;
 
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
+use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,12 +44,16 @@ class PageController
         $this->bundle   = $bundle;
     }
 
-    public function pageAction(Request $request, $locale, $page)
+    public function pageAction(Request $request, $locale, $page, $navigation = null)
     {
-        $pageId   = str_replace('/', '.', $page);
-        $data     = $this->buildPageObject($request, $locale, $pageId);
+        $pageId = str_replace('/', '.', $page);
+        $data   = $this->buildPageObject($request, $locale, $pageId);
+        if (Option::fromValue($navigation)->isDefined()) {
+            $data['nav'] = $this->content->buildEntry('Collection', $navigation, $locale);
+        }
         $response = new Response();
-        $template = sprintf($this->bundle . ':Page:%s.html.twig', $page);
+        $parts    = explode('/', $page);
+        $template = sprintf($this->bundle . ':Page:%s.html.twig', $parts[0]);
         return $this->renderer->renderResponse($template, $data, $response);
     }
 
@@ -83,8 +88,7 @@ class PageController
                 break;
         }
 
-        $pageId       = $page . '.page';
-        $data['page'] = $this->content->buildEntry('Page', $pageId, $locale);
+        $data['page'] = $this->content->buildEntry('Page', $page, $locale);
         return $data;
     }
 

@@ -27,53 +27,6 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.directives', 'dotH
     // Configute routing and states
     .config(['$stateProvider', function($stateProvider) {
         $stateProvider
-            .state('home', {
-                    url: '/',
-                    templateUrl: '/bundles/dothivcharitywebsite/templates/home.html',
-                    controller: 'HomeController'
-                })
-            .state('about', {
-                    abstract: true,
-                    url: '/about',
-                    templateUrl: '/bundles/dothivcharitywebsite/templates/about/index.html',
-                    controller: 'AboutController'
-                })
-            
-            /**
-             * The following states are decendants of the about state, and should
-             * match up with the menu structure defined in AboutController.js.
-             * TODO eventually to be replaced with a dynamic solution.
-             */
-            .state('about.mission', {
-                    url: '/mission',
-                    templateUrl: '/bundles/dothivcharitywebsite/templates/about/mission.html'
-                })
-            .state('about.aboutHIV', {
-                    url: '/aboutHIV',
-                    templateUrl: '/bundles/dothivcharitywebsite/templates/about/aboutHIV.html'
-                })
-            .state('about.fororg', {
-                    url: '/fororg',
-                    templateUrl: '/bundles/dothivcharitywebsite/templates/about/fororg.html'
-                })
-            .state('about.whoisbehind', {
-                    url: '/whoisbehind',
-                    templateUrl: '/bundles/dothivcharitywebsite/templates/about/whoisbehind.html'
-                })
-            .state('about.getactive', {
-                    url: '/getactive',
-                    templateUrl: '/bundles/dothivcharitywebsite/templates/about/getactive.html'
-                })
-            .state('about.newsstream', {
-                    url: '/newsstream',
-                    templateUrl: '/bundles/dothivcharitywebsite/templates/about/newsstream.html'
-                })
-            .state('about.registry', {
-                    url: '/registry',
-                    templateUrl: '/bundles/dothivcharitywebsite/templates/about/registry.html'
-                })
-
-
             /**
              * This state is useful for development use only. It provides
              * API calls to mock thirdparty API calls that are unavailable

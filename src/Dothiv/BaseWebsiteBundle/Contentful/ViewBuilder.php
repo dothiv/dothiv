@@ -2,12 +2,14 @@
 
 namespace Dothiv\BaseWebsiteBundle\Contentful;
 
+use Dothiv\BaseWebsiteBundle\BaseWebsiteBundleEvents;
+use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
 use Dothiv\BaseWebsiteBundle\Exception\RuntimeException;
 use Dothiv\ContentfulBundle\Adapter\ContentfulContentAdapter;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
 use Dothiv\ContentfulBundle\Item\ContentfulItem;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ViewBuilder
 {
@@ -22,18 +24,20 @@ class ViewBuilder
     private $contentAdapter;
 
     /**
-     * @var RouterInterface
+     * @var EventDispatcherInterface
      */
-    private $router;
+    private $dispatcher;
 
     /**
      * @param string                   $defaultLocale
      * @param ContentfulContentAdapter $contentAdapter
+     * @param EventDispatcherInterface $dispatcher
      */
-    public function __construct($defaultLocale, ContentfulContentAdapter $contentAdapter)
+    public function __construct($defaultLocale, ContentfulContentAdapter $contentAdapter, EventDispatcherInterface $dispatcher)
     {
         $this->contentAdapter = $contentAdapter;
         $this->defaultLocale  = $defaultLocale;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -130,6 +134,7 @@ class ViewBuilder
         foreach ($fields as $k => $v) {
             $view->$k = $this->getValue($v, $spaceId, $locale);
         }
+        $view = $this->dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($view))->getView();
         return $view;
     }
 

@@ -1,33 +1,51 @@
-{% macro block(block, level) %}
-    <div id="{{ block.cfMeta.itemId }}" class="cf-{{ block.cfMeta.contentType }}" data-cf-url="{{ block.cfMeta.url }}" ng-controller="BlockController">
-        <div class="row">
-            <div class="span12">
-                <h{{ level }} >{{ block.title }}</h{{ level }}>
-                <div class="cfblock-text">
-                    {{ block.text|markdown }}
-                </div>
-                {% if block.textMore is defined %}
-                    <a href="" ng-click="textMoreVisible=1" ng-hide="textMoreVisible"><span class="heading-arrow"></span>{% trans %}expand.text.label{% endtrans %}</a>
-                    <div class="cfblock-textMore" ng-show="textMoreVisible">
-                        {{ block.textMore|markdown }}
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        {% if block.image is defined %}
-            <div class="row">
-                <div class="span12">
-                    <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" title="{{ block.image.description }}">
-                    {{ cf.link(block.image, locale == "ky") }}
-                </div>
+{% macro blockstart(block) %}
+<div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" class="cf-{{ block.cfMeta.contentType }}" data-cf-url="{{ block.cfMeta.url }}">
+{% endmacro %}
+
+{% macro blockend(block) %}
+</div>
+{% endmacro %}
+
+{% macro contentBlock(block, level) %}
+<div class="row-fluid" ng-controller="BlockController">
+    <div class="span12">
+        {% if block.title is defined %}
+            <h{{ level }} >{{ block.title }}</h{{ level }}>
+        {% endif %}
+        {% if block.text is defined %}
+            <div class="cfblock-text">
+                {{ block.text|markdown }}
             </div>
         {% endif %}
-        {% if block.children is defined %}
-            {% for child in block.children %}
-                {{ _self.block(child, level+1) }}
-            {% endfor %}
+        {% if block.textMore is defined %}
+            <a href="" ng-click="textMoreVisible=1" ng-hide="textMoreVisible"><span class="heading-arrow"></span>{% trans %}expand.text.label{% endtrans %}</a>
+            <div class="cfblock-textMore" ng-show="textMoreVisible">
+                {{ block.textMore|markdown }}
+            </div>
         {% endif %}
     </div>
+</div>
+{% endmacro %}
+
+{% macro block(block, level) %}
+    {{ _self.blockstart(block) }}
+    {{ _self.contentBlock(block, level) }}
+    {% if block.image is defined %}
+        <div class="row-fluid">
+            <div class="span12">
+                <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" title="{% if block.image.description is defined %}{{ block.image.description }}{% endif %}">
+            </div>
+        </div>
+    {% endif %}
+    {% if block.video is defined %}
+        <iframe width="700" height="394" src="{{ block.video.embed_url }}" frameborder="0" allowfullscreen></iframe>
+    {% endif %}
+    {% if block.children is defined %}
+        {% for child in block.children %}
+            {{ _self.block(child, level+1) }}
+        {% endfor %}
+    {% endif %}
+    {{ _self.blockend(block) }}
 {% endmacro %}
 
 

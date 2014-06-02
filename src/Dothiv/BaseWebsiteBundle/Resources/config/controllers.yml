@@ -6,13 +6,6 @@ services:
           - @dothiv.websitebase.contentful.portals_content
           - "DothivRegistryWebsiteBundle"
 
-    dothiv.base.web.controller.charity_page:
-        class: Dothiv\BaseWebsiteBundle\Controller\PageController
-        arguments:
-          - @templating
-          - @dothiv.websitebase.contentful.portals_content
-          - "DothivCharityWebsiteBundle"
-
     dothiv.base.web.controller.pinkbar:
         class: Dothiv\BaseWebsiteBundle\Controller\PinkbarController
         arguments:

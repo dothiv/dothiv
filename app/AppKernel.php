@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Dothiv\ContentfulBundle\DothivContentfulBundle(),
             new Dothiv\Bundle\ParsedownBundle\DothivParsedownBundle(),
+            new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -29,7 +29,8 @@
         "friendsofsymfony/facebook-bundle": "1.2.*",
         "gregwar/form-bundle": "*@dev",
         "doctrine/doctrine-cache-bundle": "1.0.x",
-        "dothiv/dothiv-parsedown-bundle": "dev-master"
+        "dothiv/dothiv-parsedown-bundle": "dev-master",
+        "cocur/slugify": "@stable"
     },
     "require-dev": {
         "phploc/phploc": "*",

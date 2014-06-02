@@ -17,7 +17,7 @@ dothiv_charity_index:
 dothiv_charity_domain_claim:
     pattern: /{locale}/domain/claim/{token}
     defaults:
-        _controller: dothiv.base.web.controller.charity_page:pageAction
+        _controller: dothiv.charity.web.controller.page:pageAction
         page: domain/claim
     requirements:
         locale:  en|de|ky
@@ -25,7 +25,7 @@ dothiv_charity_domain_claim:
 dothiv_content_api:
     pattern:  /{locale}/content/{type}
     defaults:
-        _controller: dothiv.base.web.controller.charity_page:contentAction
+        _controller: dothiv.charity.web.controller.page:contentAction
     requirements:
         locale:  en|de|ky
         type: Quote
@@ -37,10 +37,28 @@ dothiv_pinkbar_api:
     requirements:
         locale:  en|de|ky
 
+dothiv_charity_about_index:
+    pattern:  /{locale}/about/mission
+    defaults:
+        _controller: dothiv.charity.web.controller.page:pageAction
+        page: about/mission
+        navigation: nav.about
+    requirements:
+        locale: en|de|ky
+
+dothiv_charity_about:
+    pattern:  /{locale}/about/{page}
+    defaults:
+        _controller: dothiv.charity.web.controller.page:aboutPageAction
+        navigation: nav.about
+    requirements:
+        locale: en|de|ky
+        page: ^[a-zA-Z]+[a-zA-Z/]+[a-zA-Z0-9]+$
+
 dothiv_charity_page:
     pattern:  /{locale}/{page}
     defaults:
-        _controller: dothiv.base.web.controller.charity_page:pageAction
+        _controller: dothiv.charity.web.controller.page:pageAction
         page: index
     requirements:
         locale:  en|de|ky

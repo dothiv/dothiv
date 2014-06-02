@@ -14,6 +14,6 @@ angular.module('dotHIVApp.controllers').controller('QuoteController', ['$scope',
             $scope.visible = true;
         }
 
-        $http({method: 'GET', url: config.locale + '/content/Quote?markdown=quote'}).success(success);
+        $http({method: 'GET', url: '/' + config.locale + '/content/Quote?markdown=quote'}).success(success);
     }
 ]);

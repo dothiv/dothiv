@@ -5,3 +5,10 @@ services:
           - @templating
           - @dothiv.websitebase.contentful.portals_content
           - "DothivCharityWebsiteBundle"
+
+    dothiv.charity.web.controller.page:
+        class: Dothiv\CharityWebsiteBundle\Controller\PageController
+        arguments:
+          - @templating
+          - @dothiv.websitebase.contentful.portals_content
+          - "DothivCharityWebsiteBundle"
