@@ -37,7 +37,7 @@ class ViewBuilder
     {
         $this->contentAdapter = $contentAdapter;
         $this->defaultLocale  = $defaultLocale;
-        $this->dispatcher = $dispatcher;
+        $this->dispatcher     = $dispatcher;
     }
 
     /**
@@ -69,6 +69,9 @@ class ViewBuilder
         $fields = array();
         foreach ($entry->getFields() as $k => $v) {
             $localValue = isset($v[$locale]) ? $v[$locale] : $v[$this->defaultLocale];
+            if (trim($localValue) === "") {
+                continue;
+            }
             $fields[$k] = $localValue;
         }
         return $fields;
