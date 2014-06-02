@@ -30,7 +30,7 @@
 {% macro block(block, level) %}
     {{ _self.blockstart(block) }}
     {{ _self.contentBlock(block, level) }}
-    {% if block.image is defined %}
+    {% if block.image.file is defined %}
         <div class="row-fluid">
             <div class="span12">
                 <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" title="{% if block.image.description is defined %}{{ block.image.description }}{% endif %}">
