@@ -26,7 +26,7 @@
 
             <div class="span4 pull-right">
                 <button class="scroll pull-left" ng-click="urlOffset = urlOffset+1;"><i class="icon-tick-left icon-white icon-small"></i></button>
-                <div ng-repeat="u in ( urls | carousel: urlOffset | limitTo: 1)" class="running-text bold-text display pull-left">[[ u.name ]]</div>
+                <div ng-repeat="u in ( urls | carousel: urlOffset | limitTo: 1)" class="display pull-left"><strong>[[ u.name ]]</strong></div>
                 <button class="scroll pull-left" ng-click="urlOffset = urlOffset-1;"><i class="icon-tick-right icon-white icon-small"></i></button>
             </div>
         </div>

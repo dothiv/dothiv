@@ -110,10 +110,10 @@
                     <div class="container">
                         <div class="row">
                             <div class="span4">
-                                <p class="running-text bold-text">{% trans %}gmbh.footer.slogan{% endtrans %}</p>
+                                <p><strong>{% trans %}gmbh.footer.slogan{% endtrans %}</strong></p>
                             </div>
                             <div class="span4">
-                                <p class="running-text">
+                                <p>
                                     {% trans %}gmbh.footer.name{% endtrans %}<br>
                                     {% trans %}gmbh.footer.street{% endtrans %}<br>
                                     {% trans %}gmbh.footer.city{% endtrans %}<br>
@@ -122,9 +122,9 @@
                             </div>
                             <div class="span4">
                                 <ul>
-                                    <li><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'contact'}) }}" class="running-text">{% trans %}gmbh.footer.navi.contact{% endtrans %}</a></li>
-                                    <li><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'report'}) }}" class="running-text">{% trans %}gmbh.footer.navi.report{% endtrans %}</a></li>
-                                    <li><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'imprint'}) }}" class="running-text">{% trans %}gmbh.footer.navi.imprint{% endtrans %}</a></li>
+                                    <li><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'contact'}) }}">{% trans %}gmbh.footer.navi.contact{% endtrans %}</a></li>
+                                    <li><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'report'}) }}">{% trans %}gmbh.footer.navi.report{% endtrans %}</a></li>
+                                    <li><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'imprint'}) }}">{% trans %}gmbh.footer.navi.imprint{% endtrans %}</a></li>
                                 </ul>
                             </div>
                         </div>

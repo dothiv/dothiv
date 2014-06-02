@@ -16,7 +16,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="lower"><p class="running-text">{% trans %}home.about.oneclick.text{% endtrans %}</p></div>
+                        <div class="lower"><p>{% trans %}home.about.oneclick.text{% endtrans %}</p></div>
                     </div>
                     <div class="span6">
                         <div class="upper">
@@ -24,7 +24,7 @@
 
                             <div class="image-container people"></div>
                         </div>
-                        <div class="lower"><p class="running-text">{% trans %}home.about.share.text{% endtrans %}</p></div>
+                        <div class="lower"><p>{% trans %}home.about.share.text{% endtrans %}</p></div>
                     </div>
                 </div>
                 <div class="row colorfooter-container">
@@ -41,9 +41,9 @@
             <div class="offset6 span6">
                 <h5 class="pink-text">{% trans %}home.who.headline{% endtrans %}</h5>
 
-                <p class="running-text">
+                <p>
                     {% trans %}home.who.text{% endtrans %}
-                    <a class="bold-text" href="{{ path('dothiv_charity_about_index', {'locale': locale}) }}">{% trans %}home.who.knowmore{% endtrans %}</a>
+                    <a href="{{ path('dothiv_charity_about_index', {'locale': locale}) }}"><strong>{% trans %}home.who.knowmore{% endtrans %}</strong></a>
                 </p>
 
                 <div class="colorfooter6 color-pink small-height"></div>
@@ -77,7 +77,7 @@
                         {% trans %}home.vote.allprojects{% endtrans %} </a>
                 </div>
                 <div class="span12">
-                    <p class="running-text">{% trans %}home.vote.header{% endtrans %}</p>
+                    <p>{% trans %}home.vote.header{% endtrans %}</p>
                 </div>
             </div>
             <div class="container"><div class="row projects-container">
