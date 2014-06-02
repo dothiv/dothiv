@@ -1,4 +1,22 @@
-@headingsFontFamily: source-sans-pro, sans-serif;
+@headingsFontFamily: 'Source Sans Pro', sans-serif;
+
+.headingLight {
+  font-family: @headingsFontFamily;
+  font-weight: 300;
+}
+
+.headingRegular {
+  font-family: @headingsFontFamily;
+  font-weight: 600;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  &:extend(.headingLight);
+}
+
+p {
+  line-height: 160%;
+}
 
 ul.pinkplusstyle {
     list-style-type: none;
@@ -15,3 +33,4 @@ ul.pinkplusstyle {
     }
 
 }
+
