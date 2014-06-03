@@ -1,0 +1,10 @@
+parameters:
+    dothiv.charitywebsite.twig.extension.features.class: Dothiv\CharityWebsiteBundle\Twig\Extension\FeaturesTwigExtension
+
+services:
+    dothiv.charitywebsite.twig.extension.features:
+        class: %dothiv.charitywebsite.twig.extension.features.class%
+        arguments:
+         - %dothiv_charity_website.features%
+        tags:
+         - { name: twig.extension }

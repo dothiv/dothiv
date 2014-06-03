@@ -1,40 +1,10 @@
 {% set title %}{{ page.title }}{% endset %}
 {% extends "DothivCharityWebsiteBundle::page.html.twig" %}
 {% block content %}
-        <div class="jumbotron infobox bottom-shadow" ng-hide="isClosed" ng-controller="HowitWorksController">
-            <div class="container">
-                <div class="row"></div>
-                <div class="row">
-                    <div class="span6">
-                        <div class="upper">
-                            <h3 class="oneup pink-text">{% trans %}home.about.oneclick.headline{% endtrans %}</h3>
-                            <a href="" ng-click="toggleHeader()">
-                                <div class="image-container monitor">
-                                    <div class="text">
-                                        {% trans %}home.about.monitorheadline{% endtrans %}<br> {% trans %}home.about.monitortext{% endtrans %}
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="lower"><p>{% trans %}home.about.oneclick.text{% endtrans %}</p></div>
-                    </div>
-                    <div class="span6">
-                        <div class="upper">
-                            <h3 class="oneup colordark-text">{% trans %}home.about.share.headline{% endtrans %}</h3>
 
-                            <div class="image-container people"></div>
-                        </div>
-                        <div class="lower"><p>{% trans %}home.about.share.text{% endtrans %}</p></div>
-                    </div>
-                </div>
-                <div class="row colorfooter-container">
-                    <div class="colorfooter6 color-pink medium-height"></div>
-                    <div class="colorfooter6 color-dark medium-height colorfooter-last-dark"></div>
-                </div>
-            </div>
-        </div>
-
-    <hr>
+    {% if features.howitworks %}
+        {% include "DothivCharityWebsiteBundle:partials:howitworks.html.twig" %}
+    {% endif %}
 
     <div class="container whosbehind">
         <div class="row">

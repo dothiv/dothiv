@@ -18,12 +18,10 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        //$rootNode = $treeBuilder->root('dothiv_website');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
-
+        $rootNode = $treeBuilder->root('dothiv_charity_website');
+        $rootNode->children()
+            ->arrayNode('features')->prototype('boolean')->defaultValue(array('howitworks' => true))->end()
+        ->end();
         return $treeBuilder;
     }
 }

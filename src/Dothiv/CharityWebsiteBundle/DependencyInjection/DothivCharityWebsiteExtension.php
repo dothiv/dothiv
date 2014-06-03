@@ -20,10 +20,12 @@ class DothivCharityWebsiteExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        //$config = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $configs);
+        $container->setParameter('dothiv_charity_website.features', $config['features']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('controllers.yml');
+        $loader->load('twig_extensions.yml');
     }
 }

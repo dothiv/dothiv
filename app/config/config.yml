@@ -168,6 +168,10 @@ dothiv_business:
       # - hiv
       ~
 
+dothiv_charity_website:
+    features:
+        howitworks: false
+
 parameters:
     # Email addresses 
     domain_email_sender_address: mail@dothiv.bp
