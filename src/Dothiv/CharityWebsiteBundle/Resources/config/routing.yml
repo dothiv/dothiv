@@ -13,6 +13,13 @@ dothiv_charity_index:
     requirements:
         locale:  en|de|ky
 
+dothiv_charity_projects:
+    pattern:  /{locale}/projects
+    defaults:
+        _controller: dothiv.charity.web.controller.projects:indexAction
+    requirements:
+        locale:  en|de|ky
+
 # TODO: Implement
 dothiv_charity_domain_claim:
     pattern: /{locale}/domain/claim/{token}
