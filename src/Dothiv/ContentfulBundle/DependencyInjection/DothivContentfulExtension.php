@@ -19,7 +19,7 @@ class DothivContentfulExtension extends Extension implements PrependExtensionInt
         $config        = $this->processConfiguration($configuration, $configs);
         $container->setParameter('dothiv_contentful.web_path', $config['web_path']);
         $container->setParameter('dothiv_contentful.local_path', $config['local_path']);
-        $loader        = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('listener.yml');
         $loader->load('persistence.yml');
@@ -35,7 +35,13 @@ class DothivContentfulExtension extends Extension implements PrependExtensionInt
         $cacheConfig    = array();
         $doctrineConfig = array();
 
-        $cacheConfig['providers']['contentful_api_cache'] = array('namespace' => 'contentful_api', 'type' => 'file_system');
+        $cacheConfig['providers']['contentful_api_cache'] = array(
+            'namespace'   => 'contentful_api',
+            'type'        => 'file_system',
+            'file_system' => array(
+                'directory' => '%kernel.root_dir%/cache/contentful'
+            )
+        );
         $container->prependExtensionConfig('doctrine_cache', $cacheConfig);
 
         $doctrineConfig['orm']['mappings']['contentful_bundle'] = array(
