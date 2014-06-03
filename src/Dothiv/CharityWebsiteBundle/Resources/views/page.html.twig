@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>
         {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
-        {% trans %}header.title.line01{% endtrans %} {% trans %}header.title.line02{% endtrans %}
+        {% trans %}dothiv.fullname{% endtrans %}
     </title>
     {% stylesheets '@DothivCharityWebsiteBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
