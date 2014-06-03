@@ -3,7 +3,7 @@ Feature: Pinkbar API
 
   Scenario: Fetch current click count
     Given I add "Accept" header equal to "application/json"
-    And I send a GET request to "http://dot.hiv.dev/en/pinkbar"
+    And I send a GET request to "http://click4life.hiv.dev/en/pinkbar"
     Then the response status code should be 200
     And the header "content-type" should contain "application/json"
     And the JSON node "clicks" should be equal to "0"

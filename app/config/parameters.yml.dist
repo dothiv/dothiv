@@ -15,8 +15,8 @@ parameters:
     locale:            en
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
 
-    charitydomain:     dot.hiv
-    registrydomain:    nic.hiv
+    charitydomain:     click4life.hiv
+    registrydomain:    tld.hiv
 
     facebook_app_id:   557254000987057
     facebook_app_secret: yourfacebooksecret

@@ -174,7 +174,7 @@ dothiv_charity_website:
 
 parameters:
     # Email addresses 
-    domain_email_sender_address: mail@dothiv.bp
+    domain_email_sender_address: mail@click4life.hiv.dev
 
     # configure symfony security bundle to use our REST authentication classes.
     # this is required by the angular app authentication process (see http authentication interceptor)

@@ -11,7 +11,7 @@ exports.config = {
   // include glob patterns.
   // TODO put page object in seperate file, split up test cases by field
   specs: ['../e2e/e2e.js'],
-  baseUrl: 'http://dothiv.bp',
+  baseUrl: 'http://click4life.hiv.dev',
 
   // Options to be passed to Jasmine-node.
   jasmineNodeOpts: {
