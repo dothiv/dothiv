@@ -3,7 +3,7 @@
         <div ng-show="state==0">
             <div class="row">
                 <div class="span12 profile-heading">
-                    <h2 class="pink-text" translate="profile.domain.claim.token.headline"></h2>
+                    <h2 translate="profile.domain.claim.token.headline"></h2>
                     <p translate="profile.domain.claim.token.text"></p>
                     <div class="form-well">
                         <form class="form-inline simple-form" novalidate>
@@ -17,8 +17,8 @@
         <div ng-show="state==1">
             <div class="row">
                 <div class="span12 profile-heading">
-                    <h2 class="pink-text" ng-hide="domain" translate="profile.domain.claim.claiming.lookup"></h2>
-                    <h2 class="pink-text" ng-show="domain" translate="profile.domain.claim.claiming.claiming"></h2>
+                    <h2 ng-hide="domain" translate="profile.domain.claim.claiming.lookup"></h2>
+                    <h2 ng-show="domain" translate="profile.domain.claim.claiming.claiming"></h2>
                     <p class="text-center"><dh-loader></dh-loader></p>
                 </div>
             </div>
@@ -26,7 +26,7 @@
         <div ng-show="state==2">
             <div class="row">
                 <div class="span12 profile-heading">
-                    <h2 class="pink-text">[[ 'profile.domain.claim.success.headline' | translate:{domain: domain.name} ]]</h2>
+                    <h2>[[ 'profile.domain.claim.success.headline' | translate:{domain: domain.name} ]]</h2>
                     <strong><em translate="profile.domain.claim.success.text"></em></strong>
                 </div>
             </div>
@@ -60,7 +60,7 @@
         <div ng-show="state==3">
             <div class="row">
                 <div class="span12 profile-heading">
-                    <h2 class="pink-text" translate="profile.domain.claim.error.headline"></h2>
+                    <h2 translate="profile.domain.claim.error.headline"></h2>
                     <p translate="profile.domain.claim.error.text"></p>
                     <p>
                         <button type="submit" class="btn btn-primary" ng-click="startover()" translate="profile.domain.claim.error.button"></button>
