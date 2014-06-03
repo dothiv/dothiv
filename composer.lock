@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b1859b1db71fd64a23004e69265bab16",
+    "hash": "890fbfad8e5565bdb7028bbc18a39f80",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -960,12 +960,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "6b384c108fa89a5ace02124d200bd916ab5ac380"
+                "reference": "b07203b3895fb30545526a723cc8f5207181b4a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/6b384c108fa89a5ace02124d200bd916ab5ac380",
-                "reference": "6b384c108fa89a5ace02124d200bd916ab5ac380",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/b07203b3895fb30545526a723cc8f5207181b4a8",
+                "reference": "b07203b3895fb30545526a723cc8f5207181b4a8",
                 "shasum": ""
             },
             "require": {
@@ -1030,7 +1030,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2014-05-27 08:47:40"
+            "time": "2014-06-03 11:47:03"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -1188,19 +1188,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gregwar/FormBundle.git",
-                "reference": "4cc7cb351f08add84f5486b372ffebfb33146bca"
+                "reference": "13fd7fe0be4d2e4328fef8103c1bdfd340783770"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gregwar/FormBundle/zipball/4cc7cb351f08add84f5486b372ffebfb33146bca",
-                "reference": "4cc7cb351f08add84f5486b372ffebfb33146bca",
+                "url": "https://api.github.com/repos/Gregwar/FormBundle/zipball/13fd7fe0be4d2e4328fef8103c1bdfd340783770",
+                "reference": "13fd7fe0be4d2e4328fef8103c1bdfd340783770",
                 "shasum": ""
             },
             "require": {
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/orm": "*",
-                "symfony/framework-bundle": ">=2.1,<2.5-dev",
-                "symfony/symfony": ">=2.1,<2.5-dev"
+                "symfony/framework-bundle": ">=2.1,<2.6-dev",
+                "symfony/symfony": ">=2.1,<2.6-dev"
             },
             "type": "library",
             "autoload": {
@@ -1213,7 +1213,7 @@
                 "MIT"
             ],
             "description": "Provides the \"entity_id\" type (read \"entity identifier\")",
-            "time": "2013-12-19 17:30:33"
+            "time": "2014-06-02 08:03:54"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1969,12 +1969,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "dfb089f99385faee5dbe21aa150e6fac28f7d0b3"
+                "reference": "56124e7c409e80c486c291c624e0f048d2d0184d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/dfb089f99385faee5dbe21aa150e6fac28f7d0b3",
-                "reference": "dfb089f99385faee5dbe21aa150e6fac28f7d0b3",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/56124e7c409e80c486c291c624e0f048d2d0184d",
+                "reference": "56124e7c409e80c486c291c624e0f048d2d0184d",
                 "shasum": ""
             },
             "require": {
@@ -2035,7 +2035,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2014-05-26 08:51:28"
+            "time": "2014-06-01 13:56:45"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -2597,16 +2597,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.3.15",
+            "version": "v2.3.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "424a567d2c1fb918a32f302b5c2bcb67d2661e76"
+                "reference": "069683a14eb361f892c9bdc9d10d4f5dac3c0ee3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/424a567d2c1fb918a32f302b5c2bcb67d2661e76",
-                "reference": "424a567d2c1fb918a32f302b5c2bcb67d2661e76",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/069683a14eb361f892c9bdc9d10d4f5dac3c0ee3",
+                "reference": "069683a14eb361f892c9bdc9d10d4f5dac3c0ee3",
                 "shasum": ""
             },
             "require": {
@@ -2703,7 +2703,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-05-22 17:23:49"
+            "time": "2014-05-31 02:04:21"
         },
         {
             "name": "twig/extensions",
