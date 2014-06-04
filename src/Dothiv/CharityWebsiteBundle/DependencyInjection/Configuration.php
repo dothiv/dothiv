@@ -5,11 +5,6 @@ namespace Dothiv\CharityWebsiteBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * This is the class that validates and merges configuration from your app/config files
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
- */
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -18,10 +13,32 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('dothiv_charity_website');
+        $rootNode    = $treeBuilder->root('dothiv_charity_website');
         $rootNode->children()
-            ->arrayNode('features')->prototype('boolean')->defaultValue(array('howitworks' => true))->end()
-        ->end();
+            ->arrayNode('features')
+                ->useAttributeAsKey('name')
+                ->prototype('array')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('name')->end()
+                    ->booleanNode('enabled')->defaultValue(true)->end()
+                    ->booleanNode('routing')->defaultValue(false)->end()
+                ->end()
+            ->end()
+            ->defaultValue(array(
+                array(
+                    'name'    => 'howitworks',
+                    'enabled' => true,
+                    'routing' => false,
+                ),
+                array(
+                    'name'    => 'projects',
+                    'enabled' => true,
+                    'routing' => true,
+                )
+            ))
+            ->end()
+            ->end();
         return $treeBuilder;
     }
 }

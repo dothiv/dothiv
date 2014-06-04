@@ -22,7 +22,11 @@ class FeaturesTwigExtension extends \Twig_Extension
      */
     public function getGlobals()
     {
-        return array('features' => $this->features);
+        $features = array();
+        foreach ($this->features as $name => $config) {
+            $features[$name] = $config['enabled'];
+        }
+        return array('features' => $features);
     }
 
     public function getName()

@@ -13,13 +13,6 @@ dothiv_charity_index:
     requirements:
         locale:  en|de|ky
 
-dothiv_charity_projects:
-    pattern:  /{locale}/projects
-    defaults:
-        _controller: dothiv.charity.web.controller.projects:indexAction
-    requirements:
-        locale:  en|de|ky
-
 # TODO: Implement
 dothiv_charity_domain_claim:
     pattern: /{locale}/domain/claim/{token}
@@ -45,7 +38,7 @@ dothiv_pinkbar_api:
         locale:  en|de|ky
 
 dothiv_charity_about_index:
-    pattern:  /{locale}/about/mission
+    pattern:  /{locale}/p/about/mission
     defaults:
         _controller: dothiv.charity.web.controller.page:pageAction
         page: about/mission
@@ -54,7 +47,7 @@ dothiv_charity_about_index:
         locale: en|de|ky
 
 dothiv_charity_about:
-    pattern:  /{locale}/about/{page}
+    pattern:  /{locale}/p/about/{page}
     defaults:
         _controller: dothiv.charity.web.controller.page:aboutPageAction
         navigation: nav.about
@@ -63,7 +56,7 @@ dothiv_charity_about:
         page: ^[a-zA-Z]+[a-zA-Z/]+[a-zA-Z0-9]+$
 
 dothiv_charity_page:
-    pattern:  /{locale}/{page}
+    pattern:  /{locale}/p/{page}
     defaults:
         _controller: dothiv.charity.web.controller.page:pageAction
         page: index

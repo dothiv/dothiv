@@ -3,12 +3,10 @@
 namespace Dothiv\BaseWebsiteBundle\Features\Context;
 
 use Behat\Behat\Context\BehatContext;
-use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Sanpi\Behatch\Context\BehatchContext;
-use Sanpi\Behatch\Context\BrowserContext;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class FeatureContext extends BehatContext

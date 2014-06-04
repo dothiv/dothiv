@@ -170,7 +170,8 @@ dothiv_business:
 
 dothiv_charity_website:
     features:
-        howitworks: false
+        - { name: howitworks, enabled: false }
+        - { name: projects, enabled: false }
 
 parameters:
     # Email addresses 

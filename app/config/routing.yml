@@ -39,8 +39,9 @@ dothiv_api:
 
 # routing for charity website
 dothiv_charity_web:
+    resource: .
+    type: charity_routes
     host: %charitydomain%
-    resource: "@DothivCharityWebsiteBundle/Resources/config/routing.yml"
     prefix:   /
 
 # routing for company website

@@ -1,0 +1,10 @@
+parameters:
+    dothiv.charitywebsite.routing.loader.class: Dothiv\CharityWebsiteBundle\Routing\RoutingLoader
+
+services:
+    dothiv.charitywebsite.routing.loader:
+        class: %dothiv.charitywebsite.routing.loader.class%
+        arguments:
+         - %dothiv_charity_website.features%
+        tags:
+         - { name: routing.loader }
