@@ -53,10 +53,9 @@
         margin-bottom: 38px;
         a, a:visited {
           &:extend(a.external);
-          color: #252525;
         }
         a:hover, a.active {
-            color: black;
+          &:extend(a.external:hover);
         }
         p {
           &:extend(.headingLight);
