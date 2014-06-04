@@ -64,4 +64,8 @@ dothiv_charity_page:
         locale:  en|de|ky
         page: ^[a-zA-Z]+[a-zA-Z/]+[a-zA-Z0-9]+$
 
-
+# Contentful
+dothiv_charity_strings:
+    pattern:  /contentful/strings
+    defaults:
+        _controller: dothiv.charity.web.controller.contentful:stringsAction

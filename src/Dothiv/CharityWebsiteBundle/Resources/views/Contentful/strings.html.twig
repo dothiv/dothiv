@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<main>
+
+    <article>
+        <header>
+            <h1>Strings</h1>
+        </header>
+        <section>
+            <table class="table table-striped" style="max-width: 100%;">
+                <colgroup>
+                    <col width="25%">
+                    <col width="35%">
+                    <col width="35%">
+                    <col width="5%">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>English</th>
+                    <th>Deutsch</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for string in strings %}
+                    <tr>
+                        <td><a href="{{ string.url }}"><code>{{ string.code }}</code></a></td>
+                        <td>{{ string.en }}</td>
+                        <td>{{ string.de }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </article>
+</main>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</body>
+</html>
