@@ -71,6 +71,9 @@ class ViewBuilder
         $fields = array();
         foreach ($entry->getFields() as $k => $v) {
             $localValue = isset($v[$locale]) ? $v[$locale] : $v[$this->defaultLocale];
+            if (is_null($localValue)) {
+                continue;
+            }
             if (is_scalar($localValue) && trim($localValue) === "") {
                 continue;
             }
