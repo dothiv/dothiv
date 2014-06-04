@@ -18,10 +18,15 @@
             </div>
         {% endif %}
         {% if block.textMore is defined %}
-            <a href="" ng-click="textMoreVisible=1" ng-hide="textMoreVisible"><span class="heading-arrow"></span>{% trans %}expand.text.label{% endtrans %}</a>
+            <nav class="expand-text">
+                <a href="" ng-click="textMoreVisible=1" ng-hide="textMoreVisible" class="more">{% trans %}expand.text.label{% endtrans %}</a>
+            </nav>
             <div class="cfblock-textMore" ng-show="textMoreVisible">
                 {{ block.textMore|markdown }}
             </div>
+            <nav class="expand-text">
+                <a href="" ng-click="textMoreVisible=0" ng-show="textMoreVisible" class="less">{% trans %}contract.text.label{% endtrans %}</a>
+            </nav>
         {% endif %}
     </div>
 </div>

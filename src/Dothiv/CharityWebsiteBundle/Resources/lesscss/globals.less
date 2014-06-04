@@ -19,6 +19,15 @@ a.external {
   }
 }
 
+a.back {
+  padding-left: 15px;
+  background: url('/bundles/dothivcharitywebsite/images/small-tick-right-e00073.png') no-repeat 2px center;
+  &:hover, &:active {
+    &:extend(a:hover);
+    background-image: url('/bundles/dothivcharitywebsite/images/small-tick-right.png');
+  }
+}
+
 // Headlines
 h1, h2 {
   color: @darkpink;
@@ -31,4 +40,14 @@ h3, h4, h5, h6 {
 // Helpers
 .hidden {
   display: none;
+}
+
+// Content
+nav.expand-text {
+  a.more {
+    &:extend(a.external);
+  }
+  a.less {
+    &:extend(a.back);
+  }
 }
