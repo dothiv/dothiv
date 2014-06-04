@@ -54,6 +54,8 @@ class ViewBuilder
         $fields['cfMeta']['url']         = $entry->getContentfulUrl();
         $fields['cfMeta']['contentType'] = $this->contentAdapter->getContentTypeById($spaceId, $entry->getContentTypeId())->getName();
         $fields['cfMeta']['itemName']    = $entry->getName();
+        $fields['cfMeta']['createdAt']   = $entry->getCreatedAt();
+        $fields['cfMeta']['updatedAt']   = $entry->getUpdatedAt();
         $view                            = $this->createView($fields, $spaceId, $locale);
         return $view;
     }
@@ -89,6 +91,12 @@ class ViewBuilder
     {
         if (is_scalar($value)) {
             return $value;
+        }
+        if (is_object($value)) {
+            // TODO: Generalize?
+            if ($value instanceof \DateTime) {
+                return $value;
+            }
         }
         if (is_array($value)) {
             if ($this->isLink($value)) {

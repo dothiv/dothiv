@@ -1,3 +1,8 @@
 # TODO
 
  * Re-enable check for the `HIV` TLD string in `app/config.yml`.
+
+## Twig
+
+ * add locale based formatting for date / time
+ * add date filter for W3C date (or Macro for time-element)
