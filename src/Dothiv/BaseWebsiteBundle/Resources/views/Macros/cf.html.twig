@@ -1,4 +1,4 @@
-{% macro blockstart(block) %}
+{% macro blockstart(block, level) %}
 <div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" class="cf-{{ block.cfMeta.contentType }}" data-cf-url="{{ block.cfMeta.url }}">
 {% endmacro %}
 
@@ -6,8 +6,8 @@
 </div>
 {% endmacro %}
 
-{% macro contentBlock(block, level) %}
-<div class="row-fluid" ng-controller="BlockController">
+{% macro contentBlock(block, level, nchild) %}
+<div class="row-fluid cf-level-{{ level }} cf-child-{{ nchild }}" ng-controller="BlockController">
     <div class="span12">
         {% if block.title is defined %}
             <h{{ level }} >{{ block.title }}</h{{ level }}>
@@ -32,9 +32,10 @@
 </div>
 {% endmacro %}
 
-{% macro block(block, level) %}
+{% macro block(block, level, nchild) %}
+    {% set nchild = nchild|default(1) %}
     {{ _self.blockstart(block) }}
-    {{ _self.contentBlock(block, level) }}
+    {{ _self.contentBlock(block, level, nchild) }}
     {% if block.image.file is defined %}
         <div class="row-fluid">
             <div class="span12">
@@ -47,7 +48,7 @@
     {% endif %}
     {% if block.children is defined %}
         {% for child in block.children %}
-            {{ _self.block(child, level+1) }}
+            {{ _self.block(child, level+1, loop.index) }}
         {% endfor %}
     {% endif %}
     {{ _self.blockend(block) }}
