@@ -4,30 +4,45 @@
         <div class="row">
             <div class="span12">
                 <h3 class="pull-left">{% trans %}home.vote.headline{% endtrans %}</h3>
-                <a class="next2h3 pull-left"
-                        href="{{ path('dothiv_charity_projects', {'locale': locale}) }}">
-                    <div class="heading-arrow"></div>
-                    {% trans %}home.vote.allprojects{% endtrans %} </a>
+                {% if features.projects %}
+                    <a class="next2h3 pull-left" href="{{ path('dothiv_charity_projects', {'locale': locale}) }}">
+                        <div class="heading-arrow"></div>
+                        {% trans %}home.vote.allprojects{% endtrans %}
+                    </a>
+                {% endif %}
             </div>
+            {% if projects|length >= 4 %}
             <div class="span12">
-                <p>{% trans %}home.vote.header{% endtrans %}</p>
+                {{ 'home.vote.header'|trans|markdown }}
             </div>
+            {% endif %}
         </div>
-        <div class="container"><div class="row projects-container">
-
+        <div class="container">
+            <div class="row projects-container">
     {% endif %}
     {% set image = project.images[0] %}
-    <a href="{{ path('dothiv_charity_projects', {'locale': locale}) }}">
-        <div class="{{ "span" ~ (12 / projects|length) }}">
-            <img src="{{ image.file.url }}" alt="{{ project.organization }}">
+    {% if features.projects %}<a href="{{ path('dothiv_charity_projects', {'locale': locale}) }}">{% endif %}
+    <div class="span3">
+        <img src="{{ image.file.url }}" alt="{{ project.organization }}">
 
-            <h4>{{ project.organization }}</h4>
+        <h4>{{ project.organization }}</h4>
 
-            <p>{{ project.title }}</p>
-        </div>
-    </a>
+        <p>
+            {{ project.title }}
+        </p>
+
+        <p>
+            <a href="{{ project.website }}" rel="friend">{% trans %}project.visit.website{% endtrans %}</a>
+        </p>
+    </div>
+    {% if features.projects %}</a>{% endif %}
     {% if loop.last %}
-        </div>
+                {% if projects|length < 4 %}
+                    <div class="span{{ 12 - (3 * projects|length) }}">
+                        {{ 'home.vote.header'|trans|markdown }}
+                    </div>
+                {% endif %}
+            </div>
         </div>
         </div>
         <hr class="bottom-shadow">

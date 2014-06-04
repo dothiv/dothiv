@@ -52,7 +52,8 @@
     .projects-container {
         margin-bottom: 38px;
         a, a:visited {
-            color: #252525;
+          &:extend(a.external);
+          color: #252525;
         }
         a:hover, a.active {
             color: black;

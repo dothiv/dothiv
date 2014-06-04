@@ -33,11 +33,8 @@
     </div>
     <hr class="bottom-shadow">
 
-
     {# Projects #}
-    {% if features.projects %}
-        {% include "DothivCharityWebsiteBundle:partials:projects.html.twig" %}
-    {% endif %}
+    {% include "DothivCharityWebsiteBundle:partials:projects.html.twig" %}
 
     {# Quotes #}
     <div ng-cloak ng-controller="QuoteController" ng-show="visible">

@@ -6,3 +6,7 @@
 
  * add locale based formatting for date / time
  * add date filter for W3C date (or Macro for time-element)
+
+## CSS
+
+ * embed small sprites
