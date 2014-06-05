@@ -1,14 +1,15 @@
 {% macro blockstart(block, level) %}
-<div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" class="cf-{{ block.cfMeta.contentType }}" data-cf-url="{{ block.cfMeta.url }}">
+    <div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" class="cf-{{ block.cfMeta.contentType }}" data-cf-url="{{ block.cfMeta.url }}">
 {% endmacro %}
 
 {% macro blockend(block) %}
-</div>
+    </div>
 {% endmacro %}
 
-{% macro contentBlock(block, level, nchild) %}
-<div class="row-fluid cf-level-{{ level }} cf-child-{{ nchild }}" ng-controller="BlockController">
-    <div class="span12">
+{% macro contentBlock(block, level, nchild, width) %}
+    {% set nchild = nchild|default(1) %}
+    {% set width = width|default(12) %}
+    <div class="span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }}" ng-controller="BlockController">
         {% if block.title is defined %}
             <h{{ level }} >{{ block.title }}</h{{ level }}>
         {% endif %}
@@ -29,13 +30,11 @@
             </nav>
         {% endif %}
     </div>
-</div>
 {% endmacro %}
 
-{% macro block(block, level, nchild) %}
-    {% set nchild = nchild|default(1) %}
+{% macro block(block, level, nchild, width) %}
     {{ _self.blockstart(block) }}
-    {{ _self.contentBlock(block, level, nchild) }}
+    {{ _self.contentBlock(block, level, nchild, width) }}
     {% if block.image.file is defined %}
         <div class="row-fluid">
             <div class="span12">
@@ -47,9 +46,19 @@
         <iframe width="569" height="320" src="{{ block.video.embed_url }}" frameborder="0" allowfullscreen></iframe>
     {% endif %}
     {% if block.children is defined %}
-        {% for child in block.children %}
-            {{ _self.block(child, level+1, loop.index) }}
-        {% endfor %}
+        {% if block.behaviour is defined and block.behaviour ~ "column_children" %}
+            <div class="row-fluid cf-columns">
+            {% for child in block.children %}
+                {{ _self.block(child, level+1, loop.index, 12 / loop.length) }}
+            {% endfor %}
+            </div>
+        {% else %}
+            {% for child in block.children %}
+                <div class="row-fluid">
+                    {{ _self.block(child, level+1, loop.index) }}
+                </div>
+            {% endfor %}
+        {% endif %}
     {% endif %}
     {{ _self.blockend(block) }}
 {% endmacro %}
