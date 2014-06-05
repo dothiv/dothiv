@@ -73,6 +73,9 @@
 }
 
 .quotes {
+  nav {
+    margin-top: 30px;
+  }
   .row {
     margin-top: 69px;
     margin-bottom: 0px;
@@ -91,32 +94,52 @@
 
   blockquote {
     &:extend(.headingRegular);
-    margin: 39px 0 39px 0;
+    margin: 0;
+    padding: 0;
     line-height: 1.2em;
     color: @hivblue;
     border-left: 0;
     article {
+      .clearfix();
       padding-top: 20px;
       padding-bottom: 20px;
       border-top: 2px solid @hivblue;
       border-bottom: 2px solid @hivblue;
-    }
-    p {
-      font-size: 28px;
-
+      img {
+        margin: 0 0 20px 0;
+      }
     }
     footer {
       padding-top: 10px;
       font-style: normal;
       color: @textColor;
       font-weight: normal;
+      font-size: 14px;
+      p {
+        font-size: 14px;
+      }
     }
   }
-
   cite {
-    margin-top: 55px;
-    margin-bottom: 0px;
+    display: block;
+    margin-bottom: 0.5em;
     font-style: italic;
+  }
+}
+
+.quotes-index {
+  blockquote {
+    margin: 39px 0 39px 0;
+    article {
+      p {
+        font-size: 28px;
+      }
+      img {
+        float: right;
+        width: 50%;
+        margin: 0 0 10px 10px;
+      }
+    }
   }
 }
 

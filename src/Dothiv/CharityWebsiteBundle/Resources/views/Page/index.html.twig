@@ -38,31 +38,38 @@
 
     {# Quotes #}
     <div ng-cloak ng-controller="QuoteController" ng-show="visible">
-        <div class="container quotes">
+        <div class="container quotes quotes-index">
             <div class="row">
                 <div class="span12">
                     <h3 class="pull-left">{% trans %}home.quotes.headline{% endtrans %}</h3>
-                    <a class="next2h3 pull-left"
-                            href="{{ path('dothiv_charity_page', {'page': 'about/dotHIV', 'locale': locale}) }}#about-abouthiv-quotes">
+                    <a class="next2h3 pull-left" href="{{ path('dothiv_charity_page', {'page': 'about/dotHIV', 'locale': locale}) }}#about-abouthiv-quotes">
                         <div class="heading-arrow"></div>
                         {% trans %}home.quotes.allquotes{% endtrans %}
                     </a>
+
                     <div class="pos-rel pull-left">
                         <img class="quote-bubbles" src="/bundles/dothivcharitywebsite/images/quote-bubbles.png">
                     </div>
                     <div class="next2h3 pull-right">
                         <button class="scroll" ng-click="quoteOffset = quoteOffset - 2"><i class="icon-tick-left"></i>
                         </button>
-                        <button class="scroll" ng-cloak ng-click="quoteOffset = quoteOffset + 2"><i class="icon-tick-right"></i>
+                        <button class="scroll" ng-cloak ng-click="quoteOffset = quoteOffset + 2">
+                            <i class="icon-tick-right"></i>
                         </button>
                     </div>
                 </div>
             </div>
             <div class="row quote-container">
                 <blockquote class="span6" ng-repeat="q in (quotes | carousel: quoteOffset | limitTo: 2)">
-                    <article ng-bind-html-unsafe="q.quote"></article>
+                    <article>
+                        <img ng-src="{% verbatim %}{{ q.photo.file.url }}{% endverbatim %}" ng-show="q.photo">
+
+                        <p ng-bind-html-unsafe="q.quote"></p>
+                    </article>
                     <footer>
                         <cite ng-bind="q.person"></cite>
+
+                        <p ng-bind-html-unsafe="q.description"></p>
                     </footer>
                 </blockquote>
             </div>
