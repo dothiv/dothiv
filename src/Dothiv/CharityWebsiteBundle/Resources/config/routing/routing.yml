@@ -59,7 +59,14 @@ dothiv_charity_page:
     pattern:  /{locale}/p/{page}
     defaults:
         _controller: dothiv.charity.web.controller.page:pageAction
-        page: index
+    requirements:
+        locale:  en|de|ky
+        page: ^[a-zA-Z]+[a-zA-Z/]+[a-zA-Z0-9]+$
+
+dothiv_charity_content:
+    pattern:  /{locale}/c/{page}
+    defaults:
+        _controller: dothiv.charity.web.controller.page:contentPageAction
     requirements:
         locale:  en|de|ky
         page: ^[a-zA-Z]+[a-zA-Z/]+[a-zA-Z0-9]+$

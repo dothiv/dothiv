@@ -10,4 +10,9 @@ class PageController extends \Dothiv\BaseWebsiteBundle\Controller\PageController
     {
         return parent::pageAction($request, $locale, 'about/' . $page, $navigation);
     }
+
+    public function contentPageAction(Request $request, $locale, $page)
+    {
+        return parent::pageAction($request, $locale, $page, null, 'Page:content');
+    }
 }

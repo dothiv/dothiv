@@ -44,7 +44,7 @@ class PageController
         $this->bundle   = $bundle;
     }
 
-    public function pageAction(Request $request, $locale, $page, $navigation = null)
+    public function pageAction(Request $request, $locale, $page, $navigation = null, $template = null)
     {
         $pageId = str_replace('/', '.', $page);
         $data   = $this->buildPageObject($request, $locale, $pageId);
@@ -52,9 +52,14 @@ class PageController
             $data['nav'] = $this->content->buildEntry('Collection', $navigation, $locale);
         }
         $response = new Response();
-        $parts    = explode('/', $page);
-        $template = sprintf($this->bundle . ':Page:%s.html.twig', $parts[0]);
-        return $this->renderer->renderResponse($template, $data, $response);
+
+        $bundle   = $this->bundle;
+        $template = Option::fromValue($template)->getOrCall(function () use ($bundle, $page) {
+            $parts = explode('/', $page);
+            return 'Page:' . $parts[0];
+        });
+        $res      = sprintf($this->bundle . ':%s.html.twig', $template);
+        return $this->renderer->renderResponse($res, $data, $response);
     }
 
     /**
