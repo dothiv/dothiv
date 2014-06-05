@@ -46,7 +46,7 @@
         <iframe width="569" height="320" src="{{ block.video.embed_url }}" frameborder="0" allowfullscreen></iframe>
     {% endif %}
     {% if block.children is defined %}
-        {% if block.behaviour is defined and block.behaviour ~ "column_children" %}
+        {% if block.behaviour is defined and "column_children" in block.behaviour %}
             <div class="row-fluid cf-columns">
             {% for child in block.children %}
                 {{ _self.block(child, level+1, loop.index, 12 / loop.length) }}
