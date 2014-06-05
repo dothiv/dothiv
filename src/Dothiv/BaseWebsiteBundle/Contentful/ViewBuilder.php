@@ -70,7 +70,12 @@ class ViewBuilder
     {
         $fields = array();
         foreach ($entry->getFields() as $k => $v) {
-            $localValue = isset($v[$locale]) ? $v[$locale] : $v[$this->defaultLocale];
+            $localValue = isset($v[$locale]) ? $v[$locale] : null;
+            if ($localValue === null) {
+                if (isset($v[$this->defaultLocale])) {
+                    $localValue = $v[$this->defaultLocale];
+                }
+            }
             if (is_null($localValue)) {
                 continue;
             }
