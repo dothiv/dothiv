@@ -32,6 +32,17 @@
     </div>
 {% endmacro %}
 
+{% macro block_child(block, child, level, nchild, width) %}
+    {% if block.behaviour is defined and "enumerate_children" in block.behaviour %}
+        <div class="span2 cf-level-{{ level }} cf-child-{{ nchild }}">
+            <div class="cf-child-enumeration">{{ nchild }}</div>
+        </div>
+        {{ _self.block(child, level, nchild, width - 2) }}
+    {% else %}
+    {{ _self.block(child, level, nchild, width) }}
+    {% endif %}
+{% endmacro %}
+
 {% macro block(block, level, nchild, width) %}
     {{ _self.blockstart(block) }}
     {{ _self.contentBlock(block, level, nchild, width) }}
@@ -49,13 +60,13 @@
         {% if block.behaviour is defined and "column_children" in block.behaviour %}
             <div class="row-fluid cf-columns">
             {% for child in block.children %}
-                {{ _self.block(child, level+1, loop.index, 12 / loop.length) }}
+                {{ _self.block_child(block, child, level+1, loop.index, 12 / loop.length) }}
             {% endfor %}
             </div>
         {% else %}
             {% for child in block.children %}
                 <div class="row-fluid">
-                    {{ _self.block(child, level+1, loop.index) }}
+                    {{ _self.block_child(block, child, level+1, loop.index, 12) }}
                 </div>
             {% endfor %}
         {% endif %}
