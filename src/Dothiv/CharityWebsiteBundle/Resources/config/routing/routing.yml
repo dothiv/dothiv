@@ -28,7 +28,7 @@ dothiv_content_api:
         _controller: dothiv.charity.web.controller.page:contentAction
     requirements:
         locale:  en|de|ky
-        type: Quote
+        type: Quote|Partner
 
 dothiv_pinkbar_api:
     pattern:  /{locale}/pinkbar
