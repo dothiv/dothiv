@@ -109,16 +109,9 @@ class ViewBuilder
         if (is_array($value)) {
             if ($this->isLink($value)) {
                 /** @var ContentfulItem $entry */
-                $entry = $this->contentAdapter->findByTypeAndId($spaceId, $value['sys']['linkType'], $value['sys']['id'])->getOrCall(function () use ($value) {
-                        throw new RuntimeException(
-                            sprintf(
-                                'Failed to fetch link %s:%s!',
-                                $value['sys']['linkType'],
-                                $value['sys']['id']
-                            )
-                        );
-                    }
-                );
+                $optionalEntry = $this->contentAdapter->findByTypeAndId($spaceId, $value['sys']['linkType'], $value['sys']['id']);
+                if ($optionalEntry->isEmpty()) return null;
+                $entry = $optionalEntry->get();
 
                 $fields                       = $this->localize($entry, $locale);
                 $fields['cfMeta']             = array();
