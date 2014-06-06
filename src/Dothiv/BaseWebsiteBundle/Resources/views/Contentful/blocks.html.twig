@@ -1,0 +1,84 @@
+{# This block renders a contenful block #}
+{% block cf_block %}
+    {{ block('cf_blockstart') }}
+    {{ block('cf_contentBlock') }}
+    {% if block.image.file is defined %}
+        <div class="row-fluid">
+            <div class="span12">
+                <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" title="{% if block.image.description is defined %}{{ block.image.description }}{% endif %}">
+            </div>
+        </div>
+    {% endif %}
+    {% if block.video is defined %}
+        <iframe width="569" height="320" src="{{ block.video.embed_url }}" frameborder="0" allowfullscreen></iframe>
+    {% endif %}
+    {% if block.children is defined %}
+        {% set level = level + 1 %}
+        {% if "column_children" in block.behaviour|default('block') %}
+            {% set width = 12 / loop.length %}
+            <div class="row-fluid cf-columns">
+                {% for child in block.children %}
+                    {% set nchild = loop.index %}
+                    {{ block('cf_block_child') }}
+                {% endfor %}
+            </div>
+        {% else %}
+            {% set width = 12 %}
+            {% for child in block.children %}
+                <div class="row-fluid">
+                    {% set nchild = loop.index %}
+                    {{ block('cf_block_child') }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+    {{ block('cf_blockend') }}
+{% endblock cf_block %}
+
+{% block cf_blockstart %}
+<div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" class="cf-{{ block.cfMeta.contentType }}" data-cf-url="{{ block.cfMeta.url }}">
+{% endblock cf_blockstart %}
+
+{% block cf_blockend %}
+</div>
+{% endblock cf_blockend %}
+
+{% block cf_contentBlock %}
+    {% set nchild = nchild|default(1) %}
+    {% set width = width|default(12) %}
+    <div class="span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }}" ng-controller="BlockController">
+        {% if block.title is defined %}
+            <h{{ level }} >{{ block.title }}</h{{ level }}>
+        {% endif %}
+        {% if block.text is defined %}
+            <div class="cfblock-text">
+                {{ block.text|markdown }}
+            </div>
+        {% endif %}
+        {% if block.textMore is defined %}
+            <nav class="expand-text">
+                <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" ng-click="textMoreVisible=1" ng-hide="textMoreVisible" class="more">{% trans %}expand.text.label{% endtrans %}</a>
+            </nav>
+            <div class="cfblock-textMore" ng-show="textMoreVisible">
+                {{ block.textMore|markdown }}
+            </div>
+            <nav class="expand-text">
+                <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" ng-click="textMoreVisible=0" ng-show="textMoreVisible" class="less">{% trans %}contract.text.label{% endtrans %}</a>
+            </nav>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block cf_block_child %}
+    {% if "enumerate_children" in block.behaviour|default('block') %}
+        <div class="span2 cf-level-{{ level }} cf-child-{{ nchild }}">
+            <div class="cf-child-enumeration">{{ nchild }}</div>
+        </div>
+        {% set width = width - 2 %}
+        {% set block = child %}
+        {{ block('cf_block') }}
+    {% else %}
+        {% set block = child %}
+        {{ block('cf_block') }}
+    {% endif %}
+{% endblock cf_block_child %}

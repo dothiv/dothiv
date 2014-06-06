@@ -1,8 +1,9 @@
-{% import "DothivBaseWebsiteBundle:Macros:cf.html.twig" as cf %}
-{{ cf.blockstart(block) }}
+{% use "DothivBaseWebsiteBundle:Contentful:blocks.html.twig" %}
+
 <div ng-cloak ng-controller="QuoteController" ng-show="visible" class="quotes">
     <div class="row-fluid">
-        {{ cf.contentBlock(block, level, 1, 10) }}
+        {% set width = 10 %}
+        {{ block('cf_contentBlock') }}
         <nav class="span2">
             <button class="scroll" ng-click="quoteOffset = quoteOffset - 2"><i class="icon-tick-left"></i>
             </button>
@@ -27,4 +28,3 @@
         </div>
     </div>
 </div>
-{{ cf.blockend(block) }}

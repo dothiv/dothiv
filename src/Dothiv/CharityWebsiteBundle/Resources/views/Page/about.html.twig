@@ -1,5 +1,5 @@
 {% set title %}{{ page.title }}{% endset %}
-{% extends "DothivCharityWebsiteBundle::page.html.twig" %}
+{% extends "DothivCharityWebsiteBundle:Page:cfpage.html.twig" %}
 {% block content %}
     <article class="about">
         <div class="container">
@@ -34,7 +34,7 @@
                 </aside>
                 <div class="span8">
                     <section>
-                        {% include "DothivCharityWebsiteBundle:partials:cfpage.html.twig" with {'page': page} %}
+                        {{ parent() }}
                     </section>
                 </div>
             </div>
