@@ -13,18 +13,18 @@
     </div>
     <div class="row-fluid quote-container">
         <div class="span6" ng-repeat="q in (quotes | carousel: quoteOffset | limitTo: 2)">
-            <blockquote>
-                <article>
+            <article>
+                <blockquote>
                     <img ng-src="{% verbatim %}{{ q.photo.file.url }}{% endverbatim %}" ng-show="q.photo">
 
                     <p ng-bind-html-unsafe="q.quote"></p>
-                </article>
+                </blockquote>
                 <footer>
                     <cite ng-bind="q.person"></cite>
 
                     <p ng-bind-html-unsafe="q.description"></p>
                 </footer>
-            </blockquote>
+            </article>
         </div>
     </div>
 </div>

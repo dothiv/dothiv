@@ -87,19 +87,11 @@
     }
   }
 
-  blockquote {
+  article {
     &:extend(.headingRegular);
-    margin: 0;
-    padding: 0;
-    line-height: 1.2em;
-    color: @hivblue;
-    border-left: 0;
-    article {
+    blockquote {
       .clearfix();
-      padding-top: 20px;
-      padding-bottom: 20px;
-      border-top: 2px solid @hivblue;
-      border-bottom: 2px solid @hivblue;
+      margin-bottom: 0;
       img {
         margin: 0 0 20px 0;
       }
@@ -123,10 +115,11 @@
 }
 
 .quotes-index {
-  blockquote {
+  article {
     margin: 39px 0 39px 0;
     padding-left: 15px;
-    article {
+    blockquote {
+      &:extend(article.content blockquote);
       p {
         font-size: 28px;
       }

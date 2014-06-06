@@ -60,18 +60,19 @@
                 </div>
             </div>
             <div class="row quote-container">
-                <blockquote class="span6" ng-repeat="q in (quotes | carousel: quoteOffset | limitTo: 2)">
-                    <article>
-                        <img ng-src="{% verbatim %}{{ q.photo.file.url }}{% endverbatim %}" ng-show="q.photo">
+                <article class="span6" ng-repeat="q in (quotes | carousel: quoteOffset | limitTo: 2)">
+                    <blockquote>
+                    <img ng-src="{% verbatim %}{{ q.photo.file.url }}{% endverbatim %}" ng-show="q.photo">
 
-                        <p ng-bind-html-unsafe="q.quote"></p>
-                    </article>
+                    <p ng-bind-html-unsafe="q.quote"></p>
+
+                    </blockquote>
                     <footer>
                         <cite ng-bind="q.person"></cite>
 
                         <p ng-bind-html-unsafe="q.description"></p>
                     </footer>
-                </blockquote>
+                </article>
             </div>
         </div>
         <hr class="bottom-shadow">
