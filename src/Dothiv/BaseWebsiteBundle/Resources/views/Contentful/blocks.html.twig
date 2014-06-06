@@ -2,16 +2,6 @@
 {% block cf_block %}
     {{ block('cf_blockstart') }}
     {{ block('cf_contentBlock') }}
-    {% if block.image.file is defined %}
-        <div class="row-fluid">
-            <div class="span12">
-                <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" title="{% if block.image.description is defined %}{{ block.image.description }}{% endif %}">
-            </div>
-        </div>
-    {% endif %}
-    {% if block.video is defined %}
-        <iframe width="569" height="320" src="{{ block.video.embed_url }}" frameborder="0" allowfullscreen></iframe>
-    {% endif %}
     {% if block.children is defined %}
         {% set level = level + 1 %}
         {% if "column_children" in block.behaviour|default('block') %}
@@ -56,7 +46,7 @@
             </div>
         {% endif %}
         {% if block.textMore is defined %}
-            <nav class="expand-text">
+            <nav class="cfblock-text-more expand-text">
                 <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" ng-click="textMoreVisible=1" ng-hide="textMoreVisible" class="more">{% trans %}expand.text.label{% endtrans %}</a>
             </nav>
             <div class="cfblock-textMore" ng-show="textMoreVisible">
@@ -66,8 +56,22 @@
                 <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" ng-click="textMoreVisible=0" ng-show="textMoreVisible" class="less">{% trans %}contract.text.label{% endtrans %}</a>
             </nav>
         {% endif %}
+        {% if block.image.file is defined %}
+            {{ block('cf_imageBlock') }}
+        {% endif %}
+        {% if block.video is defined %}
+            {{ block('cf_videoBlock') }}
+        {% endif %}
     </div>
 {% endblock %}
+
+{% block cf_imageBlock %}
+    <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" title="{{ block.image.description|default(block.image.title) }}" class="cfblock-image">
+{% endblock cf_imageBlock %}
+
+{% block cf_videoBlock %}
+    <iframe width="569" height="320" src="{{ block.video.embed_url }}" frameborder="0" allowfullscreen class="cfblock-video"></iframe>
+{% endblock cf_videoBlock %}
 
 {% block cf_block_child %}
     {% if "enumerate_children" in block.behaviour|default('block') %}
