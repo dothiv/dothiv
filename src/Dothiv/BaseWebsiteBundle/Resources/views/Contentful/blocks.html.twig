@@ -65,11 +65,21 @@
     {% if block.image.file is defined and "image_left" in block.behaviour|default('block') %}
         {{ block('cf_titleBlock') }}
         <div class="row-fluid">
-            <div class="span4">
+            <div class="span3">
                 {{ block('cf_imageBlock') }}
             </div>
+            <div class="span8 offset1">
+                {{ block('cf_textContentBlock') }}
+            </div>
+        </div>
+    {% elseif block.image.file is defined and "image_right" in block.behaviour|default('block') %}
+        {{ block('cf_titleBlock') }}
+        <div class="row-fluid">
             <div class="span8">
                 {{ block('cf_textContentBlock') }}
+            </div>
+            <div class="span3 offset1">
+                {{ block('cf_imageBlock') }}
             </div>
         </div>
     {% else %}
