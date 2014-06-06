@@ -151,7 +151,11 @@ class ViewBuilder
     {
         $view = new \stdClass();
         foreach ($fields as $k => $v) {
-            $view->$k = $this->getValue($v, $spaceId, $locale);
+            try {
+                $view->$k = $this->getValue($v, $spaceId, $locale);
+            } catch(RuntimeException $e) {
+                // TODO: Log.
+            }
         }
         $view = $this->dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($view))->getView();
         return $view;
