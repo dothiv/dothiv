@@ -18,8 +18,10 @@ parameters:
     charitydomain:     click4life.hiv
     registrydomain:    tld.hiv
 
-    facebook_app_id:   557254000987057
+    facebook_app_id:   486753724803417
     facebook_app_secret: yourfacebooksecret
+
+    twitter_widget_id: 474872109810733056
 
     dns_reseller:      dd24_reseller
     dns_password:      dd24_password
