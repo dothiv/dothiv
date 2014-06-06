@@ -33,36 +33,57 @@
 </div>
 {% endblock cf_blockend %}
 
-{% block cf_contentBlock %}
-    {% set nchild = nchild|default(1) %}
-    {% set width = width|default(12) %}
-    <div class="span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }}" ng-controller="BlockController">
-        {% if block.title is defined %}
-            <h{{ level }} >{{ block.title }}</h{{ level }}>
-        {% endif %}
-        {% if block.text is defined %}
-            <div class="cfblock-text">
-                {{ block.text|markdown }}
-            </div>
-        {% endif %}
-        {% if block.textMore is defined %}
-            <nav class="cfblock-text-more expand-text">
-                <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" ng-click="textMoreVisible=1" ng-hide="textMoreVisible" class="more">{% trans %}expand.text.label{% endtrans %}</a>
-            </nav>
-            <div class="cfblock-textMore" ng-show="textMoreVisible">
-                {{ block.textMore|markdown }}
-            </div>
-            <nav class="expand-text">
-                <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" ng-click="textMoreVisible=0" ng-show="textMoreVisible" class="less">{% trans %}contract.text.label{% endtrans %}</a>
-            </nav>
-        {% endif %}
-        {% if block.image.file is defined %}
-            {{ block('cf_imageBlock') }}
-        {% endif %}
-        {% if block.video is defined %}
-            {{ block('cf_videoBlock') }}
-        {% endif %}
+{% block cf_titleBlock %}
+{% if block.title is defined %}
+    <h{{ level }} >{{ block.title }}</h{{ level }}>
+{% endif %}
+{% endblock cf_titleBlock %}
+
+{% block cf_textContentBlock %}
+{% if block.text is defined %}
+    <div class="cfblock-text">
+        {{ block.text|markdown }}
     </div>
+{% endif %}
+{% if block.textMore is defined %}
+    <nav class="cfblock-text-more expand-text">
+        <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" ng-click="textMoreVisible=1" ng-hide="textMoreVisible" class="more">{% trans %}expand.text.label{% endtrans %}</a>
+    </nav>
+    <div class="cfblock-textMore" ng-show="textMoreVisible">
+        {{ block.textMore|markdown }}
+    </div>
+    <nav class="expand-text">
+        <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" ng-click="textMoreVisible=0" ng-show="textMoreVisible" class="less">{% trans %}contract.text.label{% endtrans %}</a>
+    </nav>
+{% endif %}
+{% endblock cf_textContentBlock %}
+
+{% block cf_contentBlock %}
+{% set nchild = nchild|default(1) %}
+{% set width = width|default(12) %}
+<div class="span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }}" ng-controller="BlockController">
+    {% if block.image.file is defined and "image_left" in block.behaviour|default('block') %}
+        {{ block('cf_titleBlock') }}
+        <div class="row-fluid">
+            <div class="span4">
+                {{ block('cf_imageBlock') }}
+            </div>
+            <div class="span8">
+                {{ block('cf_textContentBlock') }}
+            </div>
+        </div>
+    {% else %}
+            {{ block('cf_titleBlock') }}
+            {{ block('cf_textContentBlock') }}
+            {% if block.image.file is defined %}
+                {{ block('cf_imageBlock') }}
+            {% endif %}
+            {% if block.video is defined %}
+                {{ block('cf_videoBlock') }}
+            {% endif %}
+
+    {% endif %}
+</div>
 {% endblock %}
 
 {% block cf_imageBlock %}
