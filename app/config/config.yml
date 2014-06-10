@@ -173,6 +173,7 @@ dothiv_charity_website:
     features:
         - { name: howitworks, enabled: false }
         - { name: projects, enabled: false }
+        - { name: profile, enabled: false }
 
 parameters:
     # Email addresses 

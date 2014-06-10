@@ -35,6 +35,11 @@ class Configuration implements ConfigurationInterface
                     'name'    => 'projects',
                     'enabled' => true,
                     'routing' => true,
+                ),
+                array(
+                    'name'    => 'profile',
+                    'enabled' => false,
+                    'routing' => true,
                 )
             ))
             ->end()
