@@ -4,11 +4,12 @@ namespace Dothiv\BaseWebsiteBundle\Contentful;
 
 use Dothiv\BaseWebsiteBundle\BaseWebsiteBundleEvents;
 use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
-use Dothiv\BaseWebsiteBundle\Exception\RuntimeException;
 use Dothiv\ContentfulBundle\Adapter\ContentfulContentAdapter;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
 use Dothiv\ContentfulBundle\Item\ContentfulItem;
+use PhpOption\None;
+use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ViewBuilder
@@ -92,33 +93,27 @@ class ViewBuilder
      * @param string $spaceId
      * @param string $locale
      *
-     * @return mixed
-     * @throws RuntimeException If a link cannot be resolved.
+     * @return Option
      */
     protected function getValue($value, $spaceId, $locale)
     {
         if (is_scalar($value)) {
-            return $value;
+            return Option::fromValue($value);
         }
         if (is_object($value)) {
             // TODO: Generalize?
             if ($value instanceof \DateTime) {
-                return $value;
+                return Option::fromValue($value);
             }
         }
         if (is_array($value)) {
             if ($this->isLink($value)) {
                 /** @var ContentfulItem $entry */
-                $entry = $this->contentAdapter->findByTypeAndId($spaceId, $value['sys']['linkType'], $value['sys']['id'])->getOrCall(function () use ($value) {
-                        throw new RuntimeException(
-                            sprintf(
-                                'Failed to fetch link %s:%s!',
-                                $value['sys']['linkType'],
-                                $value['sys']['id']
-                            )
-                        );
-                    }
-                );
+                $optionalEntry = $this->contentAdapter->findByTypeAndId($spaceId, $value['sys']['linkType'], $value['sys']['id']);
+                if ($optionalEntry->isEmpty()) {
+                    return None::create();
+                }
+                $entry = $optionalEntry->get();
 
                 $fields                       = $this->localize($entry, $locale);
                 $fields['cfMeta']             = array();
@@ -136,13 +131,17 @@ class ViewBuilder
                     $fields['cfMeta']['contentType'] = 'Asset';
 
                 }
-                return $this->createView($fields, $spaceId, $locale);
+                return Option::fromValue($this->createView($fields, $spaceId, $locale));
             } else {
                 $newValue = array();
                 foreach ($value as $k => $v) {
-                    $newValue[$k] = $this->getValue($v, $spaceId, $locale);
+                    $vv = $this->getValue($v, $spaceId, $locale);
+                    if ($vv->isDefined()) {
+                        $newValue[$k] = $vv->get();
+                    }
+
                 }
-                return $newValue;
+                return Option::fromValue($newValue);
             }
         }
     }
@@ -151,10 +150,9 @@ class ViewBuilder
     {
         $view = new \stdClass();
         foreach ($fields as $k => $v) {
-            try {
-                $view->$k = $this->getValue($v, $spaceId, $locale);
-            } catch(RuntimeException $e) {
-                // TODO: Log.
+            $v = $this->getValue($v, $spaceId, $locale);
+            if ($v->isDefined()) {
+                $view->$k = $v->get();
             }
         }
         $view = $this->dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($view))->getView();
