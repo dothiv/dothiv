@@ -91,7 +91,9 @@
             {% if block.video is defined %}
                 {{ block('cf_videoBlock') }}
             {% endif %}
-
+            {% if block.downloads is defined %}
+                {{ block('cf_downloadsBlock') }}
+            {% endif %}
     {% endif %}
 </div>
 {% endblock %}
@@ -117,3 +119,26 @@
         {{ block('cf_block') }}
     {% endif %}
 {% endblock cf_block_child %}
+
+{% block cf_downloadsBlock %}
+    {% for download in block.downloads %}
+        <div class="row-fluid">
+            <div class="span8">
+            <p>
+                {{ download.title }}
+                {% if download.description is defined %}
+                    <br>
+                    <small>{{ download.description }}</small>
+                {% endif %}
+            </p>
+            </div>
+            <div class="span4 cf-{{ download.cfMeta.contentType }}" data-cf-url="{{ download.cfMeta.url }}">
+                <p>
+                    <a href="{{ download.file.url }}" title="{{ download.title }}"><i class="icon icon-download-alt"></i> {% trans %}
+                        block.download.file{% endtrans %}</a><br>
+                    <small>{{ (download.file.details.size / 1024 / 1024) | round(0, 'ceil') }} MB</small>
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock cf_downloadsBlock %}
