@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('PinkbarController', ['$scope', '$rootScope', '$http', 'config',
+angular.module('dotHIVApp.controllers').controller('PinkbarControllerClicks', ['$scope', '$rootScope', '$http', 'config',
     function ($scope, $rootScope, $http, config) {
 
         $scope.bar = {

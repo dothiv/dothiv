@@ -28,6 +28,8 @@ twig:
     globals:
       facebook_app_id: %facebook_app_id%
       twitter_widget_id: %twitter_widget_id%
+      countdown_start: 2014-06-21T00:00:00Z
+      general_availability: 2014-08-26T00:00:00Z
 
 # Assetic Configuration
 assetic:
@@ -174,6 +176,8 @@ dothiv_charity_website:
         - { name: howitworks, enabled: false }
         - { name: projects, enabled: false }
         - { name: profile, enabled: false }
+        - { name: pinkbar_clickcounter, enabled: false }
+        - { name: pinkbar_countdown, enabled: true }
 
 parameters:
     # Email addresses 

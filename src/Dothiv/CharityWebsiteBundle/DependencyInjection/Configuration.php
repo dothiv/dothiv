@@ -27,19 +27,22 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->defaultValue(array(
                 array(
-                    'name'    => 'howitworks',
-                    'enabled' => true,
-                    'routing' => false,
+                    'name'    => 'howitworks'
                 ),
                 array(
                     'name'    => 'projects',
-                    'enabled' => true,
-                    'routing' => true,
+                    'routing' => true
                 ),
                 array(
                     'name'    => 'profile',
-                    'enabled' => false,
                     'routing' => true,
+                ),
+                array(
+                    'name'    => 'pinkbar_clickcounter'
+                ),
+                array(
+                    'name'    => 'pinkbar_countdown',
+                    'enabled' => false
                 )
             ))
             ->end()
