@@ -1,0 +1,25 @@
+{
+  "sys": {
+    "type": "Array"
+  },
+  "items": [
+    {
+      "sys": {
+        "type": "DeletedEntry",
+        "id": "jyuYL5pUnCOkcwOkKS6I2",
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "wns1hk98gziw"
+          }
+        },
+        "revision": 2,
+        "createdAt": "2014-06-10T18:18:40.310Z",
+        "updatedAt": "2014-06-10T18:18:40.310Z",
+        "deletedAt": "2014-06-10T18:18:40.310Z"
+      }
+    }
+  ],
+  "nextSyncUrl": "http://cdn.contentful.com/spaces/wns1hk98gziw/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybDmRYFa8OZABplwpUABsOKw4BOej7Cq2BTIMKqWRl5VCodwp7CmCM7bkNEIMOUYMKbw4sqJ1PCuMOYwrQ2Y2ZZNsOrcRsaVsKYwofDrxXCp3fDoWkb"
+}

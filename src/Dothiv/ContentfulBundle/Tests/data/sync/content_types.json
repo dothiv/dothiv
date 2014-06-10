@@ -1,0 +1,36 @@
+{
+  "sys": {
+    "type": "Array"
+  },
+  "total": 1,
+  "skip": 0,
+  "limit": 100,
+  "items": [
+    {
+      "fields": [
+        {
+          "name": "value",
+          "id": "value",
+          "type": "Symbol",
+          "required": true
+        }
+      ],
+      "name": "String",
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "wns1hk98gziw"
+          }
+        },
+        "type": "ContentType",
+        "id": "MxHipXOSK4OwAgsweAIQq",
+        "revision": 1,
+        "createdAt": "2014-06-05T08:09:44.676Z",
+        "updatedAt": "2014-06-05T08:09:44.676Z"
+      },
+      "displayField": "value"
+    }
+  ]
+}
