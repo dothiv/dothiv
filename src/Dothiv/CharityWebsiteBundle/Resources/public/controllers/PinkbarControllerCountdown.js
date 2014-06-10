@@ -1,5 +1,6 @@
 'use strict';
 
+// TODO: Test
 angular.module('dotHIVApp.controllers').controller('PinkbarControllerCountdown', ['$scope', '$rootScope', 'config',
     function ($scope, $rootScope, config) {
 
@@ -20,9 +21,20 @@ angular.module('dotHIVApp.controllers').controller('PinkbarControllerCountdown',
             var percent = start / end;
             var diffDays = Math.floor((endCountDown.getTime() - startCountDown.getTime()) / 1000 / 60 / 60 / 24);
 
-            var diffTime = 24 - endCountDown.getHours() - now.getHours();
-            diffTime += ':' + leadingZero(60 - endCountDown.getMinutes() - now.getMinutes());
-            diffTime += ':' + leadingZero(60 - endCountDown.getSeconds() - now.getSeconds());
+            var diffHours = 0;
+            var diffMinutes = 0;
+            var diffSeconds = 60 - endCountDown.getSeconds() - now.getSeconds();
+            if (diffSeconds == 60) {
+                diffSeconds = 0;
+                diffMinutes++;
+            }
+            diffMinutes = diffMinutes + (60 - endCountDown.getMinutes() - now.getMinutes());
+            if (diffMinutes == 60) {
+                diffMinutes = 0;
+                diffHours++;
+            }
+            diffHours = diffHours + (24 - endCountDown.getHours() - now.getHours());
+            var diffTime = '' + diffHours + ':' + leadingZero(diffMinutes) + ':' + leadingZero(diffSeconds);
 
             $scope.percent = Math.min(Math.max(percent, 0.01), 1);
             $scope.countdown = {
