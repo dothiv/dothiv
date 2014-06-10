@@ -1,7 +1,14 @@
 module.exports = function (config) {
     config.set({
+
+        // base path, that will be used to resolve files and exclude
         basePath: '../../',
+
+        // frameworks to use
         frameworks: ['jasmine'],
+
+
+        // list of files / patterns to load in the browser
         files: [
             // Angular and other vendor stuff
             '../../BaseWebsiteBundle/Resources/public/vendor/angular/angular.js',
@@ -23,14 +30,29 @@ module.exports = function (config) {
             // CharityWebsiteBundle: tests
             'test/unit/**/*.js'
         ],
-        exclude: [],
-        autoWatch: false,
-        singleRun: true,
-        reporters: ['dots', 'junit'],
-        browsers: ['Firefox'],
-        junitReporter: {
-            outputFile: 'test_out/unit.xml',
-            suite: 'unit'
-        }
+
+        // list of files to exclude
+        exclude: [
+            '../../BaseWebsiteBundle/Resources/public/vendor/angular/angular-loader.js',
+            '../../BaseWebsiteBundle/Resources/public/vendor/angular/*.min.js',
+            '../../BaseWebsiteBundle/Resources/public/vendor/angular/angular-scenario.js'
+        ],
+
+        autoWatch: true,
+
+        // test results reporter to use
+        // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
+        reporters: ['dots'],
+
+
+        // Start these browsers, currently available:
+        // - Chrome
+        // - ChromeCanary
+        // - Firefox
+        // - Opera
+        // - Safari (only Mac)
+        // - PhantomJS
+        // - IE (only Windows)
+        browsers: ['Firefox']
     });
 };

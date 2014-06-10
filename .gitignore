@@ -23,3 +23,4 @@
 /web/index.php
 web/contentful
 app/phpunit.xml
+src/Dothiv/CharityWebsiteBundle/Resources/test_out/

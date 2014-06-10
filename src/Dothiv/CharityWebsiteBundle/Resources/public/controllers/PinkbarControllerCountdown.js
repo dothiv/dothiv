@@ -1,11 +1,16 @@
 'use strict';
 
-// TODO: Test
 angular.module('dotHIVApp.controllers').controller('PinkbarControllerCountdown', ['$scope', '$rootScope', 'config',
     function ($scope, $rootScope, config) {
 
         var startCountDown = new Date(config.countdown_start);
         var endCountDown = new Date(config.general_availability);
+
+        $scope.percent = 0;
+        $scope.countdown = {
+            diffDays: 0,
+            diffTime: 0
+        }
 
         function leadingZero(v) {
             if (("" + v).length > 1) {
@@ -15,25 +20,28 @@ angular.module('dotHIVApp.controllers').controller('PinkbarControllerCountdown',
         }
 
         function updateCountdown() {
-            var now = new Date();
+            var now;
+            if (typeof config.now != 'undefined') {
+                now = new Date(config.now);
+            } else {
+                now = new Date();
+            }
+
             var start = (now - startCountDown);
             var end = (endCountDown - now);
             var percent = start / end;
-            var diffDays = Math.floor((endCountDown.getTime() - startCountDown.getTime()) / 1000 / 60 / 60 / 24);
+            var diffDays = Math.max(0, Math.floor((endCountDown.getTime() - now.getTime()) / 1000 / 60 / 60 / 24));
 
-            var diffHours = 0;
-            var diffMinutes = 0;
-            var diffSeconds = 60 - endCountDown.getSeconds() - now.getSeconds();
-            if (diffSeconds == 60) {
-                diffSeconds = 0;
-                diffMinutes++;
+            var endSeconds = endCountDown.getSeconds() + endCountDown.getMinutes() * 60 + endCountDown.getHours() * 60 * 60;
+            var nowSeconds = now.getSeconds() + now.getMinutes() * 60 + now.getHours() * 60 * 60;
+            var totalDiffSeconds = endSeconds - nowSeconds;
+            if (totalDiffSeconds < 0) {
+                totalDiffSeconds = 86400 + totalDiffSeconds;
             }
-            diffMinutes = diffMinutes + (60 - endCountDown.getMinutes() - now.getMinutes());
-            if (diffMinutes == 60) {
-                diffMinutes = 0;
-                diffHours++;
-            }
-            diffHours = diffHours + (24 - endCountDown.getHours() - now.getHours());
+
+            var diffHours = Math.floor(totalDiffSeconds / 3600);
+            var diffMinutes = Math.floor((totalDiffSeconds - (diffHours * 3600)) / 60);
+            var diffSeconds = totalDiffSeconds - diffHours * 3600 - diffMinutes * 60;
             var diffTime = '' + diffHours + ':' + leadingZero(diffMinutes) + ':' + leadingZero(diffSeconds);
 
             $scope.percent = Math.min(Math.max(percent, 0.01), 1);
@@ -44,8 +52,11 @@ angular.module('dotHIVApp.controllers').controller('PinkbarControllerCountdown',
             $scope.$apply();
         }
 
-        window.setTimeout(updateCountdown, 1);
-        var updateInterval = window.setInterval(updateCountdown, 25);
+        updateCountdown();
+        var updateInterval;
+        window.setTimeout(function () {
+            updateInterval = window.setInterval(updateCountdown, 1000);
+        }, 1000);
 
         $scope.$on('$destroy', function () {
             window.clearInterval(updateInterval);

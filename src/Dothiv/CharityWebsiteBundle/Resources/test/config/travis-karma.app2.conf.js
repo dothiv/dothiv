@@ -8,19 +8,11 @@ module.exports = function (config) {
             '../../BaseWebsiteBundle/Resources/public/vendor/angular/angular-*.js',
             '../../BaseWebsiteBundle/Resources/test/lib/angular/angular-mocks.js',
             '../../BaseWebsiteBundle/Resources/public/vendor/angular-translate.js',
-            // CharityWebsiteBundle: init
-            'public/app2.js',
-            // BaseWebsiteBundle
-            '../../BaseWebsiteBundle/Resources/public/filters/*.js',
-            // CharityWebsiteBundle: controllers
-            'public/controllers/QuoteController.js',
-            'public/controllers/PartnerController.js',
-            'public/controllers/HeaderController.js',
-            'public/controllers/BlockController.js',
-            'public/controllers/PinkbarControllerClicks.js',
-            'public/controllers/PinkbarControllerCountdown.js',
-            'public/controllers/HowitWorksController.js',
-            // CharityWebsiteBundle: tests
+            // CharityWebsiteBundle
+            'public/app.js',
+            '../../BaseWebsiteBundle/Resources/public/**/*.js',
+            'public/**/*.js',
+            '../../BaseWebsiteBundle/Resources/test/unit/**/*.js',
             'test/unit/**/*.js'
         ],
         exclude: [],
