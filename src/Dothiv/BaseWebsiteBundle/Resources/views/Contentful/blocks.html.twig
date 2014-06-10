@@ -5,9 +5,9 @@
     {% if block.children is defined %}
         {% set level = level + 1 %}
         {% if "column_children" in block.behaviour|default('block') %}
-            {% set width = 12 / loop.length %}
             <div class="row-fluid cf-columns">
                 {% for child in block.children %}
+                    {% set width = 12 / loop.length %}
                     {% set nchild = loop.index %}
                     {{ block('cf_block_child') }}
                 {% endfor %}
