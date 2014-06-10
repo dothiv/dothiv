@@ -1,7 +1,6 @@
 <!-- adopt for mobile useage -->
-<div id="pinbkar" ng-controller="PinkbarControllerCountdown" class="clearfix">
+<div id="pinbkar" ng-controller="PinkbarControllerCountdown" class="clearfix" ng-cloak>
     <div class="pink-bar rightside">
-
         <div class="pink-bar leftside text-right" ng-style="{ width: percent * 100 + '%' }">
             <button type="button" ng-click="toggle()" btn-checkbox ng-show="percent * 10 > 4" ng-class="{true:'active'}[expanded]">
                 <p>
