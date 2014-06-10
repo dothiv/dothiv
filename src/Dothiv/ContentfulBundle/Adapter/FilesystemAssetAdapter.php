@@ -50,11 +50,16 @@ class FilesystemAssetAdapter implements ContentfulAssetAdapter
 
     protected function getFilename(ContentfulAsset $asset, $prefix, $locale)
     {
-        $extension = $this->getExtension($asset, $locale);
+        $extension        = $this->getExtension($asset, $locale);
+        $originalFilename = $asset->file[$locale]['fileName'];
+        list($name,) = explode('.', $originalFilename);
+        $name = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
+        $name = preg_replace('/[^A-Za-z0-9-_]/', '', $name);
         return sprintf(
-            '%s/%s/%s-%s-%d.%s',
+            '%s/%s/%s-%s-%s-%d.%s',
             $prefix,
             trim($asset->getSpaceId(), '/'),
+            $name,
             $asset->getId(),
             $locale,
             $asset->getRevision(),
@@ -78,7 +83,7 @@ class FilesystemAssetAdapter implements ContentfulAssetAdapter
      */
     protected function getExtension(ContentfulAsset $asset, $locale)
     {
-        $asset = $this->assetRepo->findNewestById($asset->getSpaceId(), $asset->getId())->getOrCall(function () use ($asset) {
+        $asset   = $this->assetRepo->findNewestById($asset->getSpaceId(), $asset->getId())->getOrCall(function () use ($asset) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Cannot find asset with id "%s" in space "%s"!',
