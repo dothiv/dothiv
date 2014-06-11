@@ -145,3 +145,65 @@
 }
 
 
+#countdownbar {
+  .pink-bar {
+    background-color: @darkpink;
+    color: white;
+    overflow: hidden;
+    height: @pinkbarHeight;
+    button {
+      background-color: transparent;
+      border: none;
+      background-image: url('/bundles/dothivcharitywebsite/images/tick-down-white.png');
+      background-repeat: no-repeat;
+      background-position: 100% 50%;
+      margin: 0;
+      padding: 0;
+      &.active {
+        background-image: url('/bundles/dothivcharitywebsite/images/tick-up-white.png');
+      }
+      height: @pinkbarHeight;
+      width: @pinkbarHeight;
+      &:focus {
+        outline: none;
+      }
+    }
+    p {
+      line-height: @pinkbarHeight;
+      margin: 0 0 0 10px;
+      font-size: 22px;
+      strong {
+        &:extend(.headingLight);
+        display: inline-block;
+        font-size: 30px;
+        margin: 0 10px;
+        letter-spacing: 3px;
+      }
+    }
+  }
+  .pink-bar-popover-handle {
+    background-color: @darkpink;
+    color: white;
+    border-top: 1px solid #fff;
+    h2 {
+      color: white;
+      margin-top: 0;
+    }
+    .row {
+      &.first {
+        margin-top: 20px;
+      }
+    }
+    iframe.video {
+      width: 460px;
+      height: 260px;
+      margin-top: 10px;
+    }
+    .row-fluid {
+      margin-left: 10px;
+    }
+    .twitter-share-button {
+      margin-bottom: -3px;
+    }
+  }
+}
