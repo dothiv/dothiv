@@ -4,7 +4,7 @@ namespace Dothiv\CharityWebsiteBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class PinkbarControllerTest extends WebTestCase
+class ProjectsControllerTest extends WebTestCase
 {
     /**
      * @test
@@ -12,9 +12,9 @@ class PinkbarControllerTest extends WebTestCase
     public function itShouldBeDisabled()
     {
         $client   = static::createClient();
-        $this->assertFalse($client->getKernel()->getContainer()->getParameter('dothiv_charity_website.features')['pinkbar_clickcounter']['enabled']);
+        $this->assertFalse($client->getKernel()->getContainer()->getParameter('dothiv_charity_website.features')['projects']['enabled']);
         $domain = $client->getKernel()->getContainer()->getParameter('charitydomain');
-        $client->request('GET', sprintf('http://%s/en/pinkbar', $domain));
+        $client->request('GET', sprintf('http://%s/en/projects', $domain));
         $this->assertEquals(
             404,
             $client->getResponse()->getStatusCode()

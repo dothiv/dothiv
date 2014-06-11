@@ -30,13 +30,6 @@ dothiv_content_api:
         locale:  en|de|ky
         type: Quote|Partner
 
-dothiv_pinkbar_api:
-    pattern:  /{locale}/pinkbar
-    defaults:
-        _controller: dothiv.base.web.controller.pinkbar:statsAction
-    requirements:
-        locale:  en|de|ky
-
 dothiv_charity_about_index:
     pattern:  /{locale}/p/about/mission
     defaults:

@@ -1,0 +1,6 @@
+dothiv_pinkbar_api:
+    pattern:  /{locale}/pinkbar
+    defaults:
+        _controller: dothiv.charity.web.controller.pinkbar:statsAction
+    requirements:
+        locale:  en|de|ky

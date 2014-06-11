@@ -16,18 +16,19 @@ class Configuration implements ConfigurationInterface
         $rootNode    = $treeBuilder->root('dothiv_charity_website');
         $rootNode->children()
             ->arrayNode('features')
-                ->useAttributeAsKey('name')
-                ->prototype('array')
-                ->addDefaultsIfNotSet()
-                ->children()
-                    ->scalarNode('name')->end()
-                    ->booleanNode('enabled')->defaultValue(true)->end()
-                    ->booleanNode('routing')->defaultValue(false)->end()
-                ->end()
+            ->useAttributeAsKey('name')
+            ->prototype('array')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('name')->end()
+            ->booleanNode('enabled')->defaultValue(true)->end()
+            ->booleanNode('routing')->defaultValue(false)->end()
+            ->booleanNode('config')->defaultValue(false)->end()
+            ->end()
             ->end()
             ->defaultValue(array(
                 array(
-                    'name'    => 'howitworks'
+                    'name' => 'howitworks'
                 ),
                 array(
                     'name'    => 'projects',
@@ -38,7 +39,9 @@ class Configuration implements ConfigurationInterface
                     'routing' => true,
                 ),
                 array(
-                    'name'    => 'pinkbar_clickcounter'
+                    'name'    => 'pinkbar_clickcounter',
+                    'routing' => true,
+                    'config' => true,
                 ),
                 array(
                     'name'    => 'pinkbar_countdown',

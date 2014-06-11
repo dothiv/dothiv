@@ -7,7 +7,7 @@
  * @copyright 2014 TLD dotHIV Registry GmbH | http://dothiv-registry.net/
  */
 
-namespace Dothiv\BaseWebsiteBundle\Controller;
+namespace Dothiv\CharityWebsiteBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\TranslatorInterface;
