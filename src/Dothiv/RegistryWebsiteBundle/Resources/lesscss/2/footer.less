@@ -1,0 +1,35 @@
+footer.page {
+  &:extend(.container)
+;
+  font-size: @font-size-small;
+  article {
+    .make-row();
+    padding-bottom: 30px;
+    header {
+      .make-sm-column(12);
+      @media (min-width: @screen-sm-min) {
+        padding-top: 30px;
+      }
+      padding-bottom: 30px;
+      h2 {
+        &:extend(.logoplustext all)
+      ;
+        small {
+          font-size: @font-size-small;
+          left: 75px;
+        }
+      }
+      img {
+        width: 60px;
+      }
+    }
+    section, footer {
+      .make-sm-column(4);
+    }
+    nav {
+      a {
+        display: block;
+      }
+    }
+  }
+}
