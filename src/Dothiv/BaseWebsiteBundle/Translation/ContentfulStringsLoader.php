@@ -42,7 +42,8 @@ class ContentfulStringsLoader implements LoaderInterface
     {
         $catalogue = new MessageCatalogue($locale);
         foreach ($this->content->buildEntries($this->contentType, $locale) as $string) {
-            $v = $locale == $this->keyLocale ? $string->code : $string->value;
+            $value = isset($string->value) ? $string->value : '';
+            $v     = $locale == $this->keyLocale ? $string->code : $value;
             $catalogue->set($string->code, $v, $domain);
         }
         return $catalogue;

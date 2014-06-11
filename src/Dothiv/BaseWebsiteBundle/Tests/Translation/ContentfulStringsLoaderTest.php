@@ -33,7 +33,9 @@ class ContentfulStringsLoaderTest extends \PHPUnit_Framework_TestCase
         $s2        = new ContentfulEntry();
         $s2->code  = 'string2';
         $s2->value = 'value2';
-        return array(array(array($s1, $s2)));
+        $s3        = new ContentfulEntry();
+        $s3->code  = 'string3';
+        return array(array(array($s1, $s2, $s3)));
     }
 
     /**
@@ -54,9 +56,10 @@ class ContentfulStringsLoaderTest extends \PHPUnit_Framework_TestCase
         $loader    = $this->getTestObject();
         $catalogue = $loader->load(null, 'de');
         $strings   = $catalogue->all();
-        $this->assertEquals(2, count($strings['messages']));
+        $this->assertEquals(3, count($strings['messages']));
         $this->assertEquals('value1', $strings['messages']['string1']);
         $this->assertEquals('value2', $strings['messages']['string2']);
+        $this->assertEquals('', $strings['messages']['string3']);
     }
 
     /**
@@ -79,6 +82,7 @@ class ContentfulStringsLoaderTest extends \PHPUnit_Framework_TestCase
         $strings   = $catalogue->all();
         $this->assertEquals('string1', $strings['messages']['string1']);
         $this->assertEquals('string2', $strings['messages']['string2']);
+        $this->assertEquals('string3', $strings['messages']['string3']);
     }
 
     protected function getTestObject()
