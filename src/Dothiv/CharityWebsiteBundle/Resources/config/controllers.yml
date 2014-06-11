@@ -3,24 +3,24 @@ services:
         class: Dothiv\CharityWebsiteBundle\Controller\IndexController
         arguments:
           - @templating
-          - @dothiv.websitebase.contentful.portals_content
+          - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
 
     dothiv.charity.web.controller.projects:
         class: Dothiv\CharityWebsiteBundle\Controller\ProjectsController
         arguments:
           - @templating
-          - @dothiv.websitebase.contentful.portals_content
+          - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
 
     dothiv.charity.web.controller.page:
         class: Dothiv\CharityWebsiteBundle\Controller\PageController
         arguments:
           - @templating
-          - @dothiv.websitebase.contentful.portals_content
+          - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
 
     dothiv.charity.web.controller.contentful:
         class: Dothiv\CharityWebsiteBundle\Controller\ContentfulController
         arguments:
-          - @dothiv.websitebase.contentful.portals_content
+          - @dothiv.charity.contentful.charity_content

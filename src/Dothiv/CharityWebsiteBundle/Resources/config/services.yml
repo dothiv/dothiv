@@ -1,10 +1,26 @@
 parameters:
-    dothiv.charitywebsite.routing.loader.class: Dothiv\CharityWebsiteBundle\Routing\RoutingLoader
+    dothiv.charity.routing.loader.class: Dothiv\CharityWebsiteBundle\Routing\RoutingLoader
 
 services:
-    dothiv.charitywebsite.routing.loader:
-        class: %dothiv.charitywebsite.routing.loader.class%
+    dothiv.charity.routing.loader:
+        class: %dothiv.charity.routing.loader.class%
         arguments:
          - %dothiv_charity_website.features%
         tags:
          - { name: routing.loader }
+
+    dothiv.charity.translation.strings_loader:
+        class: Dothiv\BaseWebsiteBundle\Translation\ContentfulStringsLoader
+        arguments:
+         - @dothiv.charity.contentful.charity_content
+         - 'String'
+         - 'ky'
+        tags:
+         - { name: translation.loader, alias: contentful_strings_charity }
+
+    dothiv.charity.contentful.charity_content:
+        class: %dothiv.websitebase.contentful.content.class%
+        arguments:
+            - @dothiv_contentful.content
+            - @dothiv.websitebase.contentful.view_builder
+            - %contenful_space_charity%

@@ -1,0 +1,16 @@
+services:
+    dothiv.registry.translation.strings_loader:
+        class: Dothiv\BaseWebsiteBundle\Translation\ContentfulStringsLoader
+        arguments:
+         - @dothiv.registry.contentful.registry_content
+         - 'String'
+         - 'ky'
+        tags:
+         - { name: translation.loader, alias: contentful_strings_registry }
+
+    dothiv.registry.contentful.registry_content:
+        class: %dothiv.websitebase.contentful.content.class%
+        arguments:
+            - @dothiv_contentful.content
+            - @dothiv.websitebase.contentful.view_builder
+            - %contenful_space_registry%

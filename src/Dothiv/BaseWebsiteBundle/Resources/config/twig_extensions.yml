@@ -1,15 +1,7 @@
 parameters:
-    dothiv.websitebase.twig.extension.contentful.class: Dothiv\BaseWebsiteBundle\Twig\Extension\ContentfulTwigExtension
     dothiv.websitebase.twig.extension.date.class: Dothiv\BaseWebsiteBundle\Twig\Extension\DateTwigExtension
 
 services:
-    dothiv.websitebase.twig.extension.contentful:
-        class: %dothiv.websitebase.twig.extension.contentful.class%
-        arguments:
-         - @dothiv.websitebase.contentful.portals_content
-        tags:
-         - { name: twig.extension }
-
     dothiv.websitebase.twig.extension.date:
         class: %dothiv.websitebase.twig.extension.date.class%
         tags:

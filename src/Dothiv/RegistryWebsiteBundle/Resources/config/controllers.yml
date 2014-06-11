@@ -1,7 +1,7 @@
 services:
-    dothiv.base.web.controller.registry_page:
+    dothiv.registry.web.controller.registry_page:
         class: Dothiv\BaseWebsiteBundle\Controller\PageController
         arguments:
           - @templating
-          - @dothiv.websitebase.contentful.portals_content
+          - @dothiv.registry.contentful.registry_content
           - "DothivRegistryWebsiteBundle"

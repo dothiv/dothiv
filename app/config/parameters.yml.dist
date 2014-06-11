@@ -45,4 +45,5 @@ parameters:
     ngmin_bin: '%kernel.root_dir%/../node_modules/ngmin/bin/ngmin'
 
     # Contentful settings
-    contenful_portals_space: xfj3l4zlkg3j
+    contenful_space_charity: xfj3l4zlkg3j
+    contenful_space_registry: xfj3l4zlkg3j

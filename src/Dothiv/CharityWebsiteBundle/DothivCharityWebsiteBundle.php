@@ -2,6 +2,8 @@
 
 namespace Dothiv\CharityWebsiteBundle;
 
+use Dothiv\BaseWebsiteBundle\DependencyInjection\Compiler\ContentfulStringsTranslationsPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -9,4 +11,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class DothivCharityWebsiteBundle extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new ContentfulStringsTranslationsPass('charity'));
+    }
 }
