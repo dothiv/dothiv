@@ -1,6 +1,6 @@
 {% trans_default_domain "charity" %}
 {% set title %}{{ page.title }}{% endset %}
-{% extends "DothivCharityWebsiteBundle::page.html.twig" %}
+{% extends "DothivCharityWebsiteBundle:Page:cfpage.html.twig" %}
 {% block content %}
     <article class="blog container">
 
@@ -9,7 +9,7 @@
                 <section>
                     <h2>{{ page.title }}</h2>
                     <p><time>{{ page.cfMeta.createdAt|date }}</time></p>
-                    {% include "DothivCharityWebsiteBundle:partials:cfpage.html.twig" with {'page': page} %}
+                    {{ parent() }}
                 </section>
                 <footer>
                     <a href="https://twitter.com/share" class="twitter-share-button" data-text="{{ page.title }}">{% trans %}share.twitter.button{% endtrans %}</a>
