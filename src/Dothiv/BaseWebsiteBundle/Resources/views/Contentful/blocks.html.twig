@@ -62,23 +62,36 @@
 {% set nchild = nchild|default(1) %}
 {% set width = width|default(12) %}
 <div class="span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }}" ng-controller="BlockController">
-    {% if block.image.file is defined and "image_left" in block.behaviour|default('block') %}
+    {% set behaviour = block.behaviour|default('block') %}
+    {% if block.image.file is defined and "image_left" in behaviour %}
         {{ block('cf_titleBlock') }}
         <div class="row-fluid">
+            {% if "nooffset" in behaviour %}
+            <div class="span4">
+            {% else %}
             <div class="span3">
+            {% endif %}
                 {{ block('cf_imageBlock') }}
             </div>
-            <div class="span8 offset1">
+            {% if "nooffset" in behaviour %}
+                <div class="span8">
+            {% else %}
+                <div class="span8 offset1">
+            {% endif %}
                 {{ block('cf_textContentBlock') }}
             </div>
         </div>
-    {% elseif block.image.file is defined and "image_right" in block.behaviour|default('block') %}
+    {% elseif block.image.file is defined and "image_right" in behaviour %}
         {{ block('cf_titleBlock') }}
         <div class="row-fluid">
             <div class="span8">
                 {{ block('cf_textContentBlock') }}
             </div>
+            {% if "nooffset" in behaviour %}
+            <div class="span4">
+            {% else %}
             <div class="span3 offset1">
+            {% endif %}
                 {{ block('cf_imageBlock') }}
             </div>
         </div>
