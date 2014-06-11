@@ -10,6 +10,7 @@ article.about {
   }
   aside {
     nav {
+      margin-top: 20px;
       ul {
         margin-left: 0px;
         li {
@@ -19,6 +20,7 @@ article.about {
           font-size: 20px;
           list-style-type: none;
           margin-left: 0px;
+          margin-bottom: 2px;
           padding: 0;
           a, a:visited {
             color: #555;
@@ -28,12 +30,17 @@ article.about {
           }
         }
         ul {
-          margin: 10px 0 15px 0;
+          margin: 5px 0 20px 0;
           li {
             color: @colordark;
             font-size: 13px;
           }
         }
+      }
+    }
+    nav > ul > li  {
+      > a, > a:visited {
+        color: @darkpink;
       }
     }
   }

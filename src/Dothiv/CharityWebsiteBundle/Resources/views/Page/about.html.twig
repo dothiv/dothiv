@@ -11,16 +11,16 @@
                             <ul>
                         {% endif %}
                         <li>
-                            {{ item.title }}
+                            <a href="{{ path('dothiv_charity_page', {'locale': locale, 'page': item.code|replace('.', '/') }) }}">{{ item.title }}</a>
                             {% for block in item.blocks %}
                                 {% if loop.first %}
                                     <ul>
                                 {% endif %}
+                                {% if block.title is defined and block.title != item.title %}
                                 <li>
-                                    {% if block.title is defined %}
-                                        <a href="{{ path('dothiv_charity_page', {'locale': locale, 'page': item.code|replace('.', '/') }) }}#{{ block.code|default(block.cfMeta.itemId)|slugify }}">{{ block.title }}</a>
-                                    {% endif %}
+                                    <a href="{{ path('dothiv_charity_page', {'locale': locale, 'page': item.code|replace('.', '/') }) }}#{{ block.code|default(block.cfMeta.itemId)|slugify }}">{{ block.title }}</a>
                                 </li>
+                                {% endif %}
                                 {% if loop.last %}
                                     </ul>
                                 {% endif %}
