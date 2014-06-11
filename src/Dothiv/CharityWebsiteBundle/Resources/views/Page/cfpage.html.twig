@@ -19,6 +19,7 @@
     {% for block in page.blocks %}
         <div class="row-fluid">
             {% set level = 2 %}
+            {% set nblock = loop.index %}
             {{ block('cf_block') }}
         </div>
     {% endfor %}

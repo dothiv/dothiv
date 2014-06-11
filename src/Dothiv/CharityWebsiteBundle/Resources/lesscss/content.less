@@ -3,6 +3,12 @@ article.content {
     h2 {
       color: @darkpink;
       font-size: 42px;
+      margin-top: 50px;
+    }
+    .cf-block-1 {
+      h2 {
+        margin-top: 0;
+      }
     }
     h3 {
       font-size: 18px;
@@ -36,11 +42,22 @@ article.content {
       }
     }
     li {
-      list-style-image: url('/bundles/dothivcharitywebsite/images/bullet-filled.png');
+      margin-bottom: 10px;
+      list-style-image: url('/bundles/dothivcharitywebsite/images/bullet-filled@1.5x.png');
       li {
         list-style-image: url('/bundles/dothivcharitywebsite/images/bullet-empty.png');
       }
     }
+    ul {
+      margin-left: 35px;
+      ul {
+        margin-top: 15px;
+      }
+    }
+  }
+
+  p {
+    line-height: 145%;
   }
 
   blockquote {
@@ -52,7 +69,7 @@ article.content {
     padding: 10px 0;
     p {
       font-size: 15px;
-      line-height: 140%;
+      line-height: 145%;
     }
   }
 }

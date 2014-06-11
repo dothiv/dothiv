@@ -26,7 +26,7 @@
 {% endblock cf_block %}
 
 {% block cf_blockstart %}
-<div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" class="cf-{{ block.cfMeta.contentType }}" data-cf-url="{{ block.cfMeta.url }}">
+<div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" class="cf-{{ block.cfMeta.contentType }} cf-block-{{ nblock }}" data-cf-url="{{ block.cfMeta.url }}">
 {% endblock cf_blockstart %}
 
 {% block cf_blockend %}
