@@ -54,12 +54,12 @@ class ContentfulStringsLoaderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($entries));
 
         $loader    = $this->getTestObject();
-        $catalogue = $loader->load(null, 'de');
+        $catalogue = $loader->load(null, 'de', 'somedomain');
         $strings   = $catalogue->all();
-        $this->assertEquals(3, count($strings['messages']));
-        $this->assertEquals('value1', $strings['messages']['string1']);
-        $this->assertEquals('value2', $strings['messages']['string2']);
-        $this->assertEquals('', $strings['messages']['string3']);
+        $this->assertEquals(3, count($strings['somedomain']));
+        $this->assertEquals('value1', $strings['somedomain']['string1']);
+        $this->assertEquals('value2', $strings['somedomain']['string2']);
+        $this->assertEquals('', $strings['somedomain']['string3']);
     }
 
     /**
@@ -78,11 +78,11 @@ class ContentfulStringsLoaderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($entries));
 
         $loader    = $this->getTestObject();
-        $catalogue = $loader->load(null, 'ky');
+        $catalogue = $loader->load(null, 'ky', 'somedomain');
         $strings   = $catalogue->all();
-        $this->assertEquals('string1', $strings['messages']['string1']);
-        $this->assertEquals('string2', $strings['messages']['string2']);
-        $this->assertEquals('string3', $strings['messages']['string3']);
+        $this->assertEquals('string1', $strings['somedomain']['string1']);
+        $this->assertEquals('string2', $strings['somedomain']['string2']);
+        $this->assertEquals('string3', $strings['somedomain']['string3']);
     }
 
     protected function getTestObject()
