@@ -97,8 +97,11 @@
         </div>
     {% else %}
             {{ block('cf_titleBlock') }}
+            {% if block.image.file is defined and "image_top" in behaviour %}
+                {{ block('cf_imageBlock') }}
+            {% endif %}
             {{ block('cf_textContentBlock') }}
-            {% if block.image.file is defined %}
+            {% if block.image.file is defined and "image_top" not in behaviour %}
                 {{ block('cf_imageBlock') }}
             {% endif %}
             {% if block.video is defined %}
