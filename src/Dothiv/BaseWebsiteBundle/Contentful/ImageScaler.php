@@ -7,7 +7,9 @@ use Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapter;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Logger\LoggerAwareTrait;
 use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
 use Imagine\Image\ImagineInterface;
+use Imagine\Image\Point;
 use Psr\Log\LoggerAwareInterface;
 
 class ImageScaler implements LoggerAwareInterface
@@ -69,16 +71,40 @@ class ImageScaler implements LoggerAwareInterface
                 $img = $this->imagine->open($source->getPathname());
 
                 $newSize = $size->getSize();
-                if ($img->getSize()->getWidth() < $newSize->getWidth()) {
+                if ($size->getThumbnail()) {
+                    if ($img->getSize()->getWidth() < $newSize->getWidth()) {
+                        $origSize = $img->getSize();
+                        $img->resize($origSize->scale($newSize->getWidth() / $origSize->getWidth()));
+                    }
+                    if ($img->getSize()->getHeight() < $newSize->getHeight()) {
+                        $origSize = $img->getSize();
+                        $img->resize($origSize->scale($newSize->getHeight() / $origSize->getHeight()));
+                    }
+                    $img->thumbnail($size->getSize(), ImageInterface::THUMBNAIL_OUTBOUND)
+                        ->save($scaled->getPathname());
+                } else {
                     $origSize = $img->getSize();
-                    $img->resize($origSize->scale($newSize->getWidth() / $origSize->getWidth()));
+                    if ($origSize->getWidth() > $origSize->getHeight()) {
+                        $scaledSize = $origSize->scale($newSize->getWidth() / $origSize->getWidth());
+                    } else {
+                        $scaledSize = $origSize->scale($newSize->getHeight() / $origSize->getHeight());
+                    }
+                    $img->resize($scaledSize);
+                    if ($size->getExact()) {
+                        // Force image size
+                        $bg = $this->imagine->create($newSize);
+                        $bg->paste(
+                            $img,
+                            new Point(
+                                ($newSize->getWidth() - $scaledSize->getWidth()) / 2,
+                                ($newSize->getHeight() - $scaledSize->getHeight()) / 2
+                            )
+                        );
+                        $bg->save($scaled->getPathname());
+                    } else {
+                        $img->save($scaled->getPathname());
+                    }
                 }
-                if ($img->getSize()->getHeight() < $newSize->getHeight()) {
-                    $origSize = $img->getSize();
-                    $img->resize($origSize->scale($newSize->getHeight() / $origSize->getHeight()));
-                }
-                $img->thumbnail($size->getSize(), $size->getMode())
-                    ->save($scaled->getPathname());
             }
         }
     }
@@ -90,14 +116,15 @@ class ImageScaler implements LoggerAwareInterface
     }
 
     /**
-     * @param string $label
-     * @param int    $width
-     * @param int    $height
-     * @param string $mode
+     * @param string  $label
+     * @param int     $width
+     * @param int     $height
+     * @param boolean $thumbnail
+     * @param boolean $exact
      */
-    public function addSize($label, $width, $height, $mode)
+    public function addSize($label, $width, $height, $thumbnail, $exact)
     {
-        $this->sizes->add(new ImagineThumbnailConfiguration($label, $width, $height, $mode));
+        $this->sizes->add(new ImagineThumbnailConfiguration($label, $width, $height, $thumbnail, $exact));
     }
 
     /**

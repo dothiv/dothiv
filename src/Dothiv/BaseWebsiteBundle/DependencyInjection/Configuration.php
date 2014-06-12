@@ -22,7 +22,8 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('label')->end()
                         ->scalarNode('width')->end()
                         ->scalarNode('height')->end()
-                        ->scalarNode('mode')->end()
+                        ->booleanNode('thumbnail')->defaultValue(false)->end()
+                        ->booleanNode('exact')->defaultValue(false)->end()
                     ->end()
                 ->end()
             ->end();

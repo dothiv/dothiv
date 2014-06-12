@@ -17,21 +17,28 @@ class ImagineThumbnailConfiguration
     private $size;
 
     /**
-     * @var
+     * @var bool
      */
-    private $mode;
+    private $thumbnail;
 
     /**
-     * @param string $label
-     * @param int    $width
-     * @param int    $height
-     * @param        $mode
+     * @var bool
      */
-    public function __construct($label, $width, $height, $mode)
+    private $exact;
+
+    /**
+     * @param string  $label
+     * @param int     $width
+     * @param int     $height
+     * @param boolean $thumbnail
+     * @param boolean $exact
+     */
+    public function __construct($label, $width, $height, $thumbnail, $exact)
     {
-        $this->label = $label;
-        $this->size  = new Box($width, $height);
-        $this->mode  = $mode;
+        $this->label     = $label;
+        $this->size      = new Box($width, $height);
+        $this->thumbnail = $thumbnail;
+        $this->exact     = $exact;
     }
 
     /**
@@ -51,22 +58,6 @@ class ImagineThumbnailConfiguration
     }
 
     /**
-     * @param mixed $mode
-     */
-    public function setMode($mode)
-    {
-        $this->mode = $mode;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMode()
-    {
-        return $this->mode;
-    }
-
-    /**
      * @param \Imagine\Image\Box $size
      */
     public function setSize($size)
@@ -80,6 +71,38 @@ class ImagineThumbnailConfiguration
     public function getSize()
     {
         return $this->size;
+    }
+
+    /**
+     * @param boolean $thumbnail
+     */
+    public function setThumbnail($thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * @param boolean $exact
+     */
+    public function setExact($exact)
+    {
+        $this->exact = $exact;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getExact()
+    {
+        return $this->exact;
     }
 
 }
