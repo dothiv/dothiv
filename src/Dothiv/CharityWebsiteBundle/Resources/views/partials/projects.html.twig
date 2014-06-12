@@ -1,4 +1,5 @@
 {% trans_default_domain "charity" %}
+
 {% for project in projects %}
     {% if loop.first %}
         <div class="container voteproject">
@@ -12,18 +13,28 @@
                     </a>
                 {% endif %}
             </div>
-            {% if projects|length >= 4 %}
+            {% if projects|length > 2 %}
             <div class="span12">
-                {{ 'home.vote.header'|trans|markdown }}
+                {% block wherethemoneygoes %}
+                    {% image '@DothivCharityWebsiteBundle/Resources/public/images/where_the_money_goes_960.jpg' %}
+                    <img src="{{ asset_url }}" alt="" >
+                    {% endimage %}
+                    {{ 'home.vote.header'|trans|markdown }}
+                {% endblock wherethemoneygoes %}
             </div>
             {% endif %}
         </div>
         <div class="container">
             <div class="row projects-container">
+                {% if projects|length <= 2 %}
+                    <div class="{% if projects|length == 2 %}span6{% else %}span9{% endif %}">
+                        {{ block('wherethemoneygoes') }}
+                    </div>
+                {% endif %}
     {% endif %}
     {% set image = project.images[0] %}
     {% if features.projects %}<a href="{{ path('dothiv_charity_projects', {'locale': locale}) }}">{% endif %}
-    <div class="span3">
+    <div class="{% if projects|length > 2 %}span{{ 12 / projects|length }}{% else %}span3{% endif %}">
         <img src="{{ image.file.url }}" alt="{{ project.organization }}">
 
         <h4>{{ project.organization }}</h4>
@@ -38,11 +49,6 @@
     </div>
     {% if features.projects %}</a>{% endif %}
     {% if loop.last %}
-                {% if projects|length < 4 %}
-                    <div class="span{{ 12 - (3 * projects|length) }}">
-                        {{ 'home.vote.header'|trans|markdown }}
-                    </div>
-                {% endif %}
             </div>
         </div>
         </div>
