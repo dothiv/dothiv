@@ -22,16 +22,7 @@
             {% endfor %}
         {% endif %}
     {% endif %}
-    {{ block('cf_blockend') }}
 {% endblock cf_block %}
-
-{% block cf_blockstart %}
-<div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" class="cf-{{ block.cfMeta.contentType }} cf-block-{{ nblock }}" data-cf-url="{{ block.cfMeta.url }}">
-{% endblock cf_blockstart %}
-
-{% block cf_blockend %}
-</div>
-{% endblock cf_blockend %}
 
 {% block cf_titleBlock %}
 {% if block.title is defined %}
@@ -61,7 +52,12 @@
 {% block cf_contentBlock %}
 {% set nchild = nchild|default(1) %}
 {% set width = width|default(12) %}
-<div class="span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }}" ng-controller="BlockController">
+<div
+    id="{{ block.code|default(block.cfMeta.itemId)|slugify }}"
+    data-cf-url="{{ block.cfMeta.url }}"
+    class="cf-{{ block.cfMeta.contentType }} cf-block-{{ nblock }} span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }}"
+    ng-controller="BlockController"
+    >
     {% set behaviour = block.behaviour|default('block') %}
     {% if block.image.file is defined and "image_left" in behaviour %}
         {{ block('cf_titleBlock') }}
