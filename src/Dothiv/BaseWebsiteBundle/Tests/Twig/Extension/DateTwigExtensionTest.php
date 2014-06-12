@@ -10,6 +10,7 @@ class DateTwigExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @group BaseWebsiteBundle
+     * @group TwigExtension
      */
     public function itShouldBeInstantiable()
     {
@@ -19,6 +20,7 @@ class DateTwigExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @group        BaseWebsiteBundle
+     * @group        TwigExtension
      * @depends      itShouldBeInstantiable
      * @dataProvider getTestData
      */

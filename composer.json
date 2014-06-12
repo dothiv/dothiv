@@ -30,7 +30,10 @@
         "gregwar/form-bundle": "*@dev",
         "doctrine/doctrine-cache-bundle": "1.0.x",
         "dothiv/dothiv-parsedown-bundle": "dev-master",
-        "cocur/slugify": "@stable"
+        "cocur/slugify": "@stable",
+        "imagine/imagine": "0.6.*@dev",
+        "ocramius/proxy-manager": "0.4.*",
+        "ext-gmagick": "*"
     },
     "require-dev": {
         "phploc/phploc": "*",

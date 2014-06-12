@@ -1,6 +1,6 @@
 {# This block renders a contenful block #}
 {% block cf_block %}
-    {{ block('cf_blockstart') }}
+    {% set thumbnail_size = thumbnail_size|default(block|behaviour('thumbnails')) %}
     {{ block('cf_contentBlock') }}
     {% if block.children is defined %}
         {% set level = level + 1 %}
@@ -115,7 +115,13 @@
 {% endblock %}
 
 {% block cf_imageBlock %}
-    <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" title="{{ block.image.description|default(block.image.title) }}" class="cfblock-image">
+    {% set src = block.image.file.url %}
+    {% set class = "cfblock-image" %}
+    {% if thumbnail_size %}
+        {% set src = block.image.file.thumbnails[thumbnail_size] %}
+        {% set class = class ~ " cfblock-thumbnail-" ~ thumbnail_size %}
+    {% endif %}
+    <img src="{{ src }}" alt="{{ block.image.title }}" title="{{ block.image.description|default(block.image.title) }}" class="{{ class }}">
 {% endblock cf_imageBlock %}
 
 {% block cf_videoBlock %}

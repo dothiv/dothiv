@@ -15,6 +15,7 @@ class ContentfulTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @group BaseWebsiteBundle
+     * @group TwigExtension
      */
     public function itShouldBeInstantiable()
     {
@@ -24,6 +25,7 @@ class ContentfulTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @group   BaseWebsiteBundle
+     * @group   TwigExtension
      * @depends itShouldBeInstantiable
      */
     public function itShouldFetchABlock()
@@ -33,14 +35,58 @@ class ContentfulTest extends \PHPUnit_Framework_TestCase
             ->with('Block', 'example.block', 'de')
             ->will($this->returnValue($block));
 
-        $ext = $this->getTestObject();
+        $ext    = $this->getTestObject();
+        $called = false;
         foreach ($ext->getFunctions() as $func) {
             /** @var \Twig_SimpleFunction $func */
             $this->assertInstanceOf('\Twig_SimpleFunction', $func);
-            $this->assertEquals('content', $func->getName());
-            $b = call_user_func($func->getCallable(), array('locale' => 'de'), 'Block', 'example.block');
-            $this->assertSame($block, $b);
+            if ($func->getName() == 'content') {
+                $b = call_user_func($func->getCallable(), array('locale' => 'de'), 'Block', 'example.block');
+                $this->assertSame($block, $b);
+                $called = true;
+            }
         }
+        $this->assertTrue($called, 'Filter "content" was not executed.');
+    }
+
+    /**
+     * @test
+     * @group        BaseWebsiteBundle
+     * @group        TwigExtension
+     * @depends      itShouldBeInstantiable
+     * @dataProvider getParseBlockData
+     */
+    public function itShouldParseBlockBehaviour($behaviour, $search, $expected)
+    {
+        $block = new \stdClass();
+        if ($behaviour != null) {
+            $block->behaviour = $behaviour;
+        }
+        $ext    = $this->getTestObject();
+        $called = false;
+        foreach ($ext->getFilters() as $func) {
+            /** @var \Twig_SimpleFunction $func */
+            $this->assertInstanceOf('\Twig_SimpleFilter', $func);
+            if ($func->getName() == 'behaviour') {
+                $b = call_user_func($func->getCallable(), $block, $search);
+                $this->assertSame($expected, $b);
+                $called = true;
+            }
+        }
+        $this->assertTrue($called, 'Filter "behaviour" was not executed.');
+    }
+
+    /**
+     * @return array
+     */
+    public function getParseBlockData()
+    {
+        return array(
+            array('thumbnails:person', 'thumbnails', 'person'),
+            array('thumbnails', 'thumbnails', true),
+            array('thumbnails', 'thumbnail', false),
+            array(null, 'thumbnail', false)
+        );
     }
 
     protected function getTestObject()

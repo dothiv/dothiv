@@ -171,6 +171,10 @@ dothiv_business:
       # - hiv
       ~
 
+dothiv_base_website:
+    thumbnails:
+        - { label: 'person', width: 260, height: 300, mode: 'outbound' }
+
 dothiv_charity_website:
     features:
         - { name: howitworks, enabled: false }
