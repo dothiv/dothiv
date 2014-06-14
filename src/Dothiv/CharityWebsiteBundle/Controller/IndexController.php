@@ -2,7 +2,6 @@
 
 namespace Dothiv\CharityWebsiteBundle\Controller;
 
-use Dothiv\BaseWebsiteBundle\Controller\PageController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -10,7 +9,18 @@ class IndexController extends PageController
 {
     public function indexAction(Request $request, $locale)
     {
-        // TODO: Cache
+        $response = new Response();
+        $response->setPublic();
+
+        // Check if page is not modified.
+        $uriLastModified = $this->getLastModifiedCache()->getLastModified($request);
+        if ($uriLastModified->isDefined()) {
+            $response->setLastModified($uriLastModified->get());
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         $data = $this->buildPageObject($request, $locale, 'index');
         // Projects
         $data['projects'] = $this->getContent()->buildEntries('Project', $locale);
@@ -23,8 +33,12 @@ class IndexController extends PageController
         // Partners
         $data['partners'] = $this->getContent()->buildEntries('Partner', $locale);
         shuffle($data['partners']);
+
+        // Store last modified.
+        $response->setLastModified($this->getLastModifiedContent());
+        $this->getLastModifiedCache()->setLastModified($request, $this->getLastModifiedContent());
+
         // Build response
-        $response = new Response();
         $template = $this->getBundle() . ':Page:index.html.twig';
         return $this->getRenderer()->renderResponse($template, $data, $response);
     }

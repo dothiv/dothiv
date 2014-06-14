@@ -2,6 +2,7 @@ services:
     dothiv.charity.web.controller.index:
         class: Dothiv\CharityWebsiteBundle\Controller\IndexController
         arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
           - @templating
           - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
@@ -9,6 +10,7 @@ services:
     dothiv.charity.web.controller.projects:
         class: Dothiv\CharityWebsiteBundle\Controller\ProjectsController
         arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
           - @templating
           - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
@@ -16,6 +18,7 @@ services:
     dothiv.charity.web.controller.page:
         class: Dothiv\CharityWebsiteBundle\Controller\PageController
         arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
           - @templating
           - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"

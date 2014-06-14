@@ -2,6 +2,7 @@ services:
     dothiv.registry.web.controller.registry_page:
         class: Dothiv\BaseWebsiteBundle\Controller\PageController
         arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
           - @templating
           - @dothiv.registry.contentful.registry_content
           - "DothivRegistryWebsiteBundle"

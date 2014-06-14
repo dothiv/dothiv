@@ -81,4 +81,12 @@ class Content
         }
         return $view;
     }
-} 
+
+    /**
+     * @return \Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder
+     */
+    public function getViewBuilder()
+    {
+        return $this->viewBuilder;
+    }
+}
