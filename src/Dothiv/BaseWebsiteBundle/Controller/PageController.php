@@ -178,7 +178,19 @@ class PageController
     public function contentAction(Request $request, $locale, $type)
     {
         $response = new Response();
+        $response->setPublic();
         $response->headers->set('Content-Type', 'application/json');
+
+        // Check if page is not modified.
+        $uriLastModified = $this->getLastModifiedCache()->getLastModified($request);
+        if ($uriLastModified->isDefined()) {
+            $response->setLastModified($uriLastModified->get());
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
+        // Fetch entries
         $view = $this->content->buildEntries($type, $locale);
         if ($request->get('markdown')) {
             $parsedown = new \Parsedown();
@@ -191,7 +203,14 @@ class PageController
                 }
             }
         }
+
+        // Store last modified.
+        $response->setLastModified($this->getLastModifiedContent());
+        $this->getLastModifiedCache()->setLastModified($request, $this->getLastModifiedContent());
+
+        // Render.
         $response->setContent(json_encode($view));
+
         return $response;
     }
 

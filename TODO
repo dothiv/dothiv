@@ -1,5 +1,6 @@
 # TODO
 
+ * Bust page cache on entry update.
  * Re-enable check for the `HIV` TLD string in `app/config.yml`.
 
 ## Twig
