@@ -2,6 +2,8 @@ parameters:
     dothiv.websitebase.assetic.filter.ngmin.class: Dothiv\BaseWebsiteBundle\Assetic\Filter\NgMinFilter
     dothiv.websitebase.contentful.content.class: Dothiv\BaseWebsiteBundle\Contentful\Content
     dothiv.websitebase.contentful.view_builder.class: Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder
+    dothiv.websitebase.contentful.image_scaler.class: Dothiv\BaseWebsiteBundle\Contentful\ImageScaler
+    dothiv.websitebase.imagine.class: Imagine\Gmagick\Imagine
 
 services:
     dothiv.websitebase.assetic.filter.ngmin:
@@ -26,3 +28,14 @@ services:
                 - 'en'
                 - @dothiv_contentful.content
                 - @event_dispatcher
+
+    dothiv.websitebase.contentful.image_scaler:
+        class: %dothiv.websitebase.contentful.image_scaler.class%
+        arguments:
+            - 'en'
+            - @dothiv_contentful.asset
+            - @dothiv.websitebase.imagine
+
+    dothiv.websitebase.imagine:
+        class: %dothiv.websitebase.imagine.class%
+        lazy: true

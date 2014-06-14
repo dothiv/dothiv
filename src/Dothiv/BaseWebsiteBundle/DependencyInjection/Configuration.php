@@ -13,7 +13,20 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('dothiv_base_web');
+        $root = $treeBuilder->root('dothiv_base_website');
+        $root->children()
+                ->arrayNode('thumbnails')
+                    ->useAttributeAsKey('label')
+                    ->prototype('array')
+                    ->children()
+                        ->scalarNode('label')->end()
+                        ->scalarNode('width')->end()
+                        ->scalarNode('height')->end()
+                        ->booleanNode('thumbnail')->defaultValue(false)->end()
+                        ->booleanNode('exact')->defaultValue(false)->end()
+                    ->end()
+                ->end()
+            ->end();
         return $treeBuilder;
     }
 }
