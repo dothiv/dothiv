@@ -124,12 +124,15 @@ class ViewBuilder
                     /** @var ContentfulEntry $entry */
                     $fields['cfMeta']['contentType'] = $this->contentAdapter->getContentTypeById($spaceId, $entry->getContentTypeId())->getName();
                     $fields['cfMeta']['itemName']    = $entry->getName();
+                    $fields['cfMeta']['createdAt']   = $entry->getCreatedAt();
+                    $fields['cfMeta']['updatedAt']   = $entry->getUpdatedAt();
                 }
                 if ($entry instanceof ContentfulAsset) {
                     /** @var ContentfulAsset $entry */
                     $fields['cfMeta']['itemName']    = $fields['title'];
                     $fields['cfMeta']['contentType'] = 'Asset';
-
+                    $fields['cfMeta']['createdAt']   = $entry->getCreatedAt();
+                    $fields['cfMeta']['updatedAt']   = $entry->getUpdatedAt();
                 }
                 return Option::fromValue($this->createView($fields, $spaceId, $locale));
             } else {
@@ -166,5 +169,13 @@ class ViewBuilder
         if (!isset($sys['type'])) return false;
         if ($sys['type'] != 'Link') return false;
         return true;
+    }
+
+    /**
+     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
+    public function getEventDispatcher()
+    {
+        return $this->dispatcher;
     }
 } 

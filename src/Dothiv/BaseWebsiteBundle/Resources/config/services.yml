@@ -39,3 +39,8 @@ services:
     dothiv.websitebase.imagine:
         class: %dothiv.websitebase.imagine.class%
         lazy: true
+
+    dothiv.websitebase.cache.request_lastmodified:
+        class: Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache
+        arguments:
+         - @doctrine_cache.providers.dothiv_base_website_cache

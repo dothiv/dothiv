@@ -1,15 +1,11 @@
 <?php
 
-/**
- * Controller for the index page.
- *
- * @author    Markus Tacker <m@dotHIV.org>
- * @copyright 2014 TLD dotHIV Registry GmbH | http://dothiv-registry.net/
- */
-
 namespace Dothiv\BaseWebsiteBundle\Controller;
 
+use Dothiv\BaseWebsiteBundle\BaseWebsiteBundleEvents;
+use Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache;
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
+use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,26 +29,67 @@ class PageController
     private $bundle;
 
     /**
-     * @param EngineInterface $renderer
-     * @param Content         $content
-     * @param string          $bundle
+     * @var \DateTime
      */
-    public function __construct(EngineInterface $renderer, Content $content, $bundle)
+    private $lastModifiedContent;
+
+    /**
+     * @var RequestLastModifiedCache
+     */
+    private $lastModifiedCache;
+
+    /**
+     * @param RequestLastModifiedCache $lastModifiedCache
+     * @param EngineInterface          $renderer
+     * @param Content                  $content
+     * @param string                   $bundle
+     */
+    public function __construct(RequestLastModifiedCache $lastModifiedCache, EngineInterface $renderer, Content $content, $bundle)
     {
-        $this->renderer = $renderer;
-        $this->content  = $content;
-        $this->bundle   = $bundle;
+        $this->lastModifiedCache = $lastModifiedCache;
+        $this->renderer          = $renderer;
+        $this->content           = $content;
+        $this->content->getViewBuilder()->getEventDispatcher()->addListener(
+            BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, array($this, 'onViewCreate')
+        );
+        $this->bundle = $bundle;
     }
 
+    /**
+     * @param Request $request
+     * @param string  $locale
+     * @param string  $page
+     * @param string  $navigation
+     * @param string  $template
+     *
+     * @return Response
+     */
     public function pageAction(Request $request, $locale, $page, $navigation = null, $template = null)
     {
+        $response = new Response();
+        $response->setPublic();
+
+        // Check if page is not modified.
+        $uriLastModified = $this->getLastModifiedCache()->getLastModified($request);
+        if ($uriLastModified->isDefined()) {
+            $response->setLastModified($uriLastModified->get());
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
+        // Fetch page.
         $pageId = str_replace('/', '.', $page);
         $data   = $this->buildPageObject($request, $locale, $pageId);
         if (Option::fromValue($navigation)->isDefined()) {
             $data['nav'] = $this->content->buildEntry('Collection', $navigation, $locale);
         }
-        $response = new Response();
 
+        // Store last modified.
+        $response->setLastModified($this->getLastModifiedContent());
+        $this->getLastModifiedCache()->setLastModified($request, $this->getLastModifiedContent());
+
+        // Render page.
         $bundle   = $this->bundle;
         $template = Option::fromValue($template)->getOrCall(function () use ($bundle, $page) {
             $parts = explode('/', $page);
@@ -60,6 +97,23 @@ class PageController
         });
         $res      = sprintf($this->bundle . ':%s.html.twig', $template);
         return $this->renderer->renderResponse($res, $data, $response);
+    }
+
+    /**
+     * Collect ViewEvents to build lastModified date.
+     *
+     * @param ContentfulViewEvent $e
+     */
+    public function onViewCreate(ContentfulViewEvent $e)
+    {
+        $updated = $e->getView()->cfMeta['updatedAt'];
+        if ($this->lastModifiedContent === null) {
+            $this->lastModifiedContent = $updated;
+        } else {
+            if ($this->lastModifiedContent < $updated) {
+                $this->lastModifiedContent = $updated;
+            }
+        }
     }
 
     /**
@@ -142,31 +196,18 @@ class PageController
     }
 
     /**
-     * Build pinkbar data
-     *
-     * @return Response
+     * @return \DateTime
      */
-    public function pinkbarAction($locale)
+    public function getLastModifiedContent()
     {
+        return $this->lastModifiedContent;
+    }
 
-        // TODO: Money format
-        // FIXME: Remove random once live.
-        $already_donated         = round($this->alreadyDonated * (mt_rand() / mt_getrandmax()), 2);
-        $clicks                  = intval(($this->eurGoal * (1 / $this->eurIncrement)) * (mt_rand() / mt_getrandmax()));
-        $data                    = array();
-        $data['donated']         = $already_donated;
-        $data['donated_label']   = $this->moneyFormat($already_donated, $locale);
-        $unlocked                = $clicks * $this->eurIncrement;
-        $data['unlocked']        = $unlocked;
-        $data['unlocked_label']  = $this->moneyFormat($unlocked, $locale);
-        $data['percent']         = $unlocked / $this->eurGoal;
-        $data['clicks']          = $clicks;
-        $data['increment']       = $this->eurIncrement;
-        $data['increment_label'] = $this->moneyFormat($this->eurIncrement, $locale);
-
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/json');
-        $response->setContent(json_encode($data));
-        return $response;
+    /**
+     * @return RequestLastModifiedCache
+     */
+    public function getLastModifiedCache()
+    {
+        return $this->lastModifiedCache;
     }
 }
