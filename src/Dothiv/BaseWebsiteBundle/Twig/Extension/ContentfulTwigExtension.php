@@ -42,8 +42,11 @@ class ContentfulTwigExtension extends \Twig_Extension
         );
     }
 
-    public function buildItem(array $ctx, $type, $name, $locale = null)
+    public function buildItem(array $ctx, $type, $name = null, $locale = null)
     {
+        if ($name === null) {
+            return $this->content->buildEntries($type, Option::fromValue($locale)->getOrElse($ctx['locale']));
+        }
         return $this->content->buildEntry($type, $name, Option::fromValue($locale)->getOrElse($ctx['locale']));
     }
 
