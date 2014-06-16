@@ -32,10 +32,11 @@
 {% block cf_contentBlock %}
 {% set nchild = nchild|default(1) %}
 {% set width = width|default(12) %}
+{% set textclass = block|behaviour('text') %}
 <div
     id="{{ block.code|default(block.cfMeta.itemId)|slugify }}"
     data-cf-url="{{ block.cfMeta.url }}"
-    class="cf-{{ block.cfMeta.contentType }} cf-block-{{ nblock }} span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }}"
+    class="cf-{{ block.cfMeta.contentType }} cf-block-{{ nblock }} span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }} {% if textclass %}cf-text-{{ textclass }}{% endif %}"
     ng-controller="BlockController"
     >
     {% set behaviour = block.behaviour|default('block') %}
