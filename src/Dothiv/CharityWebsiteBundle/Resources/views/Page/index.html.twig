@@ -1,4 +1,5 @@
 {% trans_default_domain "charity" %}
+{% use "DothivBaseWebsiteBundle:Contentful:blocks.html.twig" %}
 {% set title %}{{ page.title }}{% endset %}
 {% extends "DothivCharityWebsiteBundle::page.html.twig" %}
 {% block content %}
@@ -79,31 +80,12 @@
         <hr class="bottom-shadow">
     </div>
 
-    {% for partner in partners %}
-        {% if loop.first %}
-        <div class="container partners">
-            <div class="row">
-                <div class="span12">
-                    <h3 class="pull-left">{% trans %}home.partners.headline{% endtrans %}</h3>
-                </div>
-            </div>
-            <div class="row">
-        {% endif %}
-            <div class="span3 offset1">
-                <a href="{{ partner.url }}" rel="me friend" title="{{ partner.description|default('') }}">
-                    <img src="{{ partner.logo.file.url }}" alt="{{ partner.organization }}">
-                </a>
-            </div>
-        {% if loop.index % 3 == 0 %}
-            </div>
-            <div class="row">
-        {% endif %}
-        {% if loop.last %}
-            </div>
-            <div class="pull-right couple">
-                <img src="/bundles/dothivcharitywebsite/images/partners.png">
-            </div>
+    <div class="container partners">
+        <div class="row">
+            {% set block = content('Block', 'index.partner') %}
+            {% set nblock = 1 %}
+            {% set level = 3 %}
+            {{ block('cf_block') }}
         </div>
-        {% endif %}
-    {% endfor %}
+    </div>
 {% endblock %}
