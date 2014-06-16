@@ -21,7 +21,6 @@ module.exports = function (config) {
             '../../BaseWebsiteBundle/Resources/public/filters/*.js',
             // CharityWebsiteBundle: controllers
             'public/controllers/QuoteController.js',
-            'public/controllers/PartnerController.js',
             'public/controllers/HeaderController.js',
             'public/controllers/BlockController.js',
             'public/controllers/PinkbarControllerClicks.js',
