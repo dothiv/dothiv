@@ -42,9 +42,12 @@
         <div class="row">
             <div class="span12 center footer-margin">
                 {% set dothiv = content('Block', 'footer.dotHIV') %}
-                <img class="hiv-42px" src="{{ dothiv.image.file.url }}" alt="{{ dothiv.image.title }}">
 
-                <p class="footer-slogan">{{ dothiv.title }}</p>
+
+                <p class="footer-slogan">
+                    <img class="hiv-42px" src="{{ dothiv.image.file.url }}" alt="{{ dothiv.image.title }}">
+                    {{ dothiv.title }}
+                </p>
 
                 <div class="container">
                     <div class="row">
