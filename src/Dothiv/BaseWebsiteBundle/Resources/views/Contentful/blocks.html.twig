@@ -48,6 +48,7 @@
             <div class="span3">
             {% endif %}
                 {% set image_asset = block.image %}
+                {% set image_link = block.imageLink|default(false) %}
                 {{ block('cf_imageBlock') }}
             </div>
             {% if "nooffset" in behaviour %}
@@ -70,6 +71,7 @@
             <div class="span3 offset1">
             {% endif %}
                 {% set image_asset = block.image %}
+                {% set image_link = block.imageLink|default(false) %}
                 {{ block('cf_imageBlock') }}
             </div>
         </div>
@@ -77,11 +79,13 @@
             {{ block('cf_titleBlock') }}
             {% if block.image.file is defined and "image_top" in behaviour %}
                 {% set image_asset = block.image %}
+                {% set image_link = block.imageLink|default(false) %}
                 {{ block('cf_imageBlock') }}
             {% endif %}
             {{ block('cf_textContentBlock') }}
             {% if block.image.file is defined and "image_top" not in behaviour %}
                 {% set image_asset = block.image %}
+                {% set image_link = block.imageLink|default(false) %}
                 {{ block('cf_imageBlock') }}
             {% endif %}
             {% if block.video is defined %}
@@ -118,6 +122,7 @@
                                 {% if child.image is defined %}
                                     {% set image_asset = child.image %}
                                     {% set thumbnail_size = 'supporter' %}
+                                    {% set image_link = child.imageLink|default(false) %}
                                     {{ block('cf_imageBlock') }}
                                 {% endif %}
                             </div>
@@ -155,7 +160,9 @@
         {% set src = image_asset.file.thumbnails[thumbnail_size] %}
         {% set class = class ~ " cfblock-thumbnail-" ~ thumbnail_size %}
     {% endif %}
+    {% if image_link %}<a href="{{ image_link }}">{% endif %}
     <img src="{{ src }}" alt="{{ image_asset.title }}" title="{{ image_asset.description|default(image_asset.title) }}" class="{{ class }}">
+    {% if image_link %}</a>{% endif %}
 {% endblock cf_imageBlock %}
 
 {% block cf_videoBlock %}
