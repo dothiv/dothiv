@@ -5,6 +5,7 @@ namespace Dothiv\BaseWebsiteBundle\Cache;
 use Doctrine\Common\Cache\Cache;
 use Dothiv\BaseWebsiteBundle\BaseWebsiteBundleEvents;
 use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
+use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
 use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +47,7 @@ class RequestLastModifiedCache
     {
         $viewMeta                           = $e->getView()->cfMeta;
         $updated                            = $viewMeta['updatedAt'];
-        $this->itemIds[$viewMeta['itemId']] = $updated;
+        $this->itemIds[$viewMeta['itemId']] = true;
         if ($this->lastModifiedContent === null) {
             $this->lastModifiedContent = $updated;
         } else {
@@ -65,7 +66,7 @@ class RequestLastModifiedCache
      */
     public function getLastModified(Request $request)
     {
-        return Option::fromValue($this->cache->fetch($this->getCacheKey($request, 'lastmodified')), false);
+        return Option::fromValue($this->cache->fetch($this->getCacheKeyRequest(sha1($request->getUri()), 'lastmodified')), false);
     }
 
     /**
@@ -76,18 +77,37 @@ class RequestLastModifiedCache
      */
     public function setLastModified(Request $request, \DateTime $lastModified)
     {
-        $this->cache->save($this->getCacheKey($request, 'lastmodified'), $lastModified);
+        $this->cache->save($this->getCacheKeyRequest(sha1($request->getUri()), 'lastmodified'), $lastModified);
+
+        foreach ($this->itemIds as $itemId => $bool) {
+            $key                                   = $this->getCacheKeyItem($itemId, 'uri');
+            $urisForItem                           = Option::fromValue($this->cache->fetch($key), false)->getOrElse(array());
+            $urisForItem[sha1($request->getUri())] = $bool;
+            $this->cache->save($key, $urisForItem);
+        }
     }
 
     /**
-     * @param Request $request
-     * @param string  $type
+     * @param string $uri
+     * @param string $type
      *
      * @return string
      */
-    protected function getCacheKey(Request $request, $type)
+    protected function getCacheKeyRequest($uri, $type)
     {
-        $cacheKey = 'dothiv_base_website-request_uri-' . $type . '-' . sha1($request->getUri());
+        $cacheKey = 'dothiv_base_website-request_uri-' . $type . '-' . $uri;
+        return $cacheKey;
+    }
+
+    /**
+     * @param string $itemId
+     * @param string $type
+     *
+     * @return string
+     */
+    protected function getCacheKeyItem($itemId, $type)
+    {
+        $cacheKey = 'dothiv_base_website-item_uri-' . $itemId . '-' . $type;
         return $cacheKey;
     }
 
@@ -97,5 +117,25 @@ class RequestLastModifiedCache
     public function getLastModifiedContent()
     {
         return $this->lastModifiedContent;
+    }
+
+    public function onEntryUpdate(ContentfulEntryEvent $e)
+    {
+        $entry             = $e->getEntry();
+        $key               = $this->getCacheKeyItem($entry->getId(), 'uri');
+        $urisForItemOption = Option::fromValue($this->cache->fetch($key), false);
+        if ($urisForItemOption->isEmpty()) {
+            return;
+        }
+        // Update
+        $urisForItem = $urisForItemOption->get();
+        foreach ($urisForItem as $uri => $bool) {
+            $key          = $this->getCacheKeyRequest($uri, 'lastmodified');
+            $lastModified = $this->cache->fetch($key);
+            if ($lastModified >= $entry->getUpdatedAt()) {
+                continue;
+            }
+            $this->cache->save($key, $entry->getUpdatedAt());
+        }
     }
 } 

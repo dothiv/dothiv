@@ -9,6 +9,9 @@ use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder;
 use Dothiv\BaseWebsiteBundle\Controller\PageController;
 use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
+use Dothiv\ContentfulBundle\ContentfulEvents;
+use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
+use Dothiv\ContentfulBundle\Item\ContentfulEntry;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,31 +59,49 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
     {
         $controller = $this->getTestObject();
 
-        $date_older = new \DateTime('2014-06-02T08:06:17Z');
-        $date_newer = new \DateTime('2014-06-03T08:06:17Z');
+        $date_older   = new \DateTime('2014-06-02T08:06:17Z');
+        $date_newer   = new \DateTime('2014-06-03T08:06:17Z');
+        $date_updated = new \DateTime('2014-06-04T08:06:17Z');
 
-        $childView            = new \stdClass();
-        $childView->cfMeta    = array(
+        $childView                   = new \stdClass();
+        $childView->cfMeta           = array(
             'itemId'    => 'childItem',
             'updatedAt' => $date_newer
         );
-        $parentView           = new \stdClass();
-        $parentView->cfMeta   = array(
+        $parentView                  = new \stdClass();
+        $parentView->cfMeta          = array(
             'itemId'    => 'parentItem',
             'updatedAt' => $date_older
         );
-        $parentView->children = array($childView);
+        $parentView->children        = array($childView);
+        $updatedParentView           = new \stdClass();
+        $updatedParentView->cfMeta   = array(
+            'itemId'    => 'parentItem',
+            'updatedAt' => $date_updated
+        );
+        $updatedParentView->children = array($childView);
 
         // It should build the view for the page.
         $dispatcher = $this->dispatcher;
-        $this->mockContent->expects($this->atLeastOnce())->method('buildEntry')
+        $this->mockContent->expects($this->at(0))->method('buildEntry')
             ->with('Page', 'test', 'en')
-            ->will($this->returnCallback(function () use ($dispatcher, $parentView, $childView) {
-                $dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($parentView));
-                $dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($childView));
-                return $parentView;
-            }));
+            ->will(
+                $this->returnCallback(function () use ($dispatcher, $parentView, $childView) {
+                        $dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($parentView));
+                        $dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($childView));
+                        return $parentView;
+                    }
+                ));
 
+        $this->mockContent->expects($this->at(1))->method('buildEntry')
+            ->with('Page', 'test', 'en')
+            ->will(
+                $this->returnCallback(function () use ($dispatcher, $updatedParentView, $childView) {
+                        $dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($updatedParentView));
+                        $dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($childView));
+                        return $updatedParentView;
+                    }
+                ));
         // Get uncached Response
         $request  = new Request();
         $response = $controller->pageAction(
@@ -93,6 +114,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($response->headers->hasCacheControlDirective('public'), 'It should be public!');
         $this->assertTrue($response->isCacheable(), 'It should be cacheable!');
         $this->assertEquals($date_newer, $response->getLastModified(), 'The last modified date should be that of the newest entry!');
+
         // Get cached response
         $request = new Request();
         $date_newer->setTimezone(new \DateTimeZone('UTC'));
@@ -102,7 +124,21 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
             'en',
             'test'
         );
-        $this->assertEquals(304, $response->getStatusCode(), 'Request with If-Modified-Sinceshould return status 304!');
+        $this->assertEquals(304, $response->getStatusCode(), 'Request with If-Modified-Since should return status 304!');
+
+        // Content update should return uncached response
+        $childUpdate = new ContentfulEntry();
+        $childUpdate->setId('childItem');
+        $childUpdate->setUpdatedAt($date_updated);
+        $this->dispatcher->dispatch(ContentfulEvents::ENTRY_SYNC, new ContentfulEntryEvent($childUpdate));
+        $request  = new Request();
+        $response = $controller->pageAction(
+            $request,
+            'en',
+            'test'
+        );
+        $this->assertEquals(200, $response->getStatusCode(), 'After update it should return a new version.');
+        $this->assertEquals($date_updated, $response->getLastModified(), 'The last modified date should be that of the updated entry!');
     }
 
     /**
@@ -113,6 +149,9 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
         $lmc = new RequestLastModifiedCache(new ArrayCache());
         $this->dispatcher->addListener(
             BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, array($lmc, 'onViewCreate')
+        );
+        $this->dispatcher->addListener(
+            ContentfulEvents::ENTRY_SYNC, array($lmc, 'onEntryUpdate')
         );
         return new PageController($lmc, $this->mockRenderer, $this->mockContent, 'BaseWebsiteBundle');
     }
@@ -132,8 +171,6 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
         $this->mockContent = $this->getMockBuilder('\Dothiv\BaseWebsiteBundle\Contentful\Content')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->mockContent->expects($this->any())->method('getViewBuilder')
-            ->will($this->returnValue($this->mockViewBuilder));
 
         $mockTemplateNameParser = $this->getMockBuilder('\Symfony\Component\Templating\TemplateNameParserInterface')
             ->disableOriginalConstructor()

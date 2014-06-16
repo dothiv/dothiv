@@ -46,4 +46,4 @@ services:
          - @doctrine_cache.providers.dothiv_base_website_cache
         tags:
          - { name: kernel.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
-
+         - { name: kernel.event_listener, event: contentful.entry.sync, method: onEntryUpdate }
