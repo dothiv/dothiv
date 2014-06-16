@@ -1,0 +1,122 @@
+{% trans_default_domain "charity" %}
+<!DOCTYPE html>
+<html lang="{{ locale }}" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
+        {% trans %}dothiv.fullname{% endtrans %}
+    </title>
+    {% stylesheets '@DothivCharityWebsiteBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}"/>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
+    {% javascripts
+        '@DothivBaseWebsiteBundle/Resources/public/vendor/angular/angular.js'
+        filter='?ngmin,?closureecma5'
+        output='js/*.min.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+</head>
+<body ng-app="dotHIVApp">
+<div id="header">
+    {% include "DothivCharityWebsiteBundle:partials:headnav.html.twig" %}
+    {% if features.pinkbar_clickcounter %}
+    {% include "DothivCharityWebsiteBundle:partials:pinkbar_clickcounter.html.twig" %}
+    {% endif %}
+    {% if features.pinkbar_countdown %}
+    {% include "DothivCharityWebsiteBundle:partials:pinkbar_countdown.html.twig" %}
+    {% endif %}
+</div>
+<div style="clear: both;"></div>
+
+<div class="content">
+    {% block content %}
+    {% endblock content %}
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="span12 center footer-margin">
+                {% set dothiv = content('Block', 'footer.dotHIV') %}
+                <img class="hiv-42px" src="{{ dothiv.image.file.url }}" alt="{{ dothiv.image.title }}">
+
+                <p class="footer-slogan">{{ dothiv.title }}</p>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="span4">
+                            {{ dothiv.text|markdown }}
+                        </div>
+                        <div class="span4">
+                            <ul>
+                                <li>
+                                    <a href="{{ path('dothiv_charity_content', {'page': 'contact', 'locale': locale}) }}">{% trans %}
+                                        footer.navi.contact{% endtrans %}</a></li>
+                                <li>
+                                    <a href="{{ path('dothiv_charity_content', {'page': 'imprint', 'locale': locale}) }}">{% trans %}
+                                        footer.navi.imprint{% endtrans %}</a></li>
+                            </ul>
+                        </div>
+                        <div class="span4">
+                            <ul>
+                                <li>
+                                    <a class="social-link" href="https://www.facebook.com/dothiv" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-fb.png") }}">{% trans %}
+                                        footer.social.facebook{% endtrans %}</a></li>
+                                <li>
+                                    <a class="social-link" href="https://twitter.com/dotHIV" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-tw.png") }}">{% trans %}
+                                        footer.social.twitter{% endtrans %}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+{% javascripts
+    '@DothivCharityWebsiteBundle/Resources/public/app2.js'
+    '@DothivBaseWebsiteBundle/Resources/public/filters/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/QuoteController.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/PartnerController.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/HeaderController.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/BlockController.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/PinkbarControllerClicks.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/PinkbarControllerCountdown.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/HowitWorksController.js'
+    filter='?ngmin,?closureecma5'
+    output='js/*.min.js'
+%}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script type="text/javascript">
+    'use strict';
+    angular.module('dotHIVApp.services').factory('config', function() {
+        var config = {
+            locale: '{{ locale }}',
+            general_availability: '{{ general_availability|date_w3c }}',
+            countdown_start: '{{ countdown_start|date_w3c }}'
+        };
+        return config;
+    });
+</script>
+
+{# Twitter #}
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+{# Facebook #}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/{{ app.request.locale }}/sdk.js#xfbml=1&appId={{ facebook_app_id }}&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+</body>
+</html>
