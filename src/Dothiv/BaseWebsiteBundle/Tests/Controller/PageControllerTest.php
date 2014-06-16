@@ -110,7 +110,11 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected function getTestObject()
     {
-        return new PageController(new RequestLastModifiedCache(new ArrayCache()), $this->mockRenderer, $this->mockContent, 'BaseWebsiteBundle');
+        $lmc = new RequestLastModifiedCache(new ArrayCache());
+        $this->dispatcher->addListener(
+            BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, array($lmc, 'onViewCreate')
+        );
+        return new PageController($lmc, $this->mockRenderer, $this->mockContent, 'BaseWebsiteBundle');
     }
 
 
@@ -124,8 +128,6 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->dispatcher      = new EventDispatcher();
-        $this->mockViewBuilder->expects($this->any())->method('getEventDispatcher')
-            ->will($this->returnValue($this->dispatcher));
 
         $this->mockContent = $this->getMockBuilder('\Dothiv\BaseWebsiteBundle\Contentful\Content')
             ->disableOriginalConstructor()

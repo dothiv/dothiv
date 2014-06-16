@@ -2,10 +2,8 @@
 
 namespace Dothiv\BaseWebsiteBundle\Controller;
 
-use Dothiv\BaseWebsiteBundle\BaseWebsiteBundleEvents;
 use Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache;
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
-use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,11 +27,6 @@ class PageController
     private $bundle;
 
     /**
-     * @var \DateTime
-     */
-    private $lastModifiedContent;
-
-    /**
      * @var RequestLastModifiedCache
      */
     private $lastModifiedCache;
@@ -49,10 +42,7 @@ class PageController
         $this->lastModifiedCache = $lastModifiedCache;
         $this->renderer          = $renderer;
         $this->content           = $content;
-        $this->content->getViewBuilder()->getEventDispatcher()->addListener(
-            BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, array($this, 'onViewCreate')
-        );
-        $this->bundle = $bundle;
+        $this->bundle            = $bundle;
     }
 
     /**
@@ -69,8 +59,10 @@ class PageController
         $response = new Response();
         $response->setPublic();
 
+        $lmc = $this->getLastModifiedCache();
+
         // Check if page is not modified.
-        $uriLastModified = $this->getLastModifiedCache()->getLastModified($request);
+        $uriLastModified = $lmc->getLastModified($request);
         if ($uriLastModified->isDefined()) {
             $response->setLastModified($uriLastModified->get());
             if ($response->isNotModified($request)) {
@@ -86,8 +78,8 @@ class PageController
         }
 
         // Store last modified.
-        $response->setLastModified($this->getLastModifiedContent());
-        $this->getLastModifiedCache()->setLastModified($request, $this->getLastModifiedContent());
+        $response->setLastModified($lmc->getLastModifiedContent());
+        $this->getLastModifiedCache()->setLastModified($request, $lmc->getLastModifiedContent());
 
         // Render page.
         $bundle   = $this->bundle;
@@ -97,23 +89,6 @@ class PageController
         });
         $res      = sprintf($this->bundle . ':%s.html.twig', $template);
         return $this->renderer->renderResponse($res, $data, $response);
-    }
-
-    /**
-     * Collect ViewEvents to build lastModified date.
-     *
-     * @param ContentfulViewEvent $e
-     */
-    public function onViewCreate(ContentfulViewEvent $e)
-    {
-        $updated = $e->getView()->cfMeta['updatedAt'];
-        if ($this->lastModifiedContent === null) {
-            $this->lastModifiedContent = $updated;
-        } else {
-            if ($this->lastModifiedContent < $updated) {
-                $this->lastModifiedContent = $updated;
-            }
-        }
     }
 
     /**
@@ -181,8 +156,10 @@ class PageController
         $response->setPublic();
         $response->headers->set('Content-Type', 'application/json');
 
+        $lmc = $this->getLastModifiedCache();
+
         // Check if page is not modified.
-        $uriLastModified = $this->getLastModifiedCache()->getLastModified($request);
+        $uriLastModified = $lmc->getLastModified($request);
         if ($uriLastModified->isDefined()) {
             $response->setLastModified($uriLastModified->get());
             if ($response->isNotModified($request)) {
@@ -205,21 +182,13 @@ class PageController
         }
 
         // Store last modified.
-        $response->setLastModified($this->getLastModifiedContent());
-        $this->getLastModifiedCache()->setLastModified($request, $this->getLastModifiedContent());
+        $response->setLastModified($lmc->getLastModifiedContent());
+        $this->getLastModifiedCache()->setLastModified($request, $lmc->getLastModifiedContent());
 
         // Render.
         $response->setContent(json_encode($view));
 
         return $response;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getLastModifiedContent()
-    {
-        return $this->lastModifiedContent;
     }
 
     /**

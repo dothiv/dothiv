@@ -12,8 +12,10 @@ class IndexController extends PageController
         $response = new Response();
         $response->setPublic();
 
+        $lmc = $this->getLastModifiedCache();
+
         // Check if page is not modified.
-        $uriLastModified = $this->getLastModifiedCache()->getLastModified($request);
+        $uriLastModified = $lmc->getLastModified($request);
         if ($uriLastModified->isDefined()) {
             $response->setLastModified($uriLastModified->get());
             if ($response->isNotModified($request)) {
@@ -35,8 +37,8 @@ class IndexController extends PageController
         shuffle($data['partners']);
 
         // Store last modified.
-        $response->setLastModified($this->getLastModifiedContent());
-        $this->getLastModifiedCache()->setLastModified($request, $this->getLastModifiedContent());
+        $response->setLastModified($lmc->getLastModifiedContent());
+        $this->getLastModifiedCache()->setLastModified($request, $lmc->getLastModifiedContent());
 
         // Build response
         $template = $this->getBundle() . ':Page:index.html.twig';
