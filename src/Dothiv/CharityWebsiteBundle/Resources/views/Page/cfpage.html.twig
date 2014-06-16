@@ -4,6 +4,8 @@
 {% block cf_contentBlock %}
     {% if "quotes_list" in block.behaviour|default('block')  %}
         {% include "DothivCharityWebsiteBundle:behaviour:quotes_list.html.twig" with {'block': block} %}
+    {% elseif "experts_list" in block.behaviour|default('block')  %}
+        {% include "DothivCharityWebsiteBundle:behaviour:experts_list.html.twig" with {'block': block} %}
     {% elseif "facebook_feed" in block.behaviour|default('block') %}
         {% include "DothivCharityWebsiteBundle:behaviour:facebook_feed.html.twig" %}
     {% elseif "twitter_stream" in block.behaviour|default('block') %}
