@@ -178,6 +178,7 @@ dothiv_base_website:
         - { label: 'partner', width: 200, height: 100, exact: true }
         - { label: 'small', width: 200, height: 200 }
         - { label: 'medium', width: 400, height: 400 }
+        - { label: 'large', width: 800, height: 800 }
 
 dothiv_charity_website:
     features:
