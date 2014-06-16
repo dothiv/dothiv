@@ -160,9 +160,9 @@
         {% set src = image_asset.file.thumbnails[thumbnail_size] %}
         {% set class = class ~ " cfblock-thumbnail-" ~ thumbnail_size %}
     {% endif %}
-    {% if image_link %}<a href="{{ image_link }}">{% endif %}
+    {% if image_link|default(false) %}<a href="{{ image_link }}">{% endif %}
     <img src="{{ src }}" alt="{{ image_asset.title }}" title="{{ image_asset.description|default(image_asset.title) }}" class="{{ class }}">
-    {% if image_link %}</a>{% endif %}
+    {% if image_link|default(false) %}</a>{% endif %}
 {% endblock cf_imageBlock %}
 
 {% block cf_videoBlock %}
