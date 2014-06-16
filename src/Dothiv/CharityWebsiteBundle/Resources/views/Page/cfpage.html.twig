@@ -1,5 +1,5 @@
 {% extends "DothivCharityWebsiteBundle::page.html.twig" %}
-{% use "DothivBaseWebsiteBundle:Contentful:blocks.html.twig" %}
+{% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
 
 {% block cf_contentBlock %}
     {% if "quotes_list" in block.behaviour|default('block')  %}
