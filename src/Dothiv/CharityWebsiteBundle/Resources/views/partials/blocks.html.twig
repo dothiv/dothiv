@@ -1,8 +1,18 @@
 {% trans_default_domain "charity" %}
 {# This block renders a contenful block #}
 {% block cf_block %}
-    {% set thumbnail_size = thumbnail_size|default(block|behaviour('thumbnails')) %}
-    {{ block('cf_contentBlock') }}
+    {% if "quotes_list" in block.behaviour|default('block')  %}
+        {% include "DothivCharityWebsiteBundle:behaviour:quotes_list.html.twig" with {'block': block} %}
+    {% elseif "experts_list" in block.behaviour|default('block')  %}
+        {% include "DothivCharityWebsiteBundle:behaviour:experts_list.html.twig" with {'block': block} %}
+    {% elseif "facebook_feed" in block.behaviour|default('block') %}
+        {% include "DothivCharityWebsiteBundle:behaviour:facebook_feed.html.twig" %}
+    {% elseif "twitter_stream" in block.behaviour|default('block') %}
+        {% include "DothivCharityWebsiteBundle:behaviour:twitter_stream.html.twig" %}
+    {% else %}
+        {% set thumbnail_size = thumbnail_size|default(block|behaviour('thumbnails')) %}
+        {{ block('cf_contentBlock') }}
+    {% endif %}
 {% endblock cf_block %}
 
 {% block cf_titleBlock %}
@@ -109,7 +119,8 @@
                 {% for child in block.children %}
                     {% set width = 12 / loop.length %}
                     {% set nchild = loop.index %}
-                    {{ block('cf_block_child') }}
+                    {% set block = child %}
+                    {{ block('cf_block') }}
                 {% endfor %}
             </div>
         {% elseif "supporter_list" in block.behaviour|default('block') %}
@@ -148,7 +159,8 @@
             {% for child in block.children %}
                 <div class="row-fluid">
                     {% set nchild = loop.index %}
-                    {{ block('cf_block_child') }}
+                    {% set block = child %}
+                    {{ block('cf_block') }}
                 </div>
             {% endfor %}
         {% endif %}
