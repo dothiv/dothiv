@@ -169,20 +169,6 @@
     <iframe width="569" height="320" src="{{ block.video.embed_url }}" frameborder="0" allowfullscreen class="cfblock-video"></iframe>
 {% endblock cf_videoBlock %}
 
-{% block cf_block_child %}
-    {% if "enumerate_children" in block.behaviour|default('block') %}
-        <div class="span2 cf-level-{{ level }} cf-child-{{ nchild }}">
-            <div class="cf-child-enumeration">{{ nchild }}</div>
-        </div>
-        {% set width = width - 2 %}
-        {% set block = child %}
-        {{ block('cf_block') }}
-    {% else %}
-        {% set block = child %}
-        {{ block('cf_block') }}
-    {% endif %}
-{% endblock cf_block_child %}
-
 {% block cf_downloadsBlock %}
     {% for download in block.downloads %}
         <div class="row-fluid">

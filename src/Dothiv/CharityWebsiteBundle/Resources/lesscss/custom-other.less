@@ -177,7 +177,8 @@
     position: relative;
     float: left;
     a {
-      &:extend(a.external);
+      &:extend(a.external)
+    ;
       position: absolute;
       bottom: 0;
       left: 0;
@@ -224,5 +225,47 @@ nav.block {
     line-height: 2em;
     color: @colordark;
     border-bottom: 1px solid @colordark;
+  }
+}
+
+#about-getactive-howto {
+  background: transparent url(/bundles/dothivcharitywebsite/images/spread_numbers-560.png) 0 200px no-repeat;
+  position: relative;
+  height: 2500px;
+  h3 {
+    &:extend(.headingLight)
+  ;
+    &:extend(article.content section h2)
+  ;
+  }
+
+  #about-getactive-howto-clickvoteshare {
+    position: absolute;
+    top: 220px;
+    left: 80px;
+    width: 400px;
+    iframe {
+      width: 400px;
+      height: 400px * (320/569);
+    }
+  }
+
+  #about-getactive-howto-member {
+    position: absolute;
+    top: 820px;
+    left: 250px;
+    width: 300px;
+  }
+  #about-getactive-howto-campuscaptain {
+    position: absolute;
+    top: 1380px;
+    left: 95px;
+    width: 400px;
+  }
+  #about-getactive-howto-tech {
+    position: absolute;
+    top: 1960px;
+    left: 100px;
+    width: 300px;
   }
 }
