@@ -1,0 +1,89 @@
+@inputBorderRadius: 0px;
+@inputBorder: @white;
+@inputBorderFocus: #C0C0C0;
+@inputHeight: 45px;
+@inputBorderWidth: 2px;
+@inputInvalidBackground: #FCE5F1;
+@inputInvalidBorderFocus: #E0003A;
+
+@inputBorderProgress: #E89608;
+@inputFieldProgress: #FFE6BC;
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    border: @inputBorderWidth solid @inputBorder;
+
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    height: @inputHeight - 8px - @inputBorderWidth;
+}
+
+.valid {
+    &:focus {
+        border-color: @inputBorderFocus;
+    }
+}
+
+.invalid {
+    background: @inputInvalidBackground;
+    border-color: @inputInvalidBackground;
+
+    &:focus {
+        border-color: @inputInvalidBorderFocus;
+    }
+}
+
+form.clean input.ng-dirty.ng-invalid,
+form.unclean input.ng-dirty.ng-invalid {
+    .invalid;
+}
+
+form.clean input.ng-dirty.ng-invalid-required,
+form.clean input.ng-pristine.ng-invalid,  
+input.ng-dirty.ng-valid {
+    .valid;
+}
+
+form.unclean input.ng-invalid-required {
+    .invalid;
+}
+
+form.clean input.ng-dirty.ng-invalid:focus, form.unclean input.ng-dirty.ng-invalid:focus {
+    background-color: @inputFieldProgress;
+    border-color: @inputBorderProgress;
+}
+
+button {
+  font-family: @sansFontFamily;
+}

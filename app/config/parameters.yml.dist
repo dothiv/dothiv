@@ -12,14 +12,16 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
-    locale:            en_US
+    locale:            en
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
 
-    charitydomain:     localhost
-    companydomain:     registry.hiv
+    charitydomain:     click4life.hiv
+    registrydomain:    tld.hiv
 
-    facebook_app_id:   1234
+    facebook_app_id:   486753724803417
     facebook_app_secret: yourfacebooksecret
+
+    twitter_widget_id: 474872109810733056
 
     dns_reseller:      dd24_reseller
     dns_password:      dd24_password
@@ -41,3 +43,7 @@ parameters:
     node_bin: /usr/bin/node
     node_modules: %kernel.root_dir%/../node_modules
     ngmin_bin: '%kernel.root_dir%/../node_modules/ngmin/bin/ngmin'
+
+    # Contentful settings
+    contenful_space_charity: xfj3l4zlkg3j
+    contenful_space_registry: xfj3l4zlkg3j

@@ -1,0 +1,19 @@
+parameters:
+    dothiv_contentful.content.class: Dothiv\ContentfulBundle\Adapter\RepositoryContentAdapter
+    dothiv_contentful.asset.class: Dothiv\ContentfulBundle\Adapter\FilesystemAssetAdapter
+
+services:
+    dothiv_contentful.asset:
+        class: %dothiv_contentful.asset.class%
+        arguments:
+          - %dothiv_contentful.web_path%
+          - %dothiv_contentful.local_path%
+          - @dothiv_contentful.repo.asset
+
+    dothiv_contentful.content:
+        class: %dothiv_contentful.content.class%
+        arguments:
+          - @dothiv_contentful.repo.content_type
+          - @dothiv_contentful.repo.entry
+          - @dothiv_contentful.repo.asset
+          - @dothiv_contentful.asset

@@ -1,0 +1,57 @@
+{% trans_default_domain "charity" %}
+
+{% for project in projects %}
+    {% if loop.first %}
+        <div class="container voteproject">
+        <div class="row">
+            <div class="span12">
+                <h3 class="pull-left">{% trans %}home.vote.headline{% endtrans %}</h3>
+                {% if features.projects %}
+                    <a class="next2h3 pull-left" href="{{ path('dothiv_charity_projects', {'locale': locale}) }}">
+                        <div class="heading-arrow"></div>
+                        {% trans %}home.vote.allprojects{% endtrans %}
+                    </a>
+                {% endif %}
+            </div>
+            {% if projects|length > 2 %}
+            <div class="span12">
+                {% block wherethemoneygoes %}
+                    {% image '@DothivCharityWebsiteBundle/Resources/public/images/where_the_money_goes_960.jpg' %}
+                    <img src="{{ asset_url }}" alt="" >
+                    {% endimage %}
+                    {{ 'home.vote.header'|trans|markdown }}
+                {% endblock wherethemoneygoes %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="container">
+            <div class="row projects-container">
+                {% if projects|length <= 2 %}
+                    <div class="{% if projects|length == 2 %}span6{% else %}span9{% endif %}">
+                        {{ block('wherethemoneygoes') }}
+                    </div>
+                {% endif %}
+    {% endif %}
+    {% set image = project.images[0] %}
+    {% if features.projects %}<a href="{{ path('dothiv_charity_projects', {'locale': locale}) }}">{% endif %}
+    <div class="{% if projects|length > 2 %}span{{ 12 / projects|length }}{% else %}span3{% endif %}">
+        <img src="{{ image.file.url }}" alt="{{ project.organization }}">
+
+        <h4>{{ project.organization }}</h4>
+
+        <p>
+            {{ project.title }}
+        </p>
+
+        <p>
+            <a href="{{ project.website }}" rel="friend">{% trans %}project.visit.website{% endtrans %}</a>
+        </p>
+    </div>
+    {% if features.projects %}</a>{% endif %}
+    {% if loop.last %}
+            </div>
+        </div>
+        </div>
+        <hr class="bottom-shadow">
+    {% endif %}
+{% endfor %}

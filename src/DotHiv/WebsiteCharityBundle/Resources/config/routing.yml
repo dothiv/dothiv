@@ -1,3 +1,0 @@
-dot_hiv_website_charity_app:
-    pattern:  /
-    defaults: { _controller: DotHivWebsiteCharityBundle:Default:index }

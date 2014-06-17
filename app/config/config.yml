@@ -5,7 +5,7 @@ imports:
 
 framework:
     #esi:             ~
-    translator:      { fallback: %locale% }
+    translator:      { enabled: true, fallback: %locale% }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -26,14 +26,16 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        charitydomain: http://%charitydomain%
-        companydomain: http://%companydomain%
+      facebook_app_id: %facebook_app_id%
+      twitter_widget_id: %twitter_widget_id%
+      countdown_start: 2014-06-21T00:00:00Z
+      general_availability: 2014-08-26T00:00:00Z
 
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        ['DotHivWebsiteCharityBundle', 'DotHivWebsiteCompanyBundle', 'DotHivAPIBundle']
+    bundles:        ['DothivCharityWebsiteBundle', 'DothivRegistryWebsiteBundle', 'DothivAPIBundle']
     #java: /usr/bin/java
     filters:
         less:
@@ -128,7 +130,7 @@ fos_rest:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: DotHiv\BusinessBundle\Entity\User
+    user_class: Dothiv\BusinessBundle\Entity\User
 
 jms_serializer:
     metadata:
@@ -142,7 +144,7 @@ jms_serializer:
         directories:
             FOSUserBundle:
                 namespace_prefix: "FOS\\UserBundle"
-                path: "@DotHivBusinessBundle/Resources/config/serializer/fosuserbundle"
+                path: "@DothivBusinessBundle/Resources/config/serializer/fosuserbundle"
 
 # FOSFacebook
 fos_facebook:
@@ -155,7 +157,7 @@ fos_facebook:
 # Services
 services:
     my.facebook.user:
-        class: DotHiv\BusinessBundle\Security\User\Provider\FacebookProvider
+        class: Dothiv\BusinessBundle\Security\User\Provider\FacebookProvider
         arguments:
             facebook: "@fos_facebook.api"
             userManager: "@fos_user.user_manager"
@@ -164,26 +166,44 @@ services:
 # Gregwar's form
 gregwar_form: ~
 
-dot_hiv_business:
+dothiv_business:
     allowed_tlds:
       # - hiv
       ~
 
+dothiv_base_website:
+    thumbnails:
+        - { label: 'person', width: 260, height: 300, thumbnail: true }
+        - { label: 'supporter', width: 100, height: 100, exact: true }
+        - { label: 'partner', width: 200, height: 100, exact: true }
+        - { label: 'small', width: 200, height: 200 }
+        - { label: 'medium', width: 400, height: 400 }
+        - { label: 'large', width: 800, height: 800 }
+
+dothiv_charity_website:
+    features:
+        - { name: howitworks, enabled: false }
+        - { name: projects, enabled: false }
+        - { name: profile, enabled: false }
+        - { name: pinkbar_clickcounter, enabled: false }
+        - { name: pinkbar_countdown, enabled: true }
+
 parameters:
     # Email addresses 
-    domain_email_sender_address: mail@dothiv.bp
+    domain_email_sender_address: mail@click4life.hiv.dev
 
     # configure symfony security bundle to use our REST authentication classes.
     # this is required by the angular app authentication process (see http authentication interceptor)
-    security.authentication.form_entry_point.class: DotHiv\APIBundle\Security\RestAuthenticationEntryPoint
-    security.authentication.listener.form.class: DotHiv\APIBundle\Security\RestAuthenticationListener
-    security.authentication.success_handler.class: DotHiv\APIBundle\Security\DotHivAuthenticationSuccessHandler
-    security.authentication.failure_handler.class: DotHiv\APIBundle\Security\RestAuthenticationFailureHandler
-    security.logout.success_handler.class: DotHiv\APIBundle\Security\RestLogoutSuccessHandler
-    security.logout_listener.class: DotHiv\APIBundle\Security\RestLogoutListener
+    security.authentication.form_entry_point.class: Dothiv\APIBundle\Security\RestAuthenticationEntryPoint
+    security.authentication.listener.form.class: Dothiv\APIBundle\Security\RestAuthenticationListener
+    security.authentication.success_handler.class: Dothiv\APIBundle\Security\DothivAuthenticationSuccessHandler
+    security.authentication.failure_handler.class: Dothiv\APIBundle\Security\RestAuthenticationFailureHandler
+    security.logout.success_handler.class: Dothiv\APIBundle\Security\RestLogoutSuccessHandler
+    security.logout_listener.class: Dothiv\APIBundle\Security\RestLogoutListener
 
     # listener that sets the users locale
-    locale_listener.class: DotHiv\APIBundle\Listener\LocaleListener
+    locale_listener.class: Dothiv\APIBundle\Listener\LocaleListener
 
     # handler for serialization of forms
-    jms_serializer.form_error_handler.class: DotHiv\BusinessBundle\Serializer\FormHandler
+    jms_serializer.form_error_handler.class: Dothiv\BusinessBundle\Serializer\FormHandler
+

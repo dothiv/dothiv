@@ -42,8 +42,8 @@ security:
                 provider: fos_userbundle
                 require_previous_session: false
             fos_facebook:
-                app_url: "http://apps.facebook.com/DotHivDemo/"
-                server_url: "http://dothiv.bp/"
+                app_url: "http://apps.facebook.com/DothivDemo/"
+                server_url: "http://click4life.hiv.dev/"
                 check_path: /api/login/facebook/return
                 provider: my_fos_facebook_provider
                 require_previous_session: false

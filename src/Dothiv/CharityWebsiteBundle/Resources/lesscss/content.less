@@ -1,0 +1,92 @@
+article.content {
+  section {
+    h2 {
+      color: @darkpink;
+      font-size: 42px;
+      margin-top: 50px;
+    }
+    .cf-block-1 {
+      h2 {
+        margin-top: 0;
+      }
+    }
+    h3 {
+      font-size: 18px;
+    }
+    h4, h5, h6 {
+      font-size: 16px;
+    }
+    h3, h4, h5, h6 {
+      &:extend(.headingRegular)
+    ;
+    }
+    .cf-Block {
+      h3, .logo {
+        margin-top: 2em;
+      }
+      .cf-child-1, .cf-columns {
+        h3, .logo {
+          margin-top: 0.5em;
+        }
+      }
+      .cf-child-enumeration {
+        &:extend(.headingRegular)
+      ;
+        margin-top: 1em;
+        text-align: center;
+        font-size: 40px;
+      }
+      .cf-child-1 {
+        .cf-child-enumeration {
+          margin-top: 0.125em;
+        }
+      }
+      h2, h3, h4, h5, h6 {
+        + .cfblock-image {
+          margin-bottom: 10px;
+        }
+      }
+      .cf-text-center {
+        text-align: center;
+      }
+    }
+    li {
+      margin-bottom: 10px;
+      list-style-image: url('/bundles/dothivcharitywebsite/images/bullet-filled@1.5x.png');
+      li {
+        list-style-image: url('/bundles/dothivcharitywebsite/images/bullet-empty.png');
+      }
+    }
+    ul {
+      margin-left: 35px;
+      ul {
+        margin-top: 15px;
+      }
+    }
+  }
+
+  p {
+    line-height: 145%;
+  }
+
+  blockquote {
+    border-top: 2px solid @hivblue;
+    border-bottom: 2px solid @hivblue;
+    color: @hivblue;
+    border-left: 0;
+    margin-top: 20px;
+    padding: 10px 0;
+    p {
+      font-size: 15px;
+      line-height: 145%;
+    }
+  }
+
+  .cf-supporter {
+    text-align: center;
+    font-size: 14px;
+    .logo {
+      height: 100px;
+    }
+  }
+}

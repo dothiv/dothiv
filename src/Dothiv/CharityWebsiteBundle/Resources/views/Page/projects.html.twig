@@ -1,0 +1,52 @@
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivCharityWebsiteBundle::page.html.twig" %}
+{% block content %}
+    <article class="projects">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <section>
+                        {% include "DothivCharityWebsiteBundle:partials:cfpage.html.twig" with {'page': page} %}
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        {# Projects #}
+        {% for project in projects %}
+
+            {% set image = project.images[0] %}
+            <section class="container">
+                <div class="row">
+                    <div class="span12">
+                        <h3>{{ loop.index }}. {{ project.organization }}<br><small>{{ project.title }}</small></h3>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span7">
+                        <img src="{{ image.file.url }}" alt="{{ project.organization }}">
+                    </div>
+                    <div class="span4 offset1">
+                        <dl>
+                            <dt>Country</dt>
+                            <dd>{{ project.country }}</dd>
+                            <dt>Sub-Category</dt>
+                            <dd>{{ project.subcategory }}</dd>
+                            <dt>Duration</dt>
+                            <dd>{{ project.duration }}</dd>
+                            <dt>Amount</dt>
+                            <dd>{{ project.amount}}</dd>
+                        </dl>
+                        <a href="{{ project.website}}" class="btn btn-primary">Visit Website</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        {{ project.description|markdown }}
+                    </div>
+                </div>
+            </section>
+        {% endfor %}
+    </article>
+{% endblock %}

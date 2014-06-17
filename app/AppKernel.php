@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
@@ -23,12 +23,16 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Gregwar\FormBundle\GregwarFormBundle(),
-            new DotHiv\BusinessBundle\DotHivBusinessBundle(),
-            new DotHiv\APIBundle\DotHivAPIBundle(),
-            new DotHiv\WebsiteCharityBundle\DotHivWebsiteCharityBundle(),
-            new DotHiv\WebsiteCompanyBundle\DotHivWebsiteCompanyBundle(),
+            new Dothiv\BusinessBundle\DothivBusinessBundle(),
+            new Dothiv\APIBundle\DothivAPIBundle(),
+            new Dothiv\CharityWebsiteBundle\DothivCharityWebsiteBundle(),
+            new Dothiv\RegistryWebsiteBundle\DothivRegistryWebsiteBundle(),
             new FOS\FacebookBundle\FOSFacebookBundle(),
-            new DotHiv\WebsiteBaseBundle\DotHivWebsiteBaseBundle(),
+            new Dothiv\BaseWebsiteBundle\DothivBaseWebsiteBundle(),
+            new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
+            new Dothiv\ContentfulBundle\DothivContentfulBundle(),
+            new Dothiv\Bundle\ParsedownBundle\DothivParsedownBundle(),
+            new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

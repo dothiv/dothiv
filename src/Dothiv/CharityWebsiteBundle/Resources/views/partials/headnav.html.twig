@@ -1,0 +1,45 @@
+{% trans_default_domain "charity" %}
+{% if features.profile %}
+<div class="container header" ng-controller="HeaderController">
+{% else %}
+<div class="container header">
+{% endif %}
+    <div class="row" id="logorow">
+        <div class="span2 pull-right"></div>
+        <nav class="usermenu">
+            {% if features.profile %}
+            <ul>
+                <li class="accountance" ng-show="!isAuthenticated()"><a class="hover-arrow" ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
+                <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
+                <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" href="{{ path('dothiv_charity_page', {'page': 'profile', 'locale': locale}) }}">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
+            </ul>
+            {% endif %}
+            {% if app.request.locale|slice(0,2) != 'en' %}
+                <a href="{{ link.en }}">English</a>
+            {% endif %}
+            {% if app.request.locale|slice(0,2) != 'de' %}
+                <a href="{{ link.de }}">Deutsch</a>
+            {% endif %}
+        </nav>
+    </div>
+    <div class="row bottom-hack">
+        <div class="pos-rel">
+            <div class="overflow-up">
+                <div class="span2 hiv-logo">
+                    <a href="/" rel="index">
+                        <h1>
+                            <img src="{{ asset("bundles/dothivcharitywebsite/images/dotHiv-logo.png") }}" alt="{% trans %}dothiv.fullname{% endtrans %}">
+                        </h1>
+                    </a>
+                </div>
+                <nav class="span7 menubar">
+                    {% if features.projects %}
+                    <a href="{{ path('dothiv_charity_projects', {'locale': locale}) }}">{% trans %}header.bar.project{% endtrans %}</a>
+                    {% endif %}
+                    <a href="{{ path('dothiv_charity_about_index', {'locale': locale}) }}">{% trans %}header.bar.aboutHIV{% endtrans %}</a>
+                    <a href="{{ path('dothiv_registry_register', {'locale': locale}) }}">{% trans %}header.bar.registerurl{% endtrans %}</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

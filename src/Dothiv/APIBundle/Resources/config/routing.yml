@@ -1,0 +1,27 @@
+projects:
+    type: rest
+    resource: Dothiv\APIBundle\Controller\ProjectController
+
+user:
+    type: rest
+    resource: Dothiv\APIBundle\Controller\UserController
+
+alternatives:
+    type: rest
+    resource: Dothiv\APIBundle\Controller\AlternativesController
+
+domains:
+    type: rest
+    resource: Dothiv\APIBundle\Controller\DomainController
+
+domainclaims:
+    type: rest
+    resource: Dothiv\APIBundle\Controller\DomainClaimController
+
+banner:
+    type: rest
+    resource: Dothiv\APIBundle\Controller\BannerController
+
+locale:
+    type: rest
+    resource: Dothiv\APIBundle\Controller\LocaleController

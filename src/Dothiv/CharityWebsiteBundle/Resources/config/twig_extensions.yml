@@ -1,0 +1,18 @@
+parameters:
+    dothiv.basewebsite.twig.extension.contentful.class: Dothiv\BaseWebsiteBundle\Twig\Extension\ContentfulTwigExtension
+    dothiv.charity.twig.extension.features.class: Dothiv\CharityWebsiteBundle\Twig\Extension\FeaturesTwigExtension
+
+services:
+    dothiv.charity.twig.extension.features:
+        class: %dothiv.charity.twig.extension.features.class%
+        arguments:
+         - %dothiv_charity_website.features%
+        tags:
+         - { name: twig.extension }
+
+    dothiv.charity.twig.extension.contentful:
+        class: %dothiv.basewebsite.twig.extension.contentful.class%
+        arguments:
+         - @dothiv.charity.contentful.charity_content
+        tags:
+         - { name: twig.extension }

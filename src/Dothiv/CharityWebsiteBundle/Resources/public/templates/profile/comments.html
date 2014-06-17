@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="row">
+        <div class="span12 profile-summary-list-heading profile-summary-comments-heading">
+            <h2 class="pull-left">Abgegebene Kommentare</h2>
+        </div>
+    </div>
+    <ul class="profile-summary-list profile-summary-comments-list">
+        <li ng-repeat="(name, votes) in {'Awesome project':3268, 'Nils\'s project':122626}">{% include 'DothivCharityWebsiteBundle:Partials/Profile:comments-item.html.twig' %}</li>
+    </ul>
+</div>

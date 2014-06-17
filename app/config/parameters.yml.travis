@@ -12,10 +12,11 @@ parameters:
     mailer_password: 2b0661dbd61ee5d7
     locale: de
     secret: bZ7AR7KC
-    charitydomain: charity.test.hiv
-    companydomain: org.test.hiv
+    charitydomain: click4life.hiv.dev
+    registrydomain: tld.hiv.dev
     facebook_app_id: 1234
     facebook_app_secret: yourfacebooksecret
+    twitter_widget_id: 1234
     dns_reseller: dd24_reseller
     dns_password: dd24_password
     dns_cid: dd24_cid
@@ -27,3 +28,7 @@ parameters:
     node_bin: /usr/bin/node
     node_modules: '%kernel.root_dir%/../node_modules'
     ngmin_bin: '%kernel.root_dir%/../node_modules/ngmin/bin/ngmin'
+
+    # Contentful settings
+    contenful_space_charity: xfj3l4zlkg3j
+    contenful_space_registry: xfj3l4zlkg3j

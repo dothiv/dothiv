@@ -1,0 +1,7 @@
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
+{% block content %}
+    <div class="container content">
+        {% include "DothivCharityWebsiteBundle:partials:cfpage.html.twig" with {'page': page} %}
+    </div>
+{% endblock %}

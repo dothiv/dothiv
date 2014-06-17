@@ -1,0 +1,124 @@
+<div class="container">
+    <div class="row">
+        <div class="span12 profile-heading">
+            <h2 class="pull-left" translate="profile.domain.editors.headline"></h2>
+            <a class="next2h2" href="#!/profile/domains"><div class="heading-arrow"></div>[[ 'profile.domain.editors.backlink' | translate ]]</a>
+        </div>
+    </div>
+    <div class="row" ng-hide="domain.name">
+        <div class="span12">
+            <p class="text-center"><dh-loader></dh-loader></p>
+        </div>
+    </div>
+    <div class="row" ng-show="domain.name">
+        <div class="span12">
+            <div class="well">
+                <h2 translate="profile.domain.editors.subheadline" values="{ domain: '[[domain.name]]' }"></h2>
+                <p>
+                    [[ 'profile.domain.editors.text' | translate ]]
+                    <b translate="profile.domain.editors.bold"></b>
+                </p>
+                <div class="row-fluid-colfix-well">
+                    <div class="row-fluid-colfix margin20px">
+
+                        <!-- basic editor -->
+                        <div class="span6 well">
+                            <h3 translate="profile.domain.editors.basic.headline"></h3>
+                            <p class="text-center">
+                                <img src="/bundles/dothivbasewebsite/images/clickcounter.png" alt="[[ 'profile.domain.editors.basic.imgalt' | translate ]]">
+                            </p>
+                            <p><strong translate="profile.domain.editors.basic.subheadline"></strong></p>
+                            <p translate="profile.domain.editors.basic.text"></p>
+                            <ul class="pinkplusstyle">
+                                <li ng-repeat="i in [1,2,3,4]" translate="[[ 'profile.domain.editors.basic.advantages.' + i ]]"></li>
+                            </ul>
+                        </div>
+
+                        <!-- premium editor -->
+                        <div class="span6 well">
+                            <h3>
+                                [[ 'profile.domain.editors.premium.headline.text' | translate ]]
+                                <span>[[ 'profile.domain.editors.premium.headline.highlight' | translate ]]</span>
+                            </h3>
+                            <p class="text-center">
+                                <img src="/bundles/dothivbasewebsite/images/clickcounterpremium.png" alt="[[ 'profile.domain.editors.premium.imgalt' | translate ]]">
+                            </p>
+                            <p><strong translate="profile.domain.editors.premium.subheadline"></strong></p>
+                            <p translate="profile.domain.editors.premium.text"></p>
+                            <ul class="pinkplusstyle">
+                                <li ng-repeat="i in [1,2,3,4,5,6,7]" translate="[[ 'profile.domain.editors.premium.advantages.' + i ]]"></li>
+                                <li><strong translate="profile.domain.editors.premium.advantages.highlight"></strong></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="row-fluid-colfix margin20px">
+
+                        <div class="span6 well">
+                            <hr />
+                            <p class="lead text-center"><i class="icon-clock"></i> [[ 'profile.domain.editors.basic.time' | translate ]]</p>
+                            <div class="row-fluid">
+                                <button class="span12 btn btn-primary" ng-click="editBasic()" translate="profile.domain.editors.basic.button"></button>
+                            </div>
+                        </div>
+
+                        <div class="span6 well">
+                            <hr />
+                            <p class="lead text-center"><i class="icon-clock"></i> [[ 'profile.domain.editors.premium.time' | translate ]]</p>
+                            <div class="row-fluid">
+                                <button class="span12 btn btn-primary" ng-click="editPremium()" translate="profile.domain.editors.premium.button"></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="well">
+                            <h3 translate="profile.domain.editors.domains.headline"></h3>
+                            <div ng-hide="domains.$resolved">
+                                <p class="text-center"><dh-loader></dh-loader></p>
+                            </div>
+                            <div ng-show="domains.$resolved">
+                                <form class="simple-form" name="domaincopy">
+                                    <label translate="profile.domain.editors.domains.label"></label>
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <dh-select
+                                                model="domaincopy.$data.domainname"
+                                                options="domains"
+                                                label="name"
+                                                ></dh-select>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="row-fluid">
+                                                <button type="submit" class="span12 btn btn-primary" translate="profile.domain.editors.domains.button"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="well">
+                            <h3>
+                                [[ 'profile.domain.editors.developer.headline.text' | translate ]]
+                                <span translate="profile.domain.editors.developer.headline.highlight"></span>
+                            </h3>
+                            <p translate="profile.domain.editors.developer.text"></p>
+                            <div class="row-fluid">
+                                <a class="offset6 span6 btn btn-primary" href="" translate="profile.domain.editors.developer.button"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

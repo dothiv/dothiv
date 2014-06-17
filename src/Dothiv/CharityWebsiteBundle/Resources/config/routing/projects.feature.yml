@@ -1,0 +1,6 @@
+dothiv_charity_projects:
+    pattern:  /{locale}/projects
+    defaults:
+        _controller: dothiv.charity.web.controller.projects:indexAction
+    requirements:
+        locale:  en|de|ky

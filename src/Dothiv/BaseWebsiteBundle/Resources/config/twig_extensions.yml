@@ -1,0 +1,8 @@
+parameters:
+    dothiv.websitebase.twig.extension.date.class: Dothiv\BaseWebsiteBundle\Twig\Extension\DateTwigExtension
+
+services:
+    dothiv.websitebase.twig.extension.date:
+        class: %dothiv.websitebase.twig.extension.date.class%
+        tags:
+         - { name: twig.extension }

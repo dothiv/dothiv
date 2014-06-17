@@ -1,0 +1,29 @@
+parameters:
+    dothiv_contentful.repo.content_type.class: Dothiv\ContentfulBundle\Repository\DoctrineContentfulContentTypeRepository
+    dothiv_contentful.item.content_type.class: Dothiv\ContentfulBundle\Item\ContentfulContentType
+    dothiv_contentful.repo.asset.class: Dothiv\ContentfulBundle\Repository\DoctrineContentfulAssetRepository
+    dothiv_contentful.item.asset.class: Dothiv\ContentfulBundle\Item\ContentfulAsset
+    dothiv_contentful.repo.entry.class: Dothiv\ContentfulBundle\Repository\DoctrineContentfulEntryRepository
+    dothiv_contentful.item.entry.class: Dothiv\ContentfulBundle\Item\ContentfulEntry
+
+services:
+    dothiv_contentful.repo.content_type:
+        class: %dothiv_contentful.repo.content_type.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %dothiv_contentful.item.content_type.class%
+
+    dothiv_contentful.repo.asset:
+        class: %dothiv_contentful.repo.asset.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %dothiv_contentful.item.asset.class%
+
+    dothiv_contentful.repo.entry:
+        class: %dothiv_contentful.repo.entry.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %dothiv_contentful.item.entry.class%

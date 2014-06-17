@@ -1,0 +1,72 @@
+// Links
+a {
+  color: @darkpink;
+  text-decoration: none;
+  &:hover, &:active {
+    color: #252525;
+    text-decoration: underline;
+  }
+}
+a:visited, a:active {
+  color: @darkpink;
+}
+a.external {
+  padding-left: 15px;
+  background: url('/bundles/dothivcharitywebsite/images/small-tick-left-e00073.png') no-repeat 2px center;
+  &:hover, &:active {
+    &:extend(a:hover);
+    background-image: url('/bundles/dothivcharitywebsite/images/small-tick-left.png');
+  }
+}
+
+a.back {
+  padding-left: 15px;
+  background: url('/bundles/dothivcharitywebsite/images/small-tick-right-e00073.png') no-repeat 2px center;
+  &:hover, &:active {
+    &:extend(a:hover);
+    background-image: url('/bundles/dothivcharitywebsite/images/small-tick-right.png');
+  }
+}
+
+a.up {
+  padding-left: 15px;
+  background: url('/bundles/dothivcharitywebsite/images/tick-up-e00073-small.png') no-repeat 2px center;
+  &:hover, &:active {
+    &:extend(a:hover);
+    background-image: url('/bundles/dothivcharitywebsite/images/tick-up-black-small.png');
+  }
+}
+
+a.down {
+  padding-left: 15px;
+  background: url('/bundles/dothivcharitywebsite/images/tick-down-e00073-small.png') no-repeat 2px center;
+  &:hover, &:active {
+    &:extend(a:hover);
+    background-image: url('/bundles/dothivcharitywebsite/images/tick-down-black-small.png');
+  }
+}
+
+// Headlines
+h1, h2 {
+  color: @darkpink;
+}
+
+h3, h4, h5, h6 {
+  color: #666;
+}
+
+// Helpers
+.hidden {
+  display: none;
+}
+
+// Content
+nav.expand-text {
+  a.more {
+    &:extend(a.down);
+  }
+  a.less {
+    &:extend(a.up);
+  }
+}
+

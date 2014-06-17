@@ -1,0 +1,35 @@
+.header {
+  h1 {
+    margin: 0;
+    padding: 0;
+  }
+  margin-bottom: 40px;
+  .menubar {
+    a, a:visited {
+      &:extend(.headingLight);
+      display: inline-block;
+      font-size: 24px;
+      color: @colordark;
+      margin: 20px 10px 0 10px;
+    }
+    a:hover, a.active {
+      color: @darkpink;
+    }
+  }
+  .usermenu {
+    a, a:visited {
+      color: @colordark;
+    }
+    a:hover, a.active {
+      color: @darkpink;
+    }
+  }
+  #logorow {
+    min-height: 150px;
+    .usermenu {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}

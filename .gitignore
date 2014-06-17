@@ -1,4 +1,4 @@
-/src/DotHiv/WebsiteBaseBundle/Resources/public/fonts/Harmonia Sans Bold.woff
+/src/Dothiv/BaseWebsiteBundle/Resources/public/fonts/Harmonia Sans Bold.woff
 /web/bundles/
 /web/css/
 /web/js/
@@ -8,11 +8,11 @@
 /vendor/
 /bin/
 /composer.phar
-.settings
-.project
-.buildpath
+/.settings
+/.project
+/.buildpath
 /app/config/parameters.yml
-.idea
+/.idea
 /build/code-browser
 /build/pdepend
 /build/coverage
@@ -21,3 +21,7 @@
 /app/test
 /node_modules
 /web/index.php
+/web/contentful
+/app/phpunit.xml
+/src/Dothiv/CharityWebsiteBundle/Resources/test_out/
+/web/images

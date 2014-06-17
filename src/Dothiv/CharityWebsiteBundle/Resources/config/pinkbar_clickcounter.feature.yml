@@ -1,0 +1,7 @@
+services:
+    dothiv.charity.web.controller.pinkbar:
+        class: Dothiv\BaseWebsiteBundle\Controller\PinkbarController
+        arguments:
+          - @translator
+          - 0.0
+          - 0.0

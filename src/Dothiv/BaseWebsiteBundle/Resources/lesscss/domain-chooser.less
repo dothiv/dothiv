@@ -1,0 +1,40 @@
+@domainChooserHeight:    50px;
+@domainChooserButton:    @domainChooserHeight;
+
+.domain-chooser {
+    .row { margin-bottom: 3px; }
+    
+    * .span2 { line-height: @domainChooserHeight; }
+
+    * .display {
+        height: @domainChooserHeight;
+        line-height: @domainChooserHeight;
+        width: 300px - 2* @domainChooserHeight;
+        color: black;
+        background-color: white;
+        text-align: center;
+    }
+    
+    * .scroll {
+        background-color: transparent;
+        border: none;
+        background-color: @hivblue;
+        height: @domainChooserHeight;
+        width: @domainChooserButton;
+    }
+    
+    .row-fluid {
+        .span4 {
+            margin-top: 30px;
+            margin-left: 3px;
+            width: 98px;
+            &:first-child { margin-left: 0px; }
+            button { 
+                width: 100%;
+                background-color: @white;
+                &:hover { background-color: @colordark ; } 
+            }
+        }
+        
+    }
+}

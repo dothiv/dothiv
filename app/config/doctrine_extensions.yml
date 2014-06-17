@@ -2,7 +2,7 @@
 services:
     # KernelRequest listener
     extension.listener:
-        class: DotHiv\BusinessBundle\Listener\DoctrineExtensionListener
+        class: Dothiv\BusinessBundle\Listener\DoctrineExtensionListener
         calls:
             - [ setContainer, [ @service_container ] ]
         tags:
