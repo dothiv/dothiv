@@ -7,7 +7,7 @@
   header('Retry-After: ' . $retry);
   
   // Build refresh URL based on server variables.
-  $proto = (strtolower($_SERVER['HTTPS']) == 'on') ? 'https' : 'http';
+  $proto = (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') ? 'https' : 'http';
   $redirect = $proto . '://' . $_SERVER['HTTP_HOST'];
   
 ?>
