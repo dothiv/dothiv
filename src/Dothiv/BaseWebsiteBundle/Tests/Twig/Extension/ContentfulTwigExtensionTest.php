@@ -3,6 +3,7 @@
 namespace Dothiv\BaseWebsiteBundle\Tests\Twig\Extension;
 
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
+use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
 use Dothiv\BaseWebsiteBundle\Twig\Extension\ContentfulTwigExtension;
 
 class ContentfulTest extends \PHPUnit_Framework_TestCase
@@ -72,6 +73,35 @@ class ContentfulTest extends \PHPUnit_Framework_TestCase
             if ($func->getName() == 'content') {
                 $quotes = call_user_func($func->getCallable(), array('locale' => 'de'), 'Quote');
                 $this->assertSame($views, $quotes);
+                $called = true;
+            }
+        }
+        $this->assertTrue($called, 'Filter "content" was not executed.');
+    }
+
+    /**
+     * @test
+     * @group   BaseWebsiteBundle
+     * @group   TwigExtension
+     * @depends itShouldBeInstantiable
+     */
+    public function itShouldReturnNullOnContentNotFound()
+    {
+        $block = new \stdClass();
+        $this->mockContent->expects($this->once())->method('buildEntry')
+            ->with('Block', 'example.block', 'de')
+            ->will($this->throwException(
+                new InvalidArgumentException('Message')
+            ));
+
+        $ext    = $this->getTestObject();
+        $called = false;
+        foreach ($ext->getFunctions() as $func) {
+            /** @var \Twig_SimpleFunction $func */
+            $this->assertInstanceOf('\Twig_SimpleFunction', $func);
+            if ($func->getName() == 'content') {
+                $b = call_user_func($func->getCallable(), array('locale' => 'de'), 'Block', 'example.block');
+                $this->assertNull($b);
                 $called = true;
             }
         }

@@ -3,6 +3,7 @@
 namespace Dothiv\BaseWebsiteBundle\Twig\Extension;
 
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
+use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
 
 class ContentfulTwigExtension extends \Twig_Extension
@@ -58,7 +59,11 @@ class ContentfulTwigExtension extends \Twig_Extension
         if ($name === null) {
             return $this->content->buildEntries($type, Option::fromValue($locale)->getOrElse($ctx['locale']));
         }
-        return $this->content->buildEntry($type, $name, Option::fromValue($locale)->getOrElse($ctx['locale']));
+        try {
+            return $this->content->buildEntry($type, $name, Option::fromValue($locale)->getOrElse($ctx['locale']));
+        } catch (InvalidArgumentException $e) {
+            return null;
+        }
     }
 
     /**
