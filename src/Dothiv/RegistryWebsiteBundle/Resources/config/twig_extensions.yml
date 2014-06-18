@@ -1,0 +1,11 @@
+parameters:
+    dothiv.basewebsite.twig.extension.contentful.class: Dothiv\BaseWebsiteBundle\Twig\Extension\ContentfulTwigExtension
+
+services:
+    dothiv.registry.twig.extension.contentful:
+        class: %dothiv.basewebsite.twig.extension.contentful.class%
+        arguments:
+         - @dothiv.registry.contentful.registry_content
+         - registry_content
+        tags:
+         - { name: twig.extension }

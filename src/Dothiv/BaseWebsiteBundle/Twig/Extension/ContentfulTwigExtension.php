@@ -14,12 +14,23 @@ class ContentfulTwigExtension extends \Twig_Extension
 
     /**
      * @param Content $content
+     * @param string  $contentFuncName
      */
     public function __construct(
-        Content $content
+        Content $content,
+        $contentFuncName = null
     )
     {
-        $this->content = $content;
+        $this->content         = $content;
+        $this->contentFuncName = Option::fromValue($contentFuncName)->getOrElse('content');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTags()
+    {
+
     }
 
     /**
@@ -28,7 +39,7 @@ class ContentfulTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('content', array($this, 'buildItem'), array('needs_context' => true))
+            new \Twig_SimpleFunction($this->contentFuncName, array($this, 'buildItem'), array('needs_context' => true))
         );
     }
 
@@ -77,6 +88,6 @@ class ContentfulTwigExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'dothiv_basewebsite_contentful';
+        return 'dothiv_basewebsite_contentful_' . $this->contentFuncName;
     }
 }

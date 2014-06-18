@@ -1,0 +1,25 @@
+{% trans_default_domain "registry" %}
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
+
+{% block content %}
+    <article class="content">
+        <header>
+            <h2>{{ page.title }}</h2>
+        </header>
+        {% for block in page.blocks|default([]) %}
+            {% if loop.first %}
+                <section>
+            {% endif %}
+            <div class="block">
+                {% if block.title is defined %}
+                    <h3>{{ block.title }}</h3>
+                {% endif %}
+                {{ block.text|default("")|markdown }}
+            </div>
+            {% if loop.last %}
+                </section>
+            {% endif %}
+        {% endfor %}
+    </article>
+{% endblock %}
