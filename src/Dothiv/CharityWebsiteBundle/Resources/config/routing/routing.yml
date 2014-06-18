@@ -46,7 +46,7 @@ dothiv_charity_about:
         navigation: nav.about
     requirements:
         locale: en|de|ky
-        page: ^[a-zA-Z]+[a-zA-Z/]+[a-zA-Z0-9]+$
+        page: ^([a-zA-Z][a-zA-Z0-9]*[/-])*[a-zA-Z][a-zA-Z0-9]*$
 
 dothiv_charity_page:
     pattern:  /{locale}/p/{page}
@@ -54,7 +54,7 @@ dothiv_charity_page:
         _controller: dothiv.charity.web.controller.page:pageAction
     requirements:
         locale:  en|de|ky
-        page: ^[a-zA-Z]+[a-zA-Z/]+[a-zA-Z0-9]+$
+        page: ^([a-zA-Z][a-zA-Z0-9]*[/-])*[a-zA-Z][a-zA-Z0-9]*$
 
 dothiv_charity_content:
     pattern:  /{locale}/c/{page}
@@ -62,7 +62,7 @@ dothiv_charity_content:
         _controller: dothiv.charity.web.controller.page:contentPageAction
     requirements:
         locale:  en|de|ky
-        page: ^[a-zA-Z]+[a-zA-Z/]+[a-zA-Z0-9]+$
+        page: ^([a-zA-Z][a-zA-Z0-9]*[/-])*[a-zA-Z][a-zA-Z0-9]*$
 
 # Contentful
 dothiv_charity_strings:
