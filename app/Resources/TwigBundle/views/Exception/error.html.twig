@@ -20,7 +20,7 @@
 -->
 <html>
 <head>
-    <title>dotHIV Error Page</title>
+    <title>{{ status_code }} Error Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -90,6 +90,8 @@
         <blockquote>{{ status_text }}</blockquote>
 
         <p>It's propably our fault.</p>
+
+        <a href="/" rel="index" class="btn btn-primary"><i class="glyphicon glyphicon-home"></i> Take me home</a>
     </main>
 </div>
 </body>
