@@ -11,9 +11,9 @@
 
 {% block cf_block_children %}
     {% if block.children is defined %}
+        {% set level = level + 1 %}
         {% for child in block.children %}
             {% set block = child %}
-            {% set level = level + 1 %}
             {{ block('cf_block') }}
         {% endfor %}
     {% endif %}
@@ -38,7 +38,7 @@
 
 {% block cf_block %}
     {% set level = level|default(2) %}
-    <section>
+    <section class="cf-level-{{ level }}">
         <div class="block">
             {{ block('cf_block_textcontent') }}
             {{ block('cf_block_downloads') }}
