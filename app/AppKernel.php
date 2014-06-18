@@ -34,6 +34,7 @@ class AppKernel extends Kernel
             new Dothiv\Bundle\ParsedownBundle\DothivParsedownBundle(),
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
             new Dothiv\TwitterBootstrapBundle\DothivTwitterBootstrapBundle(),
+            new Dothiv\AngularJsBundle\DothivAngularJsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -6,6 +6,12 @@ dothiv_registry_index_nolang:
         path: /en
         permanent: true
 
+dothiv_registry_api_preregister:
+    pattern:  /api/preregister
+    defaults:
+        _controller: dothiv.registry.api.controller:preregisterAction
+    methods:  [POST]
+
 dothiv_registry_register:
     pattern:  /{locale}/c/register
     defaults:

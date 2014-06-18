@@ -36,12 +36,20 @@
     {% endif %}
 {% endblock cf_block_downloads %}
 
+{% block cf_block_module %}
+    {% set module = block|behaviour('module') %}
+    {% if module %}
+        {% include "DothivRegistryWebsiteBundle:behaviour:" ~ module ~ ".html.twig" with {'block': block} %}
+    {% endif %}
+{% endblock cf_block_module %}
+
 {% block cf_block %}
     {% set level = level|default(2) %}
     <section class="cf-level-{{ level }}">
         <div class="block">
             {{ block('cf_block_textcontent') }}
             {{ block('cf_block_downloads') }}
+            {{ block('cf_block_module') }}
             {{ block('cf_block_children') }}
         </div>
     </section>

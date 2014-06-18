@@ -6,3 +6,8 @@ services:
           - @templating
           - @dothiv.registry.contentful.registry_content
           - "DothivRegistryWebsiteBundle"
+
+    dothiv.registry.api.controller:
+        class: Dothiv\RegistryWebsiteBundle\Controller\ApiController
+        arguments:
+          - @mailer

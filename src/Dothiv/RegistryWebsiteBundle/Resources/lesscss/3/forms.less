@@ -1,0 +1,32 @@
+form {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  label {
+    small {
+      font-weight: @font-weight-regular;
+    }
+  }
+  footer {
+    .clearfix();
+    margin-top: 20px;
+    p {
+      &:extend(.pull-left)
+    ;
+    }
+    button {
+      &:extend(.pull-right)
+    ;
+    }
+  }
+  input {
+    .ng-valid {
+    }
+    .ng-invalid {
+      border-color: @brand-danger;
+    }
+    .ng-pristine {
+    }
+    .ng-dirty {
+    }
+  }
+}
