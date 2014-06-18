@@ -1,0 +1,96 @@
+<!DOCTYPE html><!--
+
+
+            _|_|          _|_|
+            _|_|          _|_|
+            _|_|
+            _|_|
+            _|_|_|_|      _|_|  _|_|    _|_|
+            _|_|_|_|_|    _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+      _|_|  _|_|    _|_|  _|_|    _|_|_|_|
+      _|_|  _|_|    _|_|  _|_|      _|_|
+
+ .hiv domains – The Red Ribbon of the digital age
+
+                    dotHIV.org
+
+-->
+<html>
+<head>
+    <title>dotHIV Error Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <style type="text/css">
+        /* Space out content a bit */
+        body {
+            padding-top: 60px;
+            padding-bottom: 20px;
+        }
+
+        header,
+        footer {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        /* Custom page header */
+        header {
+            margin-bottom: 30px;
+        }
+
+        /* Customize container */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 730px;
+            }
+        }
+
+        .jumbotron {
+            text-align: center;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        article {
+            margin: 40px 0;
+        }
+
+        /* Responsive: Portrait tablets and up */
+        @media screen and (min-width: 768px) {
+            /* Remove the padding we set earlier */
+            header {
+                padding-right: 0;
+                padding-left: 0;
+            }
+
+            /* Remove the bottom border on the jumbotron for visual effect */
+            .jumbotron {
+                border-bottom: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 class="text-muted">
+            {{ status_code }} Error Page
+        </h1>
+    </header>
+
+    <main class="jumbotron">
+        <h2>Oops. Something went wrong!</h2>
+
+        <p class="lead">The system issued a {{ status_code }} error, complaining about:</p>
+
+        <blockquote>{{ status_text }}</blockquote>
+
+        <p>It's propably our fault.</p>
+    </main>
+</div>
+</body>
+</html>
