@@ -2,24 +2,55 @@
 {% set title %}{{ page.title }}{% endset %}
 {% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
 
+{% block cf_block_textcontent %}
+    {% if block.title is defined %}
+        <h{{ level }}>{{ block.title }}</h{{ level }}>
+    {% endif %}
+    {{ block.text|default("")|markdown }}
+{% endblock cf_block_textcontent %}
+
+{% block cf_block_children %}
+    {% if block.children is defined %}
+        {% for child in block.children %}
+            {% set block = child %}
+            {% set level = level + 1 %}
+            {{ block('cf_block') }}
+        {% endfor %}
+    {% endif %}
+{% endblock cf_block_children %}
+
+{% block cf_block_downloads %}
+    {% if block.downloads is defined %}
+        {% for download in block.downloads %}
+            {% if loop.first %}
+            <ul class="downloads">
+            {% endif %}
+                <li>
+                    <a href="{{ download.file.url }}" title="{{ download.title }}">{{ download.title }}</a> <small>({{ (download.file.details.size / 1024 / 1024) | round(0, 'ceil') }} MB)</small>
+                    {% if download.description is defined %}, <small>{{ download.description }}</small>{% endif %}
+                </li>
+            {% if loop.last %}
+            </ul>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock cf_block_downloads %}
+
+{% block cf_block %}
+    {% set level = level|default(2) %}
+    <section>
+        <div class="block">
+            {{ block('cf_block_textcontent') }}
+            {{ block('cf_block_downloads') }}
+            {{ block('cf_block_children') }}
+        </div>
+    </section>
+{% endblock %}
+
 {% block content %}
     <article class="content">
-        <header>
-            <h2>{{ page.title }}</h2>
-        </header>
         {% for block in page.blocks|default([]) %}
-            {% if loop.first %}
-                <section>
-            {% endif %}
-            <div class="block">
-                {% if block.title is defined %}
-                    <h3>{{ block.title }}</h3>
-                {% endif %}
-                {{ block.text|default("")|markdown }}
-            </div>
-            {% if loop.last %}
-                </section>
-            {% endif %}
+            {{ block('cf_block') }}
         {% endfor %}
     </article>
 {% endblock %}
