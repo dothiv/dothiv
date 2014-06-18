@@ -1,0 +1,59 @@
+main {
+  &:extend(.container)
+;
+  article {
+    @media (min-width: @screen-sm-min) {
+      margin-top: 20px;
+      margin-bottom: 40px;
+    }
+    header, section {
+      .make-row();
+    }
+    header {
+      h2 {
+        .make-xs-column(12);
+        font-size: @font-size-h4;
+        margin-bottom: 50px;
+      }
+    }
+    section {
+      .block {
+        .make-sm-column(12);
+      }
+      &.cols2 {
+        .block {
+          .make-sm-column(6);
+        }
+      }
+      &.cols3 {
+        .block {
+          .make-sm-column(4);
+        }
+      }
+      &.cols4 {
+        .block {
+          .make-sm-column(3);
+        }
+      }
+      &.cols6 {
+        .block {
+          .make-sm-column(1);
+        }
+      }
+    }
+    &.content {
+      header {
+        h2 {
+          .make-sm-column(8);
+          .make-sm-column-offset(2);
+        }
+      }
+      section {
+        .block {
+          .make-sm-column(8);
+          .make-sm-column-offset(2);
+        }
+      }
+    }
+  }
+}

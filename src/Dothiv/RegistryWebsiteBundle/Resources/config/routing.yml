@@ -6,26 +6,34 @@ dothiv_registry_index_nolang:
         path: /en
         permanent: true
 
-dothiv_registry_page:
-    pattern:  /{locale}/{page}
+dothiv_registry_register:
+    pattern:  /{locale}/c/register
     defaults:
-        _controller: dothiv.registry.web.controller.registry_page:pageAction
-        page: index
+        _controller: dothiv.registry.web.controller.page:pageAction
+        page: register
     requirements:
         locale:  en|de|ky
 
-dothiv_registry_register:
-    pattern:  /{locale}/register
+dothiv_registry_content:
+    pattern:  /{locale}/c/{page}
     defaults:
-        _controller: dothiv.registry.web.controller.registry_page:pageAction
-        page: register
+        _controller: dothiv.registry.web.controller.page:contentPageAction
+    requirements:
+        locale:  en|de|ky
+        page: ^([a-zA-Z][a-zA-Z0-9]*[/-])*[a-zA-Z][a-zA-Z0-9]*$
+
+dothiv_registry_page:
+    pattern:  /{locale}/{page}
+    defaults:
+        _controller: dothiv.registry.web.controller.page:pageAction
+        page: index
     requirements:
         locale:  en|de|ky
 
 dothiv_registry_report:
     pattern:  /{locale}/report
     defaults:
-        _controller: dothiv.registry.web.controller.registry_page:pageAction
+        _controller: dothiv.registry.web.controller.page:pageAction
         page: report
     requirements:
         locale:  en|de|ky

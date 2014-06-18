@@ -1,137 +1,122 @@
 {% trans_default_domain "registry" %}
 <!DOCTYPE html>
-<html lang="{{ locale }}" xmlns:fb="http://www.facebook.com/2008/fbml">
+<!--
+
+
+            _|_|          _|_|
+            _|_|          _|_|
+            _|_|
+            _|_|
+            _|_|_|_|      _|_|  _|_|    _|_|
+            _|_|_|_|_|    _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+      _|_|  _|_|    _|_|  _|_|    _|_|_|_|
+      _|_|  _|_|    _|_|  _|_|      _|_|
+
+ .hiv domains – The Red Ribbon of the digital age
+
+                    dotHIV.org
+
+-->
+<html lang="{{ locale }}">
 <head>
-    <meta charset="utf-8">
     <title>
         {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
-        {% trans %}gmbh.header.title.line01{% endtrans %} {% trans %}gmbh.header.title.line02{% endtrans %}
+        {% trans %}registry.fullname{% endtrans %}
     </title>
-    {% stylesheets '@DothivRegistryWebsiteBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% stylesheets '@DothivRegistryWebsiteBundle/Resources/lesscss/3/styles.less' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
-    <link rel="shortcut icon" href="{{ asset("bundles/dothivregistrywebsite/images/favicon.png") }}" />
-    <script src="//use.edgefonts.net/source-sans-pro:n6.js"></script>
+    <link rel="shortcut icon" href="{{ asset("bundles/dothivregistrywebsite/images/favicon.png") }}"/>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<div class="page">
-    <div style="height: 40px;"></div>
-    <div class="container header">
-        <div class="row">
-            <div class="span2 pull-right"></div>
-            <div class="span1 usermenu pull-right">
-                <ul class="">
-                    <li class="accountance"><a href="{{ path('dothiv_charity_page', {'locale': locale, 'page': 'domain/configure'}) }}" class="hover-arrow">{% trans %}gmbh.header.domainconfig{% endtrans %}</a></li>
-                    <li class="accountance"><a href="{{ path('dothiv_charity_index', {'locale': locale}) }}" rel="friend met" class="hover-arrow">{% trans %}gmbh.header.back{% endtrans %}</a></li>
-                    <li class="accountance grey">
-                        {% if app.request.locale|slice(0,2) != 'en' %}
-                        <a href="{{ link.en }}">English</a>
-                        {% endif %}
-                        {% if app.request.locale|slice(0,2) != 'de' %}
-                        <a href="{{ link.de }}">Deutsch</a>
-                        {% endif %}
-                        {% if app.request.locale|slice(0,2) != 'ky' %}
-                        <a href="{{ link.ky }}">Keys</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
+<div class="outer">
+    <header class="page">
+        <section class="logo">
+            <a href="/" rel="index">
+                <h1>
+                    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.svg' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}gmbh.fullname{% endtrans %}">
+                    {% endimage %}
+                    <small>
+                        {{ 'gmbh.header.title'|trans|replace({'|': "\n"})|nl2br }}
+                    </small>
+                </h1>
+            </a>
+            <nav>
+                <a href="{{ path('dothiv_charity_index', {'locale': locale}) }}" rel="friend met"
+                   class="external">{% trans %}
+                    gmbh.header.back{% endtrans %}</a>
+                {% if app.request.locale|slice(0,2) != 'en' %}
+                    <a href="{{ link.en }}">English</a>
+                {% endif %}
+                {% if app.request.locale|slice(0,2) != 'de' %}
+                    <a href="{{ link.de }}">Deutsch</a>
+                {% endif %}
+            </nav>
+        </section>
+    </header>
+</div>
+{% for section in registry_content('Collection', 'nav.main')|default({'items': []}).items %}
+    {% if loop.first %}
+        <div class="outer-texture">
+        <nav class="main sections{{ loop.length }}">
+    {% endif %}
+    <section>
+        {% for item in section.items %}
+            {% if item.cfMeta.contentType == "String" %}
+                <h2>{{ item.value }}</h2>
+            {% elseif item.cfMeta.contentType == "Page" %}
+                <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': item.code|replace('.', '/')}) }}">{{ item.title }}</a>
+            {% endif %}
+        {% endfor %}
+    </section>
+    {% if loop.last %}
+        </nav>
         </div>
-        <div class="row bottom-hack">
-            <div class="pos-rel">
-                <div class="overflow-up">
-                    <div>
-                        <a href="/" rel="index">
-                            <img class="pull-left" src="{{ asset("bundles/dothivregistrywebsite/images/hiv-logo.png") }}" alt="{% trans %}gmbh.logo.alt{% endtrans %}">
-                            <div class="headline pull-left">
-                                <div class="space" class="title">
-                                    {% trans %}gmbh.header.title.line01{% endtrans %}<br>
-                                    {% trans %}gmbh.header.title.line02{% endtrans %}
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="height: 30px;"></div>
-    <hr class="just bottom-shadow">
-    <div class="jumbotron infobox bottom-shadow">
-        <div class="container">
-            <div class="row">
-                <div class="span1">
-                    <h5>{% trans %}gmbh.menu.main{% endtrans %}</h5>
-                    <ul>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page': 'policies'}) }}">{% trans %}gmbh.menu.policies{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page': 'launch'}) }}">{% trans %}gmbh.menu.launch{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'whois'}) }}">{% trans %}gmbh.menu.whois{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'registrars'}) }}">{% trans %}gmbh.menu.registrars{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'stats'}) }}">{% trans %}gmbh.menu.stats{% endtrans %}</a></li>
-                    </ul>
-                </div>
-                <div class="span3"></div>
-                <div class="span1">
-                    <h5>{% trans %}gmbh.menu.forcompanies{% endtrans %}</h5>
-                    <ul>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'red-ribbon'}) }}">{% trans %}gmbh.menu.redribbon{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'register_nonprofit'}) }}">{% trans %}gmbh.menu.registercharity{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'concepts'}) }}">{% trans %}gmbh.menu.concepts{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'register'}) }}">{% trans %}gmbh.menu.registernow{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_charity_page', {'locale': locale, 'page': 'domain/configure'}) }}">{% trans %}gmbh.menu.domainconfig{% endtrans %}</a></li>
-                    </ul>
-                </div>
-                <div class="span3"></div>
-                <div class="span1">
-                    <h5>{% trans %}gmbh.menu.ourregistry{% endtrans %}</h5>
-                    <ul>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'supportus'}) }}">{% trans %}gmbh.menu.supportus{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'registry'}) }}">{% trans %}gmbh.menu.company{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'icann'}) }}">{% trans %}gmbh.menu.icann{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'team'}) }}">{% trans %}gmbh.menu.team{% endtrans %}</a></li>
-                        <li class="accountance"><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'contact'}) }}">{% trans %}gmbh.menu.contact{% endtrans %}</a></li>
-                    </ul>
-                </div>
-                <div class="span3"></div>
-            </div>
-        </div>
-    </div>
+    {% endif %}
+{% endfor %}
+<div class="outer">
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+</div>
+<div class="outer-grey">
+    <footer class="page">
+        <article>
+            <header>
+                <h2>
+                    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.svg' %}
+                    <img class="logo" src="{{ asset_url }}" alt="{% trans %}gmbh.logo.alt{% endtrans %}">
+                    {% endimage %}
+                    <small>{% trans %}gmbh.footer.slogan{% endtrans %}</small>
+                </h2>
+            </header>
+            <section>
+                {% set tld = registry_content('Block', 'footer.tldHIV') %}
+                <p>
+                    {{ tld.title }}<br>
+                    {{ tld.text|markdown }}
+                </p>
+            </section>
+            <footer>
+            {% for page in registry_content('Collection', 'nav.footer').items %}
+                {% if loop.first %}
+                <nav>
+                {% endif %}
+                    <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': page.code|replace('.', '/')}) }}">{{ page.title }}</a>
+                {% if loop.last %}
+                </nav>
+                {% endif %}
+            {% endfor %}
+            </footer>
+        </article>
 
-    <div style="clear: both;"></div>
-    <div class="content">
-        {% block content %}
-        {% endblock content %}
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="span12 center footer-margin">
-                    <img class="hiv-42px" src="{{ asset("bundles/dothivregistrywebsite/images/hiv-logo.png") }}" alt="{% trans %}gmbh.logo.alt{% endtrans %}">
-                    <div class="container">
-                        <div class="row">
-                            <div class="span4">
-                                <p><strong>{% trans %}gmbh.footer.slogan{% endtrans %}</strong></p>
-                            </div>
-                            <div class="span4">
-                                <p>
-                                    {% trans %}gmbh.footer.name{% endtrans %}<br>
-                                    {% trans %}gmbh.footer.street{% endtrans %}<br>
-                                    {% trans %}gmbh.footer.city{% endtrans %}<br>
-                                    <a href="tel:{% trans %}gmbh.footer.phone{% endtrans %}">{% trans %}gmbh.footer.phone{% endtrans %}</a>
-                                </p>
-                            </div>
-                            <div class="span4">
-                                <ul>
-                                    <li><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'contact'}) }}">{% trans %}gmbh.footer.navi.contact{% endtrans %}</a></li>
-                                    <li><a href="{{ path('dothiv_registry_page', {'locale': locale, 'page':  'imprint'}) }}">{% trans %}gmbh.footer.navi.imprint{% endtrans %}</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </footer>
 </div>
 </body>
