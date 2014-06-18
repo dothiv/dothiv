@@ -19,7 +19,7 @@ angular.module('dotHIVApp.controllers').controller('PinkbarControllerCountdown',
             return "0" + v;
         }
 
-        function updateCountdown() {
+        function calculateCountdown() {
             var now;
             if (typeof config.now != 'undefined') {
                 now = new Date(config.now);
@@ -49,15 +49,18 @@ angular.module('dotHIVApp.controllers').controller('PinkbarControllerCountdown',
                 diffDays: diffDays,
                 diffTime: diffTime
             }
+        }
+
+        function updateCountdown() {
+            calculateCountdown();
             $scope.$apply();
         }
 
-        updateCountdown();
+        calculateCountdown();
         var updateInterval;
         window.setTimeout(function () {
             updateInterval = window.setInterval(updateCountdown, 1000);
-        }, 1000);
-
+        }, 1);
         $scope.$on('$destroy', function () {
             window.clearInterval(updateInterval);
         });

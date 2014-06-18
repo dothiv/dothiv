@@ -1,19 +1,5 @@
 {% extends "DothivCharityWebsiteBundle::page.html.twig" %}
-{% use "DothivBaseWebsiteBundle:Contentful:blocks.html.twig" %}
-
-{% block cf_contentBlock %}
-    {% if "quotes_list" in block.behaviour|default('block')  %}
-        {% include "DothivCharityWebsiteBundle:behaviour:quotes_list.html.twig" with {'block': block} %}
-    {% elseif "facebook_feed" in block.behaviour|default('block') %}
-        {% include "DothivCharityWebsiteBundle:behaviour:facebook_feed.html.twig" %}
-    {% elseif "twitter_stream" in block.behaviour|default('block') %}
-        {% include "DothivCharityWebsiteBundle:behaviour:twitter_stream.html.twig" %}
-    {% elseif "partners_list" in block.behaviour|default('block') %}
-        {% include "DothivCharityWebsiteBundle:behaviour:partners_list.html.twig" %}
-    {% else %}
-        {{ parent() }}
-    {% endif %}
-{% endblock cf_contentBlock %}
+{% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
 
 {% block content %}
     {% for block in page.blocks %}

@@ -51,6 +51,35 @@ class ContentfulTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @group   BaseWebsiteBundle
+     * @group   TwigExtension
+     * @depends itShouldBeInstantiable
+     */
+    public function itShouldFetchEntries()
+    {
+        $quote1 = new \stdClass();
+        $quote2 = new \stdClass();
+        $views  = array($quote1, $quote2);
+        $this->mockContent->expects($this->once())->method('buildEntries')
+            ->with('Quote', 'de')
+            ->will($this->returnValue($views));
+
+        $ext    = $this->getTestObject();
+        $called = false;
+        foreach ($ext->getFunctions() as $func) {
+            /** @var \Twig_SimpleFunction $func */
+            $this->assertInstanceOf('\Twig_SimpleFunction', $func);
+            if ($func->getName() == 'content') {
+                $quotes = call_user_func($func->getCallable(), array('locale' => 'de'), 'Quote');
+                $this->assertSame($views, $quotes);
+                $called = true;
+            }
+        }
+        $this->assertTrue($called, 'Filter "content" was not executed.');
+    }
+
+    /**
+     * @test
      * @group        BaseWebsiteBundle
      * @group        TwigExtension
      * @depends      itShouldBeInstantiable

@@ -1,0 +1,23 @@
+{% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
+
+
+<div class="experts span12">
+    {% set width = 12 %}
+    {{ block('cf_titleBlock') }}
+    {{ block('cf_textContentBlock') }}
+    {% for child in block.children %}
+        <div class="row-fluid">
+            <div class="span2">
+                {% set image_asset = child.image %}
+                {% set thumbnail_size = "supporter" %}
+                {{ block('cf_imageBlock') }}
+            </div>
+            <div class="span6">
+                <strong>{{ child.title|default("") }}</strong>
+            </div>
+            <div class="span4">
+                {{ child.text|default("")|markdown }}
+            </div>
+        </div>
+    {% endfor %}
+</div>

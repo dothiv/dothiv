@@ -84,11 +84,15 @@ class ImageScaler implements LoggerAwareInterface
                         ->save($scaled->getPathname());
                 } else {
                     $origSize = $img->getSize();
-                    if ($origSize->getWidth() > $origSize->getHeight()) {
-                        $scaledSize = $origSize->scale($newSize->getWidth() / $origSize->getWidth());
-                    } else {
-                        $scaledSize = $origSize->scale($newSize->getHeight() / $origSize->getHeight());
+                    $factor   = min(
+                        $newSize->getWidth() / $origSize->getWidth(),
+                        $newSize->getHeight() / $origSize->getHeight()
+                    );
+                    if (!$size->getExact()) {
+                        // Do not upscale.
+                        $factor = min(1, $factor);
                     }
+                    $scaledSize = $origSize->scale($factor);
                     $img->resize($scaledSize);
                     if ($size->getExact()) {
                         // Force image size

@@ -55,6 +55,7 @@ class ViewBuilder
         $fields['cfMeta']['url']         = $entry->getContentfulUrl();
         $fields['cfMeta']['contentType'] = $this->contentAdapter->getContentTypeById($spaceId, $entry->getContentTypeId())->getName();
         $fields['cfMeta']['itemName']    = $entry->getName();
+        $fields['cfMeta']['itemId']      = $entry->getId();
         $fields['cfMeta']['createdAt']   = $entry->getCreatedAt();
         $fields['cfMeta']['updatedAt']   = $entry->getUpdatedAt();
         $view                            = $this->createView($fields, $spaceId, $locale);

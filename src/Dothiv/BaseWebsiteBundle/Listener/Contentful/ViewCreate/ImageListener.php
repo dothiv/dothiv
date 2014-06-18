@@ -26,6 +26,7 @@ class ImageListener
     public function onViewCreate(ContentfulViewEvent $event)
     {
         $view = $event->getView();
+        // TODO: make this work for other content types, too.
         if ($view->cfMeta['contentType'] != 'Block') return;
         if (!property_exists($view, 'image')) return;
         $view->image->file['thumbnails'] = array();

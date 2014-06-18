@@ -1,7 +1,18 @@
+{% trans_default_domain "charity" %}
 {# This block renders a contenful block #}
 {% block cf_block %}
-    {% set thumbnail_size = thumbnail_size|default(block|behaviour('thumbnails')) %}
-    {{ block('cf_contentBlock') }}
+    {% if "quotes_list" in block.behaviour|default('block')  %}
+        {% include "DothivCharityWebsiteBundle:behaviour:quotes_list.html.twig" with {'block': block} %}
+    {% elseif "experts_list" in block.behaviour|default('block')  %}
+        {% include "DothivCharityWebsiteBundle:behaviour:experts_list.html.twig" with {'block': block} %}
+    {% elseif "facebook_feed" in block.behaviour|default('block') %}
+        {% include "DothivCharityWebsiteBundle:behaviour:facebook_feed.html.twig" %}
+    {% elseif "twitter_stream" in block.behaviour|default('block') %}
+        {% include "DothivCharityWebsiteBundle:behaviour:twitter_stream.html.twig" %}
+    {% else %}
+        {% set thumbnail_size = thumbnail_size|default(block|behaviour('thumbnails')) %}
+        {{ block('cf_contentBlock') }}
+    {% endif %}
 {% endblock cf_block %}
 
 {% block cf_titleBlock %}
@@ -32,10 +43,11 @@
 {% block cf_contentBlock %}
 {% set nchild = nchild|default(1) %}
 {% set width = width|default(12) %}
+{% set textclass = block|behaviour('text') %}
 <div
     id="{{ block.code|default(block.cfMeta.itemId)|slugify }}"
     data-cf-url="{{ block.cfMeta.url }}"
-    class="cf-{{ block.cfMeta.contentType }} cf-block-{{ nblock }} span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }}"
+    class="cf-{{ block.cfMeta.contentType }} cf-block-{{ nblock }} span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }} {% if textclass %}cf-text-{{ textclass }}{% endif %}"
     ng-controller="BlockController"
     >
     {% set behaviour = block.behaviour|default('block') %}
@@ -48,6 +60,7 @@
             <div class="span3">
             {% endif %}
                 {% set image_asset = block.image %}
+                {% set image_link = block.imageLink|default(false) %}
                 {{ block('cf_imageBlock') }}
             </div>
             {% if "nooffset" in behaviour %}
@@ -70,6 +83,7 @@
             <div class="span3 offset1">
             {% endif %}
                 {% set image_asset = block.image %}
+                {% set image_link = block.imageLink|default(false) %}
                 {{ block('cf_imageBlock') }}
             </div>
         </div>
@@ -77,11 +91,13 @@
             {{ block('cf_titleBlock') }}
             {% if block.image.file is defined and "image_top" in behaviour %}
                 {% set image_asset = block.image %}
+                {% set image_link = block.imageLink|default(false) %}
                 {{ block('cf_imageBlock') }}
             {% endif %}
             {{ block('cf_textContentBlock') }}
             {% if block.image.file is defined and "image_top" not in behaviour %}
                 {% set image_asset = block.image %}
+                {% set image_link = block.imageLink|default(false) %}
                 {{ block('cf_imageBlock') }}
             {% endif %}
             {% if block.video is defined %}
@@ -103,7 +119,8 @@
                 {% for child in block.children %}
                     {% set width = 12 / loop.length %}
                     {% set nchild = loop.index %}
-                    {{ block('cf_block_child') }}
+                    {% set block = child %}
+                    {{ block('cf_block') }}
                 {% endfor %}
             </div>
         {% elseif "supporter_list" in block.behaviour|default('block') %}
@@ -118,6 +135,7 @@
                                 {% if child.image is defined %}
                                     {% set image_asset = child.image %}
                                     {% set thumbnail_size = 'supporter' %}
+                                    {% set image_link = child.imageLink|default(false) %}
                                     {{ block('cf_imageBlock') }}
                                 {% endif %}
                             </div>
@@ -141,7 +159,8 @@
             {% for child in block.children %}
                 <div class="row-fluid">
                     {% set nchild = loop.index %}
-                    {{ block('cf_block_child') }}
+                    {% set block = child %}
+                    {{ block('cf_block') }}
                 </div>
             {% endfor %}
         {% endif %}
@@ -151,30 +170,16 @@
 {% block cf_imageBlock %}
     {% set src = image_asset.file.url %}
     {% set class = "cfblock-image" %}
-    {% if thumbnail_size %}
-        {% set src = image_asset.file.thumbnails[thumbnail_size] %}
-        {% set class = class ~ " cfblock-thumbnail-" ~ thumbnail_size %}
-    {% endif %}
+    {% set src = image_asset.file.thumbnails[thumbnail_size|default('small')] %}
+    {% set class = class ~ " cfblock-thumbnail-" ~ thumbnail_size|default('small') %}
+    {% if image_link|default(false) %}<a href="{{ image_link }}">{% endif %}
     <img src="{{ src }}" alt="{{ image_asset.title }}" title="{{ image_asset.description|default(image_asset.title) }}" class="{{ class }}">
+    {% if image_link|default(false) %}</a>{% endif %}
 {% endblock cf_imageBlock %}
 
 {% block cf_videoBlock %}
     <iframe width="569" height="320" src="{{ block.video.embed_url }}" frameborder="0" allowfullscreen class="cfblock-video"></iframe>
 {% endblock cf_videoBlock %}
-
-{% block cf_block_child %}
-    {% if "enumerate_children" in block.behaviour|default('block') %}
-        <div class="span2 cf-level-{{ level }} cf-child-{{ nchild }}">
-            <div class="cf-child-enumeration">{{ nchild }}</div>
-        </div>
-        {% set width = width - 2 %}
-        {% set block = child %}
-        {{ block('cf_block') }}
-    {% else %}
-        {% set block = child %}
-        {{ block('cf_block') }}
-    {% endif %}
-{% endblock cf_block_child %}
 
 {% block cf_downloadsBlock %}
     {% for download in block.downloads %}

@@ -1,70 +1,86 @@
 // text and image behavior inside span-elements
 // --------------------------------
-.upper { position: relative; height: 128px; }
-.lower { clear: both; }
+.upper {
+  position: relative;
+  height: 128px;
+}
+
+.lower {
+  clear: both;
+}
+
 .oneup {
-    z-index: 1;
-    position: absolute;
-    float: left;
-    bottom: 0px;
+  z-index: 1;
+  position: absolute;
+  float: left;
+  bottom: 0px;
 }
 
 .whosbehind {
-    .row.bottom-hack {
-        margin-bottom: 30px;
-    }
-    .span6 {
-        position: relative;
-        top: -10px;
-        min-height: 270px;
-    }
+  .row.bottom-hack {
+    margin-bottom: 30px;
+  }
+  .span6 {
+    position: relative;
+    top: -10px;
+    min-height: 270px;
+  }
 
-    img {
-        left: 57px;
-    }
+  img {
+    left: 57px;
+  }
 }
 
 .voteproject {
-    & .span12 { margin-left: 0px; }
-    & > .row { margin: 52px 0 13px; }
+  & .span12 {
+    margin-left: 0px;
+  }
+  & > .row {
+    margin: 52px 0 13px;
+  }
 
-    & .row-fluid {
-        position: absolute;
-        bottom: 0px;
-    }
+  & .row-fluid {
+    position: absolute;
+    bottom: 0px;
+  }
 
-    & * .span4 {
-        height: 464px;
-        position: relative;
-    }
+  & * .span4 {
+    height: 464px;
+    position: relative;
+  }
 
-    & * img { margin-bottom: 12px; }
-    & * .separator4 {
-        margin-top: 14px;
-        margin-bottom: 15px;
-    }
+  & * img {
+    margin-bottom: 12px;
+  }
+  & * .separator4 {
+    margin-top: 14px;
+    margin-bottom: 15px;
+  }
 
-    .projects-container {
-        margin-bottom: 38px;
-        a, a:visited {
-          &:extend(a.external);
-        }
-        a:hover, a.active {
-          &:extend(a.external:hover);
-        }
-        p {
-          &:extend(.headingLight);
-        }
-        img {
-            padding-bottom: 10px;
-            border-bottom: 2px solid @colordark;
-            margin-bottom: 0px;
-        }
+  .projects-container {
+    margin-bottom: 38px;
+    a, a:visited {
+      &:extend(a.external)
+    ;
     }
+    a:hover, a.active {
+      &:extend(a.external:hover)
+    ;
+    }
+    p {
+      &:extend(.headingLight)
+    ;
+    }
+    img {
+      padding-bottom: 10px;
+      border-bottom: 2px solid @colordark;
+      margin-bottom: 0px;
+    }
+  }
 
-    & .btn {
-        height: 46px;
-    }
+  & .btn {
+    height: 46px;
+  }
 }
 
 .quotes {
@@ -88,9 +104,14 @@
   }
 
   article {
-    &:extend(.headingRegular);
+    &:extend(.headingRegular)
+  ;
     blockquote {
       .clearfix();
+      min-height: 150px;
+      &.photo {
+        min-height: 300px;
+      }
       margin-bottom: 0;
       img {
         margin: 0 0 20px 0;
@@ -119,9 +140,21 @@
     margin: 39px 0 39px 0;
     padding-left: 15px;
     blockquote {
-      &:extend(article.content blockquote);
+      &:extend(article.content blockquote)
+    ;
+      min-height: 200px;
       p {
         font-size: 28px;
+      }
+      &.medium {
+        p {
+          font-size: 22px;
+        }
+      }
+      &.long {
+        p {
+          font-size: 18px;
+        }
       }
       img {
         float: right;
@@ -130,32 +163,109 @@
       }
     }
   }
+  h3 {
+    margin-top: 40px;
+  }
+  nav {
+    float: right;
+    margin-top: 40px;
+  }
+  div.quotes-more {
+    background: transparent url(/bundles/dothivcharitywebsite/images/quote-bubbles.png) 0 0 no-repeat;
+    width: 115px;
+    height: 75px;
+    position: relative;
+    float: left;
+    a {
+      &:extend(a.external)
+    ;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+    display: inline-block;
+    margin-left: 20px;
+  }
 }
 
 .partners {
-    .row {
-        margin-top: 40px;
-        margin-bottom: 0px;
+  position: relative;
+  .row, .row-fluid {
+    margin-top: 40px;
+    margin-bottom: 0px;
+  }
+  .row-fluid {
+    .cf-Block {
+      text-align: center;
     }
-    .couple {
-        position: relative;
+  }
+  .couple {
+    width: 89px;
+    height: 101px;
+    background: transparent url(/bundles/dothivcharitywebsite/images/partners.png) 0 0 no-repeat;
+    position: absolute;
+    bottom: -130px;
+    right: 0;
+  }
+}
 
-        img {
-            position: absolute;
-            bottom: -130px;
-            right: 0px;
-        }
-    }
+.experts {
+  .row-fluid {
+    margin-bottom: 20px;
+  }
 }
 
 nav.block {
   border-top: 3px solid @darkpink;
   a {
     display: block;
-    &:extend(.headingLight);
+    &:extend(.headingLight)
+  ;
     font-size: 30px;
     line-height: 2em;
     color: @colordark;
     border-bottom: 1px solid @colordark;
+  }
+}
+
+#about-getactive-howto {
+  background: transparent url(/bundles/dothivcharitywebsite/images/spread_numbers-560.png) 0 200px no-repeat;
+  position: relative;
+  height: 2500px;
+  h3 {
+    &:extend(.headingLight)
+  ;
+    &:extend(article.content section h2)
+  ;
+  }
+
+  #about-getactive-howto-clickvoteshare {
+    position: absolute;
+    top: 220px;
+    left: 80px;
+    width: 400px;
+    iframe {
+      width: 400px;
+      height: 400px * (320/569);
+    }
+  }
+
+  #about-getactive-howto-member {
+    position: absolute;
+    top: 820px;
+    left: 250px;
+    width: 300px;
+  }
+  #about-getactive-howto-campuscaptain {
+    position: absolute;
+    top: 1380px;
+    left: 95px;
+    width: 400px;
+  }
+  #about-getactive-howto-tech {
+    position: absolute;
+    top: 1960px;
+    left: 100px;
+    width: 300px;
   }
 }
