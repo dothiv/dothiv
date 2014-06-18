@@ -148,7 +148,7 @@ class RequestLastModifiedCache
             $lastModified = $this->cache->fetch($key);
             if ($lastModified >= $entry->getUpdatedAt()->format('r')) {
                 Option::fromValue($this->logger)->map(function (LoggerInterface $logger) use ($lastModified, $uri) {
-                    $logger->debug(sprintf('[Dothiv:RequestLastModifiedCache] "%s" was last modified at "%s" to "%s". Entry is older.', $uri, $lastModified));
+                    $logger->debug(sprintf('[Dothiv:RequestLastModifiedCache] "%s" was last modified at "%s". Entry is older.', $uri, $lastModified));
                 });
                 continue;
             }
