@@ -18,15 +18,16 @@ form {
     ;
     }
   }
-  input {
-    .ng-valid {
-    }
-    .ng-invalid {
-      border-color: @brand-danger;
-    }
-    .ng-pristine {
-    }
-    .ng-dirty {
-    }
+}
+.form-control {
+  &.ng-valid {
+    border-color: @brand-success;
+  }
+  &.ng-invalid {
+    border-color: @brand-danger;
+  }
+  &.ng-pristine {
+  }
+  &.ng-dirty {
   }
 }
