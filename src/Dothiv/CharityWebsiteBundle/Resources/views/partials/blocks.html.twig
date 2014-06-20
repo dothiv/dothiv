@@ -114,6 +114,7 @@
 {% block cf_childrenBlock %}
     {% if block.children is defined %}
         {% set level = level + 1 %}
+        {# Idea: generate block name from behaviour tag, call block -> could break page #}
         {% if "column_children" in block.behaviour|default('block') %}
             <div class="row-fluid cf-columns">
                 {% for child in block.children %}
@@ -124,59 +125,7 @@
                 {% endfor %}
             </div>
         {% elseif "supporter_list" in block.behaviour|default('block') %}
-            {# This should be moved to the charity bundle. #}
-            {# Idea: generate block name from behaviour tag, call block -> could break page #}
-            {# Supporter without text #}
-            {% set nitem = 1 %}
-            {% for child in block.children %}
-                {% if loop.first %}
-                    <div class="row-fluid cf-supporter">
-                {% endif %}
-                    {% if child.text is not defined %}
-                        <div class="span2">
-                            <div class="logo">
-                                {% if child.image is defined %}
-                                    {% set image_asset = child.image %}
-                                    {% set thumbnail_size = 'supporter' %}
-                                    {% set image_link = child.imageLink|default(false) %}
-                                    {{ block('cf_imageBlock') }}
-                                {% endif %}
-                            </div>
-                            <p>
-                                {{ child.title|default("") }}
-                            </p>
-                        </div>
-                        {% set nitem = nitem + 1 %}
-                    {% endif %}
-                {% if nitem % 6 == 0 %}
-                    </div>
-                    <div class="row-fluid cf-supporter">
-                {% endif %}
-                {% if loop.last %}
-                    </div>
-                {% endif %}
-            {% endfor %}
-            {# Supporter with text #}
-            {% for child in block.children %}
-                {% if child.text is defined %}
-                    <div class="row-fluid cf-supporter-text">
-                        <div class="span2 logo">
-                                {% if child.image is defined %}
-                                    {% set image_asset = child.image %}
-                                    {% set thumbnail_size = 'supporter' %}
-                                    {% set image_link = child.imageLink|default(false) %}
-                                    {{ block('cf_imageBlock') }}
-                                {% endif %}
-                        </div>
-                        <div class="span10 text">
-                            <p>
-                                {{ child.title|default("") }}
-                            </p>
-                            {{ child.text|markdown }}
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
+            {% include "DothivCharityWebsiteBundle:behaviour:supporter_list.html.twig" with {'block': block} %}
         {% else %}
             {% set width = 12 %}
             {% for child in block.children %}
