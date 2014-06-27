@@ -1,7 +1,8 @@
 parameters:
     dothiv_contentful.sync.content_type_listener.class: Dothiv\ContentfulBundle\Listener\SyncContentType
     dothiv_contentful.delete.content_type_listener.class: Dothiv\ContentfulBundle\Listener\DeleteContentType
-    dothiv_contentful.sync.entry_listener.class: Dothiv\ContentfulBundle\Listener\SyncEntry
+    dothiv_contentful.sync.entry_sync_listener.class: Dothiv\ContentfulBundle\Listener\SyncEntry
+    dothiv_contentful.sync.entry_delete_listener.class: Dothiv\ContentfulBundle\Listener\DeleteEntry
     dothiv_contentful.sync.asset_listener.class: Dothiv\ContentfulBundle\Listener\SyncAsset
 
 services:
@@ -22,13 +23,19 @@ services:
             tags:
                 - { name: kernel.event_listener, event: contentful.contenttype.delete, method: onContentTypeDelete }
 
-
-    dothiv_contentful.sync.entry_listener:
-            class: %dothiv_contentful.sync.entry_listener.class%
+    dothiv_contentful.sync.entry_sync_listener:
+            class: %dothiv_contentful.sync.entry_sync_listener.class%
             arguments:
                 - @dothiv_contentful.repo.entry
             tags:
                 - { name: kernel.event_listener, event: contentful.entry.sync, method: onEntrySync }
+
+    dothiv_contentful.sync.entry_delete_listener:
+            class: %dothiv_contentful.sync.entry_delete_listener.class%
+            arguments:
+                - @dothiv_contentful.repo.entry
+            tags:
+                - { name: kernel.event_listener, event: contentful.entry.delete, method: onEntryDelete }
 
     dothiv_contentful.sync.asset_listener:
             class: %dothiv_contentful.sync.asset_listener.class%
