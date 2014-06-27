@@ -11,7 +11,10 @@
                             <ul>
                         {% endif %}
                         <li>
-                            <a href="{{ path('dothiv_charity_page', {'locale': locale, 'page': item.code|replace('.', '/') }) }}">{{ item.title }}</a>
+                            {% set page_path = path('dothiv_charity_page', {'locale': locale, 'page': item.code|replace('.', '/') }) %}
+                            <a href="{{ page_path }}"
+                               {% if app.request.getPathInfo == page_path %}class="active"{% endif %}
+                                >{{ item.title }}</a>
                             {% for block in item.blocks %}
                                 {% if loop.first %}
                                     <ul>
