@@ -11,7 +11,11 @@
     <div class="container" id="about">
         <div class="row">
             <div class="offset6 span6">
-                <h2>{% trans %}home.who.headline{% endtrans %}</h2>
+                <h2>
+                    <a href="{{ path('dothiv_charity_about_index', {'locale': locale}) }}">
+                        {% trans %}home.who.headline{% endtrans %}
+                    </a>
+                </h2>
 
                 <p>
                     {% trans %}home.who.text{% endtrans %}
