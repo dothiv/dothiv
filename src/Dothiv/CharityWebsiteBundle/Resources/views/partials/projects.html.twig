@@ -8,17 +8,29 @@
                 <h3 class="pull-left">{% trans %}home.vote.headline{% endtrans %}</h3>
                 {% if features.projects %}
                     <a class="next2h3 pull-left" href="{{ path('dothiv_charity_projects', {'locale': locale}) }}">
-                        <div class="heading-arrow"></div>
+                        <div class="heading-arrow-pink"></div>
                         {% trans %}home.vote.allprojects{% endtrans %}
+                    </a>
+                {% else %}
+                    <a class="next2h3 pull-left" href="{{ path('dothiv_charity_page', {'page': 'about/dotHIV', 'locale': locale}) }}#about-abouthiv-moneyusage">
+                        <div class="heading-arrow-pink"></div>
+                        {% trans %}home.money.more{% endtrans %}
                     </a>
                 {% endif %}
             </div>
             {% if projects|length > 2 %}
             <div class="span12">
                 {% block wherethemoneygoes %}
-                    {% image '@DothivCharityWebsiteBundle/Resources/public/images/where_the_money_goes_960.jpg' %}
-                    <img src="{{ asset_url }}" alt="" >
-                    {% endimage %}
+                    {% if locale == "de" %}
+                        {% image '@DothivCharityWebsiteBundle/Resources/public/images/where_the_money_goes_960_w-de.jpg' %}
+                        <img src="{{ asset_url }}" alt="" >
+                        {% endimage %}
+                    {% else %}
+                        {% image '@DothivCharityWebsiteBundle/Resources/public/images/where_the_money_goes_960_w.jpg' %}
+                        <img src="{{ asset_url }}" alt="" >
+                        {% endimage %}
+                    {% endif %}
+
                     {{ 'home.vote.header'|trans|markdown }}
                 {% endblock wherethemoneygoes %}
             </div>
