@@ -52,7 +52,6 @@
     >
     {% set behaviour = block.behaviour|default('block') %}
     {% if block.image.file is defined and "image_left" in behaviour %}
-        {{ block('cf_titleBlock') }}
         <div class="row-fluid">
             {% if "nooffset" in behaviour %}
             <div class="span4">
@@ -68,13 +67,14 @@
             {% else %}
                 <div class="span8 offset1">
             {% endif %}
+                {{ block('cf_titleBlock') }}
                 {{ block('cf_textContentBlock') }}
             </div>
         </div>
     {% elseif block.image.file is defined and "image_right" in behaviour %}
-        {{ block('cf_titleBlock') }}
         <div class="row-fluid">
             <div class="span8">
+                {{ block('cf_titleBlock') }}
                 {{ block('cf_textContentBlock') }}
             </div>
             {% if "nooffset" in behaviour %}
@@ -88,12 +88,12 @@
             </div>
         </div>
     {% else %}
-            {{ block('cf_titleBlock') }}
             {% if block.image.file is defined and "image_top" in behaviour %}
                 {% set image_asset = block.image %}
                 {% set image_link = block.imageLink|default(false) %}
                 {{ block('cf_imageBlock') }}
             {% endif %}
+            {{ block('cf_titleBlock') }}
             {{ block('cf_textContentBlock') }}
             {% if block.image.file is defined and "image_top" not in behaviour %}
                 {% set image_asset = block.image %}
