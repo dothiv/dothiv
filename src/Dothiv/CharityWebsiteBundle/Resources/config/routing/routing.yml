@@ -27,7 +27,7 @@ dothiv_content_api:
     defaults:
         _controller: dothiv.charity.web.controller.page:contentAction
     requirements:
-        locale:  en|de|ky
+        locale:  en|de
         type: Quote
 
 dothiv_charity_about_index:
