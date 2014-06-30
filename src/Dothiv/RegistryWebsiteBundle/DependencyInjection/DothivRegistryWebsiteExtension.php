@@ -18,5 +18,6 @@ class DothivRegistryWebsiteExtension extends Extension
         $loader->load('services.yml');
         $loader->load('controllers.yml');
         $loader->load('twig_extensions.yml');
+        $loader->load('listeners.yml');
     }
 }
