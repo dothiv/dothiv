@@ -45,7 +45,10 @@
 
 {% block cf_block %}
     {% set level = level|default(2) %}
-    <section class="cf-level-{{ level }}">
+    <section
+        id="{{ block.code|default(block.cfMeta.itemId)|slugify }}"
+        data-cf-url="{{ block.cfMeta.url }}"
+        class="cf-level-{{ level }}">
         <div class="block">
             {{ block('cf_block_textcontent') }}
             {{ block('cf_block_downloads') }}
