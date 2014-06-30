@@ -1,8 +1,14 @@
 parameters:
     dothiv.websitebase.twig.extension.date.class: Dothiv\BaseWebsiteBundle\Twig\Extension\DateTwigExtension
+    dothiv.websitebase.twig.extension.shuffle.class: Dothiv\BaseWebsiteBundle\Twig\Extension\ShuffleTwigExtension
 
 services:
     dothiv.websitebase.twig.extension.date:
         class: %dothiv.websitebase.twig.extension.date.class%
+        tags:
+         - { name: twig.extension }
+
+    dothiv.websitebase.twig.extension.shuffle:
+        class: %dothiv.websitebase.twig.extension.shuffle.class%
         tags:
          - { name: twig.extension }
