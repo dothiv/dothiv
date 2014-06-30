@@ -134,5 +134,15 @@
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+<script type="text/javascript">
+    'use strict';
+    angular.module('dotHIVApp.services').factory('config', function() {
+        var config = {
+            locale: '{{ locale }}'
+        };
+        return config;
+    });
+</script>
+
 </body>
 </html>
