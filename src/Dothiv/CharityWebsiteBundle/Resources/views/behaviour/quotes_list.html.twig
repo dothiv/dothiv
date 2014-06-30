@@ -8,31 +8,23 @@
         {{ block('cf_contentBlock') }}
     </div>
     {% for q in quotes %}
-        {% if loop.first %}
-            <div class="row-fluid quote-container">
-        {% endif %}
-        {% if loop.index0 % 2 == 0 %}
+        <div class="row-fluid quote-container">
+            <div class="span12">
+                <article>
+                    <blockquote class="{% if q.photo is defined %}photo{% endif %} {% if q.quote|length > 100 and q.quote|length < 200 %}medium{% endif %} {% if q.quote|length >= 200 %}long{% endif %}">
+                        {% if q.photo is defined %}
+                            <img src="{{ q.photo.file.url }}">
+                        {% endif %}
+
+                        <div ng-class="{medium: q.quote.length > 100 && q.quote.length < 200, long: q.quote.length >= 200}">{{ q.quote|markdown }}</div>
+                    </blockquote>
+                    <footer>
+                        <cite>{{ q.person }}</cite>
+
+                        <p>{{ q.description|markdown }}</p>
+                    </footer>
+                </article>
             </div>
-            <div class="row-fluid quote-container">
-        {% endif %}
-        <div class="span6">
-            <article>
-                <blockquote class="{% if q.photo is defined %}photo{% endif %}">
-                    {% if q.photo is defined %}
-                    <img src="{{ q.photo.file.url }}">
-                    {% endif %}
-
-                    <div ng-class="{medium: q.quote.length > 100 && q.quote.length < 200, long: q.quote.length >= 200}">{{ q.quote|markdown }}</div>
-                </blockquote>
-                <footer>
-                    <cite>{{ q.person }}</cite>
-
-                    <p>{{ q.description|markdown }}</p>
-                </footer>
-            </article>
         </div>
-        {% if loop.last %}
-            </div>
-        {% endif %}
     {% endfor %}
 </div>
