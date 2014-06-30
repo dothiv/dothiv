@@ -59,9 +59,9 @@
 {% endblock %}
 
 {% block content %}
-    <article class="content">
-        {% for block in page.blocks|default([]) %}
-            {{ block('cf_block') }}
-        {% endfor %}
-    </article>
+    {% for block in page.blocks|default([]) %}
+        <article class="content">
+        {{ block('cf_block') }}
+        </article>
+    {% endfor %}
 {% endblock %}
