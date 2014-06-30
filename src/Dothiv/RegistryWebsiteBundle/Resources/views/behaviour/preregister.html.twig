@@ -1,6 +1,6 @@
 {% trans_default_domain "registry" %}
-<div ng-controller="PreregisterFormController" ng-cloak>
-    <form role="form" name="PreregisterForm" ng-show="formstate == 'form'" novalidate>
+<div data-ng-controller="PreregisterFormController" data-ng-cloak>
+    <form role="form" name="PreregisterForm" data-ng-show="formstate == 'form'" novalidate>
         <fieldset>
             <legend>{% trans %}form.preregister.legend.hivdomain{% endtrans %}</legend>
             <div class="form-group">
@@ -9,14 +9,14 @@
                     <small>{% trans %}form.preregister.input.hivdomain.intro{% endtrans %}</small>
                 </label>
                 <input type="text" pattern=".{3,}\.hiv$" class="form-control" id="preregisterHivDomain" required
-                       value=".hiv" name="HivDomain" ng-model="registration.hivDomain">
+                       value=".hiv" name="HivDomain" data-ng-model="registration.hivDomain">
             </div>
             <div class="form-group">
                 <label for="preregisterOrgDomain">
                     {% trans %}form.preregister.input.orgdomain.label{% endtrans %} *<br>
                     <small>{% trans %}form.preregister.input.orgdomain.intro{% endtrans %}</small>
                 </label>
-                <input type="text" pattern=".+\..{2,}$" class="form-control" id="preregisterOrgDomain" name="OrgDomain" required ng-model="registration.orgDomain">
+                <input type="text" pattern=".+\..{2,}$" class="form-control" id="preregisterOrgDomain" name="OrgDomain" required data-ng-model="registration.orgDomain">
             </div>
         </fieldset>
         <fieldset>
@@ -27,14 +27,14 @@
                 <div class="radio">
                     <label>
                         <input type="radio" name="Type" id="preregisterType1" value="company"
-                               ng-model="registration.Type">
+                               data-ng-model="registration.Type">
                         {% trans %}form.preregister.input.type.option.company{% endtrans %}
                     </label>
                 </div>
                 <div class="radio">
                     <label>
                         <input type="radio" name="Type" id="preregisterType2" value="nonprofit"
-                               ng-model="registration.Type">
+                               data-ng-model="registration.Type">
                         {% trans %}form.preregister.input.type.option.nonprofit{% endtrans %}<br>
                         <small>{% trans %}form.preregister.input.type.option.info{% endtrans %}</small>
                     </label>
@@ -42,14 +42,14 @@
                 <div class="radio">
                     <label>
                         <input type="radio" name="Type" id="preregisterType3" value="private"
-                               ng-model="registration.Type">
+                               data-ng-model="registration.Type">
                         {% trans %}form.preregister.input.type.option.private{% endtrans %}
                     </label>
                 </div>
             </div>
-            <div class="form-group" ng-show="registration.Type == 'company' || registration.Type == 'nonprofit'">
+            <div class="form-group" data-ng-show="registration.Type == 'company' || registration.Type == 'nonprofit'">
                 <label for="preregisterOrg">{% trans %}form.preregister.input.org.label{% endtrans %} *</label>
-                <input type="text" class="form-control" id="preregisterOrg" name="Org" ng-model="registration.Org">
+                <input type="text" class="form-control" id="preregisterOrg" name="Org" data-ng-model="registration.Org">
             </div>
         </fieldset>
         <fieldset>
@@ -59,22 +59,22 @@
                     {% trans %}form.preregister.input.email.label{% endtrans %} *<br>
                     <small>{% trans %}form.preregister.input.email.intro{% endtrans %}</small>
                 </label>
-                <input type="email" class="form-control" id="preregisterEmail" name="Email" required ng-model="registration.Email">
+                <input type="email" class="form-control" id="preregisterEmail" name="Email" required data-ng-model="registration.Email">
             </div>
             <div class="form-group">
                 <label for="preregisterName">{% trans %}form.preregister.input.name.label{% endtrans %} *</label>
-                <input type="text" class="form-control" id="preregisterName" name="Name" ng-model="registration.Name">
+                <input type="text" class="form-control" id="preregisterName" name="Name" data-ng-model="registration.Name">
             </div>
             <div class="form-group">
                 <label for="preregisterCountry">{% trans %}form.preregister.input.country.label{% endtrans %} *</label>
-                <input type="text" class="form-control" id="preregisterCountry" name="Country" required ng-model="registration.Country">
+                <input type="text" class="form-control" id="preregisterCountry" name="Country" required data-ng-model="registration.Country">
             </div>
         </fieldset>
         <fieldset>
             <legend>{% trans %}form.preregister.legend.misc{% endtrans %}</legend>
             <div class="form-group">
                 <label for="preregisterWhere">{% trans %}form.preregister.input.where{% endtrans %}</label>
-                <textarea class="form-control" id="preregisterWhere" name="Where" rows="3" ng-model="registration.Where"></textarea>
+                <textarea class="form-control" id="preregisterWhere" name="Where" rows="3" data-ng-model="registration.Where"></textarea>
             </div>
         </fieldset>
         <footer>
@@ -82,23 +82,23 @@
                 <p>
                     <small>* {% trans %}form.preregister.required.field{% endtrans %}</small>
                 </p>
-                <button class="btn btn-primary" ng-click="submit()" ng-disabled="PreregisterForm.$invalid">{% trans %}
+                <button class="btn btn-primary" data-ng-click="submit()" data-ng-disabled="PreregisterForm.$invalid">{% trans %}
                     form.preregister.submit
                     {% endtrans %}</button>
             </fieldset>
         </footer>
     </form>
-    <div ng-show="formstate == 'sending'">
+    <div data-ng-show="formstate == 'sending'">
         <div class="progress progress-striped active">
             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
             </div>
         </div>
         <p class="text-center"><strong>{% trans %}form.preregister.submitting{% endtrans %}</strong></p>
     </div>
-    <div ng-show="formstate == 'success'">
+    <div data-ng-show="formstate == 'success'">
         <p class="text-center"><strong>{% trans %}form.preregister.success{% endtrans %}</strong></p>
     </div>
-    <div ng-show="formstate == 'error'">
+    <div data-ng-show="formstate == 'error'">
         <p class="text-center"><strong>{% trans %}form.preregister.error{% endtrans %}</strong></p>
     </div>
 </div>
