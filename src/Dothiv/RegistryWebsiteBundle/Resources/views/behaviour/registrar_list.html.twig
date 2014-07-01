@@ -2,7 +2,7 @@
 <div class="registrar-list-module" data-ng-controller="RegistrarsListController" data-ng-cloak>
     <div data-ng-repeat="r in registrars">
         <a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}">
-            <img data-ng-src="{% verbatim %}{{ r.image.file.thumbnails.supporter }}{% endverbatim %}" data-ng-show="r.image">
+            <img alt="{% verbatim %}{{ r.name }}{% endverbatim %}" data-ng-src="{% verbatim %}{{ r.image.file.thumbnails.supporter }}{% endverbatim %}" data-ng-show="r.image">
             <span data-ng-bind="r.name"></span>
         </a>
     </div>
