@@ -49,7 +49,11 @@ class RequestLastModifiedCache
      */
     public function onViewCreate(ContentfulViewEvent $e)
     {
-        $viewMeta                           = $e->getView()->cfMeta;
+
+        $viewMeta = $e->getView()->cfMeta;
+        if ($viewMeta['contentType'] == 'String') {
+            return;
+        }
         $updated                            = $viewMeta['updatedAt'];
         $this->itemIds[$viewMeta['itemId']] = true;
         if ($this->lastModifiedContent === null) {

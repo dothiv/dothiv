@@ -77,10 +77,6 @@ class PageController
             $data['nav'] = $this->content->buildEntry('Collection', $navigation, $locale);
         }
 
-        // Store last modified.
-        $response->setLastModified($lmc->getLastModifiedContent());
-        $this->getLastModifiedCache()->setLastModified($request, $lmc->getLastModifiedContent());
-
         // Render page.
         $bundle   = $this->bundle;
         $template = Option::fromValue($template)->getOrCall(function () use ($bundle, $page) {
@@ -88,7 +84,13 @@ class PageController
             return 'Page:' . $parts[0];
         });
         $res      = sprintf($this->bundle . ':%s.html.twig', $template);
-        return $this->renderer->renderResponse($res, $data, $response);
+        $response = $this->renderer->renderResponse($res, $data, $response);
+
+        // Store last modified.
+        $response->setLastModified($lmc->getLastModifiedContent());
+        $this->getLastModifiedCache()->setLastModified($request, $lmc->getLastModifiedContent());
+
+        return $response;
     }
 
     /**
