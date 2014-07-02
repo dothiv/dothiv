@@ -22,7 +22,6 @@ before_script:
 # install php modules
   - sudo apt-get install graphicsmagick libgraphicsmagick1-dev
   - yes "" | pecl install gmagick-beta
-  - echo "extension = gmagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 # configure php
   - echo 'date.timezone = "Europe/Berlin"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - sudo service apache2 restart
