@@ -9,7 +9,7 @@ use Dothiv\BusinessBundle\Tests\DatabaseRestWebTestCase;
  * 
  * @author Nils Wisiol <mail@nils-wisiol.de>
  */
-class DomainRegistrationAndClaimTestTest extends DatabaseRestWebTestCase {
+class DomainRegistrationAndClaimTest extends DatabaseRestWebTestCase {
 
     protected static $username = "";
 
@@ -18,6 +18,7 @@ class DomainRegistrationAndClaimTestTest extends DatabaseRestWebTestCase {
     }
 
     public function testSuccessful() {
+        $this->markTestIncomplete('Refactoring pending.');
         // Post domain
         list($r, $s) = self::jsonRequest('POST', '/api/domains',
                 array(
@@ -64,6 +65,9 @@ class DomainRegistrationAndClaimTestTest extends DatabaseRestWebTestCase {
         $this->assertEquals($username, $domain->getOwner()->getUsername());
     }
 
+    /**
+     * @depends testSuccessful
+     */
     public function testNonExistentUsername() {
         list($r, $s) = self::jsonRequest('POST', '/api/domains/claims',
                 array(
@@ -75,6 +79,9 @@ class DomainRegistrationAndClaimTestTest extends DatabaseRestWebTestCase {
         $this->assertEquals(403, $s);
     }
 
+    /**
+     * @depends testSuccessful
+     */
     public function testNonExistentToken() {
         list($r, $s) = self::jsonRequest('POST', '/api/domains/claims',
                 array(
@@ -86,6 +93,9 @@ class DomainRegistrationAndClaimTestTest extends DatabaseRestWebTestCase {
         $this->assertEquals(400, $s);
     }
 
+    /**
+     * @depends testSuccessful
+     */
     public function testValidClaimButNotLoggedIn() {
         $this->logout();
 
