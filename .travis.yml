@@ -36,7 +36,8 @@ before_script:
 # install webdrivers for protractor
 #-e2e:  - ./node_modules/protractor/bin/webdriver-manager update
 # install dothiv
-  - cp app/config/parameters.yml.travis app/config/parameters.yml  - composer install
+  - cp app/config/parameters.yml.travis app/config/parameters.yml  
+  - composer install
   - mysql -e 'create database dothiv;'
   - php app/console doctrine:schema:create
 # Assets only needed for e2e tests
