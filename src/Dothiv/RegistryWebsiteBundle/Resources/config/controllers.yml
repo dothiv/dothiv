@@ -7,6 +7,7 @@ services:
           - @dothiv.registry.contentful.registry_content
           - "DothivRegistryWebsiteBundle"
           - %assets_version%
+          - @clock
 
     dothiv.registry.api.controller:
         class: Dothiv\RegistryWebsiteBundle\Controller\ApiController

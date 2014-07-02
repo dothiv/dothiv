@@ -9,6 +9,7 @@ use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder;
 use Dothiv\BaseWebsiteBundle\Controller\PageController;
 use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
+use Dothiv\BusinessBundle\Service\Clock;
 use Dothiv\ContentfulBundle\ContentfulEvents;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
@@ -191,6 +192,25 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @group   BaseWebsiteBundle
+     * @group   Controller
+     * @depends itShouldHonourAssetsDate
+     */
+    public function itShouldSendExpiresHeader()
+    {
+        // Get uncached response
+        $controller = $this->getTestObject();
+        $request    = new Request();
+        $response   = $controller->pageAction(
+            $request,
+            'en',
+            'test'
+        );
+        $this->assertEquals($response->getExpires(), $this->getClock()->getNow()->modify('+1 day'));
+    }
+
+    /**
      * @param \DateTime $assetsDate to use for assets_version
      *
      * @return PageController
@@ -209,7 +229,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
             $this->mockRenderer,
             $this->mockContent,
             'BaseWebsiteBundle',
-            Option::fromValue($assetsDate)->getOrElse(new \DateTime())->getTimestamp()
+            Option::fromValue($assetsDate)->getOrElse(new \DateTime())->getTimestamp(),
+            $this->getClock()
         );
     }
 
@@ -243,5 +264,13 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @return Clock
+     */
+    protected function getClock()
+    {
+        $clock = new Clock(new \DateTime('2014-08-01T12:34:56Z'));
+        return $clock;
+    }
 
 }

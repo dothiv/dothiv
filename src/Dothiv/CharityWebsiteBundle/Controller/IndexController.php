@@ -11,6 +11,8 @@ class IndexController extends PageController
     {
         $response = new Response();
         $response->setPublic();
+        $response->setSharedMaxAge(86400);
+        $response->setExpires($this->getClock()->getNow()->modify('+1 day'));
 
         $lmc = $this->getLastModifiedCache();
 

@@ -4,6 +4,7 @@ namespace Dothiv\BaseWebsiteBundle\Controller;
 
 use Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache;
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
+use Dothiv\BusinessBundle\Service\Clock;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,19 +38,26 @@ class PageController
     private $assetsModified;
 
     /**
+     * @var Clock
+     */
+    private $clock;
+
+    /**
      * @param RequestLastModifiedCache $lastModifiedCache
      * @param EngineInterface          $renderer
      * @param Content                  $content
      * @param string                   $bundle
      * @param int                      $assets_version
+     * @param Clock                    $clock
      */
-    public function __construct(RequestLastModifiedCache $lastModifiedCache, EngineInterface $renderer, Content $content, $bundle, $assets_version)
+    public function __construct(RequestLastModifiedCache $lastModifiedCache, EngineInterface $renderer, Content $content, $bundle, $assets_version, Clock $clock)
     {
         $this->lastModifiedCache = $lastModifiedCache;
         $this->renderer          = $renderer;
         $this->content           = $content;
         $this->bundle            = $bundle;
         $this->assetsModified    = new \DateTime('@' . $assets_version);
+        $this->clock             = $clock;
     }
 
     /**
@@ -65,6 +73,8 @@ class PageController
     {
         $response = new Response();
         $response->setPublic();
+        $response->setSharedMaxAge(86400);
+        $response->setExpires($this->clock->getNow()->modify('+1 day'));
 
         $lmc = $this->getLastModifiedCache();
 
@@ -164,6 +174,8 @@ class PageController
     {
         $response = new Response();
         $response->setPublic();
+        $response->setSharedMaxAge(86400);
+        $response->setExpires($this->clock->getNow()->modify('+1 day'));
         $response->headers->set('Content-Type', 'application/json');
 
         $lmc = $this->getLastModifiedCache();
@@ -215,5 +227,13 @@ class PageController
     public function getAssetsModified()
     {
         return $this->assetsModified;
+    }
+
+    /**
+     * @return Clock
+     */
+    public function getClock()
+    {
+        return $this->clock;
     }
 }

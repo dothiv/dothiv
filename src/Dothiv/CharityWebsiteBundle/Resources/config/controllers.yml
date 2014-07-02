@@ -7,6 +7,7 @@ services:
           - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
           - %assets_version%
+          - @clock
 
     dothiv.charity.web.controller.projects:
         class: Dothiv\CharityWebsiteBundle\Controller\ProjectsController
@@ -16,6 +17,7 @@ services:
           - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
           - %assets_version%
+          - @clock
 
     dothiv.charity.web.controller.page:
         class: Dothiv\CharityWebsiteBundle\Controller\PageController
@@ -25,6 +27,7 @@ services:
           - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
           - %assets_version%
+          - @clock
 
     dothiv.charity.web.controller.contentful:
         class: Dothiv\CharityWebsiteBundle\Controller\ContentfulController
