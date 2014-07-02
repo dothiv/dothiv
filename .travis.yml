@@ -20,7 +20,8 @@ before_script:
   - echo "$(curl -fsSL https://raw.github.com/gist/16d751c979fdeb5a14e3/gistfile1.txt)" | sudo tee /etc/apache2/conf.d/phpconfig > /dev/null
   - echo "$(curl -fsSL https://raw.github.com/gist/2eb301570ed4a1f4c33d/gistfile1.txt)" | sed -e "s,PATH,`pwd`/web,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
 # install php modules
-  - pecl install gmagick-beta
+  - sudo apt-get install graphicsmagick libgraphicsmagick1-dev
+  - yes "" | pecl install gmagick-beta
   - echo "extension = gmagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 # configure php
   - echo 'date.timezone = "Europe/Berlin"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
