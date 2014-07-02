@@ -13,15 +13,15 @@
                 <article>
                     <blockquote class="{% if q.photo is defined %}photo{% endif %} {% if q.quote|length > 100 and q.quote|length < 200 %}medium{% endif %} {% if q.quote|length >= 200 %}long{% endif %}">
                         {% if q.photo is defined %}
-                            <img src="{{ q.photo.file.url }}">
+                            <img src="{{ q.photo.file.url }}" alt="{{ q.person }}">
                         {% endif %}
 
-                        <div ng-class="{medium: q.quote.length > 100 && q.quote.length < 200, long: q.quote.length >= 200}">{{ q.quote|markdown }}</div>
+                        <div data-ng-class="{medium: q.quote.length > 100 && q.quote.length < 200, long: q.quote.length >= 200}">{{ q.quote|markdown }}</div>
                     </blockquote>
                     <footer>
                         <cite>{{ q.person }}</cite>
 
-                        <p>{{ q.description|markdown }}</p>
+                        {{ q.description|markdown }}
                     </footer>
                 </article>
             </div>

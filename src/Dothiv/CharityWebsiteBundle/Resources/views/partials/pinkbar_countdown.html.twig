@@ -1,22 +1,20 @@
 {% trans_default_domain "charity" %}
 <!-- adopt for mobile useage -->
-<div id="countdownbar" ng-controller="PinkbarControllerCountdown" class="clearfix" ng-cloak>
+<div id="countdownbar" data-ng-controller="PinkbarControllerCountdown" class="clearfix" data-ng-cloak>
     <div class="pink-bar">
         <div class="container">
             <div class="row-fluid">
-                <div class="span11">
-                    <p class="text">
-                        {{ 'home.pinkbar.popover.countdown'|trans|markdown }}
-                    </p>
+                <div class="span11 text">
+                    {{ 'home.pinkbar.popover.countdown'|trans|markdown }}
                 </div>
                 <div class="span1">
-                    <button type="button" btn-checkbox ng-click="toggle()" ng-class="{true:'active'}[expanded]" class="pull-right"></button>
+                    <button type="button" data-btn-checkbox data-ng-click="toggle()" data-ng-class="{true:'active'}[expanded]" class="pull-right"></button>
                 </div>
             </div>
         </div>
     </div>
     <div class="pink-bar-popover-handle">
-        <div ng-show="expanded" ng-animate="{show: 'pink-bar-popover-show', hide: 'pink-bar-popover-hide'}" class="pink-bar-popover">
+        <div data-ng-show="expanded" data-ng-animate="{show: 'pink-bar-popover-show', hide: 'pink-bar-popover-hide'}" class="pink-bar-popover">
             <div class="container">
                 <div class="row first">
                     <div class="span6">
@@ -41,7 +39,7 @@
                         </div>
                     </div>
                     <div class="span6">
-                        <iframe ng-show="expanded" ng-src="//www.youtube.com/embed/l3ZHd8qbSpE" allowfullscreen frameborder="0" class="video"></iframe>
+                        <iframe data-ng-show="expanded" data-ng-src="//www.youtube.com/embed/l3ZHd8qbSpE" allowfullscreen class="video"></iframe>
                     </div>
                 </div>
             </div>

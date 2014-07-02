@@ -1,6 +1,6 @@
 {% trans_default_domain "charity" %}
 {% if features.profile %}
-<div class="container header" ng-controller="HeaderController">
+<div class="container header" data-ng-controller="HeaderController">
 {% else %}
 <div class="container header">
 {% endif %}
@@ -9,9 +9,9 @@
         <nav class="usermenu">
             {% if features.profile %}
             <ul>
-                <li class="accountance" ng-show="!isAuthenticated()"><a class="hover-arrow" ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
-                <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
-                <li class="accountance" ng-show="isAuthenticated()"><a class="hover-arrow" href="{{ path('dothiv_charity_page', {'page': 'profile', 'locale': locale}) }}">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
+                <li class="accountance" data-ng-show="!isAuthenticated()"><a class="hover-arrow" data-ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
+                <li class="accountance" data-ng-show="isAuthenticated()"><a class="hover-arrow" data-ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
+                <li class="accountance" data-ng-show="isAuthenticated()"><a class="hover-arrow" href="{{ path('dothiv_charity_page', {'page': 'profile', 'locale': locale}) }}">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
             </ul>
             {% endif %}
             {% if app.request.locale|slice(0,2) != 'en' %}

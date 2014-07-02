@@ -1,40 +1,40 @@
 {% trans_default_domain "charity" %}
 <!-- adopt for mobile useage -->
-<div id="pinbkar" ng-controller="PinkbarControllerClicks" class="clearfix">
+<div id="pinbkar" data-ng-controller="PinkbarControllerClicks" class="clearfix">
     <div class="pink-bar rightside">
 
-        <div class="pink-bar leftside text-right" ng-style="{ width: bar.percent * 100 + '%' }">
-            <button type="button" ng-click="toggle()" btn-checkbox ng-show="bar.percent * 10 > 4">
+        <div class="pink-bar leftside text-right" data-ng-style="{ width: bar.percent * 100 + '%' }">
+            <button type="button" data-ng-click="toggle()" data-btn-checkbox data-ng-show="bar.percent * 10 > 4">
                 <p>
-                    <span class="pink-bar-text" ng-show="bar.enabled">{% trans %}home.pinkbar.activated{% endtrans %}</span>
-                    <span class="pink-bar-text bold" id="active-money" ng-bind="bar.unlocked_label"></span>
-                    <i ng-show="!showfunding" class="icon-tick-lower icon-white"></i>
-                    <i ng-show="showfunding" class="icon-tick-upper icon-white"></i>
+                    <span class="pink-bar-text" data-ng-show="bar.enabled">{% trans %}home.pinkbar.activated{% endtrans %}</span>
+                    <span class="pink-bar-text bold" id="active-money" data-ng-bind="bar.unlocked_label"></span>
+                    <i data-ng-show="!showfunding" class="icon-tick-lower icon-white"></i>
+                    <i data-ng-show="showfunding" class="icon-tick-upper icon-white"></i>
                 </p>
             </button>
         </div>
-        <button type="button" btn-checkbox ng-show="bar.percent * 10 < 4" ng-click="toggle()">
+        <button type="button" data-btn-checkbox data-ng-show="bar.percent * 10 < 4" data-ng-click="toggle()">
             <p>
-                <i ng-show="!showfunding" class="icon-tick-lower"></i>
-                <i ng-show="showfunding" class="icon-tick-upper"></i>
+                <i data-ng-show="!showfunding" class="icon-tick-lower"></i>
+                <i data-ng-show="showfunding" class="icon-tick-upper"></i>
                 <span class="pink-bar-text right">{% trans %}home.pinkbar.activated{% endtrans %}</span>
-                <span class="pink-bar-text right bold" id="active-money" ng-bind="bar.unlocked_label"></span>
+                <span class="pink-bar-text right bold" id="active-money" data-ng-bind="bar.unlocked_label"></span>
             </p>
         </button>
     </div>
     <div class="pink-bar-popover-handle">
-        <div ng-show="showfunding" ng-animate="{show: 'pink-bar-popover-show', hide: 'pink-bar-popover-hide'}"
+        <div data-ng-show="showfunding" data-ng-animate="{show: 'pink-bar-popover-show', hide: 'pink-bar-popover-hide'}"
              class="pink-bar-popover">
             <div class="container">
                 <div class="row first">
                     <div class="span6 pink-bar-text">
-                        <div ng-show="bar.enabled">
+                        <div data-ng-show="bar.enabled">
                             <p>{% trans %}home.pinkbar.popover.currentStatus{% endtrans %}</p>
 
                             <p><span class="activeMoney" id="active-money-popover">€ [[ bar.current ]]</span>
                                 {% trans %}home.pinkbar.popover.areActivated{% endtrans %}</p>
 
-                            <p><span class="activeMoney" id="clicks-popover" ng-bind="bar.clicks"></span>
+                            <p><span class="activeMoney" id="clicks-popover" data-ng-bind="bar.clicks"></span>
                                 {% trans %}home.pinkbar.popover.missing{% endtrans %}</p>
                             <hr>
                         </div>
@@ -43,7 +43,7 @@
                         <div class="fb-like" data-href="{{ app.request.uri }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
                     </div>
                     <div class="span6 pink-bar-text">
-                        <iframe ng-show="showfunding" ng-src="//www.youtube.com/embed/l3ZHd8qbSpE"
+                        <iframe data-ng-show="showfunding" data-ng-src="//www.youtube.com/embed/l3ZHd8qbSpE"
                                 allowfullscreen></iframe>
                         <p>{% trans %}home.pinkbar.popover.viewVideo{% endtrans %}
                             <br>{% trans %}home.pinkbar.popover.how{% endtrans %}</p>

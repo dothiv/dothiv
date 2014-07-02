@@ -29,13 +29,13 @@
 {% endif %}
 {% if block.textMore is defined %}
     <nav class="cfblock-text-more expand-text">
-        <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" ng-click="textMoreVisible=1" ng-hide="textMoreVisible" class="more">{% trans %}expand.text.label{% endtrans %}</a>
+        <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" data-ng-click="textMoreVisible=1" data-ng-hide="textMoreVisible" class="more">{% trans %}expand.text.label{% endtrans %}</a>
     </nav>
-    <div class="cfblock-textMore" ng-show="textMoreVisible">
+    <div class="cfblock-textMore" data-ng-show="textMoreVisible">
         {{ block.textMore|markdown }}
     </div>
     <nav class="expand-text">
-        <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" ng-click="textMoreVisible=0" ng-show="textMoreVisible" class="less">{% trans %}contract.text.label{% endtrans %}</a>
+        <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" data-ng-click="textMoreVisible=0" data-ng-show="textMoreVisible" class="less">{% trans %}contract.text.label{% endtrans %}</a>
     </nav>
 {% endif %}
 {% endblock cf_textContentBlock %}
@@ -48,7 +48,7 @@
     id="{{ block.code|default(block.cfMeta.itemId)|slugify }}"
     data-cf-url="{{ block.cfMeta.url }}"
     class="cf-{{ block.cfMeta.contentType }} cf-block-{{ nblock }} span{{ width }} cf-level-{{ level }} cf-child-{{ nchild }} {% if textclass %}cf-text-{{ textclass }}{% endif %}"
-    ng-controller="BlockController"
+    data-ng-controller="BlockController"
     >
     {% set behaviour = block.behaviour|default('block') %}
     {% set headline_behaviour = block|behaviour('headline') %}
@@ -166,7 +166,7 @@
 {% endblock cf_imageBlock %}
 
 {% block cf_videoBlock %}
-    <iframe width="569" height="320" src="{{ block.video.embed_url }}" frameborder="0" allowfullscreen class="cfblock-video"></iframe>
+    <iframe width="569" height="320" src="{{ block.video.embed_url }}" allowfullscreen class="cfblock-video"></iframe>
 {% endblock cf_videoBlock %}
 
 {% block cf_downloadsBlock %}

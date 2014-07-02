@@ -1,12 +1,12 @@
 {% trans_default_domain "charity" %}
-<div class="jumbotron infobox bottom-shadow" ng-hide="isClosed" ng-controller="HowitWorksController">
+<div class="jumbotron infobox bottom-shadow" data-ng-hide="isClosed" data-ng-controller="HowitWorksController">
     <div class="container">
         <div class="row"></div>
         <div class="row">
             <div class="span6">
                 <div class="upper">
                     <h3 class="oneup">{% trans %}home.about.oneclick.headline{% endtrans %}</h3>
-                    <a href="" ng-click="toggleHeader()">
+                    <a href="" data-ng-click="toggleHeader()">
                         <div class="image-container monitor">
                             <div class="text">
                                 {% trans %}home.about.monitorheadline{% endtrans %}<br> {% trans %}home.about.monitortext{% endtrans %}

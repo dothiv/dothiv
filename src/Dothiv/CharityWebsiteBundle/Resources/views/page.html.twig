@@ -1,6 +1,6 @@
 {% trans_default_domain "charity" %}
 <!DOCTYPE html>
-<html lang="{{ locale }}" xmlns:fb="http://www.facebook.com/2008/fbml">
+<html lang="{{ locale }}">
 <head>
     <meta charset="utf-8">
     <title>
@@ -20,7 +20,7 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 </head>
-<body ng-app="dotHIVApp">
+<body data-ng-app="dotHIVApp">
 <div id="header">
     {% include "DothivCharityWebsiteBundle:partials:headnav.html.twig" %}
     {% if features.pinkbar_clickcounter %}
@@ -67,10 +67,12 @@
                         <div class="span4">
                             <ul>
                                 <li>
-                                    <a class="social-link" href="https://www.facebook.com/dothiv" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-fb.png") }}">{% trans %}
+                                    <a class="social-link" href="https://www.facebook.com/dothiv" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-fb.png") }}" alt="{% trans %}
+                                        footer.social.facebook{% endtrans %}">{% trans %}
                                         footer.social.facebook{% endtrans %}</a></li>
                                 <li>
-                                    <a class="social-link" href="https://twitter.com/dotHIV" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-tw.png") }}">{% trans %}
+                                    <a class="social-link" href="https://twitter.com/dotHIV" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-tw.png") }}" alt="{% trans %}
+                                        footer.social.twitter{% endtrans %}">{% trans %}
                                         footer.social.twitter{% endtrans %}</a></li>
                             </ul>
                         </div>

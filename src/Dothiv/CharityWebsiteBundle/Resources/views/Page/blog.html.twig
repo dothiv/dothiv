@@ -8,7 +8,7 @@
             <div class="span8 offset4">
                 <section>
                     <h2>{{ page.title }}</h2>
-                    <p><time>{{ page.cfMeta.createdAt|date }}</time></p>
+                    <p><time datetime="{{ page.cfMeta.createdAt|date_w3c }}">{{ page.cfMeta.createdAt|date }}</time></p>
                     {{ parent() }}
                 </section>
                 <footer>
