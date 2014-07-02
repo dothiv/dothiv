@@ -12,7 +12,8 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Stores modification times for requests based on the update date of content items rendered on the page.
+ * Stores modification times for requests based on the
+ * update date of content items rendered on the page.
  */
 class RequestLastModifiedCache
 {
@@ -130,6 +131,17 @@ class RequestLastModifiedCache
         return $this->lastModifiedContent;
     }
 
+    /**
+     * This method gets called when an Entry is update and updates the
+     * last modified time cache entry for every page it is used.
+     *
+     * There is a problem with this implementation: adding _new_ child elements
+     * is not picked up because they were never used before.
+     *
+     * FIXME: find parent elements and trigger an update there, too.
+     *
+     * @param ContentfulEntryEvent $e
+     */
     public function onEntryUpdate(ContentfulEntryEvent $e)
     {
         $entry             = $e->getEntry();
@@ -144,7 +156,7 @@ class RequestLastModifiedCache
         // Update
         $urisForItem = $urisForItemOption->get();
         foreach ($urisForItem as $uri => $bool) {
-            $key = $this->getCacheKeyRequest(sha1($uri), 'lastmodified');
+            $key          = $this->getCacheKeyRequest(sha1($uri), 'lastmodified');
             $lastModified = $this->cache->fetch($key);
             if ($lastModified >= $entry->getUpdatedAt()->format('r')) {
                 Option::fromValue($this->logger)->map(function (LoggerInterface $logger) use ($lastModified, $uri) {
