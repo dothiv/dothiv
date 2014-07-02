@@ -32,6 +32,8 @@ parameters:
     clickcounter_auth_password: some_password
     clickcounter_base_url: https://somewhere.on.appspot.com
 
+    assets_version: 1404223225
+
     #
     # PARAMETERS USED IN DEV MODE
     #

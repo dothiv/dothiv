@@ -6,6 +6,7 @@ services:
           - @templating
           - @dothiv.registry.contentful.registry_content
           - "DothivRegistryWebsiteBundle"
+          - %assets_version%
 
     dothiv.registry.api.controller:
         class: Dothiv\RegistryWebsiteBundle\Controller\ApiController

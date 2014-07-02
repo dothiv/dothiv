@@ -29,3 +29,5 @@ parameters:
     # Contentful settings
     contenful_space_charity: xfj3l4zlkg3j
     contenful_space_registry: q9io9aidddk4
+
+    assets_version: 1404223225

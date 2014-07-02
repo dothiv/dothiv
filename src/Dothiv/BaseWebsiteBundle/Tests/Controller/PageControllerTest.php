@@ -12,6 +12,7 @@ use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
 use Dothiv\ContentfulBundle\ContentfulEvents;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
+use PhpOption\Option;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,7 +58,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldSendLastModifiedHeader()
     {
-        $controller = $this->getTestObject();
+        $controller = $this->getTestObject(new \DateTime('2014-01-01T12:34:56Z'));
 
         $date_older   = new \DateTime('2014-06-02T08:06:17Z');
         $date_newer   = new \DateTime('2014-06-03T08:06:17Z');
@@ -65,19 +66,23 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
 
         $childView                   = new \stdClass();
         $childView->cfMeta           = array(
-            'itemId'    => 'childItem',
-            'updatedAt' => $date_newer
+            'itemId'      => 'childItem',
+            'updatedAt'   => $date_newer,
+            'contentType' => 'Block'
+
         );
         $parentView                  = new \stdClass();
         $parentView->cfMeta          = array(
-            'itemId'    => 'parentItem',
-            'updatedAt' => $date_older
+            'itemId'      => 'parentItem',
+            'updatedAt'   => $date_older,
+            'contentType' => 'Block'
         );
         $parentView->children        = array($childView);
         $updatedParentView           = new \stdClass();
         $updatedParentView->cfMeta   = array(
-            'itemId'    => 'parentItem',
-            'updatedAt' => $date_updated
+            'itemId'      => 'parentItem',
+            'updatedAt'   => $date_updated,
+            'contentType' => 'Block'
         );
         $updatedParentView->children = array($childView);
 
@@ -142,9 +147,55 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @group   BaseWebsiteBundle
+     * @group   Controller
+     * @depends itShouldSendLastModifiedHeader
+     */
+    public function itShouldHonourAssetsDate()
+    {
+        $assetsDate = new \DateTime('2014-07-01T12:34:56Z');
+        $controller = $this->getTestObject($assetsDate);
+        $date       = new \DateTime('2014-06-02T08:06:17Z');
+
+        $this->assertEquals($assetsDate, max($date, $assetsDate));
+
+        $view         = new \stdClass();
+        $view->cfMeta = array(
+            'itemId'      => 'childItem',
+            'updatedAt'   => $date,
+            'contentType' => 'Block'
+
+        );
+
+        // It should build the view for the page.
+        $dispatcher = $this->dispatcher;
+        $this->mockContent->expects($this->at(0))->method('buildEntry')
+            ->with('Page', 'test', 'en')
+            ->will(
+                $this->returnCallback(function () use ($dispatcher, $view) {
+                        $dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($view));
+                        return $view;
+                    }
+                ));
+
+        // Get uncached response
+        $request  = new Request();
+        $response = $controller->pageAction(
+            $request,
+            'en',
+            'test'
+        );
+        $this->assertEquals(200, $response->getStatusCode(), 'Request without If-Modified-Since should return status 200!');
+        $this->assertEquals($assetsDate, $response->getLastModified(), 'The last modified date should be that of the assets version, if greater!');
+    }
+
+    /**
+     * @param \DateTime $assetsDate to use for assets_version
+     *
      * @return PageController
      */
-    protected function getTestObject()
+    protected function getTestObject(\DateTime $assetsDate = null)
     {
         $lmc = new RequestLastModifiedCache(new ArrayCache());
         $this->dispatcher->addListener(
@@ -153,9 +204,14 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
         $this->dispatcher->addListener(
             ContentfulEvents::ENTRY_SYNC, array($lmc, 'onEntryUpdate')
         );
-        return new PageController($lmc, $this->mockRenderer, $this->mockContent, 'BaseWebsiteBundle');
+        return new PageController(
+            $lmc,
+            $this->mockRenderer,
+            $this->mockContent,
+            'BaseWebsiteBundle',
+            Option::fromValue($assetsDate)->getOrElse(new \DateTime())->getTimestamp()
+        );
     }
-
 
     /**
      * {@inheritdoc}
@@ -186,4 +242,6 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
             $mockFileLocator
         );
     }
+
+
 }

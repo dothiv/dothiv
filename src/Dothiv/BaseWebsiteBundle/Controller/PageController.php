@@ -32,17 +32,24 @@ class PageController
     private $lastModifiedCache;
 
     /**
+     * @var \DateTime
+     */
+    private $assetsModified;
+
+    /**
      * @param RequestLastModifiedCache $lastModifiedCache
      * @param EngineInterface          $renderer
      * @param Content                  $content
      * @param string                   $bundle
+     * @param int                      $assets_version
      */
-    public function __construct(RequestLastModifiedCache $lastModifiedCache, EngineInterface $renderer, Content $content, $bundle)
+    public function __construct(RequestLastModifiedCache $lastModifiedCache, EngineInterface $renderer, Content $content, $bundle, $assets_version)
     {
         $this->lastModifiedCache = $lastModifiedCache;
         $this->renderer          = $renderer;
         $this->content           = $content;
         $this->bundle            = $bundle;
+        $this->assetsModified    = new \DateTime('@' . $assets_version);
     }
 
     /**
@@ -87,8 +94,9 @@ class PageController
         $response = $this->renderer->renderResponse($res, $data, $response);
 
         // Store last modified.
-        $response->setLastModified($lmc->getLastModifiedContent());
-        $this->getLastModifiedCache()->setLastModified($request, $lmc->getLastModifiedContent());
+        $lastModifiedDate = max($lmc->getLastModifiedContent(), $this->assetsModified);
+        $response->setLastModified($lastModifiedDate);
+        $this->getLastModifiedCache()->setLastModified($request, $lastModifiedDate);
 
         return $response;
     }
@@ -199,5 +207,13 @@ class PageController
     public function getLastModifiedCache()
     {
         return $this->lastModifiedCache;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getAssetsModified()
+    {
+        return $this->assetsModified;
     }
 }

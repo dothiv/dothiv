@@ -33,12 +33,15 @@ class ProjectsController extends PageController
             return ($projectA->order < $projectB->order) ? -1 : 1;
         });
 
-        // Store last modified.
-        $response->setLastModified($lmc->getLastModifiedContent());
-        $this->getLastModifiedCache()->setLastModified($request, $lmc->getLastModifiedContent());
-
         // Build response
         $template = $this->getBundle() . ':Page:projects.html.twig';
-        return $this->getRenderer()->renderResponse($template, $data, $response);
+        $response = $this->getRenderer()->renderResponse($template, $data, $response);
+
+        // Store last modified.
+        $lastModifiedDate = max($lmc->getLastModifiedContent(), $this->getAssetsModified());
+        $response->setLastModified($lastModifiedDate);
+        $this->getLastModifiedCache()->setLastModified($request, $lastModifiedDate);
+
+        return $response;
     }
 }
