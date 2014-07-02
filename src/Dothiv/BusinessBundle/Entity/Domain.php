@@ -257,6 +257,7 @@ class Domain extends Entity
      */
     public function setClickcount($val) {
         $this->clickcount = $val;
+        // FIXME: use clock service
         $this->lastUpdate = new \DateTime();
     }
 }

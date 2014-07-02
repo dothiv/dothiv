@@ -1,5 +1,6 @@
 parameters:
     clickcounter.class: Dothiv\BusinessBundle\Service\ClickCounterConfig
+    dothiv.businessbundle.clock.class: Dothiv\BusinessBundle\Service\Clock
     dns.class: Dothiv\BusinessBundle\Service\DnsConfig
     registration.class: Dothiv\BusinessBundle\Service\Registration
     dns.reseller: %dns_reseller%
@@ -20,3 +21,6 @@ services:
     registration:
         class: %registration.class%
         arguments: ["@service_container","@doctrine.orm.entity_manager","@mailer","@templating"]
+
+    clock:
+        class: %dothiv.businessbundle.clock.class%

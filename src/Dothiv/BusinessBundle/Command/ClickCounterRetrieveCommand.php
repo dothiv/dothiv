@@ -24,6 +24,7 @@ class ClickCounterRetrieveCommand extends ContainerAwareCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $cc = $this->getContainer()->get('clickcounter');
+        // FIXME: use clock service
         list($count, $fail) = $cc->retrieveByDate(new \DateTime());
         if ($fail > 0)
             $output->writeln('Update failed on ' . $fail . ' of ' . $count . ' domains!');
