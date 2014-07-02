@@ -51,7 +51,11 @@
     ng-controller="BlockController"
     >
     {% set behaviour = block.behaviour|default('block') %}
+    {% set headline_behaviour = block|behaviour('headline') %}
     {% if block.image.file is defined and "image_left" in behaviour %}
+        {% if not headline_behaviour %}
+            {{ block('cf_titleBlock') }}
+        {% endif %}
         <div class="row-fluid">
             {% if "nooffset" in behaviour %}
             <div class="span4">
@@ -67,14 +71,21 @@
             {% else %}
                 <div class="span8 offset1">
             {% endif %}
-                {{ block('cf_titleBlock') }}
+                {% if headline_behaviour == "with_text" %}
+                    {{ block('cf_titleBlock') }}
+                {% endif %}
                 {{ block('cf_textContentBlock') }}
             </div>
         </div>
     {% elseif block.image.file is defined and "image_right" in behaviour %}
+        {% if not headline_behaviour %}
+            {{ block('cf_titleBlock') }}
+        {% endif %}
         <div class="row-fluid">
             <div class="span8">
-                {{ block('cf_titleBlock') }}
+                {% if headline_behaviour == "with_text" %}
+                    {{ block('cf_titleBlock') }}
+                {% endif %}
                 {{ block('cf_textContentBlock') }}
             </div>
             {% if "nooffset" in behaviour %}
@@ -88,12 +99,17 @@
             </div>
         </div>
     {% else %}
+            {% if not headline_behaviour %}
+            {{ block('cf_titleBlock') }}
+            {% endif %}
             {% if block.image.file is defined and "image_top" in behaviour %}
                 {% set image_asset = block.image %}
                 {% set image_link = block.imageLink|default(false) %}
                 {{ block('cf_imageBlock') }}
             {% endif %}
+            {% if headline_behaviour == "with_text" %}
             {{ block('cf_titleBlock') }}
+            {% endif %}
             {{ block('cf_textContentBlock') }}
             {% if block.image.file is defined and "image_top" not in behaviour %}
                 {% set image_asset = block.image %}
