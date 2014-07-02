@@ -1,41 +1,41 @@
 
 
 <div>
-  <a ng-click="openPlunkr('examples/example-example3')" class="btn pull-right">
+  <a ng-click="openPlunkr('examples/example-example61')" class="btn pull-right">
     <i class="glyphicon glyphicon-edit">&nbsp;</i>
     Edit in Plunker</a>
   <div class="runnable-example"
-      path="examples/example-example3"
-      module="cacheExampleApp">
+      path="examples/example-example61">
 
    
-    <div class="runnable-example-file" 
-      name="index.html"
-      language="html"
-      type="html">
-      <pre><code>&lt;div ng-controller=&quot;CacheController&quot;&gt;&#10;  &lt;input ng-model=&quot;newCacheKey&quot; placeholder=&quot;Key&quot;&gt;&#10;  &lt;input ng-model=&quot;newCacheValue&quot; placeholder=&quot;Value&quot;&gt;&#10;  &lt;button ng-click=&quot;put(newCacheKey, newCacheValue)&quot;&gt;Cache&lt;/button&gt;&#10;&#10;  &lt;p ng-if=&quot;keys.length&quot;&gt;Cached Values&lt;/p&gt;&#10;  &lt;div ng-repeat=&quot;key in keys&quot;&gt;&#10;    &lt;span ng-bind=&quot;key&quot;&gt;&lt;/span&gt;&#10;    &lt;span&gt;: &lt;/span&gt;&#10;    &lt;b ng-bind=&quot;cache.get(key)&quot;&gt;&lt;/b&gt;&#10;  &lt;/div&gt;&#10;&#10;  &lt;p&gt;Cache Info&lt;/p&gt;&#10;  &lt;div ng-repeat=&quot;(key, value) in cache.info()&quot;&gt;&#10;    &lt;span ng-bind=&quot;key&quot;&gt;&lt;/span&gt;&#10;    &lt;span&gt;: &lt;/span&gt;&#10;    &lt;b ng-bind=&quot;value&quot;&gt;&lt;/b&gt;&#10;  &lt;/div&gt;&#10;&lt;/div&gt;</code></pre>
-    </div>
-  
     <div class="runnable-example-file" 
       name="script.js"
       language="js"
       type="js">
-      <pre><code>angular.module(&#39;cacheExampleApp&#39;, []).&#10;  controller(&#39;CacheController&#39;, [&#39;$scope&#39;, &#39;$cacheFactory&#39;, function($scope, $cacheFactory) {&#10;    $scope.keys = [];&#10;    $scope.cache = $cacheFactory(&#39;cacheId&#39;);&#10;    $scope.put = function(key, value) {&#10;      $scope.cache.put(key, value);&#10;      $scope.keys.push(key);&#10;    };&#10;  }]);</code></pre>
+      <pre><code>function LogCtrl($scope, $log) {&#10;  $scope.$log = $log;&#10;  $scope.message = &#39;Hello World!&#39;;&#10;}</code></pre>
     </div>
   
     <div class="runnable-example-file" 
-      name="style.css"
-      language="css"
-      type="css">
-      <pre><code>p {&#10;  margin: 10px 0 3px;&#10;}</code></pre>
+      name="index.html"
+      language="html"
+      type="html">
+      <pre><code>&lt;div ng-controller=&quot;LogCtrl&quot;&gt;&#10;  &lt;p&gt;Reload this page with open console, enter text and hit the log button...&lt;/p&gt;&#10;  Message:&#10;  &lt;input type=&quot;text&quot; ng-model=&quot;message&quot;/&gt;&#10;  &lt;button ng-click=&quot;$log.log(message)&quot;&gt;log&lt;/button&gt;&#10;  &lt;button ng-click=&quot;$log.warn(message)&quot;&gt;warn&lt;/button&gt;&#10;  &lt;button ng-click=&quot;$log.info(message)&quot;&gt;info&lt;/button&gt;&#10;  &lt;button ng-click=&quot;$log.error(message)&quot;&gt;error&lt;/button&gt;&#10;&lt;/div&gt;</code></pre>
     </div>
   
 
-    <iframe class="runnable-example-frame" src="examples/example-example3/index.html" name="example-example3"></iframe>
+    <iframe class="runnable-example-frame" src="examples/example-example61/index.html" name="example-example61"></iframe>
   </div>
 </div>
 
-uot;,&#10;  &quot;htmlComment&quot;:&#10;      &quot;&lt;span onmouseover=&#39;this.textContent=\&quot;PWN3D!\&quot;&#39;&gt;Is &lt;i&gt;anyone&lt;/i&gt; reading this?&lt;/span&gt;&quot;&#10;},&#10;{ &quot;name&quot;: &quot;Bob&quot;,&#10;  &quot;htmlComment&quot;: &quot;&lt;i&gt;Yes!&lt;/i&gt;  Am I the only other one?&quot;&#10;}&#10;]</code></pre>
+>
+      <pre><code>var mySceApp = angular.module(&#39;mySceApp&#39;, [&#39;ngSanitize&#39;]);&#10;&#10;mySceApp.controller(&quot;myAppController&quot;, function myAppController($http, $templateCache, $sce) {&#10;  var self = this;&#10;  $http.get(&quot;test_data.json&quot;, {cache: $templateCache}).success(function(userComments) {&#10;    self.userComments = userComments;&#10;  });&#10;  self.explicitlyTrustedHtml = $sce.trustAsHtml(&#10;      &#39;&lt;span onmouseover=&quot;this.textContent=&quot;Explicitly trusted HTML bypasses &#39; +&#10;      &#39;sanitization.&quot;&quot;&gt;Hover over this text.&lt;/span&gt;&#39;);&#10;});</code></pre>
+    </div>
+  
+    <div class="runnable-example-file" 
+      name="test_data.json"
+      language="json"
+      type="json">
+      <pre><code>[&#10;{ &quot;name&quot;: &quot;Alice&quot;,&#10;  &quot;htmlComment&quot;:&#10;      &quot;&lt;span onmouseover=&#39;this.textContent=\&quot;PWN3D!\&quot;&#39;&gt;Is &lt;i&gt;anyone&lt;/i&gt; reading this?&lt;/span&gt;&quot;&#10;},&#10;{ &quot;name&quot;: &quot;Bob&quot;,&#10;  &quot;htmlComment&quot;: &quot;&lt;i&gt;Yes!&lt;/i&gt;  Am I the only other one?&quot;&#10;}&#10;]</code></pre>
     </div>
   
     <div class="runnable-example-file" 
@@ -50,15 +50,7 @@ uot;,&#10;  &quot;htmlComment&quot;:&#10;      &quot;&lt;span onmouseover=&#39;t
   </div>
 </div>
 
-lt;/div&gt;&#10;&lt;/div&gt;</code></pre>
-    </div>
-  
-
-    <iframe class="runnable-example-frame" src="examples/example-example60/index.html" name="example-example60"></iframe>
-  </div>
-</div>
-
-ext()).toMatch(&#39;0&#39;);&#10;  expect(data.getText()).toMatch(&#39;Request failed&#39;);&#10;});</code></pre>
+);&#10;&#10;it(&#39;should make JSONP request to invalid URL and invoke the error handler&#39;,&#10;    function() {&#10;  invalidJsonpBtn.click();&#10;  fetchBtn.click();&#10;  expect(status.getText()).toMatch(&#39;0&#39;);&#10;  expect(data.getText()).toMatch(&#39;Request failed&#39;);&#10;});</code></pre>
     </div>
   
 

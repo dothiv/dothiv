@@ -199,7 +199,7 @@ service and our custom <code>batchLog</code> service.</li>
 names in the factory function.</li>
 </ul>
 <h3 id="registering-a-service-with-provide-">Registering a Service with <code>$provide</code></h3>
-<p>You can also register services via the <a href="api/auto/object/$provide"><code>$provide</code></a> service inside of a
+<p>You can also register services via the <a href="api/auto/service/$provide"><code>$provide</code></a> service inside of a
 module&#39;s <code>config</code> function:</p>
 <pre><code class="lang-javascript">angular.module(&#39;myModule&#39;, []).config(function($provide) {
   $provide.factory(&#39;serviceId&#39;, function() {
