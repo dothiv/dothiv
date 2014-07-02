@@ -30,14 +30,13 @@ before_script:
   - sudo apt-get install nodejs
   - npm install
 # install webdrivers for protractor
-  - ./node_modules/protractor/bin/webdriver-manager update
+#-e2e:  - ./node_modules/protractor/bin/webdriver-manager update
 # install dothiv
   - composer install
   - mysql -e 'create database dothiv;'
   - php app/console doctrine:schema:create
-# FIXME: e2e tests currently disabled. See https://trello.com/c/8hPycUYE
 # Assets only needed for e2e tests
-# - php app/console assetic:dump --env prod
+#-e2e: - php app/console assetic:dump --env prod
   - php app/console assets:install --env prod --symlink
   - sudo chown -R www-data app/cache app/logs
   - sudo chmod -R 777 app/cache app/logs
@@ -50,10 +49,8 @@ script:
 # PHP testing
   - phpunit -c app
 # Javascript testing
-  - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/Dothiv/BaseWebsiteBundle/Resources/test/travis-test.sh
-  - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/Dothiv/CharityWebsiteBundle/Resources/test/travis-test.sh
-# FIXME: e2e tests currently disabled. See https://trello.com/c/8hPycUYE
-# - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/Dothiv/CharityWebsiteBundle/Resources/test/travis-e2e-test.sh
+  - ./node_modules/karma/bin/karma start src/Dothiv/CharityWebsiteBundle/Resources/test/1.2/config/travis-karma.conf.js
+#-e2e: - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/Dothiv/CharityWebsiteBundle/Resources/test/travis-e2e-test.sh
 
 after_failure:
   - wget --save-headers --output-document - http://localhost/app_dev_travis.php
