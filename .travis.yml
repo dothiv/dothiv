@@ -36,7 +36,7 @@ before_script:
 # install webdrivers for protractor
 #-e2e:  - ./node_modules/protractor/bin/webdriver-manager update
 # install dothiv
-  - composer install
+  - cp app/config/parameters.yml.travis app/config/parameters.yml  - composer install
   - mysql -e 'create database dothiv;'
   - php app/console doctrine:schema:create
 # Assets only needed for e2e tests
@@ -48,8 +48,6 @@ before_script:
   - echo "<?php header('HTTP/1.0 403 Forbidden') ?>Use app.php" > web/app_dev.php
 
 script:
-# Configure Symfony2
-  - cp app/config/parameters.yml.travis app/config/parameters.yml
 # PHP testing
   - phpunit -c app
 # Javascript testing
