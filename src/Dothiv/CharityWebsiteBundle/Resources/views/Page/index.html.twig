@@ -66,16 +66,16 @@
             </div>
             <div class="row quote-container">
                 <article class="span6" data-ng-repeat="q in (quotes | carousel: quoteOffset | limitTo: 2)">
-                    <blockquote data-ng-class="{medium: q.quote.length > 100 && q.quote.length < 200, long: q.quote.length >= 200}">
-                    <img src="#" data-ng-src="{% verbatim %}{{ q.photo.file.url }}{% endverbatim %}" data-ng-show="q.photo" alt="{% verbatim %}{{ q.person }}{% endverbatim %}">
+                    <blockquote data-ng-class="{medium: q.quoteLength > 100 && q.quoteLength < 200, long: q.quoteLength >= 200}">
+                    <img src="//:0" data-ng-src="{% verbatim %}{{ q.photo.file.url }}{% endverbatim %}" data-ng-show="q.photo" alt="{% verbatim %}{{ q.person }}{% endverbatim %}">
 
-                    <div data-ng-bind-html-unsafe="q.quote"></div>
+                    <div data-ng-bind-html="q.quote"></div>
 
                     </blockquote>
                     <footer>
                         <cite data-ng-bind="q.person"></cite>
 
-                        <p data-ng-bind-html-unsafe="q.description"></p>
+                        <p data-ng-bind-html="q.description"></p>
                     </footer>
                 </article>
             </div>

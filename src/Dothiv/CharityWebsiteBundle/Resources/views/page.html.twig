@@ -13,10 +13,9 @@
     <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
-        '@DothivBaseWebsiteBundle/Resources/public/vendor/angular/angular.js'
-        filter='?ngmin,?closureecma5'
-        output='js/*.min.js'
-    %}
+    '@DothivAngularJsBundle/Resources/angular/angular.js'
+    filter='?ngmin,?closureecma5'
+    output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 </head>
@@ -84,14 +83,9 @@
 </footer>
 
 {% javascripts
-    '@DothivCharityWebsiteBundle/Resources/public/app2.js'
-    '@DothivBaseWebsiteBundle/Resources/public/filters/*.js'
-    '@DothivCharityWebsiteBundle/Resources/public/controllers/QuoteController.js'
-    '@DothivCharityWebsiteBundle/Resources/public/controllers/HeaderController.js'
-    '@DothivCharityWebsiteBundle/Resources/public/controllers/BlockController.js'
-    '@DothivCharityWebsiteBundle/Resources/public/controllers/PinkbarControllerClicks.js'
-    '@DothivCharityWebsiteBundle/Resources/public/controllers/PinkbarControllerCountdown.js'
-    '@DothivCharityWebsiteBundle/Resources/public/controllers/HowitWorksController.js'
+    '@DothivCharityWebsiteBundle/Resources/public/1.2/app.js'
+    '@DothivCharityWebsiteBundle/Resources/public/1.2/filters/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/*.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js'
 %}
