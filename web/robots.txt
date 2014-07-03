@@ -7,3 +7,4 @@ Disallow: /contenful/
 Disallow: /css/
 Disallow: /images/
 Disallow: /js/
+Disallow: /maintenance.php
