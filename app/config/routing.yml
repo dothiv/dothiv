@@ -1,37 +1,3 @@
-# security routing
-fos_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-
-fos_user_security_check:
-    pattern: /api/login
-    defaults: { _controller: DothivAPIBundle:Security:postLogin }
-    methods: [ POST ]
-
-dothiv_api_security_login:
-    pattern: /api/login
-    defaults: { _controller: DothivAPIBundle:Security:getLogin }
-    methods: [ GET ]
-
-fos_user_security_logout:
-    pattern: /api/login
-    defaults: { _controller: DothivAPIBundle:Security:deleteLogin }
-    methods: [ DELETE ]
-
-dothiv_security_options:
-    pattern: /api/login
-    defaults: { _controller: DothivAPIBundle:Security:optionsLogin }
-    methods: [ OPTIONS ]
-
-dothiv_api_security_facebook_login_start:
-    pattern: /api/login/facebook/start
-    defaults: { _controller: DothivAPIBundle:Security:facebookLoginStart }
-    methods: [ GET ]
-
-dothiv_api_security_facebook_login_return:
-    pattern: /api/login/facebook/return
-    defaults: { _controller: DothivAPIBundle:Security:facebookLoginReturn }
-    methods: [ GET ]
-
 # API routing
 dothiv_api:
     resource: "@DothivAPIBundle/Resources/config/routing.yml"

@@ -31,7 +31,3 @@ swiftmailer:
     encryption: tls
     auth_mode: cram-md5
     port: 2525
-
-# NelmioApiDocBundle
-nelmio_api_doc:
-    name: dotHIV API

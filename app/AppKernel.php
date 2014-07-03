@@ -16,18 +16,12 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new JMS\AopBundle\JMSAopBundle(),
-            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
-            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new FOS\RestBundle\FOSRestBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
             new Gregwar\FormBundle\GregwarFormBundle(),
             new Dothiv\BusinessBundle\DothivBusinessBundle(),
             new Dothiv\APIBundle\DothivAPIBundle(),
             new Dothiv\CharityWebsiteBundle\DothivCharityWebsiteBundle(),
             new Dothiv\RegistryWebsiteBundle\DothivRegistryWebsiteBundle(),
-            new FOS\FacebookBundle\FOSFacebookBundle(),
             new Dothiv\BaseWebsiteBundle\DothivBaseWebsiteBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Dothiv\ContentfulBundle\DothivContentfulBundle(),
@@ -41,7 +35,6 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new Nelmio\ApiDocBundle\NelmioApiDocBundle();
         }
 
         return $bundles;
