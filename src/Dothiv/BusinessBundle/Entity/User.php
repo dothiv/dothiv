@@ -1,20 +1,22 @@
 <?php
 
 namespace Dothiv\BusinessBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
 
 /**
- * @ORM\Entity
- * @UniqueEntity("username")
- * @UniqueEntity("email")
+ * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\UserRepository")
+ * @AssertORM\UniqueEntity("email")
  * @Serializer\ExclusionPolicy("all")
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="email",columns={"email"})})
+ * @ORM\HasLifecycleCallbacks
  */
-class User extends BaseUser
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -24,7 +26,32 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * First name 
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     */
+    protected $email;
+
+    /**
+     * The token used to login.
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     */
+    protected $token;
+
+    /**
+     * The bearer token for easier lookup
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     */
+    protected $bearerToken;
+
+    /**
+     * First name
      *
      * @ORM\Column(type="string")
      * @Serializer\Expose
@@ -48,17 +75,9 @@ class User extends BaseUser
      */
     protected $domains;
 
-    /**
-     * The user's facebook id, if facebook login is used
-     *
-     * @ORM\Column(type="string", length=255,nullable=true)
-     */
-    protected $facebookId;
-
     public function __construct()
     {
         $this->domains = new ArrayCollection();
-        parent::__construct();
     }
 
     public function getSurname()
@@ -99,7 +118,7 @@ class User extends BaseUser
     }
 
     /**
-     * Removes the given domain from the user, if it was previously 
+     * Removes the given domain from the user, if it was previously
      * owned by him/her.
      *
      * @param Domain $domain
@@ -110,54 +129,84 @@ class User extends BaseUser
             $domain->setOwner(null);
     }
 
-    public function getFacebookId()
+    /**
+     * @return string
+     */
+    public function getEmail()
     {
-        return $this->facebookId;
-    }
-
-    public function setFacebookId($facebookId)
-    {
-        $this->facebookId = $facebookId;
+        return $this->email;
     }
 
     /**
-     * Updates the user's data by using the most recent data
-     * from facebook. This is called every time the user logs
-     * in.
-     *
-     * @param Array
+     * @param string $email
      */
-    public function setFBData($fbdata)
+    public function setEmail($email)
     {
-        if ($this->username == '') {
-            $this->username = $this->newRandomCode();
-        }
-        if (isset($fbdata['id'])) {
-            $this->setFacebookId($fbdata['id']);
-            $this->addRole('ROLE_FACEBOOK');
-        }
-        if ($this->name == '' && isset($fbdata['first_name'])) {
-            $this->setName($fbdata['first_name']);
-        }
-        if ($this->surname == '' && isset($fbdata['last_name'])) {
-            $this->setSurname($fbdata['last_name']);
-        }
-        if ($this->email == '' && isset($fbdata['email'])) {
-            $this->setEmail($fbdata['email']);
-        }
+        $this->email = $email;
     }
 
     /**
-     * Generates a 12 digit random code
-     *
-     * Used pool of characters: a-z0-9
+     * @param mixed $token
      */
-    public function newRandomCode() {
-        $pool = "abcdefghijklmnopqrstuvwxyz0123456789";
-        $code = "";
-        while (strlen($code) < 12) {
-            $code .= substr($pool, rand(0, 35), 1);
-        }
-        return $code;
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function generateBearerToken()
+    {
+        $this->bearerToken = sha1($this->email . ':' . $this->token);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPassword()
+    {
+        return $this->bearerToken;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function eraseCredentials()
+    {
+        // pass.
+    }
+
 }

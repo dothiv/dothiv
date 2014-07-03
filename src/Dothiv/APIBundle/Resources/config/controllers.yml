@@ -1,0 +1,14 @@
+services:
+    dothiv.api.controller.domain:
+        class: Dothiv\APIBundle\Controller\DomainController
+        arguments:
+         - @security.context
+         - @dothiv.repository.domain
+         - @dothiv.repository.domainclaim
+
+    dothiv.api.controller.user:
+        class: Dothiv\APIBundle\Controller\UserController
+        arguments:
+         - @security.context
+         - @dothiv.repository.domain
+         - @serializer

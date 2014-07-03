@@ -2,18 +2,91 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Entity\DomainClaim;
+use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\DomainClaimRepositoryInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Dothiv\BusinessBundle\Form\DomainType;
-use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\BusinessBundle\Entity\User;
-use FOS\RestBundle\Util\Codes;
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Request\ParamFetcher;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Security\Core\SecurityContext;
 
-class DomainController extends FOSRestController {
+class DomainController
+{
+    /**
+     * @var DomainRepositoryInterface
+     */
+    private $domainRepo;
+
+    /**
+     * @var DomainClaimRepositoryInterface
+     */
+    private $domainClaimRepo;
+
+    /**
+     * @var SecurityContext
+     */
+    private $securityContext;
+
+    public function __construct(
+
+        SecurityContext $securityContext,
+        DomainRepositoryInterface $domainRepo,
+        DomainClaimRepositoryInterface $domainClaimRepo
+    )
+    {
+        $this->domainRepo      = $domainRepo;
+        $this->domainClaimRepo = $domainClaimRepo;
+        $this->securityContext = $securityContext;
+    }
+
+    /**
+     * Claims a domain for a user who provides the correct token.
+     */
+    public function claimAction(Request $request)
+    {
+        /* @var User $user */
+        $user  = $this->securityContext->getToken()->getUser();
+        $name  = $request->get('domain');
+        $token = $request->get('token');
+
+        /* @var Domain $domain */
+        $domain = $this->domainRepo->getDomainByName($name)->getOrCall(function () use ($name) {
+            throw new BadRequestHttpException(
+                sprintf(
+                    'Invalid domain "%s"!',
+                    $name
+                )
+            );
+        });
+
+        if ($domain->getToken() !== $token) {
+            throw new BadRequestHttpException(
+                sprintf(
+                    'Invalid token "%s"!',
+                    $token
+                )
+            );
+        }
+
+        // claim the domain
+        $domain->claim($user, $token);
+        $claim = new DomainClaim();
+        // persist the successful claim
+        $claim->setUsername($user->getUsername());
+        $claim->setClaimingToken($token);
+        $claim->setDomainname($domain->getName());
+        $this->domainClaimRepo->persist($claim)->flush();
+        $this->domainRepo->persist($domain)->flush();
+
+        $response = new Response();
+        $response->setStatusCode(201);
+        return $response;
+    }
+
     /**
      * Returns one specific domain.
      *
@@ -27,7 +100,8 @@ class DomainController extends FOSRestController {
      *   output="Dothiv\BusinessBundle\Form\DomainType"
      * )
      */
-    public function getDomainAction($slug) {
+    public function getDomainAction($slug)
+    {
         // TODO: security concern: who is allowed to GET domain information?
 
         // retrieve domain from database
@@ -51,7 +125,8 @@ class DomainController extends FOSRestController {
      *   }
      * )
      */
-    public function getDomainsAction(ParamFetcher $paramFetcher) {
+    public function getDomainsAction(ParamFetcher $paramFetcher)
+    {
         // TODO: security concern: who is allowed to GET domain information?
 
         // get query parameter and entity manager
@@ -72,39 +147,6 @@ class DomainController extends FOSRestController {
     }
 
     /**
-     * Creates a new domain.
-     *
-     * @ApiDoc(
-     *   section="domain",
-     *   resource=true,
-     *   description="Creates a new domain",
-     *   statusCodes={
-     *     201="Successfully created"
-     *   },
-     *   output="Dothiv\BusinessBundle\Form\DomainType"
-     * )
-     */
-    public function postDomainsAction() {
-        // TODO: this function is debug only and should be protected or removed.
-        // TODO: security concern: who is allowed to create new domains?
-        $domain = new Domain();
-
-        $form = $this->createForm(new DomainType(), $domain);
-        $form->bind($this->getRequest());
-
-        if ($form->isValid()) {
-            $domain = $this->get('registration')->registered($domain->getName(), $domain->getEmailAddressFromRegistrar());
-
-            // prepare response
-            $response = $this->redirectView($this->generateUrl('get_domain', array('slug' => $domain->getId())), Codes::HTTP_CREATED);
-            $response->setData($this->createForm(new DomainType(), $domain));
-            return $response;
-        }
-
-        return array('form' => $form);
-    }
-
-    /**
      * Updates the domain.
      *
      * @ApiDoc(
@@ -120,11 +162,12 @@ class DomainController extends FOSRestController {
      *
      * @Secure(roles="ROLE_USER")
      */
-    public function putDomainAction($slug) {
+    public function putDomainAction($slug)
+    {
         $context = $this->get('security.context');
 
         // fetch domain from database
-        $em = $this->getDoctrine()->getManager();
+        $em       = $this->getDoctrine()->getManager();
         $domain = $em->getRepository('DothivBusinessBundle:Domain')->findOneBy(array('id' => $slug));
 
         if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $domain->getOwner()->getUsername()) {
@@ -169,7 +212,8 @@ class DomainController extends FOSRestController {
      *   output="Dothiv\BusinessBundle\Entity\Banner"
      * )
      */
-     public function getDomainBannersAction($id) {
+    public function getDomainBannersAction($id)
+    {
         // TODO: security concern: who is allowed to get domain banners?
 
         // retrieve domain from database
@@ -186,7 +230,8 @@ class DomainController extends FOSRestController {
      *
      * Used pool of characters: a-zA-Z0-9
      */
-    private function newRandomCode() {
+    private function newRandomCode()
+    {
         $pool = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWWXY0123456789";
         $code = "";
         while (strlen($code) < 32) {

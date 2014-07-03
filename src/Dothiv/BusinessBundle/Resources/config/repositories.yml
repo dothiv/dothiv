@@ -1,9 +1,33 @@
 parameters:
-    dothiv.repository.banner.entity: 'DothivBusinessBundle:Banner'
+    dothiv.repository.banner.entity.class: 'DothivBusinessBundle:Banner'
+    dothiv.repository.user.entity.class: 'DothivBusinessBundle:User'
+    dothiv.repository.user.repository.class: Dothiv\BusinessBundle\Repository\UserRepository
+    dothiv.repository.domain.entity.class: 'DothivBusinessBundle:Domain'
+    dothiv.repository.domain.repository.class: Dothiv\BusinessBundle\Repository\DomainRepository
+    dothiv.repository.domainclaim.entity.class: 'DothivBusinessBundle:DomainClaim'
+    dothiv.repository.domainclaim.repository.class: Dothiv\BusinessBundle\Repository\DomainClaimRepository
 
 services:
     dothiv.repository.banner:
         class: Doctrine\Common\Persistence\ObjectRepository
-        factory_service: doctrine
+        factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        arguments: [ %dothiv.repository.banner.entity% ]
+        arguments: [ %dothiv.repository.banner.entity.class% ]
+
+    dothiv.repository.user:
+        class: %dothiv.repository.user.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.user.entity.class% ]
+
+    dothiv.repository.domain:
+        class: %dothiv.repository.domain.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.domain.entity.class% ]
+
+    dothiv.repository.domainclaim:
+        class: %dothiv.repository.domainclaim.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.domainclaim.entity.class% ]
