@@ -10,11 +10,11 @@ class AppCache extends HttpCache
     {
         return array(
             'debug'                  => true,
-            'default_ttl'            => 86400,
+            'default_ttl'            => 1800, // 30 mins
             'private_headers'        => array('Authorization', 'Cookie'),
             'allow_reload'           => false,
             'allow_revalidate'       => true,
-            'stale_while_revalidate' => 2,
+            'stale_while_revalidate' => 10,
             'stale_if_error'         => 60,
         );
     }

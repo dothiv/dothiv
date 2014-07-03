@@ -207,7 +207,10 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
             'en',
             'test'
         );
-        $this->assertEquals($response->getExpires(), $this->getClock()->getNow()->modify('+1 day'));
+        $this->assertEquals(
+            $this->getClock()->getNow()->modify('+30 minutes'),
+            $response->getExpires()
+        );
     }
 
     /**
@@ -230,7 +233,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
             $this->mockContent,
             'BaseWebsiteBundle',
             Option::fromValue($assetsDate)->getOrElse(new \DateTime())->getTimestamp(),
-            $this->getClock()
+            $this->getClock(),
+            1800
         );
     }
 

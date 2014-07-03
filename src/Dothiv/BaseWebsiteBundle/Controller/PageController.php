@@ -43,14 +43,28 @@ class PageController
     private $clock;
 
     /**
+     * @var int
+     */
+    private $pageLifetime;
+
+    /**
      * @param RequestLastModifiedCache $lastModifiedCache
      * @param EngineInterface          $renderer
      * @param Content                  $content
      * @param string                   $bundle
      * @param int                      $assets_version
      * @param Clock                    $clock
+     * @param int                      $pageLifetime In seconds
      */
-    public function __construct(RequestLastModifiedCache $lastModifiedCache, EngineInterface $renderer, Content $content, $bundle, $assets_version, Clock $clock)
+    public function __construct(
+        RequestLastModifiedCache $lastModifiedCache,
+        EngineInterface $renderer,
+        Content $content,
+        $bundle,
+        $assets_version,
+        Clock $clock,
+        $pageLifetime
+    )
     {
         $this->lastModifiedCache = $lastModifiedCache;
         $this->renderer          = $renderer;
@@ -58,6 +72,7 @@ class PageController
         $this->bundle            = $bundle;
         $this->assetsModified    = new \DateTime('@' . $assets_version);
         $this->clock             = $clock;
+        $this->pageLifetime      = (int)$pageLifetime;
     }
 
     /**
@@ -71,10 +86,7 @@ class PageController
      */
     public function pageAction(Request $request, $locale, $page, $navigation = null, $template = null)
     {
-        $response = new Response();
-        $response->setPublic();
-        $response->setSharedMaxAge(86400);
-        $response->setExpires($this->clock->getNow()->modify('+1 day'));
+        $response = $this->createResponse();
 
         $lmc = $this->getLastModifiedCache();
 
@@ -149,7 +161,7 @@ class PageController
     /**
      * @return string
      */
-    public function getBundle()
+    protected function getBundle()
     {
         return $this->bundle;
     }
@@ -157,7 +169,7 @@ class PageController
     /**
      * @return \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface
      */
-    public function getRenderer()
+    protected function getRenderer()
     {
         return $this->renderer;
     }
@@ -165,17 +177,14 @@ class PageController
     /**
      * @return \Dothiv\BaseWebsiteBundle\Contentful\Content
      */
-    public function getContent()
+    protected function getContent()
     {
         return $this->content;
     }
 
     public function contentAction(Request $request, $locale, $type)
     {
-        $response = new Response();
-        $response->setPublic();
-        $response->setSharedMaxAge(86400);
-        $response->setExpires($this->clock->getNow()->modify('+1 day'));
+        $response = $this->createResponse();
         $response->headers->set('Content-Type', 'application/json');
 
         $lmc = $this->getLastModifiedCache();
@@ -216,7 +225,7 @@ class PageController
     /**
      * @return RequestLastModifiedCache
      */
-    public function getLastModifiedCache()
+    protected function getLastModifiedCache()
     {
         return $this->lastModifiedCache;
     }
@@ -224,7 +233,7 @@ class PageController
     /**
      * @return \DateTime
      */
-    public function getAssetsModified()
+    protected function getAssetsModified()
     {
         return $this->assetsModified;
     }
@@ -232,8 +241,20 @@ class PageController
     /**
      * @return Clock
      */
-    public function getClock()
+    protected function getClock()
     {
         return $this->clock;
+    }
+
+    /**
+     * @return Response
+     */
+    protected function createResponse()
+    {
+        $response = new Response();
+        $response->setPublic();
+        $response->setSharedMaxAge($this->pageLifetime);
+        $response->setExpires($this->clock->getNow()->modify(sprintf('+%d seconds', $this->pageLifetime)));
+        return $response;
     }
 }

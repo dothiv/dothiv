@@ -208,3 +208,6 @@ parameters:
     # handler for serialization of forms
     jms_serializer.form_error_handler.class: Dothiv\BusinessBundle\Serializer\FormHandler
 
+    # Default HTTP cache lifetime for pages
+    page_lifetime: 1800
+

@@ -9,10 +9,7 @@ class ProjectsController extends PageController
 {
     public function indexAction(Request $request, $locale)
     {
-        $response = new Response();
-        $response->setPublic();
-        $response->setSharedMaxAge(86400);
-        $response->setExpires($this->getClock()->getNow()->modify('+1 day'));
+        $response = $this->createResponse();
 
         $lmc = $this->getLastModifiedCache();
 

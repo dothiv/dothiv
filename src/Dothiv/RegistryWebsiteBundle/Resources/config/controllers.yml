@@ -8,6 +8,7 @@ services:
           - "DothivRegistryWebsiteBundle"
           - %assets_version%
           - @clock
+          - %page_lifetime%
 
     dothiv.registry.api.controller:
         class: Dothiv\RegistryWebsiteBundle\Controller\ApiController
