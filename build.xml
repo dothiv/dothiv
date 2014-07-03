@@ -77,7 +77,7 @@
         <exec executable="${basedir}/bin/phpcs" output="/dev/null">
             <arg value="--report=checkstyle"/>
             <arg value="--report-file=${basedir}/build/logs/checkstyle.xml"/>
-            <arg value="--standard=${basedir}/build/codingstandards/coderbyheart"/>
+            <arg value="--standard=${basedir}/build/codingstandards/dotHIV"/>
             <arg value="--extensions=php"/>
             <arg path="${basedir}/src"/>
         </exec>
