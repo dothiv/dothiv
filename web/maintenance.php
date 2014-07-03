@@ -9,8 +9,7 @@ header('Expires: -1');
 header('Cache-Control: private, max-age=0');
 
 // Build refresh URL based on server variables.
-$proto = (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') ? 'https' : 'http';
-$redirect = $proto . '://' . $_SERVER['HTTP_HOST'];
+$redirect = '//' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 ?>
 <!DOCTYPE html>
@@ -115,7 +114,7 @@ $redirect = $proto . '://' . $_SERVER['HTTP_HOST'];
         // Append hashBang if present.
         var refreshMeta = $('head meta[http-equiv="refresh"]');
         var refreshUrl = refreshMeta.prop('content').split(';')[1].trim().split('=')[1];
-        refreshMeta.prop('content', refreshMeta.prop('content').replace(refreshUrl, refreshUrl + "/" + window.location.hash));
+        refreshMeta.prop('content', refreshMeta.prop('content').replace(refreshUrl, refreshUrl + window.location.hash));
     });
 </script>
 </body>
