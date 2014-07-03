@@ -5,6 +5,8 @@ $retry = 15;
 // Send 503 error code.
 header('HTTP/1.0 503 Service Temporarily Unavailable', 503);
 header('Retry-After: ' . $retry);
+header('Expires: -1');
+header('Cache-Control: private, max-age=0');
 
 // Build refresh URL based on server variables.
 $proto = (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') ? 'https' : 'http';
