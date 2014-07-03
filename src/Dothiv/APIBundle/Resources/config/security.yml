@@ -1,0 +1,12 @@
+services:
+    dothiv.apibundle.oauth2.security.authentication.provider:
+        class: Dothiv\APIBundle\Security\Authentication\Provider\Oauth2BearerProvider
+        arguments:
+          - ""
+          - @dothiv.repository.user
+
+    dothiv.apibundle.oauth2.security.authentication.listener:
+        class: Dothiv\APIBundle\Security\Firewall\Oauth2BearerListener
+        arguments:
+          - @security.context
+          - @security.authentication.manager
