@@ -1,7 +1,7 @@
 Feature: Domain Claim
   User user should be able to claim a domain
 
-  Scenario: Claim domain
+  Background:
     Given the "DothivBusinessBundle:User" entity exists in "user" with values:
       | email   | someone@example.com |
       | token   | usert0k3n           |
@@ -10,6 +10,8 @@ Feature: Domain Claim
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
       | name  | test.hiv    |
       | token | domaint0k3n |
+
+  Scenario: Claim domain
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
     And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with values:
       | domain | test.hiv    |
@@ -23,3 +25,18 @@ Feature: Domain Claim
     Then the response status code should be 200
     And the header "content-type" should contain "application/json"
     And the JSON object should be a list with 1 element
+    And "name" on the JSON list 0 should be "test.hiv"
+
+  Scenario: Failed claim for invalid username
+    Given I add Bearer token equal to "wrongt0k3n"
+    And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with values:
+      | domain | test.hiv    |
+      | token  | domaint0k3n |
+    Then the response status code should be 403
+
+  Scenario: Failed claim for wrong token
+    Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
+    And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with values:
+      | domain | test.hiv     |
+      | token  | invalidt0k3n |
+    Then the response status code should be 400

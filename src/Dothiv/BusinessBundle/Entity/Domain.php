@@ -44,7 +44,6 @@ class Domain extends Entity
      * The owning user of the domain
      *
      * @ORM\ManyToOne(targetEntity="User",inversedBy="domains")
-     * @Serializer\Expose
      */
     protected $owner;
 
@@ -60,7 +59,6 @@ class Domain extends Entity
      * This token will be used by the owner to claim the domain
      *
      * @ORM\Column(type="string",length=255,nullable=true,unique=true)
-     * @Serializer\Expose
      */
     protected $token;
 

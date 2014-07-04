@@ -149,4 +149,13 @@ class FeatureContext extends BehatContext
         $content = $this->getSubcontext('mink')->getSession()->getPage()->getContent();
         return json_decode($content);
     }
+
+    /**
+     * @Given /^"(?P<key>[^"]*)" on the JSON list (?P<index>\d+) should be "(?P<expected>[^"]*)"$/
+     */
+    public function onTheJsonListShouldBe($key, $expected, $index)
+    {
+        $json = $this->getJson();
+        \PHPUnit_Framework_Assert::assertEquals($json[$index]->$key, $expected);
+    }
 }
