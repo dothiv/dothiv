@@ -24,7 +24,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
  */
 class Domain extends Entity
 {
-
     /**
      * FQDN, no trailing dot.
      *
@@ -44,6 +43,7 @@ class Domain extends Entity
      * The owning user of the domain
      *
      * @ORM\ManyToOne(targetEntity="User",inversedBy="domains")
+     * @var User
      */
     protected $owner;
 
@@ -75,13 +75,6 @@ class Domain extends Entity
      * @ORM\OneToOne(targetEntity="Banner")
      */
     protected $activeBanner;
-
-    /**
-     * Whether this domain shall be forwarded to dothiv's servers.
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $dnsForward = false;
 
     /**
      * The number of clicks counted for this domain. For the last update
@@ -148,15 +141,17 @@ class Domain extends Entity
     public function setOwner(User $newOwner = null)
     {
         // remove this domain from current owner's list, if anybody owns it
-        if ($this->owner !== null)
+        if ($this->owner !== null) {
             $this->owner->getDomains()->removeElement($this);
+        }
 
         // set new owner
         $this->owner = $newOwner;
 
         // add this domain to new owner's domains, if new owner exists
-        if ($newOwner !== null)
+        if ($newOwner !== null) {
             $newOwner->getDomains()->add($this);
+        }
     }
 
     public function hasOwner()
@@ -216,6 +211,8 @@ class Domain extends Entity
 
     /**
      * Returns a collection of all banners associated with this domain.
+     *
+     * @return ArrayCollection|Banner[]
      */
     public function getBanners()
     {
@@ -246,16 +243,6 @@ class Domain extends Entity
     public function getActiveBanner()
     {
         return $this->activeBanner;
-    }
-
-    public function getDnsForward()
-    {
-        return $this->dnsForward;
-    }
-
-    public function setDnsForward($val)
-    {
-        $this->dnsForward = $val;
     }
 
     /**

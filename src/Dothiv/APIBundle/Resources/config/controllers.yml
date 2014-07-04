@@ -6,6 +6,15 @@ services:
          - @dothiv.repository.domain
          - @dothiv.repository.domainclaim
 
+    dothiv.api.controller.banner:
+        class: Dothiv\APIBundle\Controller\BannerController
+        arguments:
+         - @security.context
+         - @dothiv.repository.domain
+         - @dothiv.repository.banner
+         - @validator
+         - @serializer
+
     dothiv.api.controller.user:
         class: Dothiv\APIBundle\Controller\UserController
         arguments:

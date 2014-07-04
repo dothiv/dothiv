@@ -5,7 +5,19 @@ dothiv_api_domain_claim:
     methods: [POST]
 
 dothiv_api_user_domains:
-    pattern:  /user/domains
+    pattern:  /user/{handle}/domains
     defaults:
         _controller: dothiv.api.controller.user:domainsAction
+    methods: [GET]
+
+dothiv_api_domain_banner_config_set:
+    pattern:  /domain/{name}/banner
+    defaults:
+        _controller: dothiv.api.controller.banner:setConfigAction
+    methods: [PUT]
+
+dothiv_api_domain_banner_config_get:
+    pattern:  /domain/{name}/banner
+    defaults:
+        _controller: dothiv.api.controller.banner:getConfigAction
     methods: [GET]

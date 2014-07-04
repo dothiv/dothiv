@@ -85,11 +85,27 @@ class FeatureContext extends BehatContext
         $entity     = new $entityInfo->name;
         foreach ($table->getRowsHash() as $k => $v) {
             $setter = 'set' . ucfirst($k);
-            $entity->$setter($v);
+            $entity->$setter($this->getValue($v));
         }
         $em->persist($entity);
         $em->flush();
         $this->store($storageName, $entity);
+    }
+
+    /**
+     * Returns a value with replaced placeholders for storage objects.
+     *
+     * @param $value
+     *
+     * @return mixed
+     */
+    protected function getValue($value)
+    {
+        preg_match_all('/\{([^\}]+)\}/', $value, $matches, PREG_SET_ORDER);
+        foreach ($matches as $match) {
+            return $this->storage->get($match[1]);
+        }
+        return $value;
     }
 
     /**

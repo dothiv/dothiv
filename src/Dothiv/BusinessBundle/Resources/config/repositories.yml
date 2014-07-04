@@ -4,6 +4,8 @@ parameters:
     dothiv.repository.user.repository.class: Dothiv\BusinessBundle\Repository\UserRepository
     dothiv.repository.domain.entity.class: 'DothivBusinessBundle:Domain'
     dothiv.repository.domain.repository.class: Dothiv\BusinessBundle\Repository\DomainRepository
+    dothiv.repository.banner.entity.class: 'DothivBusinessBundle:Banner'
+    dothiv.repository.banner.repository.class: Dothiv\BusinessBundle\Repository\BannerRepository
     dothiv.repository.domainclaim.entity.class: 'DothivBusinessBundle:DomainClaim'
     dothiv.repository.domainclaim.repository.class: Dothiv\BusinessBundle\Repository\DomainClaimRepository
 
@@ -25,6 +27,12 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.domain.entity.class% ]
+
+    dothiv.repository.banner:
+        class: %dothiv.repository.banner.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.banner.entity.class% ]
 
     dothiv.repository.domainclaim:
         class: %dothiv.repository.domainclaim.repository.class%

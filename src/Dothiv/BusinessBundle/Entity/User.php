@@ -12,8 +12,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
 /**
  * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\UserRepository")
  * @AssertORM\UniqueEntity("email")
+ * @AssertORM\UniqueEntity("handle")
  * @Serializer\ExclusionPolicy("all")
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="email",columns={"email"})})
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="email",columns={"email"}),@ORM\UniqueConstraint(name="handle",columns={"handle"})})
  * @ORM\HasLifecycleCallbacks
  */
 class User implements UserInterface
@@ -24,6 +25,15 @@ class User implements UserInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     */
+    protected $handle;
 
     /**
      * @var string
@@ -100,6 +110,9 @@ class User implements UserInterface
         $this->name = $name;
     }
 
+    /**
+     * @return ArrayCollection|Domain[]
+     */
     public function getDomains()
     {
         return $this->domains;
@@ -209,4 +222,19 @@ class User implements UserInterface
         // pass.
     }
 
+    /**
+     * @param string $handle
+     */
+    public function setHandle($handle)
+    {
+        $this->handle = $handle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHandle()
+    {
+        return $this->handle;
+    }
 }
