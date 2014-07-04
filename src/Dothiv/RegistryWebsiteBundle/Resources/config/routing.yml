@@ -17,7 +17,7 @@ dothiv_registry_content_api:
     defaults:
         _controller: dothiv.registry.web.controller.page:contentAction
     requirements:
-        locale:  en|de
+        locale:  en
         type: Registrar
 
 dothiv_registry_register:
@@ -26,14 +26,14 @@ dothiv_registry_register:
         _controller: dothiv.registry.web.controller.page:pageAction
         page: register
     requirements:
-        locale:  en|de|ky
+        locale:  en|ky
 
 dothiv_registry_content:
     pattern:  /{locale}/c/{page}
     defaults:
         _controller: dothiv.registry.web.controller.page:contentPageAction
     requirements:
-        locale:  en|de|ky
+        locale:  en|ky
         page: ^([a-zA-Z][a-zA-Z0-9]*[/-])*[a-zA-Z][a-zA-Z0-9]*$
 
 dothiv_registry_page:
@@ -42,7 +42,7 @@ dothiv_registry_page:
         _controller: dothiv.registry.web.controller.page:pageAction
         page: index
     requirements:
-        locale:  en|de|ky
+        locale:  en|ky
 
 dothiv_registry_report:
     pattern:  /{locale}/report
@@ -50,4 +50,4 @@ dothiv_registry_report:
         _controller: dothiv.registry.web.controller.page:pageAction
         page: report
     requirements:
-        locale:  en|de|ky
+        locale:  en|ky
