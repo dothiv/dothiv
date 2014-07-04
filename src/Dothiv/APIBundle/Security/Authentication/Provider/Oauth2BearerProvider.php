@@ -7,7 +7,6 @@ use Dothiv\APIBundle\Security\Authentication\Token\Oauth2BearerToken;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class Oauth2BearerProvider implements AuthenticationProviderInterface
@@ -33,7 +32,7 @@ class Oauth2BearerProvider implements AuthenticationProviderInterface
             return $authenticatedToken;
         }
 
-        throw new AuthenticationException('The Bearer authentication failed.');
+        return $token;
     }
 
     public function supports(TokenInterface $token)

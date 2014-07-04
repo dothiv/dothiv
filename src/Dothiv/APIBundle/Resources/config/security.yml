@@ -9,4 +9,3 @@ services:
         class: Dothiv\APIBundle\Security\Firewall\Oauth2BearerListener
         arguments:
           - @security.context
-          - @security.authentication.manager
