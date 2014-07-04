@@ -23,11 +23,6 @@ parameters:
 
     twitter_widget_id: 474872109810733056
 
-    dns_reseller:      dd24_reseller
-    dns_password:      dd24_password
-    dns_cid:           dd24_cid
-    dns_nameserver:    dd24_nameserver
-
     clickcounter_auth_username: some_username
     clickcounter_auth_password: some_password
     clickcounter_base_url: https://somewhere.on.appspot.com
