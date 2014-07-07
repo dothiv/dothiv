@@ -50,10 +50,21 @@ class Domain extends Entity
     /**
      * Email address of the owner, as provided by registrar
      *
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank
+     * @Assert\NotNull
      */
-    protected $emailAddressFromRegistrar;
+    protected $ownerEmail;
+
+    /**
+     * Name of the owner, as provided by registrar
+     *
+     * @ORM\Column(type="string",nullable=false)
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * @var string
+     */
+    protected $ownerName;
 
     /**
      * This token will be used by the owner to claim the domain
@@ -194,9 +205,9 @@ class Domain extends Entity
      *
      * @return string future user's email address
      */
-    public function getEmailAddressFromRegistrar()
+    public function getOwnerEmail()
     {
-        return $this->emailAddressFromRegistrar;
+        return $this->ownerEmail;
     }
 
     /**
@@ -204,9 +215,9 @@ class Domain extends Entity
      *
      * @param string $address
      */
-    public function setEmailAddressFromRegistrar($address)
+    public function setOwnerEmail($address)
     {
-        $this->emailAddressFromRegistrar = $address;
+        $this->ownerEmail = $address;
     }
 
     /**
@@ -255,5 +266,21 @@ class Domain extends Entity
         $this->clickcount = $val;
         // FIXME: use clock service
         $this->lastUpdate = new \DateTime();
+    }
+
+    /**
+     * @param string $ownerName
+     */
+    public function setOwnerName($ownerName)
+    {
+        $this->ownerName = $ownerName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwnerName()
+    {
+        return $this->ownerName;
     }
 }

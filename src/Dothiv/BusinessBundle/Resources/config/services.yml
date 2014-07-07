@@ -13,7 +13,9 @@ services:
         arguments: ["@service_container","@templating","@translator","@doctrine.orm.entity_manager","@mailer"]
     registration:
         class: %registration.class%
-        arguments: ["@service_container","@doctrine.orm.entity_manager","@mailer","@templating"]
+        arguments:
+        - @doctrine.orm.entity_manager
+        - @event_dispatcher
 
     clock:
         class: %dothiv.businessbundle.service.clock.class%

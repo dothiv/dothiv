@@ -8,8 +8,11 @@ parameters:
     database_path: ~
     mailer_transport: smtp
     mailer_host: mailtrap.io
-    mailer_user: wakeupscreen-31d0773e296c04b0
-    mailer_password: 2b0661dbd61ee5d7
+    mailer_user: xxxx
+    mailer_password: xxxx
+    mailer_port: 2525
+    email_from_name: Markus from dotHIV
+    email_from_address: m@tld.hiv
     locale: de
     secret: bZ7AR7KC
     charitydomain: click4life.hiv.dev
@@ -20,7 +23,6 @@ parameters:
     clickcounter_auth_username: some_username
     clickcounter_auth_password: some_password
     clickcounter_base_url: 'https://somewhere.on.appspot.com'
-    luser: nobody
     node_bin: /usr/bin/node
     node_modules: '%kernel.root_dir%/../node_modules'
     ngmin_bin: '%kernel.root_dir%/../node_modules/ngmin/bin/ngmin'

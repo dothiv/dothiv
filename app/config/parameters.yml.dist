@@ -11,6 +11,9 @@ parameters:
     mailer_host:       127.0.0.1
     mailer_user:       ~
     mailer_password:   ~
+    mailer_port:       25
+    email_from_name:    Markus from dotHIV
+    email_from_address: m@tld.hiv
 
     locale:            en
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
@@ -32,9 +35,6 @@ parameters:
     #
     # PARAMETERS USED IN DEV MODE
     #
-
-    # use this directive to set the recipient of local mail
-    luser:  your_unix_user_name
 
     # Node and modules
     node_bin: /usr/bin/node
