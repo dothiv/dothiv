@@ -4,13 +4,14 @@ angular.module('dotHIVApp.controllers').controller('PinkbarControllerCountdown',
     function ($scope, $rootScope, config) {
 
         var startCountDown = new Date(config.countdown_start);
-        var endCountDown = new Date(config.general_availability);
+        var endCountDown = new Date(config.countdown_end);
 
         $scope.percent = 0;
         $scope.countdown = {
             diffDays: 0,
             diffTime: 0
         }
+        $scope.visible = true;
 
         function leadingZero(v) {
             if (("" + v).length > 1) {
@@ -48,6 +49,9 @@ angular.module('dotHIVApp.controllers').controller('PinkbarControllerCountdown',
             $scope.countdown = {
                 diffDays: diffDays,
                 diffTime: diffTime
+            }
+            if (percent < 0) {
+                $scope.visible = false;
             }
         }
 

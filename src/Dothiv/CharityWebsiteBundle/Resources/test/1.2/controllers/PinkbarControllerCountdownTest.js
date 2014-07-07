@@ -27,7 +27,7 @@ describe('Controller: PinkbarControllerCountdown', function () {
         mockConfig = {
             now: '2014-08-07T11:17:28+00:00',
             countdown_start: '2014-08-01T00:00:00+00:00',
-            general_availability: '2014-08-10T11:17:27+00:00'
+            countdown_end: '2014-08-10T11:17:27+00:00'
         };
         createController();
         expect(scope.countdown.diffDays).toBe(2);
@@ -38,7 +38,7 @@ describe('Controller: PinkbarControllerCountdown', function () {
         mockConfig = {
             now: '2014-08-07T11:17:27+00:00',
             countdown_start: '2014-08-01T00:00:00+00:00',
-            general_availability: '2014-08-10T11:17:27+00:00'
+            countdown_end: '2014-08-10T11:17:27+00:00'
         };
         createController();
         expect(scope.countdown.diffDays).toBe(3);
@@ -49,7 +49,7 @@ describe('Controller: PinkbarControllerCountdown', function () {
         mockConfig = {
             now: '2014-08-07T11:17:26+00:00',
             countdown_start: '2014-08-01T00:00:00+00:00',
-            general_availability: '2014-08-10T11:17:27+00:00'
+            countdown_end: '2014-08-10T11:17:27+00:00'
         };
         createController();
         expect(scope.countdown.diffDays).toBe(3);
@@ -60,7 +60,7 @@ describe('Controller: PinkbarControllerCountdown', function () {
         mockConfig = {
             now: '2014-08-10T11:17:27+00:00',
             countdown_start: '2014-08-01T00:00:00+00:00',
-            general_availability: '2014-08-10T11:17:27+00:00'
+            countdown_end: '2014-08-10T11:17:27+00:00'
         };
         createController();
         expect(scope.countdown.diffDays).toBe(0);
@@ -71,10 +71,30 @@ describe('Controller: PinkbarControllerCountdown', function () {
         mockConfig = {
             now: '2014-08-11T11:17:27+00:00',
             countdown_start: '2014-08-01T00:00:00+00:00',
-            general_availability: '2014-08-10T11:17:27+00:00'
+            countdown_end: '2014-08-10T11:17:27+00:00'
         };
         createController();
         expect(scope.countdown.diffDays).toBe(0);
         expect(scope.countdown.diffTime).toBe('0:00:00');
+    });
+
+    it('should be visible before end of countdown', function() {
+        mockConfig = {
+            now: '2014-08-07T11:17:28+00:00',
+            countdown_start: '2014-08-01T00:00:00+00:00',
+            countdown_end: '2014-08-10T11:17:27+00:00'
+        };
+        createController();
+        expect(scope.visible).toBe(true);
+    });
+
+    it('should be invisible after end of countdown', function() {
+        mockConfig = {
+            now: '2014-08-11T11:17:27+00:00',
+            countdown_start: '2014-08-01T00:00:00+00:00',
+            countdown_end: '2014-08-10T11:17:27+00:00'
+        };
+        createController();
+        expect(scope.visible).toBe(false);
     });
 });

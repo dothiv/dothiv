@@ -97,8 +97,8 @@
     angular.module('dotHIVApp.services').factory('config', function() {
         var config = {
             locale: '{{ locale }}',
-            general_availability: '{{ general_availability|date_w3c }}',
-            countdown_start: '{{ countdown_start|date_w3c }}'
+            countdown_start: '{{ countdown_start|date_w3c }}',
+            countdown_end: '{{ general_availability|date_w3c }}'
         };
         return config;
     });
