@@ -111,24 +111,6 @@ dothiv_charity_website:
         - { name: pinkbar_countdown, enabled: true }
 
 parameters:
-    # Email addresses 
-    domain_email_sender_address: mail@click4life.hiv.dev
-
-    # configure symfony security bundle to use our REST authentication classes.
-    # this is required by the angular app authentication process (see http authentication interceptor)
-    security.authentication.form_entry_point.class: Dothiv\APIBundle\Security\RestAuthenticationEntryPoint
-    security.authentication.listener.form.class: Dothiv\APIBundle\Security\RestAuthenticationListener
-    security.authentication.success_handler.class: Dothiv\APIBundle\Security\DothivAuthenticationSuccessHandler
-    security.authentication.failure_handler.class: Dothiv\APIBundle\Security\RestAuthenticationFailureHandler
-    security.logout.success_handler.class: Dothiv\APIBundle\Security\RestLogoutSuccessHandler
-    security.logout_listener.class: Dothiv\APIBundle\Security\RestLogoutListener
-
-    # listener that sets the users locale
-    locale_listener.class: Dothiv\APIBundle\Listener\LocaleListener
-
-    # handler for serialization of forms
-    jms_serializer.form_error_handler.class: Dothiv\BusinessBundle\Serializer\FormHandler
-
     # Default HTTP cache lifetime for pages
     page_lifetime: 1800
 
