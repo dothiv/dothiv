@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Util\SecureRandom;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
 
@@ -175,11 +176,36 @@ class User implements UserInterface
     }
 
     /**
+     * @return string
+     * FIXME: Move to separate entity, to handle token lifetime.
+     */
+    public function generateToken()
+    {
+        if (!$this->token) {
+            $sr          = new SecureRandom();
+            $this->token = bin2hex($sr->nextBytes(16));
+        }
+        return $this->token;
+    }
+
+    /**
      * @ORM\PrePersist
      */
     public function generateBearerToken()
     {
         $this->bearerToken = sha1($this->email . ':' . $this->token);
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function generateHandle()
+    {
+        if ($this->handle) {
+            return;
+        }
+        $sr           = new SecureRandom();
+        $this->handle = bin2hex($sr->nextBytes(16));
     }
 
     /**

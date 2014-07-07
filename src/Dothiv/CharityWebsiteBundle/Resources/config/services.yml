@@ -31,6 +31,7 @@ services:
         arguments:
         - @mailer
         - @router
+        - @dothiv.repository.user
         - @dothiv.charity.contentful.charity_content
         - %email_from_address%
         - %email_from_name%

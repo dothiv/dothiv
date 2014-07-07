@@ -2,6 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Dothiv\BusinessBundle\Entity\User;
 use PhpOption\Option;
 
 /**
@@ -22,4 +23,20 @@ interface UserRepositoryInterface
      * @return Option
      */
     public function getUserByBearerToken($token);
+
+    /**
+     * Persist the entity.
+     *
+     * @param User $user
+     *
+     * @return self
+     */
+    public function persist(User $user);
+
+    /**
+     * Flush the entity manager.
+     *
+     * @return self
+     */
+    public function flush();
 }

@@ -2,6 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Dothiv\BusinessBundle\Entity\User;
 use PhpOption\Option;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 
@@ -37,4 +38,21 @@ class UserRepository extends DoctrineEntityRepository implements UserRepositoryI
         );
     }
 
-} 
+    /**
+     * {@inheritdoc}
+     */
+    public function persist(User $user)
+    {
+        $this->getEntityManager()->persist($user);
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function flush()
+    {
+        $this->getEntityManager()->flush();
+        return $this;
+    }
+}
