@@ -62,6 +62,11 @@
         </section>
     </header>
 </div>
+<div id="countdown" data-ng-controller="PinkbarControllerCountdown" data-ng-cloak data-ng-hidden="!visible">
+    <div class="text">
+        {{ 'countdown.text'|trans|markdown }}
+    </div>
+</div>
 {% for section in registry_content('Collection', 'nav.main')|default({'items': []}).items %}
     {% if loop.first %}
         <div class="outer-texture">
@@ -118,6 +123,7 @@
 {% javascripts
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/app.js'
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/PinkbarControllerCountdown.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js'
 %}
@@ -127,7 +133,9 @@
     'use strict';
     angular.module('dotHIVApp.services').factory('config', function() {
         var config = {
-            locale: '{{ locale }}'
+            locale: '{{ locale }}',
+            countdown_start: '{{ countdown_start|date_w3c }}',
+            countdown_end: '{{ sunrise|date_w3c }}'
         };
         return config;
     });
