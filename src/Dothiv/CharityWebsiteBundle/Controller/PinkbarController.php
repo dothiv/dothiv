@@ -9,6 +9,7 @@
 
 namespace Dothiv\CharityWebsiteBundle\Controller;
 
+use Dothiv\BaseWebsiteBundle\Service\MoneyFormatServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -35,15 +36,22 @@ class PinkbarController
     private $translator;
 
     /**
-     * @param TranslatorInterface $translator
-     * @param float               $eurGoal
-     * @param float               $alreadyDonated
+     * @var MoneyFormatServiceInterface
      */
-    public function __construct(TranslatorInterface $translator, $eurGoal, $alreadyDonated)
+    private $moneyFormatService;
+
+    /**
+     * @param TranslatorInterface         $translator
+     * @param MoneyFormatServiceInterface $moneyFormatService
+     * @param float                       $eurGoal
+     * @param float                       $alreadyDonated
+     */
+    public function __construct(TranslatorInterface $translator, MoneyFormatServiceInterface $moneyFormatService, $eurGoal, $alreadyDonated)
     {
-        $this->translator     = $translator;
-        $this->eurGoal        = floatval($eurGoal);
-        $this->alreadyDonated = floatval($alreadyDonated);
+        $this->translator         = $translator;
+        $this->moneyFormatService = $moneyFormatService;
+        $this->eurGoal            = floatval($eurGoal);
+        $this->alreadyDonated     = floatval($alreadyDonated);
     }
 
     /**
@@ -60,30 +68,19 @@ class PinkbarController
         $data                    = array();
         $data['enabled']         = false;
         $data['donated']         = $this->alreadyDonated;
-        $data['donated_label']   = $this->moneyFormat($data['donated'], $locale);
+        $data['donated_label']   = $this->moneyFormatService->decimalFormat($data['donated'], $locale);
         $unlocked                = $clicks * $this->eurIncrement;
         $data['unlocked']        = $unlocked;
-        $data['unlocked_label']  = $this->moneyFormat($data['unlocked'], $locale);
+        $data['unlocked_label']  = $this->moneyFormatService->decimalFormat($data['unlocked'], $locale);
         $data['percent']         = $this->eurGoal > 0 ? $unlocked / $this->eurGoal : 0;
         $data['clicks']          = $clicks;
         $data['clicks_label']    = $this->translator->trans('pinkbar.clicks', array($clicks));
         $data['increment']       = $this->eurIncrement;
-        $data['increment_label'] = $this->moneyFormat($data['increment'], $locale);
+        $data['increment_label'] = $this->moneyFormatService->format($data['increment'], $locale);
 
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json');
         $response->setContent(json_encode($data));
         return $response;
-    }
-
-    protected function moneyFormat($value, $locale)
-    {
-        switch ($locale) {
-            case 'de':
-                return sprintf('%s €', number_format($value, 2, ',', '.'));
-                break;
-            default:
-                return sprintf('$%s', number_format($value, 2, '.', ','));
-        }
     }
 }
