@@ -157,11 +157,14 @@ class Domain extends Entity
         }
 
         // set new owner
-        $this->owner = $newOwner;
+        $this->owner      = $newOwner;
 
-        // add this domain to new owner's domains, if new owner exists
         if ($newOwner !== null) {
+            // add this domain to new owner's domains, if new owner exists
             $newOwner->getDomains()->add($this);
+            // Update domain owner info
+            $this->ownerEmail = $newOwner->getEmail();
+            $this->ownerName  = $newOwner->getSurname() . ' ' . $newOwner->getName();
         }
     }
 

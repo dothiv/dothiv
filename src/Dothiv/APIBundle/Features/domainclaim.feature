@@ -9,8 +9,10 @@ Feature: Claim Domain
       | surname | John                |
       | name    | Doe                 |
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
-      | name  | test.hiv    |
-      | token | domaint0k3n |
+      | name       | test.hiv     |
+      | token      | domaint0k3n  |
+      | ownerEmail | john@doe.com |
+      | ownerName  | John Doe     |
 
   Scenario: Claim domain
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
