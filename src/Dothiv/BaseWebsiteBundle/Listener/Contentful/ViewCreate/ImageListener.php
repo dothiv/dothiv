@@ -40,14 +40,25 @@ class ImageListener
     public function onViewCreate(ContentfulViewEvent $event)
     {
         $view = $event->getView();
-        // TODO: make this work for other content types, too.
         if ($view->cfMeta['contentType'] != $this->contentType) return;
         $field = $this->field;
         if (!property_exists($view, $field)) return;
-        $view->$field->file['thumbnails'] = array();
-        foreach ($this->scaler->getSizes() as $size) {
-            $view->$field->file['thumbnails'][$size->getLabel()] = $this->scaler->getScaledUrl($view->$field->file['url'], $size);
+        if (is_array($view->$field)) {
+            foreach ($view->$field as $k => $v) {
+                $view->{$field}[$k]->file['thumbnails'] = $this->generateThumbnailUrls($v->file['url']);
+            }
+        } else {
+            $view->$field->file['thumbnails'] = $this->generateThumbnailUrls($view->$field->file['url']);
         }
         $event->setView($view);
+    }
+
+    protected function generateThumbnailUrls($url)
+    {
+        $thumbnails = array();
+        foreach ($this->scaler->getSizes() as $size) {
+            $thumbnails[$size->getLabel()] = $this->scaler->getScaledUrl($url, $size);
+        }
+        return $thumbnails;
     }
 }

@@ -70,19 +70,11 @@ class ImageScaler implements LoggerAwareInterface
                 $this->log('Scaling: %s ...', $scaled);
                 $img = $this->imagine->open($source->getPathname());
 
-                $newSize = $size->getSize();
                 if ($size->getThumbnail()) {
-                    if ($img->getSize()->getWidth() < $newSize->getWidth()) {
-                        $origSize = $img->getSize();
-                        $img->resize($origSize->scale($newSize->getWidth() / $origSize->getWidth()));
-                    }
-                    if ($img->getSize()->getHeight() < $newSize->getHeight()) {
-                        $origSize = $img->getSize();
-                        $img->resize($origSize->scale($newSize->getHeight() / $origSize->getHeight()));
-                    }
-                    $img->thumbnail($size->getSize(), ImageInterface::THUMBNAIL_OUTBOUND)
-                        ->save($scaled->getPathname());
+                    $thumb = $this->makeThumbnail($img, $size->getSize());
+                    $thumb->save($scaled->getPathname());
                 } else {
+                    $newSize  = $size->getSize();
                     $origSize = $img->getSize();
                     $factor   = min(
                         $newSize->getWidth() / $origSize->getWidth(),
@@ -97,6 +89,11 @@ class ImageScaler implements LoggerAwareInterface
                     if ($size->getExact()) {
                         // Force image size
                         $bg = $this->imagine->create($newSize);
+
+                        if ($size->getFillbg()) {
+                            $this->fillWithBlurredImage($bg, $img);
+                        }
+
                         $bg->paste(
                             $img,
                             new Point(
@@ -125,10 +122,11 @@ class ImageScaler implements LoggerAwareInterface
      * @param int     $height
      * @param boolean $thumbnail
      * @param boolean $exact
+     * @param boolean $fillbg
      */
-    public function addSize($label, $width, $height, $thumbnail, $exact)
+    public function addSize($label, $width, $height, $thumbnail, $exact, $fillbg)
     {
-        $this->sizes->add(new ImagineThumbnailConfiguration($label, $width, $height, $thumbnail, $exact));
+        $this->sizes->add(new ImagineThumbnailConfiguration($label, $width, $height, $thumbnail, $exact, $fillbg));
     }
 
     /**
@@ -152,5 +150,41 @@ class ImageScaler implements LoggerAwareInterface
     public function getSizes()
     {
         return $this->sizes;
+    }
+
+    /**
+     * Make a thumbnail.
+     *
+     * @param ImageInterface $img
+     * @param Box            $size
+     *
+     * @return ImageInterface
+     */
+    protected function makeThumbnail(ImageInterface $img, Box $size)
+    {
+        if ($img->getSize()->getWidth() < $size->getWidth()) {
+            $origSize = $img->getSize();
+            $img->resize($origSize->scale($size->getWidth() / $origSize->getWidth()));
+        }
+        if ($img->getSize()->getHeight() < $size->getHeight()) {
+            $origSize = $img->getSize();
+            $img->resize($origSize->scale($size->getHeight() / $origSize->getHeight()));
+        }
+        return $img->thumbnail($size, ImageInterface::THUMBNAIL_OUTBOUND);
+    }
+
+    /**
+     * Fills the $imageToFill with a blurred and scaled version of $fillimage to cover the complete background.
+     *
+     * @param ImageInterface $imageToFill
+     * @param ImageInterface $fillImage
+     *
+     * @return ImageInterface
+     */
+    protected function fillWithBlurredImage($imageToFill, $fillImage)
+    {
+        $thumb = $this->makeThumbnail($fillImage->copy(), $imageToFill->getSize());
+        $thumb->effects()->blur(15);
+        $imageToFill->paste($thumb, new Point(0, 0));
     }
 }

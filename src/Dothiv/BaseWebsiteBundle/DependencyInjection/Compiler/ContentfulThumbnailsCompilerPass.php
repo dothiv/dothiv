@@ -21,7 +21,8 @@ class ContentfulThumbnailsCompilerPass implements CompilerPassInterface
                     $thumbnailConfig['width'],
                     $thumbnailConfig['height'],
                     $thumbnailConfig['thumbnail'],
-                    $thumbnailConfig['exact']
+                    $thumbnailConfig['exact'],
+                    $thumbnailConfig['fillbg']
                 )
             );
         }
