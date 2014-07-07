@@ -3,6 +3,7 @@ parameters:
     dothiv.websitebase.contentful.content.class: Dothiv\BaseWebsiteBundle\Contentful\Content
     dothiv.websitebase.contentful.view_builder.class: Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder
     dothiv.websitebase.contentful.image_scaler.class: Dothiv\BaseWebsiteBundle\Contentful\ImageScaler
+    dothiv.websitebase.service.money_format.class: Dothiv\BaseWebsiteBundle\Service\MoneyFormatService
     dothiv.websitebase.imagine.class: Imagine\Gmagick\Imagine
 
 services:
@@ -49,3 +50,6 @@ services:
          - { name: kernel.event_listener, event: contentful.entry.sync, method: onEntryUpdate }
         calls:
          - [ setLogger, [@logger] ]
+
+    dothiv.websitebase.money_format:
+        class: %dothiv.websitebase.service.money_format.class%

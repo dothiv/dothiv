@@ -27,6 +27,7 @@ class DothivCharityWebsiteExtension extends Extension
         $loader->load('services.yml');
         $loader->load('controllers.yml');
         $loader->load('twig_extensions.yml');
+        $loader->load('listeners.yml');
         foreach ($config['features'] as $feature) {
             if (!$feature['enabled']) {
                 continue;

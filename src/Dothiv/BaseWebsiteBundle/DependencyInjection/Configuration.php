@@ -24,6 +24,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('height')->end()
                         ->booleanNode('thumbnail')->defaultValue(false)->end()
                         ->booleanNode('exact')->defaultValue(false)->end()
+                        ->booleanNode('fillbg')->defaultValue(false)->end()
                     ->end()
                 ->end()
             ->end();

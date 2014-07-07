@@ -12,6 +12,7 @@ use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
 use Dothiv\BusinessBundle\Service\Clock;
 use Dothiv\ContentfulBundle\ContentfulEvents;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
+use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
 use PhpOption\Option;
 use Symfony\Bundle\TwigBundle\TwigEngine;
@@ -211,6 +212,29 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
             $this->getClock()->getNow()->modify('+30 minutes'),
             $response->getExpires()
         );
+    }
+
+    /**
+     * @test
+     * @group   BaseWebsiteBundle
+     * @group   Controller
+     * @depends itShouldBeInstantiateable
+     */
+    public function itShouldSendNotFoundIfPageMissing()
+    {
+        $controller = $this->getTestObject();
+        $this->mockContent->expects($this->once())->method('buildEntry')
+            ->with('Page', 'test', 'en')
+            ->will($this->throwException(new InvalidArgumentException()));
+
+        // Get response
+        $request  = new Request();
+        $response = $controller->pageAction(
+            $request,
+            'en',
+            'test'
+        );
+        $this->assertEquals(404, $response->getStatusCode(), 'Request with missing page content should throw 404 error!');
     }
 
     /**

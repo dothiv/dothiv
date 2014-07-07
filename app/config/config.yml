@@ -98,11 +98,12 @@ dothiv_base_website:
         - { label: 'small', width: 200, height: 200 }
         - { label: 'medium', width: 400, height: 400 }
         - { label: 'large', width: 800, height: 800 }
+        - { label: 'wide', width: 700, height: 300, exact: true, fillbg: true }
 
 dothiv_charity_website:
     features:
         - { name: howitworks, enabled: false }
-        - { name: projects, enabled: false }
+        - { name: projects, enabled: true, routing: true }
         - { name: profile, enabled: false }
         - { name: pinkbar_clickcounter, enabled: false }
         - { name: pinkbar_countdown, enabled: true }

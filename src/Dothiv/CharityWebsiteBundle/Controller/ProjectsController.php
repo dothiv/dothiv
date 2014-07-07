@@ -2,8 +2,8 @@
 
 namespace Dothiv\CharityWebsiteBundle\Controller;
 
+use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProjectsController extends PageController
 {
@@ -22,7 +22,11 @@ class ProjectsController extends PageController
             }
         }
 
-        $data = $this->buildPageObject($request, $locale, 'projects');
+        try {
+            $data = $this->buildPageObject($request, $locale, 'projects');
+        } catch (InvalidArgumentException $e) {
+            return $this->createNotFoundResponse($e->getMessage());
+        }
         // Projects
         $data['projects'] = $this->getContent()->buildEntries('Project', $locale);
         usort($data['projects'], function (\stdClass $projectA, \stdClass $projectB) {

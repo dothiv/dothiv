@@ -4,6 +4,7 @@ namespace Dothiv\BaseWebsiteBundle\Controller;
 
 use Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache;
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
+use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
 use Dothiv\BusinessBundle\Service\Clock;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -101,7 +102,11 @@ class PageController
 
         // Fetch page.
         $pageId = str_replace('/', '.', $page);
-        $data   = $this->buildPageObject($request, $locale, $pageId);
+        try {
+            $data = $this->buildPageObject($request, $locale, $pageId);
+        } catch (InvalidArgumentException $e) {
+            return $this->createNotFoundResponse($e->getMessage());
+        }
         if (Option::fromValue($navigation)->isDefined()) {
             $data['nav'] = $this->content->buildEntry('Collection', $navigation, $locale);
         }
@@ -255,6 +260,19 @@ class PageController
         $response->setPublic();
         $response->setSharedMaxAge($this->pageLifetime);
         $response->setExpires($this->clock->getNow()->modify(sprintf('+%d seconds', $this->pageLifetime)));
+        return $response;
+    }
+
+    /**
+     * @param string $message
+     *
+     * @return Response
+     */
+    protected function createNotFoundResponse($message)
+    {
+        $response = new Response();
+        $response->setStatusCode(404);
+        $response->setContent($message);
         return $response;
     }
 }

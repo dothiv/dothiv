@@ -27,18 +27,25 @@ class ImagineThumbnailConfiguration
     private $exact;
 
     /**
+     * @var bool
+     */
+    private $fillbg;
+
+    /**
      * @param string  $label
      * @param int     $width
      * @param int     $height
      * @param boolean $thumbnail
      * @param boolean $exact
+     * @param boolean $fillbg
      */
-    public function __construct($label, $width, $height, $thumbnail, $exact)
+    public function __construct($label, $width, $height, $thumbnail, $exact, $fillbg)
     {
         $this->label     = $label;
         $this->size      = new Box($width, $height);
         $this->thumbnail = $thumbnail;
         $this->exact     = $exact;
+        $this->fillbg    = $fillbg;
     }
 
     /**
@@ -78,7 +85,7 @@ class ImagineThumbnailConfiguration
      */
     public function setThumbnail($thumbnail)
     {
-        $this->thumbnail = $thumbnail;
+        $this->thumbnail = (boolean)$thumbnail;
     }
 
     /**
@@ -94,7 +101,7 @@ class ImagineThumbnailConfiguration
      */
     public function setExact($exact)
     {
-        $this->exact = $exact;
+        $this->exact = (boolean)$exact;
     }
 
     /**
@@ -105,4 +112,19 @@ class ImagineThumbnailConfiguration
         return $this->exact;
     }
 
+    /**
+     * @param boolean $fillbg
+     */
+    public function setFillbg($fillbg)
+    {
+        $this->fillbg = (boolean)$fillbg;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getFillbg()
+    {
+        return $this->fillbg;
+    }
 }
