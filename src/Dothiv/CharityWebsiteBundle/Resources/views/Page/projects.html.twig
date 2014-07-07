@@ -1,12 +1,13 @@
+{% trans_default_domain "charity" %}
 {% set title %}{{ page.title }}{% endset %}
-{% extends "DothivCharityWebsiteBundle::page.html.twig" %}
+{% extends "DothivCharityWebsiteBundle:Page:cfpage.html.twig" %}
 {% block content %}
     <article class="projects">
         <div class="container">
             <div class="row">
                 <div class="span12">
                     <section>
-                        {% include "DothivCharityWebsiteBundle:partials:cfpage.html.twig" with {'page': page} %}
+                        {{ parent() }}
                     </section>
                 </div>
             </div>
@@ -16,34 +17,35 @@
         {% for project in projects %}
 
             {% set image = project.images[0] %}
-            <section class="container">
-                <div class="row">
+            <section class="container" id="{{ project.organization|slugify }}">
+                <div class="row-fluid">
                     <div class="span12">
-                        <h3>{{ loop.index }}. {{ project.organization }}<br><small>{{ project.title }}</small></h3>
+                        <h3>{% if loop.length > 1 %}{{ loop.index }}. {% endif %}{{ project.organization }}<br><small>{{ project.title }}</small></h3>
 
                     </div>
                 </div>
-                <div class="row">
+                <div class="row-fluid">
                     <div class="span7">
-                        <img src="{{ image.file.url }}" alt="{{ project.organization }}">
+                        <img src="{{ image.file.thumbnails.wide }}" alt="{{ project.organization }}" width="700" height="300">
                     </div>
-                    <div class="span4 offset1">
+                    <div class="span5">
                         <dl>
-                            <dt>Country</dt>
+                            <dt>{% trans %}project.detail.locality{% endtrans %}</dt>
                             <dd>{{ project.country }}</dd>
-                            <dt>Sub-Category</dt>
+                            <dt>{% trans %}project.detail.subcategory{% endtrans %}</dt>
                             <dd>{{ project.subcategory }}</dd>
-                            <dt>Duration</dt>
-                            <dd>{{ project.duration }}</dd>
-                            <dt>Amount</dt>
-                            <dd>{{ project.amount}}</dd>
+                            <dt>{% trans %}project.detail.amount{% endtrans %}</dt>
+                            <dd>{{ project.amount|money }}</dd>
                         </dl>
-                        <a href="{{ project.website}}" class="btn btn-primary">Visit Website</a>
+                        <a href="{{ project.website }}" class="external">{% trans %}project.visit.website{% endtrans %}</a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="span12">
+                <div class="row-fluid">
+                    <div class="span7">
                         {{ project.description|markdown }}
+                    </div>
+                    <div class="span5">
+
                     </div>
                 </div>
             </section>

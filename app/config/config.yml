@@ -185,7 +185,7 @@ dothiv_base_website:
 dothiv_charity_website:
     features:
         - { name: howitworks, enabled: false }
-        - { name: projects, enabled: false }
+        - { name: projects, enabled: true, routing: true }
         - { name: profile, enabled: false }
         - { name: pinkbar_clickcounter, enabled: false }
         - { name: pinkbar_countdown, enabled: true }

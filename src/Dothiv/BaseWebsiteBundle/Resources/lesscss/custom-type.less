@@ -1,9 +1,11 @@
 @textFontFamily: 'Source Sans Pro', sans-serif;
 @headingsFontFamily: @textFontFamily;
+@fontWeightNormal: 300;
+@fontWeightBold: 600;
 
 .regularText {
   font-family: @textFontFamily;
-  font-weight: 300;
+  font-weight: @fontWeightNormal;
 }
 
 body {
@@ -13,12 +15,12 @@ body {
 
 .headingLight {
   font-family: @headingsFontFamily;
-  font-weight: 300;
+  font-weight: @fontWeightNormal;
 }
 
 .headingRegular {
   font-family: @headingsFontFamily;
-  font-weight: 600;
+  font-weight: @fontWeightBold;
 }
 
 h1, h2, h3, h4, h5, h6 {
