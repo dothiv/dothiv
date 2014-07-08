@@ -17,4 +17,4 @@ Feature: Login
     Given I send a POST request to "http://click4life.hiv.dev/api/account/loginLink" with values:
       | email | someone@example.com |
     Then the response status code should be 429
-    And the header "Retry-After" should contain "3600"
+    And the header "Retry-After" should be equal to "1800"

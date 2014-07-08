@@ -101,10 +101,10 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserEvent($user));
     }
 
-    protected function setToken(User $user, $liftimeInSeconds = 1800)
+    protected function setToken(User $user, $lifetimeInSeconds = 1800)
     {
         $token = $this->generateToken();
-        $d     = $this->clock->getNow()->modify('+' . $liftimeInSeconds . 's');
+        $d     = $this->clock->getNow()->modify('+' . $lifetimeInSeconds . ' seconds');
         $user->setToken($token, $d);
     }
 
