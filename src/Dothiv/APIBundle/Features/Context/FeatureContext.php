@@ -12,6 +12,7 @@ use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\Tools\SchemaTool;
 use Sanpi\Behatch\Context\BehatchContext;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -40,7 +41,6 @@ class FeatureContext extends BehatContext
         $this->parameters = $parameters;
         $this->useContext('behatch', new BehatchContext($parameters));
         $this->useContext('mink', new MinkContext($parameters));
-        $this->useContext('doctrine', new SymfonyDoctrineContext());
         $this->useContext('doctrine_fixtures_context', new DoctrineFixturesContext());
         $this->storage = new ArrayCollection();
     }
@@ -52,9 +52,11 @@ class FeatureContext extends BehatContext
      */
     public function clearDb(ScenarioEvent $event)
     {
-        $this->getMainContext()
-            ->getSubcontext('doctrine')
-            ->buildSchema($event);
+        $entityManager = $this->getEntityManager();
+        $metadata      = $entityManager->getMetadataFactory()->getAllMetadata();
+        $tool          = new SchemaTool($entityManager);
+        $tool->dropSchema($metadata);
+        $tool->createSchema($metadata);
     }
 
     /**

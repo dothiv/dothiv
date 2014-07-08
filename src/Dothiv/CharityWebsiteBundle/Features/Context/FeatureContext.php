@@ -28,9 +28,7 @@ class FeatureContext extends \Dothiv\APIBundle\Features\Context\FeatureContext
             ));
 
         $em       = $this->getEntityManager();
-        $purger   = new ORMPurger();
-        $executor = new ORMExecutor($em, $purger);
-        $executor->purge();
+        $executor = new ORMExecutor($em, new ORMPurger());
         $executor->execute($loader->getFixtures(), true);
     }
 }
