@@ -19,3 +19,12 @@ doctrine:
     orm:
         auto_generate_proxy_classes: true
         auto_mapping: true
+    dbal:
+        driver:   pdo_sqlite
+        host:     ~
+        port:     ~
+        dbname:   ~
+        user:     ~
+        password: ~
+        path:     "%kernel.root_dir%/cache/test/test.db"
+        charset:  UTF8
