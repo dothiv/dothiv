@@ -11,6 +11,7 @@ Feature: Configure Banner
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
       | name  | test.hiv |
       | owner | {user}   |
+    And I add "Accept" header equal to "application/json"
 
   Scenario: Configure Banner
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"

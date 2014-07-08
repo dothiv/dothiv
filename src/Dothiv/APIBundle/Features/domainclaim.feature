@@ -13,6 +13,7 @@ Feature: Claim Domain
       | token      | domaint0k3n  |
       | ownerEmail | john@doe.com |
       | ownerName  | John Doe     |
+    And I add "Accept" header equal to "application/json"
 
   Scenario: Claim domain
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
@@ -22,7 +23,6 @@ Feature: Claim Domain
     Then the response status code should be 201
 
     # Verify claimed domain
-    Given I add "Accept" header equal to "application/json"
     And I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
     And I send a GET request to "http://click4life.hiv.dev/api/user/userhandle/domains"
     Then the response status code should be 200

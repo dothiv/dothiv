@@ -40,6 +40,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Serializer\Expose
      * @Assert\NotBlank()
      * @Assert\NotNull()
      */

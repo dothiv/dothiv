@@ -4,6 +4,12 @@ dothiv_api_domain_claim:
         _controller: dothiv.api.controller.domain:claimAction
     methods: [POST]
 
+dothiv_api_user_profile:
+    pattern:  /user/{handle}
+    defaults:
+        _controller: dothiv.api.controller.user:profileAction
+    methods: [GET]
+
 dothiv_api_user_domains:
     pattern:  /user/{handle}/domains
     defaults:
