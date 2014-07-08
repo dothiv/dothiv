@@ -1,16 +1,41 @@
 {% trans_default_domain "charity" %}
 {% set title %}{{ page.title }}{% endset %}
 {% extends "DothivCharityWebsiteBundle:Page:cfpage.html.twig" %}
-{% block content %}
-    <article class="domain">
+{% block header %}
+    <header class="jumbotron profile-header" data-ng-controller="AccountHeaderController">
         <div class="container">
-            <div class="row">
-                <div class="span12">
-                    <section>
-                        {{ parent() }}
-                    </section>
+            <div class="row" data-ng-hide="security.user.$resolved">
+                {{ block('loading') }}
+            </div>
+            <div class="row" data-ng-show="security.user.$resolved && security.isAuthenticated">
+                <div class="span9">
+                    <h1>[[ 'profile.greeting' | translate ]] [[ security.user.name + " " + security.user.surname
+                        ]]!</h1>
+
+                    <p class="login-info">Letzter Login: [[ security.user.last_login | date:'longDate' ]], [[
+                        security.user.last_login | date:'shortTime' ]]</p>
                 </div>
+                <div class="span1">
+                    <ul>
+                        <li class="accountance">
+                            <a href="#!/profile" data-ng-class="{ active: state.includes('=.profile.summary') }">Übersicht</a>
+                        </li>
+                        <li class="accountance">
+                            <a href="#!/profile/edit" data-ng-class="{ active: state.includes('=.profile.edit') }">Profil
+                                bearbeiten</a></li>
+                        <li class="accountance">
+                            <a href="#!/profile/domains/list" data-ng-class="{ active: state.includes('=.profile.domain') }">Domains
+                                verwalten (1)</a></li>
+                        <li class="accountance grey"><a data-ng-click="logout()">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="span2"></div>
             </div>
         </div>
+    </header>
+{% endblock header %}
+{% block content %}
+    <article class="account">
+        <div class="container" data-ui-view></div>
     </article>
 {% endblock %}

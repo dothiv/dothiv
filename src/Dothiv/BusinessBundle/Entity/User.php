@@ -54,6 +54,14 @@ class User implements UserInterface
     protected $token;
 
     /**
+     * The lifetime of the token
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     * var \DateTime
+     */
+    protected $tokenLifetime;
+
+    /**
      * The bearer token for easier lookup
      *
      * @ORM\Column(type="string", nullable=true)
@@ -159,11 +167,13 @@ class User implements UserInterface
     }
 
     /**
-     * @param mixed $token
+     * @param string    $token
+     * @param \DateTime $lifetime
      */
-    public function setToken($token)
+    public function setToken($token = null, \DateTime $lifetime = null)
     {
-        $this->token = $token;
+        $this->token         = $token;
+        $this->tokenLifetime = $token == null ? null : $lifetime;
     }
 
     /**
@@ -172,16 +182,6 @@ class User implements UserInterface
     public function getToken()
     {
         return $this->token;
-    }
-
-    /**
-     * @return string
-     * FIXME: Move to separate entity, to handle token lifetime.
-     */
-    protected function generateToken()
-    {
-        $sr = new SecureRandom();
-        return bin2hex($sr->nextBytes(16));
     }
 
     /**
@@ -194,17 +194,6 @@ class User implements UserInterface
         } else {
             $this->bearerToken = sha1($this->email . ':' . $this->token);
         }
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function generateHandle()
-    {
-        if ($this->handle) {
-            return;
-        }
-        $this->handle = $this->generateToken();
     }
 
     /**
@@ -268,10 +257,15 @@ class User implements UserInterface
      */
     public function getBearerToken()
     {
-        if (empty($this->bearerToken)) {
-            $this->token = $this->generateToken();
-            $this->updateBearerToken();
-        }
         return $this->bearerToken;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTokenLifetime()
+    {
+        return $this->tokenLifetime;
+    }
+
 }

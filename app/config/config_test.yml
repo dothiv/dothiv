@@ -28,3 +28,7 @@ doctrine:
         password: ~
         path:     "%kernel.root_dir%/cache/test/test.db"
         charset:  UTF8
+
+parameters:
+    contenful_space_charity: charity_space
+    contenful_space_registry: registry_space

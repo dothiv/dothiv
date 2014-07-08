@@ -6,11 +6,12 @@ use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Event\DomainEvent;
+use Dothiv\Businessbundle\Event\UserEvent;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class DomainRegisteredMailer
+class LoginMailer
 {
     /**
      * @var \Swift_Mailer
@@ -62,23 +63,12 @@ class DomainRegisteredMailer
     }
 
     /**
-     * @param Domain $domain
+     * @param User $user
      *
      * @return void
      */
-    public function sendRegisteredDomainMail(Domain $domain)
+    public function sendLoginMail(User $user)
     {
-        $email   = $domain->getOwnerEmail();
-        $surname = null;
-        $name    = null;
-        $owner   = $domain->getOwnerName();
-        if ($pos = strrpos($owner, ' ')) {
-            $surname = trim(substr($owner, 0, $pos));
-            $name    = trim(substr($owner, $pos));
-        } else {
-            $name = $owner;
-        }
-        $user      = $this->userService->getOrCreateUser($email, $surname, $name);
         $userToken = $user->getBearerToken();
 
         $link = $this->router->generate(
@@ -89,14 +79,10 @@ class DomainRegisteredMailer
         $link .= '#' . $userToken;
 
         $data = array(
-            'domainName' => $domain->getName(),
-            'ownerName'  => $domain->getOwnerName(),
-            'ownerEmail' => $domain->getOwnerEmail(),
-            'loginLink'  => $link,
-            'claimToken' => $domain->getToken(),
+            'loginLink' => $link
         );
 
-        $template = $this->content->buildEntry('eMail', 'domain.registered', 'en');
+        $template = $this->content->buildEntry('eMail', 'login', 'en');
 
         $twig    = new \Twig_Environment(new \Twig_Loader_String());
         $subject = $twig->render($template->subject, $data);
@@ -107,7 +93,7 @@ class DomainRegisteredMailer
         $message
             ->setSubject($subject)
             ->setFrom($this->emailFromAddress, $this->emailFromName)
-            ->setTo($domain->getOwnerEmail(), $domain->getOwnerName())
+            ->setTo($user->getEmail(), $user->getSurname() . ' ' . $user->getName())
             ->setBody($text);
 
         // Add HTML part.
@@ -127,8 +113,8 @@ class DomainRegisteredMailer
         $this->mailer->send($message);
     }
 
-    public function onDomainRegistered(DomainEvent $event)
+    public function onLoginLinkRequested(UserEvent $event)
     {
-        $this->sendRegisteredDomainMail($event->getDomain());
+        $this->sendLoginMail($event->getUser());
     }
 }

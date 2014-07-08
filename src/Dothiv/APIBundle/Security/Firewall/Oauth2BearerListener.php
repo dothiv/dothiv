@@ -40,16 +40,13 @@ class Oauth2BearerListener implements ListenerInterface
             ->orElse(Option::fromValue(isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : null))
             ->orElse(Option::fromValue(isset($_SERVER['PHP_AUTH_DIGEST']) ? $_SERVER['PHP_AUTH_DIGEST'] : null));
 
-        if ($auth->isEmpty()) {
-            return;
-        }
-
-        if (preg_match('/^Bearer (.+)/', $auth->get(), $matches) !== 1) {
-            return;
-        }
-
         $token = new Oauth2BearerToken();
-        $token->setUser($matches[1]);
         $this->securityContext->setToken($token);
+
+        if ($auth->isDefined()) {
+            if (preg_match('/^Bearer (.+)/', $auth->get(), $matches) === 1) {
+                $token->setUser($matches[1]);
+            }
+        }
     }
 }

@@ -27,3 +27,9 @@ dothiv_api_domain_banner_config_get:
     defaults:
         _controller: dothiv.api.controller.banner:getConfigAction
     methods: [GET]
+
+dothiv_api_account_loginlink:
+    pattern:  /account/loginLink
+    defaults:
+        _controller: dothiv.api.controller.account:loginLinkAction
+    methods: [POST]

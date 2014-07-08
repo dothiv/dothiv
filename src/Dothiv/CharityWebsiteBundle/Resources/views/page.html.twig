@@ -14,6 +14,9 @@
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
     '@DothivAngularJsBundle/Resources/angular/angular.js'
+    '@DothivAngularJsBundle/Resources/angular/angular-resource.js'
+    '@DothivAngularJsBundle/Resources/angular/angular-route.js'
+    '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -28,6 +31,9 @@
     {% if features.pinkbar_countdown %}
     {% include "DothivCharityWebsiteBundle:partials:pinkbar_countdown.html.twig" %}
     {% endif %}
+    {% block header %}
+        <hr class="bottom-shadow">
+    {% endblock header %}
 </div>
 <div style="clear: both;"></div>
 
@@ -66,13 +72,21 @@
                         <div class="span4">
                             <ul>
                                 <li>
-                                    <a class="social-link" href="https://www.facebook.com/dothiv" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-fb.png") }}" alt="{% trans %}
-                                        footer.social.facebook{% endtrans %}">{% trans %}
-                                        footer.social.facebook{% endtrans %}</a></li>
+                                    <a class="social-link" href="https://www.facebook.com/dothiv" rel="me">
+                                        {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-fb.png' %}
+                                        <img class="social" src="{{ asset_url }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
+                                        {% endimage %}
+                                        {% trans %}footer.social.facebook{% endtrans %}
+                                    </a>
+                                </li>
                                 <li>
-                                    <a class="social-link" href="https://twitter.com/dotHIV" rel="me"><img class="social" src="{{ asset("bundles/dothivcharitywebsite/images/social/social-tw.png") }}" alt="{% trans %}
-                                        footer.social.twitter{% endtrans %}">{% trans %}
-                                        footer.social.twitter{% endtrans %}</a></li>
+                                    <a class="social-link" href="https://twitter.com/dotHIV" rel="me">
+                                        {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-tw.png' %}
+                                        <img class="social" src="{{ asset_url }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
+                                        {% endimage %}
+                                        {% trans %}footer.social.twitter{% endtrans %}
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -83,13 +97,16 @@
 </footer>
 
 {% javascripts
-    '@DothivCharityWebsiteBundle/Resources/public/1.2/app.js'
-    '@DothivCharityWebsiteBundle/Resources/public/1.2/filters/*.js'
-    '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/*.js'
-    filter='?ngmin,?closureecma5'
-    output='js/*.min.js'
+'@DothivCharityWebsiteBundle/Resources/public/1.2/app.js'
+'@DothivCharityWebsiteBundle/Resources/public/1.2/services/*.js'
+'@DothivCharityWebsiteBundle/Resources/public/1.2/services/models/*.js'
+'@DothivCharityWebsiteBundle/Resources/public/1.2/filters/*.js'
+'@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/*.js'
+'@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/account/*.js'
+filter='?ngmin,?closureecma5'
+output='js/*.min.js'
 %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+<script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
 <script type="text/javascript">

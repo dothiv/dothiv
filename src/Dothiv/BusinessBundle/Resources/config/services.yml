@@ -24,3 +24,5 @@ services:
         class: %dothiv.businessbundle.service.user.class%
         arguments:
         - @dothiv.repository.user
+        - @clock
+        - @event_dispatcher

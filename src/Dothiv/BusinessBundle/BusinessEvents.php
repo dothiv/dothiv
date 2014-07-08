@@ -9,4 +9,6 @@ final class BusinessEvents
     const DOMAIN_TRANSFERRED = 'dothiv.business.domain.transferred';
 
     const DOMAIN_DELETED = 'dothiv.business.domain.deleted';
+
+    const USER_LOGINLINK_REQUESTED = 'dothiv.business.user.loginlink.requested';
 }

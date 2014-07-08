@@ -4,6 +4,7 @@ namespace Dothiv\APIBundle\Features\Context;
 
 use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Event\ScenarioEvent;
+use Behat\CommonContexts\DoctrineFixturesContext;
 use Behat\CommonContexts\SymfonyDoctrineContext;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
@@ -12,7 +13,6 @@ use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sanpi\Behatch\Context\BehatchContext;
-use Sanpi\Behatch\Json\Json;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class FeatureContext extends BehatContext
@@ -21,7 +21,7 @@ class FeatureContext extends BehatContext
     /**
      * @var KernelInterface
      */
-    private $kernel;
+    protected $kernel;
 
     private $parameters;
 
@@ -41,6 +41,7 @@ class FeatureContext extends BehatContext
         $this->useContext('behatch', new BehatchContext($parameters));
         $this->useContext('mink', new MinkContext($parameters));
         $this->useContext('doctrine', new SymfonyDoctrineContext());
+        $this->useContext('doctrine_fixtures_context', new DoctrineFixturesContext());
         $this->storage = new ArrayCollection();
     }
 
@@ -72,7 +73,7 @@ class FeatureContext extends BehatContext
      */
     protected function getEntityManager()
     {
-        return $this->kernel->getContainer()->get('doctrine')->getManager();
+        return $this->kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
 
     /**

@@ -21,3 +21,9 @@ services:
          - @security.context
          - @dothiv.repository.domain
          - @serializer
+
+    dothiv.api.controller.account:
+        class: Dothiv\APIBundle\Controller\AccountController
+        arguments:
+         - @dothiv.businessbundle.service.user
+         - @clock
