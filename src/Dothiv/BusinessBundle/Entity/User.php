@@ -49,16 +49,14 @@ class User implements UserInterface
     /**
      * The token used to login.
      *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $token;
 
     /**
      * The bearer token for easier lookup
      *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $bearerToken;
 
@@ -180,21 +178,22 @@ class User implements UserInterface
      * @return string
      * FIXME: Move to separate entity, to handle token lifetime.
      */
-    public function generateToken()
+    protected function generateToken()
     {
-        if (!$this->token) {
-            $sr          = new SecureRandom();
-            $this->token = bin2hex($sr->nextBytes(16));
-        }
-        return $this->token;
+        $sr = new SecureRandom();
+        return bin2hex($sr->nextBytes(16));
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function generateBearerToken()
+    public function updateBearerToken()
     {
-        $this->bearerToken = sha1($this->email . ':' . $this->token);
+        if (empty($this->token)) {
+            $this->bearerToken = null;
+        } else {
+            $this->bearerToken = sha1($this->email . ':' . $this->token);
+        }
     }
 
     /**
@@ -205,8 +204,7 @@ class User implements UserInterface
         if ($this->handle) {
             return;
         }
-        $sr           = new SecureRandom();
-        $this->handle = bin2hex($sr->nextBytes(16));
+        $this->handle = $this->generateToken();
     }
 
     /**
@@ -263,5 +261,17 @@ class User implements UserInterface
     public function getHandle()
     {
         return $this->handle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBearerToken()
+    {
+        if (empty($this->bearerToken)) {
+            $this->token = $this->generateToken();
+            $this->updateBearerToken();
+        }
+        return $this->bearerToken;
     }
 }

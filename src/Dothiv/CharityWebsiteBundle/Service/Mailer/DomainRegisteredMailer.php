@@ -70,7 +70,7 @@ class DomainRegisteredMailer
     {
         $userRepo = $this->userRepo;
         /* @var User $user */
-        $user = $userRepo->getUserByEmail($domain->getOwnerEmail())->getOrCall(function() use($domain, $userRepo) {
+        $user = $userRepo->getUserByEmail($domain->getOwnerEmail())->getOrCall(function () use ($domain, $userRepo) {
             $user = new User();
             $user->setEmail($domain->getOwnerEmail());
             $owner = $domain->getOwnerName();
@@ -80,12 +80,11 @@ class DomainRegisteredMailer
             } else {
                 $user->setName($owner);
             }
-            $user->generateToken();
             $userRepo->persist($user)->flush();
             return $user;
         });
 
-        $userToken = $user->generateToken();
+        $userToken = $user->getBearerToken();
         $userRepo->persist($user)->flush();
 
         $link = $this->router->generate(
@@ -94,6 +93,7 @@ class DomainRegisteredMailer
             UrlGeneratorInterface::ABSOLUTE_URL
         );
         $link .= '#' . $userToken;
+
         $data = array(
             'domainName' => $domain->getName(),
             'ownerName'  => $domain->getOwnerName(),
