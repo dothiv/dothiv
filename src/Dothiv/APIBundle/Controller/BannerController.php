@@ -2,6 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Request\BannerConfigRequest;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Validator\ValidatorInterface;
+use Dothiv\APIBundle\Annotation\ApiRequest;
 
 class BannerController
 {
@@ -122,6 +124,8 @@ class BannerController
 
     /**
      * Updates the banner for the given domain.
+     *
+     * @ApiRequest("Dothiv\APIBundle\Request\BannerConfigRequest")
      */
     public function setConfigAction(Request $request, $name)
     {
@@ -135,9 +139,11 @@ class BannerController
             return $banner;
         });
 
-        $banner->setLanguage($request->get('language'));
-        $banner->setPosition($request->get('position_first'));
-        $banner->setPositionAlternative($request->get('position'));
+        /* @var BannerConfigRequest $configRequest */
+        $configRequest = $request->attributes->get('model');
+        $banner->setLanguage($configRequest->language);
+        $banner->setPosition($configRequest->position_first);
+        $banner->setPositionAlternative($configRequest->position);
 
         $errors = $this->validator->validate($banner);
         if (count($errors) > 0) {
@@ -155,7 +161,7 @@ class BannerController
     /**
      * Gets the banner config for the given domain.
      */
-    public function getConfigAction(Request $request, $name)
+    public function getConfigAction($name)
     {
         $domain = $this->getDomainByName($name);
         $banner = Option::fromValue($domain->getActiveBanner())->getOrCall(function () use ($name) {

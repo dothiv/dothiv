@@ -5,7 +5,6 @@ namespace Dothiv\APIBundle\Features\Context;
 use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Event\ScenarioEvent;
 use Behat\CommonContexts\DoctrineFixturesContext;
-use Behat\CommonContexts\SymfonyDoctrineContext;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
@@ -131,13 +130,20 @@ class FeatureContext extends BehatContext
     }
 
     /**
-     * @Given /^I send a (?P<method>[A-Z]+) request to "(?P<url>[^"]*)" with values:$/
+     * @Given /^I send a (?P<method>[A-Z]+) request to "(?P<url>[^"]*)" with JSON values:$/
      */
     public function iSendARequestToWithValues($method, $url, TableNode $table)
     {
         $client     = $this->getSubcontext('mink')->getSession()->getDriver()->getClient();
         $parameters = $table->getRowsHash();
-        $client->request($method, $this->getSubcontext('rest')->locatePath($url), $parameters);
+        $client->request(
+            $method,
+            $this->getSubcontext('rest')->locatePath($url),
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($parameters)
+        );
     }
 
     /**

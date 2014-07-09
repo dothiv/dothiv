@@ -2,16 +2,17 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Request\ClaimRequest;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\DomainClaim;
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\APIBundle\Annotation\ApiRequest;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainClaimRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Dothiv\BusinessBundle\Form\DomainType;
 use Symfony\Component\Security\Core\SecurityContext;
 
 class DomainController
@@ -45,13 +46,18 @@ class DomainController
 
     /**
      * Claims a domain for a user who provides the correct token.
+     *
+     * @ApiRequest("Dothiv\APIBundle\Request\ClaimRequest")
      */
     public function claimAction(Request $request)
     {
         /* @var User $user */
         $user  = $this->securityContext->getToken()->getUser();
-        $name  = $request->get('domain');
-        $token = $request->get('token');
+        /* @var ClaimRequest $model */
+        $claimRequest = $request->attributes->get('model');
+
+        $name = $claimRequest->domain;
+        $token = $claimRequest->token;
 
         /* @var Domain $domain */
         $domain = $this->domainRepo->getDomainByName($name)->getOrCall(function () use ($name) {

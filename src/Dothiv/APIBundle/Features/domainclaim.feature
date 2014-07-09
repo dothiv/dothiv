@@ -17,7 +17,7 @@ Feature: Claim Domain
 
   Scenario: Claim domain
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
-    And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with values:
+    And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:
       | domain | test.hiv    |
       | token  | domaint0k3n |
     Then the response status code should be 201
@@ -32,14 +32,14 @@ Feature: Claim Domain
 
   Scenario: Failed claim for invalid username
     Given I add Bearer token equal to "wrongt0k3n"
-    And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with values:
+    And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:
       | domain | test.hiv    |
       | token  | domaint0k3n |
     Then the response status code should be 403
 
   Scenario: Failed claim for wrong token
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
-    And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with values:
+    And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:
       | domain | test.hiv     |
       | token  | invalidt0k3n |
     Then the response status code should be 400

@@ -15,7 +15,7 @@ Feature: Configure Banner
 
   Scenario: Configure Banner
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
-    And I send a PUT request to "http://click4life.hiv.dev/api/domain/test.hiv/banner" with values:
+    And I send a PUT request to "http://click4life.hiv.dev/api/domain/test.hiv/banner" with JSON values:
       | language       | fr     |
       | position       | top    |
       | position_first | center |
@@ -29,7 +29,10 @@ Feature: Configure Banner
 
   Scenario: Configure Banner for invalid domain
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
-    And I send a PUT request to "http://click4life.hiv.dev/api/domain/invalid.hiv/banner"
+    And I send a PUT request to "http://click4life.hiv.dev/api/domain/invalid.hiv/banner" with JSON values:
+      | language       | fr     |
+      | position       | top    |
+      | position_first | center |
     Then the response status code should be 404
 
   Scenario: Configure Banner for other users domain
