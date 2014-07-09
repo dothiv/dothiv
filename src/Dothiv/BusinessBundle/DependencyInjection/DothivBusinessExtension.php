@@ -22,6 +22,7 @@ class DothivBusinessExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
         $container->setParameter('dothiv_business.allowed_tlds', $config['allowed_tlds']);
+        $container->setParameter('dothiv_business.clock_expr', $config['clock_expr']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

@@ -19,6 +19,9 @@ services:
 
     clock:
         class: %dothiv.businessbundle.service.clock.class%
+        arguments:
+        - %dothiv_business.clock_expr%
+        - @event_dispatcher
 
     dothiv.businessbundle.service.user:
         class: %dothiv.businessbundle.service.user.class%
