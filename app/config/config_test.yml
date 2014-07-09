@@ -30,7 +30,7 @@ doctrine:
         charset:  UTF8
 
 dothiv_business:
-    clock_expr: "2014-01-02T13:14:15+01:00"
+    clock_expr: "2014-01-02T13:14:15"
 
 parameters:
     contenful_space_charity: charity_space
