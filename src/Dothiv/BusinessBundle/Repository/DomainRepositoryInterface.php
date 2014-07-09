@@ -16,6 +16,13 @@ interface DomainRepositoryInterface
     public function getDomainByName($name);
 
     /**
+     * @param string $token
+     *
+     * @return Option
+     */
+    public function getDomainByToken($token);
+
+    /**
      * Persist the entity.
      *
      * @param Domain $domain

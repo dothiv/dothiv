@@ -24,6 +24,22 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
     }
 
     /**
+     * @param string $token
+     *
+     * @return Option
+     */
+    public function getDomainByToken($token)
+    {
+        return Option::fromValue(
+            $this->createQueryBuilder('d')
+                ->andWhere('d.token = :token')->setParameter('token', $token)
+                ->andWhere('d.token IS NOT NULL')
+                ->getQuery()
+                ->getOneOrNullResult()
+        );
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function persist(Domain $domain)

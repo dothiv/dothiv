@@ -102,6 +102,6 @@ class Registration implements IRegistration
     private function generateToken()
     {
         $sr = new SecureRandom();
-        return bin2hex($sr->nextBytes(8));
+        return bin2hex($sr->nextBytes(16));
     }
 }

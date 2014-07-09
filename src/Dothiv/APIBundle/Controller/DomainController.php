@@ -52,19 +52,18 @@ class DomainController
     public function claimAction(Request $request)
     {
         /* @var User $user */
-        $user  = $this->securityContext->getToken()->getUser();
+        $user = $this->securityContext->getToken()->getUser();
         /* @var ClaimRequest $model */
         $claimRequest = $request->attributes->get('model');
 
-        $name = $claimRequest->domain;
         $token = $claimRequest->token;
 
         /* @var Domain $domain */
-        $domain = $this->domainRepo->getDomainByName($name)->getOrCall(function () use ($name) {
+        $domain = $this->domainRepo->getDomainByToken($token)->getOrCall(function () use ($token) {
             throw new BadRequestHttpException(
                 sprintf(
-                    'Invalid domain "%s"!',
-                    $name
+                    'Token "%s" not found!',
+                    $token
                 )
             );
         });
@@ -114,7 +113,7 @@ class DomainController
         $context = $this->get('security.context');
 
         // fetch domain from database
-        $em       = $this->getDoctrine()->getManager();
+        $em     = $this->getDoctrine()->getManager();
         $domain = $em->getRepository('DothivBusinessBundle:Domain')->findOneBy(array('id' => $slug));
 
         if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $domain->getOwner()->getUsername()) {

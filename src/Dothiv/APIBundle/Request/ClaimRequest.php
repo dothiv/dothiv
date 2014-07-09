@@ -13,14 +13,6 @@ class ClaimRequest
      * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\Regex("/.{3,}\.hiv$/")
-     */
-    public $domain;
-
-    /**
-     * @var string
-     * @Assert\NotNull
-     * @Assert\NotBlank
      */
     public $token;
 }
