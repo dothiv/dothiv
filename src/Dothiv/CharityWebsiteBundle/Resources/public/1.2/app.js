@@ -11,25 +11,40 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
     .config(['$stateProvider', function ($stateProvider) {
         var locale = document.location.pathname.split("/")[1];
         $stateProvider.state('login', {
-            url: 'login',
+            url: '/login',
             templateUrl: '/' + locale + '/app/account/login.html',
             controller: 'AccountLoginController'
-        });
-        $stateProvider.state('profile', {
-            url: 'profile',
+        })
+        .state('profile', {
+            abstract: true,
+            url: '/profile',
+            template: '<div data-ui-view></div>'
+        })
+        .state('profile.dashboard', {
+            url: '/dashboard',
             templateUrl: '/' + locale + '/app/account/profile.html',
             controller: 'AccountProfileController'
+        })
+        .state('profile.editors', {
+            url: '/editors/:name',
+            templateUrl: '/' + locale + '/app/account/domain-editors.html',
+            controller: 'AccountDomainEditorsController'
+        })
+        .state('profile.editbasic', {
+            url: '/edit/:name',
+            templateUrl: '/' + locale + '/app/account/domain-basicedit.html',
+            controller: 'AccountDomainBasicEditController'
         });
     }])
     .run(['$state', 'security', function ($state, security) {
         var hashParts = document.location.hash.split("/");
         if (hashParts[1] == "auth") {
             security.storeCredentials(hashParts[2], hashParts[3]);
-            $state.transitionTo('profile');
+            $state.transitionTo('profile.dashboard');
         }
         security.updateUserInfo();
     }]);
-angular.module('dotHIVApp.services', ['ui.router', 'dotHIVApp.controllers', 'ngResource']);
+angular.module('dotHIVApp.services', ['ui.router', 'dotHIVApp.controllers', 'ngResource', 'ngCookies']);
 angular.module('dotHIVApp.controllers', []);
 angular.module('dotHIVApp.directives', []);
 angular.module('dotHIVApp.filters', []);

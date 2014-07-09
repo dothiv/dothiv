@@ -5,6 +5,7 @@ services:
          - @security.context
          - @dothiv.repository.domain
          - @dothiv.repository.domainclaim
+         - @serializer
 
     dothiv.api.controller.banner:
         class: Dothiv\APIBundle\Controller\BannerController

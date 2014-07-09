@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('AccountLoginController', ['$scope', 'dothivAccountResource', 'strings',
-    function ($scope, dothivAccountResource, strings) {
+angular.module('dotHIVApp.controllers').controller('AccountLoginController', ['$scope', '$state', 'security', 'dothivAccountResource', 'strings',
+    function ($scope, $state, security, dothivAccountResource, strings) {
         $scope.email = null;
         $scope.state = 'form';
         $scope.errorMessage = null;
+        $scope.security = security.state;
 
         $scope.submit = function () {
             $scope.state = 'loading';
@@ -23,6 +24,10 @@ angular.module('dotHIVApp.controllers').controller('AccountLoginController', ['$
                     }
                 }
             );
+        }
+
+        if (security.state.isAuthenticated()) {
+            $state.transitionTo('profile.dashboard');
         }
     }
 ]);

@@ -14,9 +14,15 @@
                 <div class="span1">
                     <ul>
                         <li class="accountance">
-                            <a href="#!/profile" data-ng-class="{ active: state.includes('profile') }">Übersicht</a>
+                            <a href="#!/profile/dashboard" data-ng-class="{ active: state.includes('profile.dashboard') }">
+                                {% trans %}profile.navigation.dashboard{% endtrans %}
+                            </a>
                         </li>
-                        <li class="accountance grey"><a data-ng-click="logout()">Logout</a></li>
+                        <li class="accountance grey">
+                            <a data-ng-click="logout()">
+                                {% trans %}profile.navigation.logout{% endtrans %}
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="span2"></div>
@@ -26,7 +32,7 @@
 {% endblock header %}
 {% block content %}
     <article class="account">
-        <div class="container" data-ui-view></div>
+        <div class="container profile" data-ui-view></div>
     </article>
 {% endblock %}
 

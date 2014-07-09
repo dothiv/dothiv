@@ -21,6 +21,7 @@ Feature: Claim Domain
     And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:
       | token  | domaint0k3n |
     Then the response status code should be 201
+    And the JSON node "name" should contain "test.hiv"
 
     # Verify claimed domain
     And I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"

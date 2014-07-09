@@ -1,4 +1,141 @@
 {% trans_default_domain "charity" %}
 {% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
 
-Yup!
+<div class="container">
+
+    {# Domain claim #}
+    <div data-ng-controller="AccountDomainClaimController">
+        <div data-ng-show="state==0">
+            <div class="row">
+                <div class="span12 profile-heading">
+                    <h2>{% trans %}profile.domain.claim.token.headline{% endtrans %}</h2>
+
+                    <p>{% trans %}profile.domain.claim.token.text{% endtrans %}</p>
+
+                    <div class="form-well">
+                        <form class="form-inline simple-form" novalidate>
+                            <input type="text" placeholder="{% trans %}profile.domain.claim.token.placeholder{% endtrans %}" data-ng-model="token" required>
+                            <button type="submit" class="btn btn-primary" data-ng-disabled="!token" data-ng-click="register(token)">{% trans %}
+                                profile.domain.claim.token.button{% endtrans %}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-ng-show="state==1">
+            <div class="row">
+                <div class="span12 profile-heading">
+                    <h2 data-ng-hide="domain">{% trans %}profile.domain.claim.claiming.lookup{% endtrans %}</h2>
+
+                    <h2 data-ng-show="domain">{% trans %}profile.domain.claim.claiming.claiming{% endtrans %}</h2>
+
+                    <p class="text-center">{{ block('loading') }}</p>
+                </div>
+            </div>
+        </div>
+        <div data-ng-show="state==2">
+            <div class="row">
+                <div class="span12 profile-heading">
+                    <h2>{% trans %}profile.domain.claim.success.headline{% endtrans %}</h2>
+                    <strong><em>{% trans %}profile.domain.claim.success.text{% endtrans %}</em></strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <iframe width="300" height="169" src="//www.youtube.com/embed/l3ZHd8qbSpE" allowfullscreen></iframe>
+                </div>
+                <div class="span4">
+                    <p>
+                        <strong><em>{% trans %}profile.domain.claim.success.col2.headline{% endtrans %}</em></strong>
+                    </p>
+
+                    <p>{% trans %}profile.domain.claim.success.col2.text{% endtrans %}</p>
+                    <a href="#"><span>{% trans %}profile.domain.claim.success.col2.link{% endtrans %}</span>
+
+                        <div class="headidata-ng-arrow"></div>
+                    </a>
+                </div>
+                <div class="span4">
+                    <p>
+                        <strong><em>{% trans %}profile.domain.claim.success.col3.headline{% endtrans %}</em></strong>
+                    </p>
+
+                    <p>{% trans %}profile.domain.claim.success.col3.text{% endtrans %}</p>
+                    <a href="#"><span>{% trans %}profile.domain.claim.success.col3.link{% endtrans %}</span>
+
+                        <div class="headidata-ng-arrow"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <p>
+                        <a href="#" class="btn btn-primary pull-right" data-ng-click="edit()">{% trans %}
+                            profile.domain.success.button{% endtrans %}</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div data-ng-show="state==3">
+            <div class="row">
+                <div class="span12 profile-heading">
+                    <h2>{% trans %}profile.domain.claim.error.headline{% endtrans %}</h2>
+
+                    <p>{% trans %}profile.domain.claim.error.text{% endtrans %}</p>
+
+                    <p>
+                        <button type="submit" class="btn btn-primary" data-ng-click="startover()">{% trans %}
+                            profile.domain.claim.error.button{% endtrans %}</button>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12"></div>
+            </div>
+        </div>
+    </div>
+
+    {# Domains #}
+    <div data-ng-controller="AccountProfileDomainController">
+        <div class="row">
+            <div class="span12 profile-summary-list-heading profile-summary-domains-heading">
+                <div class="profile-list-search pull-right" data-ng-show="domains.length > 5">
+                    <input no-validate data-ng-model='searchText.name' placeholder="Domains suchen"></div>
+                <h3>{% trans %}account.profile.domains.overview{% endtrans %}</h3>
+            </div>
+        </div>
+        <div data-ng-hide="domains.$resolved">
+            <p class="text-center">{{ block('loading') }}</p>
+        </div>
+        <div data-ng-show="domains.$resolved">
+            <ul class="profile-summary-list profile-summary-domains-list">
+                <li data-ng-repeat="domain in (domains | filter:searchText | limitTo:(searchText.name ? domains.length : pageLength))">
+                    <div class="row">
+                        <div class="span12 profile-summary-item">
+                            <div class="profile-summary-item-well">
+                                <h4 data-ng-bind="domain.name"></h4>
+
+                                <div class="profile-summary-item-lower">
+                                    <a href="" class="pull-right" data-ng-click="edit(domain)">{% trans %}
+                                        account.profile.domains.edit{% endtrans %}
+                                        <div class="item-arrow"></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="row" data-ng-hide="(pageLength >= domains.length) || searchText.name">
+            <button class="next-page span12" data-ng-click="pageLength = pageLength + 5">
+                Mehr anzeigen <i class="icon-tick-lower icon-white"></i></button>
+        </div>
+        <div class="row" data-ng-show="domains.length == 0">
+            <div class="span12">
+                <p>{% trans %}error.nodomains{% endtrans %}</p>
+            </div>
+        </div>
+    </div>
+
+</div>

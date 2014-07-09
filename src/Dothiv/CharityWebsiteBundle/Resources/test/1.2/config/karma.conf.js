@@ -7,6 +7,7 @@ module.exports = function (config) {
             'AngularJsBundle/Resources/angular/angular.js',
             'AngularJsBundle/Resources/angular/angular-resource.js',
             'AngularJsBundle/Resources/angular/angular-route.js',
+            'AngularJsBundle/Resources/angular/angular-cookies.js',
             'AngularJsBundle/Resources/extra/angular-ui.github.io/ui-router/angular-ui-router.js',
             'AngularJsBundle/Resources/angular/angular-mocks.js',
             // CharityWebsiteBundle

@@ -1,3 +1,6 @@
+{% trans_default_domain "charity" %}
+{% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
+
 <div class="container">
     <div class="row">
         <div class="span12 profile-heading">
@@ -5,22 +8,22 @@
         </div>
     </div>
     <div class="row">
-        <div class="span12" ng-hide="banners.$resolved">
-            <p class="text-center"><dh-loader></dh-loader></p>
+        <div class="span12" data-ng-hide="banner.$resolved">
+            <p class="text-center">{{ block('loading') }}</p>
         </div>
-        <div class="span12" ng-show="banners.$resolved">
-            <form novalidate name="domaineditbasic" class="simple-form" ng-class="{clean: !domaineditbasic.$failed, unclean: domaineditbasic.$failed}">
+        <div class="span12" data-ng-show="banner.$resolved">
+            <form novalidate name="domaineditbasic" class="simple-form" data-ng-class="{clean: !domaineditbasic.$failed, unclean: domaineditbasic.$failed}">
                 <tabset>
                     <tab active="tab1.active">
                         <tab-heading>Schritt 1</tab-heading>
-                        <div class="tab-content-container" ng-form="step1" name="step1">
+                        <div class="tab-content-container" data-ng-form="step1" name="step1">
                             <h3>Domain [[ domain.name ]]<br>Standard-Banner-Konfiguration</h3>
                             <div class="horizontal-radio-group">
                                 <dh-input
                                     type="radio"
 
                                     dh-name="forwardRadio"
-                                    ng-model="domaineditbasic.$data.forwarding"
+                                    data-ng-model="domaineditbasic.$data.forwarding"
                                     dh-value="true"
 
                                     dh-label="Weiterleitung einrichten"
@@ -29,20 +32,20 @@
                                     type="radio"
 
                                     dh-name="forwardRadio"
-                                    ng-model="domaineditbasic.$data.forwarding"
+                                    data-ng-model="domaineditbasic.$data.forwarding"
                                     dh-value="false"
 
                                     dh-label="keine Weiterleitung"
                                 ></dh-input>
                                 <div style="clear: both;"></div>
                             </div>
-                            <div ng-show="domaineditbasic.$data.forwarding == 'true'">
+                            <div data-ng-show="domaineditbasic.$data.forwarding == 'true'">
                                 <dh-input
                                     class="span6"
                                     type="url"
 
                                     dh-name="targetName"
-                                    ng-model="banner.redirect_domain"
+                                    data-ng-model="banner.redirect_domain"
 
                                     dh-ng-required="domaineditbasic.$data.forwarding == 'true'"
 
@@ -59,13 +62,13 @@
                             <div class="tab-bottom-buttons">
                                 <button style="visibility: hidden"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
                                 <button>&nbsp;Vorschau ansehen</button>
-                                <button class="pull-right next" ng-click="nextStep(tab2, step1)"><i class="icon-tick-right icon-white pull-right"></i>Weiter&nbsp;</button>
+                                <button class="pull-right next" data-ng-click="nextStep(tab2, step1)"><i class="icon-tick-right icon-white pull-right"></i>Weiter&nbsp;</button>
                             </div>
                         </div>
                     </tab>
                     <tab active="tab2.active" disabled="!step1.$valid">
                         <tab-heading>Schritt 2</tab-heading>
-                        <div class="tab-content-container" ng-form="step2">
+                        <div class="tab-content-container" data-ng-form="step2">
                             <h3>Domain [[ domain.name ]]<br>Standard-Banner-Konfiguration</h3>
                             <p>Welcher Banner soll dem User beim Besuch von [[ domain.name ]] angezeigt werden?</p>
                             <div class="row-fluid">
@@ -75,7 +78,7 @@
                                         type="radio"
 
                                         dh-name="positionRadio"
-                                        ng-model="banner.position"
+                                        data-ng-model="banner.position"
                                         dh-value="center"
                                         dh-id="positionRadioCenter"
 
@@ -88,7 +91,7 @@
                                         type="radio"
 
                                         dh-name="positionRadio"
-                                        ng-model="banner.position"
+                                        data-ng-model="banner.position"
                                         dh-value="top"
                                         dh-id="positionRadioTop"
 
@@ -101,7 +104,7 @@
                                         type="radio"
 
                                         dh-name="positionRadio"
-                                        ng-model="banner.position"
+                                        data-ng-model="banner.position"
                                         dh-value="right"
                                         dh-id="positionRadioRight"
 
@@ -113,19 +116,19 @@
                                 type="checkbox"
 
                                 dh-name="secondvisitBox"
-                                ng-model="domaineditbasic.$data.secondvisit"
+                                data-ng-model="domaineditbasic.$data.secondvisit"
                                 dh-value="true"
 
                                 dh-label="Ab dem 2. Besuch täglich soll ein anderer Banner angezeigt werden."
                             ></dh-input>
-                            <div class="fluid-row clearfix" ng-show="domaineditbasic.$data.secondvisit == true">
+                            <div class="fluid-row clearfix" data-ng-show="domaineditbasic.$data.secondvisit == true">
                                 <div class="span3 position-radio-container">
                                     <label for="altPositionRadioTop" class="position-label top"></label>
                                     <dh-input
                                         type="radio"
 
                                         dh-name="secondpositionRadio"
-                                        ng-model="banner.position_alternative"
+                                        data-ng-model="banner.position_alternative"
                                         dh-value="top"
                                         dh-id="altPositionRadioTop"
 
@@ -138,7 +141,7 @@
                                         type="radio"
 
                                         dh-name="secondpositionRadio"
-                                        ng-model="banner.position_alternative"
+                                        data-ng-model="banner.position_alternative"
                                         dh-value="right"
                                         dh-id="altPositionRadioRight"
 
@@ -147,19 +150,19 @@
                                 </div>
                             </div>
                             <div class="tab-bottom-buttons">
-                                <button ng-click="tab1.active = true"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
+                                <button data-ng-click="tab1.active = true"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
                                 <button style="visibility: hidden">&nbsp;Vorschau ansehen</button>
-                                <button class="pull-right next" ng-click="nextStep(tab3, step2)"><i class="icon-tick-right icon-white pull-right"></i>Speichern&nbsp;</button>
+                                <button class="pull-right next" data-ng-click="nextStep(tab3, step2)"><i class="icon-tick-right icon-white pull-right"></i>Speichern&nbsp;</button>
                             </div>
                         </div>
                     </tab>
                     <tab active="tab3.active" disabled="!(step1.$valid && step2.$valid)" select="submit(tab3)">
                         <tab-heading>Finalisieren</tab-heading>
                         <div class="tab-content-container" style="font-style: normal;">
-                            <div ng-show="!banner.$resolved">
-                                <p class="text-center"><dh-loader></dh-loader></p>
+                            <div data-ng-show="!banner.$resolved">
+                                <p class="text-center">{{ block('loading') }}</p>
                             </div>
-                            <div ng-show="banner.$resolved">
+                            <div data-ng-show="banner.$resolved">
                                 <h3>
                                     <div class="row-fluid">
                                         <div class="span1 text-center">
@@ -179,7 +182,7 @@
                                             <p>
                                                 Sed nibh leo, congue accumsan magna at, varius luctus ipsum. Fusce porta eget ligula quis vulputate. Nunc tellus augue, tempus et iaculis elementum, ultrices mattis turpis. Nulla facilisi. Vivamus cursus ante nisi, vel tincidunt erat pretium et.
                                             </p>
-                                            <div class="overlay" ng-hide="domaineditbasic.$data.forwarding == 'true'">
+                                            <div class="overlay" data-ng-hide="domaineditbasic.$data.forwarding == 'true'">
                                                 <div class="circle82px circle-well circle-shadow">
                                                     <div class="circle-center">
                                                         Nur möglich, wenn die Weiterleitung aktiviert ist.
@@ -187,14 +190,14 @@
                                                 </div>
                                             </div>
                                             <div class="row-fluid">
-                                                <a class="offset6 span6 btn btn-primary" ng-click="dnsForward()">
-                                                    <span ng-show="activated==0">
+                                                <a class="offset6 span6 btn btn-primary" data-ng-click="dnsForward()">
+                                                    <span data-ng-show="activated==0">
                                                         Jetzt aktivieren
                                                     </span>
-                                                    <span ng-show="activated==1">
+                                                    <span data-ng-show="activated==1">
                                                         <img src="/bundles/dothivbasewebsite/images/loader-button.gif" alt="activating ..." />
                                                     </span>
-                                                    <span ng-show="activated==2">
+                                                    <span data-ng-show="activated==2">
                                                         aktiviert ✓
                                                     </span>
                                                 </a>
@@ -212,12 +215,12 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="circle28px circle-blue" ng-show="domaineditbasic.$data.forwarding == 'true'">oder</div>
+                                    <div class="circle28px circle-blue" data-ng-show="domaineditbasic.$data.forwarding == 'true'">oder</div>
                                 </div>
                             </div>
 
                             <div class="tab-bottom-buttons">
-                                <button ng-click="tab2.active = true"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
+                                <button data-ng-click="tab2.active = true"><i class="icon-tick-left"></i>&nbsp;Schritt zurück</button>
                             </div>
                         </div>
                     </tab>

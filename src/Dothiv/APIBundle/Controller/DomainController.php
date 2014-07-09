@@ -9,6 +9,7 @@ use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\APIBundle\Annotation\ApiRequest;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainClaimRepositoryInterface;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -32,16 +33,23 @@ class DomainController
      */
     private $securityContext;
 
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
     public function __construct(
 
         SecurityContext $securityContext,
         DomainRepositoryInterface $domainRepo,
-        DomainClaimRepositoryInterface $domainClaimRepo
+        DomainClaimRepositoryInterface $domainClaimRepo,
+        SerializerInterface $serializer
     )
     {
         $this->domainRepo      = $domainRepo;
         $this->domainClaimRepo = $domainClaimRepo;
         $this->securityContext = $securityContext;
+        $this->serializer      = $serializer;
     }
 
     /**
@@ -89,6 +97,8 @@ class DomainController
 
         $response = new Response();
         $response->setStatusCode(201);
+        $response->headers->set('Content-Type', 'application/json; charset=utf-8');
+        $response->setContent($this->serializer->serialize($domain, 'json'));
         return $response;
     }
 
