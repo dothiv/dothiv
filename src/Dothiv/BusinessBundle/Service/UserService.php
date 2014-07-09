@@ -97,6 +97,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
         }
 
         $this->setToken($user);
+        $user->updateBearerToken();
         $this->userRepo->persist($user)->flush();
         $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserEvent($user));
     }
@@ -105,7 +106,8 @@ class UserService implements UserProviderInterface, UserServiceInterface
     {
         $token = $this->generateToken();
         $d     = $this->clock->getNow()->modify('+' . $lifetimeInSeconds . ' seconds');
-        $user->setToken($token, $d);
+        $user->setToken($token);
+        $user->setTokenLifetime($d);
     }
 
     /**
@@ -121,10 +123,12 @@ class UserService implements UserProviderInterface, UserServiceInterface
         /* @var User $user */
         $user = $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $surname, $name, $userRepo) {
             $user = new User();
+            $user->setHandle($this->generateToken());
             $user->setEmail($email);
             $user->setSurname($surname);
             $user->setName($name);
             $this->setToken($user, 24 * 60 * 60);
+            $user->updateBearerToken();
             $userRepo->persist($user);
             return $user;
         });

@@ -73,13 +73,15 @@ class LoginMailer
 
         $link = $this->router->generate(
             'dothiv_charity_account_index',
-            array('locale' => 'en', 'handle' => $user->getHandle()),
+            array('locale' => 'en'),
             UrlGeneratorInterface::ABSOLUTE_URL
         );
-        $link .= '#' . $userToken;
+        $link .= sprintf('#!/auth/%s/%s', $user->getHandle(), $userToken);
 
         $data = array(
-            'loginLink' => $link
+            'loginLink' => $link,
+            'surname' => $user->getSurname(),
+            'name' => $user->getName(),
         );
 
         $template = $this->content->buildEntry('eMail', 'login', 'en');

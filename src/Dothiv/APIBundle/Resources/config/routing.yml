@@ -10,6 +10,12 @@ dothiv_api_user_profile:
         _controller: dothiv.api.controller.user:profileAction
     methods: [GET]
 
+dothiv_api_user_token:
+    pattern:  /user/{handle}/token
+    defaults:
+        _controller: dothiv.api.controller.user:revokeTokenAction
+    methods: [DELETE]
+
 dothiv_api_user_domains:
     pattern:  /user/{handle}/domains
     defaults:
@@ -33,3 +39,4 @@ dothiv_api_account_loginlink:
     defaults:
         _controller: dothiv.api.controller.account:loginLinkAction
     methods: [POST]
+

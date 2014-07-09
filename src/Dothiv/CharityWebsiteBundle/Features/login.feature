@@ -1,5 +1,5 @@
 Feature: Login
-  A user should be request a login link
+  A user should be able to request a login link
 
   Background:
     Given the "DothivBusinessBundle:User" entity exists in "user" with values:

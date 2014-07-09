@@ -22,7 +22,7 @@ dothiv_charity_account_login:
         locale:  en|de|ky
 
 dothiv_charity_account_index:
-    pattern: /{locale}/account/{handle}
+    pattern: /{locale}/account
     defaults:
         _controller: dothiv.charity.web.controller.page:pageAction
         page: account/index

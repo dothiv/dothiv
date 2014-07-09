@@ -32,6 +32,7 @@ class UserRepository extends DoctrineEntityRepository implements UserRepositoryI
     {
         return Option::fromValue(
             $this->createQueryBuilder('u')
+                ->andWhere('u.bearerToken IS NOT NULL')
                 ->andWhere('u.bearerToken = :token')->setParameter('token', $token)
                 ->getQuery()
                 ->getOneOrNullResult()

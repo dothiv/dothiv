@@ -57,7 +57,7 @@ class User implements UserInterface
      * The lifetime of the token
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * var \DateTime
+     * @var \DateTime
      */
     protected $tokenLifetime;
 
@@ -167,13 +167,11 @@ class User implements UserInterface
     }
 
     /**
-     * @param string    $token
-     * @param \DateTime $lifetime
+     * @param string $token
      */
-    public function setToken($token = null, \DateTime $lifetime = null)
+    public function setToken($token = null)
     {
-        $this->token         = $token;
-        $this->tokenLifetime = $token == null ? null : $lifetime;
+        $this->token = $token;
     }
 
     /**
@@ -268,4 +266,11 @@ class User implements UserInterface
         return $this->tokenLifetime;
     }
 
+    /**
+     * @param \DateTime $tokenLifetime
+     */
+    public function setTokenLifetime($tokenLifetime = null)
+    {
+        $this->tokenLifetime = $tokenLifetime instanceof \DateTime ? $tokenLifetime : ($tokenLifetime === null ? null : new \DateTime($tokenLifetime));
+    }
 }

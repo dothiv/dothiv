@@ -4,6 +4,7 @@ namespace Dothiv\APIBundle\Controller;
 
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -15,6 +16,11 @@ class UserController
      * @var DomainRepositoryInterface
      */
     private $domainRepo;
+
+    /**
+     * @var UserRepositoryInterface
+     */
+    private $userRepo;
 
     /**
      * @var SecurityContext
@@ -29,10 +35,12 @@ class UserController
     public function __construct(
         SecurityContext $securityContext,
         DomainRepositoryInterface $domainRepo,
+        UserRepositoryInterface $userRepo,
         Serializer $serializer
     )
     {
         $this->domainRepo      = $domainRepo;
+        $this->userRepo        = $userRepo;
         $this->securityContext = $securityContext;
         $this->serializer      = $serializer;
     }
@@ -85,5 +93,24 @@ class UserController
             throw new AccessDeniedHttpException();
         }
         return $user;
+    }
+
+    /**
+     * Revokes the token for the user.
+     *
+     * @param $handle
+     *
+     * @return Response
+     */
+    public function revokeTokenAction($handle)
+    {
+        $user = $this->verifyUserHandle($handle);
+        $user->setToken(null);
+        $user->setTokenLifetime(null);
+        $user->updateBearerToken();
+        $this->userRepo->persist($user)->flush();
+        $response = new Response();
+        $response->setStatusCode(200);
+        return $response;
     }
 }

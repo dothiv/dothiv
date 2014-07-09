@@ -83,10 +83,10 @@ class DomainRegisteredMailer
 
         $link = $this->router->generate(
             'dothiv_charity_account_index',
-            array('locale' => 'en', 'handle' => $user->getHandle()),
+            array('locale' => 'en'),
             UrlGeneratorInterface::ABSOLUTE_URL
         );
-        $link .= '#' . $userToken;
+        $link .= sprintf('#!/auth/%s/%s', $user->getHandle(), $userToken);
 
         $data = array(
             'domainName' => $domain->getName(),

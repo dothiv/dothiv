@@ -3,11 +3,12 @@ Feature: Claim Domain
 
   Background:
     Given the "DothivBusinessBundle:User" entity exists in "user" with values:
-      | handle  | userhandle          |
-      | email   | someone@example.com |
-      | token   | usert0k3n           |
-      | surname | John                |
-      | name    | Doe                 |
+      | handle        | userhandle          |
+      | email         | someone@example.com |
+      | token         | usert0k3n           |
+      | tokenLifetime | 2014-01-02T13:44:15 |
+      | surname       | John                |
+      | name          | Doe                 |
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
       | name       | test.hiv     |
       | token      | domaint0k3n  |
