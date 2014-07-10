@@ -11,6 +11,7 @@ parameters:
     mailer_user: xxxx
     mailer_password: xxxx
     mailer_port: 2525
+    mailer_encryption: tls
     email_from_name: Markus from dotHIV
     email_from_address: m@tld.hiv
     locale: de
