@@ -4,8 +4,8 @@
 {% set step1 = content('Block', 'basicedit.step1') %}
 {% set step2 = content('Block', 'basicedit.step2') %}
 {% set step3 = content('Block', 'basicedit.step3') %}
-{% set step3_code = content('Block', 'basicedit.step3.code') %}
-{% set step3_forwarding = content('Block', 'basicedit.step3.forwarding') %}
+{% set step3_code = step3.children[0] %}
+{% set step3_forwarding = step3.children[1] %}
 
 <div class="container">
     <div class="row">

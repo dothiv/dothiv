@@ -1,10 +1,19 @@
 {% trans_default_domain "charity" %}
 {% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
 
+{% set intro = content('Block', 'domain.editors') %}
+{% set basic = intro.children[0] %}
+{% set premium = intro.children[1] %}
+{% set developer = intro.children[2] %}
+
 <div class="container">
     <div class="row">
         <div class="span12 profile-heading">
-            <h2 class="pull-left">{% trans %}profile.domain.editors.headline{% endtrans %}</h2>
+            <h2 class="pull-left">{{ intro.title }}</h2>
+
+            {% if intro.text is defined %}
+            {{ intro.text|markdown }}
+            {% endif %}
         </div>
     </div>
     <div class="row" data-ng-hide="domain.name">
@@ -15,50 +24,36 @@
     <div class="row" data-ng-show="domain.name">
         <div class="span12">
             <div class="well">
-                <h2 translate="profile.domain.editors.subheadline" values="{ domain: '[[domain.name]]' }"></h2>
-                <p>
-                    {% trans %}profile.domain.editors.text{% endtrans %}
-                    <b>{% trans %}profile.domain.editors.bold{% endtrans %}</b>
-                </p>
                 <div class="row-fluid-colfix-well">
                     <div class="row-fluid-colfix margin20px">
-
-                        <!-- basic editor -->
                         <div class="span6 well">
-                            <h3>{% trans %}profile.domain.editors.basic.headline{% endtrans %}</h3>
+                            <h3>{{ basic.title }}</h3>
                             <p class="text-center">
-                                <img src="/bundles/dothivbasewebsite/images/clickcounter.png" alt="{% trans %}profile.domain.editors.basic.imgalt{% endtrans %}">
+                                {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounter.png" %}
+                                <img src="{{ asset_url }}" alt="{% trans %}profile.domain.editors.basic.imgalt{% endtrans %}"/>
+                                {% endimage %}
                             </p>
-                            <p><strong>{% trans %}profile.domain.editors.basic.subheadline{% endtrans %}</strong></p>
-                            <p>{% trans %}profile.domain.editors.basic.text{% endtrans %}</p>
-                            <ul class="pinkplusstyle">
-                                {% for i in range(1,4) %}
-                                    {% set adv = "profile.domain.editors.basic.advantages." ~ i %}
-                                    <li>{{ adv|trans }}</li>
-                                {% endfor %}
-                            </ul>
+                            <div class="ul-pinkplusstyle">
+                            {% if basic.text is defined %}
+                                {{ basic.text|markdown }}
+                            {% endif %}
+                            </div>
                         </div>
 
                         <!-- premium editor -->
                         <div class="span6 well">
-                            <h3>
-                                {% trans %}profile.domain.editors.premium.headline.text{% endtrans %}
-                                <span>{% trans %}profile.domain.editors.premium.headline.highlight{% endtrans %}</span>
-                            </h3>
+                            <h3>{{ premium.title }}</h3>
                             <p class="text-center">
-                                <img src="/bundles/dothivbasewebsite/images/clickcounterpremium.png" alt="{% trans %}profile.domain.editors.premium.imgalt{% endtrans %}">
+                                {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounterpremium.png" %}
+                                <img src="{{ asset_url }}" alt="{% trans %}profile.domain.editors.premium.imgalt{% endtrans %}"/>
+                                {% endimage %}
                             </p>
-                            <p><strong>{% trans %}profile.domain.editors.premium.subheadline{% endtrans %}</strong></p>
-                            <p>{% trans %}profile.domain.editors.premium.text{% endtrans %}</p>
-                            <ul class="pinkplusstyle">
-                                {% for i in range(1,7) %}
-                                    {% set adv = "profile.domain.editors.premium.advantages." ~ i %}
-                                    <li>{{ adv|trans }}</li>
-                                {% endfor %}
-                                <li><strong>{% trans %}profile.domain.editors.premium.advantages.highlight{% endtrans %}</strong></li>
-                            </ul>
+                            <div class="ul-pinkplusstyle">
+                                {% if premium.text is defined %}
+                                    {{ premium.text|markdown }}
+                                {% endif %}
+                            </div>
                         </div>
-
                     </div>
                     <div class="row-fluid-colfix margin20px">
 
@@ -84,18 +79,11 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="well">
-                            <h3>
-                                {% trans %}profile.domain.editors.developer.headline.text{% endtrans %}
-                                <span>{% trans %}profile.domain.editors.developer.headline.highlight{% endtrans %}</span>
-                            </h3>
-                            <p>{% trans %}profile.domain.editors.developer.text{% endtrans %}</p>
-                            <div class="row-fluid">
-                                <a class="offset6 span6 btn btn-primary" href="">{% trans %}profile.domain.editors.developer.button{% endtrans %}</a>
-                            </div>
+                            <h3>{{ developer.title }}</h3>
+                            {{ developer.text|markdown }}
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
