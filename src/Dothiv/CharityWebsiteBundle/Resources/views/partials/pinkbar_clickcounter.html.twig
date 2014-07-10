@@ -4,7 +4,7 @@
     <div class="pink-bar rightside">
 
         <div class="pink-bar leftside text-right" data-ng-style="{ width: bar.percent * 100 + '%' }">
-            <button type="button" data-ng-click="toggle()" data-btn-checkbox data-ng-show="bar.percent * 10 > 4">
+            <button type="button" data-btn-checkbox data-ng-model="expanded" data-btn-checkbox-true="true" data-btn-checkbox-false="false" data-ng-show="bar.percent * 10 > 4">
                 <p>
                     <span class="pink-bar-text" data-ng-show="bar.enabled">{% trans %}home.pinkbar.activated{% endtrans %}</span>
                     <span class="pink-bar-text bold" id="active-money" data-ng-bind="bar.unlocked_label"></span>
@@ -13,7 +13,7 @@
                 </p>
             </button>
         </div>
-        <button type="button" data-btn-checkbox data-ng-show="bar.percent * 10 < 4" data-ng-click="toggle()">
+        <button type="button" data-btn-checkbox data-ng-model="expanded" data-btn-checkbox-true="true" data-btn-checkbox-false="false" data-ng-show="bar.percent * 10 < 4">
             <p>
                 <i data-ng-show="!showfunding" class="icon-tick-lower"></i>
                 <i data-ng-show="showfunding" class="icon-tick-upper"></i>

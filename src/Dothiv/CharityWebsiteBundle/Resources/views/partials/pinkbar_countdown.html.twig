@@ -8,7 +8,7 @@
                     {{ 'home.pinkbar.popover.countdown'|trans|markdown }}
                 </div>
                 <div class="span1">
-                    <button type="button" data-btn-checkbox data-ng-click="toggle()" data-ng-class="{true:'active'}[expanded]" class="pull-right"></button>
+                    <button type="button" data-btn-checkbox data-ng-model="expanded" data-btn-checkbox-true="true" data-btn-checkbox-false="false" data-ng-class="{true:'active'}[expanded]" class="pull-right"></button>
                 </div>
             </div>
         </div>

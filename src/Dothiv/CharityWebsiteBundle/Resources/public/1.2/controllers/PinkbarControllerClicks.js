@@ -18,10 +18,10 @@ angular.module('dotHIVApp.controllers').controller('PinkbarControllerClicks', ['
 
         $scope.showfunding = false;
 
-        $scope.toggle = function () {
+        function _toggle() {
             $scope.showfunding = !$scope.showfunding;
         }
-        $rootScope.$on('pinkbar.toggle', $scope.toggle);
+        $rootScope.$on('pinkbar.toggle', _toggle);
 
         function success(data) {
             $scope.bar = data;

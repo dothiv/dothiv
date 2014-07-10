@@ -9,6 +9,7 @@ module.exports = function (config) {
             'AngularJsBundle/Resources/angular/angular-route.js',
             'AngularJsBundle/Resources/angular/angular-cookies.js',
             'AngularJsBundle/Resources/extra/angular-ui.github.io/ui-router/angular-ui-router.js',
+            'AngularJsBundle/Resources/extra/angular-ui.github.io/ui-bootstrap/2/angular-ui-bootstrap.js',
             'AngularJsBundle/Resources/angular/angular-mocks.js',
             // CharityWebsiteBundle
             'CharityWebsiteBundle/Resources/public/1.2/app.js',

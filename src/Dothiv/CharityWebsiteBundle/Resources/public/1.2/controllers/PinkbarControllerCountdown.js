@@ -71,9 +71,9 @@ angular.module('dotHIVApp.controllers').controller('PinkbarControllerCountdown',
 
         $scope.expanded = false;
 
-        $scope.toggle = function () {
+        function _toggle() {
             $scope.expanded = !$scope.expanded;
         }
-        $rootScope.$on('pinkbar.toggle', $scope.toggle);
+        $rootScope.$on('pinkbar.toggle', _toggle);
     }
 ]);
