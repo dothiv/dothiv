@@ -35,8 +35,6 @@ class BannerConfigRequest
 
     /**
      * @var string
-     * @Assert\NotNull
-     * @Assert\NotBlank
      * @Assert\Regex("/^(https*:)*\/\/.+/")
      */
     public $redirect_url;

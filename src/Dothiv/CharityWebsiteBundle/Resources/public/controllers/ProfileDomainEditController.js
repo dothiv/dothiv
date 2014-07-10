@@ -24,7 +24,7 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
                         if ($scope.banners.length == 0) {
                             // no banner available, creating new one
                             $scope.banner = new Banner();
-                            $scope.banner.redirect_domain = '';
+                            $scope.banner.redirect_url = '';
                             $scope.banner.language = 'de';
                             $scope.banner.position = 'center';
                             $scope.banner.position_alternative = 'top';
@@ -33,13 +33,13 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
                             // always take the first banner, TODO: let the user decide
                             $scope.banner = new Banner();
                             $scope.banner.id = $scope.banners[0].id;
-                            $scope.banner.redirect_domain = $scope.banners[0].redirect_domain;
+                            $scope.banner.redirect_url = $scope.banners[0].redirect_url;
                             $scope.banner.language = $scope.banners[0].language;
                             $scope.banner.position = $scope.banners[0].position;
                             $scope.banner.position_alternative = $scope.banners[0].position_alternative;
                             $scope.banner.domain = $scope.banners[0].domain;
 
-                            $scope.domaineditbasic.$data.forwarding = ($scope.banner.redirect_domain != undefined) ? 'true' : 'false';
+                            $scope.domaineditbasic.$data.forwarding = ($scope.banner.redirect_url != undefined) ? 'true' : 'false';
                             if ($scope.banner.position_alternative != undefined) {
                                 $scope.domaineditbasic.$data.secondvisit = true;
                             } else {
@@ -63,7 +63,7 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
 
         $scope.$watch('domaineditbasic.$data.forwarding', function(forwarding) {
             if (forwarding == 'false')
-                $scope.banner.redirect_domain = null;
+                $scope.banner.redirect_url = null;
         });
 
         // form configuration
@@ -81,7 +81,7 @@ angular.module('dotHIVApp.controllers').controller('ProfileDomainEditController'
             if ($scope.domaineditbasic.$data.secondvisit == false)
                 $scope.banner.position_alternative = null;
             if ($scope.domaineditbasic.$data.forwarding == 'false')
-                $scope.banner.redirect_domain = null;
+                $scope.banner.redirect_url = null;
 
             // distinguish between new and updated banners
             if ($scope.banner.id === undefined)

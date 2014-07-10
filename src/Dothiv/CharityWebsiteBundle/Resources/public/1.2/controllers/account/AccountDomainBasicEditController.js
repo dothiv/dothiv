@@ -1,7 +1,9 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditController', ['$scope', '$location', '$stateParams', 'dothivBannerResource', '$q',
-    function ($scope, $location, $stateParams, dothivBannerResource, $q) {
+angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditController', ['$scope', '$location', '$stateParams', 'dothivBannerResource',
+    function ($scope, $location, $stateParams, dothivBannerResource) {
+
+        $scope.errorMessage = null;
 
         // set default values when form is initialized
         $scope.$watch('domaineditbasic', function () {
@@ -15,68 +17,59 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
         $scope.domain = {name: domainName};
         $scope.banner = dothivBannerResource.get(
             {domain: domainName},
-            function () { // success
+            function (data) { // success
+                $scope.domaineditbasic.$data.forwarding = (typeof data.redirect_url !== "undefined") ? "true" : "false";
+                $scope.domaineditbasic.$data.secondvisit = data.position != data.position_first;
             },
             function () { // error
                 // no banner available, creating new one
                 var banner = new dothivBannerResource();
-                banner.redirect_domain = '';
+                banner.redirect_url = '';
                 banner.language = 'de';
-                banner.position = 'center';
-                banner.position_alternative = 'top';
-                banner.domain = domainName;
+                banner.position_first = 'center';
+                banner.position = 'top';
                 return banner;
             }
         );
 
-        // data structure for language values
-        $scope.languages =
-            [
-                { key: 'de', label: 'Deutsch' },
-                { key: 'en', label: 'Englisch' },
-                { key: 'es', label: 'Spanisch' },
-                { key: 'fr', label: 'Französisch' }
-            ];
-
         $scope.$watch('domaineditbasic.$data.forwarding', function (forwarding) {
             if (forwarding == 'false')
-                $scope.banner.redirect_domain = null;
+                $scope.banner.redirect_url = null;
         });
 
         // form configuration
         $scope.nextStep = function (tab, form) {
             // check if form is valid
-            if (form.$valid)
+            if (form.$valid) {
                 tab.active = true;
-            else
-                manager.fail();
+            }
         };
 
         // submit function for form
         $scope.submit = function (tab) {
+            $scope.errorMessage = null;
+
             // do not submit values of disabled input fields
-            if ($scope.domaineditbasic.$data.secondvisit == false)
+            if ($scope.domaineditbasic.$data.secondvisit == false) {
                 $scope.banner.position_alternative = null;
-            if ($scope.domaineditbasic.$data.forwarding == 'false')
-                $scope.banner.redirect_domain = null;
+            }
+            if ($scope.domaineditbasic.$data.forwarding == 'false') {
+                $scope.banner.redirect_url = null;
+            }
 
-            // distinguish between new and updated banners
-            if ($scope.banner.id === undefined)
-                $scope.banner.$save();
-            else
-                $scope.banner.$update();
-
-            // activate final tab
-            tab.active = true;
+            $scope.banner.$update(
+                {domain: domainName},
+                function () {
+                    // activate final tab
+                    tab.active = true;
+                },
+                function (response) { // error
+                    $scope.errorMessage = response.statusText;
+                    $scope.tabs[1].active = true;
+                }
+            );
         };
 
         $scope.activated = 0;
-        $scope.dnsForward = function () {
-            $scope.domain.dnsForward = 1;
-            $scope.activated = 1;
-            $scope.domain.$update(function () {
-                $scope.activated = 2;
-            });
-        };
     }
 ]);
