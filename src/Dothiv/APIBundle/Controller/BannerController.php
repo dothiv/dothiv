@@ -144,6 +144,7 @@ class BannerController
         $banner->setLanguage($configRequest->language);
         $banner->setPosition($configRequest->position_first);
         $banner->setPositionAlternative($configRequest->position);
+        $banner->setRedirectUrl($configRequest->redirect_url);
 
         $errors = $this->validator->validate($banner);
         if (count($errors) > 0) {

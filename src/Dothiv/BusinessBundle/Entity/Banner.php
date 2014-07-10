@@ -22,9 +22,11 @@ class Banner extends Entity
      * Domain to redirect to, if desired
      *
      * @ORM\Column(type="string",nullable=true)
+     * @Assert\Regex("/^(https*:)*\/\/.+/")
      * @Serializer\Expose
+     * @Serializer\SerializedName("redirect_url")
      */
-    protected $redirectDomain;
+    protected $redirectUrl;
 
     /**
      * Language of banner texts
@@ -67,19 +69,19 @@ class Banner extends Entity
      *
      * @return string FQDN for redirect
      */
-    public function getRedirectDomain()
+    public function getRedirectUrl()
     {
-        return $this->redirectDomain;
+        return $this->redirectUrl;
     }
 
     /**
      * Sets the FQDN of the redirect domain.
      *
-     * @param string $redirectDomain FQDN for redirect
+     * @param string $redirectUrl FQDN for redirect
      */
-    public function setRedirectDomain($redirectDomain)
+    public function setRedirectUrl($redirectUrl)
     {
-        $this->redirectDomain = $redirectDomain;
+        $this->redirectUrl = $redirectUrl;
     }
 
     /**

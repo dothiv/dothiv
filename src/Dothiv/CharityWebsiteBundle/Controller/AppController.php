@@ -33,18 +33,19 @@ class AppController
 
     /**
      * @param Request $request
+     * @param string  $locale
      * @param string  $section
      * @param string  $page
      *
      * @return Response
      */
-    public function templateAction(Request $request, $section, $page)
+    public function templateAction(Request $request, $locale, $section, $page)
     {
         $response = new Response();
         $response->setPublic();
 
         $res = sprintf($this->bundle . ':App:%s/%s.%s.twig', $section, $page, $request->getRequestFormat());
-        return $this->renderer->renderResponse($res, array(), $response);
+        return $this->renderer->renderResponse($res, array('locale' => $locale), $response);
     }
 
 }

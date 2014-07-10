@@ -32,4 +32,12 @@ class BannerConfigRequest
      * @Assert\Choice({"top","center","right"})
      */
     public $position_first;
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Assert\Regex("/^(https*:)*\/\/.+/")
+     */
+    public $redirect_url;
 }

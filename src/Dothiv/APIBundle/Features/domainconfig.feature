@@ -17,9 +17,10 @@ Feature: Configure Banner
   Scenario: Configure Banner
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
     And I send a PUT request to "http://click4life.hiv.dev/api/domain/test.hiv/banner" with JSON values:
-      | language       | fr     |
-      | position       | top    |
-      | position_first | center |
+      | language       | fr        |
+      | position       | top       |
+      | position_first | center    |
+      | redirect_url   | //test.de |
     Then the response status code should be 200
     And I send a GET request to "http://click4life.hiv.dev/api/domain/test.hiv/banner"
     Then the response status code should be 200
@@ -27,13 +28,15 @@ Feature: Configure Banner
     And the JSON node "language" should contain "fr"
     And the JSON node "position" should contain "top"
     And the JSON node "position_first" should contain "center"
+    And the JSON node "redirect_url" should contain "//test.de"
 
   Scenario: Configure Banner for invalid domain
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
     And I send a PUT request to "http://click4life.hiv.dev/api/domain/invalid.hiv/banner" with JSON values:
-      | language       | fr     |
-      | position       | top    |
-      | position_first | center |
+      | language       | fr           |
+      | position       | top          |
+      | position_first | center       |
+      | redirect_url   | //invalid.de |
     Then the response status code should be 404
 
   Scenario: Configure Banner for other users domain
