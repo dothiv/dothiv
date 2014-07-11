@@ -2,6 +2,8 @@ parameters:
     dothiv.repository.banner.entity.class: 'DothivBusinessBundle:Banner'
     dothiv.repository.user.entity.class: 'DothivBusinessBundle:User'
     dothiv.repository.user.repository.class: Dothiv\BusinessBundle\Repository\UserRepository
+    dothiv.repository.user_token.entity.class: 'DothivBusinessBundle:UserToken'
+    dothiv.repository.user_token.repository.class: Dothiv\BusinessBundle\Repository\UserTokenRepository
     dothiv.repository.domain.entity.class: 'DothivBusinessBundle:Domain'
     dothiv.repository.domain.repository.class: Dothiv\BusinessBundle\Repository\DomainRepository
     dothiv.repository.banner.entity.class: 'DothivBusinessBundle:Banner'
@@ -21,6 +23,12 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.user.entity.class% ]
+
+    dothiv.repository.user_token:
+        class: %dothiv.repository.user_token.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.user_token.entity.class% ]
 
     dothiv.repository.domain:
         class: %dothiv.repository.domain.repository.class%

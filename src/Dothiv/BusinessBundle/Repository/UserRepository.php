@@ -24,22 +24,6 @@ class UserRepository extends DoctrineEntityRepository implements UserRepositoryI
     }
 
     /**
-     * @param string $token
-     *
-     * @return Option
-     */
-    public function getUserByBearerToken($token)
-    {
-        return Option::fromValue(
-            $this->createQueryBuilder('u')
-                ->andWhere('u.bearerToken IS NOT NULL')
-                ->andWhere('u.bearerToken = :token')->setParameter('token', $token)
-                ->getQuery()
-                ->getOneOrNullResult()
-        );
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function persist(User $user)

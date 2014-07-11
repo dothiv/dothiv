@@ -45,7 +45,7 @@ class Oauth2BearerListener implements ListenerInterface
 
         if ($auth->isDefined()) {
             if (preg_match('/^Bearer (.+)/', $auth->get(), $matches) === 1) {
-                $token->setUser($matches[1]);
+                $token->setBearerToken($matches[1]);
             }
         }
     }

@@ -3,12 +3,14 @@ Feature: Claim Domain
 
   Background:
     Given the "DothivBusinessBundle:User" entity exists in "user" with values:
-      | handle        | userhandle          |
-      | email         | someone@example.com |
-      | token         | usert0k3n           |
-      | tokenLifetime | 2014-01-02T13:44:15 |
-      | surname       | John                |
-      | name          | Doe                 |
+      | handle  | userhandle          |
+      | email   | someone@example.com |
+      | surname | John                |
+      | name    | Doe                 |
+    Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
+      | user     | {user}                          |
+      | token    | usert0k3n                       |
+      | lifetime | {\DateTime@2014-01-02T13:44:15} |
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
       | name       | test.hiv     |
       | token      | domaint0k3n  |
@@ -19,7 +21,7 @@ Feature: Claim Domain
   Scenario: Claim domain
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
     And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:
-      | token  | domaint0k3n |
+      | token | domaint0k3n |
     Then the response status code should be 201
     And the JSON node "name" should contain "test.hiv"
 
@@ -34,11 +36,11 @@ Feature: Claim Domain
   Scenario: Failed claim for invalid username
     Given I add Bearer token equal to "wrongt0k3n"
     And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:
-      | token  | domaint0k3n |
+      | token | domaint0k3n |
     Then the response status code should be 403
 
   Scenario: Failed claim for wrong token
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
     And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:
-      | token  | invalidt0k3n |
+      | token | invalidt0k3n |
     Then the response status code should be 400

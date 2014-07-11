@@ -1,7 +1,7 @@
 parameters:
     dothiv.charity.routing.loader.class: Dothiv\CharityWebsiteBundle\Routing\RoutingLoader
     dothiv.charity.service.mailer.domain_registered.class: Dothiv\CharityWebsiteBundle\Service\Mailer\DomainRegisteredMailer
-    dothiv.charity.service.mailer.login.class: Dothiv\CharityWebsiteBundle\Service\Mailer\LoginMailer
+    dothiv.charity.service.mailer.login.class: Dothiv\CharityWebsiteBundle\Service\Mailer\LoginLinkMailer
 
 services:
     dothiv.charity.routing.loader:

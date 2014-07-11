@@ -22,7 +22,9 @@ services:
          - @security.context
          - @dothiv.repository.domain
          - @dothiv.repository.user
+         - @dothiv.repository.user_token
          - @serializer
+         - @clock
 
     dothiv.api.controller.account:
         class: Dothiv\APIBundle\Controller\AccountController

@@ -5,6 +5,8 @@ namespace Dothiv\APIBundle\Controller;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
+use Dothiv\BusinessBundle\Service\Clock;
 use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -23,9 +25,19 @@ class UserController
     private $userRepo;
 
     /**
+     * @var UserTokenRepositoryInterface
+     */
+    private $userTokenRepo;
+
+    /**
      * @var SecurityContext
      */
     private $securityContext;
+
+    /**
+     * @var Clock
+     */
+    private $clock;
 
     /**
      * @var Serializer
@@ -36,13 +48,17 @@ class UserController
         SecurityContext $securityContext,
         DomainRepositoryInterface $domainRepo,
         UserRepositoryInterface $userRepo,
-        Serializer $serializer
+        UserTokenRepositoryInterface $userTokenRepo,
+        Serializer $serializer,
+        Clock $clock
     )
     {
         $this->domainRepo      = $domainRepo;
         $this->userRepo        = $userRepo;
+        $this->userTokenRepo   = $userTokenRepo;
         $this->securityContext = $securityContext;
         $this->serializer      = $serializer;
+        $this->clock           = $clock;
     }
 
     /**
@@ -104,11 +120,10 @@ class UserController
      */
     public function revokeTokenAction($handle)
     {
-        $user = $this->verifyUserHandle($handle);
-        $user->setToken(null);
-        $user->setTokenLifetime(null);
-        $user->updateBearerToken();
-        $this->userRepo->persist($user)->flush();
+        $user  = $this->verifyUserHandle($handle);
+        $token = $this->userTokenRepo->getTokenByBearerToken($this->securityContext->getToken()->getBearerToken())->get();
+        $token->revoke($this->clock->getNow());
+        $this->userTokenRepo->persist($token)->flush();
         $response = new Response();
         $response->setStatusCode(200);
         return $response;

@@ -6,6 +6,11 @@ use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
 class Oauth2BearerToken extends AbstractToken
 {
+    /**
+     * @var string
+     */
+    protected $bearerToken;
+
     public function __construct(array $roles = array())
     {
         parent::__construct($roles);
@@ -16,5 +21,21 @@ class Oauth2BearerToken extends AbstractToken
     public function getCredentials()
     {
         return '';
+    }
+
+    /**
+     * @param string $bearerToken
+     */
+    public function setBearerToken($bearerToken)
+    {
+        $this->bearerToken = $bearerToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBearerToken()
+    {
+        return $this->bearerToken;
     }
 }

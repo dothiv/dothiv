@@ -1,14 +1,16 @@
-Feature: Login
+Feature: Logout
   A user should be able to revoke his login token
 
   Background:
     Given the "DothivBusinessBundle:User" entity exists in "user" with values:
-      | handle        | userhandle          |
-      | email         | someone@example.com |
-      | token         | usert0k3n           |
-      | tokenLifetime | 2014-01-02T13:44:15 |
-      | surname       | John                |
-      | name          | Doe                 |
+      | handle  | userhandle          |
+      | email   | someone@example.com |
+      | surname | John                |
+      | name    | Doe                 |
+    Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
+      | user     | {user}                          |
+      | token    | usert0k3n                       |
+      | lifetime | {\DateTime@2014-01-02T13:44:15} |
     And I add "Accept" header equal to "application/json"
     And I add "Content-Type" header equal to "application/json"
 

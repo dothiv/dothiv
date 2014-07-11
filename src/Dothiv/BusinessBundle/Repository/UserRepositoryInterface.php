@@ -2,7 +2,9 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Entity\UserToken;
 use PhpOption\Option;
 
 /**
@@ -16,13 +18,6 @@ interface UserRepositoryInterface
      * @return Option
      */
     public function getUserByEmail($email);
-
-    /**
-     * @param string $token
-     *
-     * @return Option
-     */
-    public function getUserByBearerToken($token);
 
     /**
      * Persist the entity.

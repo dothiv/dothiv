@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Util\SecureRandom;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
 
@@ -47,28 +46,6 @@ class User implements UserInterface
     protected $email;
 
     /**
-     * The token used to login.
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $token;
-
-    /**
-     * The lifetime of the token
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     * @var \DateTime
-     */
-    protected $tokenLifetime;
-
-    /**
-     * The bearer token for easier lookup
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $bearerToken;
-
-    /**
      * First name
      *
      * @ORM\Column(type="string")
@@ -89,13 +66,23 @@ class User implements UserInterface
     /**
      * A list of domains owned by this user
      *
-     * @ORM\OneToMany(targetEntity="Domain",mappedBy="owner")
+     * @ORM\OneToMany(targetEntity="Domain", mappedBy="owner")
+     * @var Domain[]|ArrayCollection
      */
     protected $domains;
+
+    /**
+     * A list of login tokens for this user
+     *
+     * @ORM\OneToMany(targetEntity="UserToken", mappedBy="user")
+     * @var UserToken[]|ArrayCollection
+     */
+    protected $tokens;
 
     public function __construct()
     {
         $this->domains = new ArrayCollection();
+        $this->tokens  = new ArrayCollection();
     }
 
     public function getSurname()
@@ -167,34 +154,6 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $token
-     */
-    public function setToken($token = null)
-    {
-        $this->token = $token;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function updateBearerToken()
-    {
-        if (empty($this->token)) {
-            $this->bearerToken = null;
-        } else {
-            $this->bearerToken = sha1($this->email . ':' . $this->token);
-        }
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getRoles()
@@ -207,7 +166,7 @@ class User implements UserInterface
      */
     public function getPassword()
     {
-        return $this->bearerToken;
+        return null;
     }
 
     /**
@@ -248,29 +207,5 @@ class User implements UserInterface
     public function getHandle()
     {
         return $this->handle;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBearerToken()
-    {
-        return $this->bearerToken;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getTokenLifetime()
-    {
-        return $this->tokenLifetime;
-    }
-
-    /**
-     * @param \DateTime $tokenLifetime
-     */
-    public function setTokenLifetime($tokenLifetime = null)
-    {
-        $this->tokenLifetime = $tokenLifetime instanceof \DateTime ? $tokenLifetime : ($tokenLifetime === null ? null : new \DateTime($tokenLifetime));
     }
 }

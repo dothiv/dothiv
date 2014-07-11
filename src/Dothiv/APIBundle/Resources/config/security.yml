@@ -3,7 +3,7 @@ services:
         class: Dothiv\APIBundle\Security\Authentication\Provider\Oauth2BearerProvider
         arguments:
           - ""
-          - @dothiv.repository.user
+          - @dothiv.repository.user_token
 
     dothiv.apibundle.oauth2.security.authentication.listener:
         class: Dothiv\APIBundle\Security\Firewall\Oauth2BearerListener

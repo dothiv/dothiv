@@ -5,13 +5,15 @@ namespace Dothiv\CharityWebsiteBundle\Service\Mailer;
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Event\DomainEvent;
 use Dothiv\Businessbundle\Event\UserEvent;
+use Dothiv\BusinessBundle\Event\UserTokenEvent;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class LoginMailer
+class LoginLinkMailer
 {
     /**
      * @var \Swift_Mailer
@@ -63,13 +65,14 @@ class LoginMailer
     }
 
     /**
-     * @param User $user
+     * @param UserToken $token
      *
      * @return void
      */
-    public function sendLoginMail(User $user)
+    public function sendLoginMail(UserToken $token)
     {
-        $userToken = $user->getBearerToken();
+        $userToken = $token->getBearerToken();
+        $user      = $token->getUser();
 
         $link = $this->router->generate(
             'dothiv_charity_account_index',
@@ -80,8 +83,8 @@ class LoginMailer
 
         $data = array(
             'loginLink' => $link,
-            'surname' => $user->getSurname(),
-            'name' => $user->getName(),
+            'surname'   => $user->getSurname(),
+            'name'      => $user->getName(),
         );
 
         $template = $this->content->buildEntry('eMail', 'login', 'en');
@@ -115,8 +118,8 @@ class LoginMailer
         $this->mailer->send($message);
     }
 
-    public function onLoginLinkRequested(UserEvent $event)
+    public function onLoginLinkRequested(UserTokenEvent $event)
     {
-        $this->sendLoginMail($event->getUser());
+        $this->sendLoginMail($event->getUserToken());
     }
 }

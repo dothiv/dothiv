@@ -4,10 +4,13 @@ namespace Dothiv\BusinessBundle\Service;
 
 use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Event\UserEvent;
+use Dothiv\BusinessBundle\Event\UserTokenEvent;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -22,6 +25,11 @@ class UserService implements UserProviderInterface, UserServiceInterface
     private $userRepo;
 
     /**
+     * @var UserTokenRepositoryInterface
+     */
+    private $userTokenRepo;
+
+    /**
      * @var Clock
      */
     private $clock;
@@ -33,13 +41,15 @@ class UserService implements UserProviderInterface, UserServiceInterface
 
     public function __construct(
         UserRepositoryInterface $userRepository,
+        UserTokenRepositoryInterface $userTokenRepository,
         Clock $clock,
         EventDispatcher $dispatcher
     )
     {
-        $this->userRepo   = $userRepository;
-        $this->clock      = $clock;
-        $this->dispatcher = $dispatcher;
+        $this->userRepo      = $userRepository;
+        $this->userTokenRepo = $userTokenRepository;
+        $this->clock         = $clock;
+        $this->dispatcher    = $dispatcher;
     }
 
     /**
@@ -88,26 +98,29 @@ class UserService implements UserProviderInterface, UserServiceInterface
     public function sendLoginLinkForEmail($email)
     {
         /* @var User $user */
+        /* @var UserToken $token */
         $user = $this->userRepo->getUserByEmail($email)->getOrCall(function () {
             throw new EntityNotFoundException();
         });
 
-        if ($user->getToken() !== null) {
-            throw new TemporarilyUnavailableException($user->getTokenLifetime());
+        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow());
+        if (!$tokens->isEmpty()) {
+            $token = $tokens->first();
+            throw new TemporarilyUnavailableException($token->getLifeTime());
         }
-
-        $this->setToken($user);
-        $user->updateBearerToken();
-        $this->userRepo->persist($user)->flush();
-        $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserEvent($user));
+        $token = $this->createUserToken($user);
+        $this->userTokenRepo->persist($token)->flush();
+        $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token));
     }
 
-    protected function setToken(User $user, $lifetimeInSeconds = 1800)
+    protected function createUserToken(User $user, $lifetimeInSeconds = 1800)
     {
-        $token = $this->generateToken();
-        $d     = $this->clock->getNow()->modify('+' . $lifetimeInSeconds . ' seconds');
-        $user->setToken($token);
-        $user->setTokenLifetime($d);
+        $token = new UserToken();
+        $token->setUser($user);
+        $token->setToken($this->generateToken());
+        $d = $this->clock->getNow()->modify('+' . $lifetimeInSeconds . ' seconds');
+        $token->setLifetime($d);
+        return $token;
     }
 
     /**
@@ -121,22 +134,20 @@ class UserService implements UserProviderInterface, UserServiceInterface
     {
         $userRepo = $this->userRepo;
         /* @var User $user */
-        $user = $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $surname, $name, $userRepo) {
+        $user   = $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $surname, $name, $userRepo) {
             $user = new User();
             $user->setHandle($this->generateToken());
             $user->setEmail($email);
             $user->setSurname($surname);
             $user->setName($name);
-            $this->setToken($user, 24 * 60 * 60);
-            $user->updateBearerToken();
-            $userRepo->persist($user);
+            $userRepo->persist($user)->flush();
             return $user;
         });
-        if ($user->getToken() == null) {
-            $this->setToken($user);
-            $userRepo->persist($user);
+        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow());
+        if ($tokens->isEmpty()) {
+            $token = $this->createUserToken($user, 24 * 60 * 60);
+            $this->userTokenRepo->persist($token)->flush();
         }
-        $userRepo->flush();
         return $user;
     }
 
