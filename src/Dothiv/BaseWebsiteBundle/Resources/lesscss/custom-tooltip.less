@@ -32,15 +32,6 @@
   .border-radius(@baseBorderRadius);
 }
 
-form.clean input.ng-dirty.ng-invalid.ng-invalid-required:focus + div.tooltip {
-  &.right > .tooltip-arrow {
-    border-right-color: @tooltipArrowColor;
-  }
-  & > .tooltip-inner {
-    background-color: @tooltipBackground;
-  }
-}
-
 input.ng-dirty.ng-invalid:focus + div.tooltip {
   &.right > .tooltip-arrow {
     border-right-color: @tooltipInvalidArrowColor;

@@ -1,0 +1,80 @@
+@btnBackground: #C1C1C1;
+
+// Core
+.btn {
+  padding: 15px 12px;
+  background: @btnBackground;
+  border: none;
+  border-radius: 0px;
+  .box-shadow(none);
+  color: white;
+  font-weight: bold;
+  text-shadow: none;
+
+  // Hover/focus state
+  &:hover,
+  &:focus {
+    color: white;
+  }
+
+  // Active state
+  &.active,
+  &:active {
+    color: white;
+  }
+
+  // Disabled state
+  &.disabled,
+  &[disabled] {
+    background: @btnBackground;
+  }
+
+}
+
+.btn-primary {
+  background: #1786be url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 85% 50%;
+  padding-right: 30px;
+  &.disabled,
+  &[disabled] {
+    background: @btnBackground url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 85% 50%;
+  }
+  &:hover {
+    background: #000000 url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 85% 50%;
+    &.disabled,
+    &[disabled] {
+      background: @btnBackground url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 85% 50%;
+    }
+  }
+}
+
+.btn-facebook {
+  background: #3C5A9A;
+}
+
+.btn-twitter {
+  background: #29AAE3;
+}
+
+.btn-gplus {
+  background: #DF4C3A;
+}
+
+.btn-link,
+.btn-link:active,
+.btn-link[disabled] {
+  background-color: transparent;
+  background-image: none;
+  .box-shadow(none);
+  padding-top: 0;
+  padding-bottom: 0;
+  vertical-align: bottom;
+  font-weight: normal;
+  text-decoration: underline;
+}
+
+.btn-link {
+  border-color: transparent;
+  cursor: pointer;
+  color: @linkColor;
+  .border-radius(0);
+}
