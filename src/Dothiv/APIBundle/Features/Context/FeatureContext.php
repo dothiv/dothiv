@@ -105,6 +105,10 @@ class FeatureContext extends BehatContext
     {
         preg_match_all('/\{([^\}]+)\}/', $value, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
+            if (preg_match('/^(\\\\[\\\\A-Za-z]+)+@(.+)/', $match[1], $classMatch)) {
+                $class = $classMatch[1];
+                return new $class($classMatch[2]);
+            }
             return $this->storage->get($match[1]);
         }
         return $value;
