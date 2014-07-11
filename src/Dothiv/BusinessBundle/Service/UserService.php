@@ -103,7 +103,9 @@ class UserService implements UserProviderInterface, UserServiceInterface
             throw new EntityNotFoundException();
         });
 
-        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow());
+        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow())->filter(function (UserToken $token) {
+            return !$token->isRevoked();
+        });
         if (!$tokens->isEmpty()) {
             $token = $tokens->first();
             throw new TemporarilyUnavailableException($token->getLifeTime());

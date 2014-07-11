@@ -28,3 +28,13 @@ Feature: Login
     And I send a POST request to "http://click4life.hiv.dev/api/account/loginLink" with JSON values:
       | email | SomeOne@Example.Com |
     Then the response status code should be 201
+
+  Scenario: Request login link after token revoked
+    Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
+      | user        | {user}                          |
+      | token       | usert0k3n                       |
+      | lifetime    | {\DateTime@2015-01-01T00:00:00} |
+      | revokedTime | {\DateTime@2013-12-31T23:59:59} |
+    And I send a POST request to "http://click4life.hiv.dev/api/account/loginLink" with JSON values:
+      | email | SomeOne@Example.Com |
+    Then the response status code should be 201

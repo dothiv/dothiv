@@ -133,4 +133,20 @@ class UserToken extends Entity
     {
         return !empty($this->revokedTime);
     }
+
+    /**
+     * @param \DateTime $revokedTime
+     */
+    public function setRevokedTime(\DateTime $revokedTime)
+    {
+        $this->revokedTime = $revokedTime;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRevokedTime()
+    {
+        return $this->revokedTime;
+    }
 }
