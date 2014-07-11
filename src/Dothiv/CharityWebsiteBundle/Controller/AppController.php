@@ -38,6 +38,7 @@ class AppController
      * @param string  $page
      *
      * @return Response
+     * FIXME: Caching
      */
     public function templateAction(Request $request, $locale, $section, $page)
     {
