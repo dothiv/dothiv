@@ -17,7 +17,7 @@ class UserRepository extends DoctrineEntityRepository implements UserRepositoryI
     {
         return Option::fromValue(
             $this->createQueryBuilder('u')
-                ->andWhere('u.email = :email')->setParameter('email', $email)
+                ->andWhere('u.email = :email')->setParameter('email', strtolower($email))
                 ->getQuery()
                 ->getOneOrNullResult()
         );

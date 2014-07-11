@@ -12,7 +12,7 @@ Feature: Login
 
   Scenario: Request login link
     Given I send a POST request to "http://click4life.hiv.dev/api/account/loginLink" with JSON values:
-      | email | someone@example.com |
+      | email | SomeOne@Example.Com |
     Then the response status code should be 201
     # Second login link should not be created
     Given I send a POST request to "http://click4life.hiv.dev/api/account/loginLink" with JSON values:
