@@ -7,7 +7,7 @@ $loader = require_once __DIR__ . '/../app/bootstrap.php.cache';
 
 if (extension_loaded('apc')) {
     // Use APC for autoloading to improve performance.
-    $loader = new ApcClassLoader('dothiv-sf2', $loader);
+    $loader = new ApcClassLoader('dothiv-sf2-' . md5(__DIR__), $loader);
     $loader->register(true);
 }
 
