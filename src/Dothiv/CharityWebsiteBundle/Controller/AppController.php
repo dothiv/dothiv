@@ -41,6 +41,14 @@ class AppController
      */
     public function templateAction(Request $request, $locale, $section, $page)
     {
+        switch ($locale) {
+            case 'de':
+                $request->setLocale('de_DE');
+                break;
+            case 'en':
+                $request->setLocale('en_US');
+                break;
+        }
         $response = new Response();
         $response->setPublic();
 
