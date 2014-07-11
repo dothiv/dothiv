@@ -9,11 +9,7 @@
 <div class="container">
     <div class="row">
         <div class="span12 profile-heading">
-            <h2 class="pull-left">{{ intro.title }}</h2>
-
-            {% if intro.text is defined %}
-            {{ intro.text|markdown }}
-            {% endif %}
+            <h2 class="pull-left">{% trans %}account.profile.domains.edit{% endtrans %}</h2>
         </div>
     </div>
     <div class="row" data-ng-hide="domain.name">
@@ -24,10 +20,17 @@
     <div class="row" data-ng-show="domain.name">
         <div class="span12">
             <div class="well">
+
+                <h3 class="pull-left">{{ intro.title }}</h3>
+
+                {% if intro.text is defined %}
+                    {{ intro.text|markdown }}
+                {% endif %}
+                
                 <div class="row-fluid-colfix-well">
                     <div class="row-fluid-colfix margin20px">
                         <div class="span6 well">
-                            <h3>{{ basic.title }}</h3>
+                            <h4>{{ basic.title }}</h4>
                             <p class="text-center">
                                 {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounter.png" %}
                                 <img src="{{ asset_url }}" alt="{% trans %}profile.domain.editors.basic.imgalt{% endtrans %}"/>
@@ -42,7 +45,7 @@
 
                         <!-- premium editor -->
                         <div class="span6 well">
-                            <h3>{{ premium.title }}</h3>
+                            <h4>{{ premium.title }}</h4>
                             <p class="text-center">
                                 {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounterpremium.png" %}
                                 <img src="{{ asset_url }}" alt="{% trans %}profile.domain.editors.premium.imgalt{% endtrans %}"/>
@@ -79,7 +82,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="well">
-                            <h3>{{ developer.title }}</h3>
+                            <h4>{{ developer.title }}</h4>
                             {{ developer.text|markdown }}
                         </div>
                     </div>

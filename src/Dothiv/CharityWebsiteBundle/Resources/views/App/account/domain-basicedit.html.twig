@@ -18,7 +18,7 @@
             <p class="text-center">{{ block('loading') }}</p>
         </div>
         <div class="span12" data-ng-show="banner.$resolved">
-            <form novalidate name="domaineditbasic" class="simple-form" data-ng-class="{clean: !domaineditbasic.$failed, unclean: domaineditbasic.$failed}">
+            <form novalidate name="domaineditbasic">
                 <div class="row-fluid" data-ng-show="errorMessage">
                     <div class="span12 alert alert-danger" data-ng-bind="errorMessage"></div>
                 </div>
@@ -28,25 +28,25 @@
                         <div class="tab-content-container" data-ng-form="step1" name="step1">
                             {% if step1.text is defined %}
                                 <div class="row-fluid">
-                                    <div class="span12">
+                                    <div class="offset2 span8">
                                         {{ step1.text|markdown }}
                                     </div>
                                 </div>
                             {% endif %}
                             <div class="row-fluid">
-                                <div class="span4 horizontal-radio-group">
+                                <div class="offset2 span4">
                                     <label>
-                                        <input type="radio" name="forwardRadio" data-ng-model="domaineditbasic.$data.forwarding" value="true">
-                                        {% trans %}basicedit.forwarding.enable{% endtrans %}
-                                    </label> <label>
                                         <input type="radio" name="forwardRadio" data-ng-model="domaineditbasic.$data.forwarding" value="false">
                                         {% trans %}basicedit.forwarding.disable{% endtrans %}
+                                    </label> <label>
+                                        <input type="radio" name="forwardRadio" data-ng-model="domaineditbasic.$data.forwarding" value="true">
+                                        {% trans %}basicedit.forwarding.enable{% endtrans %}
                                     </label>
-                                </div>
-                                <div class="span4">
+
                                     <div data-ng-show="domaineditbasic.$data.forwarding == 'true'">
                                         <label for="basicEditFormTargetName">
-                                            {% trans %}basicedit.forwarding.targeturl{% endtrans %}
+                                            {% trans %}basicedit.forwarding.targeturl{% endtrans %}<br>
+                                            <small>{% trans %}basicedit.forwarding.targeturl.info{% endtrans %}</small>
                                         </label>
                                         <input type="url" name="targetName" id="basicEditFormTargetName" data-ng-model="banner.redirect_url" data-ng-required="domaineditbasic.$data.forwarding == 'true'">
                                     </div>
@@ -68,10 +68,10 @@
                                 </div>
                             </div>
                             <div class="row-fluid">
-                                <div class="tab-bottom-buttons span12">
-                                    <button class="pull-right next" data-ng-click="nextStep(tab2, step1)" data-ng-disabled="!domaineditbasic.$valid">
-                                        <i class="icon-tick-right icon-white pull-right"></i>{% trans %}
-                                        generic.button.next{% endtrans %}&nbsp;</button>
+                                <div class="offset2 span8">
+                                    <button class="next" data-ng-click="nextStep(tab2, step1)" data-ng-disabled="!domaineditbasic.$valid">
+                                        {% trans %}generic.button.next{% endtrans %}
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -81,33 +81,33 @@
                         <div class="tab-content-container" data-ng-form="step2">
                             {% if step2.text is defined %}
                                 <div class="row-fluid">
-                                    <div class="span12">
+                                    <div class="offset2 span8">
                                         {{ step2.text|markdown }}
                                     </div>
                                 </div>
                             {% endif %}
                             <div class="row-fluid">
-                                <div class="offset1 span3 position-radio-container">
+                                <div class="offset2 span3 position-radio-container">
                                     <label class="position-label center">
-                                        <input type="radio" name="positionRadio" data-ng-model="banner.position_first" value="center" id="positionRadioCenter">
+                                        <input type="radio" name="positionRadio" data-ng-model="banner.position_first" value="center" id="positionRadioCenter" required>
                                         {% trans %}domain.position.center{% endtrans %}
                                     </label>
                                 </div>
                                 <div class="span3 position-radio-container">
                                     <label class="position-label top">
-                                        <input type="radio" name="positionRadio" data-ng-model="banner.position_first" value="top" id="positionRadioTop">
+                                        <input type="radio" name="positionRadio" data-ng-model="banner.position_first" value="top" id="positionRadioTop" required>
                                         {% trans %}domain.position.top{% endtrans %}
                                     </label>
                                 </div>
                                 <div class="span3 position-radio-container">
                                     <label class="position-label right">
-                                        <input type="radio" name="positionRadio" data-ng-model="banner.position_first" value="right" id="positionRadioRight">
+                                        <input type="radio" name="positionRadio" data-ng-model="banner.position_first" value="right" id="positionRadioRight" required>
                                         {% trans %}domain.position.right{% endtrans %}
                                     </label>
                                 </div>
                             </div>
                             <div class="row-fluid">
-                                <div class="offset1 span11">
+                                <div class="offset2 span8">
                                     <label>
                                         <input type="checkbox" name="secondvisitBox" data-ng-model="domaineditbasic.$data.secondvisit" value="true">
                                         {% trans %}basicedit.secondvisit.option{% endtrans %}
@@ -115,26 +115,29 @@
                                 </div>
                             </div>
                             <div class="row-fluid">
-                                <div class="offset1 span3 position-radio-container" data-ng-show="domaineditbasic.$data.secondvisit == true">
+                                <div class="offset2 span3 position-radio-container" data-ng-show="domaineditbasic.$data.secondvisit == true">
                                     <label class="position-label top">
-                                        <input type="radio" name="secondpositionRadio" data-ng-model="banner.position" value="top" id="altPositionRadioTop">
+                                        <input type="radio" name="secondpositionRadio" data-ng-model="banner.position" value="top" id="altPositionRadioTop" data-ng-required="domaineditbasic.$data.secondvisit == true">
                                         {% trans %}domain.position.top{% endtrans %}
                                     </label>
                                 </div>
                                 <div class="span3 position-radio-container" data-ng-show="domaineditbasic.$data.secondvisit == true">
                                     <label class="position-label right">
-                                        <input type="radio" name="secondpositionRadio" data-ng-model="banner.position" value="right" id="altPositionRadioRight">
+                                        <input type="radio" name="secondpositionRadio" data-ng-model="banner.position" value="right" id="altPositionRadioRight" data-ng-required="domaineditbasic.$data.secondvisit == true">
                                         {% trans %}domain.position.right{% endtrans %}
                                     </label>
                                 </div>
                             </div>
-                            <div class="tab-bottom-buttons">
-                                <button data-ng-click="tab1.active = true"><i class="icon-tick-left"></i>&nbsp;
-                                    {% trans %}generic.button.back{% endtrans %}
-                                </button>
-                                <button class="pull-right next" data-ng-click="submit(tab3)">
-                                    <i class="icon-tick-right icon-white pull-right"></i>{% trans %}
-                                    generic.button.next{% endtrans %}&nbsp;</button>
+                            <div class="row-fluid">
+                                <div class="offset2 span4">
+                                    <button data-ng-click="tab1.active = true" class="back">
+                                        {% trans %}generic.button.back{% endtrans %}
+                                    </button>
+                                </div>
+                                <div class="span4">
+                                    <button class="next" data-ng-click="submit(tab3)" data-ng-disabled="!domaineditbasic.$valid">
+                                        {% trans %}generic.button.next{% endtrans %}&nbsp;</button>
+                                </div>
                             </div>
                         </div>
                     </tab>
@@ -146,18 +149,20 @@
                             </div>
                             <div data-ng-show="banner.$resolved">
                                 <div class="row-fluid">
-                                    <h3>
+                                    <div class="offset2 span8">
+                                        <h3>
                                         <span class="span1 text-center">
                                             <i class="icon-greentick"></i>
                                         </span>
                                         <span class="span11">
                                             {{ step3.text }}
                                         </span>
-                                    </h3>
+                                        </h3>
+                                    </div>
                                 </div>
 
                                 <div class="row-fluid">
-                                    <div class="span12 well" data-ng-show="domaineditbasic.$data.forwarding == 'false'">
+                                    <div class="offset2 span8 well" data-ng-show="domaineditbasic.$data.forwarding == 'false'">
                                         <p class="text-center">
                                             {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounterjs.png" %}
                                             <img src="{{ asset_url }}" alt=""/>
@@ -168,7 +173,7 @@
 
                                         {{ step3_code.text|markdown }}
                                     </div>
-                                    <div class="span12 well" data-ng-show="domaineditbasic.$data.forwarding == 'true'">
+                                    <div class="offset2 span8 well" data-ng-show="domaineditbasic.$data.forwarding == 'true'">
                                         <p class="text-center">
                                             {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounterjs.png" %}
                                             <img src="{{ asset_url }}" alt=""/>
@@ -180,12 +185,14 @@
                                         {{ step3_forwarding.text|markdown }}
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="tab-bottom-buttons">
-                                <button data-ng-click="tab2.active = true"><i class="icon-tick-left"></i>&nbsp;
-                                    {% trans %}generic.button.back{% endtrans %}
-                                </button>
+                                <div class="row-fluid">
+                                    <div class="offset2 span8">
+                                        <button class="back"" data-ng-click="tab2.active = true">
+                                            {% trans %}generic.button.back{% endtrans %}
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </tab>

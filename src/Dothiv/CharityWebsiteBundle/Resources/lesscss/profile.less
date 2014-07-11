@@ -4,16 +4,24 @@
 
 // general style
 // -------------------------
-.profile h2 {
-  line-height: 1em;
-  color: @hivblue;
-  margin-bottom: 20px;
-}
-
-.profile h3 {
-  line-height: 1.3em;
-  font-size: 26px;
-  font-weight: normal;
+.profile {
+  h2 {
+    line-height: 1em;
+    color: @hivblue;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 26px;
+  }
+  h3 {
+    line-height: 1.3em;
+    font-size: 26px;
+    font-weight: normal;
+  }
+  h4 {
+    line-height: 1.1em;
+    font-size: 24px;
+    font-weight: normal;
+  }
 }
 
 .profile button.next-page {
@@ -61,6 +69,7 @@
     margin-top: 35px;
     margin-bottom: 55px;
     line-height: 1em;
+    font-weight: bold;
   }
   & p {
     margin-top: 17px;
@@ -225,7 +234,9 @@
       padding: 1em;
       .clearfix;
       h4 {
-        color: #ffffff;
+        a {
+          color: #ffffff;
+        }
         font-weight: @fontWeightBold;
         border-bottom: 1px solid white;
         font-size: 22px;
@@ -241,12 +252,15 @@
           display: inline-block;
         }
       }
-      a {
+      nav {
         .pull-right;
-        color: #ffffff;
-        background: transparent url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 100% 50%;
-        padding-right: 15px;
+        a {
+          color: #ffffff;
+          background: transparent url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 100% 50%;
+          padding-right: 15px;
+        }
       }
+
     }
   }
 }

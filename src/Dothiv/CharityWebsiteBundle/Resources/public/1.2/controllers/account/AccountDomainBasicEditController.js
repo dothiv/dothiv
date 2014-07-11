@@ -15,20 +15,21 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
         // retrieve domain id from URL parameters and get domain/banner information
         var domainName = $stateParams.name;
         $scope.domain = {name: domainName};
+
         $scope.banner = dothivBannerResource.get(
             {domain: domainName},
             function (data) { // success
                 $scope.domaineditbasic.$data.forwarding = (typeof data.redirect_url !== "undefined") ? "true" : "false";
                 $scope.domaineditbasic.$data.secondvisit = data.position != data.position_first;
+                $scope.banner = data;
             },
             function () { // error
                 // no banner available, creating new one
-                var banner = new dothivBannerResource();
-                banner.redirect_url = '';
-                banner.language = 'de';
-                banner.position_first = 'center';
-                banner.position = 'top';
-                return banner;
+                $scope.domaineditbasic.$data.forwarding = 'false';
+                $scope.banner.redirect_url = null;
+                $scope.banner.language = 'de';
+                $scope.banner.position_first = 'center';
+                $scope.banner.position = 'top';
             }
         );
 
