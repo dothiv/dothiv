@@ -111,7 +111,6 @@ class UserService implements UserProviderInterface, UserServiceInterface
             throw new TemporarilyUnavailableException($token->getLifeTime());
         }
         $token = $this->createUserToken($user);
-        $this->userTokenRepo->persist($token)->flush();
         $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token));
     }
 
@@ -122,7 +121,22 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $token->setToken($this->generateToken());
         $d = $this->clock->getNow()->modify('+' . $lifetimeInSeconds . ' seconds');
         $token->setLifetime($d);
+        $this->userTokenRepo->persist($token)->flush();
         return $token;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLoginToken(User $user)
+    {
+        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow())->filter(function (UserToken $token) {
+            return !$token->isRevoked();
+        });
+        if ($tokens->isEmpty()) {
+            return $this->createUserToken($user);
+        }
+        return $tokens->first();
     }
 
     /**
@@ -136,7 +150,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     {
         $userRepo = $this->userRepo;
         /* @var User $user */
-        $user   = $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $surname, $name, $userRepo) {
+        return $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $surname, $name, $userRepo) {
             $user = new User();
             $user->setHandle($this->generateToken());
             $user->setEmail($email);
@@ -145,12 +159,6 @@ class UserService implements UserProviderInterface, UserServiceInterface
             $userRepo->persist($user)->flush();
             return $user;
         });
-        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow());
-        if ($tokens->isEmpty()) {
-            $token = $this->createUserToken($user, 24 * 60 * 60);
-            $this->userTokenRepo->persist($token)->flush();
-        }
-        return $user;
     }
 
     /**

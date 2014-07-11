@@ -79,14 +79,14 @@ class DomainRegisteredMailer
             $name = $owner;
         }
         $user      = $this->userService->getOrCreateUser($email, $surname, $name);
-        $userToken = $user->getBearerToken();
+        $userToken = $this->userService->getLoginToken($user);
 
         $link = $this->router->generate(
             'dothiv_charity_account_index',
             array('locale' => 'en'),
             UrlGeneratorInterface::ABSOLUTE_URL
         );
-        $link .= sprintf('#!/auth/%s/%s', $user->getHandle(), $userToken);
+        $link .= sprintf('#!/auth/%s/%s', $user->getHandle(), $userToken->getBearerToken());
 
         $data = array(
             'domainName' => $domain->getName(),
