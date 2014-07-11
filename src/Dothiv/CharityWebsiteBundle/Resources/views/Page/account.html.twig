@@ -8,24 +8,17 @@
                 {{ block('loading') }}
             </div>
             <div class="row" data-ng-show="security.user.$resolved && security.isAuthenticated()">
-                <div class="span9">
+                <div class="span12">
                     <h2>{{ 'profile.greeting'|trans|markdown }}</h2>
+                    <nav>
+                        <a href="#!/profile/dashboard" data-ng-class="{ active: state.includes('profile.dashboard') }">
+                            {% trans %}profile.navigation.dashboard{% endtrans %}
+                        </a>
+                        <a data-ng-click="logout()">
+                            {% trans %}profile.navigation.logout{% endtrans %}
+                        </a>
+                    </nav>
                 </div>
-                <div class="span1">
-                    <ul>
-                        <li class="accountance">
-                            <a href="#!/profile/dashboard" data-ng-class="{ active: state.includes('profile.dashboard') }">
-                                {% trans %}profile.navigation.dashboard{% endtrans %}
-                            </a>
-                        </li>
-                        <li class="accountance grey">
-                            <a data-ng-click="logout()">
-                                {% trans %}profile.navigation.logout{% endtrans %}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="span2"></div>
             </div>
         </div>
     </header>

@@ -1,8 +1,13 @@
 .header {
+  position: relative;
+
   h1 {
     margin: 0;
     padding: 0;
   }
+  .span1 { margin-left: 0px; }
+
+  .row { margin-bottom: 0px; }
   margin-bottom: 40px;
   .menubar {
     a, a:visited {
@@ -11,13 +16,29 @@
       font-size: 24px;
       margin: 20px 10px 0 10px;
       padding-left: 20px;
-      background: url('/bundles/dothivcharitywebsite/images/small-tick-left-e00073.png') no-repeat 2px center;
+      background: url('/bundles/dothivcharitywebsite/images/small-tick-right-e00073.png') no-repeat 2px center;
     }
     a:hover, a.active {
       color: @darkpink;
     }
+    margin-top: 32px;
+
+    .barmenu {
+      float: left;
+      margin-left: 50px;
+      font-size: 20px;
+      font-weight: bold;
+      .cursor-hand;
+      height: 40px;
+      white-space: nowrap;
+    }
   }
   .usermenu {
+    ul {
+      margin-bottom: 0px;
+      margin-left: 5px;
+    }
+    margin-left: 0px;
     a, a:visited {
       color: @colordark;
     }
@@ -34,3 +55,4 @@
     }
   }
 }
+
