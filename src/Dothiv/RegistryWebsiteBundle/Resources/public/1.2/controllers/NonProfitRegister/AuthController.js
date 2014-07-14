@@ -8,7 +8,7 @@ angular.module('dotHIVApp.controllers').controller('NonProfitRegisterAuthControl
         security.storeCredentials($stateParams.handle, $stateParams.auth_token);
         security.updateUserInfo(function (user, response) {
             if (user) {
-                $state.transitionTo('profile.dashboard');
+                $state.transitionTo('=.domain');
             } else {
                 $scope.progress = false;
                 $scope.error = true;

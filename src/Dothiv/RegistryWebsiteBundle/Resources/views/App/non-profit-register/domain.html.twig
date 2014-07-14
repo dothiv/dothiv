@@ -1,0 +1,40 @@
+{% trans_default_domain "registry" %}
+{% use "DothivRegistryWebsiteBundle:App:blocks.html.twig" %}
+
+{{ block('errorMessage') }}
+<form role="form" name="domainForm" novalidate class="explained" data-ng-show="!submitting && !done">
+    <fieldset>
+        <legend>Project Domain</legend>
+        <div class="fields">
+            <div class="form-group">
+                <label for="domainFormDomain">Domain Name</label>
+                <input type="text" data-ng-model="domainForm.domain" data-ng-blur="load()" class="form-control" id="domainFormDomain" required data-ng-pattern="/.{3,64}\.hiv$/">
+            </div>
+        </div>
+        <div class="fields-legend">
+            <p>Please tell us the .hiv domain name you wish to use.</p>
+        </div>
+    </fieldset>
+</form>
+<form role="form" name="registrantForm" novalidate class="explained" data-ng-show="step2">
+    <fieldset>
+        <legend>About you</legend>
+    </fieldset>
+    <fieldset>
+        <legend>About your organization</legend>
+    </fieldset>
+    <fieldset>
+        <legend>About your project</legend>
+    </fieldset>
+</form>
+<div data-ng-show="errorExists" class="well">
+    <h3>There is a problem with your registration.</h3>
+
+    <p>We already have a registration for this domain on record.</p>
+</div>
+<div data-ng-show="done" class="well">
+    <h3>Great!</h3>
+
+    <p>Now please check your inbox and click on the link we just send you.</p>
+</div>
+{{ block('progress') }}
