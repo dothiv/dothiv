@@ -4,11 +4,8 @@
 {% block header %}
     <header class="jumbotron profile-header" data-ng-controller="AccountHeaderController">
         <div class="container">
-            <div class="row" data-ng-hide="security.user.$resolved">
-                {{ block('loading') }}
-            </div>
-            <div class="row" data-ng-show="security.user.$resolved && security.isAuthenticated()">
-                <div class="span12">
+            <div class="row">
+                <div class="span12" data-ng-show="user.$resolved">
                     <h2>{{ 'profile.greeting'|trans|markdown }}</h2>
                     <nav>
                         <a href="#!/profile/dashboard" data-ng-class="{ active: state.includes('profile.dashboard') }">

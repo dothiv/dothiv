@@ -1,14 +1,18 @@
 'use strict';
 
-angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserResource', 'User', '$state', '$cookies', function ($http, dothivUserResource, User, $state, $cookies) {
+angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserResource', 'User', '$cookies', '$q', function ($http, dothivUserResource, User, $cookies, $q) {
     // variable to keep user information and login status
-    var _state = {user: {}};
-    _state.isAuthenticated = function () {
-        return ('email' in _state.user);
+    var _user = $q.defer();
+
+    function _isAuthenticated() {
+        return ('email' in _user);
     }
 
-    // holds whether the _state is currently updated
+    // holds whether the state is currently updated
     var _updating = false;
+
+    // holds operations to be executed after the current update has finished
+    var _scheduled = [];
 
     function _storeCredentials(handle, authToken) {
         User.setHandle(handle);
@@ -33,15 +37,15 @@ angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserRe
             },
             // on success
             function (value, headers) {
-                _state = {user: {}};
-                $state.transitionTo('login');
+                _user = $q.defer();
+                _user.resolve({});
                 _clearCredentials();
                 (callback || angular.noop)(value, headers);
             },
             // on error
             function (data, status, headers, config) {
-                _state = {user: {}};
-                $state.transitionTo('login');
+                _user = $q.defer();
+                _user.resolve({});
                 _clearCredentials();
                 (callback || angular.noop)(false, data);
             }
@@ -67,19 +71,23 @@ angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserRe
     function _updateUserInfo(callback) {
         _onUpdateStarting();
         _loadCookieCredentials();
-        _state.user = dothivUserResource.get(
+        dothivUserResource.get(
             {
                 handle: User.getHandle()
             },
             // on success
             function (value, headers) {
+                _user.email = value.email;
+                _user.name = value.name;
+                _user.surname = value.surname;
+                _user.$resolved = true;
                 _onUpdateFinished();
                 (callback || angular.noop)(value, headers);
             },
             // on error
             function (data, status, headers, config) {
-                _onUpdateFinished();
                 _logout();
+                _onUpdateFinished();
                 (callback || angular.noop)(false, data);
             }
         );
@@ -90,13 +98,27 @@ angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserRe
     }
 
     function _onUpdateFinished() {
+        angular.forEach(_scheduled, function (value) {
+            (value || angular.noop)();
+        });
+        _scheduled = [];
         _updating = false;
     }
 
+    function _schedule(callback) {
+        if (_updating) {
+            _scheduled.push(callback);
+        } else {
+            (callback || angular.noop)();
+        }
+    }
+
     return {
+        schedule: _schedule,
         logout: _logout,
         updateUserInfo: _updateUserInfo,
-        state: _state,
-        storeCredentials: _storeCredentials
+        storeCredentials: _storeCredentials,
+        isAuthenticated: _isAuthenticated,
+        user: _user
     };
 }]);

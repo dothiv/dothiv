@@ -5,7 +5,7 @@ angular.module('dotHIVApp.controllers').controller('AccountLoginController', ['$
         $scope.email = null;
         $scope.state = 'form';
         $scope.errorMessage = null;
-        $scope.security = security.state;
+        $scope.security = security;
 
         $scope.submit = function () {
             $scope.state = 'loading';
@@ -26,8 +26,10 @@ angular.module('dotHIVApp.controllers').controller('AccountLoginController', ['$
             );
         }
 
-        if (security.state.isAuthenticated()) {
-            $state.transitionTo('profile.dashboard');
-        }
+        security.schedule(function () {
+            if (security.isAuthenticated()) {
+                $state.transitionTo('profile.dashboard');
+            }
+        });
     }
 ]);

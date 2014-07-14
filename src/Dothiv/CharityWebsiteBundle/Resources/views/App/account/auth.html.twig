@@ -1,0 +1,23 @@
+{% trans_default_domain "charity" %}
+{% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
+
+<div class="container">
+    <div class="row">
+        <div class="offset3 span6 form-well">
+            <div class="well">
+
+                <div data-ng-show="!error">
+                    <h3>{% trans %}account.login.verifying{% endtrans %}</h3>
+                    {{ block('loading') }}
+                </div>
+
+                <div data-ng-show="error">
+                    <p class="pull-left">
+                        {% trans %}account.login.verification.failed{% endtrans %}
+                    </p>
+                    <a href="#!/login" class="btn btn-primary pull-right">{% trans %}header.menu.login{% endtrans %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

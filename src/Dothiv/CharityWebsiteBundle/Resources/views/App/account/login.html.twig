@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="offset3 span6 form-well">
-            <form name="LoginForm" novalidate data-ng-show="state != 'success' && !security.isAuthenticated()">
+            <form name="LoginForm" novalidate data-ng-show="state != 'success'">
                 <fieldset>
                     <legend>{% trans %}login.form.title{% endtrans %}</legend>
                     <div class="alert alert-error" data-ng-show="errorMessage" data-ng-bind="errorMessage"></div>
