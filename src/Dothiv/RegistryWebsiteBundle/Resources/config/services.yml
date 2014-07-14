@@ -1,3 +1,5 @@
+parameters:
+    dothiv.registry.service.mailer.login.class: Dothiv\BaseWebsiteBundle\Service\Mailer\LoginLinkMailer
 services:
     dothiv.registry.translation.strings_loader:
         class: Dothiv\BaseWebsiteBundle\Translation\ContentfulStringsLoader
@@ -14,3 +16,17 @@ services:
             - @dothiv_contentful.content
             - @dothiv.websitebase.contentful.view_builder
             - %contenful_space_registry%
+
+    dothiv.registry.service.mailer.login:
+        class: %dothiv.registry.service.mailer.login.class%
+        arguments:
+        - @mailer
+        - @router
+        - 'dothiv_register_nonprofit'
+        - %registrydomain%
+        - @dothiv.businessbundle.service.user
+        - @dothiv.registry.contentful.registry_content
+        - %email_from_address%
+        - %email_from_name%
+        tags:
+            - { name: kernel.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }

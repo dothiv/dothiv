@@ -10,14 +10,21 @@ class UserTokenEvent extends Event
     /**
      * @var UserToken
      */
-    private $UserToken;
+    private $userToken;
+
+    /**
+     * @var string
+     */
+    private $httpHost;
 
     /**
      * @param UserToken $UserToken
+     * @param string    $httpHost
      */
-    public function __construct(UserToken $UserToken)
+    public function __construct(UserToken $UserToken, $httpHost)
     {
-        $this->UserToken = $UserToken;
+        $this->userToken = $UserToken;
+        $this->httpHost  = $httpHost;
     }
 
     /**
@@ -25,7 +32,7 @@ class UserTokenEvent extends Event
      */
     public function setUserToken($UserToken)
     {
-        $this->UserToken = $UserToken;
+        $this->userToken = $UserToken;
     }
 
     /**
@@ -33,6 +40,22 @@ class UserTokenEvent extends Event
      */
     public function getUserToken()
     {
-        return $this->UserToken;
+        return $this->userToken;
+    }
+
+    /**
+     * @param string $httpHost
+     */
+    public function setHttpHost($httpHost)
+    {
+        $this->httpHost = $httpHost;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHttpHost()
+    {
+        return $this->httpHost;
     }
 }

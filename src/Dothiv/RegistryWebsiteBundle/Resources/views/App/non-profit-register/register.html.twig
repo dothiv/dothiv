@@ -1,0 +1,37 @@
+{% trans_default_domain "registry" %}
+
+{{ block('errorMessage') }}
+<form role="form" name="registrationForm" novalidate class="explained" data-ng-show="!submitting && !done">
+    <fieldset>
+        <legend>Create an account</legend>
+        <div class="fields">
+            <div class="form-group">
+                <label for="registerEmail">Email address</label>
+                <input type="email" data-ng-model="registrationForm.email" class="form-control" id="registerEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="registerSurname">Surname</label>
+                <input type="text" data-ng-model="registrationForm.surname" class="form-control" id="registerSurname" required>
+            </div>
+            <div class="form-group">
+                <label for="registerName">Name</label>
+                <input type="text" data-ng-model="registrationForm.name" class="form-control" id="registerName" required>
+            </div>
+            <button type="submit" class="btn btn-primary" data-ng-click="submit()" data-ng-disabled="registrationForm.$invalid" data-ng-show="!submitting">
+                Submit
+            </button>
+        </div>
+        <div class="fields-legend">
+            <p>First, create an account by providing your name and your email address.</p>
+
+            <p>We need to confirm your Email address in order to keep in touch with you.</p>
+            <a href="#!/login">I already have an account!</a>
+        </div>
+    </fieldset>
+</form>
+<div data-ng-show="done" class="well">
+    <h3>Great!</h3>
+
+    <p>Now please check your inbox and click on the link we just send you.</p>
+</div>
+{{ block('progress') }}

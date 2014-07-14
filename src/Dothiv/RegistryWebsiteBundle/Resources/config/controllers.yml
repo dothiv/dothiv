@@ -14,3 +14,9 @@ services:
         class: Dothiv\RegistryWebsiteBundle\Controller\ApiController
         arguments:
           - @mailer
+
+    dothiv.registry.web.controller.app:
+        class: Dothiv\BaseWebsiteBundle\Controller\AppController
+        arguments:
+          - @templating
+          - "DothivRegistryWebsiteBundle"

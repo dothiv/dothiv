@@ -30,4 +30,6 @@ services:
         class: Dothiv\APIBundle\Controller\AccountController
         arguments:
          - @dothiv.businessbundle.service.user
+         - @dothiv.repository.user
+         - @serializer
          - @clock

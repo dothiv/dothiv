@@ -19,15 +19,45 @@ form {
     }
   }
 }
+
 .form-control {
   &.ng-valid {
     border-color: @brand-success;
   }
   &.ng-invalid {
     border-color: @brand-danger;
+    &.ng-pristine {
+      border-color: @input-border;
+    }
   }
   &.ng-pristine {
   }
   &.ng-dirty {
   }
+}
+
+form.explained {
+  fieldset {
+    .clearfix;
+    .fields {
+      width: 66%;
+      float: left;
+      button {
+        .btn;
+        .btn-primary;
+        .pull-right;
+      }
+    }
+    .fields-legend {
+      width: 33%;
+      float: left;
+      p {
+        margin-left: 1em;
+      }
+      a {
+        .pull-right;
+      }
+    }
+  }
+
 }

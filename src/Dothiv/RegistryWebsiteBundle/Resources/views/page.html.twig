@@ -54,14 +54,17 @@
                     </small>
                 </h1>
             </a>
+            {% block headernav %}
             <nav>
                 <a href="{{ path('dothiv_charity_index', {'locale': locale}) }}" rel="friend met"
                    class="external">{% trans %}
                     gmbh.header.back{% endtrans %}</a>
             </nav>
+            {% endblock headernav %}
         </section>
     </header>
 </div>
+{% block subheader %}
 <div id="countdown" data-ng-controller="PinkbarControllerCountdown" data-ng-cloak data-ng-hidden="!visible">
     <div class="text">
         {{ 'countdown.text'|trans|markdown }}
@@ -86,6 +89,7 @@
         </div>
     {% endif %}
 {% endfor %}
+{% endblock subheader %}
 <div class="outer">
     <main>
         {% block content %}{% endblock content %}
@@ -120,15 +124,18 @@
 
     </footer>
 </div>
+{% block angular_app %}
 {% javascripts
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/app.js'
-    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/*.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/PreregisterFormController.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/RegistrarsListController.js'
     '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/PinkbarControllerCountdown.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js'
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+{% endblock angular_app %}
 <script type="text/javascript">
     'use strict';
     angular.module('dotHIVApp.services').factory('config', function() {
@@ -140,6 +147,5 @@
         return config;
     });
 </script>
-
 </body>
 </html>

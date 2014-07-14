@@ -40,6 +40,13 @@ dothiv_api_domain_banner_config_get:
         _format: json
     methods: [GET]
 
+dothiv_api_account_create:
+    pattern:  /account
+    defaults:
+        _controller: dothiv.api.controller.account:createAction
+        _format: json
+    methods: [POST]
+
 dothiv_api_account_loginlink:
     pattern:  /account/loginLink
     defaults:
