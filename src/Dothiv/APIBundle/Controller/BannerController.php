@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Validator\ValidatorInterface;
 use Dothiv\APIBundle\Annotation\ApiRequest;
 
-class BannerController
+class BannerController extends BaseController
 {
     /**
      * @var DomainRepositoryInterface
@@ -154,9 +154,7 @@ class BannerController
         $this->bannerRepo->persist($banner)->flush();
         $this->domainRepo->persist($domain)->flush();
 
-        $response = new Response();
-        $response->setStatusCode(200);
-        return $response;
+        return $this->createResponse();
     }
 
     /**
@@ -174,9 +172,7 @@ class BannerController
             );
         });
 
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/json; charset=utf-8');
-        $response->setStatusCode(200);
+        $response = $this->createResponse();
         $response->setContent($this->serializer->serialize($banner, 'json'));
         return $response;
     }

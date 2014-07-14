@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Dothiv\APIBundle\Annotation\ApiRequest;
 
-class AccountController
+class AccountController extends BaseController
 {
     /**
      * @var UserServiceInterface
@@ -47,13 +47,13 @@ class AccountController
     {
         try {
             $this->userService->sendLoginLinkForEmail($request->attributes->get('model')->email);
-            $response = new Response();
+            $response = $this->createResponse();
             $response->setStatusCode(201);
             return $response;
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException();
         } catch (TemporarilyUnavailableException $e) {
-            $response = new Response();
+            $response = $this->createResponse();
             $response->setStatusCode(429);
             $response->headers->add(
                 array('Retry-After' => $e->getRetryTime()->getTimestamp() - $this->clock->getNow()->getTimestamp())

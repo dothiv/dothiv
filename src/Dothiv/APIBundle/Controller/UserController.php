@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class UserController
+class UserController extends BaseController
 {
     /**
      * @var DomainRepositoryInterface
@@ -71,8 +71,7 @@ class UserController
     public function domainsAction($handle)
     {
         $user     = $this->verifyUserHandle($handle);
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/json; charset=utf-8');
+        $response = $this->createResponse();
         $response->setStatusCode(200);
         $response->setContent($this->serializer->serialize($user->getDomains(), 'json'));
         return $response;
@@ -88,9 +87,7 @@ class UserController
     public function profileAction($handle)
     {
         $user     = $this->verifyUserHandle($handle);
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/json; charset=utf-8');
-        $response->setStatusCode(200);
+        $response = $this->createResponse();
         $response->setContent($this->serializer->serialize($user, 'json'));
         return $response;
     }
@@ -120,12 +117,10 @@ class UserController
      */
     public function revokeTokenAction($handle)
     {
-        $user  = $this->verifyUserHandle($handle);
+        $this->verifyUserHandle($handle);
         $token = $this->userTokenRepo->getTokenByBearerToken($this->securityContext->getToken()->getBearerToken())->get();
         $token->revoke($this->clock->getNow());
         $this->userTokenRepo->persist($token)->flush();
-        $response = new Response();
-        $response->setStatusCode(200);
-        return $response;
+        return $this->createResponse();
     }
 }

@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class DomainController
+class DomainController extends BaseController
 {
     /**
      * @var DomainRepositoryInterface
@@ -95,9 +95,8 @@ class DomainController
         $this->domainClaimRepo->persist($claim)->flush();
         $this->domainRepo->persist($domain)->flush();
 
-        $response = new Response();
+        $response = $this->createResponse();
         $response->setStatusCode(201);
-        $response->headers->set('Content-Type', 'application/json; charset=utf-8');
         $response->setContent($this->serializer->serialize($domain, 'json'));
         return $response;
     }
