@@ -5,7 +5,7 @@
     <header class="jumbotron profile-header" data-ng-controller="AccountHeaderController">
         <div class="container">
             <div class="row">
-                <div class="span12" data-ng-show="user.$resolved">
+                <div class="span12" data-ng-show="user.$resolved && security.isAuthenticated()">
                     <h2>{{ 'profile.greeting'|trans|markdown }}</h2>
                     <nav>
                         <a href="#!/profile/dashboard" data-ng-class="{ active: state.includes('profile.dashboard') }">
