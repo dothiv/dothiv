@@ -62,9 +62,6 @@ doctrine:
         password: %database_password%
         path:     %database_path%
         charset:  UTF8
-        # if using pdo_sqlite as your database driver, add the path in parameters.yml
-        # e.g. database_path: %kernel.root_dir%/data/data.db3
-        # path:     %database_path%
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
@@ -77,93 +74,13 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: %mailer_transport%
-    host:      %mailer_host%
-    username:  %mailer_user%
-    password:  %mailer_password%
-    spool:     { type: memory }
-
-# FOSRestBundle
-sensio_framework_extra:
-    view:
-        annotations: false
-fos_rest:
-    param_fetcher_listener: true
-    body_listener: true
-    format_listener: true
-    view:
-#        default_engine: php
-        view_response_listener: force
-        force_redirects:
-            html: true
-#            xml: true
-        formats:
-            jsonp: true
-            json: true
-            xml: true
-            rss: false
-        templating_formats:
-            html: true
-        mime_types:
-            json: ['application/json', 'application/x-json' ]
-            jpg: 'image/jpeg'
-            png: 'image/png'
-        jsonp_handler: ~
-    body_listener: true
-    param_fetcher_listener: force
-    allowed_methods_listener: true
-    format_listener:
-        rules:
-            - { path: ^/api/login/facebook, priorities: [ html ] }
-            - { path: ^/api/, priorities: [json, xml], fallback_format: ~, prefer_extension: false }
-            - { path: ^/js/, priorities: [ js ] }
-            - { path: ^/css/, priorities: [ css ] }
-            - { path: ^/, priorities: [ html, json, xml ] }
-    routing_loader:
-        default_format: ~
-    exception:
-        codes:
-            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
-            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
-        messages:
-            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
-
-# FOSUserBundle
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: Dothiv\BusinessBundle\Entity\User
-
-jms_serializer:
-    metadata:
-        # Using auto-detection, the mapping files for each bundle will be
-        # expected in the Resources/config/serializer directory.
-        #
-        # Example:
-        # class: My\FooBundle\Entity\User
-        # expected path: @MyFooBundle/Resources/config/serializer/Entity.User.(yml|xml|php)
-        auto_detection: true
-        directories:
-            FOSUserBundle:
-                namespace_prefix: "FOS\\UserBundle"
-                path: "@DothivBusinessBundle/Resources/config/serializer/fosuserbundle"
-
-# FOSFacebook
-fos_facebook:
-    alias:  facebook
-    app_id: %facebook_app_id%
-    secret: %facebook_app_secret%
-    cookie: true
-    permissions: [email]
-
-# Services
-services:
-    my.facebook.user:
-        class: Dothiv\BusinessBundle\Security\User\Provider\FacebookProvider
-        arguments:
-            facebook: "@fos_facebook.api"
-            userManager: "@fos_user.user_manager"
-            validator: "@validator"
+    transport:  %mailer_transport%
+    host:       %mailer_host%
+    username:   %mailer_user%
+    password:   %mailer_password%
+    port:       %mailer_port%
+    encryption: %mailer_encryption%
+    spool:      { type: memory }
 
 # Gregwar's form
 gregwar_form: ~
@@ -192,24 +109,6 @@ dothiv_charity_website:
         - { name: pinkbar_countdown, enabled: true }
 
 parameters:
-    # Email addresses 
-    domain_email_sender_address: mail@click4life.hiv.dev
-
-    # configure symfony security bundle to use our REST authentication classes.
-    # this is required by the angular app authentication process (see http authentication interceptor)
-    security.authentication.form_entry_point.class: Dothiv\APIBundle\Security\RestAuthenticationEntryPoint
-    security.authentication.listener.form.class: Dothiv\APIBundle\Security\RestAuthenticationListener
-    security.authentication.success_handler.class: Dothiv\APIBundle\Security\DothivAuthenticationSuccessHandler
-    security.authentication.failure_handler.class: Dothiv\APIBundle\Security\RestAuthenticationFailureHandler
-    security.logout.success_handler.class: Dothiv\APIBundle\Security\RestLogoutSuccessHandler
-    security.logout_listener.class: Dothiv\APIBundle\Security\RestLogoutListener
-
-    # listener that sets the users locale
-    locale_listener.class: Dothiv\APIBundle\Listener\LocaleListener
-
-    # handler for serialization of forms
-    jms_serializer.form_error_handler.class: Dothiv\BusinessBundle\Serializer\FormHandler
-
     # Default HTTP cache lifetime for pages
     page_lifetime: 1800
 

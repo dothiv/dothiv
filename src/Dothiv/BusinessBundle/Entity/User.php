@@ -1,20 +1,23 @@
 <?php
 
 namespace Dothiv\BusinessBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
 
 /**
- * @ORM\Entity
- * @UniqueEntity("username")
- * @UniqueEntity("email")
+ * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\UserRepository")
+ * @AssertORM\UniqueEntity("email")
+ * @AssertORM\UniqueEntity("handle")
  * @Serializer\ExclusionPolicy("all")
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="email",columns={"email"}),@ORM\UniqueConstraint(name="handle",columns={"handle"})})
+ * @ORM\HasLifecycleCallbacks
  */
-class User extends BaseUser
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -24,7 +27,26 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * First name 
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     */
+    protected $handle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Serializer\Expose
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     */
+    protected $email;
+
+    /**
+     * First name
      *
      * @ORM\Column(type="string")
      * @Serializer\Expose
@@ -44,21 +66,23 @@ class User extends BaseUser
     /**
      * A list of domains owned by this user
      *
-     * @ORM\OneToMany(targetEntity="Domain",mappedBy="owner")
+     * @ORM\OneToMany(targetEntity="Domain", mappedBy="owner")
+     * @var Domain[]|ArrayCollection
      */
     protected $domains;
 
     /**
-     * The user's facebook id, if facebook login is used
+     * A list of login tokens for this user
      *
-     * @ORM\Column(type="string", length=255,nullable=true)
+     * @ORM\OneToMany(targetEntity="UserToken", mappedBy="user")
+     * @var UserToken[]|ArrayCollection
      */
-    protected $facebookId;
+    protected $tokens;
 
     public function __construct()
     {
         $this->domains = new ArrayCollection();
-        parent::__construct();
+        $this->tokens  = new ArrayCollection();
     }
 
     public function getSurname()
@@ -81,6 +105,9 @@ class User extends BaseUser
         $this->name = $name;
     }
 
+    /**
+     * @return ArrayCollection|Domain[]
+     */
     public function getDomains()
     {
         return $this->domains;
@@ -99,7 +126,7 @@ class User extends BaseUser
     }
 
     /**
-     * Removes the given domain from the user, if it was previously 
+     * Removes the given domain from the user, if it was previously
      * owned by him/her.
      *
      * @param Domain $domain
@@ -110,54 +137,75 @@ class User extends BaseUser
             $domain->setOwner(null);
     }
 
-    public function getFacebookId()
+    /**
+     * @return string
+     */
+    public function getEmail()
     {
-        return $this->facebookId;
-    }
-
-    public function setFacebookId($facebookId)
-    {
-        $this->facebookId = $facebookId;
+        return $this->email;
     }
 
     /**
-     * Updates the user's data by using the most recent data
-     * from facebook. This is called every time the user logs
-     * in.
-     *
-     * @param Array
+     * @param string $email
      */
-    public function setFBData($fbdata)
+    public function setEmail($email)
     {
-        if ($this->username == '') {
-            $this->username = $this->newRandomCode();
-        }
-        if (isset($fbdata['id'])) {
-            $this->setFacebookId($fbdata['id']);
-            $this->addRole('ROLE_FACEBOOK');
-        }
-        if ($this->name == '' && isset($fbdata['first_name'])) {
-            $this->setName($fbdata['first_name']);
-        }
-        if ($this->surname == '' && isset($fbdata['last_name'])) {
-            $this->setSurname($fbdata['last_name']);
-        }
-        if ($this->email == '' && isset($fbdata['email'])) {
-            $this->setEmail($fbdata['email']);
-        }
+        $this->email = strtolower($email);
     }
 
     /**
-     * Generates a 12 digit random code
-     *
-     * Used pool of characters: a-z0-9
+     * {@inheritdoc}
      */
-    public function newRandomCode() {
-        $pool = "abcdefghijklmnopqrstuvwxyz0123456789";
-        $code = "";
-        while (strlen($code) < 12) {
-            $code .= substr($pool, rand(0, 35), 1);
-        }
-        return $code;
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPassword()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function eraseCredentials()
+    {
+        // pass.
+    }
+
+    /**
+     * @param string $handle
+     */
+    public function setHandle($handle)
+    {
+        $this->handle = $handle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHandle()
+    {
+        return $this->handle;
     }
 }

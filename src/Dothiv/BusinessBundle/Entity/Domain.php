@@ -8,58 +8,70 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Dothiv\BusinessBundle\Validator\Constraints\ValidDomain;
+use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
 
 /**
  * Represents a registered .hiv-Domain.
- * 
- * @ORM\Entity
+ *
+ * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\DomainRepository")
+ * @AssertORM\UniqueEntity("name")
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="name",columns={"name"})})
  * @Serializer\ExclusionPolicy("all")
  * @ValidDomain()
- * 
+ *
  * @author Nils Wisiol <mail@nils-wisiol.de>
  * @author Markus Tacker <m@dotHIV.org>
  */
 class Domain extends Entity
 {
-
     /**
      * FQDN, no trailing dot.
-     * 
-     * @ORM\Column(type="string",length=255,unique=true)
+     *
+     * @ORM\Column(type="string",length=255)
      * @Serializer\Expose
      */
     protected $name;
 
     /**
      * A list of domains that offer equivalent or similiar content.
-     * 
+     *
      * @ORM\OneToMany(targetEntity="DomainAlternative",mappedBy="hivDomain")
      */
     protected $alternatives;
 
     /**
      * The owning user of the domain
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="User",inversedBy="domains")
-     * @Serializer\Expose
+     * @var User
      */
     protected $owner;
 
     /**
      * Email address of the owner, as provided by registrar
      *
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank
+     * @Assert\NotNull
      */
-    protected $emailAddressFromRegistrar;
+    protected $ownerEmail;
+
+    /**
+     * Name of the owner, as provided by registrar
+     *
+     * @ORM\Column(type="string",nullable=false)
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * @var string
+     */
+    protected $ownerName;
 
     /**
      * This token will be used by the owner to claim the domain
      *
      * @ORM\Column(type="string",length=255,nullable=true,unique=true)
-     * @Serializer\Expose
      */
-    protected $claimingToken;
+    protected $token;
 
     /**
      * A list of (possible) banners for this domain
@@ -70,17 +82,11 @@ class Domain extends Entity
 
     /**
      * The active banner for this domain, which will be actually shown
-     * 
+     *
      * @ORM\OneToOne(targetEntity="Banner")
+     * @ORM\JoinColumn(name="domain", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $activeBanner;
-
-    /**
-     * Whether this domain shall be forwarded to dothiv's servers.
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $dnsForward = false;
 
     /**
      * The number of clicks counted for this domain. For the last update
@@ -129,7 +135,7 @@ class Domain extends Entity
 
     /**
      * Returns the owning user of the domain
-     * 
+     *
      * @return User the owning user
      */
     public function getOwner()
@@ -144,18 +150,23 @@ class Domain extends Entity
      *
      * @param User $newOwner
      */
-    public function setOwner(User $newOwner = NULL)
+    public function setOwner(User $newOwner = null)
     {
         // remove this domain from current owner's list, if anybody owns it
-        if ($this->owner !== null)
+        if ($this->owner !== null) {
             $this->owner->getDomains()->removeElement($this);
+        }
 
         // set new owner
-        $this->owner = $newOwner;
+        $this->owner      = $newOwner;
 
-        // add this domain to new owner's domains, if new owner exists
-        if ($newOwner !== null)
+        if ($newOwner !== null) {
+            // add this domain to new owner's domains, if new owner exists
             $newOwner->getDomains()->add($this);
+            // Update domain owner info
+            $this->ownerEmail = $newOwner->getEmail();
+            $this->ownerName  = $newOwner->getSurname() . ' ' . $newOwner->getName();
+        }
     }
 
     public function hasOwner()
@@ -163,32 +174,33 @@ class Domain extends Entity
         return $this->owner !== null;
     }
 
-    public function getClaimingToken()
+    public function getToken()
     {
-        return $this->claimingToken;
+        return $this->token;
     }
 
-    public function setClaimingToken($token)
+    public function setToken($token)
     {
-        $this->claimingToken = $token;
+        $this->token = $token;
     }
 
     /**
      * Claims this domain for the given user. The provided token must match the
      * claiming token.
      *
-     * @param User $newOwner
+     * @param User   $newOwner
      * @param string $token
+     *
      * @throws InvalidArgumentException
      */
     public function claim(User $newOwner, $token)
     {
         if (empty($token))
             throw new InvalidArgumentException('Given token is empty');
-        if ($token !== $this->claimingToken)
+        if ($token !== $this->token)
             throw new InvalidArgumentException('Given token did not match');
 
-        $this->claimingToken = null;
+        $this->token = null;
         $this->setOwner($newOwner);
     }
 
@@ -197,9 +209,9 @@ class Domain extends Entity
      *
      * @return string future user's email address
      */
-    public function getEmailAddressFromRegistrar()
+    public function getOwnerEmail()
     {
-        return $this->emailAddressFromRegistrar;
+        return $this->ownerEmail;
     }
 
     /**
@@ -207,15 +219,18 @@ class Domain extends Entity
      *
      * @param string $address
      */
-    public function setEmailAddressFromRegistrar($address)
+    public function setOwnerEmail($address)
     {
-        $this->emailAddressFromRegistrar = $address;
+        $this->ownerEmail = $address;
     }
 
     /**
      * Returns a collection of all banners associated with this domain.
+     *
+     * @return ArrayCollection|Banner[]
      */
-    public function getBanners() {
+    public function getBanners()
+    {
         return $this->banners;
     }
 
@@ -225,7 +240,8 @@ class Domain extends Entity
      *
      * @param Banner $banner
      */
-    public function setActiveBanner(Banner $banner = null) {
+    public function setActiveBanner(Banner $banner = null)
+    {
         if ($banner === null) {
             $this->activeBanner = null;
         } else {
@@ -239,25 +255,36 @@ class Domain extends Entity
      *
      * @return Banner active Banner
      */
-    public function getActiveBanner() {
+    public function getActiveBanner()
+    {
         return $this->activeBanner;
-    }
-
-    public function getDnsForward() {
-        return $this->dnsForward;
-    }
-
-    public function setDnsForward($val) {
-        $this->dnsForward = $val;
     }
 
     /**
      * Sets the click count and updates the lastUpdate value to now.
+     *
      * @param int $val Current click count
      */
-    public function setClickcount($val) {
+    public function setClickcount($val)
+    {
         $this->clickcount = $val;
         // FIXME: use clock service
         $this->lastUpdate = new \DateTime();
+    }
+
+    /**
+     * @param string $ownerName
+     */
+    public function setOwnerName($ownerName)
+    {
+        $this->ownerName = $ownerName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwnerName()
+    {
+        return $this->ownerName;
     }
 }

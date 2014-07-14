@@ -191,3 +191,11 @@
         </div>
     {% endfor %}
 {% endblock cf_downloadsBlock %}
+
+{% block loading %}
+<p class="text-center">
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/loader.gif' %}
+    <img src="{{ asset_url }}" alt="{% trans %}loading.img{% endtrans %}">
+    {% endimage %}
+</p>
+{% endblock loading %}

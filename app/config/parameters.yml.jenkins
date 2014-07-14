@@ -8,8 +8,11 @@ parameters:
     database_path: %kernel.root_dir%/test/test.db
     mailer_transport: smtp
     mailer_host: mailtrap.io
-    mailer_user: wakeupscreen-31d0773e296c04b0
-    mailer_password: 2b0661dbd61ee5d7
+    mailer_user: xxxx
+    mailer_password: xxxx
+    mailer_encryption: tls
+    email_from_name: Markus from dotHIV
+    email_from_address: m@tld.hiv
     locale: de
     secret: bZ7AR7KC
     charitydomain: click4life.hiv.dev
@@ -17,14 +20,9 @@ parameters:
     facebook_app_id: 1234
     facebook_app_secret: yourfacebooksecret
     twitter_widget_id: 1234
-    dns_reseller: dd24_reseller
-    dns_password: dd24_password
-    dns_cid: dd24_cid
-    dns_nameserver: dd24_nameserver
     clickcounter_auth_username: some_username
     clickcounter_auth_password: some_password
     clickcounter_base_url: 'https://somewhere.on.appspot.com'
-    luser: nobody
 
     # Contentful settings
     contenful_space_charity: xfj3l4zlkg3j

@@ -2,8 +2,6 @@
 
 namespace Dothiv\BusinessBundle\Service;
 
-use PhpOption\Option;
-
 /**
  * The clock service abstracts the current date.
  */
@@ -15,11 +13,11 @@ class Clock
     private $clock;
 
     /**
-     * @param \DateTime $clock
+     * @param string $clockExpr
      */
-    public function __construct(\DateTime $clock = null)
+    public function __construct($clockExpr)
     {
-        $this->clock = Option::fromValue($clock)->getOrElse(new \DateTime());
+        $this->clock = $clockExpr instanceof \DateTime ? $clockExpr : new \DateTime($clockExpr);
     }
 
     /**

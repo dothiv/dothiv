@@ -1,0 +1,58 @@
+{% trans_default_domain "charity" %}
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivCharityWebsiteBundle:Page:cfpage.html.twig" %}
+{% block header %}
+    <header class="jumbotron profile-header" data-ng-controller="AccountHeaderController">
+        <div class="container">
+            <div class="row">
+                <div class="span12" data-ng-show="user.$resolved && security.isAuthenticated()">
+                    <h2>{{ 'profile.greeting'|trans|markdown }}</h2>
+                    <nav>
+                        <a href="#!/profile/dashboard" data-ng-class="{ active: state.includes('profile.dashboard') }">
+                            {% trans %}profile.navigation.dashboard{% endtrans %}
+                        </a>
+                        <a data-ng-click="logout()">
+                            {% trans %}profile.navigation.logout{% endtrans %}
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+{% block content %}
+    <article class="account">
+        <div class="container profile" data-ui-view></div>
+    </article>
+{% endblock %}
+
+{% block angular_app %}
+    {% javascripts
+    '@DothivAngularJsBundle/Resources/angular/angular-resource.js'
+    '@DothivAngularJsBundle/Resources/angular/angular-route.js'
+    '@DothivAngularJsBundle/Resources/angular/angular-cookies.js'
+    '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
+    '@DothivCharityWebsiteBundle/Resources/public/1.2/app.js'
+    '@DothivCharityWebsiteBundle/Resources/public/1.2/services/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/1.2/services/models/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/1.2/filters/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/account/*.js'
+    filter='?ngmin,?closureecma5'
+    output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        'use strict';
+        angular.module('dotHIVApp.services').factory('strings', function () {
+            var strings = {
+                error: {
+                    login: {
+                        notfound: "{% trans %}error.login.notfound{% endtrans %}"
+                    }
+                }
+            };
+            return strings;
+        });
+    </script>
+{% endblock angular_app %}

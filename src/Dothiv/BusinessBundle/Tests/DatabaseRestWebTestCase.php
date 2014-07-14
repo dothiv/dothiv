@@ -59,25 +59,6 @@ abstract class DatabaseRestWebTestCase extends RestWebTestCase {
     }
 
     /**
-     * Register a new user with the details from the class constants.
-     * Returns the assigned, random username.
-     * 
-     * @return string
-     */
-    protected function register() {
-        list($r, $s) = self::jsonRequest('POST', '/api/users', 
-                array(
-                        'name' => $this::USER_NAME,
-                        'surname' => $this::USER_SURNAME,
-                        'email' => $this::USER_EMAIL,
-                        'plainPassword' => $this::USER_PASSWORD
-                        )
-                );
-        $this->assertEquals(201, $s);
-        return $r->username;
-    }
-
-    /**
      * Log in with the credentials from the class constants.
      */
     protected function login() {

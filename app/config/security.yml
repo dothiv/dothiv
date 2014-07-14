@@ -1,57 +1,30 @@
-jms_security_extra:
-    secure_all_services: false
-    expressions: true
-
 security:
-    session_fixation_strategy:  none
-
     encoders:
-        FOS\UserBundle\Model\UserInterface: sha512
-
-    role_hierarchy:
-        ROLE_VALIDATED:
-        ROLE_THIRDPARTY_LOGIN: ROLE_VOTER ROLE_VALIDATED
-        ROLE_FACEBOOK: ROLE_THIRDPARTY_LOGIN
-        ROLE_GPLUS: ROLE_THIRDPARTY_LOGIN
-        ROLE_LINKEDIN: ROLE_THIRDPARTY_LOGIN
-        ROLE_PROJECT_MANAGER: ROLE_VOTER ROLE_VALIDATED
-        ROLE_DOMAIN_MANAGER: ROLE_VOTER ROLE_VALIDATED
-        ROLE_ADMIN:       [ROLE_USER, ROLE_PROJECT_MANAGER, ROLE_DOMAIN_MANAGER]
-        ROLE_SUPER_ADMIN: ROLE_ADMIN ROLE_VALIDATED
+        Dothiv\BusinessBundle\Entity\User: plaintext
 
     providers:
-        chain_provider:
-            chain:
-                providers: [fos_userbundle, my_fos_facebook_provider]
-        fos_userbundle:
-            id: fos_user.user_provider.username_email
-        my_fos_facebook_provider:
-            id: my.facebook.user   # see "Example Custom User Provider using the FOS\UserBundle" chapter further down
+        user:
+            id: dothiv.businessbundle.service.user
+
+    role_hierarchy:
+        ROLE_USER: ~
+        ROLE_VOTER:            ROLE_USER
+        ROLE_PROJECT_MANAGER:  ROLE_USER
+        ROLE_DOMAIN_MANAGER:   ROLE_USER
+        ROLE_ADMIN:            [ROLE_VALIDATED, ROLE_PROJECT_MANAGER, ROLE_DOMAIN_MANAGER]
+        ROLE_SUPER_ADMIN:      ROLE_ADMIN
 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            pattern: ^/
-            form_login:
-                check_path: /api/login
-                login_path: /
-                username_parameter: username
-                password_parameter: password
-                provider: fos_userbundle
-                require_previous_session: false
-            fos_facebook:
-                app_url: "http://apps.facebook.com/DothivDemo/"
-                server_url: "http://click4life.hiv.dev/"
-                check_path: /api/login/facebook/return
-                provider: my_fos_facebook_provider
-                require_previous_session: false
-            logout:
-                path: /api/login
-            anonymous:    true
+
+        user:
+            pattern:    ^/api/(user|domain)
+            stateless:  true
+            provider:   user
+            oauth2:     true
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/api/user, roles: ROLE_USER }
+      - { path: ^/api/domain, roles: ROLE_USER }

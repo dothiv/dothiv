@@ -64,24 +64,9 @@ input[type="color"],
     }
 }
 
-form.clean input.ng-dirty.ng-invalid,
-form.unclean input.ng-dirty.ng-invalid {
-    .invalid;
-}
-
-form.clean input.ng-dirty.ng-invalid-required,
-form.clean input.ng-pristine.ng-invalid,  
+input.ng-pristine:invalid,
 input.ng-dirty.ng-valid {
     .valid;
-}
-
-form.unclean input.ng-invalid-required {
-    .invalid;
-}
-
-form.clean input.ng-dirty.ng-invalid:focus, form.unclean input.ng-dirty.ng-invalid:focus {
-    background-color: @inputFieldProgress;
-    border-color: @inputBorderProgress;
 }
 
 button {

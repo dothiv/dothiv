@@ -1,0 +1,93 @@
+{% trans_default_domain "charity" %}
+{% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
+
+{% set intro = content('Block', 'domain.editors') %}
+{% set basic = intro.children[0] %}
+{% set premium = intro.children[1] %}
+{% set developer = intro.children[2] %}
+
+<div class="container">
+    <div class="row">
+        <div class="span12 profile-heading">
+            <h2 class="pull-left">{% trans %}account.profile.domains.edit{% endtrans %}</h2>
+        </div>
+    </div>
+    <div class="row" data-ng-hide="domain.name">
+        <div class="span12">
+            <p class="text-center">{{ block('loading') }}</p>
+        </div>
+    </div>
+    <div class="row" data-ng-show="domain.name">
+        <div class="span12">
+            <div class="well">
+
+                <h3 class="pull-left">{{ intro.title }}</h3>
+
+                {% if intro.text is defined %}
+                    {{ intro.text|markdown }}
+                {% endif %}
+                
+                <div class="row-fluid-colfix-well">
+                    <div class="row-fluid-colfix margin20px">
+                        <div class="span6 well">
+                            <h4>{{ basic.title }}</h4>
+                            <p class="text-center">
+                                {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounter.png" %}
+                                <img src="{{ asset_url }}" alt="{% trans %}profile.domain.editors.basic.imgalt{% endtrans %}"/>
+                                {% endimage %}
+                            </p>
+                            <div class="ul-pinkplusstyle">
+                            {% if basic.text is defined %}
+                                {{ basic.text|markdown }}
+                            {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- premium editor -->
+                        <div class="span6 well">
+                            <h4>{{ premium.title }}</h4>
+                            <p class="text-center">
+                                {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounterpremium.png" %}
+                                <img src="{{ asset_url }}" alt="{% trans %}profile.domain.editors.premium.imgalt{% endtrans %}"/>
+                                {% endimage %}
+                            </p>
+                            <div class="ul-pinkplusstyle">
+                                {% if premium.text is defined %}
+                                    {{ premium.text|markdown }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid-colfix margin20px">
+
+                        <div class="span6 well">
+                            <hr />
+                            <p class="lead text-center"><i class="icon-clock"></i> {% trans %}profile.domain.editors.basic.time{% endtrans %}</p>
+                            <div class="row-fluid">
+                                <button class="span12 btn btn-primary" data-ng-click="editBasic()">{% trans %}profile.domain.editors.basic.button{% endtrans %}</button>
+                            </div>
+                        </div>
+
+                        <div class="span6 well">
+                            <hr />
+                            <p class="lead text-center"><i class="icon-clock"></i> {% trans %}profile.domain.editors.premium.time{% endtrans %}</p>
+                            <div class="row-fluid">
+                                <button class="span12 btn btn-primary" data-ng-click="editPremium()" disabled>{% trans %}profile.domain.editors.premium.button{% endtrans %}</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="well">
+                            <h4>{{ developer.title }}</h4>
+                            {{ developer.text|markdown }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -32,6 +32,12 @@ services:
           - @clock
           - %page_lifetime%
 
+    dothiv.charity.web.controller.app:
+        class: Dothiv\CharityWebsiteBundle\Controller\AppController
+        arguments:
+          - @templating
+          - "DothivCharityWebsiteBundle"
+
     dothiv.charity.web.controller.contentful:
         class: Dothiv\CharityWebsiteBundle\Controller\ContentfulController
         arguments:

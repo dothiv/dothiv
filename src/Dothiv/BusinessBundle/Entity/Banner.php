@@ -9,21 +9,24 @@ use LogicException;
 
 /**
  * The dotHIV banner to be shown on websites
- * 
- * @ORM\Entity
+ *
+ * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\BannerRepository")
  * @Serializer\ExclusionPolicy("all")
- * 
+ *
  * @author Benedikt Budig <bb@dothiv.org>
+ * @author Markus Tacker <m@dotHIV.org>
  */
-class Banner extends Entity {
-
+class Banner extends Entity
+{
     /**
      * Domain to redirect to, if desired
      *
      * @ORM\Column(type="string",nullable=true)
+     * @Assert\Regex("/^(https*:)*\/\/.+/")
      * @Serializer\Expose
+     * @Serializer\SerializedName("redirect_url")
      */
-    protected $redirectDomain;
+    protected $redirectUrl;
 
     /**
      * Language of banner texts
@@ -38,6 +41,7 @@ class Banner extends Entity {
      *
      * @ORM\Column(type="string",nullable=true)
      * @Serializer\Expose
+     * @Serializer\SerializedName("position_first")
      */
     protected $position;
 
@@ -47,6 +51,7 @@ class Banner extends Entity {
      *
      * @ORM\Column(type="string",nullable=true)
      * @Serializer\Expose
+     * @Serializer\SerializedName("position")
      */
     protected $positionAlternative;
 
@@ -55,7 +60,7 @@ class Banner extends Entity {
      *
      * @ORM\ManyToOne(targetEntity="Domain",inversedBy="banners")
      * @ORM\JoinColumn(onDelete="CASCADE")
-     * @Serializer\Expose
+     * @var Domain
      */
     protected $domain;
 
@@ -64,17 +69,19 @@ class Banner extends Entity {
      *
      * @return string FQDN for redirect
      */
-    public function getRedirectDomain() {
-        return $this->redirectDomain;
+    public function getRedirectUrl()
+    {
+        return $this->redirectUrl;
     }
 
     /**
      * Sets the FQDN of the redirect domain.
      *
-     * @param string $redirectDomain FQDN for redirect
+     * @param string $redirectUrl FQDN for redirect
      */
-    public function setRedirectDomain($redirectDomain) {
-        $this->redirectDomain = $redirectDomain;
+    public function setRedirectUrl($redirectUrl)
+    {
+        $this->redirectUrl = $redirectUrl;
     }
 
     /**
@@ -82,7 +89,8 @@ class Banner extends Entity {
      *
      * @return string language
      */
-    public function getLanguage() {
+    public function getLanguage()
+    {
         return $this->language;
     }
 
@@ -91,7 +99,8 @@ class Banner extends Entity {
      *
      * @param string $language
      */
-    public function setLanguage($language) {
+    public function setLanguage($language)
+    {
         $this->language = $language;
     }
 
@@ -100,7 +109,8 @@ class Banner extends Entity {
      *
      * @return string display position
      */
-    public function getPosition() {
+    public function getPosition()
+    {
         return $this->position;
     }
 
@@ -109,7 +119,8 @@ class Banner extends Entity {
      *
      * @param string $position
      */
-    public function setPosition($position) {
+    public function setPosition($position)
+    {
         $this->position = $position;
     }
 
@@ -118,7 +129,8 @@ class Banner extends Entity {
      *
      * @return string alternative display position
      */
-    public function getPositionAlternative() {
+    public function getPositionAlternative()
+    {
         return $this->positionAlternative;
     }
 
@@ -127,7 +139,8 @@ class Banner extends Entity {
      *
      * @param string $positionAlternative alternative display position
      */
-    public function setPositionAlternative($positionAlternative) {
+    public function setPositionAlternative($positionAlternative)
+    {
         $this->positionAlternative = $positionAlternative;
     }
 
@@ -136,7 +149,8 @@ class Banner extends Entity {
      *
      * @return Domain domain that displays the banner
      */
-    public function getDomain() {
+    public function getDomain()
+    {
         return $this->domain;
     }
 
@@ -147,7 +161,8 @@ class Banner extends Entity {
      *
      * @param Domain $newDomain
      */
-    public function setDomain($newDomain = null) {
+    public function setDomain($newDomain = null)
+    {
         // remove this banner from current domain's list, if any
         if ($this->domain !== null) {
             $this->domain->getBanners()->removeElement($this);
@@ -163,10 +178,11 @@ class Banner extends Entity {
     }
 
     /**
-     * Activates this banner for the associated domain. The previously 
+     * Activates this banner for the associated domain. The previously
      * activated banner will be deactivated (if any).
      */
-    public function activate() {
+    public function activate()
+    {
         if ($this->domain === null)
             throw new LogicException('Banner cannot be activated with no domain associated');
         $this->domain->setActiveBanner($this);

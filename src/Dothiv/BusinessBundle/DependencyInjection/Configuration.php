@@ -22,8 +22,9 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('allowed_tlds')
-                    ->prototype('scalar')
+                    ->prototype('scalar')->end()
                 ->end()
+                ->scalarNode('clock_expr')->defaultValue('now')->end()
             ->end();
         return $treeBuilder;
     }

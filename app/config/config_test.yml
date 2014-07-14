@@ -19,3 +19,19 @@ doctrine:
     orm:
         auto_generate_proxy_classes: true
         auto_mapping: true
+    dbal:
+        driver:   pdo_sqlite
+        host:     ~
+        port:     ~
+        dbname:   ~
+        user:     ~
+        password: ~
+        path:     "%kernel.root_dir%/cache/test/test.db"
+        charset:  UTF8
+
+dothiv_business:
+    clock_expr: "2014-01-02T13:14:15"
+
+parameters:
+    contenful_space_charity: charity_space
+    contenful_space_registry: registry_space

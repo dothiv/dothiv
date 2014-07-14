@@ -9,15 +9,16 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * Represents a user's claim for a '.hiv' domain.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\DomainClaimRepository")
  * @Serializer\ExclusionPolicy("all")
  *
  * @author Benedikt Budig <bb@dothiv.org>
+ * @author Markus Tacker <m@dotHIV.org>
  */
-class DomainClaim extends Entity {
-
+class DomainClaim extends Entity
+{
     /**
-     * Username 
+     * Username
      *
      * @ORM\Column(type="string")
      * @Serializer\Expose
@@ -31,7 +32,7 @@ class DomainClaim extends Entity {
      * @ORM\Column(type="string")
      * @Serializer\Expose
      */
-    protected $domain;
+    protected $domainname;
 
     /**
      * The token used by the owner to claim the domain
@@ -42,29 +43,33 @@ class DomainClaim extends Entity {
      */
     protected $claimingToken;
 
-    /* Standard getters and setters go here */
-
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function setUsername($username) {
+    public function setUsername($username)
+    {
         $this->username = $username;
     }
 
-    public function getDomain() {
-        return $this->domain;
+    public function getDomainname()
+    {
+        return $this->domainname;
     }
 
-    public function setDomain($domain) {
-        $this->domain = $domain;
+    public function setDomainname($domainname)
+    {
+        $this->domainname = $domainname;
     }
 
-    public function getClaimingToken() {
+    public function getClaimingToken()
+    {
         return $this->claimingToken;
     }
 
-    public function setClaimingToken($token) {
+    public function setClaimingToken($token)
+    {
         $this->claimingToken = $token;
     }
 }

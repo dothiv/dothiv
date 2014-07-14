@@ -1,0 +1,33 @@
+{% trans_default_domain "charity" %}
+{% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
+
+<div class="container">
+    <div class="row">
+        <div class="offset3 span6 form-well">
+            <form name="LoginForm" novalidate data-ng-show="state != 'success'">
+                <fieldset>
+                    <legend>{% trans %}login.form.title{% endtrans %}</legend>
+                    <div class="alert alert-error" data-ng-show="errorMessage" data-ng-bind="errorMessage"></div>
+                    <div>
+                        <p>{% trans %}login.form.intro{% endtrans %}</p>
+                        <label for="loginEmail">
+                            {% trans %}login.form.input.email.label{% endtrans %}
+                        </label>
+                        <input type="email" id="loginEmail" required value="" name="email" data-ng-model="email">
+                        <button class="btn btn-primary pull-right" data-ng-click="submit()" data-ng-disabled="LoginForm.$invalid" data-ng-show="state == 'form'">
+                            {% trans %}login.form.submit{% endtrans %}
+                        </button>
+                        <div data-ng-show="state == 'loading'" class="pull-right">
+                            {{ block('loading') }}
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <div data-ng-show="state == 'success'">
+                {% set content = content('Block', 'login.success') %}
+                <h3>{{ content.title }}</h3>
+                {{ content.text|markdown }}
+            </div>
+        </div>
+    </div>
+</div>

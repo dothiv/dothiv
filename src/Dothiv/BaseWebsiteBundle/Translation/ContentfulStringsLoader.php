@@ -3,6 +3,7 @@
 namespace Dothiv\BaseWebsiteBundle\Translation;
 
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
+use Dothiv\ContentfulBundle\Exception\InvalidArgumentException;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 
@@ -41,10 +42,14 @@ class ContentfulStringsLoader implements LoaderInterface
     public function load($resource, $locale, $domain = 'messages')
     {
         $catalogue = new MessageCatalogue($locale);
-        foreach ($this->content->buildEntries($this->contentType, $locale) as $string) {
-            $value = isset($string->value) ? $string->value : '';
-            $v     = $locale == $this->keyLocale ? $string->code : $value;
-            $catalogue->set($string->code, $v, $domain);
+        try {
+            foreach ($this->content->buildEntries($this->contentType, $locale) as $string) {
+                $value = isset($string->value) ? $string->value : '';
+                $v     = $locale == $this->keyLocale ? $string->code : $value;
+                $catalogue->set($string->code, $v, $domain);
+            }
+        } catch (InvalidArgumentException $e) {
+            // pass.
         }
         return $catalogue;
     }

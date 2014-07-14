@@ -1,0 +1,33 @@
+services:
+    dothiv.api.controller.domain:
+        class: Dothiv\APIBundle\Controller\DomainController
+        arguments:
+         - @security.context
+         - @dothiv.repository.domain
+         - @dothiv.repository.domainclaim
+         - @serializer
+
+    dothiv.api.controller.banner:
+        class: Dothiv\APIBundle\Controller\BannerController
+        arguments:
+         - @security.context
+         - @dothiv.repository.domain
+         - @dothiv.repository.banner
+         - @validator
+         - @serializer
+
+    dothiv.api.controller.user:
+        class: Dothiv\APIBundle\Controller\UserController
+        arguments:
+         - @security.context
+         - @dothiv.repository.domain
+         - @dothiv.repository.user
+         - @dothiv.repository.user_token
+         - @serializer
+         - @clock
+
+    dothiv.api.controller.account:
+        class: Dothiv\APIBundle\Controller\AccountController
+        arguments:
+         - @dothiv.businessbundle.service.user
+         - @clock

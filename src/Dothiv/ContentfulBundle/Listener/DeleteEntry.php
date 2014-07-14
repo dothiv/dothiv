@@ -33,6 +33,10 @@ class DeleteEntry
      */
     public function onEntryDelete(DeletedContentfulEntryEvent $event)
     {
-        $this->entryRepository->remove($this->entryRepository->findNewestById($event->getEntry()->getSpaceId(), $event->getEntry()->getId())->get());
+        $optionalEntry = $this->entryRepository->findNewestById($event->getEntry()->getSpaceId(), $event->getEntry()->getId());
+        if ($optionalEntry->isEmpty()) {
+            return;
+        }
+        $this->entryRepository->remove($optionalEntry->get());
     }
 }

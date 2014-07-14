@@ -1,0 +1,11 @@
+parameters:
+  dothiv.api.listener.view_request.class: Dothiv\APIBundle\Listener\ViewRequestListener
+
+services:
+  dothiv.api.listener.view_request:
+    class: %dothiv.api.listener.view_request.class%
+    arguments:
+      - @annotation_reader
+      - @validator
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }

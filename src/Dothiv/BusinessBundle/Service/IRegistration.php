@@ -7,16 +7,19 @@ namespace Dothiv\BusinessBundle\Service;
  * a hiv-domain is registered, deleted or transferred.
  *
  * @author Nils Wisiol <mail@nils-wisiol.de>
+ * @author Markus Tacker <m@dothiv.org>
  */
-interface IRegistration {
+interface IRegistration
+{
 
     /**
      * Call this function for a newly registered domain.
      *
-     * @param string $name The domain name, e.g. 'mydomain.hiv'.
-     * @param string $email The domain owner's email address.
+     * @param string $name       The domain name, e.g. 'mydomain.hiv'.
+     * @param string $ownerEmail The domain owner's email address.
+     * @param string $ownerName  The domain owner's name.
      */
-    function registered($name, $email);
+    function registered($name, $ownerEmail, $ownerName);
 
     /**
      * Call this function for domains that have been deleted.
@@ -28,9 +31,10 @@ interface IRegistration {
     /**
      * Call this function for domains that have been transferred.
      *
-     * @param string $name The domain name, e.g. 'mydomain.hiv'.
-     * @param string $email The new domain owner's email address.
+     * @param string $name       The domain name, e.g. 'mydomain.hiv'.
+     * @param string $ownerEmail The new domain owner's email address.
+     * @param string $ownerName  The new domain owner's name.
      */
-    function transferred($name, $email);
+    function transferred($name, $ownerEmail, $ownerName);
 
 }

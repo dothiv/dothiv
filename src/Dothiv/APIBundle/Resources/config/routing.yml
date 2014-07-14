@@ -1,27 +1,49 @@
-projects:
-    type: rest
-    resource: Dothiv\APIBundle\Controller\ProjectController
+dothiv_api_domain_claim:
+    pattern:  /domain/claim
+    defaults:
+        _controller: dothiv.api.controller.domain:claimAction
+        _format: json
+    methods: [POST]
 
-user:
-    type: rest
-    resource: Dothiv\APIBundle\Controller\UserController
+dothiv_api_user_profile:
+    pattern:  /user/{handle}
+    defaults:
+        _controller: dothiv.api.controller.user:profileAction
+        _format: json
+    methods: [GET]
 
-alternatives:
-    type: rest
-    resource: Dothiv\APIBundle\Controller\AlternativesController
+dothiv_api_user_token:
+    pattern:  /user/{handle}/token
+    defaults:
+        _controller: dothiv.api.controller.user:revokeTokenAction
+        _format: json
+    methods: [DELETE]
 
-domains:
-    type: rest
-    resource: Dothiv\APIBundle\Controller\DomainController
+dothiv_api_user_domains:
+    pattern:  /user/{handle}/domains
+    defaults:
+        _controller: dothiv.api.controller.user:domainsAction
+        _format: json
+    methods: [GET]
 
-domainclaims:
-    type: rest
-    resource: Dothiv\APIBundle\Controller\DomainClaimController
+dothiv_api_domain_banner_config_set:
+    pattern:  /domain/{name}/banner
+    defaults:
+        _controller: dothiv.api.controller.banner:setConfigAction
+        _format: json
+    methods: [PUT]
 
-banner:
-    type: rest
-    resource: Dothiv\APIBundle\Controller\BannerController
+dothiv_api_domain_banner_config_get:
+    pattern:  /domain/{name}/banner
+    defaults:
+        _controller: dothiv.api.controller.banner:getConfigAction
+        _format: json
+    methods: [GET]
 
-locale:
-    type: rest
-    resource: Dothiv\APIBundle\Controller\LocaleController
+dothiv_api_account_loginlink:
+    pattern:  /account/loginLink
+    defaults:
+        _controller: dothiv.api.controller.account:loginLinkAction
+        _format: json
+    methods: [POST]
+

@@ -2,106 +2,103 @@
 
 namespace Dothiv\APIBundle\Controller;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Dothiv\BusinessBundle\Form\DomainType;
+use Dothiv\APIBundle\Request\ClaimRequest;
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Entity\DomainClaim;
 use Dothiv\BusinessBundle\Entity\User;
-use FOS\RestBundle\Util\Codes;
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Request\ParamFetcher;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Dothiv\APIBundle\Annotation\ApiRequest;
+use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\DomainClaimRepositoryInterface;
+use JMS\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Security\Core\SecurityContext;
 
-class DomainController extends FOSRestController {
+class DomainController extends BaseController
+{
     /**
-     * Returns one specific domain.
-     *
-     * @ApiDoc(
-     *   section="domain",
-     *   resource=true,
-     *   description="Returns a domain",
-     *   statusCodes={
-     *     200="Returned when successful",
-     *   },
-     *   output="Dothiv\BusinessBundle\Form\DomainType"
-     * )
+     * @var DomainRepositoryInterface
      */
-    public function getDomainAction($slug) {
-        // TODO: security concern: who is allowed to GET domain information?
+    private $domainRepo;
 
-        // retrieve domain from database
-        $domain = $this->getDoctrine()->getManager()->getRepository('DothivBusinessBundle:Domain')->findOneBy(array('id' => $slug));
-        return $this->createForm(new DomainType(), $domain);
+    /**
+     * @var DomainClaimRepositoryInterface
+     */
+    private $domainClaimRepo;
+
+    /**
+     * @var SecurityContext
+     */
+    private $securityContext;
+
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    public function __construct(
+
+        SecurityContext $securityContext,
+        DomainRepositoryInterface $domainRepo,
+        DomainClaimRepositoryInterface $domainClaimRepo,
+        SerializerInterface $serializer
+    )
+    {
+        $this->domainRepo      = $domainRepo;
+        $this->domainClaimRepo = $domainClaimRepo;
+        $this->securityContext = $securityContext;
+        $this->serializer      = $serializer;
     }
 
     /**
-     * Returns a list of all domains.
+     * Claims a domain for a user who provides the correct token.
      *
-     * @QueryParam(name="token", nullable=true, description="Claiming token")
-     *
-     * @ApiDoc(
-     *   section="domain",
-     *   resource=true,
-     *   description="Returns a list of all domains",
-     *   filters={{"name"="token", "dataType"="string"}},
-     *   statusCodes={
-     *     200="Returned when successful",
-     *     400="Token unknown"
-     *   }
-     * )
+     * @ApiRequest("Dothiv\APIBundle\Request\ClaimRequest")
      */
-    public function getDomainsAction(ParamFetcher $paramFetcher) {
-        // TODO: security concern: who is allowed to GET domain information?
+    public function claimAction(Request $request)
+    {
+        /* @var User $user */
+        $user = $this->securityContext->getToken()->getUser();
+        /* @var ClaimRequest $model */
+        $claimRequest = $request->attributes->get('model');
 
-        // get query parameter and entity manager
-        $token = $paramFetcher->get('token');
-        $em = $this->getDoctrine()->getManager();
+        $token = $claimRequest->token;
 
-        if ($token === null) {
-            // retrieve list of domains from database
-            $list = $em->getRepository('DothivBusinessBundle:Domain')->findAll();
-            return $list;
-        } else {
-            // retrieve requested domain from database
-            $domain = $em->getRepository('DothivBusinessBundle:Domain')->findOneBy(array('claimingToken' => $token));
-            if ($domain === null)
-                throw new HttpException(Codes::HTTP_BAD_REQUEST, 'Invalid token.'); // TODO: better error handling!
-            return $this->createForm(new DomainType(), $domain);
-        }
-    }
+        /* @var Domain $domain */
+        $domain = $this->domainRepo->getDomainByToken($token)->getOrCall(function () use ($token) {
+            throw new BadRequestHttpException(
+                sprintf(
+                    'Token "%s" not found!',
+                    $token
+                )
+            );
+        });
 
-    /**
-     * Creates a new domain.
-     *
-     * @ApiDoc(
-     *   section="domain",
-     *   resource=true,
-     *   description="Creates a new domain",
-     *   statusCodes={
-     *     201="Successfully created"
-     *   },
-     *   output="Dothiv\BusinessBundle\Form\DomainType"
-     * )
-     */
-    public function postDomainsAction() {
-        // TODO: this function is debug only and should be protected or removed.
-        // TODO: security concern: who is allowed to create new domains?
-        $domain = new Domain();
-
-        $form = $this->createForm(new DomainType(), $domain);
-        $form->bind($this->getRequest());
-
-        if ($form->isValid()) {
-            $domain = $this->get('registration')->registered($domain->getName(), $domain->getEmailAddressFromRegistrar());
-
-            // prepare response
-            $response = $this->redirectView($this->generateUrl('get_domain', array('slug' => $domain->getId())), Codes::HTTP_CREATED);
-            $response->setData($this->createForm(new DomainType(), $domain));
-            return $response;
+        if ($domain->getToken() !== $token) {
+            throw new BadRequestHttpException(
+                sprintf(
+                    'Invalid token "%s"!',
+                    $token
+                )
+            );
         }
 
-        return array('form' => $form);
+        // claim the domain
+        $domain->claim($user, $token);
+        $claim = new DomainClaim();
+        // persist the successful claim
+        $claim->setUsername($user->getUsername());
+        $claim->setClaimingToken($token);
+        $claim->setDomainname($domain->getName());
+        $this->domainClaimRepo->persist($claim)->flush();
+        $this->domainRepo->persist($domain)->flush();
+
+        $response = $this->createResponse();
+        $response->setStatusCode(201);
+        $response->setContent($this->serializer->serialize($domain, 'json'));
+        return $response;
     }
 
     /**
@@ -120,17 +117,17 @@ class DomainController extends FOSRestController {
      *
      * @Secure(roles="ROLE_USER")
      */
-    public function putDomainAction($slug) {
+    public function putDomainAction($slug)
+    {
         $context = $this->get('security.context');
 
         // fetch domain from database
-        $em = $this->getDoctrine()->getManager();
+        $em     = $this->getDoctrine()->getManager();
         $domain = $em->getRepository('DothivBusinessBundle:Domain')->findOneBy(array('id' => $slug));
 
         if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $domain->getOwner()->getUsername()) {
 
             // apply form
-            $oldForward = $domain->getDnsForward();
             $form = $this->createForm(new DomainType(), $domain);
             $form->bind($this->getRequest());
 
@@ -138,60 +135,11 @@ class DomainController extends FOSRestController {
                 $em->persist($domain);
                 $em->flush();
 
-                // check if we need to update the DNS
-                if ($oldForward != $domain->getDnsForward()) {
-                    // DNS forward configuration changed
-                    if ($domain->getDnsForward())
-                        $this->get('dns')->forward($domain);
-                    else
-                        $this->get('dns')->reset($domain);
-                }
-
                 return null;
             }
 
             return array('form' => $form);
         }
         throw new HttpException(403);
-    }
-
-    /**
-     * Gets the banners of this domain.
-     *
-     * @ApiDoc(
-     *   section="domain",
-     *   resource=true,
-     *   description="Gets a list of banners of this domain",
-     *   statusCodes={
-     *     200="Successful",
-     *     403="Access denied"
-     *   },
-     *   output="Dothiv\BusinessBundle\Entity\Banner"
-     * )
-     */
-     public function getDomainBannersAction($id) {
-        // TODO: security concern: who is allowed to get domain banners?
-
-        // retrieve domain from database
-        $domain = $this->getDoctrine()->getManager()->getRepository('DothivBusinessBundle:Domain')->findOneBy(array('id' => $id));
-
-        // return list of banners
-        return $domain->getBanners();
-    }
-
-    // ----------- private functions go here -----------
-
-    /**
-     * Generates a 32 digit random code
-     *
-     * Used pool of characters: a-zA-Z0-9
-     */
-    private function newRandomCode() {
-        $pool = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWWXY0123456789";
-        $code = "";
-        while (strlen($code) < 32) {
-            $code .= substr($pool, rand(0, 61), 1);
-        }
-        return $code;
     }
 }
