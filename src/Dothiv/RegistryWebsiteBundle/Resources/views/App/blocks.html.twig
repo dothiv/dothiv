@@ -5,5 +5,5 @@
 {% endblock progress %}
 
 {% block errorMessage %}
-<div class="alert alert-danger" role="alert" data-ng-bind="errorMessage" data-ng-show="errorMessage"></div>
+<div class="alert alert-danger" role="alert" data-ng-bind="{{ var|default('errorMessage') }}" data-ng-show="{{ var|default('errorMessage') }}"></div>
 {% endblock errorMessage %}

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bf468b9e3e6429e34e8fb8a34ef6be33",
+    "hash": "2fdf36d980449b4d908d258ebc04f46a",
     "packages": [
         {
             "name": "behat/behat",
@@ -2789,6 +2789,68 @@
             "time": "2014-04-28 14:01:06"
         },
         {
+            "name": "stof/doctrine-extensions-bundle",
+            "version": "dev-master",
+            "target-dir": "Stof/DoctrineExtensionsBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stof/StofDoctrineExtensionsBundle.git",
+                "reference": "085cda7ce5dc12b807a5a7856f178c93725a9166"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/085cda7ce5dc12b807a5a7856f178c93725a9166",
+                "reference": "085cda7ce5dc12b807a5a7856f178c93725a9166",
+                "shasum": ""
+            },
+            "require": {
+                "gedmo/doctrine-extensions": "~2.3.1",
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "to use the ORM extensions",
+                "doctrine/mongodb-odm-bundle": "to use the MongoDB ODM extensions"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Stof\\DoctrineExtensionsBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                }
+            ],
+            "description": "Integration of the gedmo/doctrine-extensions with Symfony2",
+            "homepage": "https://github.com/stof/StofDoctrineExtensionsBundle",
+            "keywords": [
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "loggable",
+                "nestedset",
+                "sluggable",
+                "sortable",
+                "timestampable",
+                "translatable",
+                "tree"
+            ],
+            "time": "2014-07-08 17:06:10"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.2.1",
             "source": {
@@ -4502,6 +4564,7 @@
         "cocur/slugify": 0,
         "behat/common-contexts": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
+        "stof/doctrine-extensions-bundle": 20,
         "behat/symfony2-extension": 20,
         "sanpi/behatch-contexts": 20,
         "behat/mink-extension": 20

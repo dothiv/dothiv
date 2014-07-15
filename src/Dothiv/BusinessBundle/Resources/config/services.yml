@@ -2,6 +2,7 @@ parameters:
     clickcounter.class: Dothiv\BusinessBundle\Service\ClickCounterConfig
     dothiv.businessbundle.service.clock.class: Dothiv\BusinessBundle\Service\Clock
     dothiv.businessbundle.service.user.class: Dothiv\BusinessBundle\Service\UserService
+    dothiv.businessbundle.service.attachment.class: Dothiv\BusinessBundle\Service\AttachmentService
     registration.class: Dothiv\BusinessBundle\Service\Registration
     clickcounter.authorization.username: %clickcounter_auth_username%
     clickcounter.authorization.password: %clickcounter_auth_password%
@@ -30,3 +31,9 @@ services:
         - @dothiv.repository.user_token
         - @clock
         - @event_dispatcher
+
+    dothiv.businessbundle.service.attachment:
+        class: %dothiv.businessbundle.service.attachment.class%
+        arguments:
+        - @dothiv.repository.attachment
+        - %dothiv_business.attachment_location%

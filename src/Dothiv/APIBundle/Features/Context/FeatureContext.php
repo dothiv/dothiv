@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Sanpi\Behatch\Context\BehatchContext;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class FeatureContext extends BehatContext
@@ -42,6 +43,16 @@ class FeatureContext extends BehatContext
         $this->useContext('mink', new MinkContext($parameters));
         $this->useContext('doctrine_fixtures_context', new DoctrineFixturesContext());
         $this->storage = new ArrayCollection();
+    }
+
+    /**
+     * Returns the data directory for test extras.
+     *
+     * @return string
+     */
+    protected function getDataDir()
+    {
+        return __DIR__ . '/../data/';
     }
 
     /**
@@ -186,5 +197,45 @@ class FeatureContext extends BehatContext
     {
         $json = $this->getJson();
         \PHPUnit_Framework_Assert::assertEquals($json[$index]->$key, $expected);
+    }
+
+    /**
+     * @Given /^I send a (?P<method>[A-Z]+) request to "(?P<url>[^"]*)" with file "(?P<filename>[^"]*)" as "(?P<fileparam>[^"]*)":$/
+     */
+    public function iSendAPostRequestOnWithFileAsFile($method, $url, $filename, $fileparam)
+    {
+        $client = $this->getSubcontext('mink')->getSession()->getDriver()->getClient();
+
+        // intercept redirection
+        $client->followRedirects(false);
+
+        // Copy original
+        $originalFile = $this->getDataDir() . '/' . $filename;
+        $tempFile     = tempnam(sys_get_temp_dir(), 'behat-data-');
+        copy($originalFile, $tempFile);
+
+        $uploadedFile = new UploadedFile(
+            $tempFile,
+            basename($tempFile),
+            mime_content_type($tempFile),
+            filesize($tempFile)
+        );
+
+        $files = array(
+            $fileparam => $uploadedFile
+        );
+
+        $client->request($method, $url, array(), $files);
+        $client->followRedirects(true);
+    }
+
+    /**
+     * @Given /^the JSON node "(?P<name>[^"]*)" should not be empty$/
+     */
+    public function theJsonNodeShouldNotBeEmpty($name)
+    {
+        $json = $this->getJson();
+        \PHPUnit_Framework_Assert::assertObjectHasAttribute($name, $json);
+        \PHPUnit_Framework_Assert::assertNotEmpty($json->$name);
     }
 }

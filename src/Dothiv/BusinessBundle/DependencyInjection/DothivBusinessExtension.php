@@ -20,11 +20,12 @@ class DothivBusinessExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $config        = $this->processConfiguration($configuration, $configs);
         $container->setParameter('dothiv_business.allowed_tlds', $config['allowed_tlds']);
         $container->setParameter('dothiv_business.clock_expr', $config['clock_expr']);
+        $container->setParameter('dothiv_business.attachment_location', $config['attachment_location']);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('repositories.yml');
         $loader->load('validators.yml');

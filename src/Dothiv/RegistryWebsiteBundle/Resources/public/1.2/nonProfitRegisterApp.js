@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.controllers', 'ui.router'])
+angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.controllers', 'ui.router', 'ui.bootstrap'])
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.headers.common.Accept = "application/json";
     }])
@@ -55,5 +55,5 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.control
     }])
 ;
 angular.module('dotHIVApp.services', ['ui.router', 'dotHIVApp.controllers', 'ngResource', 'ngCookies']);
-angular.module('dotHIVApp.controllers', []);
+angular.module('dotHIVApp.controllers', ['angularFileUpload']);
 

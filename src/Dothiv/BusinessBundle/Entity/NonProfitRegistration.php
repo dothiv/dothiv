@@ -1,0 +1,493 @@
+<?php
+
+namespace Dothiv\BusinessBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * Represents a non-profit registration
+ *
+ * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepository")
+ * @Serializer\ExclusionPolicy("all")
+ *
+ * @author Markus Tacker <m@dotHIV.org>
+ */
+class NonProfitRegistration extends Entity
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * The user that create the attachment
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @var User
+     */
+    protected $user;
+
+    /**
+     * FQDN, no trailing dot.
+     *
+     * @ORM\Column(type="string",length=255)
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * @Assert\Length(min=7,max=67)
+     * @Serializer\Expose
+     */
+    protected $domain;
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @ORM\Column(type="string",length=255)
+     * @Serializer\Expose
+     */
+    protected $personFirstname; // e.g.: Jill
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @ORM\Column(type="string",length=255)
+     * @Serializer\Expose
+     */
+    protected $personSurname; // e.g.: Jones
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Assert\Email
+     * @ORM\Column(type="string",length=255)
+     * @Serializer\Expose
+     */
+    protected $personEmail; // e.g.: jill@example.com
+
+    /**
+     * @var string
+     * @ORM\Column(type="string",length=255,nullable=true)
+     * @Serializer\Expose
+     */
+    protected $personPhone;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string",length=255,nullable=true)
+     * @Serializer\Expose
+     */
+    protected $personFax;
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @ORM\Column(type="string",length=255)
+     * @Serializer\Expose
+     */
+    protected $organization; // e.g.: ACME Inc.
+
+    /**
+     * @var string
+     * @ORM\Column(type="string",length=255,nullable=true)
+     * @Serializer\Expose
+     */
+    protected $orgPhone;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string",length=255,nullable=true)
+     * @Serializer\Expose
+     */
+    protected $orgFax;
+
+    /**
+     * The attached proof
+     *
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @ORM\ManyToOne(targetEntity="Attachment")
+     * @ORM\JoinColumn()
+     * @var Attachment
+     */
+    protected $proof;
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @ORM\Column(type="text")
+     * @Serializer\Expose
+     */
+    protected $about; // e.g.: ACME Stuff
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @ORM\Column(type="string",length=255)
+     * @Serializer\Expose
+     */
+    protected $field; // e.g.: prevention
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @ORM\Column(type="string",length=255)
+     * @Serializer\Expose
+     */
+    protected $postcode; // e.g.: 12345
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @ORM\Column(type="string",length=255)
+     * @Serializer\Expose
+     */
+    protected $locality; // e.g.: Big City
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @ORM\Column(type="string",length=255)
+     * @Serializer\Expose
+     */
+    protected $country; // e.g.: United States
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Assert\Url
+     * @ORM\Column(type="string",length=255)
+     * @Serializer\Expose
+     */
+    protected $website; // e.g.: http://example.com/
+
+    /**
+     * @var int
+     * @Assert\Range(min=1,max=1)
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * @Serializer\Expose
+     */
+    protected $forward; // e.g.: 1
+
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $domain
+     */
+    public function setDomain($domain)
+    {
+        $this->domain = $domain;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDomain()
+    {
+        return $this->domain;
+    }
+
+    /**
+     * @param string $about
+     */
+    public function setAbout($about)
+    {
+        $this->about = $about;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAbout()
+    {
+        return $this->about;
+    }
+
+    /**
+     * @param string $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $field
+     */
+    public function setField($field)
+    {
+        $this->field = $field;
+    }
+
+    /**
+     * @return string
+     */
+    public function getField()
+    {
+        return $this->field;
+    }
+
+    /**
+     * @param int $forward
+     */
+    public function setForward($forward)
+    {
+        $this->forward = $forward;
+    }
+
+    /**
+     * @return int
+     */
+    public function getForward()
+    {
+        return $this->forward;
+    }
+
+    /**
+     * @param string $locality
+     */
+    public function setLocality($locality)
+    {
+        $this->locality = $locality;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocality()
+    {
+        return $this->locality;
+    }
+
+    /**
+     * @param string $orgFax
+     */
+    public function setOrgFax($orgFax)
+    {
+        $this->orgFax = $orgFax;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrgFax()
+    {
+        return $this->orgFax;
+    }
+
+    /**
+     * @param string $orgPhone
+     */
+    public function setOrgPhone($orgPhone)
+    {
+        $this->orgPhone = $orgPhone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrgPhone()
+    {
+        return $this->orgPhone;
+    }
+
+    /**
+     * @param string $organization
+     */
+    public function setOrganization($organization)
+    {
+        $this->organization = $organization;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
+     * @param string $personEmail
+     */
+    public function setPersonEmail($personEmail)
+    {
+        $this->personEmail = $personEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPersonEmail()
+    {
+        return $this->personEmail;
+    }
+
+    /**
+     * @param string $personFax
+     */
+    public function setPersonFax($personFax)
+    {
+        $this->personFax = $personFax;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPersonFax()
+    {
+        return $this->personFax;
+    }
+
+    /**
+     * @param string $personFirstname
+     */
+    public function setPersonFirstname($personFirstname)
+    {
+        $this->personFirstname = $personFirstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPersonFirstname()
+    {
+        return $this->personFirstname;
+    }
+
+    /**
+     * @param string $personPhone
+     */
+    public function setPersonPhone($personPhone)
+    {
+        $this->personPhone = $personPhone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPersonPhone()
+    {
+        return $this->personPhone;
+    }
+
+    /**
+     * @param string $personSurname
+     */
+    public function setPersonSurname($personSurname)
+    {
+        $this->personSurname = $personSurname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPersonSurname()
+    {
+        return $this->personSurname;
+    }
+
+    /**
+     * @param string $postcode
+     */
+    public function setPostcode($postcode)
+    {
+        $this->postcode = $postcode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostcode()
+    {
+        return $this->postcode;
+    }
+
+    /**
+     * @param \Dothiv\BusinessBundle\Entity\Attachment $proof
+     */
+    public function setProof($proof)
+    {
+        $this->proof = $proof;
+    }
+
+    /**
+     * @return \Dothiv\BusinessBundle\Entity\Attachment
+     */
+    public function getProof()
+    {
+        return $this->proof;
+    }
+
+    /**
+     * @param string $website
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+}

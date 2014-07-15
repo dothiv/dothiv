@@ -23,6 +23,9 @@ form {
 .form-control {
   &.ng-valid {
     border-color: @brand-success;
+    &.ng-pristine {
+      border-color: @input-border;
+    }
   }
   &.ng-invalid {
     border-color: @brand-danger;
@@ -37,6 +40,9 @@ form {
 }
 
 form.explained {
+  input[type=text], input[type=email], input[type=tel], input[type=url], select, textarea {
+    .form-control;
+  }
   fieldset {
     .clearfix;
     .fields {
@@ -50,7 +56,7 @@ form.explained {
     }
     .fields-legend {
       width: 33%;
-      float: left;
+      float: right;
       p {
         margin-left: 1em;
       }
@@ -58,6 +64,9 @@ form.explained {
         .pull-right;
       }
     }
+    .form-group-third {
+      .form-group;
+      width: 33%;
+    }
   }
-
 }
