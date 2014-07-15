@@ -1,0 +1,9 @@
+{% block progress %}
+    <div class="progress progress-striped active" data-ng-show="progress">
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+    </div>
+{% endblock progress %}
+
+{% block errorMessage %}
+<div class="alert alert-danger" role="alert" data-ng-bind="{{ var|default('errorMessage') }}" data-ng-show="{{ var|default('errorMessage') }}"></div>
+{% endblock errorMessage %}

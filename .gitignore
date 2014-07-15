@@ -25,3 +25,4 @@
 /app/phpunit.xml
 /src/Dothiv/CharityWebsiteBundle/Resources/test_out/
 /web/images
+/app/attachments

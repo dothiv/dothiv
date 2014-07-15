@@ -78,7 +78,7 @@ angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserRe
             // on success
             function (value, headers) {
                 _user.email = value.email;
-                _user.name = value.name;
+                _user.firstname = value.firstname;
                 _user.surname = value.surname;
                 _user.$resolved = true;
                 _onUpdateFinished();

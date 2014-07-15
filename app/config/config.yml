@@ -70,7 +70,12 @@ doctrine:
                 type: annotation
                 alias: Gedmo
                 prefix: Gedmo\Translatable\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"        
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            timestampable: true
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -89,6 +94,7 @@ dothiv_business:
     allowed_tlds:
       # - hiv
       ~
+    attachment_location: '%kernel.root_dir%/attachments'
 
 dothiv_base_website:
     thumbnails:
@@ -111,4 +117,6 @@ dothiv_charity_website:
 parameters:
     # Default HTTP cache lifetime for pages
     page_lifetime: 1800
+    # Do not convert variables in camel case (myVar) to snake case "my_var"
+    jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
 

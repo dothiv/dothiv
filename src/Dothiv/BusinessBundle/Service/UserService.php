@@ -5,7 +5,6 @@ namespace Dothiv\BusinessBundle\Service;
 use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
-use Dothiv\BusinessBundle\Event\UserEvent;
 use Dothiv\BusinessBundle\Event\UserTokenEvent;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
@@ -89,13 +88,14 @@ class UserService implements UserProviderInterface, UserServiceInterface
 
     /**
      * @param string $email
+     * @param string $httpHost
      *
      * @return void
      *
      * @throws EntityNotFoundException If user not found.
      * @throws TemporarilyUnavailableException If mail has been sent.
      */
-    public function sendLoginLinkForEmail($email)
+    public function sendLoginLinkForEmail($email, $httpHost)
     {
         /* @var User $user */
         /* @var UserToken $token */
@@ -111,7 +111,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
             throw new TemporarilyUnavailableException($token->getLifeTime());
         }
         $token = $this->createUserToken($user);
-        $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token));
+        $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token, $httpHost));
     }
 
     protected function createUserToken(User $user, $lifetimeInSeconds = 1800)
@@ -141,21 +141,21 @@ class UserService implements UserProviderInterface, UserServiceInterface
 
     /**
      * @param string $email
+     * @param string $firstname
      * @param string $surname
-     * @param string $name
      *
      * @return User
      */
-    public function getOrCreateUser($email, $surname, $name)
+    public function getOrCreateUser($email, $firstname, $surname)
     {
         $userRepo = $this->userRepo;
         /* @var User $user */
-        return $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $surname, $name, $userRepo) {
+        return $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $firstname, $surname, $userRepo) {
             $user = new User();
             $user->setHandle($this->generateToken());
             $user->setEmail($email);
             $user->setSurname($surname);
-            $user->setName($name);
+            $user->setFirstname($firstname);
             $userRepo->persist($user)->flush();
             return $user;
         });

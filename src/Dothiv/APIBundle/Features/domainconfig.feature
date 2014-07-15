@@ -3,10 +3,10 @@ Feature: Configure Banner
 
   Background:
     Given the "DothivBusinessBundle:User" entity exists in "user" with values:
-      | handle  | userhandle          |
-      | email   | someone@example.com |
-      | surname | John                |
-      | name    | Doe                 |
+      | handle    | userhandle          |
+      | email     | someone@example.com |
+      | firstname | John                |
+      | surname   | Doe                 |
     Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
       | user     | {user}                          |
       | token    | usert0k3n                       |

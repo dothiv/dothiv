@@ -33,7 +33,7 @@ services:
           - %page_lifetime%
 
     dothiv.charity.web.controller.app:
-        class: Dothiv\CharityWebsiteBundle\Controller\AppController
+        class: Dothiv\BaseWebsiteBundle\Controller\AppController
         arguments:
           - @templating
           - "DothivCharityWebsiteBundle"

@@ -1,0 +1,27 @@
+{% trans_default_domain "registry" %}
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivRegistryWebsiteBundle:Page:content.html.twig" %}
+{% block headernav %}{% endblock headernav %}
+{% block subheader %}{% endblock subheader %}
+{% block content %}
+    {{ parent() }}
+    <div data-ui-view></div>
+{% endblock %}
+{% block angular_app %}
+    {% javascripts
+    '@DothivAngularJsBundle/Resources/angular/angular-resource.js'
+    '@DothivAngularJsBundle/Resources/angular/angular-route.js'
+    '@DothivAngularJsBundle/Resources/angular/angular-cookies.js'
+    '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
+    '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-bootstrap/3/angular-ui-bootstrap-tpls.js'
+    '@DothivAngularJsBundle/Resources/extra/github.com/nervgh/angular-file-upload/angular-file-upload.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/1.2/nonProfitRegisterApp.js'
+    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/NonProfitRegister/*.js'
+    filter='?ngmin,?closureecma5'
+    output='js/*.min.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock angular_app %}

@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
  *
  * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\DomainRepository")
  * @AssertORM\UniqueEntity("name")
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="name",columns={"name"})})
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="domain__name",columns={"name"})})
  * @Serializer\ExclusionPolicy("all")
  * @ValidDomain()
  *
@@ -165,7 +165,7 @@ class Domain extends Entity
             $newOwner->getDomains()->add($this);
             // Update domain owner info
             $this->ownerEmail = $newOwner->getEmail();
-            $this->ownerName  = $newOwner->getSurname() . ' ' . $newOwner->getName();
+            $this->ownerName  = $newOwner->getFirstname() . ' ' . $newOwner->getSurname();
         }
     }
 

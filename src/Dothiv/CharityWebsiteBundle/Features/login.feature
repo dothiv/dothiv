@@ -3,10 +3,10 @@ Feature: Login
 
   Background:
     Given the "DothivBusinessBundle:User" entity exists in "user" with values:
-      | handle  | userhandle          |
-      | email   | someone@example.com |
-      | surname | John                |
-      | name    | Doe                 |
+      | handle    | userhandle          |
+      | email     | someone@example.com |
+      | firstname | John                |
+      | surname   | Doe                 |
     Given I add "Accept" header equal to "application/json"
     And I add "Content-Type" header equal to "application/json"
 

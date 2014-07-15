@@ -10,6 +10,10 @@ parameters:
     dothiv.repository.banner.repository.class: Dothiv\BusinessBundle\Repository\BannerRepository
     dothiv.repository.domainclaim.entity.class: 'DothivBusinessBundle:DomainClaim'
     dothiv.repository.domainclaim.repository.class: Dothiv\BusinessBundle\Repository\DomainClaimRepository
+    dothiv.repository.attachment.entity.class: 'DothivBusinessBundle:Attachment'
+    dothiv.repository.attachment.repository.class: Dothiv\BusinessBundle\Repository\AttachmentRepository
+    dothiv.repository.nonprofitregistration.entity.class: 'DothivBusinessBundle:NonProfitRegistration'
+    dothiv.repository.nonprofitregistration.repository.class: Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepository
 
 services:
     dothiv.repository.banner:
@@ -47,3 +51,15 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.domainclaim.entity.class% ]
+
+    dothiv.repository.attachment:
+        class: %dothiv.repository.attachment.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.attachment.entity.class% ]
+        
+    dothiv.repository.nonprofitregistration:
+        class: %dothiv.repository.nonprofitregistration.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.nonprofitregistration.entity.class% ]

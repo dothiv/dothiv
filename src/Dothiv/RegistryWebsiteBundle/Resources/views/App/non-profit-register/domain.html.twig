@@ -1,0 +1,173 @@
+{% trans_default_domain "registry" %}
+{% use "DothivRegistryWebsiteBundle:App:blocks.html.twig" %}
+
+{{ block('errorMessage') }}
+<form role="form" name="domainForm" novalidate class="explained" data-ng-show="!submitting && !done">
+    <fieldset>
+        <legend>Project Domain</legend>
+        <div class="fields-legend">
+            <p>Please tell us the .hiv domain name you wish to use.</p>
+        </div>
+        <div class="fields">
+            <div class="form-group">
+                <label for="domainFormDomain">Domain Name</label>
+                <input type="text" data-ng-model="domain" id="domainFormDomain" required data-ng-pattern="/.{3,64}\.hiv$/">
+            </div>
+            <button type="submit" data-ng-click="load()" data-ng-disabled="domainForm.$invalid" data-ng-show="!submitting">
+                Submit
+            </button>
+        </div>
+    </fieldset>
+</form>
+<form role="form" name="registrantForm" novalidate class="explained" data-ng-show="step2 && !done">
+    <fieldset>
+        <legend>Who are you?</legend>
+
+        <div class="fields-legend">
+            <p>Please tell us something about your organization. We need some kind of written proof about your
+                organization. Please upload it as PDF.</p>
+        </div>
+        <div class="fields">
+            <div class="form-group">
+                <label for="registrantFormOrg">Organization</label>
+                <input type="text" data-ng-model="registrant.organization" id="registrantFormOrg" required maxlength="255">
+            </div>
+            <div class="form-group">
+                <label for="registrantFormProof">Proof of organization</label>
+                {% set var = 'uploadError' %}
+                {{ block('errorMessage') }}
+                <input type="file" data-ng-file-select id="registrantFormProof" data-ng-hide="uploader.isUploading || registrant.proof">
+                <input type="hidden" data-ng-model="registrant.proof" required>
+
+                <div data-ng-show="upload">
+                    <span data-ng-bind="upload.file.name"></span>
+                </div>
+                <div class="progress" data-ng-repeat="item in uploader.queue" data-ng-show="uploader.isUploading">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{% verbatim %}{{ item.progress }}{% endverbatim %}" aria-valuemin="0" aria-valuemax="100" data-ng-style="{% verbatim %}{ 'width': item.progress + '%' }{% endverbatim %}">
+                        <span class="sr-only">{% verbatim %}{{ item.progress }}{% endverbatim %}% Complete</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="registrantFormAbout">What do you do?
+                    <small>(max. 200 words)</small>
+                </label>
+                <textarea class="form-control" rows="10" id="registrantFormAbout" data-ng-model="registrant.about" required data-ng-pattern="/^([^ ]+ *){1,200}$/"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="registrantFormField">Which field does your organization focus on?</label>
+                <select id="registrantFormField" data-ng-model="registrant.field" class="form-control">
+                    <option data-ng-repeat="field in orgFields">{% verbatim %}{{ field }}{% endverbatim %}</option>
+                </select>
+            </div>
+            <div class="form-group-third">
+                <label for="registrantFormPostcode">Postcode</label>
+                <input type="text" data-ng-model="registrant.postcode" id="registrantFormPostcode" required maxlength="255">
+            </div>
+            <div class="form-group">
+                <label for="registrantFormLocality">Locality</label>
+                <input type="text" data-ng-model="registrant.locality" id="registrantFormLocality" required maxlength="255">
+            </div>
+            <div class="form-group">
+                <label for="registrantFormCountry">Country</label>
+                <input type="text" data-ng-model="registrant.country" id="registrantFormCountry" required data-typeahead="country for country in countries | filter:$viewValue | limitTo:8">
+            </div>
+            <div class="form-group">
+                <label for="registrantFormWebsite">Website</label>
+                <input type="url" data-ng-model="registrant.website" id="registrantFormWebsite" required maxlength="255">
+            </div>
+            <div class="form-group-third">
+                <label for="registrantFormOrgPhone">Phone
+                    <small>(optional)</small>
+                </label>
+                <input type="tel" data-ng-model="registrant.orgPhone" id="registrantFormOrgPhone" maxlength="255">
+            </div>
+            <div class="form-group-third">
+                <label for="registrantFormOrgFax">Fax
+                    <small>(optional)</small>
+                </label> <input type="tel" data-ng-model="registrant.orgFax" id="registrantFormOrgFax" maxlength="255">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Contact person?</legend>
+        <div class="fields-legend">
+            <p>This is the person we will get in contact with regarding your request.</p>
+        </div>
+        <div class="fields">
+            <div class="form-group">
+                <label for="registrantFormPersonFirstname">Firstname</label>
+                <input type="text" data-ng-model="registrant.personFirstname" id="registrantFormPersonFirstname" required maxlength="255">
+            </div>
+            <div class="form-group">
+                <label for="registrantFormPersonSurname">Surname</label>
+                <input type="text" data-ng-model="registrant.personSurname" id="registrantFormPersonSurname" required maxlength="255">
+            </div>
+            <div class="form-group">
+                <label for="registrantFormPersonEmail">Email address</label>
+                <input type="email" data-ng-model="registrant.personEmail" class="form-control" id="registrantFormPersonEmail" required maxlength="255">
+            </div>
+            <div class="form-group">
+                <label for="registrantFormPersonPosition">Position
+                    <small>(optional)</small>
+                </label>
+                <input type="text" data-ng-model="registrant.personPosition" id="registrantFormPersonPosition" maxlength="255">
+            </div>
+            <div class="form-group-third">
+                <label for="registrantFormPersonPhone">Phone
+                    <small>(optional)</small>
+                </label>
+                <input type="tel" data-ng-model="registrant.personPhone" id="registrantFormPersonPhone" maxlength="255">
+            </div>
+            <div class="form-group-third">
+                <label for="registrantFormPersonFax">Fax
+                    <small>(optional)</small>
+                </label>
+                <input type="tel" data-ng-model="registrant.personFax" id="registrantFormPersonFax" maxlength="255">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>How would you like to use your .hiv domain?</legend>
+        <div class="fields">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" data-ng-model="registrant.forward" data-ng-true-value="1" data-ng-false-value="0">Forward
+                    Internet users through our standard homepage</label>
+            </div>
+            <div class="form-group">
+                <label for="registrantFormConcept">If you have an individual concept for the .hiv website, please tell
+                    us more about it?
+                    <small>(optional, max. 200 words)</small>
+                </label>
+
+                <textarea class="form-control" rows="10" id="registrantFormConcept" data-ng-model="registrant.concept" data-ng-pattern="/^([^ ]+ *){0,200}$/"></textarea>
+            </div>
+
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Ready?</legend>
+        <div class="fields">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" data-ng-model="registrant.terms" data-ng-true-value="1" data-ng-false-value="0">I
+                    accept <a href="/en/c/non-profit-terms" target="_blank">dotHIV's terms and conditions</a></label>
+            </div>
+            <button type="submit" data-ng-click="submit()" data-ng-disabled="registrantForm.$invalid || registrant.terms != '1'" data-ng-show="!submitting">
+                Submit
+            </button>
+        </div>
+    </fieldset>
+</form>
+<div data-ng-show="errorExists" class="well">
+    <h3>There is a problem with your registration.</h3>
+
+    <p>We already have a registration for this domain on record.</p>
+</div>
+<div data-ng-show="done" class="well">
+    <h3>Great!</h3>
+
+    <p>We will now check your registration and get back to you as soon as possible.</p>
+</div>
+{{ block('progress') }}

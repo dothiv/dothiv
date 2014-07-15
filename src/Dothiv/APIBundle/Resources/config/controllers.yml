@@ -30,4 +30,21 @@ services:
         class: Dothiv\APIBundle\Controller\AccountController
         arguments:
          - @dothiv.businessbundle.service.user
+         - @dothiv.repository.user
+         - @serializer
          - @clock
+
+    dothiv.api.controller.attachment:
+        class: Dothiv\APIBundle\Controller\AttachmentController
+        arguments:
+         - @dothiv.businessbundle.service.attachment
+         - @security.context
+         - @serializer
+
+    dothiv.api.controller.nonprofit:
+        class: Dothiv\APIBundle\Controller\NonProfitRegistrationController
+        arguments:
+         - @dothiv.repository.nonprofitregistration
+         - @dothiv.repository.attachment
+         - @security.context
+         - @serializer

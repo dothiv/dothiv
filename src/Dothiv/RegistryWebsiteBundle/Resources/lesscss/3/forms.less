@@ -19,15 +19,54 @@ form {
     }
   }
 }
+
 .form-control {
   &.ng-valid {
     border-color: @brand-success;
+    &.ng-pristine {
+      border-color: @input-border;
+    }
   }
   &.ng-invalid {
     border-color: @brand-danger;
+    &.ng-pristine {
+      border-color: @input-border;
+    }
   }
   &.ng-pristine {
   }
   &.ng-dirty {
+  }
+}
+
+form.explained {
+  input[type=text], input[type=email], input[type=tel], input[type=url], select, textarea {
+    .form-control;
+  }
+  fieldset {
+    .clearfix;
+    .fields {
+      width: 66%;
+      float: left;
+      button {
+        .btn;
+        .btn-primary;
+        .pull-right;
+      }
+    }
+    .fields-legend {
+      width: 33%;
+      float: right;
+      p {
+        margin-left: 1em;
+      }
+      a {
+        .pull-right;
+      }
+    }
+    .form-group-third {
+      .form-group;
+      width: 33%;
+    }
   }
 }

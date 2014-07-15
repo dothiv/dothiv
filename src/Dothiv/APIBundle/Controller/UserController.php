@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 
+
 class UserController extends BaseController
 {
     /**
@@ -72,7 +73,6 @@ class UserController extends BaseController
     {
         $user     = $this->verifyUserHandle($handle);
         $response = $this->createResponse();
-        $response->setStatusCode(200);
         $response->setContent($this->serializer->serialize($user->getDomains(), 'json'));
         return $response;
     }

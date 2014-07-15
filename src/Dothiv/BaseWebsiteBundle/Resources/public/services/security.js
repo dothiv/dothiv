@@ -104,10 +104,10 @@ angular.module('dotHIVApp.services').factory('security', function($http, authSer
         );
     }
 
-    function _register(name, surname, email, password, callback) {
+    function _register(firstname, surname, email, password, callback) {
         dothivUserResource.save(
                 // user data
-                {'email': email, 'plainPassword': password, 'name': name, 'surname': surname},
+                {'email': email, 'plainPassword': password, 'firstname': firstname, 'surname': surname},
                 // on success
                 function() {
                     // direct login

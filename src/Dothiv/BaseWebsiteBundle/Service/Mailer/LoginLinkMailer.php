@@ -1,13 +1,9 @@
 <?php
 
-namespace Dothiv\CharityWebsiteBundle\Service\Mailer;
+namespace Dothiv\BaseWebsiteBundle\Service\Mailer;
 
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
-use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
-use Dothiv\BusinessBundle\Event\DomainEvent;
-use Dothiv\Businessbundle\Event\UserEvent;
 use Dothiv\BusinessBundle\Event\UserTokenEvent;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -31,6 +27,16 @@ class LoginLinkMailer
     private $emailFromName;
 
     /**
+     * @var string
+     */
+    private $route;
+
+    /**
+     * @var string
+     */
+    private $host;
+
+    /**
      * @var Content
      */
     private $content;
@@ -43,6 +49,8 @@ class LoginLinkMailer
     /**
      * @param \Swift_Mailer        $mailer
      * @param RouterInterface      $router
+     * @param string               $route
+     * @param string               $host
      * @param Content              $content
      * @param UserServiceInterface $userService
      * @param string               $emailFromAddress
@@ -51,6 +59,8 @@ class LoginLinkMailer
     public function __construct(
         \Swift_Mailer $mailer,
         RouterInterface $router,
+        $route,
+        $host,
         UserServiceInterface $userService,
         Content $content,
         $emailFromAddress,
@@ -58,6 +68,8 @@ class LoginLinkMailer
     {
         $this->mailer           = $mailer;
         $this->router           = $router;
+        $this->route            = $route;
+        $this->host             = $host;
         $this->userService      = $userService;
         $this->content          = $content;
         $this->emailFromAddress = $emailFromAddress;
@@ -75,7 +87,7 @@ class LoginLinkMailer
         $user      = $token->getUser();
 
         $link = $this->router->generate(
-            'dothiv_charity_account_index',
+            $this->route,
             array('locale' => 'en'),
             UrlGeneratorInterface::ABSOLUTE_URL
         );
@@ -83,8 +95,8 @@ class LoginLinkMailer
 
         $data = array(
             'loginLink' => $link,
-            'surname'   => $user->getSurname(),
-            'name'      => $user->getName(),
+            'firstname'   => $user->getFirstname(),
+            'surname'      => $user->getSurname(),
         );
 
         $template = $this->content->buildEntry('eMail', 'login', 'en');
@@ -98,7 +110,7 @@ class LoginLinkMailer
         $message
             ->setSubject($subject)
             ->setFrom($this->emailFromAddress, $this->emailFromName)
-            ->setTo($user->getEmail(), $user->getSurname() . ' ' . $user->getName())
+            ->setTo($user->getEmail(), $user->getFirstname() . ' ' . $user->getSurname())
             ->setBody($text);
 
         // Add HTML part.
@@ -120,6 +132,13 @@ class LoginLinkMailer
 
     public function onLoginLinkRequested(UserTokenEvent $event)
     {
+        $host = $event->getHttpHost();
+        if (strpos($host, ':') > 0) {
+            list($host,) = explode(':', $host, 2);
+        }
+        if ($host != $this->host) {
+            return;
+        }
         $this->sendLoginMail($event->getUserToken());
     }
 }

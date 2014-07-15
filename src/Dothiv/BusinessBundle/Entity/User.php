@@ -52,7 +52,7 @@ class User implements UserInterface
      * @Serializer\Expose
      * @Assert\NotBlank
      */
-    protected $name;
+    protected $firstname;
 
     /**
      * Last name
@@ -90,9 +90,9 @@ class User implements UserInterface
         return $this->surname;
     }
 
-    public function getName()
+    public function getFirstname()
     {
-        return $this->name;
+        return $this->firstname;
     }
 
     public function setSurname($surname)
@@ -100,9 +100,9 @@ class User implements UserInterface
         $this->surname = $surname;
     }
 
-    public function setName($name)
+    public function setFirstname($name)
     {
-        $this->name = $name;
+        $this->firstname = $name;
     }
 
     /**

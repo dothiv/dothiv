@@ -5,6 +5,27 @@ dothiv_api_domain_claim:
         _format: json
     methods: [POST]
 
+dothiv_api_attachment:
+    pattern:  /attachment
+    defaults:
+        _controller: dothiv.api.controller.attachment:createAction
+        _format: json
+    methods: [POST]
+
+dothiv_api_nonprofit_load:
+    pattern:  /nonprofit/{name}
+    defaults:
+        _controller: dothiv.api.controller.nonprofit:loadAction
+        _format: json
+    methods: [GET]
+
+dothiv_api_nonprofit_update:
+    pattern:  /nonprofit/{name}
+    defaults:
+        _controller: dothiv.api.controller.nonprofit:updateAction
+        _format: json
+    methods: [PUT]
+
 dothiv_api_user_profile:
     pattern:  /user/{handle}
     defaults:
@@ -39,6 +60,13 @@ dothiv_api_domain_banner_config_get:
         _controller: dothiv.api.controller.banner:getConfigAction
         _format: json
     methods: [GET]
+
+dothiv_api_account_create:
+    pattern:  /account
+    defaults:
+        _controller: dothiv.api.controller.account:createAction
+        _format: json
+    methods: [POST]
 
 dothiv_api_account_loginlink:
     pattern:  /account/loginLink

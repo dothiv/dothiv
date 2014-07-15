@@ -25,6 +25,7 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')->end()
                 ->end()
                 ->scalarNode('clock_expr')->defaultValue('now')->end()
+            ->scalarNode('attachment_location')->isRequired()->end()
             ->end();
         return $treeBuilder;
     }

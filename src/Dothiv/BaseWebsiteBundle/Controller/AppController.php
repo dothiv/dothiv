@@ -1,6 +1,6 @@
 <?php
 
-namespace Dothiv\CharityWebsiteBundle\Controller;
+namespace Dothiv\BaseWebsiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
