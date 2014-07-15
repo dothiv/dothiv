@@ -33,21 +33,13 @@
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="Type" id="preregisterType2" value="nonprofit"
-                               data-ng-model="registration.Type">
-                        {% trans %}form.preregister.input.type.option.nonprofit{% endtrans %}<br>
-                        <small>{% trans %}form.preregister.input.type.option.info{% endtrans %}</small>
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
                         <input type="radio" name="Type" id="preregisterType3" value="private"
                                data-ng-model="registration.Type">
                         {% trans %}form.preregister.input.type.option.private{% endtrans %}
                     </label>
                 </div>
             </div>
-            <div class="form-group" data-ng-show="registration.Type == 'company' || registration.Type == 'nonprofit'">
+            <div class="form-group" data-ng-show="registration.Type == 'company'">
                 <label for="preregisterOrg">{% trans %}form.preregister.input.org.label{% endtrans %} *</label>
                 <input type="text" class="form-control" id="preregisterOrg" name="Org" data-ng-model="registration.Org">
             </div>
