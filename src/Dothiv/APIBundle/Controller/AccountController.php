@@ -88,7 +88,7 @@ class AccountController extends BaseController
         if ($optionalUser->isDefined()) {
             throw new ConflictHttpException();
         }
-        $user     = $this->userService->getOrCreateUser($createRequest->email, $createRequest->surname, $createRequest->name);
+        $user     = $this->userService->getOrCreateUser($createRequest->email, $createRequest->firstname, $createRequest->surname);
         $this->userService->sendLoginLinkForEmail($user->getEmail(), $request->getHttpHost());
         $response = $this->createResponse();
         $response->setStatusCode(201);

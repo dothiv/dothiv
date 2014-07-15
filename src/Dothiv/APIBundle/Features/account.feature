@@ -3,10 +3,10 @@ Feature: User Account
 
   Background:
     Given the "DothivBusinessBundle:User" entity exists in "user" with values:
-      | handle  | userhandle          |
-      | email   | someone@example.com |
-      | surname | John                |
-      | name    | Doe                 |
+      | handle    | userhandle          |
+      | email     | someone@example.com |
+      | firstname | John                |
+      | surname   | Doe                 |
     Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
       | user     | {user}                          |
       | token    | usert0k3n                       |
@@ -19,5 +19,5 @@ Feature: User Account
     Then the response status code should be 200
     And the header "content-type" should contain "application/json"
     And the JSON node "email" should contain "someone@example.com"
-    And the JSON node "surname" should contain "John"
-    And the JSON node "name" should contain "Doe"
+    And the JSON node "firstname" should contain "John"
+    And the JSON node "surname" should contain "Doe"

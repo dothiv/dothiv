@@ -68,17 +68,17 @@ class DomainRegisteredMailer
      */
     public function sendRegisteredDomainMail(Domain $domain)
     {
-        $email   = $domain->getOwnerEmail();
-        $surname = null;
-        $name    = null;
-        $owner   = $domain->getOwnerName();
+        $email     = $domain->getOwnerEmail();
+        $surname   = null;
+        $firstname = null;
+        $owner     = $domain->getOwnerName();
         if ($pos = strrpos($owner, ' ')) {
-            $surname = trim(substr($owner, 0, $pos));
-            $name    = trim(substr($owner, $pos));
+            $firstname = trim(substr($owner, 0, $pos));
+            $surname   = trim(substr($owner, $pos));
         } else {
-            $name = $owner;
+            $firstname = $owner;
         }
-        $user      = $this->userService->getOrCreateUser($email, $surname, $name);
+        $user      = $this->userService->getOrCreateUser($email, $firstname, $surname);
         $userToken = $this->userService->getLoginToken($user);
 
         $link = $this->router->generate(

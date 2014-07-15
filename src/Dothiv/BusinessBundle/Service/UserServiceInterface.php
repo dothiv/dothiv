@@ -22,12 +22,12 @@ interface UserServiceInterface
 
     /**
      * @param string $email
+     * @param string $firstname
      * @param string $surname
-     * @param string $name
      *
      * @return User
      */
-    public function getOrCreateUser($email, $surname, $name);
+    public function getOrCreateUser($email, $firstname, $surname);
 
     /**
      * @param User $user

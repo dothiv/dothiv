@@ -95,8 +95,8 @@ class LoginLinkMailer
 
         $data = array(
             'loginLink' => $link,
-            'surname'   => $user->getSurname(),
-            'name'      => $user->getName(),
+            'firstname'   => $user->getFirstname(),
+            'surname'      => $user->getSurname(),
         );
 
         $template = $this->content->buildEntry('eMail', 'login', 'en');
@@ -110,7 +110,7 @@ class LoginLinkMailer
         $message
             ->setSubject($subject)
             ->setFrom($this->emailFromAddress, $this->emailFromName)
-            ->setTo($user->getEmail(), $user->getSurname() . ' ' . $user->getName())
+            ->setTo($user->getEmail(), $user->getFirstname() . ' ' . $user->getSurname())
             ->setBody($text);
 
         // Add HTML part.

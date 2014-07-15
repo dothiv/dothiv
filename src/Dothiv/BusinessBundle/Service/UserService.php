@@ -141,21 +141,21 @@ class UserService implements UserProviderInterface, UserServiceInterface
 
     /**
      * @param string $email
+     * @param string $firstname
      * @param string $surname
-     * @param string $name
      *
      * @return User
      */
-    public function getOrCreateUser($email, $surname, $name)
+    public function getOrCreateUser($email, $firstname, $surname)
     {
         $userRepo = $this->userRepo;
         /* @var User $user */
-        return $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $surname, $name, $userRepo) {
+        return $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $firstname, $surname, $userRepo) {
             $user = new User();
             $user->setHandle($this->generateToken());
             $user->setEmail($email);
             $user->setSurname($surname);
-            $user->setName($name);
+            $user->setFirstname($firstname);
             $userRepo->persist($user)->flush();
             return $user;
         });

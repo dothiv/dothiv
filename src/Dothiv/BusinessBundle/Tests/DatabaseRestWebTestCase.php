@@ -19,7 +19,7 @@ abstract class DatabaseRestWebTestCase extends RestWebTestCase {
 
     const USER_EMAIL = 'phpunit@example.com';
     const USER_PASSWORD = 'Br=Pr*p6';
-    const USER_NAME = 'phpunit';
+    const USER_FIRSTNAME = 'phpunit';
     const USER_SURNAME = 'phpunit';
 
     /**

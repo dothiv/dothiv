@@ -22,12 +22,12 @@ class UserCreateRequest
      * @Assert\NotNull
      * @Assert\NotBlank
      */
-    public $surname;
+    public $firstname;
 
     /*
     * @var string
     * @Assert\NotNull
     * @Assert\NotBlank
     */
-    public $name;
+    public $surname;
 }

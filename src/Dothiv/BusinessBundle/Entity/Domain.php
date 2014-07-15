@@ -165,7 +165,7 @@ class Domain extends Entity
             $newOwner->getDomains()->add($this);
             // Update domain owner info
             $this->ownerEmail = $newOwner->getEmail();
-            $this->ownerName  = $newOwner->getSurname() . ' ' . $newOwner->getName();
+            $this->ownerName  = $newOwner->getFirstname() . ' ' . $newOwner->getSurname();
         }
     }
 
