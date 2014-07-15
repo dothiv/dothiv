@@ -57,9 +57,11 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.attachment.entity.class% ]
-        
+
     dothiv.repository.nonprofitregistration:
         class: %dothiv.repository.nonprofitregistration.repository.class%
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.nonprofitregistration.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]

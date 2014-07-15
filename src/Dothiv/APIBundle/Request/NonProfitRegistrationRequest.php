@@ -116,7 +116,7 @@ class NonProfitRegistrationRequest
 
     /**
      * @var int
-     * @Assert\Range(min=1,max=1)
+     * @Assert\Range(min=0,max=1)
      * @Assert\NotBlank
      * @Assert\NotNull
      */

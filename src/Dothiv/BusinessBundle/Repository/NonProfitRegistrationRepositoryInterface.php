@@ -3,6 +3,7 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
+use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
 
 /**
@@ -16,6 +17,7 @@ interface NonProfitRegistrationRepositoryInterface
      * @param NonProfitRegistration $nonProfitRegistration
      *
      * @return self
+     * @throws InvalidArgumentException If entity is invalid.
      */
     public function persist(NonProfitRegistration $nonProfitRegistration);
 

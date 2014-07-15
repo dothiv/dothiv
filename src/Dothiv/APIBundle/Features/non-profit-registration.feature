@@ -58,3 +58,27 @@ Feature: Non-Profit Registration
     And the JSON node "personFax" should contain "+49178452"
     And the JSON node "orgPhone" should contain "+49178453"
     And the JSON node "orgFax" should contain "+49178454"
+
+  Scenario: Create Registration without forward
+    Given I send a PUT request to "/api/nonprofit/example2.hiv" with JSON values:
+      | personFirstname | Jill                             |
+      | personSurname   | Jones                            |
+      | personEmail     | jill@example.com                 |
+      | organization    | ACME Inc.                        |
+      | proof           | ad54af9f3a2e137d04588712e3d98e0d |
+      | about           | ACME Stuff                       |
+      | field           | prevention                       |
+      | postcode        | 12345                            |
+      | locality        | Big City                         |
+      | country         | United States                    |
+      | website         | http://example.com/              |
+      | forward         | 0                                |
+      | terms           | 1                                |
+      | personPhone     | +49178451                        |
+      | personFax       | +49178452                        |
+      | orgPhone        | +49178453                        |
+      | orgFax          | +49178454                        |
+    Then the response status code should be 201
+    And the header "content-type" should contain "application/json"
+    And the JSON node "domain" should contain "example2.hiv"
+    And the JSON node "forward" should contain "0"

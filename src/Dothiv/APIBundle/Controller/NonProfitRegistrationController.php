@@ -6,6 +6,7 @@ use Dothiv\APIBundle\Request\NonProfitRegistrationRequest;
 use Dothiv\BusinessBundle\Entity\Attachment;
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use Dothiv\BusinessBundle\Repository\AttachmentRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepositoryInterface;
 use JMS\Serializer\Serializer;
@@ -142,7 +143,11 @@ class NonProfitRegistrationController extends BaseController
         $registration->setWebsite($model->website);
         $registration->setForward($model->forward);
 
-        $this->nonProfitRegistrationRepo->persist($registration)->flush();
+        try {
+            $this->nonProfitRegistrationRepo->persist($registration)->flush();
+        } catch (InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
 
         $response = $this->createResponse();
         $response->setStatusCode($optionalRegistration->isEmpty() ? 201 : 200);
