@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
  *
  * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\DomainRepository")
  * @AssertORM\UniqueEntity("name")
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="name",columns={"name"})})
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="domain__name",columns={"name"})})
  * @Serializer\ExclusionPolicy("all")
  * @ValidDomain()
  *
