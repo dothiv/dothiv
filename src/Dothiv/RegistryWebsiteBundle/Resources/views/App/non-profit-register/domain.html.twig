@@ -11,7 +11,7 @@
         <div class="fields">
             <div class="form-group">
                 <label for="domainFormDomain">Domain Name<br><small>e.g. example.hiv</small></label>
-                <input type="text" data-ng-model="domain" id="domainFormDomain" required data-ng-pattern="/^[^/:]{3,64}\.hiv$/">
+                <input type="text" data-ng-model="domain" id="domainFormDomain" required data-ng-pattern="/^[^/:\.]{3,64}\.hiv$/">
             </div>
             <button type="submit" data-ng-click="load()" data-ng-disabled="domainForm.$invalid" data-ng-show="!submitting">
                 Submit
