@@ -14,7 +14,7 @@ class DomainNameRequest
      *
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\Regex("/^[a-zA-Z0-9-]{3,64}\.hiv$/")
+     * @Assert\Regex("/^([a-zA-Z0-9]|xn--)(?:[a-zA-Z0-9]|-(?!-)){1,62}[a-zA-Z0-9]\.hiv$/")
      */
     public $name;
 }

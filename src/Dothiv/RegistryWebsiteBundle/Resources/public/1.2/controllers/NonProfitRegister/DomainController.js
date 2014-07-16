@@ -317,9 +317,12 @@ angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainContr
         $scope.upload = item;
     });
 
-    function _encodeDomain(domain)
-    {
-        return punycode.encode(domain.replace(/\.hiv$/, '')) + '.hiv';
+    function _encodeDomain(domain) {
+        var encoded = punycode.encode(domain.replace(/\.hiv$/, '')) + '.hiv';
+        if (encoded == domain) {
+            return domain;
+        }
+        return "xn--" + encoded;
     }
 
     function _submit() {
