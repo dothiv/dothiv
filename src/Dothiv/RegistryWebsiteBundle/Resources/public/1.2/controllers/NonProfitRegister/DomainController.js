@@ -317,12 +317,19 @@ angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainContr
         $scope.upload = item;
     });
 
+    /**
+     * @param domain
+     * @returns {*}
+     * @private
+     */
     function _encodeDomain(domain) {
-        var encoded = punycode.encode(domain.replace(/\.hiv$/, '')) + '.hiv';
-        if (encoded == domain) {
+        var name = domain.replace(/\.hiv$/, '');
+        var encoded = punycode.encode(name);
+        if (encoded == name + "-") {
+            // https://rt.cpan.org/Public/Bug/Display.html?id=94347
             return domain;
         }
-        return "xn--" + encoded;
+        return "xn--" + encoded + ".hiv";
     }
 
     function _submit() {
