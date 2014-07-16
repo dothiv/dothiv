@@ -2,6 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
@@ -34,4 +35,11 @@ interface NonProfitRegistrationRepositoryInterface
      * @return Option
      */
     public function getNonProfitRegistrationByDomainName($domain);
+
+    /**
+     * Returns a list of unconfirmed NonProfitRegistrations.
+     *
+     * @return NonProfitRegistration[]|ArrayCollection
+     */
+    public function getUnconfirmed();
 }

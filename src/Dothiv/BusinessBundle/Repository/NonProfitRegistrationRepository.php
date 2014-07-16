@@ -2,6 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
@@ -66,4 +67,16 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
         return $this->validator;
     }
 
+    /**
+     * Returns a list of unconfirmed NonProfitRegistrations.
+     *
+     * @return NonProfitRegistration[]|ArrayCollection
+     */
+    public function getUnconfirmed()
+    {
+        return new ArrayCollection($this->createQueryBuilder('r')
+            ->andWhere('r.receiptSent IS NULL')
+            ->getQuery()
+            ->getResult());
+    }
 }
