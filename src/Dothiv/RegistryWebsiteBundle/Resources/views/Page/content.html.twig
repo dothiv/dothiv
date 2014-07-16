@@ -7,30 +7,41 @@
         <h{{ level }}>{{ block.title }}</h{{ level }}>
     {% endif %}
     {{ block.text|default("")|markdown }}
+    {% if block.image is defined %}
+    {% endif %}
 {% endblock cf_block_textcontent %}
 
-{% block cf_block_children %}
-    {% if block.children is defined %}
-        {% set level = level + 1 %}
-        {% for child in block.children %}
-            {% set block = child %}
-            {{ block('cf_block') }}
-        {% endfor %}
+{% block cf_block_imagecontent %}
+    {% if block.image.file is defined %}
+        {% set image_asset = block.image %}
+        {% set image_link = block.imageLink|default(false) %}
+        {% set src = image_asset.file.thumbnails[thumbnail_size|default('small')] %}{% if image_link|default(false) %}
+        <a href="{{ image_link }}">{% endif %}
+        <img src="{{ src }}" alt="{{ image_asset.title }}" title="{{ image_asset.description|default(image_asset.title) }}">
+        {% if image_link|default(false) %}</a>{% endif %}
     {% endif %}
-{% endblock cf_block_children %}
+{% endblock cf_block_imagecontent %}
+
+{% block cf_block_videocontent %}
+    {% if block.video is defined %}
+        <iframe width="616" height="346" src="{{ block.video.embed_url }}" allowfullscreen class="video"></iframe>
+    {% endif %}
+{% endblock cf_block_videocontent %}
 
 {% block cf_block_downloads %}
     {% if block.downloads is defined %}
         {% for download in block.downloads %}
             {% if loop.first %}
-            <ul class="downloads">
+                <ul class="downloads">
             {% endif %}
-                <li>
-                    <a href="{{ download.file.url }}" title="{{ download.title }}">{{ download.title }}</a> <small>({{ (download.file.details.size / 1024 / 1024) | round(0, 'ceil') }} MB)</small>
-                    {% if download.description is defined %}, <small>{{ download.description }}</small>{% endif %}
-                </li>
+            <li>
+                <a href="{{ download.file.url }}" title="{{ download.title }}">{{ download.title }}</a>
+                <small>({{ (download.file.details.size / 1024 / 1024) | round(0, 'ceil') }} MB)</small>
+                {% if download.description is defined %},
+                    <small>{{ download.description }}</small>{% endif %}
+            </li>
             {% if loop.last %}
-            </ul>
+                </ul>
             {% endif %}
         {% endfor %}
     {% endif %}
@@ -43,25 +54,48 @@
     {% endif %}
 {% endblock cf_block_module %}
 
-{% block cf_block %}
-    {% set level = level|default(2) %}
-    <section
-        id="{{ block.code|default(block.cfMeta.itemId)|slugify }}"
-        data-cf-url="{{ block.cfMeta.url }}"
-        class="cf-level-{{ level }}">
-        <div class="block">
-            {{ block('cf_block_textcontent') }}
-            {{ block('cf_block_downloads') }}
-            {{ block('cf_block_module') }}
-            {{ block('cf_block_children') }}
-        </div>
-    </section>
-{% endblock %}
+{% block cf_block_children %}
+    {% set level = level+1 %}
+    {% if block.children is defined %}
+        {% if block|behaviour('children') == "column" %}
+            {% set blocks = block.children %}
+            {{ block('cf_section') }}
+        {% else %}
+            {% for childBlock in block.children %}
+                {% set blocks = [childBlock] %}
+                {{ block('cf_section') }}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+{% endblock cf_block_children %}
 
 {% block content %}
-    {% for block in page.blocks|default([]) %}
-        <article class="content">
-        {{ block('cf_block') }}
-        </article>
-    {% endfor %}
+    <article class="content">
+        {% for childBlock in page.blocks|default([]) %}
+            {% set blocks = [childBlock] %}
+            {{ block('cf_section') }}
+        {% endfor %}
+    </article>
 {% endblock %}
+
+{% block cf_section %}
+    {% set level = level|default(2) %}
+    {% set cols = blocks|length %}
+    <section class="cf-level-{{ level }} {% if cols > 1 %}cols{{ cols }}{% endif %}">
+        {% for block in blocks %}
+            {{ block('cf_block') }}
+        {% endfor %}
+    </section>
+{% endblock cf_section %}
+
+{% block cf_block %}
+    {% set thumbnail_size = thumbnail_size|default(block|behaviour('thumbnails')) %}
+    <div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" data-cf-url="{{ block.cfMeta.url }}" class="block">
+        {{ block('cf_block_textcontent') }}
+        {{ block('cf_block_imagecontent') }}
+        {{ block('cf_block_videocontent') }}
+        {{ block('cf_block_downloads') }}
+        {{ block('cf_block_module') }}
+        {{ block('cf_block_children') }}
+    </div>
+{% endblock cf_block %}
