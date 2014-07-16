@@ -2,7 +2,8 @@
 
 namespace Dothiv\APIBundle\Controller;
 
-use Dothiv\APIBundle\Request\NonProfitRegistrationRequest;
+use Dothiv\APIBundle\Request\NonProfitRegistrationGetRequest;
+use Dothiv\APIBundle\Request\NonProfitRegistrationPutRequest;
 use Dothiv\BusinessBundle\Entity\Attachment;
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
 use Dothiv\BusinessBundle\Entity\User;
@@ -57,23 +58,27 @@ class NonProfitRegistrationController extends BaseController
      * Loads a request
      *
      * @param Request $request
-     * @param string  $name
      *
      * @return Response
      *
      * @throws NotFoundHttpException
      * @throws AccessDeniedHttpException
+     *
+     * @ApiRequest("Dothiv\APIBundle\Request\NonProfitRegistrationGetRequest")
      */
-    public function loadAction(Request $request, $name)
+    public function loadAction(Request $request)
     {
         /* @var User $user */
         /* @var NonProfitRegistration $registration */
+        /* @var NonProfitRegistrationGetRequest $model */
         $user = $this->securityContext->getToken()->getUser();
         if (empty($user)) {
             throw new AccessDeniedHttpException();
         }
 
-        $registration = $this->nonProfitRegistrationRepo->getNonProfitRegistrationByDomainName($name)->getOrCall(function () {
+        $model = $request->attributes->get('model');
+
+        $registration = $this->nonProfitRegistrationRepo->getNonProfitRegistrationByDomainName($model->name)->getOrCall(function () {
             throw new NotFoundHttpException();
         });
 
@@ -98,12 +103,12 @@ class NonProfitRegistrationController extends BaseController
      * @throws BadRequestHttpException
      * @throws AccessDeniedHttpException
      *
-     * @ApiRequest("Dothiv\APIBundle\Request\NonProfitRegistrationRequest")
+     * @ApiRequest("Dothiv\APIBundle\Request\NonProfitRegistrationPutRequest")
      */
     public function updateAction(Request $request, $name)
     {
         /* @var User $user */
-        /* @var NonProfitRegistrationRequest $model */
+        /* @var NonProfitRegistrationPutRequest $model */
         /* @var Attachment $proof */
         /* @var NonProfitRegistration $registration */
         $user = $this->securityContext->getToken()->getUser();

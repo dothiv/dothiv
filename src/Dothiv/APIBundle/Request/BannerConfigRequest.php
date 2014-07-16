@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Model for a banner configuration request
  */
-class BannerConfigRequest
+class BannerConfigRequest extends DomainNameRequest
 {
     /**
      * @var string

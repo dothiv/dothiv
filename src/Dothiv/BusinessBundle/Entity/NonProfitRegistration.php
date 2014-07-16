@@ -40,8 +40,7 @@ class NonProfitRegistration extends Entity
      * @ORM\Column(type="string",length=255)
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\NotNull
-     * @Assert\Length(min=7,max=67)
+     * @Assert\Regex("/^[a-zA-Z0-9-]{3,64}\.hiv$/")
      * @Serializer\Expose
      */
     protected $domain;

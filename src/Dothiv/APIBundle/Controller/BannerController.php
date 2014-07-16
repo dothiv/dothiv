@@ -3,6 +3,7 @@
 namespace Dothiv\APIBundle\Controller;
 
 use Dothiv\APIBundle\Request\BannerConfigRequest;
+use Dothiv\APIBundle\Request\DomainNameRequest;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
@@ -127,9 +128,11 @@ class BannerController extends BaseController
      *
      * @ApiRequest("Dothiv\APIBundle\Request\BannerConfigRequest")
      */
-    public function setConfigAction(Request $request, $name)
+    public function setConfigAction(Request $request)
     {
-        $domain = $this->getDomainByName($name);
+        /* @var BannerConfigRequest $configRequest */
+        $configRequest = $request->attributes->get('model');
+        $domain        = $this->getDomainByName($configRequest->name);
 
         /* @var Banner $banner */
         $banner = Option::fromValue($domain->getActiveBanner())->getOrCall(function () use ($domain) {
@@ -139,8 +142,6 @@ class BannerController extends BaseController
             return $banner;
         });
 
-        /* @var BannerConfigRequest $configRequest */
-        $configRequest = $request->attributes->get('model');
         $banner->setLanguage($configRequest->language);
         $banner->setPosition($configRequest->position_first);
         $banner->setPositionAlternative($configRequest->position);
@@ -159,11 +160,16 @@ class BannerController extends BaseController
 
     /**
      * Gets the banner config for the given domain.
+     *
+     * @ApiRequest("Dothiv\APIBundle\Request\DomainNameRequest")
      */
-    public function getConfigAction($name)
+    public function getConfigAction(Request $request)
     {
-        $domain = $this->getDomainByName($name);
-        $banner = Option::fromValue($domain->getActiveBanner())->getOrCall(function () use ($name) {
+        /* @var DomainNameRequest $domainNameRequest */
+        $domainNameRequest = $request->attributes->get('model');
+        $name              = $domainNameRequest->name;
+        $domain            = $this->getDomainByName($name);
+        $banner            = Option::fromValue($domain->getActiveBanner())->getOrCall(function () use ($name) {
             throw new NotFoundHttpException(
                 sprintf(
                     'No banner configured for domain "%s"!',
@@ -203,9 +209,10 @@ class BannerController extends BaseController
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return Domain
+     *
      * @throws NotFoundHttpException If no domain is found.
      * @throws AccessDeniedHttpException If user is not the owner of the domain.
      */

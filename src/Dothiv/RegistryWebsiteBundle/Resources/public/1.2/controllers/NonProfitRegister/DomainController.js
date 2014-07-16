@@ -317,11 +317,15 @@ angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainContr
         $scope.upload = item;
     });
 
+    function _encodeDomain(domain)
+    {
+        return punycode.encode(domain.replace(/\.hiv$/, '')) + '.hiv';
+    }
 
     function _submit() {
         $scope.progress = true;
         $scope.errorMessage = null;
-        $scope.registrant.name = $scope.domain;
+        $scope.registrant.name = _encodeDomain($scope.domain);
         dothivNonProfitDomainResource.update(
             $scope.registrant,
             function () { // success
@@ -347,7 +351,7 @@ angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainContr
         }
         $scope.progress = true;
         dothivNonProfitDomainResource.get(
-            {name: $scope.domain},
+            {name: _encodeDomain($scope.domain)},
             function () { // Success
                 $scope.step2 = true;
                 $scope.progress = false;

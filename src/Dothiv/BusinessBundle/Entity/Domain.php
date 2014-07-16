@@ -28,6 +28,8 @@ class Domain extends Entity
      * FQDN, no trailing dot.
      *
      * @ORM\Column(type="string",length=255)
+     * @Assert\Regex("/^[a-zA-Z0-9-]{3,64}\.hiv$/")
+     *
      * @Serializer\Expose
      */
     protected $name;
@@ -158,7 +160,7 @@ class Domain extends Entity
         }
 
         // set new owner
-        $this->owner      = $newOwner;
+        $this->owner = $newOwner;
 
         if ($newOwner !== null) {
             // add this domain to new owner's domains, if new owner exists

@@ -48,6 +48,7 @@ class ViewRequestListener
             $model      = new $modelClass;
 
             $this->setModelData($request, $model);
+            $this->setModelDataFromRouteParams($request, $model);
 
             $errors = $this->validator->validate($model);
 
@@ -88,5 +89,21 @@ class ViewRequestListener
                 $model->$k = $v;
             }
         }
+    }
+
+    /**
+     * @param $request
+     * @param $model
+     */
+    protected function setModelDataFromRouteParams($request, $model)
+    {
+        $routeParams = array();
+        foreach ($request->attributes->get('_route_params') as $k => $v) {
+            if (substr($k, 0, 1) === '_') {
+                continue;
+            }
+            $routeParams[$k] = $v;
+        }
+        $this->setModelDataFromArray($routeParams, $model);
     }
 }

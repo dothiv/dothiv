@@ -74,4 +74,3 @@ dothiv_api_account_loginlink:
         _controller: dothiv.api.controller.account:loginLinkAction
         _format: json
     methods: [POST]
-
