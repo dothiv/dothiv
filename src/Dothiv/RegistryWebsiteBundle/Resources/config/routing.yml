@@ -12,11 +12,11 @@ dothiv_registry_api_preregister:
         _controller: dothiv.registry.api.controller:preregisterAction
     methods:  [POST]
 
-dothiv_register_nonprofit:
-    pattern:  /{locale}/register-non-profit
+dothiv_register_nonprofit_form:
+    pattern:  /{locale}/register-non-profit-form
     defaults:
         _controller: dothiv.registry.web.controller.page:pageAction
-        page: register-non-profit
+        page: register-non-profit-form
     requirements:
         locale:  en|ky
 
