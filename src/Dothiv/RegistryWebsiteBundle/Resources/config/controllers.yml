@@ -18,5 +18,10 @@ services:
     dothiv.registry.web.controller.app:
         class: Dothiv\BaseWebsiteBundle\Controller\AppController
         arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
           - @templating
+          - @dothiv.registry.contentful.registry_content
           - "DothivRegistryWebsiteBundle"
+          - %assets_version%
+          - @clock
+          - %page_lifetime%

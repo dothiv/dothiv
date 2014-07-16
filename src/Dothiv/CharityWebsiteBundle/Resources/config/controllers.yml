@@ -35,8 +35,13 @@ services:
     dothiv.charity.web.controller.app:
         class: Dothiv\BaseWebsiteBundle\Controller\AppController
         arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
           - @templating
+          - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
+          - %assets_version%
+          - @clock
+          - %page_lifetime%
 
     dothiv.charity.web.controller.contentful:
         class: Dothiv\CharityWebsiteBundle\Controller\ContentfulController
