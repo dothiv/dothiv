@@ -38,6 +38,9 @@ class AppController extends PageController
             case 'en':
                 $request->setLocale('en_US');
                 break;
+            case 'ky':
+                $request->setLocale('ky');
+                break;
         }
 
         $res      = sprintf($this->getBundle() . ':App:%s/%s.%s.twig', $section, $page, $request->getRequestFormat());
