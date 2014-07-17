@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new Dothiv\AngularJsBundle\DothivAngularJsBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Dothiv\QLPPartnerBundle\DothivQLPPartnerBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
