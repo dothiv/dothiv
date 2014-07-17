@@ -40,7 +40,7 @@ class NonProfitRegistration extends Entity
      * @ORM\Column(type="string",length=255)
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\Regex("/^[a-zA-Z0-9-]{3,64}\.hiv$/")
+     * @Assert\Regex("/^([a-zA-Z0-9]|xn--)(?:[a-zA-Z0-9]|-(?!-)){1,62}[a-zA-Z0-9]\.hiv$/")
      * @Serializer\Expose
      */
     protected $domain;
@@ -181,9 +181,19 @@ class NonProfitRegistration extends Entity
      * @Assert\Range(min=0,max=1)
      * @Assert\NotBlank
      * @Assert\NotNull
+     * @ORM\Column(type="integer")
      * @Serializer\Expose
      */
     protected $forward; // e.g.: 1
+
+    /**
+     * Timestamp of when the receipt confirmation has been sent.
+     *
+     * @var \DateTime $receiptSent
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $receiptSent;
 
     /**
      * @var \DateTime $created
@@ -231,6 +241,16 @@ class NonProfitRegistration extends Entity
     public function getDomain()
     {
         return $this->domain;
+    }
+
+    /**
+     * Returns the UTF8 representation of the domain.
+     *
+     * @return string
+     */
+    public function getDomainUTF8()
+    {
+        return idn_to_utf8($this->getDomain());
     }
 
     /**
@@ -489,4 +509,19 @@ class NonProfitRegistration extends Entity
         return $this->website;
     }
 
+    /**
+     * @param \DateTime $receiptSent
+     */
+    public function setReceiptSent(\DateTime $receiptSent)
+    {
+        $this->receiptSent = $receiptSent;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getReceiptSent()
+    {
+        return $this->receiptSent;
+    }
 }

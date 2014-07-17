@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainController', ['$scope', 'dothivNonProfitDomainResource', 'security', 'User', '$fileUploader', function ($scope, dothivNonProfitDomainResource, security, User, $fileUploader) {
+angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainController', ['$scope', 'dothivNonProfitDomainResource', 'security', 'User', '$fileUploader', 'idn', function ($scope, dothivNonProfitDomainResource, security, User, $fileUploader, idn) {
     $scope.errorMessage = null;
     $scope.uploadError = null;
     $scope.errorExists = false;
@@ -317,15 +317,10 @@ angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainContr
         $scope.upload = item;
     });
 
-    function _encodeDomain(domain)
-    {
-        return punycode.encode(domain.replace(/\.hiv$/, '')) + '.hiv';
-    }
-
     function _submit() {
         $scope.progress = true;
         $scope.errorMessage = null;
-        $scope.registrant.name = _encodeDomain($scope.domain);
+        $scope.registrant.name = idn.toASCII($scope.domain);
         dothivNonProfitDomainResource.update(
             $scope.registrant,
             function () { // success
@@ -351,7 +346,7 @@ angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainContr
         }
         $scope.progress = true;
         dothivNonProfitDomainResource.get(
-            {name: _encodeDomain($scope.domain)},
+            {name: idn.toASCII($scope.domain)},
             function () { // Success
                 $scope.step2 = true;
                 $scope.progress = false;

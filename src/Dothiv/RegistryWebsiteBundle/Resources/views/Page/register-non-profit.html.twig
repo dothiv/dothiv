@@ -5,24 +5,13 @@
 {% block subheader %}{% endblock subheader %}
 {% block content %}
     {{ parent() }}
-    <div data-ui-view></div>
+    <article class="content">
+    <section class="cf-level-2">
+        <div class="block">
+            <a href="{{ path('dothiv_register_nonprofit_form', {'locale': locale}) }}" class="btn btn-primary pull-right">
+                Start the registration &raquo;
+            </a>
+        </div>
+    </section>
+    </article>
 {% endblock %}
-{% block angular_app %}
-    {% javascripts
-    '@DothivBaseWebsiteBundle/Resources/public/vendor/github.com/bestiejs/punycode.js/punycode.js'
-    '@DothivAngularJsBundle/Resources/angular/angular-resource.js'
-    '@DothivAngularJsBundle/Resources/angular/angular-route.js'
-    '@DothivAngularJsBundle/Resources/angular/angular-cookies.js'
-    '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
-    '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-bootstrap/3/angular-ui-bootstrap-tpls.js'
-    '@DothivAngularJsBundle/Resources/extra/github.com/nervgh/angular-file-upload/angular-file-upload.js'
-    '@DothivRegistryWebsiteBundle/Resources/public/1.2/nonProfitRegisterApp.js'
-    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
-    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'
-    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/NonProfitRegister/*.js'
-    filter='?ngmin,?closureecma5'
-    output='js/*.min.js'
-    %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock angular_app %}
