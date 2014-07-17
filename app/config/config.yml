@@ -37,7 +37,13 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        ['DothivCharityWebsiteBundle', 'DothivRegistryWebsiteBundle', 'DothivAPIBundle', 'DothivTwitterBootstrapBundle', 'DothivAngularJsBundle']
+    bundles:
+      - 'DothivCharityWebsiteBundle'
+      - 'DothivRegistryWebsiteBundle'
+      - 'DothivAPIBundle'
+      - 'DothivTwitterBootstrapBundle'
+      - 'DothivAngularJsBundle'
+      - 'DothivQLPPartnerBundle'
     #java: /usr/bin/java
     filters:
         less:
