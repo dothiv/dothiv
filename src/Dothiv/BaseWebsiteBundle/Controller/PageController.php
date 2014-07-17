@@ -143,15 +143,14 @@ class PageController
         $type                    = Option::fromValue($type)->getOrElse('Page');
         $entry                   = $this->content->buildEntry($type, $page, $locale);
         $data[strtolower($type)] = $entry;
-        $contentLocale           = $this->getContentLocale($locale, $entry);
-        $data['locale']          = $contentLocale;
+        $data['locale']          = $locale;
         $data['link']            = array(
-            'de' => $request->getBaseUrl() . preg_replace('%^/' . $contentLocale . '(/*)%', '/de$1', $request->getPathInfo()),
-            'en' => $request->getBaseUrl() . preg_replace('%^/' . $contentLocale . '(/*)%', '/en$1', $request->getPathInfo()),
-            'ky' => $request->getBaseUrl() . preg_replace('%^/' . $contentLocale . '(/*)%', '/ky$1', $request->getPathInfo()),
+            'de' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/de$1', $request->getPathInfo()),
+            'en' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/en$1', $request->getPathInfo()),
+            'ky' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/ky$1', $request->getPathInfo()),
         );
         // TODO: Cache.
-        switch ($contentLocale) {
+        switch ($locale) {
             case 'de':
                 $request->setLocale('de_DE');
                 break;
@@ -165,19 +164,6 @@ class PageController
         }
 
         return $data;
-    }
-
-    /**
-     * Returns the locale use to render the page. Usually $defaultLocale, but may be set according to data in $view.
-     *
-     * @param  string   $defaultLocale
-     * @param \stdClass $view
-     *
-     * @return string
-     */
-    protected function getContentLocale($defaultLocale, \stdClass $view)
-    {
-        return $defaultLocale;
     }
 
     /**

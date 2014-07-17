@@ -107,6 +107,7 @@ dothiv_base_website:
         - { label: 'person', width: 260, height: 300, thumbnail: true }
         - { label: 'supporter', width: 125, height: 125, exact: true }
         - { label: 'partner', width: 200, height: 100, exact: true }
+        - { label: 'friend', width: 300, height: 150 }
         - { label: 'small', width: 200, height: 200 }
         - { label: 'medium', width: 400, height: 400 }
         - { label: 'large', width: 800, height: 800 }

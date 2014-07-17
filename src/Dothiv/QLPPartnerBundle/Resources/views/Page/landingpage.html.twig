@@ -1,4 +1,5 @@
-{% trans_default_domain "charity" %}<!DOCTYPE html><!--
+{% trans_default_domain "charity" %}
+<!DOCTYPE html><!--
 
 
             _|_|          _|_|
@@ -21,7 +22,7 @@
 <html lang="{{ locale }}">
 <head>
     <title>
-        {% if title|default("")|length > 0 %}{{ title }}{% endif %}
+        {{ qlp.domain ~ ".hiv" }}
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,19 +41,18 @@
     {% endjavascripts %}
 </head>
 <body data-ng-app="dotHIVApp">
-{% set intro = content('Block', 'qlp.intro') %}
 <header>
     <article>
         <section>
             <h1>
                 {% image '@DothivQLPPartnerBundle/Resources/public/images/dothiv-logo.png' %}
-                <img src="{{ asset_url }}" alt="{{ intro.title }}"><br>
+                <img src="{{ asset_url }}" alt="{{ qlp.text.title }}"><br>
                 {% endimage %}
-                {{ intro.title }}
+                {{ qlp.text.title }}
             </h1>
 
             <h2>
-                <img src="{{ qlp.logo.file.thumbnails.medium }}" alt="{{ qlp.logo.title }}">
+                <img src="{{ qlp.logo.file.thumbnails.friend }}" alt="{{ qlp.logo.title }}">
             </h2>
         </section>
     </article>
@@ -72,7 +72,7 @@
     <article>
         <section>
             <div>
-                {{ intro.text|trans({'%hivdomain%': qlp.domain ~ ".hiv", '%partnerdomain%': qlp.partnerDomain})|markdown }}
+                {{ qlp.text.text|trans({'%hivdomain%': qlp.domain ~ ".hiv", '%partnerdomain%': qlp.partnerDomain})|markdown }}
             </div>
         </section>
         <section>
@@ -82,7 +82,7 @@
 </main>
 <footer>
     {% image '@DothivQLPPartnerBundle/Resources/public/images/dothiv-ribbon.png' %}
-    <img src="{{ asset_url }}" alt="{{ intro.title }}"><br>
+    <img src="{{ asset_url }}" alt="{{ qlp.text.title }}"><br>
     {% endimage %}
 </footer>
 {% block angular_app %}
