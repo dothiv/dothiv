@@ -15,3 +15,10 @@ dothiv_registry_web:
     host: %registrydomain%
     resource: "@DothivRegistryWebsiteBundle/Resources/config/routing.yml"
     prefix:   /
+
+# QLP landingpages
+dothiv_qlp_partner:
+    host: "{partner}.friends.%charitydomain%"
+    resource: "@DothivQLPPartnerBundle/Resources/config/routing.yml"
+    prefix:   /
+

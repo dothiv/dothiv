@@ -35,7 +35,7 @@ dothiv_charity_app_template:
         _controller: dothiv.charity.web.controller.app:templateAction
     requirements:
         _format:  html
-        locale:  en|de
+        locale:  en|de|ky
 
 dothiv_charity_content_api:
     pattern:  /{locale}/content/{type}
