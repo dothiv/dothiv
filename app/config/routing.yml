@@ -22,3 +22,8 @@ dothiv_qlp_partner:
     resource: "@DothivQLPPartnerBundle/Resources/config/routing.yml"
     prefix:   /
 
+# Premium Configurator
+dothiv_premium_configurator:
+    host: %charitydomain%
+    resource: "@DothivPremiumConfiguratorBundle/Resources/config/routing.yml"
+    prefix:   /

@@ -1,0 +1,77 @@
+main, header {
+  .container;
+}
+
+article {
+  @media (min-width: @screen-xs-min) {
+    margin-top: 20px;
+    margin-bottom: 40px;
+
+  }
+  section {
+    .make-row();
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: underline;
+}
+
+header {
+  section {
+    position: relative;
+  }
+  h1 {
+    font-size: 16px;
+    @media (min-width: @screen-sm-min) {
+      font-size: 30px;
+    }
+    img {
+      margin-bottom: 0.5em;
+    }
+    .make-sm-column(6);
+  }
+}
+
+#countdown {
+  background-color: @brand-primary;
+  color: @brand-primary-text;
+  @media (min-width: @screen-xs-min) {
+    font-size: 30px;
+  }
+  margin-bottom: 1em;
+  margin-top: 1em;
+  div.inner {
+    .container;
+  }
+  article {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .bar {
+    text-align: center;
+    p {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+    }
+  }
+}
+
+main {
+  div {
+    @media (min-width: @screen-xs-min) {
+      font-size: 20px;
+    }
+    text-align: center;
+  }
+}
+
+footer {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-align: center;
+}

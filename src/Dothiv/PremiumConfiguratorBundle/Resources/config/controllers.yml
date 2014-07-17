@@ -1,0 +1,11 @@
+services:
+    dothiv.premiumconfigurator.controller.page:
+        class: Dothiv\PremiumConfiguratorBundle\Controller\PremiumConfiguratorPageController
+        arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
+          - @templating
+          - @dothiv.charity.contentful.charity_content
+          - "DothivPremiumConfiguratorBundle"
+          - %assets_version%
+          - @clock
+          - %page_lifetime%
