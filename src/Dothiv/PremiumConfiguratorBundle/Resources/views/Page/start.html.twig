@@ -1,6 +1,4 @@
-{% trans_default_domain "charity" %}
-<!DOCTYPE html>
-<!--
+{% trans_default_domain "charity" %}<!DOCTYPE html><!--
 
 
             _|_|          _|_|
@@ -40,9 +38,10 @@
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <base href="/">
 </head>
 <body data-ng-app="dotHIVApp">
-<header>
+<header data-ng-controller="HeaderController">
     <article>
         <section>
             <h1>
@@ -51,23 +50,28 @@
                 {% endimage %}
                 {{ page.title }}
             </h1>
-        </section>
-    </article>
-</header>
-<main>
-    <article>
-        <section>
-            <div>
-
+            <div id="loading" data-ng-show="loading">
+                {% trans %}pc.loading{% endtrans %}
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/loader.gif' %}
+                <img src="{{ asset_url }}" alt="{% trans %}pc.loading{% endtrans %}">
+                {% endimage %}
             </div>
         </section>
     </article>
-</main>
-<footer>
-</footer>
+</header>
+<main data-ui-view></main>
+<footer></footer>
 {% block angular_app %}
     {% javascripts
+    '@DothivAngularJsBundle/Resources/angular/angular-resource.js'
+    '@DothivAngularJsBundle/Resources/angular/angular-route.js'
+    '@DothivAngularJsBundle/Resources/angular/angular-cookies.js'
+    '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
     '@DothivPremiumConfiguratorBundle/Resources/public/js/app.js'
+    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'
+    '@DothivPremiumConfiguratorBundle/Resources/public/js/services/*.js'
+    '@DothivPremiumConfiguratorBundle/Resources/public/js/controllers/*.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -77,7 +81,8 @@
     'use strict';
     angular.module('dotHIVApp.services').factory('config', function () {
         var config = {
-            locale: '{{ locale }}'
+            locale: '{{ locale }}',
+            domain: '{{ app.request.get('domain') }}'
         };
         return config;
     });

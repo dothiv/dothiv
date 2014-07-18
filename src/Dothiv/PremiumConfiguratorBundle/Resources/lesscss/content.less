@@ -11,6 +11,21 @@ article {
   section {
     .make-row();
   }
+  nav {
+    .make-row();
+    margin-top: 2em;
+    a {
+      .btn;
+      .btn-primary;
+      text-decoration: none;
+    }
+    a[rel=prev] {
+      .pull-left;
+    }
+    a[rel=next] {
+      .pull-right;
+    }
+  }
 }
 
 img {
@@ -22,41 +37,31 @@ a {
 }
 
 header {
+  margin-top: 1em;
   section {
     position: relative;
   }
   h1 {
+    .make-sm-column(12);
     font-size: 16px;
+    position: relative;
+    padding-left: 135px;
+    vertical-align: bottom;
+    margin-bottom: 0.5em;
     @media (min-width: @screen-sm-min) {
       font-size: 30px;
     }
     img {
-      margin-bottom: 0.5em;
+      position: absolute;
+      left: 0;
+      bottom: 0;
     }
-    .make-sm-column(6);
   }
-}
-
-#countdown {
-  background-color: @brand-primary;
-  color: @brand-primary-text;
-  @media (min-width: @screen-xs-min) {
-    font-size: 30px;
-  }
-  margin-bottom: 1em;
-  margin-top: 1em;
-  div.inner {
-    .container;
-  }
-  article {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  .bar {
-    text-align: center;
-    p {
-      margin-top: 0.25em;
-      margin-bottom: 0.25em;
+  #loading {
+    position: absolute;
+    right: 0;
+    img {
+      margin-left: 10px;
     }
   }
 }
@@ -66,12 +71,10 @@ main {
     @media (min-width: @screen-xs-min) {
       font-size: 20px;
     }
-    text-align: center;
   }
 }
 
 footer {
   margin-top: 1em;
   margin-bottom: 1em;
-  text-align: center;
 }

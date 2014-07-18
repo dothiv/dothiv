@@ -1,0 +1,5 @@
+{% extends "DothivPremiumConfiguratorBundle:App:article.html.twig" %}
+{% block nav %}
+    {{ parent() }}
+    <a rel="next" href="{{ path('dothiv_qlp_page', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}#!/payment" data-ng-show="isLast()">{% trans %}pc.nav.payment{% endtrans %}</a>
+{% endblock nav %}

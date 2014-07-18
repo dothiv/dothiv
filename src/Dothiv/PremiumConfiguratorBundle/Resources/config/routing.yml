@@ -1,5 +1,9 @@
-dothiv_qlp_landingpage:
-    path:     /{locale}/premium-configurator/{subpage}
+dothiv_qlp_page:
+    path:     /{locale}/premium-configurator/{domain}
     defaults:
         _controller: dothiv.premiumconfigurator.controller.page:configuratorPageAction
-        subpage: start
+
+dothiv_qlp_page_app:
+    path:     /{locale}/premium-configurator/{domain}/app/{page}.html
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.page:configuratorAppPageAction

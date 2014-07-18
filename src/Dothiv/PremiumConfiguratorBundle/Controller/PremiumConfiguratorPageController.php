@@ -13,13 +13,24 @@ class PremiumConfiguratorPageController extends PageController
     /**
      * @param Request $request
      * @param string  $locale
-     * @param string  $subpage
+     * @param string  $domain
      *
      * @return Response
-     * @throws NotFoundHttpException If partner entry not found.
      */
-    public function configuratorPageAction(Request $request, $locale, $subpage)
+    public function configuratorPageAction(Request $request, $locale, $domain)
     {
-        return parent::pageAction($request, $locale, 'premium-configurator.' . $subpage, null, 'Page:' . $subpage);
+        return parent::pageAction($request, $locale, 'premium-configurator.start', null, 'Page:start');
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $locale
+     * @param string  $page
+     *
+     * @return Response
+     */
+    public function configuratorAppPageAction(Request $request, $locale, $page)
+    {
+        return parent::pageAction($request, $locale, 'premium-configurator.'. $page, null, 'App:' . $page);
     }
 }

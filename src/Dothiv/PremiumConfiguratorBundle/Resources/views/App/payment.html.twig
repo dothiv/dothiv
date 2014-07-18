@@ -1,0 +1,15 @@
+<article>
+    {% for block in  page.blocks %}
+        <section data-ng-show="block == '{{ block.code }}'">
+            <div class="block">
+                {% if block.title is defined %}
+                    <h2>{{ block.title }}</h2>
+                {% endif %}
+                {% if block.text is defined %}
+                    {{ block.text|markdown }}
+                {% endif %}
+            </div>
+        </section>
+    {% endfor %}
+</article>
+
