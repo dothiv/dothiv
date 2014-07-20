@@ -3,7 +3,8 @@
 
 {% set intro = content('Block', 'domain.claim') %}
 {% set claimsuccess = intro.children[0] %}
-{% set claimerror = intro.children[1] %}
+{% set claimpending = intro.children[1] %}
+{% set claimerror = intro.children[2] %}
 
 <div class="container">
 
@@ -15,6 +16,8 @@
 
     {# Domain claim #}
     <div data-ng-controller="AccountDomainClaimController">
+        <div class="alert" data-ng-show="errorMessage" data-ng-bind="errorMessage">
+        </div>
         <div data-ng-show="state==0">
             <div class="row">
                 <div class="span12 profile-heading">
@@ -25,14 +28,30 @@
                             {{ intro.text|markdown }}
                         {% endif %}
 
-                        <form novalidate>
-                            <label for="claimToken">{% trans %}profile.domain.claim.token.label{% endtrans %}</label>
-                            <input type="text" id="claimToken" data-ng-model="token" required>
-                            <button type="submit" class="pull-right btn btn-primary" data-ng-disabled="!token" data-ng-click="register(token)">
-                                {% trans %}profile.domain.claim.token.button{% endtrans %}
-                            </button>
+                        <form novalidate name="claimform">
+                            <fieldset data-ng-show="!claimform.notoken">
+                                <label for="claimToken">{% trans %}
+                                    profile.domain.claim.token.label{% endtrans %}</label>
+                                <input type="text" id="claimToken" data-ng-model="token" required  data-ng-pattern="/^[0-9a-f]{16}$/">
+                                <button type="submit" class="pull-right btn btn-primary" data-ng-disabled="!token"
+                                        data-ng-click="register(token)">
+                                    {% trans %}profile.domain.claim.token.button{% endtrans %}
+                                </button>
+                            </fieldset>
+                            <fieldset data-ng-show="claimform.notoken">
+                                <label for="claimDomain">{% trans %}
+                                    profile.domain.claim.domain.label{% endtrans %}</label>
+                                <input type="text" id="claimDomain" data-ng-model="claimform.domain" required  data-ng-pattern="/^[^-/:\.](?:[^/:\.-]|-(?!-)){1,62}[^-/:\.]\.hiv$/">
+                                <button type="submit" class="pull-right btn btn-primary" data-ng-disabled="!claimform.domain"
+                                        data-ng-click="registerNotToken(claimform.domain)">
+                                    {% trans %}profile.domain.claim.domain.button{% endtrans %}
+                                </button>
+                            </fieldset>
+                            <label class="checkbox pull-left">
+                                <input type="checkbox" data-ng-model="claimform.notoken">
+                                {% trans %}profile.domain.claim.havenotoken{% endtrans %}
+                            </label>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -87,6 +106,29 @@
             <div class="row">
                 <div class="span12">
                     <div class="well">
+                        <h3>{{ claimpending.title }}</h3>
+
+                        <div class="row-fluid">
+                            <div class="span10">
+                                {% if claimpending.text is defined %}
+                                    {{ claimpending.text|markdown }}
+                                {% endif %}
+                            </div>
+                            <div class="span2">
+                                <button type="submit" class="btn btn-primary pull-right" data-ng-click="startover()">
+                                    {% trans %}profile.domain.claim.entertoken.button{% endtrans %}
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-ng-show="state==4">
+            <div class="row">
+                <div class="span12">
+                    <div class="well">
                         <h3>{{ claimerror.title }}</h3>
 
                         <div class="row-fluid">
@@ -102,9 +144,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="span12"></div>
             </div>
         </div>
     </div>

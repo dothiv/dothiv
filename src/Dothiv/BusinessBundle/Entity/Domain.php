@@ -107,6 +107,15 @@ class Domain extends Entity
     protected $lastUpdate = null;
 
     /**
+     * Timestamp of when the information mail hast been sent
+     *
+     * @var \DateTime $tokenSent
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $tokenSent;
+
+    /**
      * The constructor
      */
     public function __construct()
@@ -194,6 +203,7 @@ class Domain extends Entity
      * @param string $token
      *
      * @throws InvalidArgumentException
+     * TODO: Remove token checking here …
      */
     public function claim(User $newOwner, $token)
     {
@@ -288,5 +298,21 @@ class Domain extends Entity
     public function getOwnerName()
     {
         return $this->ownerName;
+    }
+
+    /**
+     * @param \DateTime $informationSent
+     */
+    public function setTokenSent(\DateTime $informationSent)
+    {
+        $this->tokenSent = $informationSent;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getTokenSent()
+    {
+        return $this->tokenSent;
     }
 }
