@@ -4,18 +4,54 @@
 <div class="container">
     <div class="row">
         <div class="offset3 span6 form-well">
-            <form name="LoginForm" novalidate data-ng-show="state != 'success'">
+            <form name="LoginForm" novalidate data-ng-show="state != 'success' && form == 'login'">
                 <fieldset>
-                    <legend>{% trans %}login.form.title{% endtrans %}</legend>
-                    <div class="alert alert-error" data-ng-show="errorMessage" data-ng-bind="errorMessage"></div>
+                    <legend>
+                        {% trans %}login.form.title{% endtrans %}
+                        <small class="pull-right"><a data-ng-click="form='register'">{% trans %}login.form.showregisterform{% endtrans %}</a></small>
+                    </legend>
+                    <div class="alert alert-error" data-ng-show="loginErrorMessage" data-ng-bind="loginErrorMessage"></div>
                     <div>
                         <p>{% trans %}login.form.intro{% endtrans %}</p>
                         <label for="loginEmail">
                             {% trans %}login.form.input.email.label{% endtrans %}
                         </label>
-                        <input type="email" id="loginEmail" required value="" name="email" data-ng-model="email">
-                        <button class="btn btn-primary pull-right" data-ng-click="submit()" data-ng-disabled="LoginForm.$invalid" data-ng-show="state == 'form'">
+                        <input type="email" id="loginEmail" required name="email" data-ng-model="email">
+                        <button class="btn btn-primary pull-right" data-ng-click="login()" data-ng-disabled="LoginForm.$invalid" data-ng-show="state == 'form'">
                             {% trans %}login.form.submit{% endtrans %}
+                        </button>
+                        <div data-ng-show="state == 'loading'" class="pull-right">
+                            {{ block('loading') }}
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <form name="registrationForm" novalidate data-ng-show="state != 'success' && form == 'register'">
+                <fieldset>
+                    <legend>
+                        {% trans %}register.form.title{% endtrans %}
+                        <small class="pull-right"><a data-ng-click="form='login'">{% trans %}register.form.showloginform{% endtrans %}</a></small>
+                    </legend>
+                    <div class="alert alert-error" data-ng-show="registerErrorMessage" data-ng-bind="registerErrorMessage"></div>
+                    <div>
+                        <p>{% trans %}register.form.intro{% endtrans %}</p>
+                        <label for="registerEmail">
+                            {% trans %}login.form.input.email.label{% endtrans %}
+                        </label>
+                        <input type="email" id="registerEmail" required data-ng-model="registrationForm.email">
+
+                        <label for="registerFirstname">
+                            {% trans %}register.form.input.firstname.label{% endtrans %}
+                        </label>
+                        <input type="text" id="registerFirstname" required data-ng-model="registrationForm.firstname">
+
+                        <label for="registerSurname">
+                            {% trans %}register.form.input.surname.label{% endtrans %}
+                        </label>
+                        <input type="text" id="registerSurname" required data-ng-model="registrationForm.surname">
+                        
+                        <button class="btn btn-primary pull-right" data-ng-click="register()" data-ng-disabled="registrationForm.$invalid" data-ng-show="state == 'form'">
+                            {% trans %}register.form.submit{% endtrans %}
                         </button>
                         <div data-ng-show="state == 'loading'" class="pull-right">
                             {{ block('loading') }}

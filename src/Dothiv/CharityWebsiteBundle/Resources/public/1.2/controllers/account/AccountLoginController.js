@@ -4,12 +4,15 @@ angular.module('dotHIVApp.controllers').controller('AccountLoginController', ['$
     function ($scope, $state, security, dothivAccountResource, strings) {
         $scope.email = null;
         $scope.state = 'form';
-        $scope.errorMessage = null;
+        $scope.form = 'login';
+        $scope.loginErrorMessage = null;
+        $scope.registerErrorMessage = null;
         $scope.security = security;
+        $scope.registrationForm = {};
 
-        $scope.submit = function () {
+        $scope.login = function () {
             $scope.state = 'loading';
-            $scope.errorMessage = null;
+            $scope.loginErrorMessage = null;
             dothivAccountResource.requestLoginLink(
                 {email: $scope.email},
                 function () {
@@ -18,10 +21,25 @@ angular.module('dotHIVApp.controllers').controller('AccountLoginController', ['$
                 function (response) {
                     $scope.state = 'form';
                     if (response.status == 404) {
-                        $scope.errorMessage = strings.error.login.notfound;
+                        $scope.loginErrorMessage = strings.error.login.notfound;
                     } else {
-                        $scope.errorMessage = response.statusText;
+                        $scope.loginErrorMessage = response.statusText;
                     }
+                }
+            );
+        }
+
+        $scope.register = function () {
+            $scope.state = 'loading';
+            $scope.registerErrorMessage = null;
+            dothivAccountResource.create(
+                $scope.registrationForm,
+                function () {
+                    $scope.state = 'success';
+                },
+                function (response) {
+                    $scope.state = 'form';
+                    $scope.registerErrorMessage = response.statusText;
                 }
             );
         }
