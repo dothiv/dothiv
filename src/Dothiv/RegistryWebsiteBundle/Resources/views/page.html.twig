@@ -143,7 +143,7 @@
         var config = {
             locale: '{{ locale }}',
             countdown_start: '{{ countdown_start|date_w3c }}',
-            countdown_end: '{{ sunrise|date_w3c }}'
+            countdown_end: '{{ general_availability|date_w3c }}'
         };
         return config;
     });
