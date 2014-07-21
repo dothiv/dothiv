@@ -26,6 +26,9 @@ main {
       .block {
         .make-sm-column(12);
         margin-bottom: 1em;
+        &.center {
+          text-align: center;
+        }
       }
       &.cols2 {
         .block {
@@ -73,6 +76,11 @@ main {
           &.cols2 {
             .block {
               .make-sm-column(6);
+            }
+          }
+          &.cols4 {
+            .block {
+              .make-sm-column(3);
             }
           }
         }
