@@ -53,17 +53,18 @@ class LoginLinkMailer
 
     /**
      * @param UserToken $token
+     * @param string    $locale
      *
      * @return void
      */
-    public function sendLoginMail(UserToken $token)
+    public function sendLoginMail(UserToken $token, $locale)
     {
         $userToken = $token->getBearerToken();
         $user      = $token->getUser();
 
         $link = $this->router->generate(
             $this->route,
-            array('locale' => 'en'),
+            array('locale' => $locale),
             UrlGeneratorInterface::ABSOLUTE_URL
         );
         $link .= sprintf('#!/auth/%s/%s', $user->getHandle(), $userToken);
@@ -75,7 +76,6 @@ class LoginLinkMailer
         );
 
         $code   = 'login';
-        $locale = 'en';
         $to     = $user->getEmail();
         $toName = $user->getFirstname() . ' ' . $user->getSurname();
 
@@ -91,6 +91,6 @@ class LoginLinkMailer
         if ($host != $this->host) {
             return;
         }
-        $this->sendLoginMail($event->getUserToken());
+        $this->sendLoginMail($event->getUserToken(), $event->getLocale());
     }
 }

@@ -18,13 +18,20 @@ class UserTokenEvent extends Event
     private $httpHost;
 
     /**
+     * @var string
+     */
+    private $locale;
+
+    /**
      * @param UserToken $UserToken
      * @param string    $httpHost
+     * @param string    $locale
      */
-    public function __construct(UserToken $UserToken, $httpHost)
+    public function __construct(UserToken $UserToken, $httpHost, $locale)
     {
         $this->userToken = $UserToken;
         $this->httpHost  = $httpHost;
+        $this->locale    = $locale;
     }
 
     /**
@@ -57,5 +64,21 @@ class UserTokenEvent extends Event
     public function getHttpHost()
     {
         return $this->httpHost;
+    }
+
+    /**
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
     }
 }

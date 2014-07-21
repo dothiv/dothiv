@@ -21,12 +21,13 @@
             <button type="submit" class="btn btn-primary" data-ng-click="submit()" data-ng-disabled="registrationForm.$invalid" data-ng-show="!submitting">
                 Submit
             </button>
+            <input type="hidden" data-ng-model="registrationForm.locale" data-ng-init="registrationForm.locale='{{ locale }}'">
         </div>
         <div class="fields-legend">
             <p>First, create an account by providing your name and your email address.</p>
 
             <p>We need to confirm your Email address in order to keep in touch with you.</p>
-            <a href="#!/login">I already have an account!</a>
+            <a href="{{ path('dothiv_register_nonprofit_form', {'locale': locale}) }}#!/login">I already have an account!</a>
         </div>
     </fieldset>
 </form>

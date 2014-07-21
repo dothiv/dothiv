@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="offset3 span6 form-well">
-            <form name="LoginForm" novalidate data-ng-show="state != 'success' && form == 'login'">
+            <form name="loginForm" novalidate data-ng-show="state != 'success' && form == 'login'">
                 <fieldset>
                     <legend>
                         {% trans %}login.form.title{% endtrans %}
@@ -16,10 +16,11 @@
                         <label for="loginEmail">
                             {% trans %}login.form.input.email.label{% endtrans %}
                         </label>
-                        <input type="email" id="loginEmail" required name="email" data-ng-model="email">
-                        <button class="btn btn-primary pull-right" data-ng-click="login()" data-ng-disabled="LoginForm.$invalid" data-ng-show="state == 'form'">
+                        <input type="email" id="loginEmail" required data-ng-model="loginForm.email">
+                        <button class="btn btn-primary pull-right" data-ng-click="login()" data-ng-disabled="loginForm.$invalid" data-ng-show="state == 'form'">
                             {% trans %}login.form.submit{% endtrans %}
                         </button>
+                        <input type="hidden" data-ng-model="loginForm.locale" data-ng-init="loginForm.locale='{{ locale }}'">
                         <div data-ng-show="state == 'loading'" class="pull-right">
                             {{ block('loading') }}
                         </div>
@@ -53,6 +54,7 @@
                         <button class="btn btn-primary pull-right" data-ng-click="register()" data-ng-disabled="registrationForm.$invalid" data-ng-show="state == 'form'">
                             {% trans %}register.form.submit{% endtrans %}
                         </button>
+                        <input type="hidden" data-ng-model="registrationForm.locale" data-ng-init="registrationForm.locale='{{ locale }}'">
                         <div data-ng-show="state == 'loading'" class="pull-right">
                             {{ block('loading') }}
                         </div>

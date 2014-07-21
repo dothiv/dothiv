@@ -12,13 +12,14 @@ interface UserServiceInterface
     /**
      * @param string $email
      * @param string $httpHost
+     * @param string $locale
      *
      * @return void
      *
      * @throws EntityNotFoundException If user not found.
      * @throws TemporarilyUnavailableException If mail has been sent.
      */
-    public function sendLoginLinkForEmail($email, $httpHost);
+    public function sendLoginLinkForEmail($email, $httpHost, $locale);
 
     /**
      * @param string $email

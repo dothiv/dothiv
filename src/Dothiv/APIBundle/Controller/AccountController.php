@@ -2,6 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Request\LoginLinkRequest;
 use Dothiv\APIBundle\Request\UserCreateRequest;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
@@ -59,7 +60,9 @@ class AccountController extends BaseController
     public function loginLinkAction(Request $request)
     {
         try {
-            $this->userService->sendLoginLinkForEmail($request->attributes->get('model')->email, $request->getHttpHost());
+            /** @var LoginLinkRequest $model */
+            $model = $request->attributes->get('model');
+            $this->userService->sendLoginLinkForEmail($model->email, $request->getHttpHost(), $model->locale);
             $response = $this->createResponse();
             $response->setStatusCode(201);
             return $response;
@@ -88,8 +91,8 @@ class AccountController extends BaseController
         if ($optionalUser->isDefined()) {
             throw new ConflictHttpException();
         }
-        $user     = $this->userService->getOrCreateUser($createRequest->email, $createRequest->firstname, $createRequest->surname);
-        $this->userService->sendLoginLinkForEmail($user->getEmail(), $request->getHttpHost());
+        $user = $this->userService->getOrCreateUser($createRequest->email, $createRequest->firstname, $createRequest->surname);
+        $this->userService->sendLoginLinkForEmail($user->getEmail(), $request->getHttpHost(), $createRequest->locale);
         $response = $this->createResponse();
         $response->setStatusCode(201);
         $response->setContent($this->serializer->serialize($user, 'json'));

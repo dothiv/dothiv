@@ -12,12 +12,13 @@
             <button type="submit" data-ng-click="submit()" data-ng-disabled="loginForm.$invalid" data-ng-show="!submitting">
                 Submit
             </button>
+            <input type="hidden" data-ng-model="loginForm.locale" data-ng-init="loginForm.locale='{{ locale }}'">
         </div>
         <div class="fields-legend">
             <p>Log in to your existing acount by providing your email address.</p>
 
             <p>We will then send you an email address with a login link.</p>
-            <a href="#!/register">I have no account!</a>
+            <a href="{{ path('dothiv_register_nonprofit_form', {'locale': locale}) }}#!/register">I have no account!</a>
         </div>
     </fieldset>
 </form>
