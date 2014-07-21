@@ -41,7 +41,7 @@
                             <fieldset data-ng-show="claimform.notoken">
                                 <label for="claimDomain">{% trans %}
                                     profile.domain.claim.domain.label{% endtrans %}</label>
-                                <input type="text" id="claimDomain" data-ng-model="claimform.domain" required  data-ng-pattern="/^[^-/:\.](?:[^/:\.-]|-(?!-)){1,62}[^-/:\.]\.hiv$/">
+                                <input type="text" id="claimDomain" data-ng-model="claimform.domain" required  data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/">
                                 <button type="submit" class="pull-right btn btn-primary" data-ng-disabled="!claimform.domain"
                                         data-ng-click="registerNotToken(claimform.domain)">
                                     {% trans %}profile.domain.claim.domain.button{% endtrans %}
