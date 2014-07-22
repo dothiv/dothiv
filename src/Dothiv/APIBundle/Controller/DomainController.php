@@ -135,7 +135,7 @@ class DomainController extends BaseController
         $domainRequest = $request->attributes->get('model');
 
         /* @var Domain $domain */
-        $domain = $this->domainRepo->getDomainByName($domainRequest->name)->getOrCall(function () {
+        $domain = $this->domainRepo->getDomainByName($domainRequest->getName())->getOrCall(function () {
             throw new NotFoundHttpException();
         });
 
