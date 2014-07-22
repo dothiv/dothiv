@@ -49,14 +49,14 @@
     <meta name="twitter:description" content="{% trans %}registry.description{% endtrans %}">
     <meta name="twitter:creator" content="tldHIV">
     {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.png' %}
-    <meta name="twitter:image:src" content="{{ asset_url }}">
+    <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
     {% endimage %}
     <!-- Facebook open graph support -->
     <meta property="og:title" content="{{ title }}" />
     <meta property="og:description" content="{% trans %}registry.description{% endtrans %}" />
     <meta property="og:site_name" content="{% trans %}registry.fullname{% endtrans %}">
     {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.png' %}
-    <meta property="og:image" content="{{ asset_url }}" />
+    <meta property="og:image" content="{{ app.request.uriForPath(asset_url) }}" />
     {% endimage %}
     <base href="/">
 </head>

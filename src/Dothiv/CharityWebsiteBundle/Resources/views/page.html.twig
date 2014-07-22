@@ -50,14 +50,14 @@
     <meta name="twitter:description" content="{% trans %}home.who.text{% endtrans %}">
     <meta name="twitter:creator" content="dotHIV">
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
-    <meta name="twitter:image:src" content="{{ asset_url }}">
+    <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
     {% endimage %}
     <!-- Facebook open graph support -->
     <meta property="og:title" content="{{ title }}" />
     <meta property="og:description" content="{% trans %}home.who.text{% endtrans %}" />
     <meta property="og:site_name" content="{% trans %}dothiv.fullname{% endtrans %}">
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
-    <meta property="og:image" content="{{ asset_url }}" />
+    <meta property="og:image" content="{{ app.request.uriForPath(asset_url) }}" />
     {% endimage %}
     <base href="/">
 </head>
