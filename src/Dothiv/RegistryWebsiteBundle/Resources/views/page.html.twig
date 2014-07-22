@@ -22,9 +22,11 @@
 -->
 <html lang="{{ locale }}">
 <head>
+    {% set title %}{% spaceless %}
+        {% if title|default("")|length > 0 %}{{ title }} |{% endif %}{% trans %}registry.fullname{% endtrans %}
+    {% endspaceless %}{% endset %}
     <title>
-        {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
-        {% trans %}registry.fullname{% endtrans %}
+        {{ title }}
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,6 +41,23 @@
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <!-- Social Media Sharing -->
+    <!-- Twitter cards support -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="tldHIV">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{% trans %}registry.description{% endtrans %}">
+    <meta name="twitter:creator" content="tldHIV">
+    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.png' %}
+    <meta name="twitter:image:src" content="{{ asset_url }}">
+    {% endimage %}
+    <!-- Facebook open graph support -->
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:description" content="{% trans %}registry.description{% endtrans %}" />
+    <meta property="og:site_name" content="{% trans %}registry.fullname{% endtrans %}">
+    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.png' %}
+    <meta property="og:image" content="{{ asset_url }}" />
+    {% endimage %}
     <base href="/">
 </head>
 <body data-ng-app="dotHIVApp">

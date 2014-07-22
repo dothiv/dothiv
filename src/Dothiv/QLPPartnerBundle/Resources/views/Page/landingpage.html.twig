@@ -40,6 +40,20 @@
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <!-- Social Media Sharing -->
+    {% set description = qlp.text.text|trans({'%hivdomain%': qlp.domain ~ ".hiv", '%partnerdomain%': qlp.partnerDomain})|split("\n")[0] %}
+    <!-- Twitter cards support -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="dotHIV">
+    <meta name="twitter:title" content="{{ qlp.domain ~ ".hiv" }}">
+    <meta name="twitter:description" content="{{ description }}">
+    <meta name="twitter:creator" content="dotHIV">
+    <meta name="twitter:image:src" content="{{ qlp.logo.file.thumbnails.friend }}">
+    <!-- Facebook open graph support -->
+    <meta property="og:title" content="{{ qlp.domain ~ ".hiv" }}" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta property="og:image" content="{{ qlp.logo.file.thumbnails.friend }}" />
+    <meta property="og:site_name" content="{{ qlp.domain ~ ".hiv" }}">
 </head>
 <body data-ng-app="dotHIVApp">
 <header>

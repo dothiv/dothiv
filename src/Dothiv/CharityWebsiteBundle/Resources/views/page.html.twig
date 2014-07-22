@@ -23,9 +23,12 @@
 <html lang="{{ locale }}">
 <head>
     <meta charset="utf-8">
-    <title>
+    {% set title %}{% spaceless %}
         {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
         {% trans %}dothiv.fullname{% endtrans %}
+    {% endspaceless %}{% endset %}
+    <title>
+        {{ title }}
     </title>
     {% stylesheets '@DothivCharityWebsiteBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
     <link rel="stylesheet" href="{{ asset_url }}">
@@ -39,6 +42,23 @@
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <!-- Social Media Sharing -->
+    <!-- Twitter cards support -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="dotHIV">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{% trans %}home.who.text{% endtrans %}">
+    <meta name="twitter:creator" content="dotHIV">
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
+    <meta name="twitter:image:src" content="{{ asset_url }}">
+    {% endimage %}
+    <!-- Facebook open graph support -->
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:description" content="{% trans %}home.who.text{% endtrans %}" />
+    <meta property="og:site_name" content="{% trans %}dothiv.fullname{% endtrans %}">
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
+    <meta property="og:image" content="{{ asset_url }}" />
+    {% endimage %}
     <base href="/">
 </head>
 <body data-ng-app="dotHIVApp">
