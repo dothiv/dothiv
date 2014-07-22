@@ -1,0 +1,35 @@
+#agb {
+  .agb-headline {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 1.25em;
+  }
+  .agb-text {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 1.25em;
+  }
+  ol {
+    li {
+      .agb-headline;
+      padding: 1em 0;
+      p {
+        .agb-text;
+        &:first-child {
+          .agb-headline;
+        }
+      }
+      ol {
+        li {
+          .agb-text;
+          padding: 0.25em 0;
+        }
+        p {
+          &:first-child {
+            .agb-text;
+          }
+        }
+      }
+    }
+  }
+}
