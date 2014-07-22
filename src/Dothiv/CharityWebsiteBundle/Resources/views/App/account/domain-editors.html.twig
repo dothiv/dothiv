@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row-fluid-colfix margin20px">
+                    <div class="row-fluid-colfix margin20px editorsinfo">
 
                         <div class="span6 well">
                             <hr />
@@ -75,6 +75,8 @@
                                 <button class="span12 btn btn-primary" data-ng-click="editPremium()" disabled>{% trans %}profile.domain.editors.premium.button{% endtrans %}</button>
                             </div>
                         </div>
+
+                        <div class="coming-soon">{{ 'profile.domain.editors.premium.comingsoon'|trans|replace('|', '<br>') }}</div>
 
                     </div>
                 </div>
