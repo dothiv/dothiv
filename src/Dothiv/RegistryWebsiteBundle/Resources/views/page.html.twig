@@ -52,12 +52,13 @@
     <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
     {% endimage %}
     <!-- Facebook open graph support -->
-    <meta property="og:title" content="{{ title }}" />
-    <meta property="og:description" content="{% trans %}registry.description{% endtrans %}" />
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{% trans %}registry.description{% endtrans %}">
     <meta property="og:site_name" content="{% trans %}registry.fullname{% endtrans %}">
     {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.png' %}
-    <meta property="og:image" content="{{ app.request.uriForPath(asset_url) }}" />
+    <meta property="og:image" content="{{ app.request.uriForPath(asset_url) }}">
     {% endimage %}
+    <meta property="og:type" content="website">
     <base href="/">
 </head>
 <body data-ng-app="dotHIVApp">
