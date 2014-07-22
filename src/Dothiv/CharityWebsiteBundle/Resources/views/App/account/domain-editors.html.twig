@@ -76,7 +76,7 @@
                             </div>
                         </div>
 
-                        <div class="coming-soon">{{ 'profile.domain.editors.premium.comingsoon'|trans|replace('|', '<br>') }}</div>
+                        <div class="coming-soon">{{ 'profile.domain.editors.premium.comingsoon'|trans|replace({'|': "\n"})|nl2br }}</div>
 
                     </div>
                 </div>
