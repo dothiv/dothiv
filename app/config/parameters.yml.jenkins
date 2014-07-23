@@ -28,3 +28,7 @@ parameters:
     contenful_space_clickcounter: d6rba6hzdb1o
 
     assets_version: 1404223225
+
+    # Google Analytics IDs
+    googleanalytics_charity: UA-XXXX-Y
+    googleanalytics_registry: UA-XXXX-Y

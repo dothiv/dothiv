@@ -142,7 +142,5 @@ parameters:
     page_lifetime: 1800
     # Do not convert variables in camel case (myVar) to snake case "my_var"
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
-    # Google Analytics IDs
-    googleanalytics_charity: UA-XXXX-Y
-    googleanalytics_registry: UA-XXXX-Y
+
 
