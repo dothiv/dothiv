@@ -74,7 +74,7 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(array($banner)));
 
         $this->mockClickCounterConfig->expects($this->once())->method('setup')
-            ->with($domain, $banner);
+            ->with($banner);
 
         $this->assertEquals(0, $this->getTestObject()->run($this->mockInput, $this->mockOutput));
     }
@@ -108,11 +108,11 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockClickCounterConfig = $this->getMockBuilder('\Dothiv\BusinessBundle\Service\ClickCounterConfig')
+        $this->mockClickCounterConfig = $this->getMockBuilder('\Dothiv\BusinessBundle\Service\ClickCounterConfigInterface')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockBannerRepo = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
+        $this->mockBannerRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\BannerRepositoryInterface')
             ->disableOriginalConstructor()
             ->getMock();
     }
