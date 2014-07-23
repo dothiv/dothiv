@@ -5,7 +5,7 @@ namespace Dothiv\BusinessBundle\Tests\Entity\Command;
 use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\BusinessBundle\Service\ClickCounterConfig;
+use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,7 +31,7 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
     private $mockContainer;
 
     /**
-     * @var ClickCounterConfig|\PHPUnit_Framework_MockObject_MockObject
+     * @var ClickCounterConfigInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     private $mockClickCounterConfig;
 

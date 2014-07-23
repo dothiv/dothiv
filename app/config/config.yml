@@ -113,6 +113,8 @@ dothiv_business:
       # - hiv
       ~
     attachment_location: '%kernel.root_dir%/attachments'
+    clickcounter:
+        secret: '%clickcounter_auth_secret%'
 
 dothiv_base_website:
     thumbnails:

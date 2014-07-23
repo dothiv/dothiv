@@ -18,6 +18,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class NonProfitRegistration extends Entity
 {
+    use Traits\CreateUpdateTime;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -194,22 +196,6 @@ class NonProfitRegistration extends Entity
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $receiptSent;
-
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
-     */
-    private $updated;
 
     /**
      * @param User $user

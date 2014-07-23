@@ -10,7 +10,7 @@ use PhpOption\Option;
 /**
  * This repository contains the users tokens.
  */
-interface UserTokenRepositoryInterface
+interface UserTokenRepositoryInterface extends ObjectRepository
 {
     /**
      * @param User      $user

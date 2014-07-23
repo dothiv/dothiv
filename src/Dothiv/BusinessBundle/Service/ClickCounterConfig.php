@@ -4,136 +4,120 @@ namespace Dothiv\BusinessBundle\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
+use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Repository\DomainClaimRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
-class ClickCounterConfig implements IClickCounterConfig {
+class ClickCounterConfig implements ClickCounterConfigInterface
+{
+    /**
+     * @var string[]
+     */
+    private $locales;
 
     /**
-     * @var \Swift_Mailer
+     * @var Content
      */
-    protected $mailer;
+    private $content;
 
     /**
-     * @var ContainerInterface
+     * @var string
      */
-    protected $container;
+    private $baseUrl;
 
     /**
-     * @var Translator
+     * @var string
      */
-    protected $translator;
+    private $secret;
 
     /**
-     * @var EngineInterface
+     * @var \Parsedown
      */
-    protected $templating;
+    private $parsedown;
 
-    /**
-     * @var ObjectManager
-     */
-    protected $om;
-
-    public function __construct(ContainerInterface $container, EngineInterface $templating, Translator $translator, ObjectManager $om, \Swift_Mailer $mailer) {
-        $this->container = $container;
-        $this->templating = $templating;
-        $this->translator = $translator;
-        $this->mailer = $mailer;
-        $this->om = $om;
+    public function __construct(
+        $config,
+        Content $content
+    )
+    {
+        $this->locales   = $config['locales'];
+        $this->baseUrl   = $config['baseurl'];
+        $this->secret    = $config['secret'];
+        $this->content   = $content;
+        $this->parsedown = new \Parsedown();
+        $this->parsedown->setBreaksEnabled(false);
     }
 
-    public function setup(Domain $domain, Banner $banner) {
+    public function setup(Banner $banner)
+    {
+        $domain = $banner->getDomain();
         // render config
-        $this->translator->setLocale($banner->getLanguage());
-        $config = $this->templating->render('DothivBusinessBundle:Clickcounter:config.txt.twig',
-                                            array('banner' => $banner));
+        $config = $this->buildBannerConfig($banner);
+
         // do clickcounter API request
-        list($status, $response) = $this->postConfig($domain->getName(), $config);
-
-        if ($status < 200 || $status >= 300)
-            throw new ClickCounterException('setup domain ' . $domain->getName() . ' messed up, server responded status ' . $status);
-    }
-
-    public function reset(Domain $domain) {
-        // TODO this is dead code, it's never called (there's no GUI for this one)
-        // do clickcounter API request
-        list($status, $response) = $this->deleteConfig($domain->getName());
-
-        $message = \Swift_Message::newInstance()
-            ->setSubject('ok click counter, reset ' . $domain->getName())
-            ->setFrom('debug-clickcounterconfigservice@example.com')
-            ->setTo('someone@example.com')
-            ->setBody('');
-        $this->mailer->send($message);
-
-        if ($status < 200 || $status >= 300)
-            throw new ClickCounterException('reset of domain ' . $domain->getName() . ' messed up, server responded status ' . $status);
-    }
-
-    public function retrieveByDomain(Domain $domain) {
-        $this->updateDomain($domain);
-        $this->om->flush();
-    }
-
-    public function retrieveByDate(\DateTime $notSince) {
-        $repo = $this->om->getRepository('DothivBusinessBundle:Domain');
-        $query = $repo->createQueryBuilder('d')
-                    ->where('d.lastUpdate <= :notSince')
-                    ->orWhere('d.lastUpdate is null')
-                    ->setParameter('notSince', $notSince)
-                    ->getQuery();
-        $domains = $query->getResult();
-        $fail = 0;
-        foreach($domains as $domain) {
-            try {
-                $this->updateDomain($domain);
-            } catch (ClickCounterException $ex) {
-                $fail++;
-            }
-        }
-        $this->om->flush();
-        return array(count($domains), $fail);
+        $this->postConfig($domain->getName(), $config);
     }
 
     /**
-     * Read the domain values from the click counter API and
-     * update the $domain object.
-     *
-     * @param Domain $domain
-     * @throws ClickCounterException
+     * {@inheritdoc}
      */
-    private function updateDomain(Domain $domain) {
-        // retrieve information
-        list($status, $response) = $this->getConfig($domain->getName());
-
-        if ($status < 200 || $status >= 300)
-            throw new ClickCounterException('cannot retrieve domain ' . $domain->getName() . ', server responded status ' . $status);
-
-        $information = json_decode($response);
-
-        // save information
-        $domain->setClickcount($information->clickcount);
+    function get(Domain $domain)
+    {
+        return $this->getConfig($domain->getName());
     }
 
-    /**
-     * Contact the click counter API to get domain information.
-     *
-     * This function uses cURL to do a GET request to the /config/{domain name}
-     * API endpoint.
-     *
-     * @param unknown_type $domainname
-     */
-    private function getConfig($domainname) {
-        $ch = curl_init($this->container->getParameter('clickcounter.base_url') . '/config/' . $domainname);
+    protected function getConfig($domainname)
+    {
+        $ch = curl_init($this->baseUrl . '/config/' . $domainname);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getHeaders());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        return array($status, $response);
+        if ($status < 200 || $status >= 300) {
+            throw new ClickCounterException(
+                sprintf(
+                    'Failed to read config for "%s": %s', $domainname, $response
+                )
+            );
+        }
+        return json_decode($response);
+    }
+
+    /**
+     * @param Banner $banner
+     *
+     * @return array
+     */
+    protected function buildBannerConfig(Banner $banner)
+    {
+        $config = array(
+            'firstvisit'     => $banner->getPosition(),
+            'secondvisit'    => $banner->getPositionAlternative(),
+            'default_locale' => $banner->getLanguage(),
+            'strings'        => array(),
+        );
+        foreach ($this->locales as $locale) {
+            $config['strings'][$locale] = array(
+                'heading'    => $this->getString('heading', $locale),
+                'subheading' => $this->getString('subheading', $locale),
+                'about'      => $this->getString('about', $locale),
+                'activated'  => $this->getString('activated', $locale),
+                'money'      => $this->getString('money', $locale),
+                'clickcount' => $this->getString('clickcount', $locale),
+            );
+        }
+        return $config;
+    }
+
+    protected function getString($code, $locale)
+    {
+        $v = $this->content->buildEntry('String', $code, $locale)->value;
+        return strip_tags($this->parsedown->text($v), '<strong><em><a>');
     }
 
     /**
@@ -143,50 +127,42 @@ class ClickCounterConfig implements IClickCounterConfig {
      * API endpoint.
      *
      * @param string $domainname The name of the domain to be POSTed
-     * @param string $config The text/plain configuration to POST.
-     * @return multitype:mixed array of return status code and response.
+     * @param string $config     The text/plain configuration to POST.
+     *
+     * @return array of return status code and response.
+     * @throws ClickCounterException
      */
-    private function postConfig($domainname, $config) {
-        $ch = curl_init($this->container->getParameter('clickcounter.base_url') . '/config/' . $domainname);
+    private function postConfig($domainname, $config)
+    {
+        $ch = curl_init($this->baseUrl . '/config/' . $domainname);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getHeaders());
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $config);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($config));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        return array($status, $response);
-    }
-
-    /**
-     * Contact the click counter API to DELETE a domain configuration.
-     *
-     * This function uses cURL to do a DELETE request to the /config/{domain name}
-     * API endpoint.
-     *
-     * @param string $domainname The name of the domain to be DELETEed
-     */
-    private function deleteConfig($domainname) {
-        $ch = curl_init($this->container->getParameter('clickcounter.base_url') . '/config/' . $domainname);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE'); // This is a 'custom' verb? wtf...
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getHeaders());
-        $response = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        return array($status, $response);
+        if ($status < 200 || $status >= 300) {
+            throw new ClickCounterException(
+                sprintf(
+                    'Failed to write config for "%s"', $domainname
+                )
+            );
+        }
+        return $response;
     }
 
     /**
      * Returns the headers used for the HTTP connection to the click counter API.
      * This includes the Authorization header.
      */
-    private function getHeaders() {
-        $username = $this->container->getParameter('clickcounter.authorization.username');
-        $password = $this->container->getParameter('clickcounter.authorization.password');
+    private function getHeaders()
+    {
+        $secret = $this->secret;
         return array(
-                        'Content-type: text/plain',
-                        'Authorization: Basic ' . base64_encode($username . ':' . $password),
-                      );
+            'Content-type: application/json; charset=utf-8',
+            'Accept: application/json',
+            'Authorization: Basic ' . base64_encode(':' . $secret),
+        );
     }
-
 }

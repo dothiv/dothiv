@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Dothiv\BusinessBundle\Validator\Constraints\ValidDomain;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Represents a registered .hiv-Domain.
@@ -24,6 +25,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
  */
 class Domain extends Entity
 {
+    use Traits\CreateUpdateTime;
+
     /**
      * FQDN, no trailing dot.
      *
@@ -91,20 +94,12 @@ class Domain extends Entity
     protected $activeBanner;
 
     /**
-     * The number of clicks counted for this domain. For the last update
-     * of this field, see $this->lastUpdate.
+     * The number of clicks counted for this domain.
      *
      * @ORM\Column(type="integer")
      * @Serializer\Expose
      */
     protected $clickcount = 0;
-
-    /**
-     * Instant of the last update of $this->clickcount and related values.
-     *
-     * @ORM\Column(type="datetime",nullable=true)
-     */
-    protected $lastUpdate = null;
 
     /**
      * Timestamp of when the information mail hast been sent
@@ -273,15 +268,21 @@ class Domain extends Entity
     }
 
     /**
-     * Sets the click count and updates the lastUpdate value to now.
+     * Sets the click count
      *
      * @param int $val Current click count
      */
     public function setClickcount($val)
     {
-        $this->clickcount = $val;
-        // FIXME: use clock service
-        $this->lastUpdate = new \DateTime();
+        $this->clickcount = (int)$val;
+    }
+
+    /**
+     * @return int
+     */
+    public function getClickcount()
+    {
+        return $this->clickcount;
     }
 
     /**
