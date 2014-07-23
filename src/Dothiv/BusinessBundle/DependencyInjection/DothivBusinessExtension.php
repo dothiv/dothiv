@@ -7,11 +7,6 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-/**
- * This is the class that loads and manages your bundle configuration
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
- */
 class DothivBusinessExtension extends Extension
 {
     /**
@@ -25,7 +20,6 @@ class DothivBusinessExtension extends Extension
         $container->setParameter('dothiv_business.clock_expr', $config['clock_expr']);
         $container->setParameter('dothiv_business.attachment_location', $config['attachment_location']);
         $container->setParameter('dothiv_business.clickcounter', $config['clickcounter']);
-        print_r($config['clickcounter']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
