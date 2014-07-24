@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainController', ['$scope', 'dothivNonProfitDomainResource', 'security', 'User', '$fileUploader', 'idn', function ($scope, dothivNonProfitDomainResource, security, User, $fileUploader, idn) {
+angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainController', ['$scope', 'dothivNonProfitDomainResource', 'security', 'User', 'FileUploader', 'idn', function ($scope, dothivNonProfitDomainResource, security, User, FileUploader, idn) {
     $scope.errorMessage = null;
     $scope.uploadError = null;
     $scope.errorExists = false;
@@ -285,37 +285,34 @@ angular.module('dotHIVApp.controllers').controller('NonProfitRegisterDomainContr
         'Zimbabwe'
     ];
 
-    var uploader = $scope.uploader = $fileUploader.create({
+    function isIE9() {
+        return parseInt((/msie (\d+)/.exec(navigator.userAgent.toLowerCase()) || [])[1], 10) == 9;
+    }
+
+    var uploader = $scope.uploader = new FileUploader({
         scope: $scope,
-        url: '/api/attachment',
-        headers: {
+        url: '/api/attachment'
+    });
+    if (isIE9()) {
+        uploader.url = uploader.url + '?auth_token=' + User.getAuthToken();
+    } else {
+        uploader.headers = {
             Authorization: 'Bearer ' + User.getAuthToken()
-        },
-        filters: [
-            function (item) {
-                if (item.type == "application/pdf") {
-                    $scope.uploadError = "";
-                    return true;
-                }
-                $scope.uploadError = "Please upload a PDF.";
-                return false;
-            }
-        ]
-    });
+        };
+    }
 
-    uploader.bind('afteraddingfile', function (event, item) {
-        item.upload();
-    });
+    uploader.onAfterAddingFile = function (item) {
+        uploader.uploadItem(item);
+    };
 
-    uploader.bind('error', function (event, xhr, item, response) {
-        $scope.uploadError = "Oops. Failed to upload your file.";
-    });
-
-    uploader.bind('complete', function (event, xhr, item, response) {
-        // response
-        $scope.registrant.proof = response.handle;
+    uploader.onCompleteItem = function (item, response, status, headers) {
+        if (isIE9()) {
+            $scope.registrant.proof = response;
+        } else {
+            $scope.registrant.proof = response.handle;
+        }
         $scope.upload = item;
-    });
+    };
 
     function _submit() {
         $scope.progress = true;
