@@ -200,7 +200,7 @@ class FeatureContext extends BehatContext
     }
 
     /**
-     * @Given /^I send a (?P<method>[A-Z]+) request to "(?P<url>[^"]*)" with file "(?P<filename>[^"]*)" as "(?P<fileparam>[^"]*)":$/
+     * @Given /^I send a (?P<method>[A-Z]+) request to "(?P<url>[^"]*)" with file "(?P<filename>[^"]*)" as "(?P<fileparam>[^"]*)"$/
      */
     public function iSendAPostRequestOnWithFileAsFile($method, $url, $filename, $fileparam)
     {
