@@ -21,3 +21,8 @@ dothiv_qlp_partner:
     host: "{partner}.hiv"
     resource: "@DothivQLPPartnerBundle/Resources/config/routing.yml"
     prefix:   /
+
+dothiv_qlp_partner_preview:
+    host: "{partner}.friends.%charitydomain%.hiv"
+    resource: "@DothivQLPPartnerBundle/Resources/config/routing.yml"
+    prefix:   /
