@@ -56,22 +56,89 @@ class PremiumConfiguratorPreviewController
      */
     public function previewAction(Request $request, $locale, $domain)
     {
+        $banner   = $this->getBannerForDomain($domain);
+        $data     = array(
+            'domain'    => $banner->getDomain(),
+            'banner'    => $banner,
+            'iframeUrl' => Option::fromValue($banner->getRedirectUrl())->getOrElse(sprintf('http://%s/', $banner->getDomain()->getName()))
+        );
+        $response = new Response();
+        return $this->renderer->renderResponse('DothivPremiumConfiguratorBundle:Page:preview.html.twig', $data, $response);
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $locale
+     * @param string  $domain
+     *
+     * @return Response
+     */
+    public function previewBannerConfigAction(Request $request, $locale, $domain)
+    {
+        $banner   = $this->getBannerForDomain($domain);
+        $ref      = $request->headers->get('Referer');
+        $position = 'center';
+        if ($ref) {
+            $query = parse_url($request->headers->get('Referer'), PHP_URL_QUERY);
+            parse_str($query, $params);
+            if (isset($params['position']) && in_array($params['position'], array('top', 'right'))) {
+                $position = $params['position'];
+            }
+        }
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json; charset=utf8');
+        $response->setContent(json_encode(array(
+            'about'       => 'This project will be funded',
+            'unlocked'    => 1234.56,
+            'money'       => '&euro;1234.56',
+            'clickcount'  => '1,234,560 clicks',
+            'percent'     => 0.5,
+            'activated'   => 'More about the <strong>dotHIV</strong> initiative',
+            'clicks'      => 1234560,
+            'donated'     => 0.0,
+            'firstvisit'  => $position,
+            'increment'   => 0.001,
+            'heading'     => 'Thanks!',
+            'secondvisit' => $position,
+            'subheading'  => 'Every click is worth 0.1&cent;'
+        )));
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $locale
+     * @param string  $domain
+     * @param string  $file
+     *
+     * @return Response
+     */
+    public function previewBannerFileAction(Request $request, $locale, $domain, $file)
+    {
+        $banner   = $this->getBannerForDomain($domain);
+        $response = new Response();
+        $response->headers->set('Content-Type', 'text/html; charset=utf8');
+        $response->setContent(file_get_contents(__DIR__ . '/../Resources/public/banner/' . $file));
+        return $response;
+    }
+
+    /**
+     * @param $domain
+     *
+     * @return Banner
+     */
+    protected function getBannerForDomain($domain)
+    {
         /** @var Domain $domain */
         /** @var Banner $banner */
-        $domain   = $this->domainRepo->getDomainByName($domain)->getOrCall(function () {
+        $domain = $this->domainRepo->getDomainByName($domain)->getOrCall(function () {
             throw new NotFoundHttpException();
         });
-        $banner   = Option::fromValue($domain->getBanners()->first(), false)->getOrCall(function () use ($domain) {
+        $banner = Option::fromValue($domain->getBanners()->first(), false)->getOrCall(function () use ($domain) {
             $banner = new Banner();
             $banner->setDomain($domain);
             return $banner;
         });
-        $data     = array(
-            'domain'    => $domain,
-            'banner'    => $banner,
-            'iframeUrl' => Option::fromValue($banner->getRedirectUrl())->getOrElse(sprintf('http://%s/', $domain->getName()))
-        );
-        $response = new Response();
-        return $this->renderer->renderResponse('DothivPremiumConfiguratorBundle:Page:preview.html.twig', $data, $response);
+        return $banner;
     }
 }

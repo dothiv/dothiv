@@ -8,6 +8,18 @@ dothiv_premiumconfig_preview:
     defaults:
         _controller: dothiv.premiumconfigurator.controller.preview:previewAction
 
+dothiv_premiumconfig_preview_config:
+    path:     /{locale}/premium-configurator/{domain}/demo.json
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.preview:previewBannerConfigAction
+
+dothiv_premiumconfig_preview_banner:
+    path:     /{locale}/premium-configurator/{domain}/{file}
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.preview:previewBannerFileAction
+    requirements:
+        file: ^banner-(center|right|top).html
+
 dothiv_premiumconfig_page_app:
     path:     /{locale}/premium-configurator/{domain}/app/{page}.html
     defaults:
