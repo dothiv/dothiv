@@ -82,6 +82,7 @@ body {
     }
     div.main {
       background-color: @well-bg;
+      padding-bottom: 2em;
       div.inner {
         .container;
       }
@@ -89,10 +90,11 @@ body {
         .make-row();
         margin-top: 1em;
       }
-      form {
+      fieldset {
         .make-xs-column(8);
       }
-      input {
+
+      input[type=text], input[type=url] {
         &:extend(.form-control all);
         &.ng-valid {
           border-color: @brand-success;
@@ -109,6 +111,30 @@ body {
         &.ng-pristine {
         }
         &.ng-dirty {
+        }
+      }
+
+      fieldset.imageupload {
+        .make-xs-column(6);
+        .container-fluid;
+        position: relative;
+        height: 200px;
+        div.image {
+          .make-xs-column(6);
+          width: 150px;
+          height: 150px;
+          border: 1px solid @body-bg;
+          img {
+
+          }
+        }
+        label {
+          .make-xs-column(6);
+        }
+        input {
+          position: absolute;
+          right: 0;
+          bottom: 0;
         }
       }
     }

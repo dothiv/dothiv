@@ -37,7 +37,6 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$sco
                 height -= $('#settings').outerHeight();
             }
             $scope.iframeStyle = {'height': height + 'px'};
-            console.log($scope.iframeStyle);
         }
 
         function updatePreview() {
@@ -52,6 +51,9 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$sco
         });
 
         $scope.$watch('fullscreen', function () {
+            $timeout(updateIframeSize, 100);
+        });
+        $scope.$watch('settings', function () {
             $timeout(updateIframeSize, 100);
         });
 
