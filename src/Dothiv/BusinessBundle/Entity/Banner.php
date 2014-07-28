@@ -81,7 +81,8 @@ class Banner extends Entity
      */
     public function setRedirectUrl($redirectUrl)
     {
-        $this->redirectUrl = $redirectUrl;
+        $redirectUrl = trim($redirectUrl);
+        $this->redirectUrl = empty($redirectUrl) ? null : $redirectUrl;
     }
 
     /**

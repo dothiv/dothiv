@@ -1,9 +1,14 @@
-dothiv_qlp_page:
+dothiv_premiumconfig_page:
     path:     /{locale}/premium-configurator/{domain}
     defaults:
         _controller: dothiv.premiumconfigurator.controller.page:configuratorPageAction
 
-dothiv_qlp_page_app:
+dothiv_premiumconfig_preview:
+    path:     /{locale}/premium-configurator/{domain}/preview
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.preview:previewAction
+
+dothiv_premiumconfig_page_app:
     path:     /{locale}/premium-configurator/{domain}/app/{page}.html
     defaults:
         _controller: dothiv.premiumconfigurator.controller.page:configuratorAppPageAction

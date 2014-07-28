@@ -1,4 +1,6 @@
-{% trans_default_domain "charity" %}<!DOCTYPE html><!--
+{% trans_default_domain "charity" %}
+<!DOCTYPE html>
+<!--
 
 
             _|_|          _|_|
@@ -48,7 +50,8 @@
                 {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/dothiv-logo.png' %}
                 <img src="{{ asset_url }}" alt="{{ page.title }}">
                 {% endimage %}
-                {{ page.title }}
+                {% trans %}pc.title{% endtrans %}<br>
+                <small>{% trans %}pc.subtitle{% endtrans %}</small>
             </h1>
             <div id="loading" data-ng-show="loading">
                 {% trans %}pc.loading{% endtrans %}
@@ -63,9 +66,11 @@
 <footer></footer>
 {% block angular_app %}
     {% javascripts
+    '@DothivPremiumConfiguratorBundle/Resources/public/js/vendor/jquery.js'
     '@DothivAngularJsBundle/Resources/angular/angular-resource.js'
     '@DothivAngularJsBundle/Resources/angular/angular-route.js'
     '@DothivAngularJsBundle/Resources/angular/angular-cookies.js'
+    '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-bootstrap/3/angular-ui-bootstrap-tpls.js'
     '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
     '@DothivPremiumConfiguratorBundle/Resources/public/js/app.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'

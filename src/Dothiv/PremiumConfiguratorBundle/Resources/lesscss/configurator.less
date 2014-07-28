@@ -1,0 +1,116 @@
+body {
+  height: 100%;
+}
+#configurator {
+  background: @well-bg;
+  height: 100%;
+  width: 100%;
+  &.fullscreen {
+    // Configurator in Fullscreen mode
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  iframe {
+    border: 0;
+    width: 100%;
+    height: 600px;
+    margin: 0;
+    padding: 0;
+  }
+  #topnav {
+    .container;
+    nav.layouts {
+      .pull-left;
+      button {
+        background: none;
+        border: 0;
+        border-right: 2px solid @body-bg;
+        &:first-child {
+          border-left: 2px solid @body-bg;
+        }
+        img {
+          max-height: 50px;
+          margin: 0.5em;
+        }
+      }
+    }
+    nav.preview {
+      .pull-right;
+      margin-top: 0.925em;
+      button {
+        &:extend(.btn)
+      ;
+        &:extend(.btn-default)
+      ;
+        &.primary {
+          &:extend(.btn-primary)
+        ;
+        }
+      }
+    }
+  }
+  #settings {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    header {
+      background-color: @brand-primary;
+      div.inner {
+        .container;
+      }
+      nav {
+        .make-row();
+      }
+      button {
+        .make-xs-column(2);
+        background: transparent;
+        border: 0;
+        color: @brand-primary-text;
+        border-left: 1px solid @body-bg;
+        padding: 0.5em 1em;
+        &:first-child {
+          border-left: 0;
+        }
+        &.active {
+          background-color: @well-bg;
+          color: @text-color;
+        }
+      }
+    }
+    div.main {
+      background-color: @well-bg;
+      div.inner {
+        .container;
+      }
+      section {
+        .make-row();
+        margin-top: 1em;
+      }
+      form {
+        .make-xs-column(8);
+      }
+      input {
+        &:extend(.form-control all);
+        &.ng-valid {
+          border-color: @brand-success;
+          &.ng-pristine {
+            border-color: @input-border;
+          }
+        }
+        &.ng-invalid {
+          border-color: @brand-danger;
+          &.ng-pristine {
+            border-color: @input-border;
+          }
+        }
+        &.ng-pristine {
+        }
+        &.ng-dirty {
+        }
+      }
+    }
+  }
+}

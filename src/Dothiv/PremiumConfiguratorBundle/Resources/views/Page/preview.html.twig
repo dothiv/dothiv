@@ -1,0 +1,104 @@
+{% trans_default_domain "charity" %}
+<!DOCTYPE html>
+<!--
+
+
+            _|_|          _|_|
+            _|_|          _|_|
+            _|_|
+            _|_|
+            _|_|_|_|      _|_|  _|_|    _|_|
+            _|_|_|_|_|    _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+      _|_|  _|_|    _|_|  _|_|    _|_|_|_|
+      _|_|  _|_|    _|_|  _|_|      _|_|
+
+ .hiv domains – The Red Ribbon of the digital age
+
+                  click4life.hiv
+
+-->
+<html>
+<head>
+    <title>dotHIV Clickcounter | {{ domain.name }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        iframe.page {
+            border: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        {# Center #}
+        #banner-center-outer {
+            background-color: #fff;
+            -ms-filter: 'alpha(Opacity=70)';
+            filter: alpha(opacity=70);
+            left: 0;
+            height: 100%;
+            margin: 0;
+            opacity: .7;
+            padding: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2147483646;
+        }
+
+        #banner-center {
+            width: 100%;
+            height: 160px;
+            position: absolute;
+            top: 200px;
+            background-color: #E4E4E4;
+            -webkit-box-shadow: 0 -2px 4px #ECECEC,0 2px 2px #ECECEC;
+            -moz-box-shadow: 0 -2px 4px #ECECEC,0 2px 2px #ECECEC;
+            box-shadow: 0 -2px 4px #ECECEC,0 2px 2px #ECECEC;
+            z-index: 2147483647;
+        }
+
+        .bar {
+            background-color: #fce5f1;
+            height: 36px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .pink {
+            background-color: #e00073;
+            height: 36px;
+            position: absolute;
+            bottom: 0;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+{% set position = app.request.get('position')|default('center') %}
+{% if position == 'center' %}
+    <div id="banner-center-outer"></div>
+    <div id="banner-center">
+        <div class="bar">
+            <div class="pink"></div>
+        </div>
+    </div>
+{% elseif position == 'top' %}
+{% else %}
+{% endif %}
+<iframe src="{{ iframeUrl }}" width="100%" height="100%" class="page"></iframe>
+</body>
+</html>

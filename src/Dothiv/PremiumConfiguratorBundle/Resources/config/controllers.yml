@@ -9,3 +9,10 @@ services:
           - %assets_version%
           - @clock
           - %page_lifetime%
+
+    dothiv.premiumconfigurator.controller.preview:
+        class: Dothiv\PremiumConfiguratorBundle\Controller\PremiumConfiguratorPreviewController
+        arguments:
+          - @templating
+          - @dothiv.repository.domain
+          - @dothiv.repository.banner

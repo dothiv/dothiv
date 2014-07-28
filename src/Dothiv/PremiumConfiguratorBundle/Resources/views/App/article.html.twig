@@ -1,20 +1,23 @@
-<article data-ng-controller="ArticleController" data-ng-init="blocks = {{ page.blocks|length }}">
-    {% for block in  page.blocks %}
-        <section data-ng-show="block == '{{ loop.index }}'">
-            <div class="block">
-                {% if block.title is defined %}
-                    <h2>{{ block.title }}</h2>
-                {% endif %}
-                {% if block.text is defined %}
-                    {{ block.text|markdown }}
-                {% endif %}
-            </div>
-        </section>
-    {% endfor %}
-    <nav>
-        {% block nav %}
-        <a rel="prev" data-ng-click="prev()" data-ng-show="hasPrev()">{% trans %}pc.nav.prev{% endtrans %}</a>
-        <a rel="next" data-ng-click="next()" data-ng-show="hasNext()">{% trans %}pc.nav.next{% endtrans %}</a>
-        {% endblock nav %}
-    </nav>
-</article>
+{% trans_default_domain "charity" %}
+<div class="content">
+    <article data-ng-controller="ArticleController" data-ng-init="blocks = {{ page.blocks|length }}">
+        {% for block in  page.blocks %}
+            <section data-ng-show="block == '{{ loop.index }}'">
+                <div class="block">
+                    {% if block.title is defined %}
+                        <h2>{{ block.title }}</h2>
+                    {% endif %}
+                    {% if block.text is defined %}
+                        {{ block.text|markdown }}
+                    {% endif %}
+                </div>
+            </section>
+        {% endfor %}
+        <nav>
+            {% block nav %}
+                <a rel="prev" data-ng-click="prev()" data-ng-show="hasPrev()">{% trans %}pc.nav.prev{% endtrans %}</a>
+                <a rel="next" data-ng-click="next()" data-ng-show="hasNext()">{% trans %}pc.nav.next{% endtrans %}</a>
+            {% endblock nav %}
+        </nav>
+    </article>
+</div>

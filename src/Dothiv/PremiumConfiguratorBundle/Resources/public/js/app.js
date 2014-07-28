@@ -4,6 +4,10 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
     .config(['$locationProvider', function ($locationProvider) {
         $locationProvider.hashPrefix('!');
     }])
+    .config(function($interpolateProvider) {
+        $interpolateProvider.startSymbol('%');
+        $interpolateProvider.endSymbol('%');
+    })
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.headers.common.Accept = "application/json";
         $httpProvider.interceptors.push('HttpLoadingInterceptor');
@@ -27,6 +31,11 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
             url: '/start',
             templateUrl: '/' + locale + '/premium-configurator/' + domain + '/app/start.html'
         })
+        .state('=.configure', {
+            url: '/configure',
+            templateUrl: '/' + locale + '/premium-configurator/' + domain + '/app/configure.html',
+            controller: 'ConfigureController'
+        })
         .state('=.payment', {
             url: '/payment',
             templateUrl: '/' + locale + '/premium-configurator/' + domain + '/app/payment.html',
@@ -47,8 +56,9 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
                 });
             }
         });
+        $state.transitionTo('=.start');
     }])
 ;
 angular.module('dotHIVApp.services', ['dotHIVApp.controllers', 'ui.router', 'ngResource', 'ngCookies']);
-angular.module('dotHIVApp.controllers', []);
+angular.module('dotHIVApp.controllers', ['ui.bootstrap']);
 

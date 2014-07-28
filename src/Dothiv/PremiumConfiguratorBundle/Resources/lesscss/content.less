@@ -1,8 +1,10 @@
-main, header {
-  .container;
+body {
+  &>header, &>footer, main div.content {
+    .container;
+  }
 }
 
-article {
+div.content article {
   @media (min-width: @screen-xs-min) {
     margin-top: 20px;
     margin-bottom: 40px;
@@ -36,7 +38,7 @@ a {
   text-decoration: underline;
 }
 
-header {
+body > header {
   margin-top: 1em;
   section {
     position: relative;
@@ -74,7 +76,7 @@ main {
   }
 }
 
-footer {
+body > footer {
   margin-top: 1em;
   margin-bottom: 1em;
 }

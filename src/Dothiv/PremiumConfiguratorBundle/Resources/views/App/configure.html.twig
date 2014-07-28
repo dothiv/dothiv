@@ -1,0 +1,94 @@
+{% trans_default_domain "charity" %}
+<div id="configurator" data-ng-class="{fullscreen: fullscreen}">
+    <div id="topnav">
+        <nav class="layouts">
+            <button data-ng-click="bannerPosition = 'center'">
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-center.png' %}
+                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.center{% endtrans %}" data-ng-show="bannerPosition == 'center'">
+                {% endimage %}
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-center-off.png' %}
+                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.center{% endtrans %}" data-ng-show="bannerPosition != 'center'">
+                {% endimage %}
+            </button>
+            <button data-ng-click="bannerPosition = 'top'">
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-top.png' %}
+                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.top{% endtrans %}" data-ng-show="bannerPosition == 'top'">
+                {% endimage %}
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-top-off.png' %}
+                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.top{% endtrans %}" data-ng-show="bannerPosition != 'top'">
+                {% endimage %}
+            </button>
+            <button data-ng-click="bannerPosition = 'right'">
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-right.png' %}
+                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.right{% endtrans %}" data-ng-show="bannerPosition == 'right'">
+                {% endimage %}
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-right-off.png' %}
+                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.right{% endtrans %}" data-ng-show="bannerPosition != 'right'">
+                {% endimage %}
+            </button>
+        </nav>
+        <nav class="preview">
+            <button data-ng-click="fullscreen = true" data-ng-show="!fullscreen">
+                {% trans %}pc.preview.fullscreen{% endtrans %}
+            </button>
+            <button data-ng-click="fullscreen = false" data-ng-show="fullscreen">
+                {% trans %}pc.preview.fullscreen.close{% endtrans %}
+            </button>
+            <button class="primary">
+                {% trans %}pc.preview.finish{% endtrans %}
+            </button>
+        </nav>
+    </div>
+    <iframe src="%iframeUrl%" data-ng-init="iframeUrl='{{ path('dothiv_premiumconfig_preview', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}'" data-ng-style="iframeStyle"></iframe>
+    <div id="settings" data-ng-hide="fullscreen">
+        <header>
+            <div class="inner">
+                <nav>
+                    <button data-ng-click="settings = 'general'" data-ng-class="{active: settings == 'general'}">
+                        {% trans %}pc.settings.general{% endtrans %}
+                    </button>
+                    <button data-ng-click="settings = 'images'" data-ng-class="{active: settings == 'images'}">
+                        {% trans %}pc.settings.images{% endtrans %}
+                    </button>
+                    <button data-ng-click="settings = 'colors'" data-ng-class="{active: settings == 'colors'}">
+                        {% trans %}pc.settings.colors{% endtrans %}
+                    </button>
+                    <button data-ng-click="settings = 'fonts'" data-ng-class="{active: settings == 'fonts'}">
+                        {% trans %}pc.settings.fonts{% endtrans %}
+                    </button>
+                    <button data-ng-click="settings = 'style'" data-ng-class="{active: settings == 'style'}">
+                        {% trans %}pc.settings.style{% endtrans %}
+                    </button>
+                    <button data-ng-click="settings = 'extras'" data-ng-class="{active: settings == 'extras'}">
+                        {% trans %}pc.settings.extras{% endtrans %}
+                    </button>
+                </nav>
+            </div>
+        </header>
+        <div class="main">
+            <div class="inner">
+                <section>
+                    <form role="form" novalidate name="bannerForm">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="redirect_url">{% trans %}
+                                    pc.settings.general.redirecturl{% endtrans %}</label>
+                                <input type="url" id="redirect_url" data-ng-model="bannerForm.redirectUrl" data-ng-blur="updateBannerSettings()">
+                            </div>
+                        </fieldset>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="forbidden.html">
+    {% set modal = content('Block', 'pc.errormodal.forbidden') %}
+
+    <header>
+        <h2>{{ modal.title }}</h2>
+    </header>
+    <article>
+        {{ modal.text|markdown }}
+    </article>
+</script>
