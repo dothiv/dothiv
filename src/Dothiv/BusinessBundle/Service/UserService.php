@@ -89,13 +89,14 @@ class UserService implements UserProviderInterface, UserServiceInterface
     /**
      * @param string $email
      * @param string $httpHost
+     * @param string $locale
      *
      * @return void
      *
      * @throws EntityNotFoundException If user not found.
      * @throws TemporarilyUnavailableException If mail has been sent.
      */
-    public function sendLoginLinkForEmail($email, $httpHost)
+    public function sendLoginLinkForEmail($email, $httpHost, $locale)
     {
         /* @var User $user */
         /* @var UserToken $token */
@@ -111,7 +112,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
             throw new TemporarilyUnavailableException($token->getLifeTime());
         }
         $token = $this->createUserToken($user);
-        $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token, $httpHost));
+        $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token, $httpHost, $locale));
     }
 
     protected function createUserToken(User $user, $lifetimeInSeconds = 1800)

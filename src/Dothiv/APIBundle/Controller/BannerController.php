@@ -132,7 +132,7 @@ class BannerController extends BaseController
     {
         /* @var BannerConfigRequest $configRequest */
         $configRequest = $request->attributes->get('model');
-        $domain        = $this->getDomainByName($configRequest->name);
+        $domain        = $this->getDomainByName($configRequest->getName());
 
         /* @var Banner $banner */
         $banner = Option::fromValue($domain->getActiveBanner())->getOrCall(function () use ($domain) {
@@ -167,7 +167,7 @@ class BannerController extends BaseController
     {
         /* @var DomainNameRequest $domainNameRequest */
         $domainNameRequest = $request->attributes->get('model');
-        $name              = $domainNameRequest->name;
+        $name              = $domainNameRequest->getName();
         $domain            = $this->getDomainByName($name);
         $banner            = Option::fromValue($domain->getActiveBanner())->getOrCall(function () use ($name) {
             throw new NotFoundHttpException(

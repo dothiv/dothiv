@@ -1,0 +1,7 @@
+dothiv_charity_account_index:
+    pattern: /{locale}/account
+    defaults:
+        _controller: dothiv.charity.web.controller.page:pageAction
+        page: account/index
+    requirements:
+        locale:  en|de|ky

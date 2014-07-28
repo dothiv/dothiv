@@ -8,7 +8,7 @@
                 <div class="span12" data-ng-show="user.$resolved && security.isAuthenticated()">
                     <h2>{{ 'profile.greeting'|trans|markdown }}</h2>
                     <nav>
-                        <a href="#!/profile/dashboard" data-ng-class="{ active: state.includes('profile.dashboard') }">
+                        <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}#!/profile/dashboard" data-ng-class="{ active: state.includes('profile.dashboard') }">
                             {% trans %}profile.navigation.dashboard{% endtrans %}
                         </a>
                         <a data-ng-click="logout()">
@@ -28,6 +28,7 @@
 
 {% block angular_app %}
     {% javascripts
+    '@DothivBaseWebsiteBundle/Resources/public/vendor/github.com/bestiejs/punycode.js/punycode.js'
     '@DothivAngularJsBundle/Resources/angular/angular-resource.js'
     '@DothivAngularJsBundle/Resources/angular/angular-route.js'
     '@DothivAngularJsBundle/Resources/angular/angular-cookies.js'

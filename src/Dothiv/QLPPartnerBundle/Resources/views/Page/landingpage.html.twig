@@ -1,5 +1,6 @@
 {% trans_default_domain "charity" %}
-<!DOCTYPE html><!--
+<!DOCTYPE html>
+<!--
 
 
             _|_|          _|_|
@@ -16,7 +17,7 @@
 
  .hiv domains – The Red Ribbon of the digital age
 
-                    dotHIV.org
+                  click4life.hiv
 
 -->
 <html lang="{{ locale }}">
@@ -39,6 +40,21 @@
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <!-- Social Media Sharing -->
+    {% set description = qlp.text.text|trans({'%hivdomain%': qlp.domain ~ ".hiv", '%partnerdomain%': qlp.partnerDomain})|split("\n")[0] %}
+    <!-- Twitter cards support -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="dotHIV">
+    <meta name="twitter:title" content="{{ qlp.domain ~ ".hiv" }}">
+    <meta name="twitter:description" content="{{ description }}">
+    <meta name="twitter:creator" content="dotHIV">
+    <meta name="twitter:image:src" content="{{ app.request.uriForPath(qlp.logo.file.thumbnails.friend) }}">
+    <!-- Facebook open graph support -->
+    <meta property="og:title" content="{{ qlp.domain ~ ".hiv" }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:image" content="{{ app.request.uriForPath(qlp.logo.file.thumbnails.friend) }}">
+    <meta property="og:site_name" content="{{ qlp.domain ~ ".hiv" }}">
+    <meta property="og:type" content="website">
 </head>
 <body data-ng-app="dotHIVApp">
 <header>
@@ -76,7 +92,7 @@
             </div>
         </section>
         <section>
-            <div class="hero"><a href="http://dotHIV.org/">dotHIV.org</a></div>
+            <div class="hero"><a href="{{ path('dothiv_charity_index', {'locale': locale}) }}">click4life.hiv</a></div>
         </section>
     </article>
 </main>

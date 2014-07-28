@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="span12 profile-heading">
-            <h2 class="pull-left">{% trans %}account.profile.domains.edit{% endtrans %}</h2>
+            <h2>{% trans %}account.profile.domains.edit{% endtrans %}</h2>
         </div>
     </div>
     <div class="row">
@@ -188,9 +188,12 @@
 
                                 <div class="row-fluid">
                                     <div class="offset2 span8">
-                                        <button class="back"" data-ng-click="tab2.active = true">
+                                        <button class="back" data-ng-click="tab2.active = true">
                                             {% trans %}generic.button.back{% endtrans %}
                                         </button>
+                                        <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}#!/profile/dashboard" class="btn btn-primary next">
+                                            {% trans %}basicedit.button.backtodashboard{% endtrans %}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -198,6 +201,11 @@
                     </tab>
                 </tabset>
             </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            {% include "DothivCharityWebsiteBundle:App:account/legal.html.twig" %}
         </div>
     </div>
 </div>

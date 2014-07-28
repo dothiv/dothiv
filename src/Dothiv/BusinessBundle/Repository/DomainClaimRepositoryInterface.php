@@ -2,9 +2,10 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\DomainClaim;
 
-interface DomainClaimRepositoryInterface
+interface DomainClaimRepositoryInterface extends ObjectRepository
 {
     /**
      * Persist the entity.

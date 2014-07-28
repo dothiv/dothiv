@@ -2,13 +2,14 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\Attachment;
 use PhpOption\Option;
 
 /**
  * This repository contains the attachments.
  */
-interface AttachmentRepositoryInterface
+interface AttachmentRepositoryInterface extends ObjectRepository
 {
     /**
      * Persist the entity.

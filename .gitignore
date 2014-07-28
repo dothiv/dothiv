@@ -26,3 +26,4 @@
 /src/Dothiv/CharityWebsiteBundle/Resources/test_out/
 /web/images
 /app/attachments
+app/config/parameters_test.yml

@@ -90,9 +90,16 @@
 
 {% block cf_block %}
     {% set thumbnail_size = thumbnail_size|default(block|behaviour('thumbnails')) %}
-    <div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" data-cf-url="{{ block.cfMeta.url }}" class="block">
+    {% set text_class = block|behaviour('text') %}
+    {% set image_pos = block|behaviour('image') %}
+    <div id="{{ block.code|default(block.cfMeta.itemId)|slugify }}" data-cf-url="{{ block.cfMeta.url }}" class="block {{ text_class }}">
+        {% if image_pos == "top" %}
+        {{ block('cf_block_imagecontent') }}
+        {{ block('cf_block_textcontent') }}
+        {% else %}
         {{ block('cf_block_textcontent') }}
         {{ block('cf_block_imagecontent') }}
+        {% endif %}
         {{ block('cf_block_videocontent') }}
         {{ block('cf_block_downloads') }}
         {{ block('cf_block_module') }}

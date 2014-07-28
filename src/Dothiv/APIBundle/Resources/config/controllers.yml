@@ -6,6 +6,8 @@ services:
          - @dothiv.repository.domain
          - @dothiv.repository.domainclaim
          - @serializer
+         - @event_dispatcher
+         - @clock
 
     dothiv.api.controller.banner:
         class: Dothiv\APIBundle\Controller\BannerController

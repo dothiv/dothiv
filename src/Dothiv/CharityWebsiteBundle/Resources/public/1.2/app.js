@@ -11,13 +11,8 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
     .config(['$stateProvider', function ($stateProvider) {
         var locale = document.location.pathname.split("/")[1];
         $stateProvider
-            .state('home', {
-                url: '',
-                templateUrl: '/' + locale + '/app/account/login.html',
-                controller: 'AccountLoginController'
-            })
             .state('login', {
-                url: '/login',
+                url: '',
                 templateUrl: '/' + locale + '/app/account/login.html',
                 controller: 'AccountLoginController'
             })
@@ -58,8 +53,14 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
                         $state.transitionTo('login');
                     }
                 });
+            } else if (toState.name.match('^login$')) {
+                security.updateUserInfo();
+                security.schedule(function () {
+                    if (security.isAuthenticated()) {
+                        $state.transitionTo('profile.dashboard');
+                    }
+                });
             }
-
         });
     }])
 ;

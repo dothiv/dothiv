@@ -32,6 +32,8 @@ twig:
       general_availability: 2014-08-26T00:00:00Z
       sunrise: 2014-07-21T14:00:00Z
       assets_version: %assets_version%
+      googleanalytics_charity: %googleanalytics_charity%
+      googleanalytics_registry: %googleanalytics_registry%
 
 # Assetic Configuration
 assetic:
@@ -114,6 +116,8 @@ dothiv_business:
       # - hiv
       ~
     attachment_location: '%kernel.root_dir%/attachments'
+    clickcounter:
+        secret: '%clickcounter_auth_secret%'
 
 dothiv_base_website:
     thumbnails:
@@ -130,7 +134,7 @@ dothiv_charity_website:
     features:
         - { name: howitworks, enabled: false }
         - { name: projects, enabled: true, routing: true }
-        - { name: profile, enabled: false }
+        - { name: profile, enabled: true, routing: true, config: true }
         - { name: pinkbar_clickcounter, enabled: false }
         - { name: pinkbar_countdown, enabled: true }
 
@@ -139,4 +143,5 @@ parameters:
     page_lifetime: 1800
     # Do not convert variables in camel case (myVar) to snake case "my_var"
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
+
 

@@ -3,6 +3,7 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
@@ -10,7 +11,7 @@ use PhpOption\Option;
 /**
  * This repository contains the NonProfitRegistrations.
  */
-interface NonProfitRegistrationRepositoryInterface
+interface NonProfitRegistrationRepositoryInterface extends ObjectRepository
 {
     /**
      * Persist the entity.

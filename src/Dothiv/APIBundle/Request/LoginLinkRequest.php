@@ -16,4 +16,12 @@ class LoginLinkRequest
      * @Assert\Email
      */
     public $email;
+
+    /**
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Assert\Regex("/^(de|en|ky)$/")
+     */
+    public $locale;
 }

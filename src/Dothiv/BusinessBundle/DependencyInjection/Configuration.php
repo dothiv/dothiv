@@ -26,6 +26,15 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('clock_expr')->defaultValue('now')->end()
             ->scalarNode('attachment_location')->isRequired()->end()
+            ->arrayNode('clickcounter')
+                ->children()
+                    ->scalarNode('baseurl')->defaultValue('https://dothiv-registry.appspot.com')->end()
+                    ->scalarNode('secret')->isRequired()->end()
+                    ->arrayNode('locales')->defaultValue(array('en','de','fr','es'))
+                        ->prototype('scalar')->end()
+                    ->end()
+                ->end()
+            ->end()
             ->end();
         return $treeBuilder;
     }

@@ -1,8 +1,5 @@
 parameters:
     dothiv.charity.routing.loader.class: Dothiv\CharityWebsiteBundle\Routing\RoutingLoader
-    dothiv.charity.service.mailer.domain_registered.class: Dothiv\CharityWebsiteBundle\Service\Mailer\DomainRegisteredMailer
-    dothiv.charity.service.mailer.login.class: Dothiv\BaseWebsiteBundle\Service\Mailer\LoginLinkMailer
-    dothiv.charity.service.mailer.content.class: Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailer
 
 services:
     dothiv.charity.routing.loader:
@@ -27,31 +24,3 @@ services:
             - @dothiv_contentful.content
             - @dothiv.websitebase.contentful.view_builder
             - %contenful_space_charity%
-
-    dothiv.charity.service.mailer.content:
-        class: %dothiv.charity.service.mailer.content.class%
-        arguments:
-        - @mailer
-        - @dothiv.charity.contentful.charity_content
-        - %email_from_address%
-        - %email_from_name%
-
-    dothiv.charity.service.mailer.domain_registered:
-        class: %dothiv.charity.service.mailer.domain_registered.class%
-        arguments:
-        - @dothiv.charity.service.mailer.content
-        - @router
-        - @dothiv.businessbundle.service.user
-        tags:
-            - { name: kernel.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
-
-    dothiv.charity.service.mailer.login:
-        class: %dothiv.charity.service.mailer.login.class%
-        arguments:
-        - @dothiv.charity.service.mailer.content
-        - @router
-        - 'dothiv_charity_account_index'
-        - %charitydomain%
-        - @dothiv.businessbundle.service.user
-        tags:
-            - { name: kernel.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }

@@ -78,7 +78,7 @@ class NonProfitRegistrationController extends BaseController
 
         $model = $request->attributes->get('model');
 
-        $registration = $this->nonProfitRegistrationRepo->getNonProfitRegistrationByDomainName($model->name)->getOrCall(function () {
+        $registration = $this->nonProfitRegistrationRepo->getNonProfitRegistrationByDomainName($model->getName())->getOrCall(function () {
             throw new NotFoundHttpException();
         });
 

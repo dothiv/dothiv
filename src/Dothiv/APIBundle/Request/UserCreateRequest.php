@@ -7,16 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Model for a user creation request
  */
-class UserCreateRequest
+class UserCreateRequest extends LoginLinkRequest
 {
-    /**
-     * @var string
-     * @Assert\NotNull
-     * @Assert\NotBlank
-     * @Assert\Email()
-     */
-    public $email;
-
     /**
      * @var string
      * @Assert\NotNull

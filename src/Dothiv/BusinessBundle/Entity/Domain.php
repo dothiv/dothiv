@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Dothiv\BusinessBundle\Validator\Constraints\ValidDomain;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Represents a registered .hiv-Domain.
@@ -24,11 +25,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
  */
 class Domain extends Entity
 {
+    use Traits\CreateUpdateTime;
+
     /**
      * FQDN, no trailing dot.
      *
      * @ORM\Column(type="string",length=255)
-     * @Assert\Regex("/^([a-zA-Z0-9]|xn--)(?:[a-zA-Z0-9]|-(?!-)){1,62}[a-zA-Z0-9]\.hiv$/")
+     * @Assert\Regex("/^([a-z0-9]|xn--)(?:[a-z0-9]|-(?!-)){1,62}[a-z0-9]\.hiv$/")
      *
      * @Serializer\Expose
      */
@@ -91,8 +94,7 @@ class Domain extends Entity
     protected $activeBanner;
 
     /**
-     * The number of clicks counted for this domain. For the last update
-     * of this field, see $this->lastUpdate.
+     * The number of clicks counted for this domain.
      *
      * @ORM\Column(type="integer")
      * @Serializer\Expose
@@ -100,11 +102,13 @@ class Domain extends Entity
     protected $clickcount = 0;
 
     /**
-     * Instant of the last update of $this->clickcount and related values.
+     * Timestamp of when the information mail hast been sent
      *
-     * @ORM\Column(type="datetime",nullable=true)
+     * @var \DateTime $tokenSent
+     *
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $lastUpdate = null;
+    private $tokenSent;
 
     /**
      * The constructor
@@ -132,7 +136,7 @@ class Domain extends Entity
      */
     public function setName($fqdn)
     {
-        $this->name = $fqdn;
+        $this->name = strtolower($fqdn);
     }
 
     /**
@@ -194,6 +198,7 @@ class Domain extends Entity
      * @param string $token
      *
      * @throws InvalidArgumentException
+     * TODO: Remove token checking here …
      */
     public function claim(User $newOwner, $token)
     {
@@ -263,15 +268,21 @@ class Domain extends Entity
     }
 
     /**
-     * Sets the click count and updates the lastUpdate value to now.
+     * Sets the click count
      *
      * @param int $val Current click count
      */
     public function setClickcount($val)
     {
-        $this->clickcount = $val;
-        // FIXME: use clock service
-        $this->lastUpdate = new \DateTime();
+        $this->clickcount = (int)$val;
+    }
+
+    /**
+     * @return int
+     */
+    public function getClickcount()
+    {
+        return $this->clickcount;
     }
 
     /**
@@ -288,5 +299,21 @@ class Domain extends Entity
     public function getOwnerName()
     {
         return $this->ownerName;
+    }
+
+    /**
+     * @param \DateTime $informationSent
+     */
+    public function setTokenSent(\DateTime $informationSent)
+    {
+        $this->tokenSent = $informationSent;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getTokenSent()
+    {
+        return $this->tokenSent;
     }
 }

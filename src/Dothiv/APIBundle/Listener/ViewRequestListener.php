@@ -85,10 +85,33 @@ class ViewRequestListener
     protected function setModelDataFromArray($data, $model)
     {
         foreach ($data as $k => $v) {
-            if (property_exists($model, $k)) {
+            $setter = $this->toSetter($k);
+            if (method_exists($model, $setter)) {
+                $model->$setter($v);
+            } elseif (property_exists($model, $k)) {
                 $model->$k = $v;
             }
         }
+    }
+
+    /**
+     * @param string $propertyName
+     *
+     * @return string
+     */
+    protected function toSetter($propertyName)
+    {
+        return 'set' . $this->toCamelCase($propertyName);
+    }
+
+    /**
+     * @param string $propertyName
+     *
+     * @return string
+     */
+    protected function toCamelCase($propertyName)
+    {
+        return ucwords(preg_replace('/_/', ' ', $propertyName));
     }
 
     /**

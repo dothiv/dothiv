@@ -1,17 +1,40 @@
 {% trans_default_domain "charity" %}
 <!DOCTYPE html>
+<!--
+
+
+            _|_|          _|_|
+            _|_|          _|_|
+            _|_|
+            _|_|
+            _|_|_|_|      _|_|  _|_|    _|_|
+            _|_|_|_|_|    _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+      _|_|  _|_|    _|_|  _|_|    _|_|_|_|
+      _|_|  _|_|    _|_|  _|_|      _|_|
+
+ .hiv domains – The Red Ribbon of the digital age
+
+                  click4life.hiv
+
+-->
 <html lang="{{ locale }}">
 <head>
     <meta charset="utf-8">
-    <title>
+    {% set title %}{% spaceless %}
         {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
         {% trans %}dothiv.fullname{% endtrans %}
+    {% endspaceless %}{% endset %}
+    <title>
+        {{ title }}
     </title>
     {% stylesheets '@DothivCharityWebsiteBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
     <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}">
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
     '@DothivAngularJsBundle/Resources/angular/angular.js'
     '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-bootstrap/2/angular-ui-bootstrap-tpls.js'
@@ -19,6 +42,25 @@
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <!-- Social Media Sharing -->
+    <!-- Twitter cards support -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="dotHIV">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{% trans %}home.who.text{% endtrans %}">
+    <meta name="twitter:creator" content="dotHIV">
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
+    <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
+    {% endimage %}
+    <!-- Facebook open graph support -->
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{% trans %}home.who.text{% endtrans %}">
+    <meta property="og:site_name" content="{% trans %}dothiv.fullname{% endtrans %}">
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
+    <meta property="og:image" content="{{ app.request.uriForPath(asset_url) }}">
+    {% endimage %}
+    <meta property="og:type" content="website">
+    <meta property="fb:app_id" content="{{ facebook_app_id }}">
     <base href="/">
 </head>
 <body data-ng-app="dotHIVApp">
@@ -132,5 +174,17 @@ output='js/*.min.js'
         js.src = "//connect.facebook.net/{{ app.request.locale }}/sdk.js#xfbml=1&appId={{ facebook_app_id }}&version=v2.0";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
+
+{# Google #}
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '{{ googleanalytics_charity }}', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
 </body>
 </html>

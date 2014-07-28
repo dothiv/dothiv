@@ -44,3 +44,25 @@ Feature: Claim Domain
     And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:
       | token | invalidt0k3n |
     Then the response status code should be 400
+
+  Scenario: Claim domain from other user
+    Given the "DothivBusinessBundle:User" entity exists in "jane" with values:
+      | handle    | jane             |
+      | email     | jane@example.com |
+      | firstname | Jane             |
+      | surname   | Doe              |
+    Given the "DothivBusinessBundle:UserToken" entity exists in "janeToken" with values:
+      | user     | {jane}                          |
+      | token    | j4n3st0k3n                      |
+      | lifetime | {\DateTime@2014-01-02T13:44:15} |
+    Given I add Bearer token equal to "abc8c04a75255c72ba3952421272caf4294acf06"
+    And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:
+      | token | domaint0k3n |
+    Then the response status code should be 201
+    And the JSON node "name" should contain "test.hiv"
+    # Verify claimed domain
+    And I send a GET request to "http://click4life.hiv.dev/api/user/jane/domains"
+    Then the response status code should be 200
+    And the header "content-type" should contain "application/json"
+    And the JSON object should be a list with 1 element
+    And "name" on the JSON list 0 should be "test.hiv"
