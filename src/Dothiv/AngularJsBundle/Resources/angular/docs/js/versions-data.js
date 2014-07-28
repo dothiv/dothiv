@@ -1,27 +1,69 @@
 // Meta data used by the AngularJS docs app
 angular.module('versionsData', [])
   .value('NG_VERSION', {
-  "raw": "v1.2.19",
+  "raw": "v1.2.21",
   "major": 1,
   "minor": 2,
-  "patch": 19,
+  "patch": 21,
   "prerelease": [],
   "build": [],
-  "version": "1.2.19",
-  "codeName": "precognitive-flashbacks",
-  "full": "1.2.19"
+  "version": "1.2.21",
+  "codeName": "wizard-props",
+  "full": "1.2.21"
 })
   .value('NG_VERSIONS', [
   {
-    "raw": "v1.2.19",
+    "raw": "v1.2.21",
     "major": 1,
     "minor": 2,
-    "patch": 19,
+    "patch": 21,
     "prerelease": [],
     "build": [],
-    "version": "1.2.19",
-    "codeName": "precognitive-flashbacks",
-    "full": "1.2.19"
+    "version": "1.2.21",
+    "codeName": "wizard-props",
+    "full": "1.2.21"
+  },
+  {
+    "raw": "v1.3.0-beta.17",
+    "major": 1,
+    "minor": 3,
+    "patch": 0,
+    "prerelease": [
+      "beta",
+      17
+    ],
+    "build": [],
+    "version": "1.3.0-beta.17",
+    "isStable": false,
+    "docsUrl": "http://code.angularjs.org/1.3.0-beta.17/docs"
+  },
+  {
+    "raw": "v1.3.0-beta.16",
+    "major": 1,
+    "minor": 3,
+    "patch": 0,
+    "prerelease": [
+      "beta",
+      16
+    ],
+    "build": [],
+    "version": "1.3.0-beta.16",
+    "isStable": false,
+    "docsUrl": "http://code.angularjs.org/1.3.0-beta.16/docs"
+  },
+  {
+    "raw": "v1.3.0-beta.15",
+    "major": 1,
+    "minor": 3,
+    "patch": 0,
+    "prerelease": [
+      "beta",
+      15
+    ],
+    "build": [],
+    "version": "1.3.0-beta.15",
+    "isStable": false,
+    "docsUrl": "http://code.angularjs.org/1.3.0-beta.15/docs"
   },
   {
     "raw": "v1.3.0-beta.14",
@@ -218,6 +260,28 @@ angular.module('versionsData', [])
     "version": "1.3.0-beta.1",
     "isStable": false,
     "docsUrl": "http://code.angularjs.org/1.3.0-beta.1/docs"
+  },
+  {
+    "raw": "v1.2.20",
+    "major": 1,
+    "minor": 2,
+    "patch": 20,
+    "prerelease": [],
+    "build": [],
+    "version": "1.2.20",
+    "isStable": true,
+    "docsUrl": "http://code.angularjs.org/1.2.20/docs"
+  },
+  {
+    "raw": "v1.2.19",
+    "major": 1,
+    "minor": 2,
+    "patch": 19,
+    "prerelease": [],
+    "build": [],
+    "version": "1.2.19",
+    "isStable": true,
+    "docsUrl": "http://code.angularjs.org/1.2.19/docs"
   },
   {
     "raw": "v1.2.18",
