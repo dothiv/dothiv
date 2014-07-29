@@ -37,6 +37,7 @@ before_script:
 #-e2e:  - ./node_modules/protractor/bin/webdriver-manager update
 # install dothiv
   - cp app/config/parameters.yml.travis app/config/parameters.yml  
+  - cp app/config/parameters.yml.travis app/config/parameters_test.yml
   - composer install
   - mysql -e 'create database dothiv;'
   - php app/console doctrine:schema:create
