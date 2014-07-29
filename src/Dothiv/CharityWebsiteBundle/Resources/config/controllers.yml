@@ -47,3 +47,13 @@ services:
         class: Dothiv\CharityWebsiteBundle\Controller\ContentfulController
         arguments:
           - @dothiv.charity.contentful.charity_content
+
+    dothiv.charity.web.controller.iframe:
+        class: Dothiv\CharityWebsiteBundle\Controller\IframeController
+        arguments:
+          - @dothiv.repository.domain
+          - @dothiv.websitebase.cache.request_lastmodified
+          - @templating
+          - %assets_version%
+          - @clock
+          - %page_lifetime%
