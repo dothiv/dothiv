@@ -6,6 +6,8 @@ use Dothiv\BusinessBundle\Entity\Attachment;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use Dothiv\BusinessBundle\Repository\AttachmentRepositoryInterface;
+use PhpOption\None;
+use PhpOption\Option;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Util\SecureRandom;
 
@@ -17,34 +19,39 @@ class AttachmentService implements AttachmentServiceInterface
     private $attachmentRepo;
 
     /**
-     * @var array
+     * @var AttachmentStoreInterface
      */
-    private $config;
+    private $store;
+
+    /**
+     * @var string[]
+     */
+    private $allowedMimeTypes;
 
     public function __construct(
         AttachmentRepositoryInterface $attachmentRepo,
-        $config
+        $allowedMimeTypes,
+        AttachmentStoreInterface $store
     )
     {
-        $this->attachmentRepo = $attachmentRepo;
-        $this->config         = $config;
+        $this->attachmentRepo   = $attachmentRepo;
+        $this->allowedMimeTypes = $allowedMimeTypes;
+        $this->store            = $store;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function createAttachment(User $user, UploadedFile $file, $public = false)
+    public function createAttachment(User $user, UploadedFile $file)
     {
         $attachment = new Attachment();
         $attachment->setUser($user);
         $attachment->setHandle($this->generateHandle());
         $attachment->setMimeType($file->getMimeType());
         $attachment->setExtension($file->guessExtension());
-        $attachment->setPublic($public);
         $this->attachmentRepo->persist($attachment)->flush();
 
-        $dir = $public ? $this->config['public']['location'] : $this->config['private']['location'];
-        $file->move($dir, sprintf('%s.%s', $attachment->getHandle(), $file->guessExtension()));
+        $this->store->store($attachment, $file);
         return $attachment;
     }
 
@@ -53,16 +60,10 @@ class AttachmentService implements AttachmentServiceInterface
      */
     public function validateUpload(UploadedFile $file)
     {
-        $mime             = $file->getMimeType();
-        $allowedMimeTypes = array(
-            'application/pdf',
-            'image/png',
-            'image/jpeg',
-            'image/gif'
-        );
-        if (!in_array($mime, $allowedMimeTypes)) {
+        $mime = $file->getMimeType();
+        if (!in_array($mime, $this->allowedMimeTypes)) {
             throw new InvalidArgumentException(
-                sprintf('Must provide attachment of type %s. %s provied.', join(', ', $allowedMimeTypes), $mime)
+                sprintf('Must provide attachment of type %s. %s provied.', join(', ', $this->allowedMimeTypes), $mime)
             );
         }
     }
@@ -70,17 +71,12 @@ class AttachmentService implements AttachmentServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getPublicUrl(Attachment $attachment)
+    public function getUrl(Attachment $attachment)
     {
-        if (!$attachment->isPublic()) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Attachment "%s" is not public.',
-                    $attachment->getHandle()
-                )
-            );
+        if (!($this->store instanceof URLStoreInterface)) {
+            return None::create();
         }
-        return $this->config['public']['prefix'] . '/' . $attachment->getHandle() . '.' . $attachment->getExtension();
+        return $this->store->getUrl($attachment);
     }
 
     /**

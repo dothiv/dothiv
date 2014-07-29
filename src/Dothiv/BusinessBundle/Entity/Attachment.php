@@ -60,16 +60,6 @@ class Attachment extends Entity
     protected $extension;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(type="integer")
-     * @Assert\NotNull()
-     * @Assert\Range(min=0,max=1)
-     * @Serializer\Expose
-     */
-    protected $public = 0;
-
-    /**
      * The user that create the attachment
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -108,22 +98,6 @@ class Attachment extends Entity
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * @param boolean $public
-     */
-    public function setPublic($public)
-    {
-        $this->public = (boolean)$public ? 1 : 0;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isPublic()
-    {
-        return (boolean)$this->public;
     }
 
     /**
