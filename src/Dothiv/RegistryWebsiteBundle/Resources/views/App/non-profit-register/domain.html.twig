@@ -36,10 +36,10 @@
                 <label for="registrantFormProof">Proof of organization</label>
                 {% set var = 'uploadError' %}
                 {{ block('errorMessage') }}
-                <input type="file" data-ng-file-select id="registrantFormProof" data-ng-hide="uploader.isUploading || registrant.proof">
+                <input type="file" data-nv-file-select="" data-uploader="uploader" id="registrantFormProof" data-ng-hide="uploader.isUploading || registrant.proof">
                 <input type="hidden" data-ng-model="registrant.proof" required>
 
-                <div data-ng-show="upload">
+                <div data-ng-show="registrant.proof">
                     <span data-ng-bind="upload.file.name"></span>
                 </div>
                 <div class="progress" data-ng-repeat="item in uploader.queue" data-ng-show="uploader.isUploading">

@@ -67,9 +67,11 @@
                 {{ qlp.text.title }}
             </h1>
 
+            {% if qlp.logo is defined %}
             <h2>
                 <img src="{{ qlp.logo.file.thumbnails.friend }}" alt="{{ qlp.logo.title }}">
             </h2>
+            {% endif %}
         </section>
     </article>
 </header>

@@ -70,8 +70,13 @@ class AttachmentController extends BaseController
         }
         $attachment = $this->attachmentService->createAttachment($user, $file);
         $response   = $this->createResponse();
-        $response->setStatusCode(201);
         $response->setContent($this->serializer->serialize($attachment, 'json'));
+        $response->setStatusCode(201);
+        if (strpos($request->headers->get('User-Agent'), 'MSIE 9.0') !== false) {
+            // IE 9 uploader cannot handle json responses
+            $response->headers->set('Content-Type', 'text/html; charset=utf-8');
+            $response->setContent($attachment->getHandle());
+        }
         return $response;
     }
 }
