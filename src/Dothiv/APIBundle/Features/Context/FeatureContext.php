@@ -247,10 +247,42 @@ class FeatureContext extends BehatContext
 
     /**
      * @Given /^the header "(?P<name>[^"]*)" should exist$/
+     *
+     * @param string $name
+     * @return mixed
      */
     public function theHeaderShouldExist($name)
     {
         $headers = $this->getSubcontext('mink')->getSession()->getResponseHeaders();
         \PHPUnit_Framework_Assert::assertArrayHasKey(strtolower($name), $headers);
+        return $headers[$name];
     }
+
+    /**
+     * @Given /^the header "(?P<header>[^"]*)" is stored in "(?P<name>[^"]*)"$/
+     */
+    public function theHeaderIsStoredIn($name, $store)
+    {
+        $val = $this->theHeaderShouldExist($name);
+        $this->store($store, $val);
+    }
+
+    /**
+     * @Then /^the image should be (?P<width>\d+)x(?P<height>\d+)$/
+     */
+    public function theImageShouldBeBy($width, $height)
+    {
+        $imageData = $this->getSubcontext('mink')->getSession()->getPage()->getContent();
+        $im        = new \Imagick();
+        if (!$im->readImageBlob($imageData)) {
+            throw new \Exception("Failed to load image from response.");
+        }
+        $info         = $im->identifyImage();
+        $expectedSize = sprintf("%dx%d", $width, $height);
+        $actualSize   = sprintf("%dx%d", $info['geometry']['width'], $info['geometry']['height']);
+        if ($actualSize !== $expectedSize) {
+            throw new \Exception(sprintf("Size of image is %s where %s was expected.", $actualSize, $expectedSize));
+        }
+    }
+
 }
