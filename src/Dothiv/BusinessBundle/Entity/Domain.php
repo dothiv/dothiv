@@ -89,7 +89,8 @@ class Domain extends Entity
      * The active banner for this domain, which will be actually shown
      *
      * @ORM\OneToOne(targetEntity="Banner")
-     * @ORM\JoinColumn(name="domain", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="domain", referencedColumnName="id", onDelete="CASCADE",nullable=true)
+     * @var Banner|null
      */
     protected $activeBanner;
 
@@ -245,7 +246,7 @@ class Domain extends Entity
      * Activates the given banner for this domain. The banner will be added to
      * the list of banners if not already present.
      *
-     * @param Banner $banner
+     * @param Banner|null $banner
      */
     public function setActiveBanner(Banner $banner = null)
     {
@@ -260,7 +261,7 @@ class Domain extends Entity
     /**
      * Returns the active banner.
      *
-     * @return Banner active Banner
+     * @return Banner|null active Banner
      */
     public function getActiveBanner()
     {
