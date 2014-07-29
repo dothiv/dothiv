@@ -59,6 +59,6 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
         $state.transitionTo('=.start');
     }])
 ;
-angular.module('dotHIVApp.services', ['dotHIVApp.controllers', 'ui.router', 'ngResource', 'ngCookies']);
+angular.module('dotHIVApp.services', ['dotHIVApp.controllers', 'ui.router', 'ngResource', 'ngCookies', 'angularFileUpload']);
 angular.module('dotHIVApp.controllers', ['ui.bootstrap']);
 
