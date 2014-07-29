@@ -17,29 +17,34 @@ class AttachmentService implements AttachmentServiceInterface
     private $attachmentRepo;
 
     /**
-     * @var string
+     * @var array
      */
-    private $attachmentLocation;
+    private $config;
 
     public function __construct(
         AttachmentRepositoryInterface $attachmentRepo,
-        $attachmentLocation)
+        $config
+    )
     {
-        $this->attachmentRepo     = $attachmentRepo;
-        $this->attachmentLocation = $attachmentLocation;
+        $this->attachmentRepo = $attachmentRepo;
+        $this->config         = $config;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function createAttachment(User $user, UploadedFile $file)
+    public function createAttachment(User $user, UploadedFile $file, $public = false)
     {
         $attachment = new Attachment();
         $attachment->setUser($user);
         $attachment->setHandle($this->generateHandle());
+        $attachment->setMimeType($file->getMimeType());
+        $attachment->setExtension($file->guessExtension());
+        $attachment->setPublic($public);
         $this->attachmentRepo->persist($attachment)->flush();
 
-        $file->move($this->attachmentLocation, sprintf('%s.pdf', $attachment->getHandle()));
+        $dir = $public ? $this->config['public']['location'] : $this->config['private']['location'];
+        $file->move($dir, sprintf('%s.%s', $attachment->getHandle(), $file->guessExtension()));
         return $attachment;
     }
 
@@ -49,12 +54,33 @@ class AttachmentService implements AttachmentServiceInterface
     public function validateUpload(UploadedFile $file)
     {
         $mime             = $file->getMimeType();
-        $allowedMimeTypes = array('application/pdf');
+        $allowedMimeTypes = array(
+            'application/pdf',
+            'image/png',
+            'image/jpeg',
+            'image/gif'
+        );
         if (!in_array($mime, $allowedMimeTypes)) {
             throw new InvalidArgumentException(
                 sprintf('Must provide attachment of type %s. %s provied.', join(', ', $allowedMimeTypes), $mime)
             );
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublicUrl(Attachment $attachment)
+    {
+        if (!$attachment->isPublic()) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Attachment "%s" is not public.',
+                    $attachment->getHandle()
+                )
+            );
+        }
+        return $this->config['public']['prefix'] . '/' . $attachment->getHandle() . '.' . $attachment->getExtension();
     }
 
     /**

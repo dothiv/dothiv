@@ -2,6 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Request\AttachmentRequest;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use Dothiv\BusinessBundle\Service\AttachmentServiceInterface;
 use JMS\Serializer\Serializer;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
+use Dothiv\APIBundle\Annotation\ApiRequest;
 
 class AttachmentController extends BaseController
 {
@@ -49,6 +51,8 @@ class AttachmentController extends BaseController
      *
      * @throws BadRequestHttpException
      * @throws AccessDeniedHttpException
+     *
+     * @ApiRequest("Dothiv\APIBundle\Request\AttachmentRequest")
      */
     public function createAction(Request $request)
     {
@@ -60,6 +64,8 @@ class AttachmentController extends BaseController
         if ($request->files->count() != 1) {
             throw new BadRequestHttpException('No file provided.');
         }
+        /** @var AttachmentRequest $model */
+        $model = $request->attributes->get('model');
 
         /* @var \Symfony\Component\HttpFoundation\File\UploadedFile $file */
         $file = $request->files->getIterator()->current();
@@ -68,7 +74,7 @@ class AttachmentController extends BaseController
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
-        $attachment = $this->attachmentService->createAttachment($user, $file);
+        $attachment = $this->attachmentService->createAttachment($user, $file, $model->isPublic());
         $response   = $this->createResponse();
         $response->setContent($this->serializer->serialize($attachment, 'json'));
         $response->setStatusCode(201);
@@ -76,6 +82,10 @@ class AttachmentController extends BaseController
             // IE 9 uploader cannot handle json responses
             $response->headers->set('Content-Type', 'text/html; charset=utf-8');
             $response->setContent($attachment->getHandle());
+        }
+        if ($attachment->isPublic()) {
+            $location = $this->attachmentService->getPublicUrl($attachment);
+            $response->headers->set('Location', $location);
         }
         return $response;
     }

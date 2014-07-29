@@ -36,7 +36,7 @@ services:
         class: %dothiv.businessbundle.service.attachment.class%
         arguments:
         - @dothiv.repository.attachment
-        - %dothiv_business.attachment_location%
+        - %dothiv_business.attachments%
 
     dothiv.business.contentful.clickcounter_content:
         class: %dothiv.websitebase.contentful.content.class%

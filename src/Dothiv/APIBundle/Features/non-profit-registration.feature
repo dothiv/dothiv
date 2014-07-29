@@ -12,8 +12,10 @@ Feature: Non-Profit Registration
       | token    | usert0k3n                       |
       | lifetime | {\DateTime@2014-01-02T13:44:15} |
     And the "DothivBusinessBundle:Attachment" entity exists in "attachment" with values:
-      | user   | {user}                           |
-      | handle | ad54af9f3a2e137d04588712e3d98e0d |
+      | user      | {user}                           |
+      | handle    | ad54af9f3a2e137d04588712e3d98e0d |
+      | mimeType  | application/pdf                  |
+      | extension | pdf                              |
     And I add "Accept" header equal to "application/json"
     And I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
 

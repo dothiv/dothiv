@@ -115,7 +115,12 @@ dothiv_business:
     allowed_tlds:
       # - hiv
       ~
-    attachment_location: '%kernel.root_dir%/attachments'
+    attachments:
+        private:
+            location: '%kernel.root_dir%/attachments'
+        public:
+            location: '%kernel.root_dir%/../web/attachments'
+            prefix: '/attachments'
     clickcounter:
         secret: '%clickcounter_auth_secret%'
 

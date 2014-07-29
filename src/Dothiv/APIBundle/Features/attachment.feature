@@ -1,3 +1,4 @@
+@attachment
 Feature: Attachment
   A user should be able create an attachment
 
@@ -14,7 +15,7 @@ Feature: Attachment
     And I add "Accept" header equal to "application/json"
 
   Scenario: Upload file (Non-HTML5 browsers)
-    Given I send a POST request to "/api/attachment?access_token=3fa0271a5730ff49539aed903ec981eb1868a735" with file "example.pdf" as "file"
+    Given I send a POST request to "/api/attachment?auth_token=3fa0271a5730ff49539aed903ec981eb1868a735" with file "example.pdf" as "file"
     Then the response status code should be 201
     And the header "content-type" should contain "application/json"
     And the JSON node "handle" should not be empty
@@ -25,3 +26,12 @@ Feature: Attachment
     Then the response status code should be 201
     And the header "content-type" should contain "application/json"
     And the JSON node "handle" should not be empty
+
+  Scenario: Upload public file
+    Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
+    And I send a POST request to "/api/attachment" with file "example.png" as "file" and parameters:
+      | public | 1 |
+    Then the response status code should be 201
+    And the header "content-type" should contain "application/json"
+    And the JSON node "handle" should not be empty
+    And the header "Location" should exist

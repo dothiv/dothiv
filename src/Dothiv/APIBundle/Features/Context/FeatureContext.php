@@ -201,8 +201,9 @@ class FeatureContext extends BehatContext
 
     /**
      * @Given /^I send a (?P<method>[A-Z]+) request to "(?P<url>[^"]*)" with file "(?P<filename>[^"]*)" as "(?P<fileparam>[^"]*)"$/
+     * @Given /^I send a (?P<method>[A-Z]+) request to "(?P<url>[^"]*)" with file "(?P<filename>[^"]*)" as "(?P<fileparam>[^"]*)" and parameters:$/
      */
-    public function iSendAPostRequestOnWithFileAsFile($method, $url, $filename, $fileparam)
+    public function iSendAUploadRequest($method, $url, $filename, $fileparam, TableNode $table = null)
     {
         $client = $this->getSubcontext('mink')->getSession()->getDriver()->getClient();
 
@@ -225,7 +226,11 @@ class FeatureContext extends BehatContext
             $fileparam => $uploadedFile
         );
 
-        $client->request($method, $url, array(), $files);
+        $parameters = array();
+        if ($table !== null) {
+            $parameters = $table->getRowsHash();
+        }
+        $client->request($method, $url, $parameters, $files);
         $client->followRedirects(true);
     }
 
@@ -237,5 +242,15 @@ class FeatureContext extends BehatContext
         $json = $this->getJson();
         \PHPUnit_Framework_Assert::assertObjectHasAttribute($name, $json);
         \PHPUnit_Framework_Assert::assertNotEmpty($json->$name);
+    }
+
+
+    /**
+     * @Given /^the header "(?P<name>[^"]*)" should exist$/
+     */
+    public function theHeaderShouldExist($name)
+    {
+        $headers = $this->getSubcontext('mink')->getSession()->getResponseHeaders();
+        \PHPUnit_Framework_Assert::assertArrayHasKey(strtolower($name), $headers);
     }
 }
