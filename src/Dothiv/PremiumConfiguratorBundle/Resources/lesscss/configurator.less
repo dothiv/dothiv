@@ -71,6 +71,7 @@ body {
         color: @brand-primary-text;
         border-left: 1px solid @body-bg;
         padding: 0.5em 1em;
+        text-align: left;
         &:first-child {
           border-left: 0;
         }
@@ -127,6 +128,9 @@ body {
         >label {
           padding-left: @premium-image-size + @grid-gutter-width / 2;
           height: @premium-image-size;
+          small {
+            font-weight: @font-weight-regular;
+          }
         }
         input {
           display: none;

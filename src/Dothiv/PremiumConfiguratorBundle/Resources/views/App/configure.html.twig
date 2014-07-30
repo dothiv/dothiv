@@ -82,41 +82,29 @@
                     {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/empty-image.svg' %}
 
                     <form role="form" novalidate name="imagesForm">
-                        <fieldset class="imageupload">
-                            <label for="keyvisual">
-                                <img src="{{ asset_url }}" alt="Kein Keyvisual hinterlegt" data-ng-hide="premiumBanner.visual">
-                                <img data-ng-src="%premiumBanner.visual%" alt="Keyvisual" data-ng-show="premiumBanner.visual">
-                                Keyvisual<br>
-                                <small>Ihr Logo oder ein Icon</small>
-                                <div class="progress" data-ng-repeat="item in visualUploader.queue" data-ng-show="visualUploader.isUploading">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="%item.progress%" aria-valuemin="0" aria-valuemax="100" data-ng-style="{ 'width': item.progress + '%' }">
-                                        <span class="sr-only">%item.progress%% Complete</span>
+                        {% set imageType = 'visual' %}
+                        {% set uploader = 'visualUploader' %}
+                        {% block imageupload %}
+                            <fieldset class="imageupload">
+                                <label for="{{ imageType }}">
+                                    <img src="{{ asset_url }}" alt="" data-ng-hide="premiumBanner.{{ imageType }}">
+                                    <img data-ng-src="%premiumBanner.{{ imageType }}%" alt="" data-ng-show="premiumBanner.{{ imageType }}">
+                                    {{ ('pc.image.' ~ imageType ~ '.name')|trans }}<br>
+                                    <small>{{ ('pc.image.' ~ imageType ~ '.description')|trans }}</small>
+                                    <div class="progress" data-ng-repeat="item in {{ uploader }}.queue" data-ng-show="{{ uploader }}.isUploading">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" data-ng-style="{ 'width': item.progress + '%' }"></div>
                                     </div>
-                                </div>
-                            </label>
-                            <nav>
-                                <label for="keyvisual" data-ng-hide="visualUploader.isUploading">ändern</label>
-                                <button type="reset" data-ng-show="premiumBanner.visual" data-ng-click="premiumBanner.visual = null">löschen</button>
-                            </nav>
-                            <input type="file" id="keyvisual" data-nv-file-select data-uploader="visualUploader">
-                        </fieldset>
-                        <fieldset class="imageupload">
-                            <label for="background">
-                                <img src="{{ asset_url }}" alt="Keine Hintergrundgrafik hinterlegt" data-ng-hide="premiumBanner.bg">
-                                <img data-ng-src="%premiumBanner.bg%" alt="Hintergrundgrafik" data-ng-show="premiumBanner.bg">
-                                Hintergrund
-                                <div class="progress" data-ng-repeat="item in bgUploader.queue" data-ng-show="bgUploader.isUploading">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="%item.progress%" aria-valuemin="0" aria-valuemax="100" data-ng-style="{ 'width': item.progress + '%' }">
-                                        <span class="sr-only">%item.progress%% Complete</span>
-                                    </div>
-                                </div>
-                            </label>
-                            <nav>
-                                <label for="background" data-ng-hide="bgUploader.isUploading">ändern</label>
-                                <button type="reset" data-ng-show="premiumBanner.bg" data-ng-click="premiumBanner.bg = null">löschen</button>
-                            </nav>
-                            <input type="file" id="background" data-nv-file-select data-uploader="bgUploader">
-                        </fieldset>
+                                </label>
+                                <nav>
+                                    <label for="{{ imageType }}" data-ng-hide="{{ uploader }}.isUploading">{% trans %}pc.image.button.change{% endtrans %}</label>
+                                    <button type="reset" data-ng-show="premiumBanner.{{ imageType }}" data-ng-click="premiumBanner.{{ imageType }} = null">{% trans %}pc.image.button.remove{% endtrans %}</button>
+                                </nav>
+                                <input type="file" id="{{ imageType }}" data-nv-file-select data-uploader="{{ uploader }}">
+                            </fieldset>
+                        {% endblock %}
+                        {% set imageType = 'bg' %}
+                        {% set uploader = 'bgUploader' %}
+                        {{ block('imageupload') }}
                     </form>
                     {% endimage %}
                 </section>
