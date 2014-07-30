@@ -125,6 +125,41 @@
                         {{ block('colorpicker') }}
                     </form>
                 </section>
+                <section data-ng-show="settings == 'fonts'">
+                    <form role="form" novalidate name="fontsForm">
+                        {% set fontType = 'headline' %}
+                        {% block font %}
+                            <fieldset class="font">
+                                <div class="form-group">
+                                    <label for="font-{{ fontType }}">
+                                        {{ ('pc.font.' ~ fontType ~ '.name')|trans }}
+                                    </label>
+                                    <input type="text"
+                                            id="font-{{ fontType }}"
+                                            data-ng-model="fontsForm.{{ fontType }}FontLabel"
+                                            data-typeahead="font as font.family for font in fonts | filter:$viewValue | limitTo:8"
+                                            data-typeahead-on-select="{{ fontType }}FontSelected($item, $model, $label)"
+                                            >
+                                </div>
+                                <div class="form-group" data-ng-show="fontsForm.{{ fontType }}FontLabel && fontsForm.{{ fontType }}Font">
+                                    <label for="font-{{ fontType }}Style">
+                                        {{ ('pc.font.' ~ fontType ~ '.style')|trans }}<br>
+                                    </label>
+                                    <select name="{{ fontType }}FontStyle" id="font-{{ fontType }}Style"
+                                            data-ng-model="premiumBanner.{{ fontType }}FontStyle"
+                                            data-ng-options="style for style in fontsForm.{{ fontType }}Font.variants"
+                                            >
+                                    </select>
+                                </div>
+                            </fieldset>
+                        {% endblock %}
+                        {% set fontType = 'text' %}
+                        {{ block('font') }}
+                        <div class="intro" data-ng-hide="fontsForm.headlineFontLabel || fontsForm.textFontLabel">
+                            <em>{% trans %}pc.font.intro{% endtrans %}</em>
+                        </div>
+                    </form>
+                </section>
             </div>
         </div>
     </div>

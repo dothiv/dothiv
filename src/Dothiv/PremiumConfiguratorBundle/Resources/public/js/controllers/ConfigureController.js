@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$rootScope', '$scope', 'dothivBannerResource', 'config', '$state', '$modal', '$timeout', 'AttachmentUploader',
-    function ($rootScope, $scope, dothivBannerResource, config, $state, $modal, $timeout, AttachmentUploader) {
+angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$rootScope', '$scope', 'dothivBannerResource', 'config', '$state', '$modal', '$timeout', 'AttachmentUploader','$http',
+    function ($rootScope, $scope, dothivBannerResource, config, $state, $modal, $timeout, AttachmentUploader, $http) {
 
         $scope.fullscreen = false;
         $scope.bannerPosition = 'center';
@@ -10,12 +10,14 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         $scope.iframeStyle = {'height': '600px'};
         $scope.settings = 'general';
         $scope.bannerForm = {};
+        $scope.fontsForm = {};
         $scope.premiumBanner = {
             bgColor: '#f7f7f7',
             fontColor: '#333',
             barColor: '#e00073'
         };
 
+        // Images
         var visualUploader = new AttachmentUploader($scope, '/api/premium-configurator/image');
         $scope.visualUploader = visualUploader.uploader;
         var bgUploader = new AttachmentUploader($scope, '/api/premium-configurator/image');
@@ -38,6 +40,20 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         };
         bgUploader.uploader.onCompleteItem = function (item, response, status, headers) {
             $scope.premiumBanner.bg = headers.location;
+        };
+
+        // Fonts
+        $scope.fonts = [];
+        $scope.fontsLoaded = $http.get('/bundles/dothivpremiumconfigurator/data/googlefonts.json').success(function(data, status, headers, config) {
+            $scope.fonts = data.items;
+        });
+        $scope.headlineFontSelected = function(item, model, label) {
+            $scope.premiumBanner.headlineFont = label;
+            $scope.fontsForm.headlineFont = item;
+        };
+        $scope.textFontSelected = function(item, model, label) {
+            $scope.premiumBanner.textFont = label;
+            $scope.fontsForm.textFont = item;
         };
 
         $scope.banner = dothivBannerResource.get(

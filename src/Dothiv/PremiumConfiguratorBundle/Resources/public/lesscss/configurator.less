@@ -95,8 +95,16 @@ body {
       fieldset {
         .make-xs-column(8);
       }
+      div.intro {
+        .make-xs-column(12);
+      }
+      label {
+        small {
+          font-weight: @font-weight-regular;
+        }
+      }
 
-      input[type=text], input[type=url] {
+      input[type=text], input[type=url], select {
         &:extend(.form-control all)
       ;
         &.ng-valid {
@@ -131,9 +139,6 @@ body {
         > label {
           padding-left: @premium-image-size + @grid-gutter-width / 2;
           height: @premium-image-size;
-          small {
-            font-weight: @font-weight-regular;
-          }
         }
         input {
           display: none;
@@ -182,6 +187,11 @@ body {
           width: 100px;
           margin-left: @grid-gutter-width / 2;
         }
+      }
+
+      // Font picker
+      fieldset.font {
+        .make-xs-column(6);
       }
     }
   }
