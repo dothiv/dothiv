@@ -2,9 +2,10 @@ parameters:
     dothiv.websitebase.assetic.filter.ngmin.class: Dothiv\BaseWebsiteBundle\Assetic\Filter\NgMinFilter
     dothiv.websitebase.contentful.content.class: Dothiv\BaseWebsiteBundle\Contentful\Content
     dothiv.websitebase.contentful.view_builder.class: Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder
-    dothiv.websitebase.contentful.image_scaler.class: Dothiv\BaseWebsiteBundle\Contentful\ImageScaler
+    dothiv.websitebase.contentful.image_scaler.class: Dothiv\BaseWebsiteBundle\Contentful\ImageAssetScaler
     dothiv.websitebase.service.money_format.class: Dothiv\BaseWebsiteBundle\Service\MoneyFormatService
     dothiv.websitebase.imagine.class: Imagine\Gmagick\Imagine
+    dothiv.websitebase.service.image_scaler.class: Dothiv\BaseWebsiteBundle\Service\ImagineImageScaler
 
 services:
     dothiv.websitebase.assetic.filter.ngmin:
@@ -35,11 +36,17 @@ services:
         arguments:
             - 'en'
             - @dothiv_contentful.asset
-            - @dothiv.websitebase.imagine
+            - @dothiv.websitebase.service.image_scaler
 
     dothiv.websitebase.imagine:
         class: %dothiv.websitebase.imagine.class%
         lazy: true
+
+    dothiv.websitebase.service.image_scaler:
+        class: %dothiv.websitebase.service.image_scaler.class%
+        lazy: true
+        arguments:
+          - @dothiv.websitebase.imagine
 
     dothiv.websitebase.cache.request_lastmodified:
         class: Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache

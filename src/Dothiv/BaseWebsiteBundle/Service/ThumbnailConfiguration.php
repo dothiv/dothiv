@@ -1,10 +1,10 @@
 <?php
 
-namespace Dothiv\BaseWebsiteBundle\Contentful;
+namespace Dothiv\BaseWebsiteBundle\Service;
 
 use Imagine\Image\Box;
 
-class ImagineThumbnailConfiguration
+class ThumbnailConfiguration
 {
     /**
      * @var string

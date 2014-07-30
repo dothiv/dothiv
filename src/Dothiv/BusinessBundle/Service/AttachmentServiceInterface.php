@@ -28,7 +28,7 @@ interface AttachmentServiceInterface
     /**
      * @param Attachment $attachment
      *
-     * @return Option
+     * @return Option of URLValue
      */
     public function getUrl(Attachment $attachment);
 }

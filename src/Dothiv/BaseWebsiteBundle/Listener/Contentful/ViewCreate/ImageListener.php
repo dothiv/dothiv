@@ -2,13 +2,13 @@
 
 namespace Dothiv\BaseWebsiteBundle\Listener\Contentful\ViewCreate;
 
-use Dothiv\BaseWebsiteBundle\Contentful\ImageScaler;
+use Dothiv\BaseWebsiteBundle\Contentful\ImageAssetScaler;
 use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
 
 class ImageListener
 {
     /**
-     * @var \Dothiv\BaseWebsiteBundle\Contentful\ImageScaler
+     * @var \Dothiv\BaseWebsiteBundle\Contentful\ImageAssetScaler
      */
     private $scaler;
 
@@ -23,11 +23,11 @@ class ImageListener
     private $field;
 
     /**
-     * @param ImageScaler $scaler
+     * @param ImageAssetScaler $scaler
      * @param string      $contentType
      * @param string      $field
      */
-    public function __construct(ImageScaler $scaler, $contentType, $field)
+    public function __construct(ImageAssetScaler $scaler, $contentType, $field)
     {
         $this->scaler      = $scaler;
         $this->contentType = $contentType;

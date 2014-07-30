@@ -78,7 +78,7 @@ class AttachmentController extends BaseController
         }
         $location = $this->attachmentService->getUrl($attachment);
         if ($location->isDefined()) {
-            $response->headers->set('Location', $location->get());
+            $response->headers->set('Location', (string)$location->get());
         }
         return $response;
     }

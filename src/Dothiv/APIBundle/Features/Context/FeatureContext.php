@@ -244,27 +244,27 @@ class FeatureContext extends BehatContext
         \PHPUnit_Framework_Assert::assertNotEmpty($json->$name);
     }
 
-
     /**
      * @Given /^the header "(?P<name>[^"]*)" should exist$/
      *
      * @param string $name
+     *
      * @return mixed
      */
     public function theHeaderShouldExist($name)
     {
         $headers = $this->getSubcontext('mink')->getSession()->getResponseHeaders();
         \PHPUnit_Framework_Assert::assertArrayHasKey(strtolower($name), $headers);
-        return $headers[$name];
+        return $headers[strtolower($name)];
     }
 
     /**
-     * @Given /^the header "(?P<header>[^"]*)" is stored in "(?P<name>[^"]*)"$/
+     * @Given /^the header "(?P<header>[^"]*)" is stored in "(?P<store>[^"]*)"$/
      */
-    public function theHeaderIsStoredIn($name, $store)
+    public function theHeaderIsStoredIn($header, $store)
     {
-        $val = $this->theHeaderShouldExist($name);
-        $this->store($store, $val);
+        $val = $this->theHeaderShouldExist($header);
+        $this->store($store, join("\n", $val));
     }
 
     /**
@@ -273,16 +273,25 @@ class FeatureContext extends BehatContext
     public function theImageShouldBeBy($width, $height)
     {
         $imageData = $this->getSubcontext('mink')->getSession()->getPage()->getContent();
-        $im        = new \Imagick();
-        if (!$im->readImageBlob($imageData)) {
-            throw new \Exception("Failed to load image from response.");
-        }
-        $info         = $im->identifyImage();
+
+        $imagesize    = getimagesize(
+            sprintf('data://%s;base64,%s', join("\n", $this->theHeaderShouldExist('content-type')), base64_encode($imageData))
+        );
         $expectedSize = sprintf("%dx%d", $width, $height);
-        $actualSize   = sprintf("%dx%d", $info['geometry']['width'], $info['geometry']['height']);
+        $actualSize   = sprintf("%dx%d", $imagesize[0], $imagesize[1]);
         if ($actualSize !== $expectedSize) {
             throw new \Exception(sprintf("Size of image is %s where %s was expected.", $actualSize, $expectedSize));
         }
     }
 
+    /**
+     * Sends a HTTP request to a stored URL
+     *
+     * @Given /^I send a (?P<method>[A-Z]+) request to \{(?P<url>[^"]*)\}$/
+     * @Given /^I send a (?P<method>[A-Z]+) request on \{(?P<url>[^"]*)\}$/
+     */
+    public function iSendARequestTo($method, $url)
+    {
+        $this->getSubcontext('rest')->iSendARequestTo($method, $this->getValue('{' . $url . '}'));
+    }
 }

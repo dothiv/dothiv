@@ -73,10 +73,10 @@ class AttachmentService implements AttachmentServiceInterface
      */
     public function getUrl(Attachment $attachment)
     {
-        if (!($this->store instanceof URLStoreInterface)) {
+        if (!($this->store instanceof LinkableAttachmentStoreInterface)) {
             return None::create();
         }
-        return $this->store->getUrl($attachment);
+        return Option::fromValue($this->store->getUrl($attachment));
     }
 
     /**
