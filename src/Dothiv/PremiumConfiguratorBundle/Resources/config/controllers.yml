@@ -16,3 +16,10 @@ services:
           - @templating
           - @dothiv.repository.domain
           - @dothiv.repository.banner
+
+    dothiv.premiumconfigurator.api.controller.attachment:
+        class: %dothiv.api.controller.attachment.class%
+        arguments:
+         - @dothiv.premiumconfigurator.service.attachment
+         - @security.context
+         - @serializer

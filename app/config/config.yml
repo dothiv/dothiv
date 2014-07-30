@@ -138,10 +138,16 @@ dothiv_charity_website:
         - { name: pinkbar_clickcounter, enabled: false }
         - { name: pinkbar_countdown, enabled: true }
 
+dothiv_premium_configurator:
+    attachments:
+        location: '%kernel.root_dir%/../web/uploads/clickcounter'
+        url_prefix: '/uploads/clickcounter'
+        thumbnail:
+            width: 100,
+            height: 100
+
 parameters:
     # Default HTTP cache lifetime for pages
     page_lifetime: 1800
     # Do not convert variables in camel case (myVar) to snake case "my_var"
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
-
-

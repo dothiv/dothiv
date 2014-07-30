@@ -20,7 +20,7 @@ security:
             security: false
 
         user:
-            pattern:    ^/api/(user|domain|attachment|nonprofit)
+            pattern:    ^/api/(user|domain|attachment|nonprofit|premium-configurator)
             stateless:  true
             provider:   user
             oauth2:     true

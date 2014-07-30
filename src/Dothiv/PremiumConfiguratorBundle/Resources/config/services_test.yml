@@ -1,0 +1,5 @@
+services:
+    dothiv.premiumconfigurator.test.controller.static_file:
+        class: Dothiv\PremiumConfiguratorBundle\Tests\StaticFilesController
+        arguments:
+        - %dothiv_premium_configurator.attachments%

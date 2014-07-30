@@ -15,14 +15,14 @@ Feature: Image
 
   Scenario: Upload public file
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
-    And I send a POST request to "/api/premium-configurator/image" with file "example.png" as "file"
+    And I send a POST request to "http://click4life.hiv.dev/api/premium-configurator/image" with file "example.png" as "file"
     Then the response status code should be 201
     And the header "content-type" should contain "application/json"
     And the JSON node "handle" should not be empty
     And the header "Location" should exist
     Given the header "Location" is stored in "uploadedImage"
     And I add Bearer token equal to ""
-    And I send a GET request to "{uploadedImage}"
+    And I send a GET request to {uploadedImage}
     Then the response status code should be 200
     And the header "content-type" should contain "image/png"
     And the image should be 100x100

@@ -12,9 +12,9 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         $scope.bannerForm = {};
         $scope.premiumBanner = {};
 
-        var visualUploader = new AttachmentUploader($scope);
+        var visualUploader = new AttachmentUploader($scope, '/api/premium-configurator/image');
         $scope.visualUploader = visualUploader.uploader;
-        var bgUploader = new AttachmentUploader($scope);
+        var bgUploader = new AttachmentUploader($scope, '/api/premium-configurator/image');
         $scope.bgUploader = bgUploader.uploader;
         visualUploader.uploader.onAfterAddingFile = function (item) {
             visualUploader.uploader.uploadItem(item);
@@ -22,8 +22,6 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         bgUploader.uploader.onAfterAddingFile = function (item) {
             bgUploader.uploader.uploadItem(item);
         };
-        visualUploader.uploader.formData.push({'public': '1'});
-        bgUploader.uploader.formData.push({'public': '1'});
         visualUploader.uploader.onErrorItem =
             bgUploader.uploader.onErrorItem = function (item, response, status, headers) {
                 var modalScope = $rootScope.$new();
