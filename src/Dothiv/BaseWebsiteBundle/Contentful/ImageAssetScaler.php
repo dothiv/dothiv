@@ -68,7 +68,7 @@ class ImageAssetScaler implements LoggerAwareInterface
 
                 }
                 $this->log('Scaling: %s ...', $target);
-                $this->scaler->scale($source, $size, $target);
+                $this->scaler->scale($source, $size, $target->getFileInfo());
             }
         }
     }

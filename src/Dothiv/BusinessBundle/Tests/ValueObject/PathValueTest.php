@@ -65,6 +65,30 @@ class PathValueTest extends \PHPUnit_Framework_TestCase
         $p = PathValue::create('/some/path/with/a/file.txt')->addFilenameSuffix('@suffix');
         $this->assertEquals('/some/path/with/a/file@suffix.txt', $p->getFileInfo()->getPathname());
     }
+
+    /**
+     * @test
+     * @group   unit
+     * @group   ValueObject
+     * @depends itShouldParseAPath
+     */
+    public function itShouldSupportIsFile()
+    {
+        $p = PathValue::create(__FILE__);
+        $this->assertTrue($p->isFile());
+    }
+
+    /**
+     * @test
+     * @group   unit
+     * @group   ValueObject
+     * @depends itShouldParseAPath
+     */
+    public function itShouldSupportIsDir()
+    {
+        $p = PathValue::create(__DIR__);
+        $this->assertTrue($p->isDir());
+    }
 }
 
 

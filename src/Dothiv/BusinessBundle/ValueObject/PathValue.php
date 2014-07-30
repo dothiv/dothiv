@@ -68,4 +68,20 @@ class PathValue implements StringValue
     {
         return $this->fi;
     }
+
+    /**
+     * @see \SplFileInfo::isFile()
+     */
+    public function isFile()
+    {
+        return $this->fi->isFile();
+    }
+
+    /**
+     * @see \SplFileInfo::isDir()
+     */
+    public function isDir()
+    {
+        return $this->fi->isDir();
+    }
 }
