@@ -27,7 +27,10 @@
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% stylesheets '@DothivPremiumConfiguratorBundle/Resources/lesscss/styles.less' filter='cssrewrite' %}
+    {% stylesheets
+    'bundles/dothivpremiumconfigurator/lesscss/styles.less'
+    'bundles/dothivangularjs/extra/github.com/buberdds/angular-bootstrap-colorpicker/css/colorpicker.css'
+    filter='cssrewrite' %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/favicon.png' %}
@@ -35,7 +38,7 @@
     {% endimage %}
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
-    '@DothivAngularJsBundle/Resources/angular/angular.js'
+    '@DothivAngularJsBundle/Resources/public/angular/angular.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -67,12 +70,13 @@
 {% block angular_app %}
     {% javascripts
     '@DothivPremiumConfiguratorBundle/Resources/public/js/vendor/jquery.js'
-    '@DothivAngularJsBundle/Resources/angular/angular-resource.js'
-    '@DothivAngularJsBundle/Resources/angular/angular-route.js'
-    '@DothivAngularJsBundle/Resources/angular/angular-cookies.js'
-    '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-bootstrap/3/angular-ui-bootstrap-tpls.js'
-    '@DothivAngularJsBundle/Resources/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
-    '@DothivAngularJsBundle/Resources/extra/github.com/nervgh/angular-file-upload/angular-file-upload.js'
+    '@DothivAngularJsBundle/Resources/public/angular/angular-resource.js'
+    '@DothivAngularJsBundle/Resources/public/angular/angular-route.js'
+    '@DothivAngularJsBundle/Resources/public/angular/angular-cookies.js'
+    '@DothivAngularJsBundle/Resources/public/extra/angular-ui.github.io/ui-bootstrap/3/angular-ui-bootstrap-tpls.js'
+    '@DothivAngularJsBundle/Resources/public/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
+    '@DothivAngularJsBundle/Resources/public/extra/github.com/nervgh/angular-file-upload/angular-file-upload.js'
+    '@DothivAngularJsBundle/Resources/public/extra/github.com/buberdds/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js'
     '@DothivPremiumConfiguratorBundle/Resources/public/js/app.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'

@@ -30,13 +30,13 @@
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% stylesheets '@DothivRegistryWebsiteBundle/Resources/lesscss/3/styles.less' filter='cssrewrite' %}
+    {% stylesheets 'bundles/dothivregistrywebsite/lesscss/3/styles.less' filter='cssrewrite' %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
     <link rel="shortcut icon" href="{{ asset("bundles/dothivregistrywebsite/images/favicon.png") }}">
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
-    '@DothivAngularJsBundle/Resources/angular/angular.js'
+    '@DothivAngularJsBundle/Resources/public/angular/angular.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
