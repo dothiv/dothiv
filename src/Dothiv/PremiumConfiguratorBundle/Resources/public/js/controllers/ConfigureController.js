@@ -10,7 +10,11 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         $scope.iframeStyle = {'height': '600px'};
         $scope.settings = 'general';
         $scope.bannerForm = {};
-        $scope.premiumBanner = {};
+        $scope.premiumBanner = {
+            bgColor: '#f7f7f7',
+            fontColor: '#333',
+            barColor: '#e00073'
+        };
 
         var visualUploader = new AttachmentUploader($scope, '/api/premium-configurator/image');
         $scope.visualUploader = visualUploader.uploader;

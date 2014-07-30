@@ -83,30 +83,47 @@
 
                     <form role="form" novalidate name="imagesForm">
                         {% set imageType = 'visual' %}
-                        {% set uploader = 'visualUploader' %}
                         {% block imageupload %}
                             <fieldset class="imageupload">
-                                <label for="{{ imageType }}">
+                                <label for="image-{{ imageType }}">
                                     <img src="{{ asset_url }}" alt="" data-ng-hide="premiumBanner.{{ imageType }}">
                                     <img data-ng-src="%premiumBanner.{{ imageType }}%" alt="" data-ng-show="premiumBanner.{{ imageType }}">
                                     {{ ('pc.image.' ~ imageType ~ '.name')|trans }}<br>
                                     <small>{{ ('pc.image.' ~ imageType ~ '.description')|trans }}</small>
-                                    <div class="progress" data-ng-repeat="item in {{ uploader }}.queue" data-ng-show="{{ uploader }}.isUploading">
+                                    <div class="progress" data-ng-repeat="item in {{ imageType }}Uploader.queue" data-ng-show="{{ imageType }}Uploader.isUploading">
                                         <div class="progress-bar progress-bar-info" role="progressbar" data-ng-style="{ 'width': item.progress + '%' }"></div>
                                     </div>
                                 </label>
                                 <nav>
-                                    <label for="{{ imageType }}" data-ng-hide="{{ uploader }}.isUploading">{% trans %}pc.image.button.change{% endtrans %}</label>
+                                    <label for="image-{{ imageType }}" data-ng-hide="{{ imageType }}Uploader.isUploading">{% trans %}pc.image.button.change{% endtrans %}</label>
                                     <button type="reset" data-ng-show="premiumBanner.{{ imageType }}" data-ng-click="premiumBanner.{{ imageType }} = null">{% trans %}pc.image.button.remove{% endtrans %}</button>
                                 </nav>
-                                <input type="file" id="{{ imageType }}" data-nv-file-select data-uploader="{{ uploader }}">
+                                <input type="file" id="image-{{ imageType }}" data-nv-file-select data-uploader="{{ imageType }}Uploader">
                             </fieldset>
                         {% endblock %}
                         {% set imageType = 'bg' %}
-                        {% set uploader = 'bgUploader' %}
                         {{ block('imageupload') }}
                     </form>
                     {% endimage %}
+                </section>
+                <section data-ng-show="settings == 'colors'">
+                    <form role="form" novalidate name="colorsForm">
+                        {% set colorType = 'font' %}
+                        {% block colorpicker %}
+                            <fieldset class="color">
+                                <label for="color-{{ colorType }}">
+                                    {{ ('pc.color.' ~ colorType ~ '.name')|trans }}
+                                </label>
+                                <label for="color-{{ colorType }}" class="preview" data-ng-style="{ 'background-color': premiumBanner.{{ colorType }}Color }">
+                                </label>
+                                <input type="text" data-colorpicker data-colorpicker-position="top" data-ng-pattern="/^#([0-9A-Fa-f]{3}){1,2}$/" id="color-{{ colorType }}" data-ng-model="premiumBanner.{{ colorType }}Color">
+                            </fieldset>
+                        {% endblock %}
+                        {% set colorType = 'bg' %}
+                        {{ block('colorpicker') }}
+                        {% set colorType = 'bar' %}
+                        {{ block('colorpicker') }}
+                    </form>
                 </section>
             </div>
         </div>
