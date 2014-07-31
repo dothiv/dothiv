@@ -7,7 +7,8 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         $scope.bannerPosition = 'center';
         $scope.iframeUrl = null;
         $scope.iframeBaseUrl = null;
-        $scope.iframeStyle = {'height': '600px'};
+        $scope.iframeStyle = {};
+        $scope.configuratorStyle = {};
         $scope.settings = 'general';
         $scope.bannerForm = {};
         $scope.fontsForm = {};
@@ -82,12 +83,17 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         );
 
         function updateIframeSize() {
-            var height = $(window).height() - $('#topnav').outerHeight();
+            var headerHeight = $('body > header').outerHeight();
+            var topNavHeight = $('#topnav').outerHeight();
+            var windowHeight = $(window).height();
+            var height = windowHeight - topNavHeight;
             if (!$scope.fullscreen) {
-                height -= $('body > header').outerHeight();
+                height -= headerHeight;
                 height -= $('#settings').outerHeight();
             }
-            $scope.iframeStyle = {'height': height + 'px'};
+            $scope.iframeStyle = {'height': height + 'px', 'top': topNavHeight + 'px'};
+            var configuratorHeight = windowHeight - headerHeight;
+            $scope.configuratorStyle = {'height': configuratorHeight + 'px'};
         }
 
         function updatePreview() {

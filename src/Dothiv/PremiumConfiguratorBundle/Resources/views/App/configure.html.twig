@@ -1,45 +1,47 @@
 {% trans_default_domain "charity" %}
-<div id="configurator" data-ng-class="{fullscreen: fullscreen}">
-    <div id="topnav">
-        <nav class="layouts">
-            <button data-ng-click="bannerPosition = 'center'">
-                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-center.png' %}
-                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.center{% endtrans %}" data-ng-show="bannerPosition == 'center'">
-                {% endimage %}
-                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-center-off.png' %}
-                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.center{% endtrans %}" data-ng-show="bannerPosition != 'center'">
-                {% endimage %}
-            </button>
-            <button data-ng-click="bannerPosition = 'top'">
-                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-top.png' %}
-                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.top{% endtrans %}" data-ng-show="bannerPosition == 'top'">
-                {% endimage %}
-                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-top-off.png' %}
-                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.top{% endtrans %}" data-ng-show="bannerPosition != 'top'">
-                {% endimage %}
-            </button>
-            <button data-ng-click="bannerPosition = 'right'">
-                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-right.png' %}
-                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.right{% endtrans %}" data-ng-show="bannerPosition == 'right'">
-                {% endimage %}
-                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-right-off.png' %}
-                <img src="{{ asset_url }}" alt="{% trans %}pc.preview.right{% endtrans %}" data-ng-show="bannerPosition != 'right'">
-                {% endimage %}
-            </button>
-        </nav>
-        <nav class="preview">
-            <button data-ng-click="fullscreen = true" data-ng-show="!fullscreen">
-                {% trans %}pc.preview.fullscreen{% endtrans %}
-            </button>
-            <button data-ng-click="fullscreen = false" data-ng-show="fullscreen">
-                {% trans %}pc.preview.fullscreen.close{% endtrans %}
-            </button>
-            <button class="primary">
-                {% trans %}pc.preview.finish{% endtrans %}
-            </button>
-        </nav>
-    </div>
+<div id="configurator" data-ng-class="{fullscreen: fullscreen}" data-ng-style="configuratorStyle">
     <iframe data-ng-cloak src="%iframeUrl%" data-ng-init="iframeUrl='{{ path('dothiv_premiumconfig_preview', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}'" data-ng-style="iframeStyle"></iframe>
+    <div id="topnav">
+        <div class="inner">
+            <nav class="layouts">
+                <button data-ng-click="bannerPosition = 'center'">
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-center.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.center{% endtrans %}" data-ng-show="bannerPosition == 'center'">
+                    {% endimage %}
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-center-off.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.center{% endtrans %}" data-ng-show="bannerPosition != 'center'">
+                    {% endimage %}
+                </button>
+                <button data-ng-click="bannerPosition = 'top'">
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-top.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.top{% endtrans %}" data-ng-show="bannerPosition == 'top'">
+                    {% endimage %}
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-top-off.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.top{% endtrans %}" data-ng-show="bannerPosition != 'top'">
+                    {% endimage %}
+                </button>
+                <button data-ng-click="bannerPosition = 'right'">
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-right.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.right{% endtrans %}" data-ng-show="bannerPosition == 'right'">
+                    {% endimage %}
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-right-off.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.right{% endtrans %}" data-ng-show="bannerPosition != 'right'">
+                    {% endimage %}
+                </button>
+            </nav>
+            <nav class="preview">
+                <button data-ng-click="fullscreen = true" data-ng-show="!fullscreen">
+                    {% trans %}pc.preview.fullscreen{% endtrans %}
+                </button>
+                <button data-ng-click="fullscreen = false" data-ng-show="fullscreen">
+                    {% trans %}pc.preview.fullscreen.close{% endtrans %}
+                </button>
+                <button class="primary">
+                    {% trans %}pc.preview.finish{% endtrans %}
+                </button>
+            </nav>
+        </div>
+    </div>
     {% set settings = content('Block', 'pc.settings') %}
     <div id="settings" data-ng-hide="fullscreen">
         <header>
