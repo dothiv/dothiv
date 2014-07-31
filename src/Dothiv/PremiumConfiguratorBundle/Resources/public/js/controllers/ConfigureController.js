@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$rootScope', '$scope', 'dothivBannerResource', 'config', '$state', '$modal', '$timeout', 'AttachmentUploader', '$http',
-    function ($rootScope, $scope, dothivBannerResource, config, $state, $modal, $timeout, AttachmentUploader, $http) {
+angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$rootScope', '$scope', 'dothivBannerResource', 'dothivPremiumBannerResource', 'config', '$state', '$modal', '$timeout', 'AttachmentUploader', '$http',
+    function ($rootScope, $scope, dothivBannerResource, dothivPremiumBannerResource, config, $state, $modal, $timeout, AttachmentUploader, $http) {
 
         $scope.fullscreen = false;
         $scope.bannerPosition = 'center';
@@ -12,11 +12,7 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         $scope.settings = 'general';
         $scope.bannerForm = {};
         $scope.fontsForm = {};
-        $scope.premiumBanner = {
-            bgColor: '#f7f7f7',
-            fontColor: '#333',
-            barColor: '#e00073'
-        };
+        $scope.uploadedImages = {};
         // TODO: fetch settings from server.
         $scope.config = {
             'max_upload_size': '10MB',
@@ -26,7 +22,7 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         // Image Uploaders
         var uploaders = ['visual', 'bg', 'extrasVisual'];
         for (var k in uploaders) {
-            (function(type) {
+            (function (type) {
                 var uploader = new AttachmentUploader($scope, '/api/premium-configurator/image');
                 $scope[type + 'Uploader'] = uploader.uploader;
                 uploader.uploader.onAfterAddingFile = function (item) {
@@ -38,9 +34,14 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
                     $modal.open({'templateUrl': 'uploadfailed.html', 'scope': modalScope});
                 };
                 uploader.uploader.onCompleteItem = function (item, response, status, headers) {
-                    $scope.premiumBanner[type] = headers.location;
+                    if (uploader.isIE9()) {
+                        $scope.premiumBanner[type] = response;
+                    } else {
+                        $scope.premiumBanner[type] = response.handle;
+                    }
+                    $scope.uploadedImages[type] = headers.location;
+                    $scope.updatePremiumSettings();
                 };
-
             })(uploaders[k]);
         }
 
@@ -58,6 +59,7 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
             $scope.fontsForm.textFont = item;
         };
 
+        // Fetch the banner
         $scope.banner = dothivBannerResource.get(
             {'domain': config.domain},
             function () { // success
@@ -77,6 +79,57 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
                 }
             }
         );
+        $scope.updateBannerSettings = function () {
+            if (!$scope.bannerForm.$valid) {
+                return;
+            }
+            $scope.banner = dothivBannerResource.update(
+                $scope.banner,
+                function () { // success
+                    $scope.banner.domain = config.domain;
+                    updatePreview();
+                },
+                function (response) { // error
+                    var modalScope = $rootScope.$new();
+                    modalScope.code = response.status;
+                    $modal.open({'templateUrl': 'updatefailed.html', 'scope': modalScope});
+                }
+            );
+        };
+
+        // Fetch the premium banner
+        $scope.premiumBanner = dothivPremiumBannerResource.get(
+            {'domain': config.domain},
+            function () { // success
+                $scope.premiumBanner.domain = config.domain;
+            },
+            function (response) { // error
+                if (response.status == 403) {
+                    // User not allowed for this domain.
+                    $modal.open({'templateUrl': 'forbidden.html', 'backdrop': 'static'});
+                }
+                if (response.status == 404) {
+                    $scope.premiumBanner.bgColor = '#f7f7f7';
+                    $scope.premiumBanner.fontColor = '#333';
+                    $scope.premiumBanner.barColor = '#e00073';
+                    $scope.premiumBanner.domain = config.domain;
+                }
+            }
+        );
+        $scope.updatePremiumSettings = function () {
+            $scope.premiumBanner = dothivPremiumBannerResource.update(
+                $scope.premiumBanner,
+                function () { // success
+                    $scope.premiumBanner.domain = config.domain;
+                    updatePreview();
+                },
+                function (response) { // error
+                    var modalScope = $rootScope.$new();
+                    modalScope.code = response.status;
+                    $modal.open({'templateUrl': 'updatefailed.html', 'scope': modalScope});
+                }
+            );
+        }
 
         function updateIframeSize() {
             var headerHeight = $('body > header').outerHeight();
@@ -110,23 +163,15 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
             $timeout(updateIframeSize, 100);
         });
 
-        $scope.updateBannerSettings = function () {
-            if (!$scope.bannerForm.$valid) {
-                return;
-            }
-            $scope.banner = dothivBannerResource.update(
-                $scope.banner,
-                function () { // success
-                    $scope.banner.domain = config.domain;
-                    updatePreview();
-                }
-            );
-        };
-
         $scope.clearExtras = function () {
             for (var k in $scope.premiumBanner) {
                 if (k.substr(0, 5) == 'extra') {
                     $scope.premiumBanner[k] = null;
+                }
+            }
+            for (var k in $scope.uploadedImages) {
+                if (k.substr(0, 5) == 'extra') {
+                    $scope.uploadedImages[k] = null;
                 }
             }
         };

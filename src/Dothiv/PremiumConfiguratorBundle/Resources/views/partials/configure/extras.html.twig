@@ -17,25 +17,38 @@
             <label for="extrasHeadline">
                 {% trans %}pc.extras.headline.label{% endtrans %}
             </label>
-            <input type="text" id="extrasHeadline" data-ng-model="premiumBanner.extrasHeadline" data-ng-blur="updateBannerSettings()">
+            <input type="text" id="extrasHeadline"
+                    data-ng-model="premiumBanner.extrasHeadline"
+                    data-ng-blur="updatePremiumSettings()"
+                    >
         </div>
         <div class="form-group">
             <label for="extrasText">
                 {% trans %}pc.extras.text.label{% endtrans %}
             </label>
-            <textarea id="extrasText" data-ng-model="premiumBanner.extrasText" data-ng-blur="updateBannerSettings()"></textarea>
+            <textarea id="extrasText"
+                    data-ng-model="premiumBanner.extrasText"
+                    data-ng-blur="updatePremiumSettings()"
+                    ></textarea>
         </div>
         <div class="form-group">
             <label for="extrasLinkUrl">
                 {% trans %}pc.extras.link.url.label{% endtrans %}
             </label>
-            <input type="url" id="extrasLinkUrl" data-ng-model="premiumBanner.extrasLinkUrl" data-ng-blur="updateBannerSettings()" data-ng-required="premiumBanner.extrasLinkLabel">
+            <input type="url" id="extrasLinkUrl"
+                    data-ng-model="premiumBanner.extrasLinkUrl"
+                    data-ng-blur="updatePremiumSettings()"
+                    data-ng-required="premiumBanner.extrasLinkLabel"
+                    >
         </div>
         <div class="form-group">
             <label for="extrasLinkLabel">
                 {% trans %}pc.extras.link.label.label{% endtrans %}
             </label>
-            <input type="text" id="extrasLinkLabel" data-ng-model="premiumBanner.extrasLinkLabel" data-ng-blur="updateBannerSettings()">
+            <input type="text" id="extrasLinkLabel"
+                    data-ng-model="premiumBanner.extrasLinkLabel"
+                    data-ng-blur="updatePremiumSettings()"
+                    >
         </div>
     </fieldset>
     {% set imageType = 'extrasVisual' %}
@@ -46,7 +59,7 @@
                 data-ng-disabled="!(premiumBanner.extrasHeadline || premiumBanner.extrasText || premiumBanner.extrasLinkUrl || premiumBanner.extrasVisual)"
                 >{% trans %}pc.extras.button.reset{% endtrans %}</button>
         <button type="submit"
-                data-ng-click="showExtras = false; updateBannerSettings()"
+                data-ng-click="showExtras = false; updatePremiumSettings()"
                 data-ng-disabled="extrasForm.$invalid"
                 >{% trans %}pc.extras.button.save{% endtrans %}</button>
     </nav>

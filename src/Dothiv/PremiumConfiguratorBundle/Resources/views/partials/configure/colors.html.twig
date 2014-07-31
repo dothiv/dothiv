@@ -8,7 +8,13 @@
                     {{ ('pc.color.' ~ colorType ~ '.name')|trans }}
                 </label>
                 <label for="color-{{ colorType }}" class="preview" data-ng-style="{ 'background-color': premiumBanner.{{ colorType }}Color }"> </label>
-                <input type="text" data-colorpicker data-colorpicker-position="top" data-ng-pattern="/^#([0-9A-Fa-f]{3}){1,2}$/" id="color-{{ colorType }}" data-ng-model="premiumBanner.{{ colorType }}Color">
+                <input type="text" id="color-{{ colorType }}"
+                        data-colorpicker
+                        data-colorpicker-position="top"
+                        data-ng-pattern="/^#([0-9A-Fa-f]{3}){1,2}$/"
+                        data-ng-model="premiumBanner.{{ colorType }}Color"
+                        data-ng-blur="updatePremiumSettings()"
+                        >
             </fieldset>
         {% endblock %}
         {% set colorType = 'bg' %}

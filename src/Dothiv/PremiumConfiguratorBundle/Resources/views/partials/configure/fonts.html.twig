@@ -8,11 +8,20 @@
                     <label for="font-{{ fontType }}">
                         {{ ('pc.font.' ~ fontType ~ '.name')|trans }}
                     </label>
-                    <input type="text" id="font-{{ fontType }}" data-ng-model="fontsForm.{{ fontType }}FontLabel" data-typeahead="font as font.family for font in fonts | filter:$viewValue | limitTo:3" data-typeahead-on-select="{{ fontType }}FontSelected($item, $model, $label)">
+                    <input type="text" id="font-{{ fontType }}"
+                            data-ng-model="fontsForm.{{ fontType }}FontLabel"
+                            data-typeahead="font as font.family for font in fonts | filter:$viewValue | limitTo:3"
+                            data-typeahead-on-select="{{ fontType }}FontSelected($item, $model, $label)"
+                            data-ng-blur="updatePremiumSettings()"
+                            >
                 </div>
                 <div class="form-group" data-ng-show="fontsForm.{{ fontType }}FontLabel && fontsForm.{{ fontType }}Font">
                     <label for="font-{{ fontType }}Style"> {{ ('pc.font.' ~ fontType ~ '.style')|trans }}<br> </label>
-                    <select name="{{ fontType }}FontStyle" id="font-{{ fontType }}Style" data-ng-model="premiumBanner.{{ fontType }}FontStyle" data-ng-options="style for style in fontsForm.{{ fontType }}Font.variants"> </select>
+                    <select name="{{ fontType }}FontStyle" id="font-{{ fontType }}Style"
+                            data-ng-model="premiumBanner.{{ fontType }}FontStyle"
+                            data-ng-options="style for style in fontsForm.{{ fontType }}Font.variants"
+                            data-ng-change="updatePremiumSettings()"
+                            ></select>
                 </div>
             </fieldset>
         {% endblock %}

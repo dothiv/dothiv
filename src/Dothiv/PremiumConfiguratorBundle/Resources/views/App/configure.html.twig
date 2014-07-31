@@ -87,3 +87,15 @@
         <button data-ng-click="$dismiss()">Close</button>
     </footer>
 </script>
+<script type="text/ng-template" id="updatefailed.html">
+    {% set modal = content('Block', 'pc.errormodal.updatefailed') %}
+    <header>
+        <h2>{{ modal.title }} (Code: %code%)</h2>
+    </header>
+    <article>
+        {{ modal.text|markdown }}
+    </article>
+    <footer>
+        <button data-ng-click="$dismiss()">Close</button>
+    </footer>
+</script>
