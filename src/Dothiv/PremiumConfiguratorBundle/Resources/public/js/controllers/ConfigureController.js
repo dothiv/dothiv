@@ -155,11 +155,13 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         $scope.$watch('bannerPosition', function () {
             updatePreview();
         });
-
         $scope.$watch('fullscreen', function () {
             $timeout(updateIframeSize, 100);
         });
         $scope.$watch('settings', function () {
+            $timeout(updateIframeSize, 100);
+        });
+        $scope.$watch('showExtras', function () {
             $timeout(updateIframeSize, 100);
         });
 
