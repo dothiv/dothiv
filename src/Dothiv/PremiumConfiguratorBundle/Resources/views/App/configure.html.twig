@@ -39,15 +39,15 @@
             </button>
         </nav>
     </div>
-    <iframe src="%iframeUrl%" data-ng-init="iframeUrl='{{ path('dothiv_premiumconfig_preview', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}'" data-ng-style="iframeStyle"></iframe>
-    {% set settings = ['general', 'images', 'colors', 'fonts', 'extras'] %}
+    <iframe data-ng-cloak src="%iframeUrl%" data-ng-init="iframeUrl='{{ path('dothiv_premiumconfig_preview', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}'" data-ng-style="iframeStyle"></iframe>
+    {% set settings = content('Block', 'pc.settings') %}
     <div id="settings" data-ng-hide="fullscreen">
         <header>
             <div class="inner">
                 <nav>
-                    {% for section in settings %}
-                        <button data-ng-click="settings = '{{ section }}'" data-ng-class="{active: settings == '{{ section }}'}">
-                            {{ ('pc.settings.' ~ section)|trans }}
+                    {% for section in settings.children %}
+                        <button data-ng-click="settings = '{{ section.code }}'" data-ng-class="{active: settings == '{{ section.code }}'}">
+                            {{ section.title }}
                         </button>
                     {% endfor %}
                 </nav>
@@ -55,9 +55,9 @@
         </header>
         <div class="main">
             <div class="inner">
-                {% for section in settings %}
-                    <section data-ng-show="settings == '{{ section }}'">
-                        {% include "DothivPremiumConfiguratorBundle:partials:configure/" ~ section ~ ".html.twig" %}
+                {% for section in settings.children %}
+                    <section data-ng-show="settings == '{{ section.code }}'">
+                        {% include "DothivPremiumConfiguratorBundle:partials:configure/" ~ section.code ~ ".html.twig" %}
                     </section>
                 {% endfor %}
             </div>

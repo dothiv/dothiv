@@ -91,12 +91,15 @@ body {
       section {
         .make-row();
         margin-top: 1em;
+        min-height: 150px;
       }
-      fieldset {
+      div.fields {
         .make-xs-column(8);
+        .container-fluid;
       }
-      div.intro {
-        .make-xs-column(12);
+      div.fields-legend {
+        .make-xs-column(4);
+        font-size: @font-size-base;
       }
       label {
         small {
@@ -192,6 +195,25 @@ body {
       // Font picker
       fieldset.font {
         .make-xs-column(6);
+      }
+
+      // Extras
+      .extras-intro {
+        .make-xs-column(12);
+        .container-fluid;
+        .image {
+          .make-xs-column(2);
+        }
+        .text {
+          p {
+            font-size: @font-size-base;
+          }
+          .make-xs-column(10);
+          button {
+            &:extend(.btn all);
+            .btn-primary;
+          }
+        }
       }
     }
   }

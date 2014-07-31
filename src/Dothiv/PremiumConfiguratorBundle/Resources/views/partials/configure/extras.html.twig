@@ -1,4 +1,19 @@
 {% trans_default_domain "charity" %}
-<form role="form" novalidate name="extrasForm">
+<div class="extras-intro" data-ng-hide="showExtras">
+    {% if section.image is defined %}
+        <div class="image">
+            <img src="{{ section.image.file.thumbnails.medium  }}" alt="{{ section.image.title }}">
+        </div>
+    {% endif %}
+    <div class="text">
+        {{ section.text|markdown }}
+        <button data-ng-click="showExtras = true">{{ section.textMore }}</button>
+    </div>
+</div>
+<form role="form" novalidate name="extrasForm" data-ng-show="showExtras">
+    <div class="fields">
+    </div>
+    <div class="fields-legend">
 
+    </div>
 </form>

@@ -16,6 +16,11 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
             fontColor: '#333',
             barColor: '#e00073'
         };
+        // TODO: fetch settings from server.
+        $scope.config = {
+            'max_upload_size': '10MB',
+            'image_size': '100x100px'
+        };
 
         // Images
         var visualUploader = new AttachmentUploader($scope, '/api/premium-configurator/image');
