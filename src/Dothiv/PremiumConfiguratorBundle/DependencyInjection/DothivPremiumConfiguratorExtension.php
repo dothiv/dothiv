@@ -21,6 +21,7 @@ class DothivPremiumConfiguratorExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('controllers.yml');
         $loader->load('services.yml');
+        $loader->load('repositories.yml');
         if ($container->getParameter("kernel.environment") == 'test') {
             $loader->load('services_test.yml');
         }

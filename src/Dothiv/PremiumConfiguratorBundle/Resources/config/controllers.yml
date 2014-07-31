@@ -23,3 +23,16 @@ services:
          - @dothiv.premiumconfigurator.service.attachment
          - @security.context
          - @serializer
+
+    dothiv.premiumconfigurator.api.controller.banner:
+        class: Dothiv\PremiumConfiguratorBundle\Controller\BannerController
+        arguments:
+         - @security.context
+         - @dothiv.repository.domain
+         - @dothiv.repository.banner
+         - @validator
+         - @serializer
+        calls:
+         - [ setPremiumBannerRepo, [@dothiv.repository.premiumbanner] ]
+         - [ setAttachmentRepo, [@dothiv.repository.attachment] ]
+         - [ setAttachmentStore, [@dothiv.premiumconfigurator.service.attachment_store] ]

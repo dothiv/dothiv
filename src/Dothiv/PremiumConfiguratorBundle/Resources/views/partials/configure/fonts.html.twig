@@ -9,6 +9,8 @@
                         {{ ('pc.font.' ~ fontType ~ '.name')|trans }}
                     </label>
                     <input type="text" id="font-{{ fontType }}"
+                            maxlength="255"
+                            data-ng-maxlength="255"
                             data-ng-model="fontsForm.{{ fontType }}FontLabel"
                             data-typeahead="font as font.family for font in fonts | filter:$viewValue | limitTo:3"
                             data-typeahead-on-select="{{ fontType }}FontSelected($item, $model, $label)"

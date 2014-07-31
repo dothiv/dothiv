@@ -24,27 +24,27 @@ class BannerController extends BaseController
     /**
      * @var DomainRepositoryInterface
      */
-    private $domainRepo;
+    protected $domainRepo;
 
     /**
      * @var BannerRepositoryInterface
      */
-    private $bannerRepo;
+    protected $bannerRepo;
 
     /**
      * @var SecurityContext
      */
-    private $securityContext;
+    protected $securityContext;
 
     /**
      * @var ValidatorInterface
      */
-    private $validator;
+    protected $validator;
 
     /**
      * @var Serializer
      */
-    private $serializer;
+    protected $serializer;
 
     public function __construct(
         SecurityContext $securityContext,
@@ -228,7 +228,11 @@ class BannerController extends BaseController
             );
         });
 
-        if ($domain->getOwner()->getHandle() !== $this->securityContext->getToken()->getUser()->getHandle()) {
+        $user = Option::fromValue($this->securityContext->getToken()->getUser())->getOrCall(function() {
+            throw new AccessDeniedHttpException();
+        });
+
+        if ($domain->getOwner()->getHandle() !== $user->getHandle()) {
             throw new AccessDeniedHttpException();
         }
         return $domain;

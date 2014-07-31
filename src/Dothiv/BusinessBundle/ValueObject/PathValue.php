@@ -9,6 +9,7 @@ class PathValue implements StringValue
      */
     private $fi;
 
+
     public function __construct($fileName)
     {
         $this->fi = new \SplFileInfo($fileName);
@@ -17,7 +18,7 @@ class PathValue implements StringValue
     /**
      * Static constructor.
      *
-     * @param $fileName
+     * @param string $fileName
      *
      * @return PathValue
      */

@@ -41,3 +41,17 @@ dothiv_premiumconfig_attachment:
         _controller: dothiv.premiumconfigurator.api.controller.attachment:createAction
         _format: json
     methods: [POST]
+
+dothiv_premiumconfig_banner_config_set:
+    path:     /api/premium-configurator/{name}/banner
+    defaults:
+        _controller: dothiv.premiumconfigurator.api.controller.banner:setConfigAction
+        _format: json
+    methods: [PUT]
+
+dothiv_premiumconfig_banner_config_get:
+    path:     /api/premium-configurator/{name}/banner
+    defaults:
+        _controller: dothiv.premiumconfigurator.api.controller.banner:getConfigAction
+        _format: json
+    methods: [GET]

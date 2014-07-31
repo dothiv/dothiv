@@ -106,6 +106,39 @@ class FeatureContext extends BehatContext
     }
 
     /**
+     * Updates an entity.
+     *
+     * @Given /^I update the "(?P<storageName>[^"]*)" entity with values:$/
+     */
+    public function iUpdateTheEntityWithValues($storageName, TableNode $table)
+    {
+        $entity = $this->getValue('{' . $storageName . '}');
+        foreach ($table->getRowsHash() as $k => $v) {
+            $setter = 'set' . ucfirst($k);
+            $entity->$setter($this->getValue($v));
+        }
+        $em = $this->getEntityManager();
+        $em->persist($entity);
+        $em->flush();
+    }
+
+    /**
+     * Calls the method of a named service and stores the result.
+     *
+     * @Given /^"(?P<storageName>[^"]*)" contains the result of calling "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service with values:$/
+     */
+    public function theResultOfCallingWithIsStoredIn($serviceId, $methodName, $storageName, TableNode $table)
+    {
+        $service = $this->kernel->getContainer()->get($serviceId);
+        $args    = array();
+        foreach ($table->getRow(0) as $positionalArg) {
+            $args[] = $this->getValue($positionalArg);
+        }
+        $result = call_user_func_array(array($service, $methodName), $args);
+        $this->store($storageName, $result);
+    }
+
+    /**
      * Returns a value with replaced placeholders for storage objects.
      *
      * @param $value
@@ -293,5 +326,14 @@ class FeatureContext extends BehatContext
     public function iSendARequestTo($method, $url)
     {
         $this->getSubcontext('rest')->iSendARequestTo($method, $this->getValue('{' . $url . '}'));
+    }
+
+    /**
+     * @Given /^the JSON node "(?P<node>[^"]*)" should contain \{(?P<storageName>[^\}]*)\}$/
+     */
+    public function theJsonNodeShouldBeEqualToExtrasvisualurl($node, $storageName)
+    {
+        $val = $this->getValue('{' . $storageName. '}');
+        $this->getSubcontext('json')->theJsonNodeShouldBeEqualTo($node, (string)$val);
     }
 }

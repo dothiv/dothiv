@@ -18,6 +18,8 @@
                 {% trans %}pc.extras.headline.label{% endtrans %}
             </label>
             <input type="text" id="extrasHeadline"
+                    maxlength="255"
+                    data-ng-maxlength="255"
                     data-ng-model="premiumBanner.extrasHeadline"
                     data-ng-blur="updatePremiumSettings()"
                     >
@@ -36,6 +38,8 @@
                 {% trans %}pc.extras.link.url.label{% endtrans %}
             </label>
             <input type="url" id="extrasLinkUrl"
+                    maxlength="255"
+                    data-ng-maxlength="255"
                     data-ng-model="premiumBanner.extrasLinkUrl"
                     data-ng-blur="updatePremiumSettings()"
                     data-ng-required="premiumBanner.extrasLinkLabel"
@@ -46,6 +50,8 @@
                 {% trans %}pc.extras.link.label.label{% endtrans %}
             </label>
             <input type="text" id="extrasLinkLabel"
+                    maxlength="255"
+                    data-ng-maxlength="255"
                     data-ng-model="premiumBanner.extrasLinkLabel"
                     data-ng-blur="updatePremiumSettings()"
                     >

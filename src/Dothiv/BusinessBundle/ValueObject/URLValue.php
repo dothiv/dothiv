@@ -32,14 +32,16 @@ class URLValue implements StringValue
             || !isset($this->parts['scheme'])
             || !isset($this->parts['host'])
             || !isset($this->parts['path'])
-        ) throw new InvalidArgumentException(sprintf('Invalid url provided: "%s"', $url));
+        ) {
+            throw new InvalidArgumentException(sprintf('Invalid url provided: "%s"', $url));
+        }
         $this->url = $url;
     }
 
     /**
      * Static constructor.
      *
-     * @param $url
+     * @param string $url
      *
      * @return URLValue
      */

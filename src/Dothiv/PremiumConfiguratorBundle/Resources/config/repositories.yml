@@ -1,0 +1,12 @@
+parameters:
+    dothiv.repository.premiumbanner.entity.class: 'DothivPremiumConfiguratorBundle:PremiumBanner'
+    dothiv.repository.premiumbanner.repository.class: Dothiv\PremiumConfiguratorBundle\Repository\PremiumBannerRepository
+
+services:
+    dothiv.repository.premiumbanner:
+        class: %dothiv.repository.premiumbanner.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.premiumbanner.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]

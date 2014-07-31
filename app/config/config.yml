@@ -111,6 +111,12 @@ nelmio_cors:
     paths:
         '^/': ~
 
+jms_serializer:
+    visitors:
+        json:
+            # $ php -r 'echo JSON_UNESCAPED_SLASHES'
+            options: 64
+
 dothiv_business:
     allowed_tlds:
       # - hiv

@@ -9,6 +9,7 @@
                 </label>
                 <label for="color-{{ colorType }}" class="preview" data-ng-style="{ 'background-color': premiumBanner.{{ colorType }}Color }"> </label>
                 <input type="text" id="color-{{ colorType }}"
+                        maxlength="7"
                         data-colorpicker
                         data-colorpicker-position="top"
                         data-ng-pattern="/^#([0-9A-Fa-f]{3}){1,2}$/"
