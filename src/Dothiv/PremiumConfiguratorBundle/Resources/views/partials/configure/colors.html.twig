@@ -1,0 +1,18 @@
+{% trans_default_domain "charity" %}
+<form role="form" novalidate name="colorsForm">
+    {% set colorType = 'font' %}
+    {% block colorpicker %}
+        <fieldset class="color">
+            <label for="color-{{ colorType }}">
+                {{ ('pc.color.' ~ colorType ~ '.name')|trans }}
+            </label>
+            <label for="color-{{ colorType }}" class="preview" data-ng-style="{ 'background-color': premiumBanner.{{ colorType }}Color }">
+            </label>
+            <input type="text" data-colorpicker data-colorpicker-position="top" data-ng-pattern="/^#([0-9A-Fa-f]{3}){1,2}$/" id="color-{{ colorType }}" data-ng-model="premiumBanner.{{ colorType }}Color">
+        </fieldset>
+    {% endblock %}
+    {% set colorType = 'bg' %}
+    {{ block('colorpicker') }}
+    {% set colorType = 'bar' %}
+    {{ block('colorpicker') }}
+</form>
