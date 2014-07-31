@@ -1,14 +1,14 @@
 {% trans_default_domain "charity" %}
-<form role="form" novalidate name="fontsForm">
+<form role="form" novalidate name="fontsForm" class="font">
     <div class="fields">
         {% set fontType = 'headline' %}
         {% block font %}
-            <fieldset class="font">
+            <fieldset>
                 <div class="form-group">
                     <label for="font-{{ fontType }}">
                         {{ ('pc.font.' ~ fontType ~ '.name')|trans }}
                     </label>
-                    <input type="text" id="font-{{ fontType }}" data-ng-model="fontsForm.{{ fontType }}FontLabel" data-typeahead="font as font.family for font in fonts | filter:$viewValue | limitTo:8" data-typeahead-on-select="{{ fontType }}FontSelected($item, $model, $label)">
+                    <input type="text" id="font-{{ fontType }}" data-ng-model="fontsForm.{{ fontType }}FontLabel" data-typeahead="font as font.family for font in fonts | filter:$viewValue | limitTo:3" data-typeahead-on-select="{{ fontType }}FontSelected($item, $model, $label)">
                 </div>
                 <div class="form-group" data-ng-show="fontsForm.{{ fontType }}FontLabel && fontsForm.{{ fontType }}Font">
                     <label for="font-{{ fontType }}Style"> {{ ('pc.font.' ~ fontType ~ '.style')|trans }}<br> </label>

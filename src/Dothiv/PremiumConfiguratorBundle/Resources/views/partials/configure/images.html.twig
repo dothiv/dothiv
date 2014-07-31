@@ -1,31 +1,11 @@
 {% trans_default_domain "charity" %}
-<form role="form" novalidate name="imagesForm">
+{% use "DothivPremiumConfiguratorBundle:partials:configure/blocks.html.twig" %}
+<form role="form" novalidate name="imagesForm" class="images">
     <div class="fields">
-        {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/empty-image.svg' %}
         {% set imageType = 'visual' %}
-        {% block imageupload %}
-            <fieldset class="imageupload">
-                <label for="image-{{ imageType }}">
-                    <img src="{{ asset_url }}" alt="" data-ng-hide="premiumBanner.{{ imageType }}">
-                    <img data-ng-src="%premiumBanner.{{ imageType }}%" alt="" data-ng-show="premiumBanner.{{ imageType }}"> {{ ('pc.image.' ~ imageType ~ '.name')|trans }}
-                    <br>
-                    <small>{{ ('pc.image.' ~ imageType ~ '.description')|trans }}</small>
-                    <div class="progress" data-ng-repeat="item in {{ imageType }}Uploader.queue" data-ng-show="{{ imageType }}Uploader.isUploading">
-                        <div class="progress-bar progress-bar-info" role="progressbar" data-ng-style="{ 'width': item.progress + '%' }"></div>
-                    </div>
-                </label>
-                <nav>
-                    <label for="image-{{ imageType }}" data-ng-hide="{{ imageType }}Uploader.isUploading">{% trans %}
-                        pc.image.button.change{% endtrans %}</label>
-                    <button type="reset" data-ng-show="premiumBanner.{{ imageType }}" data-ng-click="premiumBanner.{{ imageType }} = null">{% trans %}
-                        pc.image.button.remove{% endtrans %}</button>
-                </nav>
-                <input type="file" id="image-{{ imageType }}" data-nv-file-select data-uploader="{{ imageType }}Uploader">
-            </fieldset>
-        {% endblock %}
+        {{ block('imageupload') }}
         {% set imageType = 'bg' %}
         {{ block('imageupload') }}
-        {% endimage %}
     </div>
     <div class="fields-legend">
         {{ section.text|markdown }}

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$rootScope', '$scope', 'dothivBannerResource', 'config', '$state', '$modal', '$timeout', 'AttachmentUploader','$http',
+angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$rootScope', '$scope', 'dothivBannerResource', 'config', '$state', '$modal', '$timeout', 'AttachmentUploader', '$http',
     function ($rootScope, $scope, dothivBannerResource, config, $state, $modal, $timeout, AttachmentUploader, $http) {
 
         $scope.fullscreen = false;
@@ -23,41 +23,37 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
             'image_size': '100x100px'
         };
 
-        // Images
-        var visualUploader = new AttachmentUploader($scope, '/api/premium-configurator/image');
-        $scope.visualUploader = visualUploader.uploader;
-        var bgUploader = new AttachmentUploader($scope, '/api/premium-configurator/image');
-        $scope.bgUploader = bgUploader.uploader;
-        visualUploader.uploader.onAfterAddingFile = function (item) {
-            visualUploader.uploader.uploadItem(item);
-        };
-        bgUploader.uploader.onAfterAddingFile = function (item) {
-            bgUploader.uploader.uploadItem(item);
-        };
-        visualUploader.uploader.onErrorItem =
-            bgUploader.uploader.onErrorItem = function (item, response, status, headers) {
-                var modalScope = $rootScope.$new();
-                modalScope.code = status;
-                $modal.open({'templateUrl': 'uploadfailed.html', 'scope': modalScope});
-            };
+        // Image Uploaders
+        var uploaders = ['visual', 'bg', 'extrasVisual'];
+        for (var k in uploaders) {
+            (function(type) {
+                var uploader = new AttachmentUploader($scope, '/api/premium-configurator/image');
+                $scope[type + 'Uploader'] = uploader.uploader;
+                uploader.uploader.onAfterAddingFile = function (item) {
+                    uploader.uploader.uploadItem(item);
+                };
+                uploader.uploader.onErrorItem = function (item, response, status, headers) {
+                    var modalScope = $rootScope.$new();
+                    modalScope.code = status;
+                    $modal.open({'templateUrl': 'uploadfailed.html', 'scope': modalScope});
+                };
+                uploader.uploader.onCompleteItem = function (item, response, status, headers) {
+                    $scope.premiumBanner[type] = headers.location;
+                };
 
-        visualUploader.uploader.onCompleteItem = function (item, response, status, headers) {
-            $scope.premiumBanner.visual = headers.location;
-        };
-        bgUploader.uploader.onCompleteItem = function (item, response, status, headers) {
-            $scope.premiumBanner.bg = headers.location;
-        };
+            })(uploaders[k]);
+        }
 
         // Fonts
         $scope.fonts = [];
-        $scope.fontsLoaded = $http.get('/bundles/dothivpremiumconfigurator/data/googlefonts.json').success(function(data, status, headers, config) {
+        $scope.fontsLoaded = $http.get('/bundles/dothivpremiumconfigurator/data/googlefonts.json').success(function (data, status, headers, config) {
             $scope.fonts = data.items;
         });
-        $scope.headlineFontSelected = function(item, model, label) {
+        $scope.headlineFontSelected = function (item, model, label) {
             $scope.premiumBanner.headlineFont = label;
             $scope.fontsForm.headlineFont = item;
         };
-        $scope.textFontSelected = function(item, model, label) {
+        $scope.textFontSelected = function (item, model, label) {
             $scope.premiumBanner.textFont = label;
             $scope.fontsForm.textFont = item;
         };
@@ -125,6 +121,14 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
                     updatePreview();
                 }
             );
-        }
+        };
+
+        $scope.clearExtras = function () {
+            for (var k in $scope.premiumBanner) {
+                if (k.substr(0, 5) == 'extra') {
+                    $scope.premiumBanner[k] = null;
+                }
+            }
+        };
     }
 ]);

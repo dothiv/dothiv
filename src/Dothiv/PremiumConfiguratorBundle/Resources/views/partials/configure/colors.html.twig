@@ -1,9 +1,9 @@
 {% trans_default_domain "charity" %}
-<form role="form" novalidate name="colorsForm">
+<form role="form" novalidate name="colorsForm" class="color">
     <div class="fields">
         {% set colorType = 'font' %}
         {% block colorpicker %}
-            <fieldset class="color">
+            <fieldset>
                 <label for="color-{{ colorType }}">
                     {{ ('pc.color.' ~ colorType ~ '.name')|trans }}
                 </label>

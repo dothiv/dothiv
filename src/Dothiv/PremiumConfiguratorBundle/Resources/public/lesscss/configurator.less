@@ -119,7 +119,27 @@ body {
         }
       }
 
-      input[type=text], input[type=url], select {
+      form {
+        position: relative;
+        .clearfix;
+        nav {
+          position: absolute;
+          bottom: 0;
+          right: @grid-gutter-width / 2;
+          button, label {
+            &:extend(.btn all)
+          ;
+          }
+          button[type=reset] {
+            .btn-danger;
+          }
+          button[type=submit], label {
+            .btn-primary;
+          }
+        }
+      }
+
+      input[type=text], input[type=url], select, textarea {
         &:extend(.form-control all)
       ;
         &.ng-valid {
@@ -142,7 +162,6 @@ body {
 
       // Image upload
       fieldset.imageupload {
-        .make-xs-column(6);
         position: relative;
         img {
           width: @premium-image-size;
@@ -166,66 +185,56 @@ body {
           width: @premium-image-size - @progress-margin;
           height: @progress-margin * 2;
         }
-
-        nav {
-          position: absolute;
-          bottom: 0;
-          right: @grid-gutter-width / 2;
-          button, label {
-            &:extend(.btn all)
-          ;
-          }
-          button[type=reset] {
-            .btn-danger;
-          }
-          label {
-            .btn-primary;
-          }
+      }
+      form.images {
+        fieldset {
+          .make-xs-column(6);
         }
       }
 
       // Color picker
-      fieldset.color {
-        .make-xs-column(4);
-        label {
-          width: 100%;
-        }
-        label.preview {
-          display: inline-block;
-          width: @input-height-base;
-          height: @input-height-base;
-          box-shadow: 0 0 4px rgba(0, 0, 0, .175);
-          float: left;
-        }
-        input {
-          float: left;
-          width: 100px;
-          margin-left: @grid-gutter-width / 2;
+      form.color {
+        fieldset {
+          .make-xs-column(4);
+          label {
+            width: 100%;
+          }
+          label.preview {
+            display: inline-block;
+            width: @input-height-base;
+            height: @input-height-base;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .175);
+            float: left;
+          }
+          input {
+            float: left;
+            width: 100px;
+            margin-left: @grid-gutter-width / 2;
+          }
         }
       }
 
       // Font picker
-      fieldset.font {
-        .make-xs-column(6);
+      form.font {
+        fieldset {
+          .make-xs-column(6);
+        }
       }
 
       // Extras
-      .extras-intro {
-        .make-xs-column(12);
-        .container-fluid;
-        .image {
-          .make-xs-column(2);
+      form.extras {
+        fieldset {
+          .make-xs-column(6);
         }
-        .text {
-          p {
-            font-size: @font-size-base;
-          }
-          .make-xs-column(10);
-          button {
-            &:extend(.btn all)
-          ;
-            .btn-primary;
-          }
+      }
+      .extras-intro {
+        button {
+          &:extend(.btn all)
+        ;
+          .btn-primary;
+        }
+        img {
+          .pull-right;
         }
       }
     }
