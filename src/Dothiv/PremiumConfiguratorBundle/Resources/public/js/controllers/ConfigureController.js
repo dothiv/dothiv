@@ -210,5 +210,12 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
                 }
             }
         };
+
+        $scope.finish = function () {
+            var modalScope = $rootScope.$new();
+            modalScope.domain = config.domain;
+            modalScope.redirect_url = $scope.banner.redirect_url;
+            $modal.open({'templateUrl': 'code.html', 'scope': modalScope});
+        }
     }
 ]);

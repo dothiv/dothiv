@@ -36,7 +36,7 @@
                 <button data-ng-click="fullscreen = false" data-ng-show="fullscreen">
                     {% trans %}pc.preview.fullscreen.close{% endtrans %}
                 </button>
-                <button class="primary">
+                <button class="primary" data-ng-click="finish()">
                     {% trans %}pc.preview.finish{% endtrans %}
                 </button>
             </nav>
@@ -97,5 +97,41 @@
     </article>
     <footer>
         <button data-ng-click="$dismiss()">Close</button>
+    </footer>
+</script>
+<script type="text/ng-template" id="updatefailed.html">
+    {% set modal = content('Block', 'pc.errormodal.updatefailed') %}
+    <header>
+        <h2>{{ modal.title }} (Code: %%code%%)</h2>
+    </header>
+    <article>
+        {{ modal.text|markdown }}
+    </article>
+    <footer>
+        <button data-ng-click="$dismiss()">Close</button>
+    </footer>
+</script>
+<script type="text/ng-template" id="code.html">
+    {% set modal = content('Block', 'pc.modal.code') %}
+    <header>
+        <h2>{{ modal.title }}</h2>
+    </header>
+    <article>
+        <section class="image">
+            <img src="{{ modal.image.file.thumbnails.medium }}" alt="{{ modal.image.title }}">
+        </section>
+        <section>
+            {{ modal.text|markdown }}
+        </section>
+        <section data-ng-hide="redirect_url">
+            {{ modal.children[0].text|markdown }}
+        </section>
+        <section data-ng-show="redirect_url">
+            {{ modal.children[1].text|markdown }}
+        </section>
+    </article>
+    <footer>
+        <button data-ng-click="$dismiss()">Abort</button>
+        <a href="{{ path('dothiv_premiumconfig_page', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}#!/subscription" class="primary" data-ng-click="$dismiss()">Next</a>
     </footer>
 </script>

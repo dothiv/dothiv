@@ -7,12 +7,22 @@
   }
   article {
     .modal-body;
+    section.image {
+      text-align: center;
+      img {
+        max-width: 50%;
+      }
+    }
   }
   footer {
     .modal-footer;
-    button {
+    button, a {
       &:extend(.btn all);
       .btn-default;
+      text-decoration: none;
+      &.primary {
+        .btn-primary;
+      }
     }
   }
 }

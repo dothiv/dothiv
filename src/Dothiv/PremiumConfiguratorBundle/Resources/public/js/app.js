@@ -36,10 +36,10 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
             templateUrl: '/' + locale + '/premium-configurator/' + domain + '/app/configure.html',
             controller: 'ConfigureController'
         })
-        .state('=.payment', {
-            url: '/payment',
-            templateUrl: '/' + locale + '/premium-configurator/' + domain + '/app/payment.html',
-            controller: 'PaymentController'
+        .state('=.subscription', {
+            url: '/subscription',
+            templateUrl: '/' + locale + '/premium-configurator/' + domain + '/app/subscription.html',
+            controller: 'SubscriptionController'
         })
         ;
     }])
