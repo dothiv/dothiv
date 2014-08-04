@@ -2,6 +2,8 @@
 
 namespace Dothiv\ContentfulBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectManager;
 use Dothiv\ContentfulBundle\Adapter\ContentfulContentTypeReader;
 use Dothiv\ContentfulBundle\Adapter\ContentfulEntityReader;
 use Dothiv\ContentfulBundle\ContentfulEvents;
@@ -9,6 +11,7 @@ use Dothiv\ContentfulBundle\Event\ContentfulAssetEvent;
 use Dothiv\ContentfulBundle\Event\ContentfulContentTypeEvent;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
 use Dothiv\ContentfulBundle\Event\DeletedContentfulEntryEvent;
+use Dothiv\ContentfulBundle\Item\ContentfulContentType;
 use Dothiv\ContentfulBundle\Logger\LoggerAwareTrait;
 use Dothiv\ContentfulBundle\Repository\ContentfulContentTypeRepository;
 use Psr\Log\LoggerAwareInterface;
@@ -23,10 +26,12 @@ class WebhookController implements LoggerAwareInterface
 
     public function __construct(
         ContentfulContentTypeRepository $contentTypeRepo,
-        EventDispatcherInterface $dispatcher)
+        EventDispatcherInterface $dispatcher,
+        ObjectManager $em)
     {
         $this->contentTypeRepo = $contentTypeRepo;
         $this->dispatcher      = $dispatcher;
+        $this->em              = $em;
     }
 
     public function webhookAction(Request $request)
@@ -38,16 +43,16 @@ class WebhookController implements LoggerAwareInterface
                 'Missing X-Contentful-Topic header!'
             ));
         }
-        $data    = json_decode($request->getContent());
+        $data = json_decode($request->getContent());
         if (!is_object($data) || !property_exists($data, 'sys')) {
             throw new BadRequestHttpException('JSON object expected.');
         }
         $id      = $data->sys->id;
         $spaceId = $data->sys->space->sys->id;
-        $this->log('Webhook called: type: %s, id: %s', $data->sys->type, $id);
+        $this->log('%s Webhook called for space %s: type: %s, id: %s', $topic, $spaceId, $data->sys->type, $id);
 
         switch ($topic) {
-            case 'ContentManagementAPI.ContentType.publish':
+            case 'ContentManagement.ContentType.publish':
                 $reader      = new ContentfulContentTypeReader($spaceId);
                 $contentType = $reader->getContentType($data);
                 $this->dispatcher->dispatch(
@@ -55,39 +60,55 @@ class WebhookController implements LoggerAwareInterface
                     new ContentfulContentTypeEvent($contentType)
                 );
                 break;
-            case 'ContentManagementAPI.ContentType.unpublish':
-                // TODO: Implement "ContentManagementAPI.ContentType.unpublish"
+            case 'ContentManagement.ContentType.unpublish':
+                // TODO: Implement "ContentManagement.ContentType.unpublish"
                 break;
-            case 'ContentManagementAPI.Entry.publish':
-                $reader = new ContentfulEntityReader($spaceId, $this->contentTypeRepo->findAllBySpaceId($spaceId));
+            case 'ContentManagement.Entry.publish':
+                $reader = new ContentfulEntityReader($spaceId, $this->getContentTypes($spaceId));
                 $entry  = $reader->getEntry($data);
                 $this->dispatcher->dispatch(
                     ContentfulEvents::ENTRY_SYNC,
                     new ContentfulEntryEvent($entry)
                 );
                 break;
-            case 'ContentManagementAPI.Entry.unpublish':
-                $reader = new ContentfulEntityReader($spaceId, $this->contentTypeRepo->findAllBySpaceId($spaceId));
+            case 'ContentManagement.Entry.unpublish':
+                $reader = new ContentfulEntityReader($spaceId, $this->getContentTypes($spaceId));
                 $entry  = $reader->getEntry($data);
                 $this->dispatcher->dispatch(
                     ContentfulEvents::ENTRY_DELETE,
                     new DeletedContentfulEntryEvent($entry)
                 );
                 break;
-            case 'ContentManagementAPI.Asset.publish':
-                $reader = new ContentfulEntityReader($spaceId, $this->contentTypeRepo->findAllBySpaceId($spaceId));
+            case 'ContentManagement.Asset.publish':
+                $reader = new ContentfulEntityReader($spaceId, $this->getContentTypes($spaceId));
                 $entry  = $reader->getEntry($data);
                 $this->dispatcher->dispatch(
                     ContentfulEvents::ASSET_SYNC,
                     new ContentfulAssetEvent($entry)
                 );
                 break;
-            case 'ContentManagementAPI.Asset.unpublish':
-                // TODO: Implement "ContentManagementAPI.Asset.unpublish"
+            case 'ContentManagement.Asset.unpublish':
+                // TODO: Implement "ContentManagement.Asset.unpublish"
                 break;
         }
 
+        $this->em->flush();
+
         $response = new Response('', 204);
         return $response;
+    }
+
+    /**
+     * @param string $spaceId
+     *
+     * @return ArrayCollection|ContentfulContentType[]
+     */
+    protected function getContentTypes($spaceId)
+    {
+        $ctypes = new ArrayCollection();
+        foreach ($this->contentTypeRepo->findAllBySpaceId($spaceId) as $c) {
+            $ctypes->set($c->getId(), $c);
+        }
+        return $ctypes;
     }
 } 
