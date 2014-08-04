@@ -28,3 +28,7 @@ dothiv_domain_iframe:
     pattern:  /
     defaults:
         _controller: dothiv.charity.web.controller.iframe:iframeAction
+
+dothiv_contentful:
+    resource: "@DothivContentfulBundle/Resources/config/routing.yml"
+    prefix:   /contentful/

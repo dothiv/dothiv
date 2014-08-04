@@ -137,6 +137,10 @@ dothiv_charity_website:
         - { name: pinkbar_clickcounter, enabled: false }
         - { name: pinkbar_countdown, enabled: true }
 
+dothiv_contentful:
+    webhook:
+        httpBasicPassword: %contenful_webhook_password%
+
 parameters:
     # Default HTTP cache lifetime for pages
     page_lifetime: 1800
