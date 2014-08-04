@@ -5,8 +5,8 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
         $locationProvider.hashPrefix('!');
     }])
     .config(function($interpolateProvider) {
-        $interpolateProvider.startSymbol('%');
-        $interpolateProvider.endSymbol('%');
+        $interpolateProvider.startSymbol('%%');
+        $interpolateProvider.endSymbol('%%');
     })
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.headers.common.Accept = "application/json";

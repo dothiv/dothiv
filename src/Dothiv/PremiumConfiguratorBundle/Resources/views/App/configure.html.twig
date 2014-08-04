@@ -1,6 +1,6 @@
 {% trans_default_domain "charity" %}
 <div id="configurator" data-ng-class="{fullscreen: fullscreen}" data-ng-style="configuratorStyle">
-    <iframe data-ng-cloak src="%iframeUrl%" data-ng-init="iframeUrl='{{ path('dothiv_premiumconfig_preview', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}'" data-ng-style="iframeStyle"></iframe>
+    <iframe data-ng-cloak src="%%iframeUrl%%" data-ng-init="iframeUrl='{{ path('dothiv_premiumconfig_preview', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}'" data-ng-style="iframeStyle"></iframe>
     <div id="topnav">
         <div class="inner">
             <nav class="layouts">
@@ -78,7 +78,7 @@
 <script type="text/ng-template" id="uploadfailed.html">
     {% set modal = content('Block', 'pc.errormodal.uploadfailed') %}
     <header>
-        <h2>{{ modal.title }} (Code: %code%)</h2>
+        <h2>{{ modal.title }} (Code: %%code%%)</h2>
     </header>
     <article>
         {{ modal.text|markdown }}
@@ -90,7 +90,7 @@
 <script type="text/ng-template" id="updatefailed.html">
     {% set modal = content('Block', 'pc.errormodal.updatefailed') %}
     <header>
-        <h2>{{ modal.title }} (Code: %code%)</h2>
+        <h2>{{ modal.title }} (Code: %%code%%)</h2>
     </header>
     <article>
         {{ modal.text|markdown }}
