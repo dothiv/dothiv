@@ -228,6 +228,12 @@ class BannerController extends BaseController
             );
         });
 
+        if (Option::fromValue($domain->getOwner())->isEmpty()) {
+            throw new AccessDeniedHttpException(sprintf(
+                'Domain "%s" has not been claimed.', $name
+            ));
+        }
+
         $user = Option::fromValue($this->securityContext->getToken()->getUser())->getOrCall(function() {
             throw new AccessDeniedHttpException();
         });

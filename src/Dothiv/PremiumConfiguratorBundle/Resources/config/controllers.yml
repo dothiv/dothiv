@@ -9,6 +9,8 @@ services:
           - %assets_version%
           - @clock
           - %page_lifetime%
+        calls:
+          - [ setDomainRepo, [@dothiv.repository.domain] ]
 
     dothiv.premiumconfigurator.controller.preview:
         class: Dothiv\PremiumConfiguratorBundle\Controller\PremiumConfiguratorPreviewController
