@@ -144,6 +144,10 @@ dothiv_charity_website:
         - { name: pinkbar_clickcounter, enabled: false }
         - { name: pinkbar_countdown, enabled: true }
 
+dothiv_contentful:
+    webhook:
+        httpBasicPassword: %contenful_webhook_password%
+
 dothiv_premium_configurator:
     attachments:
         location: '%kernel.root_dir%/../web/uploads/clickcounter'

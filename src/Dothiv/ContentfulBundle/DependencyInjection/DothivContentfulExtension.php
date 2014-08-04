@@ -19,10 +19,12 @@ class DothivContentfulExtension extends Extension implements PrependExtensionInt
         $config        = $this->processConfiguration($configuration, $configs);
         $container->setParameter('dothiv_contentful.web_path', $config['web_path']);
         $container->setParameter('dothiv_contentful.local_path', $config['local_path']);
+        $container->setParameter('dothiv_contentful.webhook', $config['webhook']);
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('listener.yml');
         $loader->load('persistence.yml');
+        $loader->load('controllers.yml');
     }
 
     /**

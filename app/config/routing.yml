@@ -29,6 +29,10 @@ dothiv_domain_iframe:
     defaults:
         _controller: dothiv.charity.web.controller.iframe:iframeAction
 
+dothiv_contentful:
+    resource: "@DothivContentfulBundle/Resources/config/routing.yml"
+    prefix:   /contentful/
+
 # Premium Configurator
 dothiv_premium_configurator:
     host: %charitydomain%

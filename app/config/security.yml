@@ -1,10 +1,13 @@
 security:
     encoders:
         Dothiv\BusinessBundle\Entity\User: plaintext
+        Dothiv\ContentfulBundle\Service\WebhookUser: plaintext
 
     providers:
         user:
             id: dothiv.businessbundle.service.user
+        contentful_webhook:
+            id: dothiv_contentful.service.webhook_user
 
     role_hierarchy:
         ROLE_USER: ~
@@ -13,6 +16,7 @@ security:
         ROLE_DOMAIN_MANAGER:   ROLE_USER
         ROLE_ADMIN:            [ROLE_VALIDATED, ROLE_PROJECT_MANAGER, ROLE_DOMAIN_MANAGER]
         ROLE_SUPER_ADMIN:      ROLE_ADMIN
+        ROLE_CONTENTFUL_WEBHOOK: ~
 
     firewalls:
         dev:
@@ -25,6 +29,13 @@ security:
             provider:   user
             oauth2:     true
 
+        contentful_webhook:
+            pattern: ^/contentful/webhook
+            provider: contentful_webhook
+            http_basic:
+              realm: "Contentful Webhook Area"
+
     access_control:
       - { path: ^/api/user, roles: ROLE_USER }
       - { path: ^/api/domain, roles: ROLE_USER }
+      - { path: ^/contentful/webhook, roles: ROLE_CONTENTFUL_WEBHOOK }
