@@ -46,18 +46,21 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         }
 
         // Fonts
+        var fontTypes = ['headline', 'text'];
+        for (var k in fontTypes) {
+            (function (fontType) {
+                $scope[fontType + 'FontSelected'] = function (item, model, label) {
+                    $scope.premiumBanner[fontType + 'Font'] = label;
+                    $scope.fontsForm[fontType + 'Font'] = item;
+                    $scope.fontsForm[fontType + 'FontLabel'] = label;
+                };
+            })(fontTypes[k]);
+        }
+        // Load fonts
         $scope.fonts = [];
         $scope.fontsLoaded = $http.get('/bundles/dothivpremiumconfigurator/data/googlefonts.json').success(function (data, status, headers, config) {
             $scope.fonts = data.items;
         });
-        $scope.headlineFontSelected = function (item, model, label) {
-            $scope.premiumBanner.headlineFont = label;
-            $scope.fontsForm.headlineFont = item;
-        };
-        $scope.textFontSelected = function (item, model, label) {
-            $scope.premiumBanner.textFont = label;
-            $scope.fontsForm.textFont = item;
-        };
 
         // Fetch the banner
         $scope.banner = dothivBannerResource.get(
@@ -102,6 +105,24 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
             {'domain': config.domain},
             function () { // success
                 $scope.premiumBanner.domain = config.domain;
+                $scope.fontsLoaded.then(function() {
+                    for (var k in fontTypes) {
+                        (function (fontType) {
+                            var selectedFont = $scope.premiumBanner[fontType + 'Font'];
+                            if (typeof selectedFont == "undefined") {
+                                return;
+                            }
+                            // Family
+                            for(var f in $scope.fonts) {
+                                if ($scope.fonts[f].family == selectedFont) {
+                                    $scope.fontsForm[fontType + 'FontLabel'] = selectedFont;
+                                    $scope.fontsForm[fontType + 'Font'] = $scope.fonts[f];
+                                    break;
+                                }
+                            }
+                        })(fontTypes[k]);
+                    }
+                });
             },
             function (response) { // error
                 if (response.status == 403) {
