@@ -105,7 +105,8 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
             {'domain': config.domain},
             function () { // success
                 $scope.premiumBanner.domain = config.domain;
-                $scope.fontsLoaded.then(function() {
+                // Set selected fonts
+                $scope.fontsLoaded.then(function () {
                     for (var k in fontTypes) {
                         (function (fontType) {
                             var selectedFont = $scope.premiumBanner[fontType + 'Font'];
@@ -113,7 +114,7 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
                                 return;
                             }
                             // Family
-                            for(var f in $scope.fonts) {
+                            for (var f in $scope.fonts) {
                                 if ($scope.fonts[f].family == selectedFont) {
                                     $scope.fontsForm[fontType + 'FontLabel'] = selectedFont;
                                     $scope.fontsForm[fontType + 'Font'] = $scope.fonts[f];
@@ -123,6 +124,17 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
                         })(fontTypes[k]);
                     }
                 });
+                // Set uploaded images
+                for (var k in uploaders) {
+                    (function (upload) {
+                        var attachment = $scope.premiumBanner[upload];
+                        if (typeof attachment == "undefined") {
+                            return;
+                        }
+                        $scope.uploadedImages[upload] = $scope.premiumBanner['@context'][upload].url;
+                    })(uploaders[k]);
+                }
+
             },
             function (response) { // error
                 if (response.status == 403) {
