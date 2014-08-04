@@ -27,14 +27,19 @@ interface ContentfulEntryRepository
     /**
      * @param ContentfulEntry $entry
      *
-     * @return void
+     * @return self
      */
     function persist(ContentfulEntry $entry);
 
     /**
+     * @return self
+     */
+    function flush();
+
+    /**
      * @param ContentfulEntry $entry
      *
-     * @return void
+     * @return self
      */
     function remove(ContentfulEntry $entry);
 
