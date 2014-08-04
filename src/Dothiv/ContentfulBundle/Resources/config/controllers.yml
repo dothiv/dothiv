@@ -7,5 +7,6 @@ services:
         arguments:
          - @dothiv_contentful.repo.content_type
          - @event_dispatcher
+         - @doctrine.orm.entity_manager
         calls:
          - [ setLogger, [@logger] ]
