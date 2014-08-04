@@ -140,8 +140,7 @@
         margin-top: 30px;
     }
 
-    & button {
-        height: 50px;
+    & button, a.btn {
         background-color: #C1C1C1;
         padding: 14px 20px;
         border: 0;
@@ -158,6 +157,8 @@
         .pull-right;
         background: #1786BE url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 90% 50%;
         padding-right: 30px;
+        color: white;
+        margin-right: 0;
         &.disabled,
         &[disabled] {
           background: @btnBackground url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 90% 50%;
@@ -184,17 +185,6 @@
         }
       }
     }
-
-    & button.next {
-        background-color: #1785BE;
-        color: white;
-        margin-right: 0;
-
-        &:hover {
-            background-color: #252525;
-        }
-    }
-
 }
 
 // horizontal radio button groups

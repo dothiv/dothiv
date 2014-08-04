@@ -2,10 +2,12 @@
 
 namespace Dothiv\BusinessBundle\Command;
 
+use Dothiv\BusinessBundle\Entity\Banner;
+use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -14,22 +16,34 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Nils Wisiol <mail@nils-wisiol.de>
  */
-class ClickCounterRetrieveCommand extends ContainerAwareCommand {
-
-    protected function configure() {
+class ClickCounterRetrieveCommand extends ContainerAwareCommand
+{
+    protected function configure()
+    {
         $this
             ->setName('dothiv:clickcounter:update')
             ->setDescription('Update domain data from the click counter API.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
-        $cc = $this->getContainer()->get('clickcounter');
-        // FIXME: use clock service
-        list($count, $fail) = $cc->retrieveByDate(new \DateTime());
-        if ($fail > 0)
-            $output->writeln('Update failed on ' . $fail . ' of ' . $count . ' domains!');
-        else
-            $output->writeln('Updated values on ' . $count . ' domains');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        /* @var $cc ClickCounterConfigInterface */
+        /* @var $bannerRepo BannerRepositoryInterface */
+        /* @var $domainRepo DomainRepositoryInterface */
+        /* @var $banners Banner[] */
+        $cc         = $this->getContainer()->get('clickcounter');
+        $bannerRepo = $this->getContainer()->get('dothiv.repository.banner');
+        $domainRepo = $this->getContainer()->get('dothiv.repository.domain');
+        $banners    = $bannerRepo->findAll();
+        if (empty($banners)) {
+            $output->writeln('No banners found!');
+        }
+        foreach ($banners as $banner) {
+            $config = $cc->get($banner->getDomain());
+            $domain = $banner->getDomain();
+            $domain->setClickcount($config->clicks);
+            $domainRepo->persist($domain)->flush();
+            $output->writeln(sprintf('%s:  %d', $domain->getName(), $domain->getClickcount()));
+        }
     }
-
 }

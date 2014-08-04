@@ -11,12 +11,12 @@ module.exports = function (config) {
             'AngularJsBundle/Resources/extra/angular-ui.github.io/ui-router/angular-ui-router.js',
             'AngularJsBundle/Resources/extra/angular-ui.github.io/ui-bootstrap/2/angular-ui-bootstrap.js',
             'AngularJsBundle/Resources/angular/angular-mocks.js',
-            // CharityWebsiteBundle
+            // *WebsiteBundle
             'CharityWebsiteBundle/Resources/public/1.2/app.js',
             'CharityWebsiteBundle/Resources/public/1.2/filters/*.js',
             'CharityWebsiteBundle/Resources/public/1.2/controllers/*.js',
-            'CharityWebsiteBundle/Resources/public/1.2/services/*.js',
-            'CharityWebsiteBundle/Resources/public/1.2/services/models/*.js',
+            'BaseWebsiteBundle/Resources/public/1.2/services/*.js',
+            'BaseWebsiteBundle/Resources/public/1.2/services/models/*.js',
             'CharityWebsiteBundle/Resources/test/1.2/unit/**/*.js',
             'CharityWebsiteBundle/Resources/test/1.2/controllers/*.js'
         ],

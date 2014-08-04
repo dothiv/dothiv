@@ -24,6 +24,7 @@ class DoctrineContentfulContentTypeRepository extends EntityRepository implement
     public function persist(ContentfulContentType $contentType)
     {
         $this->getEntityManager()->persist($contentType);
+        return $this;
     }
 
     /**
@@ -32,6 +33,16 @@ class DoctrineContentfulContentTypeRepository extends EntityRepository implement
     public function remove(ContentfulContentType $contentType)
     {
         $this->getEntityManager()->remove($contentType);
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    function flush()
+    {
+        $this->getEntityManager()->flush();
+        return $this;
     }
 
     /**

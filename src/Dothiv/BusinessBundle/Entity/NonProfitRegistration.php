@@ -18,6 +18,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class NonProfitRegistration extends Entity
 {
+    use Traits\CreateUpdateTime;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -40,8 +42,7 @@ class NonProfitRegistration extends Entity
      * @ORM\Column(type="string",length=255)
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\NotNull
-     * @Assert\Length(min=7,max=67)
+     * @Assert\Regex("/^([a-z0-9]|xn--)(?:[a-z0-9]|-(?!-)){1,62}[a-z0-9]\.hiv$/")
      * @Serializer\Expose
      */
     protected $domain;
@@ -179,28 +180,22 @@ class NonProfitRegistration extends Entity
 
     /**
      * @var int
-     * @Assert\Range(min=1,max=1)
+     * @Assert\Range(min=0,max=1)
      * @Assert\NotBlank
      * @Assert\NotNull
+     * @ORM\Column(type="integer")
      * @Serializer\Expose
      */
     protected $forward; // e.g.: 1
 
     /**
-     * @var \DateTime $created
+     * Timestamp of when the receipt confirmation has been sent.
      *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
-     * @var \DateTime $updated
+     * @var \DateTime $receiptSent
      *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updated;
+    private $receiptSent;
 
     /**
      * @param User $user
@@ -223,7 +218,7 @@ class NonProfitRegistration extends Entity
      */
     public function setDomain($domain)
     {
-        $this->domain = $domain;
+        $this->domain = strtolower($domain);
     }
 
     /**
@@ -232,6 +227,16 @@ class NonProfitRegistration extends Entity
     public function getDomain()
     {
         return $this->domain;
+    }
+
+    /**
+     * Returns the UTF8 representation of the domain.
+     *
+     * @return string
+     */
+    public function getDomainUTF8()
+    {
+        return idn_to_utf8($this->getDomain());
     }
 
     /**
@@ -490,4 +495,19 @@ class NonProfitRegistration extends Entity
         return $this->website;
     }
 
+    /**
+     * @param \DateTime $receiptSent
+     */
+    public function setReceiptSent(\DateTime $receiptSent)
+    {
+        $this->receiptSent = $receiptSent;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getReceiptSent()
+    {
+        return $this->receiptSent;
+    }
 }

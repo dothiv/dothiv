@@ -37,6 +37,7 @@ before_script:
 #-e2e:  - ./node_modules/protractor/bin/webdriver-manager update
 # install dothiv
   - cp app/config/parameters.yml.travis app/config/parameters.yml  
+  - cp app/config/parameters.yml.travis app/config/parameters_test.yml
   - composer install
   - mysql -e 'create database dothiv;'
   - php app/console doctrine:schema:create
@@ -53,6 +54,7 @@ script:
   - phpunit -c app
 # Javascript testing
   - ./node_modules/karma/bin/karma start src/Dothiv/CharityWebsiteBundle/Resources/test/1.2/config/travis-karma.conf.js
+  - ./node_modules/karma/bin/karma start src/Dothiv/RegistryWebsiteBundle/Resources/test/1.2/config/travis-karma.conf.js
 #-e2e: - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/Dothiv/CharityWebsiteBundle/Resources/test/travis-e2e-test.sh
 
 after_failure:

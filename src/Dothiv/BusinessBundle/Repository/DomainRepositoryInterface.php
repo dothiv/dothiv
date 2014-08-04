@@ -2,11 +2,11 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\Domain;
 use PhpOption\Option;
-use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 
-interface DomainRepositoryInterface
+interface DomainRepositoryInterface extends ObjectRepository
 {
     /**
      * @param string $name

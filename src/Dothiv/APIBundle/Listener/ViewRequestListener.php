@@ -48,6 +48,7 @@ class ViewRequestListener
             $model      = new $modelClass;
 
             $this->setModelData($request, $model);
+            $this->setModelDataFromRouteParams($request, $model);
 
             $errors = $this->validator->validate($model);
 
@@ -84,9 +85,48 @@ class ViewRequestListener
     protected function setModelDataFromArray($data, $model)
     {
         foreach ($data as $k => $v) {
-            if (property_exists($model, $k)) {
+            $setter = $this->toSetter($k);
+            if (method_exists($model, $setter)) {
+                $model->$setter($v);
+            } elseif (property_exists($model, $k)) {
                 $model->$k = $v;
             }
         }
+    }
+
+    /**
+     * @param string $propertyName
+     *
+     * @return string
+     */
+    protected function toSetter($propertyName)
+    {
+        return 'set' . $this->toCamelCase($propertyName);
+    }
+
+    /**
+     * @param string $propertyName
+     *
+     * @return string
+     */
+    protected function toCamelCase($propertyName)
+    {
+        return ucwords(preg_replace('/_/', ' ', $propertyName));
+    }
+
+    /**
+     * @param $request
+     * @param $model
+     */
+    protected function setModelDataFromRouteParams($request, $model)
+    {
+        $routeParams = array();
+        foreach ($request->attributes->get('_route_params') as $k => $v) {
+            if (substr($k, 0, 1) === '_') {
+                continue;
+            }
+            $routeParams[$k] = $v;
+        }
+        $this->setModelDataFromArray($routeParams, $model);
     }
 }

@@ -2,9 +2,10 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\Banner;
 
-interface BannerRepositoryInterface
+interface BannerRepositoryInterface extends ObjectRepository
 {
     /**
      * Persist the entity.

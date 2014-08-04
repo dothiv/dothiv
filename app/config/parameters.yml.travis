@@ -21,9 +21,7 @@ parameters:
     facebook_app_id: 1234
     facebook_app_secret: yourfacebooksecret
     twitter_widget_id: 1234
-    clickcounter_auth_username: some_username
-    clickcounter_auth_password: some_password
-    clickcounter_base_url: 'https://somewhere.on.appspot.com'
+    clickcounter_auth_secret: some_password
     node_bin: /usr/bin/node
     node_modules: '%kernel.root_dir%/../node_modules'
     ngmin_bin: '%kernel.root_dir%/../node_modules/ngmin/bin/ngmin'
@@ -31,5 +29,11 @@ parameters:
     # Contentful settings
     contenful_space_charity: xfj3l4zlkg3j
     contenful_space_registry: q9io9aidddk4
+    contenful_space_clickcounter: d6rba6hzdb1o
+    contenful_webhook_password: sometoken
 
     assets_version: 1404223225
+
+    # Google Analytics IDs
+    googleanalytics_charity: UA-XXXX-Y
+    googleanalytics_registry: UA-XXXX-Y

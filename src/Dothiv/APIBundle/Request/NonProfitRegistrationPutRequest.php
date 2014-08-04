@@ -5,9 +5,9 @@ namespace Dothiv\APIBundle\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Model for a non-profit registration request
+ * Model for a non-profit registration put request
  */
-class NonProfitRegistrationRequest
+class NonProfitRegistrationPutRequest extends NonProfitRegistrationGetRequest
 {
     /**
      * @var string
@@ -116,7 +116,7 @@ class NonProfitRegistrationRequest
 
     /**
      * @var int
-     * @Assert\Range(min=1,max=1)
+     * @Assert\Range(min=0,max=1)
      * @Assert\NotBlank
      * @Assert\NotNull
      */

@@ -25,6 +25,7 @@ class DoctrineContentfulEntryRepository extends EntityRepository implements Cont
     function persist(ContentfulEntry $entry)
     {
         $this->getEntityManager()->persist($entry);
+        return $this;
     }
 
     /**
@@ -33,6 +34,16 @@ class DoctrineContentfulEntryRepository extends EntityRepository implements Cont
     function remove(ContentfulEntry $entry)
     {
         $this->getEntityManager()->remove($entry);
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    function flush()
+    {
+        $this->getEntityManager()->flush();
+        return $this;
     }
 
     /**

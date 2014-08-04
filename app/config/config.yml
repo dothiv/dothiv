@@ -32,12 +32,20 @@ twig:
       general_availability: 2014-08-26T00:00:00Z
       sunrise: 2014-07-21T14:00:00Z
       assets_version: %assets_version%
+      googleanalytics_charity: %googleanalytics_charity%
+      googleanalytics_registry: %googleanalytics_registry%
 
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        ['DothivCharityWebsiteBundle', 'DothivRegistryWebsiteBundle', 'DothivAPIBundle', 'DothivTwitterBootstrapBundle', 'DothivAngularJsBundle']
+    bundles:
+      - 'DothivCharityWebsiteBundle'
+      - 'DothivRegistryWebsiteBundle'
+      - 'DothivAPIBundle'
+      - 'DothivTwitterBootstrapBundle'
+      - 'DothivAngularJsBundle'
+      - 'DothivQLPPartnerBundle'
     #java: /usr/bin/java
     filters:
         less:
@@ -90,17 +98,32 @@ swiftmailer:
 # Gregwar's form
 gregwar_form: ~
 
+nelmio_cors:
+    defaults:
+        allow_credentials: true
+        allow_origin: ['*']
+        allow_headers: ['origin', 'accept', 'authorization', 'content-type']
+        allow_methods: ['GET', 'POST', 'PUT', 'DELETE']
+        expose_headers: []
+        max_age: 0
+        hosts: []
+    paths:
+        '^/': ~
+
 dothiv_business:
     allowed_tlds:
       # - hiv
       ~
     attachment_location: '%kernel.root_dir%/attachments'
+    clickcounter:
+        secret: '%clickcounter_auth_secret%'
 
 dothiv_base_website:
     thumbnails:
         - { label: 'person', width: 260, height: 300, thumbnail: true }
         - { label: 'supporter', width: 125, height: 125, exact: true }
         - { label: 'partner', width: 200, height: 100, exact: true }
+        - { label: 'friend', width: 300, height: 150 }
         - { label: 'small', width: 200, height: 200 }
         - { label: 'medium', width: 400, height: 400 }
         - { label: 'large', width: 800, height: 800 }
@@ -110,13 +133,18 @@ dothiv_charity_website:
     features:
         - { name: howitworks, enabled: false }
         - { name: projects, enabled: true, routing: true }
-        - { name: profile, enabled: false }
+        - { name: profile, enabled: true, routing: true, config: true }
         - { name: pinkbar_clickcounter, enabled: false }
         - { name: pinkbar_countdown, enabled: true }
+
+dothiv_contentful:
+    webhook:
+        httpBasicPassword: %contenful_webhook_password%
 
 parameters:
     # Default HTTP cache lifetime for pages
     page_lifetime: 1800
     # Do not convert variables in camel case (myVar) to snake case "my_var"
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
+
 

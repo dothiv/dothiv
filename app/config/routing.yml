@@ -15,3 +15,20 @@ dothiv_registry_web:
     host: %registrydomain%
     resource: "@DothivRegistryWebsiteBundle/Resources/config/routing.yml"
     prefix:   /
+
+# QLP landingpages
+dothiv_qlp_partner:
+    host: "{partner}.friends.%charitydomain%"
+    resource: "@DothivQLPPartnerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# HIV domain iframes
+dothiv_domain_iframe:
+    host: "{domainname}.iframe.%charitydomain%"
+    pattern:  /
+    defaults:
+        _controller: dothiv.charity.web.controller.iframe:iframeAction
+
+dothiv_contentful:
+    resource: "@DothivContentfulBundle/Resources/config/routing.yml"
+    prefix:   /contentful/

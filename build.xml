@@ -146,9 +146,9 @@
         </exec>
     </target>
 
-    <property name="parameters.yml" value="${basedir}/app/config/parameters.yml"/>
+    <property name="parameters_test.yml" value="${basedir}/app/config/parameters_test.yml"/>
     <target name="setupsymfony" description="Configure symfony">
-        <copy file="${basedir}/app/config/parameters.yml.jenkins" tofile="${parameters.yml}" overwrite="true"/>
+        <copy file="${basedir}/app/config/parameters.yml.jenkins" tofile="${parameters_test.yml}" overwrite="true"/>
     </target>
 
     <target name="sf2clean" description="Clear symfony2 cache" depends="setupsymfony">

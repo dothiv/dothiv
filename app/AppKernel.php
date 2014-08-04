@@ -36,6 +36,9 @@ class AppKernel extends Kernel
             new Dothiv\TwitterBootstrapBundle\DothivTwitterBootstrapBundle(),
             new Dothiv\AngularJsBundle\DothivAngularJsBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Dothiv\QLPPartnerBundle\DothivQLPPartnerBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

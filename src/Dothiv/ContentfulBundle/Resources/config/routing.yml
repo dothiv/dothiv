@@ -1,0 +1,6 @@
+dothiv_contentful_webhook:
+    pattern:  /webhook
+    defaults:
+        _controller: dothiv_contentful.controller.webhook:webhookAction
+        _format: json
+    methods: [POST]

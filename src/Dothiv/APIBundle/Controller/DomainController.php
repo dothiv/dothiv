@@ -2,18 +2,28 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Exception\BadMethodCallException;
 use Dothiv\APIBundle\Request\ClaimRequest;
+use Dothiv\APIBundle\Request\DomainNameRequest;
+use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\DomainClaim;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\APIBundle\Annotation\ApiRequest;
+use Dothiv\BusinessBundle\Event\DomainEvent;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainClaimRepositoryInterface;
+use Dothiv\BusinessBundle\Service\Clock;
 use JMS\Serializer\SerializerInterface;
+use PhpOption\Option;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\GoneHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 
 class DomainController extends BaseController
@@ -38,18 +48,32 @@ class DomainController extends BaseController
      */
     private $serializer;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    /**
+     * @var Clock
+     */
+    private $clock;
+
     public function __construct(
 
         SecurityContext $securityContext,
         DomainRepositoryInterface $domainRepo,
         DomainClaimRepositoryInterface $domainClaimRepo,
-        SerializerInterface $serializer
+        SerializerInterface $serializer,
+        EventDispatcherInterface $dispatcher,
+        Clock $clock
     )
     {
         $this->domainRepo      = $domainRepo;
         $this->domainClaimRepo = $domainClaimRepo;
         $this->securityContext = $securityContext;
         $this->serializer      = $serializer;
+        $this->dispatcher      = $dispatcher;
+        $this->clock           = $clock;
     }
 
     /**
@@ -86,15 +110,55 @@ class DomainController extends BaseController
         }
 
         // claim the domain
-        $domain->claim($user, $token);
-        $claim = new DomainClaim();
-        // persist the successful claim
-        $claim->setUsername($user->getUsername());
-        $claim->setClaimingToken($token);
-        $claim->setDomainname($domain->getName());
-        $this->domainClaimRepo->persist($claim)->flush();
-        $this->domainRepo->persist($domain)->flush();
+        $this->claimDomain($domain, $user, $token);
 
+        $response = $this->createResponse();
+        $response->setStatusCode(201);
+        $response->setContent($this->serializer->serialize($domain, 'json'));
+        return $response;
+    }
+
+    /**
+     * Claims a domain for a user without a token.
+     *
+     * @ApiRequest("Dothiv\APIBundle\Request\DomainNameRequest")
+     *
+     * @throws NotFoundHttpException If domain not found
+     * @throws ConflictHttpException if already mailed claiming token.
+     * @throws GoneHttpException if already claimed
+     */
+    public function claimNoTokenAction(Request $request)
+    {
+        /* @var User $user */
+        $user = $this->securityContext->getToken()->getUser();
+        /* @var DomainNameRequest $model */
+        $domainRequest = $request->attributes->get('model');
+
+        /* @var Domain $domain */
+        $domain = $this->domainRepo->getDomainByName($domainRequest->getName())->getOrCall(function () {
+            throw new NotFoundHttpException();
+        });
+
+        // Domain is claimed?
+        if (Option::fromValue($domain->getOwner())->isDefined()) {
+            throw new GoneHttpException('Already claimed.');
+        }
+
+        // Not owned by user …
+        if ($domain->getOwnerEmail() != $user->getEmail()) {
+            if (Option::fromValue($domain->getTokenSent())->isDefined()) {
+                throw new ConflictHttpException('Mail already sent.');
+            }
+            $this->dispatcher->dispatch(BusinessEvents::CLAIM_TOKEN_REQUESTED, new DomainEvent($domain));
+            $domain->setTokenSent($this->clock->getNow());
+            $this->domainRepo->persist($domain)->flush();
+            $response = $this->createResponse();
+            $response->setStatusCode(202);
+            return $response;
+        }
+
+        // User is owner: claim the domain
+        $this->claimDomain($domain, $user, $domain->getToken());
         $response = $this->createResponse();
         $response->setStatusCode(201);
         $response->setContent($this->serializer->serialize($domain, 'json'));
@@ -141,5 +205,22 @@ class DomainController extends BaseController
             return array('form' => $form);
         }
         throw new HttpException(403);
+    }
+
+    /**
+     * @param Domain $domain
+     * @param User   $user
+     * @param string $token
+     */
+    protected function claimDomain(Domain $domain, User $user, $token)
+    {
+        $domain->claim($user, $token);
+        $claim = new DomainClaim();
+        // persist the successful claim
+        $claim->setUsername($user->getUsername());
+        $claim->setClaimingToken($token);
+        $claim->setDomainname($domain->getName());
+        $this->domainClaimRepo->persist($claim)->flush();
+        $this->domainRepo->persist($domain)->flush();
     }
 }

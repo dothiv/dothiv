@@ -12,11 +12,13 @@ Feature: Login
 
   Scenario: Request login link
     And I send a POST request to "http://click4life.hiv.dev/api/account/loginLink" with JSON values:
-      | email | SomeOne@Example.Com |
+      | email  | SomeOne@Example.Com |
+      | locale | en                  |
     Then the response status code should be 201
     # Second login link should not be created
     Given I send a POST request to "http://click4life.hiv.dev/api/account/loginLink" with JSON values:
-      | email | someone@example.com |
+      | email  | someone@example.com |
+      | locale | en                  |
     Then the response status code should be 429
     And the header "Retry-After" should be equal to "1800"
 
@@ -26,7 +28,8 @@ Feature: Login
       | token    | usert0k3n                       |
       | lifetime | {\DateTime@2013-12-31T23:59:59} |
     And I send a POST request to "http://click4life.hiv.dev/api/account/loginLink" with JSON values:
-      | email | SomeOne@Example.Com |
+      | email  | SomeOne@Example.Com |
+      | locale | en                  |
     Then the response status code should be 201
 
   Scenario: Request login link after token revoked
@@ -36,5 +39,6 @@ Feature: Login
       | lifetime    | {\DateTime@2015-01-01T00:00:00} |
       | revokedTime | {\DateTime@2013-12-31T23:59:59} |
     And I send a POST request to "http://click4life.hiv.dev/api/account/loginLink" with JSON values:
-      | email | SomeOne@Example.Com |
+      | email  | SomeOne@Example.Com |
+      | locale | en                  |
     Then the response status code should be 201

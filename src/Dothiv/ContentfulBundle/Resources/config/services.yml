@@ -1,6 +1,7 @@
 parameters:
     dothiv_contentful.content.class: Dothiv\ContentfulBundle\Adapter\RepositoryContentAdapter
     dothiv_contentful.asset.class: Dothiv\ContentfulBundle\Adapter\FilesystemAssetAdapter
+    dothiv_contentful.service.webhook_user.class: Dothiv\ContentfulBundle\Service\WebhookUserService
 
 services:
     dothiv_contentful.asset:
@@ -17,3 +18,8 @@ services:
           - @dothiv_contentful.repo.entry
           - @dothiv_contentful.repo.asset
           - @dothiv_contentful.asset
+
+    dothiv_contentful.service.webhook_user:
+        class: %dothiv_contentful.service.webhook_user.class%
+        arguments:
+         - %dothiv_contentful.webhook%

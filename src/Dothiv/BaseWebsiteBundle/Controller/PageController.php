@@ -82,10 +82,11 @@ class PageController
      * @param string  $page
      * @param string  $navigation
      * @param string  $template
+     * @param string  $type
      *
      * @return Response
      */
-    public function pageAction(Request $request, $locale, $page, $navigation = null, $template = null)
+    public function pageAction(Request $request, $locale, $page, $navigation = null, $template = null, $type = null)
     {
         $response = $this->createResponse();
 
@@ -103,7 +104,7 @@ class PageController
         // Fetch page.
         $pageId = str_replace('/', '.', $page);
         try {
-            $data = $this->buildPageObject($request, $locale, $pageId);
+            $data = $this->buildPageObject($request, $locale, $pageId, $type);
         } catch (InvalidArgumentException $e) {
             return $this->createNotFoundResponse($e->getMessage());
         }
@@ -130,20 +131,23 @@ class PageController
 
     /**
      * @param Request $request
-     * @param         $locale
-     * @param         $page
+     * @param string  $locale
+     * @param string  $page
+     * @param string  $type
      *
      * @return array
      */
-    protected function buildPageObject(Request $request, $locale, $page)
+    protected function buildPageObject(Request $request, $locale, $page, $type = null)
     {
-        $data = array(
-            'locale' => $locale,
-            'link'   => array(
-                'de' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/de$1', $request->getPathInfo()),
-                'en' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/en$1', $request->getPathInfo()),
-                'ky' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/ky$1', $request->getPathInfo()),
-            )
+        $data                    = array();
+        $type                    = Option::fromValue($type)->getOrElse('Page');
+        $entry                   = $this->content->buildEntry($type, $page, $locale);
+        $data[strtolower($type)] = $entry;
+        $data['locale']          = $locale;
+        $data['link']            = array(
+            'de' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/de$1', $request->getPathInfo()),
+            'en' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/en$1', $request->getPathInfo()),
+            'ky' => $request->getBaseUrl() . preg_replace('%^/' . $locale . '(/*)%', '/ky$1', $request->getPathInfo()),
         );
         // TODO: Cache.
         switch ($locale) {
@@ -159,7 +163,6 @@ class PageController
                 break;
         }
 
-        $data['page'] = $this->content->buildEntry('Page', $page, $locale);
         return $data;
     }
 

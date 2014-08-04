@@ -2,7 +2,6 @@
 
 namespace Dothiv\BaseWebsiteBundle\Service\Mailer;
 
-use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Event\UserTokenEvent;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
@@ -11,21 +10,6 @@ use Symfony\Component\Routing\RouterInterface;
 
 class LoginLinkMailer
 {
-    /**
-     * @var \Swift_Mailer
-     */
-    protected $mailer;
-
-    /**
-     * @var string
-     */
-    private $emailFromAddress;
-
-    /**
-     * @var string
-     */
-    private $emailFromName;
-
     /**
      * @var string
      */
@@ -37,97 +21,65 @@ class LoginLinkMailer
     private $host;
 
     /**
-     * @var Content
-     */
-    private $content;
-
-    /**
      * @var UserServiceInterface
      */
     private $userService;
 
     /**
-     * @param \Swift_Mailer        $mailer
-     * @param RouterInterface      $router
-     * @param string               $route
-     * @param string               $host
-     * @param Content              $content
-     * @param UserServiceInterface $userService
-     * @param string               $emailFromAddress
-     * @param string               $emailFromName
+     * @var ContentMailerInterface
+     */
+    private $contentMailer;
+
+    /**
+     * @param ContentMailerInterface $contentMailer
+     * @param RouterInterface        $router
+     * @param string                 $route
+     * @param string                 $host
+     * @param UserServiceInterface   $userService
      */
     public function __construct(
-        \Swift_Mailer $mailer,
+        ContentMailerInterface $contentMailer,
         RouterInterface $router,
         $route,
         $host,
-        UserServiceInterface $userService,
-        Content $content,
-        $emailFromAddress,
-        $emailFromName)
+        UserServiceInterface $userService)
     {
-        $this->mailer           = $mailer;
-        $this->router           = $router;
-        $this->route            = $route;
-        $this->host             = $host;
-        $this->userService      = $userService;
-        $this->content          = $content;
-        $this->emailFromAddress = $emailFromAddress;
-        $this->emailFromName    = $emailFromName;
+        $this->contentMailer = $contentMailer;
+        $this->router        = $router;
+        $this->route         = $route;
+        $this->host          = $host;
+        $this->userService   = $userService;
     }
 
     /**
      * @param UserToken $token
+     * @param string    $locale
      *
      * @return void
      */
-    public function sendLoginMail(UserToken $token)
+    public function sendLoginMail(UserToken $token, $locale)
     {
         $userToken = $token->getBearerToken();
         $user      = $token->getUser();
 
         $link = $this->router->generate(
             $this->route,
-            array('locale' => 'en'),
+            array('locale' => $locale),
             UrlGeneratorInterface::ABSOLUTE_URL
         );
         $link .= sprintf('#!/auth/%s/%s', $user->getHandle(), $userToken);
 
         $data = array(
             'loginLink' => $link,
-            'firstname'   => $user->getFirstname(),
-            'surname'      => $user->getSurname(),
+            'firstname' => $user->getFirstname(),
+            'surname'   => $user->getSurname(),
         );
 
-        $template = $this->content->buildEntry('eMail', 'login', 'en');
+        $code   = 'login';
+        $to     = $user->getEmail();
+        $toName = $user->getFirstname() . ' ' . $user->getSurname();
 
-        $twig    = new \Twig_Environment(new \Twig_Loader_String());
-        $subject = $twig->render($template->subject, $data);
-        $text    = $twig->render($template->text, $data);
-
-        // send email
-        $message = \Swift_Message::newInstance();
-        $message
-            ->setSubject($subject)
-            ->setFrom($this->emailFromAddress, $this->emailFromName)
-            ->setTo($user->getEmail(), $user->getFirstname() . ' ' . $user->getSurname())
-            ->setBody($text);
-
-        // Add HTML part.
-        if (property_exists($template, 'html')) {
-            $html = '';
-            if (property_exists($template, 'htmlHead')) {
-                $html .= $template->htmlHead;
-            }
-            $parsedown = new \Parsedown();
-            $html .= $twig->render($parsedown->text($template->html), $data);
-            if (property_exists($template, 'htmlFoot')) {
-                $html .= $template->htmlFoot;
-            }
-            $message->addPart($html, 'text/html');
-        }
-
-        $this->mailer->send($message);
+        $this->contentMailer->sendContentTemplateMail($code, $locale, $to, $toName, $data);
     }
 
     public function onLoginLinkRequested(UserTokenEvent $event)
@@ -139,6 +91,6 @@ class LoginLinkMailer
         if ($host != $this->host) {
             return;
         }
-        $this->sendLoginMail($event->getUserToken());
+        $this->sendLoginMail($event->getUserToken(), $event->getLocale());
     }
 }

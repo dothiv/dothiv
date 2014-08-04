@@ -309,6 +309,44 @@ nav.block {
   }
 }
 
+#agb {
+  .cfblock-text {
+    .agb-headline {
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 1.25em;
+    }
+    .agb-text {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 1.25em;
+    }
+    ol {
+      li {
+        .agb-headline;
+        padding: 1em 0;
+        p {
+          .agb-text;
+          &:first-child {
+            .agb-headline;
+          }
+        }
+        ol {
+          li {
+            .agb-text;
+            padding: 0.25em 0;
+          }
+          p {
+            &:first-child {
+              .agb-text;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 iframe.twitter-timeline {
   width: 596px;
   height: 596px;
@@ -393,3 +431,20 @@ i {
     background-position: 0px 0px;
   }
 }
+
+.editorsinfo {
+  position: relative;
+  .coming-soon {
+    position: absolute;
+    bottom: 15px;
+    left: 75%;
+    background-color: #E0007A;
+    color: #FFF;
+    font-weight: bold;
+    padding: 0.5em;
+    transform: rotate(-15deg);
+    text-align: center;
+    border-radius: 0.25em;
+  }
+}
+

@@ -17,14 +17,16 @@
 
  .hiv domains – The Red Ribbon of the digital age
 
-                    dotHIV.org
+                  click4life.hiv
 
 -->
 <html lang="{{ locale }}">
 <head>
+    {% set title %}{% spaceless %}
+        {% if title|default("")|length > 0 %}{{ title }} |{% endif %}{% trans %}registry.fullname{% endtrans %}
+    {% endspaceless %}{% endset %}
     <title>
-        {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
-        {% trans %}registry.fullname{% endtrans %}
+        {{ title }}
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,6 +41,25 @@
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <!-- Social Media Sharing -->
+    <!-- Twitter cards support -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="tldHIV">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{% trans %}registry.description{% endtrans %}">
+    <meta name="twitter:creator" content="tldHIV">
+    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.png' %}
+    <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
+    {% endimage %}
+    <!-- Facebook open graph support -->
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{% trans %}registry.description{% endtrans %}">
+    <meta property="og:site_name" content="{% trans %}registry.fullname{% endtrans %}">
+    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.png' %}
+    <meta property="og:image" content="{{ app.request.uriForPath(asset_url) }}">
+    {% endimage %}
+    <meta property="og:type" content="website">
+    <base href="/">
 </head>
 <body data-ng-app="dotHIVApp">
 <div class="outer">
@@ -142,10 +163,21 @@
         var config = {
             locale: '{{ locale }}',
             countdown_start: '{{ countdown_start|date_w3c }}',
-            countdown_end: '{{ sunrise|date_w3c }}'
+            countdown_end: '{{ general_availability|date_w3c }}'
         };
         return config;
     });
+</script>
+{# Google #}
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '{{ googleanalytics_registry }}', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
 </script>
 </body>
 </html>

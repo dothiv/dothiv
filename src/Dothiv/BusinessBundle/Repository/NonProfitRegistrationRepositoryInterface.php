@@ -2,13 +2,16 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
+use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
 
 /**
  * This repository contains the NonProfitRegistrations.
  */
-interface NonProfitRegistrationRepositoryInterface
+interface NonProfitRegistrationRepositoryInterface extends ObjectRepository
 {
     /**
      * Persist the entity.
@@ -16,6 +19,7 @@ interface NonProfitRegistrationRepositoryInterface
      * @param NonProfitRegistration $nonProfitRegistration
      *
      * @return self
+     * @throws InvalidArgumentException If entity is invalid.
      */
     public function persist(NonProfitRegistration $nonProfitRegistration);
 
@@ -32,4 +36,11 @@ interface NonProfitRegistrationRepositoryInterface
      * @return Option
      */
     public function getNonProfitRegistrationByDomainName($domain);
+
+    /**
+     * Returns a list of unconfirmed NonProfitRegistrations.
+     *
+     * @return NonProfitRegistration[]|ArrayCollection
+     */
+    public function getUnconfirmed();
 }

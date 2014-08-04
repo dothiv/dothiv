@@ -4,6 +4,7 @@ namespace Dothiv\ContentfulBundle\Client;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\ContentfulBundle\Exception\RuntimeException;
+use PhpOption\Option;
 
 class HttpClient implements HttpClientInterface
 {
@@ -22,10 +23,16 @@ class HttpClient implements HttpClientInterface
      */
     private $accessToken;
 
-    public function __construct($accessToken)
+    /**
+     * @var string
+     */
+    private $contentType;
+
+    public function __construct($accessToken, $contentType = null)
     {
         $this->headers     = new ArrayCollection();
         $this->accessToken = $accessToken;
+        $this->contentType = Option::fromValue($contentType)->getOrElse('application/vnd.contentful.delivery.v1+json');
     }
 
     /**
@@ -33,23 +40,61 @@ class HttpClient implements HttpClientInterface
      */
     public function get($uri)
     {
-        $opts = array(
-            'http' =>
-                array(
-                    'method'        => 'GET',
-                    'header'        => "Content-type: application/vnd.contentful.delivery.v1+json\n" .
-                        'Authorization: Bearer ' . $this->accessToken,
-                    'ignore_errors' => true,
-                )
-        );
+        $opts = $this->buildOpts('GET');
         if ($this->etag != null) {
             $opts['http']['header'] .= "\n" . sprintf('If-None-Match: "%s"', $this->etag);
         }
+        return $this->execute($uri, $opts);
+    }
+
+    /**
+     * @param string $uri
+     * @param array  $data
+     *
+     * @return string
+     */
+    function post($uri, $data = null)
+    {
+        $opts = $this->buildOpts('POST');
+        if ($data !== null) {
+            $opts['http']['content'] = json_encode($data);
+        }
+        return $this->execute($uri, $opts);
+    }
+
+    /**
+     * @param string $uri
+     * @param array  $data
+     *
+     * @return string
+     */
+    function put($uri, $data = null)
+    {
+        $opts = $this->buildOpts('PUT');
+        if ($data !== null) {
+            $opts['http']['content'] = json_encode($data);
+        }
+        return $this->execute($uri, $opts);
+    }
+
+    /**
+     * @param string $uri
+     *
+     * @return string
+     */
+    function delete($uri)
+    {
+        $opts = $this->buildOpts('DELETE');
+        return $this->execute($uri, $opts);
+    }
+
+    protected function execute($uri, $opts)
+    {
         $context = stream_context_create($opts);
         $body    = file_get_contents($uri, false, $context);
         $status  = $http_response_header[0];
         list(, $statusCode,) = explode(' ', $status, 3);
-        if (intval($statusCode) != 200) {
+        if (intval($statusCode) < 200 || intval($statusCode) > 299) {
             throw new RuntimeException(
                 sprintf(
                     'Failed to fetch "%s": %s!',
@@ -95,5 +140,24 @@ class HttpClient implements HttpClientInterface
     public function getHeaders()
     {
         return $this->headers;
+    }
+
+    /**
+     * @param string $method
+     *
+     * @return array
+     */
+    protected function buildOpts($method)
+    {
+        $opts = array(
+            'http' =>
+                array(
+                    'method'        => $method,
+                    'header'        => sprintf("Content-type: %s\n", $this->contentType) .
+                        'Authorization: Bearer ' . $this->accessToken,
+                    'ignore_errors' => true,
+                )
+        );
+        return $opts;
     }
 }

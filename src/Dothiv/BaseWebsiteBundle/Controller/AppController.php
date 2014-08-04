@@ -2,35 +2,11 @@
 
 namespace Dothiv\BaseWebsiteBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AppController
+class AppController extends PageController
 {
-    /**
-     * @var EngineInterface
-     */
-    private $renderer;
-
-    /**
-     * @var string
-     */
-    private $bundle;
-
-    /**
-     * @param EngineInterface $renderer
-     * @param string          $bundle
-     */
-    public function __construct(
-        EngineInterface $renderer,
-        $bundle
-    )
-    {
-        $this->renderer = $renderer;
-        $this->bundle   = $bundle;
-    }
-
     /**
      * @param Request $request
      * @param string  $locale
@@ -38,10 +14,23 @@ class AppController
      * @param string  $page
      *
      * @return Response
-     * FIXME: Caching
      */
     public function templateAction(Request $request, $locale, $section, $page)
     {
+        $response = $this->createResponse();
+
+        $lmc = $this->getLastModifiedCache();
+
+        // Check if page is not modified.
+        $uriLastModified = $lmc->getLastModified($request);
+        if ($uriLastModified->isDefined()) {
+            $response->setLastModified($uriLastModified->get());
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
+        // Render page.
         switch ($locale) {
             case 'de':
                 $request->setLocale('de_DE');
@@ -49,12 +38,19 @@ class AppController
             case 'en':
                 $request->setLocale('en_US');
                 break;
+            case 'ky':
+                $request->setLocale('ky');
+                break;
         }
-        $response = new Response();
-        $response->setPublic();
 
-        $res = sprintf($this->bundle . ':App:%s/%s.%s.twig', $section, $page, $request->getRequestFormat());
-        return $this->renderer->renderResponse($res, array('locale' => $locale), $response);
+        $res      = sprintf($this->getBundle() . ':App:%s/%s.%s.twig', $section, $page, $request->getRequestFormat());
+        $response = $this->getRenderer()->renderResponse($res, array('locale' => $locale), $response);
+
+        // Store last modified.
+        $lastModifiedDate = max($lmc->getLastModifiedContent(), $this->getAssetsModified());
+        $response->setLastModified($lastModifiedDate);
+        $this->getLastModifiedCache()->setLastModified($request, $lastModifiedDate);
+
+        return $response;
     }
-
 }

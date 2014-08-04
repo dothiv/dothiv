@@ -5,6 +5,13 @@ dothiv_api_domain_claim:
         _format: json
     methods: [POST]
 
+dothiv_api_domain_claim_notoken:
+    pattern:  /domain/{name}/claim
+    defaults:
+        _controller: dothiv.api.controller.domain:claimNoTokenAction
+        _format: json
+    methods: [PUT]
+
 dothiv_api_attachment:
     pattern:  /attachment
     defaults:
@@ -74,4 +81,3 @@ dothiv_api_account_loginlink:
         _controller: dothiv.api.controller.account:loginLinkAction
         _format: json
     methods: [POST]
-

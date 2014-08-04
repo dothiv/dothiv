@@ -8,11 +8,7 @@
         <div class="span2 pull-right"></div>
         <nav class="usermenu">
             {% if features.profile %}
-            <ul>
-                <li class="accountance" data-ng-show="!isAuthenticated()"><a class="hover-arrow" data-ng-click="login()">{% trans %}header.menu.login{% endtrans %}</a></li>
-                <li class="accountance" data-ng-show="isAuthenticated()"><a class="hover-arrow" data-ng-click="logout()">{% trans %}header.menu.logout{% endtrans %}</a></li>
-                <li class="accountance" data-ng-show="isAuthenticated()"><a class="hover-arrow" href="{{ path('dothiv_charity_page', {'page': 'profile', 'locale': locale}) }}">{% trans %}header.menu.myprofile{% endtrans %}</a></li>
-            </ul>
+                <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}">{% trans %}header.menu.myprofile{% endtrans %}</a><br><br>
             {% endif %}
             {% if app.request.locale|slice(0,2) != 'en' %}
                 <a href="{{ link.en }}">English</a>

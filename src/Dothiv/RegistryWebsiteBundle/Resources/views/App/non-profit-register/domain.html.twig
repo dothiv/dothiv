@@ -10,8 +10,8 @@
         </div>
         <div class="fields">
             <div class="form-group">
-                <label for="domainFormDomain">Domain Name</label>
-                <input type="text" data-ng-model="domain" id="domainFormDomain" required data-ng-pattern="/.{3,64}\.hiv$/">
+                <label for="domainFormDomain">Domain Name<br><small>e.g. example.hiv</small></label>
+                <input type="text" data-ng-model="domain" id="domainFormDomain" required data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/">
             </div>
             <button type="submit" data-ng-click="load()" data-ng-disabled="domainForm.$invalid" data-ng-show="!submitting">
                 Submit
@@ -36,10 +36,10 @@
                 <label for="registrantFormProof">Proof of organization</label>
                 {% set var = 'uploadError' %}
                 {{ block('errorMessage') }}
-                <input type="file" data-ng-file-select id="registrantFormProof" data-ng-hide="uploader.isUploading || registrant.proof">
+                <input type="file" data-nv-file-select="" data-uploader="uploader" id="registrantFormProof" data-ng-hide="uploader.isUploading || registrant.proof">
                 <input type="hidden" data-ng-model="registrant.proof" required>
 
-                <div data-ng-show="upload">
+                <div data-ng-show="registrant.proof">
                     <span data-ng-bind="upload.file.name"></span>
                 </div>
                 <div class="progress" data-ng-repeat="item in uploader.queue" data-ng-show="uploader.isUploading">

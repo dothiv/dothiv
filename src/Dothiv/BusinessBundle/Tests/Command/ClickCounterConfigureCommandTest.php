@@ -5,7 +5,7 @@ namespace Dothiv\BusinessBundle\Tests\Entity\Command;
 use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\BusinessBundle\Service\ClickCounterConfig;
+use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,7 +31,7 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
     private $mockContainer;
 
     /**
-     * @var ClickCounterConfig|\PHPUnit_Framework_MockObject_MockObject
+     * @var ClickCounterConfigInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     private $mockClickCounterConfig;
 
@@ -74,7 +74,7 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(array($banner)));
 
         $this->mockClickCounterConfig->expects($this->once())->method('setup')
-            ->with($domain, $banner);
+            ->with($banner);
 
         $this->assertEquals(0, $this->getTestObject()->run($this->mockInput, $this->mockOutput));
     }
@@ -108,11 +108,11 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockClickCounterConfig = $this->getMockBuilder('\Dothiv\BusinessBundle\Service\ClickCounterConfig')
+        $this->mockClickCounterConfig = $this->getMockBuilder('\Dothiv\BusinessBundle\Service\ClickCounterConfigInterface')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockBannerRepo = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
+        $this->mockBannerRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\BannerRepositoryInterface')
             ->disableOriginalConstructor()
             ->getMock();
     }

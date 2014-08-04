@@ -1,5 +1,7 @@
 parameters:
     dothiv.registry.service.mailer.login.class: Dothiv\BaseWebsiteBundle\Service\Mailer\LoginLinkMailer
+    dothiv.registry.service.mailer.nonprofitregistration.class: Dothiv\RegistryWebsiteBundle\Service\Mailer\NonProfitRegistrationMailer
+    dothiv.registry.service.mailer.content.class: Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailer
 services:
     dothiv.registry.translation.strings_loader:
         class: Dothiv\BaseWebsiteBundle\Translation\ContentfulStringsLoader
@@ -20,13 +22,23 @@ services:
     dothiv.registry.service.mailer.login:
         class: %dothiv.registry.service.mailer.login.class%
         arguments:
-        - @mailer
+        - @dothiv.registry.service.mailer.content
         - @router
-        - 'dothiv_register_nonprofit'
+        - 'dothiv_register_nonprofit_form'
         - %registrydomain%
         - @dothiv.businessbundle.service.user
+        tags:
+            - { name: kernel.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }
+
+    dothiv.registry.service.mailer.content:
+        class: %dothiv.registry.service.mailer.content.class%
+        arguments:
+        - @mailer
         - @dothiv.registry.contentful.registry_content
         - %email_from_address%
         - %email_from_name%
-        tags:
-            - { name: kernel.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }
+
+    dothiv.registry.service.mailer.nonprofitregistration:
+        class: %dothiv.registry.service.mailer.nonprofitregistration.class%
+        arguments:
+        - @dothiv.registry.service.mailer.content

@@ -29,16 +29,21 @@ interface ContentfulContentTypeRepository
     /**
      * @param ContentfulContentType $contentType
      *
-     * @return void
+     * @return self
      */
     function persist(ContentfulContentType $contentType);
 
     /**
      * @param ContentfulContentType $contentType
      *
-     * @return void
+     * @return self
      */
     function remove(ContentfulContentType $contentType);
+
+    /**
+     * @return self
+     */
+    function flush();
 
     /**
      * @return ContentfulContentType[]|ArrayCollection
