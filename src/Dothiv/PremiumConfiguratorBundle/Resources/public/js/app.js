@@ -4,10 +4,10 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
     .config(['$locationProvider', function ($locationProvider) {
         $locationProvider.hashPrefix('!');
     }])
-    .config(function($interpolateProvider) {
+    .config(['$interpolateProvider', function($interpolateProvider) {
         $interpolateProvider.startSymbol('%%');
         $interpolateProvider.endSymbol('%%');
-    })
+    }])
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.headers.common.Accept = "application/json";
         $httpProvider.interceptors.push('HttpLoadingInterceptor');
