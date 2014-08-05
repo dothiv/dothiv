@@ -2,6 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use Dothiv\BusinessBundle\Service\AttachmentServiceInterface;
 use JMS\Serializer\Serializer;
@@ -12,8 +13,10 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class AttachmentController extends BaseController
+class AttachmentController
 {
+    use CreateResponseTrait;
+
     /**
      * @var SecurityContext
      */

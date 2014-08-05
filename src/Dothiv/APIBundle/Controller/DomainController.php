@@ -2,7 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
-use Dothiv\APIBundle\Exception\BadMethodCallException;
+use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
 use Dothiv\APIBundle\Request\ClaimRequest;
 use Dothiv\APIBundle\Request\DomainNameRequest;
 use Dothiv\BusinessBundle\BusinessEvents;
@@ -18,7 +18,6 @@ use JMS\Serializer\SerializerInterface;
 use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\GoneHttpException;
@@ -26,8 +25,10 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class DomainController extends BaseController
+class DomainController
 {
+    use CreateResponseTrait;
+
     /**
      * @var DomainRepositoryInterface
      */

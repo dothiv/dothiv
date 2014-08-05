@@ -1,10 +1,10 @@
 <?php
 
-namespace Dothiv\APIBundle\Controller;
+namespace Dothiv\APIBundle\Controller\Traits;
 
 use Symfony\Component\HttpFoundation\Response;
 
-class BaseController
+trait CreateResponseTrait
 {
     /**
      * @return Response

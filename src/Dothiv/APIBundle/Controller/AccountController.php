@@ -2,6 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
 use Dothiv\APIBundle\Request\LoginLinkRequest;
 use Dothiv\APIBundle\Request\UserCreateRequest;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
@@ -16,8 +17,10 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Dothiv\APIBundle\Annotation\ApiRequest;
 
-class AccountController extends BaseController
+class AccountController
 {
+    use CreateResponseTrait;
+
     /**
      * @var UserServiceInterface
      */

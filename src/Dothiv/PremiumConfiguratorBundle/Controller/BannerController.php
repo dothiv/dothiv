@@ -2,6 +2,7 @@
 
 namespace Dothiv\PremiumConfiguratorBundle\Controller;
 
+use Dothiv\APIBundle\Controller\Traits\DomainNameTrait;
 use Dothiv\APIBundle\Request\DomainNameRequest;
 use Dothiv\BusinessBundle\Entity\Attachment;
 use Dothiv\BusinessBundle\Entity\Banner;
@@ -20,6 +21,8 @@ use Dothiv\APIBundle\Annotation\ApiRequest;
 
 class BannerController extends \Dothiv\APIBundle\Controller\BannerController
 {
+    use DomainNameTrait;
+
     /**
      * @var PremiumBannerRepositoryInterface
      */
@@ -45,7 +48,7 @@ class BannerController extends \Dothiv\APIBundle\Controller\BannerController
         /** @var PremiumBannerConfigPutRequest $configRequest */
         $configRequest = $request->attributes->get('model');
         /** @var Domain $domain */
-        $domain = $this->getDomainByName($configRequest->getName());
+        $domain = $this->getDomainByName($configRequest->getName(), $this->securityContext, $this->domainRepo);
 
         /** @var Banner $banner */
         $banner = Option::fromValue($domain->getActiveBanner())->getOrCall(function () use ($domain) {
@@ -154,7 +157,7 @@ class BannerController extends \Dothiv\APIBundle\Controller\BannerController
         /* @var DomainNameRequest $domainNameRequest */
         $domainNameRequest = $request->attributes->get('model');
         $name              = $domainNameRequest->getName();
-        $domain            = $this->getDomainByName($name);
+        $domain            = $this->getDomainByName($name, $this->securityContext, $this->domainRepo);
         $banner            = Option::fromValue($domain->getActiveBanner())->getOrCall(function () use ($name) {
             throw new NotFoundHttpException(
                 sprintf(

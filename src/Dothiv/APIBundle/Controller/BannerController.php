@@ -2,25 +2,27 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
+use Dothiv\APIBundle\Controller\Traits\DomainNameTrait;
 use Dothiv\APIBundle\Request\BannerConfigRequest;
 use Dothiv\APIBundle\Request\DomainNameRequest;
-use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Entity\Banner;
 use JMS\Serializer\Serializer;
 use PhpOption\Option;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Validator\ValidatorInterface;
 use Dothiv\APIBundle\Annotation\ApiRequest;
 
-class BannerController extends BaseController
+class BannerController
 {
+    use DomainNameTrait;
+    use CreateResponseTrait;
+
     /**
      * @var DomainRepositoryInterface
      */
@@ -132,7 +134,7 @@ class BannerController extends BaseController
     {
         /* @var BannerConfigRequest $configRequest */
         $configRequest = $request->attributes->get('model');
-        $domain        = $this->getDomainByName($configRequest->getName());
+        $domain        = $this->getDomainByName($configRequest->getName(), $this->securityContext, $this->domainRepo);
 
         /* @var Banner $banner */
         $banner = Option::fromValue($domain->getActiveBanner())->getOrCall(function () use ($domain) {
@@ -168,7 +170,7 @@ class BannerController extends BaseController
         /* @var DomainNameRequest $domainNameRequest */
         $domainNameRequest = $request->attributes->get('model');
         $name              = $domainNameRequest->getName();
-        $domain            = $this->getDomainByName($name);
+        $domain            = $this->getDomainByName($name, $this->securityContext, $this->domainRepo);
         $banner            = Option::fromValue($domain->getActiveBanner())->getOrCall(function () use ($name) {
             throw new NotFoundHttpException(
                 sprintf(
@@ -206,41 +208,5 @@ class BannerController extends BaseController
 
         // return list of banners
         return $domain->getBanners();
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Domain
-     *
-     * @throws NotFoundHttpException If no domain is found.
-     * @throws AccessDeniedHttpException If user is not the owner of the domain.
-     */
-    protected function getDomainByName($name)
-    {
-        /* @var Domain $domain */
-        $domain = $this->domainRepo->getDomainByName($name)->getOrCall(function () use ($name) {
-            throw new NotFoundHttpException(
-                sprintf(
-                    'Unknown domain: "%s"!',
-                    $name
-                )
-            );
-        });
-
-        if (Option::fromValue($domain->getOwner())->isEmpty()) {
-            throw new AccessDeniedHttpException(sprintf(
-                'Domain "%s" has not been claimed.', $name
-            ));
-        }
-
-        $user = Option::fromValue($this->securityContext->getToken()->getUser())->getOrCall(function() {
-            throw new AccessDeniedHttpException();
-        });
-
-        if ($domain->getOwner()->getHandle() !== $user->getHandle()) {
-            throw new AccessDeniedHttpException();
-        }
-        return $domain;
     }
 }
