@@ -72,12 +72,9 @@
                             <hr />
                             <p class="lead text-center"><i class="icon-clock"></i> {% trans %}profile.domain.editors.premium.time{% endtrans %}</p>
                             <div class="row-fluid">
-                                <button class="span12 btn btn-primary" data-ng-click="editPremium()" disabled>{% trans %}profile.domain.editors.premium.button{% endtrans %}</button>
+                                <a data-ng-href="{{ path('dothiv_premiumconfig_page', {'domain': 'example.hiv', 'locale': locale})|trans({'example.hiv': '{{domain.name}}'}) }}" class="span12 btn btn-primary">{% trans %}profile.domain.editors.premium.button{% endtrans %}</a>
                             </div>
                         </div>
-
-                        <div class="coming-soon">{{ 'profile.domain.editors.premium.comingsoon'|trans|replace({'|': "\n"})|nl2br }}</div>
-
                     </div>
                 </div>
 
