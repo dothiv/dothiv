@@ -1,0 +1,4 @@
+dothiv_premium_configurator:
+    path: /uploads/clickcounter/{filename}
+    defaults:
+        _controller: dothiv.premiumconfigurator.test.controller.static_file:fileAction

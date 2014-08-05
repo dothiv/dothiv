@@ -1,0 +1,82 @@
+body {
+  &>header, &>footer, main div.content {
+    .container;
+  }
+}
+
+div.content article {
+  @media (min-width: @screen-xs-min) {
+    margin-top: 20px;
+    margin-bottom: 40px;
+
+  }
+  section {
+    .make-row();
+  }
+  nav {
+    .make-row();
+    margin-top: 2em;
+    a {
+      .btn;
+      .btn-primary;
+      text-decoration: none;
+    }
+    a[rel=prev] {
+      .pull-left;
+    }
+    a[rel=next] {
+      .pull-right;
+    }
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: underline;
+}
+
+body > header {
+  margin-top: 1em;
+  section {
+    position: relative;
+  }
+  h1 {
+    .make-sm-column(12);
+    font-size: 16px;
+    position: relative;
+    padding-left: 135px;
+    vertical-align: bottom;
+    margin-bottom: 0.5em;
+    @media (min-width: @screen-sm-min) {
+      font-size: 30px;
+    }
+    img {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+  }
+  #loading {
+    position: absolute;
+    right: 0;
+    img {
+      margin-left: 10px;
+    }
+  }
+}
+
+main {
+  div {
+    @media (min-width: @screen-xs-min) {
+      font-size: 20px;
+    }
+  }
+}
+
+body > footer {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}

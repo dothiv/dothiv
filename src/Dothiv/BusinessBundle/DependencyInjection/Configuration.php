@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')->end()
                 ->end()
                 ->scalarNode('clock_expr')->defaultValue('now')->end()
-            ->scalarNode('attachment_location')->isRequired()->end()
+            ->scalarNode('attachments_location')->isRequired()->end()
             ->arrayNode('clickcounter')
                 ->children()
                     ->scalarNode('baseurl')->defaultValue('https://dothiv-registry.appspot.com')->end()

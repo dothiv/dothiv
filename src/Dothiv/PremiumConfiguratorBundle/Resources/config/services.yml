@@ -1,0 +1,24 @@
+parameters:
+    dothiv.premiumconfigurator.service.attachment_store.class: Dothiv\PremiumConfiguratorBundle\Service\AttachmentStoreService
+    dothiv.premiumconfigurator.mailer.subscription_confirmed.class: Dothiv\PremiumConfiguratorBundle\Service\Mailer\SubscriptionConfirmedMailer
+
+services:
+    dothiv.premiumconfigurator.service.attachment:
+        class: %dothiv.businessbundle.service.attachment.class%
+        arguments:
+        - @dothiv.repository.attachment
+        - ['image/png', 'image/jpeg', 'image/gif']
+        - @dothiv.premiumconfigurator.service.attachment_store
+
+    dothiv.premiumconfigurator.service.attachment_store:
+        class: %dothiv.premiumconfigurator.service.attachment_store.class%
+        arguments:
+        - %dothiv_premium_configurator.attachments%
+        - @router
+        - @dothiv.websitebase.service.image_scaler
+        - %charitydomain%
+
+    dothiv.premiumconfigurator.mailer.subscription_confirmed:
+        class: %dothiv.premiumconfigurator.mailer.subscription_confirmed.class%
+        arguments:
+        - @dothiv.charity.service.mailer.content

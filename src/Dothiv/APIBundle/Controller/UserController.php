@@ -2,6 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
@@ -13,8 +14,10 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 
 
-class UserController extends BaseController
+class UserController
 {
+    use CreateResponseTrait;
+
     /**
      * @var DomainRepositoryInterface
      */

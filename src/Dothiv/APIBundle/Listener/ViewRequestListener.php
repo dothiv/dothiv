@@ -65,10 +65,15 @@ class ViewRequestListener
 
     protected function setModelData(Request $request, $model)
     {
-        if (stristr($request->headers->get('content-type'), 'application/json') !== false) {
+        $ctype = $request->headers->get('content-type');
+        if (stristr($ctype, 'application/json') !== false) {
             $this->setModelDataFromJson($request, $model);
-        } else {
+        } elseif (stristr($ctype, 'application/x-www-form-urlencoded') !== false) {
             $this->setModelDataFromForm($request, $model);
+        } elseif (stristr($ctype, 'multipart/form-data') !== false) {
+            $this->setModelDataFromForm($request, $model);
+        } else {
+            $this->setModelDataFromQuery($request, $model);
         }
     }
 
@@ -78,6 +83,11 @@ class ViewRequestListener
     }
 
     protected function setModelDataFromForm(Request $request, $model)
+    {
+        $this->setModelDataFromArray($request->request->all(), $model);
+    }
+
+    protected function setModelDataFromQuery(Request $request, $model)
     {
         $this->setModelDataFromArray($request->query->all(), $model);
     }

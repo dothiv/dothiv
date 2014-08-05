@@ -2,13 +2,11 @@
 
 namespace Dothiv\BusinessBundle\Entity;
 
-use InvalidArgumentException;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
-use Dothiv\BusinessBundle\Validator\Constraints\ValidDomain;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Represents an attachment
@@ -22,6 +20,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
  */
 class Attachment extends Entity
 {
+    use Traits\CreateUpdateTime;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -38,6 +38,26 @@ class Attachment extends Entity
      * @Serializer\Expose
      */
     protected $handle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     * @Serializer\Expose
+     */
+    protected $mimeType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     * @Serializer\Expose
+     */
+    protected $extension;
 
     /**
      * The user that create the attachment
@@ -80,4 +100,35 @@ class Attachment extends Entity
         return $this->user;
     }
 
+    /**
+     * @param string $mimeType
+     */
+    public function setMimeType($mimeType)
+    {
+        $this->mimeType = $mimeType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
+
+    /**
+     * @param string $extension
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtension()
+    {
+        return $this->extension;
+    }
 }

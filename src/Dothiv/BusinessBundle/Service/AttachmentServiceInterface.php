@@ -5,6 +5,7 @@ namespace Dothiv\BusinessBundle\Service;
 use Dothiv\BusinessBundle\Entity\Attachment;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
+use PhpOption\Option;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 interface AttachmentServiceInterface
@@ -23,4 +24,11 @@ interface AttachmentServiceInterface
      * @throws InvalidArgumentException
      */
     public function validateUpload(UploadedFile $file);
+
+    /**
+     * @param Attachment $attachment
+     *
+     * @return Option of URLValue
+     */
+    public function getUrl(Attachment $attachment);
 }

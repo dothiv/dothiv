@@ -1,3 +1,6 @@
+parameters:
+    dothiv.api.controller.attachment.class: Dothiv\APIBundle\Controller\AttachmentController
+
 services:
     dothiv.api.controller.domain:
         class: Dothiv\APIBundle\Controller\DomainController
@@ -37,7 +40,7 @@ services:
          - @clock
 
     dothiv.api.controller.attachment:
-        class: Dothiv\APIBundle\Controller\AttachmentController
+        class: %dothiv.api.controller.attachment.class%
         arguments:
          - @dothiv.businessbundle.service.attachment
          - @security.context

@@ -106,6 +106,39 @@ class FeatureContext extends BehatContext
     }
 
     /**
+     * Updates an entity.
+     *
+     * @Given /^I update the "(?P<storageName>[^"]*)" entity with values:$/
+     */
+    public function iUpdateTheEntityWithValues($storageName, TableNode $table)
+    {
+        $entity = $this->getValue('{' . $storageName . '}');
+        foreach ($table->getRowsHash() as $k => $v) {
+            $setter = 'set' . ucfirst($k);
+            $entity->$setter($this->getValue($v));
+        }
+        $em = $this->getEntityManager();
+        $em->persist($entity);
+        $em->flush();
+    }
+
+    /**
+     * Calls the method of a named service and stores the result.
+     *
+     * @Given /^"(?P<storageName>[^"]*)" contains the result of calling "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service with values:$/
+     */
+    public function theResultOfCallingWithIsStoredIn($serviceId, $methodName, $storageName, TableNode $table)
+    {
+        $service = $this->kernel->getContainer()->get($serviceId);
+        $args    = array();
+        foreach ($table->getRow(0) as $positionalArg) {
+            $args[] = $this->getValue($positionalArg);
+        }
+        $result = call_user_func_array(array($service, $methodName), $args);
+        $this->store($storageName, $result);
+    }
+
+    /**
      * Returns a value with replaced placeholders for storage objects.
      *
      * @param $value
@@ -201,8 +234,9 @@ class FeatureContext extends BehatContext
 
     /**
      * @Given /^I send a (?P<method>[A-Z]+) request to "(?P<url>[^"]*)" with file "(?P<filename>[^"]*)" as "(?P<fileparam>[^"]*)"$/
+     * @Given /^I send a (?P<method>[A-Z]+) request to "(?P<url>[^"]*)" with file "(?P<filename>[^"]*)" as "(?P<fileparam>[^"]*)" and parameters:$/
      */
-    public function iSendAPostRequestOnWithFileAsFile($method, $url, $filename, $fileparam)
+    public function iSendAUploadRequest($method, $url, $filename, $fileparam, TableNode $table = null)
     {
         $client = $this->getSubcontext('mink')->getSession()->getDriver()->getClient();
 
@@ -225,7 +259,11 @@ class FeatureContext extends BehatContext
             $fileparam => $uploadedFile
         );
 
-        $client->request($method, $url, array(), $files);
+        $parameters = array();
+        if ($table !== null) {
+            $parameters = $table->getRowsHash();
+        }
+        $client->request($method, $url, $parameters, $files);
         $client->followRedirects(true);
     }
 
@@ -237,5 +275,65 @@ class FeatureContext extends BehatContext
         $json = $this->getJson();
         \PHPUnit_Framework_Assert::assertObjectHasAttribute($name, $json);
         \PHPUnit_Framework_Assert::assertNotEmpty($json->$name);
+    }
+
+    /**
+     * @Given /^the header "(?P<name>[^"]*)" should exist$/
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
+    public function theHeaderShouldExist($name)
+    {
+        $headers = $this->getSubcontext('mink')->getSession()->getResponseHeaders();
+        \PHPUnit_Framework_Assert::assertArrayHasKey(strtolower($name), $headers);
+        return $headers[strtolower($name)];
+    }
+
+    /**
+     * @Given /^the header "(?P<header>[^"]*)" is stored in "(?P<store>[^"]*)"$/
+     */
+    public function theHeaderIsStoredIn($header, $store)
+    {
+        $val = $this->theHeaderShouldExist($header);
+        $this->store($store, join("\n", $val));
+    }
+
+    /**
+     * @Then /^the image should be (?P<width>\d+)x(?P<height>\d+)$/
+     */
+    public function theImageShouldBeBy($width, $height)
+    {
+        $imageData = $this->getSubcontext('mink')->getSession()->getPage()->getContent();
+
+        $imagesize    = getimagesize(
+            sprintf('data://%s;base64,%s', join("\n", $this->theHeaderShouldExist('content-type')), base64_encode($imageData))
+        );
+        $expectedSize = sprintf("%dx%d", $width, $height);
+        $actualSize   = sprintf("%dx%d", $imagesize[0], $imagesize[1]);
+        if ($actualSize !== $expectedSize) {
+            throw new \Exception(sprintf("Size of image is %s where %s was expected.", $actualSize, $expectedSize));
+        }
+    }
+
+    /**
+     * Sends a HTTP request to a stored URL
+     *
+     * @Given /^I send a (?P<method>[A-Z]+) request to \{(?P<url>[^"]*)\}$/
+     * @Given /^I send a (?P<method>[A-Z]+) request on \{(?P<url>[^"]*)\}$/
+     */
+    public function iSendARequestTo($method, $url)
+    {
+        $this->getSubcontext('rest')->iSendARequestTo($method, $this->getValue('{' . $url . '}'));
+    }
+
+    /**
+     * @Given /^the JSON node "(?P<node>[^"]*)" should contain \{(?P<storageName>[^\}]*)\}$/
+     */
+    public function theJsonNodeShouldBeEqualToExtrasvisualurl($node, $storageName)
+    {
+        $val = $this->getValue('{' . $storageName. '}');
+        $this->getSubcontext('json')->theJsonNodeShouldBeEqualTo($node, (string)$val);
     }
 }

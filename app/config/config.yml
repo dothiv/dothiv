@@ -34,6 +34,8 @@ twig:
       assets_version: %assets_version%
       googleanalytics_charity: %googleanalytics_charity%
       googleanalytics_registry: %googleanalytics_registry%
+      stripe_publishable_key: %stripe_publishable_key%
+      stripe_testmode: %stripe_testmode%
 
 # Assetic Configuration
 assetic:
@@ -46,6 +48,7 @@ assetic:
       - 'DothivTwitterBootstrapBundle'
       - 'DothivAngularJsBundle'
       - 'DothivQLPPartnerBundle'
+      - 'DothivPremiumConfiguratorBundle'
     #java: /usr/bin/java
     filters:
         less:
@@ -110,11 +113,17 @@ nelmio_cors:
     paths:
         '^/': ~
 
+jms_serializer:
+    visitors:
+        json:
+            # $ php -r 'echo JSON_UNESCAPED_SLASHES'
+            options: 64
+
 dothiv_business:
     allowed_tlds:
       # - hiv
       ~
-    attachment_location: '%kernel.root_dir%/attachments'
+    attachments_location: '%kernel.root_dir%/attachments'
     clickcounter:
         secret: '%clickcounter_auth_secret%'
 
@@ -141,10 +150,18 @@ dothiv_contentful:
     webhook:
         httpBasicPassword: %contenful_webhook_password%
 
+dothiv_premium_configurator:
+    attachments:
+        location: '%kernel.root_dir%/../web/uploads/clickcounter'
+        url_prefix: '/uploads/clickcounter'
+        thumbnail:
+            width: 100,
+            height: 100
+    stripe:
+        plan: 'premium-clickcounter'
+
 parameters:
     # Default HTTP cache lifetime for pages
     page_lifetime: 1800
     # Do not convert variables in camel case (myVar) to snake case "my_var"
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
-
-

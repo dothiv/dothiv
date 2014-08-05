@@ -3,6 +3,7 @@ parameters:
     dothiv.businessbundle.service.clock.class: Dothiv\BusinessBundle\Service\Clock
     dothiv.businessbundle.service.user.class: Dothiv\BusinessBundle\Service\UserService
     dothiv.businessbundle.service.attachment.class: Dothiv\BusinessBundle\Service\AttachmentService
+    dothiv.businessbundle.service.attachment_store.class: Dothiv\BusinessBundle\Service\AttachmentStoreService
     registration.class: Dothiv\BusinessBundle\Service\Registration
 
 services:
@@ -36,7 +37,13 @@ services:
         class: %dothiv.businessbundle.service.attachment.class%
         arguments:
         - @dothiv.repository.attachment
-        - %dothiv_business.attachment_location%
+        - ['application/pdf']
+        - @dothiv.businessbundle.service.attachment_store
+
+    dothiv.businessbundle.service.attachment_store:
+        class: %dothiv.businessbundle.service.attachment_store.class%
+        arguments:
+        - %dothiv_business.attachments_location%
 
     dothiv.business.contentful.clickcounter_content:
         class: %dothiv.websitebase.contentful.content.class%

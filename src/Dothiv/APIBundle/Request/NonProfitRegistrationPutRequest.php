@@ -117,7 +117,6 @@ class NonProfitRegistrationPutRequest extends NonProfitRegistrationGetRequest
     /**
      * @var int
      * @Assert\Range(min=0,max=1)
-     * @Assert\NotBlank
      * @Assert\NotNull
      */
     public $forward; // e.g.: 1

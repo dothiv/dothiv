@@ -24,7 +24,7 @@ class ScaleContentfulAssetsImagesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var $assetRepo \Dothiv\ContentfulBundle\Repository\ContentfulAssetRepository */
-        /** @var $imageScaler \Dothiv\BaseWebsiteBundle\Contentful\ImageScaler */
+        /** @var $imageScaler \Dothiv\BaseWebsiteBundle\Contentful\ImageAssetScaler */
         $assetRepo   = $this->getContainer()->get('dothiv_contentful.repo.asset');
         $imageScaler = $this->getContainer()->get('dothiv.websitebase.contentful.image_scaler');
         $imageScaler->setLogger(new OutputInterfaceLogger($output));

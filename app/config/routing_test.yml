@@ -1,0 +1,8 @@
+# Premium Configurator
+dothiv_premium_configurator_test:
+    host: %charitydomain%
+    resource: "@DothivPremiumConfiguratorBundle/Resources/config/routing_test.yml"
+    prefix:   /
+
+_main:
+    resource: routing_dev.yml

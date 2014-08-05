@@ -37,3 +37,9 @@ parameters:
     # Google Analytics IDs
     googleanalytics_charity: UA-XXXX-Y
     googleanalytics_registry: UA-XXXX-Y
+
+
+    # Stripe
+    stripe_publishable_key: pk_test_somekey
+    stripe_secret_key: sk_test_somekey
+    stripe_testmode: 1

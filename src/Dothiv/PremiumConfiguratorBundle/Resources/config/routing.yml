@@ -1,0 +1,71 @@
+dothiv_premiumconfig_page:
+    path:     /{locale}/premium-configurator/{domain}
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.page:configuratorPageAction
+    requirements:
+        locale: ^(en|de|ky)$
+
+dothiv_premiumconfig_preview:
+    path:     /{locale}/premium-configurator/{domain}/preview
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.preview:previewAction
+    requirements:
+        locale: ^(en|de|ky)$
+
+dothiv_premiumconfig_preview_config:
+    path:     /{locale}/premium-configurator/{domain}/demo.json
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.preview:previewBannerConfigAction
+    requirements:
+        locale: ^(en|de|ky)$
+
+dothiv_premiumconfig_preview_banner:
+    path:     /{locale}/premium-configurator/{domain}/{file}
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.preview:previewBannerFileAction
+    requirements:
+        file: ^banner-(center|right|top).html
+    requirements:
+        locale: ^(en|de|ky)$
+
+dothiv_premiumconfig_page_app:
+    path:     /{locale}/premium-configurator/{domain}/app/{page}.html
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.page:configuratorAppPageAction
+    requirements:
+        locale: ^(en|de|ky)$
+
+dothiv_premiumconfig_attachment:
+    path:     /api/premium-configurator/image
+    defaults:
+        _controller: dothiv.premiumconfigurator.api.controller.attachment:createAction
+        _format: json
+    methods: [POST]
+
+dothiv_premiumconfig_banner_config_set:
+    path:     /api/premium-configurator/{name}/banner
+    defaults:
+        _controller: dothiv.premiumconfigurator.api.controller.banner:setConfigAction
+        _format: json
+    methods: [PUT]
+
+dothiv_premiumconfig_banner_config_get:
+    path:     /api/premium-configurator/{name}/banner
+    defaults:
+        _controller: dothiv.premiumconfigurator.api.controller.banner:getConfigAction
+        _format: json
+    methods: [GET]
+
+dothiv_premiumconfig_banner_subscription_set:
+    path:     /api/premium-configurator/{name}/subscription
+    defaults:
+        _controller: dothiv.premiumconfigurator.api.controller.subscription:setSubscriptionAction
+        _format: json
+    methods: [PUT]
+
+dothiv_premiumconfig_banner_subscription_get:
+    path:     /api/premium-configurator/{name}/subscription
+    defaults:
+        _controller: dothiv.premiumconfigurator.api.controller.subscription:getSubscriptionAction
+        _format: json
+    methods: [GET]

@@ -2,6 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
 use Dothiv\APIBundle\Request\NonProfitRegistrationGetRequest;
 use Dothiv\APIBundle\Request\NonProfitRegistrationPutRequest;
 use Dothiv\BusinessBundle\Entity\Attachment;
@@ -19,8 +20,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 use Dothiv\APIBundle\Annotation\ApiRequest;
 
-class NonProfitRegistrationController extends BaseController
+class NonProfitRegistrationController
 {
+    use CreateResponseTrait;
 
     /**
      * @var SecurityContext

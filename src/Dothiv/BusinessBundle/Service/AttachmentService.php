@@ -6,6 +6,8 @@ use Dothiv\BusinessBundle\Entity\Attachment;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use Dothiv\BusinessBundle\Repository\AttachmentRepositoryInterface;
+use PhpOption\None;
+use PhpOption\Option;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Util\SecureRandom;
 
@@ -17,16 +19,24 @@ class AttachmentService implements AttachmentServiceInterface
     private $attachmentRepo;
 
     /**
-     * @var string
+     * @var AttachmentStoreInterface
      */
-    private $attachmentLocation;
+    private $store;
+
+    /**
+     * @var string[]
+     */
+    private $allowedMimeTypes;
 
     public function __construct(
         AttachmentRepositoryInterface $attachmentRepo,
-        $attachmentLocation)
+        $allowedMimeTypes,
+        AttachmentStoreInterface $store
+    )
     {
-        $this->attachmentRepo     = $attachmentRepo;
-        $this->attachmentLocation = $attachmentLocation;
+        $this->attachmentRepo   = $attachmentRepo;
+        $this->allowedMimeTypes = $allowedMimeTypes;
+        $this->store            = $store;
     }
 
     /**
@@ -37,9 +47,11 @@ class AttachmentService implements AttachmentServiceInterface
         $attachment = new Attachment();
         $attachment->setUser($user);
         $attachment->setHandle($this->generateHandle());
+        $attachment->setMimeType($file->getMimeType());
+        $attachment->setExtension($file->guessExtension());
         $this->attachmentRepo->persist($attachment)->flush();
 
-        $file->move($this->attachmentLocation, sprintf('%s.pdf', $attachment->getHandle()));
+        $this->store->store($attachment, $file);
         return $attachment;
     }
 
@@ -48,13 +60,23 @@ class AttachmentService implements AttachmentServiceInterface
      */
     public function validateUpload(UploadedFile $file)
     {
-        $mime             = $file->getMimeType();
-        $allowedMimeTypes = array('application/pdf');
-        if (!in_array($mime, $allowedMimeTypes)) {
+        $mime = $file->getMimeType();
+        if (!in_array($mime, $this->allowedMimeTypes)) {
             throw new InvalidArgumentException(
-                sprintf('Must provide attachment of type %s. %s provied.', join(', ', $allowedMimeTypes), $mime)
+                sprintf('Must provide attachment of type %s. %s provied.', join(', ', $this->allowedMimeTypes), $mime)
             );
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUrl(Attachment $attachment)
+    {
+        if (!($this->store instanceof LinkableAttachmentStoreInterface)) {
+            return None::create();
+        }
+        return Option::fromValue($this->store->getUrl($attachment));
     }
 
     /**

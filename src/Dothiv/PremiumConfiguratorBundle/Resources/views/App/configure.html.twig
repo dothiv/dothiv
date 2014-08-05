@@ -1,0 +1,137 @@
+{% trans_default_domain "charity" %}
+<div id="configurator" data-ng-class="{fullscreen: fullscreen}" data-ng-style="configuratorStyle">
+    <iframe data-ng-cloak src="%%iframeUrl%%" data-ng-init="iframeUrl='{{ path('dothiv_premiumconfig_preview', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}'" data-ng-style="iframeStyle"></iframe>
+    <div id="topnav">
+        <div class="inner">
+            <nav class="layouts">
+                <button data-ng-click="bannerPosition = 'center'">
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-center.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.center{% endtrans %}" data-ng-show="bannerPosition == 'center'">
+                    {% endimage %}
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-center-off.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.center{% endtrans %}" data-ng-show="bannerPosition != 'center'">
+                    {% endimage %}
+                </button>
+                <button data-ng-click="bannerPosition = 'top'">
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-top.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.top{% endtrans %}" data-ng-show="bannerPosition == 'top'">
+                    {% endimage %}
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-top-off.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.top{% endtrans %}" data-ng-show="bannerPosition != 'top'">
+                    {% endimage %}
+                </button>
+                <button data-ng-click="bannerPosition = 'right'">
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-right.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.right{% endtrans %}" data-ng-show="bannerPosition == 'right'">
+                    {% endimage %}
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-right-off.png' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.right{% endtrans %}" data-ng-show="bannerPosition != 'right'">
+                    {% endimage %}
+                </button>
+            </nav>
+            <nav class="preview">
+                <button data-ng-click="fullscreen = true" data-ng-show="!fullscreen">
+                    {% trans %}pc.preview.fullscreen{% endtrans %}
+                </button>
+                <button data-ng-click="fullscreen = false" data-ng-show="fullscreen">
+                    {% trans %}pc.preview.fullscreen.close{% endtrans %}
+                </button>
+                <button class="primary" data-ng-click="finish()">
+                    {% trans %}pc.preview.finish{% endtrans %}
+                </button>
+            </nav>
+        </div>
+    </div>
+    {% set settings = content('Block', 'pc.settings') %}
+    <div id="settings" data-ng-hide="fullscreen">
+        <header>
+            <div class="inner">
+                <nav>
+                    {% for section in settings.children %}
+                        <button data-ng-click="settings = '{{ section.code }}'" data-ng-class="{active: settings == '{{ section.code }}'}">
+                            {{ section.title }}
+                        </button>
+                    {% endfor %}
+                </nav>
+            </div>
+        </header>
+        <div class="main">
+            <div class="inner">
+                {% for section in settings.children %}
+                    <section data-ng-show="settings == '{{ section.code }}'">
+                        {% include "DothivPremiumConfiguratorBundle:partials:configure/" ~ section.code ~ ".html.twig" %}
+                    </section>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="forbidden.html">
+    {% set modal = content('Block', 'pc.errormodal.forbidden') %}
+    <header>
+        <h2>{{ modal.title }}</h2>
+    </header>
+    <article>
+        {{ modal.text|markdown }}
+    </article>
+</script>
+<script type="text/ng-template" id="uploadfailed.html">
+    {% set modal = content('Block', 'pc.errormodal.uploadfailed') %}
+    <header>
+        <h2>{{ modal.title }} (Code: %%code%%)</h2>
+    </header>
+    <article>
+        {{ modal.text|markdown }}
+    </article>
+    <footer>
+        <button data-ng-click="$dismiss()">Close</button>
+    </footer>
+</script>
+<script type="text/ng-template" id="updatefailed.html">
+    {% set modal = content('Block', 'pc.errormodal.updatefailed') %}
+    <header>
+        <h2>{{ modal.title }} (Code: %%code%%)</h2>
+    </header>
+    <article>
+        {{ modal.text|markdown }}
+    </article>
+    <footer>
+        <button data-ng-click="$dismiss()">Close</button>
+    </footer>
+</script>
+<script type="text/ng-template" id="updatefailed.html">
+    {% set modal = content('Block', 'pc.errormodal.updatefailed') %}
+    <header>
+        <h2>{{ modal.title }} (Code: %%code%%)</h2>
+    </header>
+    <article>
+        {{ modal.text|markdown }}
+    </article>
+    <footer>
+        <button data-ng-click="$dismiss()">Close</button>
+    </footer>
+</script>
+<script type="text/ng-template" id="code.html">
+    {% set modal = content('Block', 'pc.modal.code') %}
+    <header>
+        <h2>{{ modal.title }}</h2>
+    </header>
+    <article>
+        <section class="image">
+            <img src="{{ modal.image.file.thumbnails.medium }}" alt="{{ modal.image.title }}">
+        </section>
+        <section>
+            {{ modal.text|markdown }}
+        </section>
+        <section data-ng-hide="redirect_url">
+            {{ modal.children[0].text|markdown }}
+        </section>
+        <section data-ng-show="redirect_url">
+            {{ modal.children[1].text|markdown }}
+        </section>
+    </article>
+    <footer>
+        <button data-ng-click="$dismiss()">Abort</button>
+        <a href="{{ path('dothiv_premiumconfig_page', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}#!/subscription" class="primary" data-ng-click="$dismiss()">Next</a>
+    </footer>
+</script>

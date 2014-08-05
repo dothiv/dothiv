@@ -1,0 +1,22 @@
+parameters:
+    dothiv.repository.premiumconfigurator.banner.entity.class: 'DothivPremiumConfiguratorBundle:PremiumBanner'
+    dothiv.repository.premiumconfigurator.banner.repository.class: Dothiv\PremiumConfiguratorBundle\Repository\PremiumBannerRepository
+    dothiv.repository.premiumconfigurator.subscription.entity.class: 'DothivPremiumConfiguratorBundle:Subscription'
+    dothiv.repository.premiumconfigurator.subscription.repository.class: Dothiv\PremiumConfiguratorBundle\Repository\SubscriptionRepository
+
+services:
+    dothiv.repository.premiumconfigurator.banner:
+        class: %dothiv.repository.premiumconfigurator.banner.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.premiumconfigurator.banner.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
+
+    dothiv.repository.premiumconfigurator.subscription:
+        class: %dothiv.repository.premiumconfigurator.subscription.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.premiumconfigurator.subscription.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]

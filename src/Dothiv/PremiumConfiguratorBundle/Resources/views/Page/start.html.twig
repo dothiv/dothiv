@@ -1,0 +1,121 @@
+{% trans_default_domain "charity" %}
+<!DOCTYPE html>
+<!--
+
+
+            _|_|          _|_|
+            _|_|          _|_|
+            _|_|
+            _|_|
+            _|_|_|_|      _|_|  _|_|    _|_|
+            _|_|_|_|_|    _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+      _|_|  _|_|    _|_|  _|_|    _|_|_|_|
+      _|_|  _|_|    _|_|  _|_|      _|_|
+
+ .hiv domains – The Red Ribbon of the digital age
+
+                    dotHIV.org
+
+-->
+<html lang="{{ locale }}">
+<head>
+    <title>
+        {{ page.title }}
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% stylesheets
+    'bundles/dothivpremiumconfigurator/lesscss/styles.less'
+    'bundles/dothivangularjs/extra/github.com/buberdds/angular-bootstrap-colorpicker/css/colorpicker.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/favicon.png' %}
+    <link rel="shortcut icon" href="{{ asset_url }}">
+    {% endimage %}
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
+    {% javascripts
+    '@DothivAngularJsBundle/Resources/public/angular/angular.js'
+    filter='?ngmin,?closureecma5'
+    output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <base href="/">
+</head>
+<body data-ng-app="dotHIVApp">
+<header data-ng-controller="HeaderController">
+    <article>
+        <section>
+            <h1>
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/dothiv-logo.png' %}
+                <img src="{{ asset_url }}" alt="{{ page.title }}">
+                {% endimage %}
+                {% trans %}pc.title{% endtrans %}<br>
+                <small>{% trans %}pc.subtitle{% endtrans %}</small>
+            </h1>
+            <div id="loading" data-ng-show="loading">
+                {% trans %}pc.loading{% endtrans %}
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/loader.gif' %}
+                <img src="{{ asset_url }}" alt="{% trans %}pc.loading{% endtrans %}">
+                {% endimage %}
+            </div>
+        </section>
+    </article>
+</header>
+<main data-ui-view></main>
+<footer></footer>
+{% block angular_app %}
+    {% javascripts
+    '@DothivPremiumConfiguratorBundle/Resources/public/js/vendor/jquery.js'
+    '@DothivAngularJsBundle/Resources/public/angular/angular-resource.js'
+    '@DothivAngularJsBundle/Resources/public/angular/angular-route.js'
+    '@DothivAngularJsBundle/Resources/public/angular/angular-cookies.js'
+    '@DothivAngularJsBundle/Resources/public/extra/angular-ui.github.io/ui-bootstrap/3/angular-ui-bootstrap-tpls.js'
+    '@DothivAngularJsBundle/Resources/public/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
+    '@DothivAngularJsBundle/Resources/public/extra/github.com/nervgh/angular-file-upload/angular-file-upload.js'
+    '@DothivAngularJsBundle/Resources/public/extra/github.com/buberdds/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js'
+    '@DothivPremiumConfiguratorBundle/Resources/public/js/app.js'
+    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'
+    '@DothivPremiumConfiguratorBundle/Resources/public/js/services/*.js'
+    '@DothivPremiumConfiguratorBundle/Resources/public/js/services/models/*.js'
+    '@DothivPremiumConfiguratorBundle/Resources/public/js/controllers/*.js'
+    filter='?ngmin,?closureecma5'
+    output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock angular_app %}
+<script type="text/javascript">
+    'use strict';
+    angular.module('dotHIVApp.services').factory('config', function () {
+        var config = {
+            locale: '{{ locale }}',
+            domain: '{{ app.request.get('domain') }}',
+            stripe: {
+                publishableKey: '{{ stripe_publishable_key }}',
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}
+                logo: '{{ asset_url }}',
+                {% endimage %}
+                testMode: {{ stripe_testmode }}
+            },
+            strings: {
+                pc: {
+                    stripe: {
+                        checkout: {
+                            name: '{{ 'pc.stripe.checkout.name'|trans }}',
+                            description: '{{ 'pc.stripe.checkout.description'|trans({'%%domain%%': app.request.get('domain')}) }}',
+                            button: '{{ 'pc.stripe.checkout.button'|trans }}'
+                        }
+                    }
+                }
+            }
+        };
+        return config;
+    });
+</script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
+</body>
+</html>

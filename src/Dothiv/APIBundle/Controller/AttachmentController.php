@@ -2,6 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use Dothiv\BusinessBundle\Service\AttachmentServiceInterface;
 use JMS\Serializer\Serializer;
@@ -12,8 +13,9 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class AttachmentController extends BaseController
+class AttachmentController
 {
+    use CreateResponseTrait;
 
     /**
      * @var SecurityContext
@@ -76,6 +78,10 @@ class AttachmentController extends BaseController
             // IE 9 uploader cannot handle json responses
             $response->headers->set('Content-Type', 'text/html; charset=utf-8');
             $response->setContent($attachment->getHandle());
+        }
+        $location = $this->attachmentService->getUrl($attachment);
+        if ($location->isDefined()) {
+            $response->headers->set('Location', (string)$location->get());
         }
         return $response;
     }

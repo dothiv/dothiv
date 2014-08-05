@@ -1,0 +1,48 @@
+services:
+    dothiv.premiumconfigurator.controller.page:
+        class: Dothiv\PremiumConfiguratorBundle\Controller\PremiumConfiguratorPageController
+        arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
+          - @templating
+          - @dothiv.charity.contentful.charity_content
+          - "DothivPremiumConfiguratorBundle"
+          - %assets_version%
+          - @clock
+          - %page_lifetime%
+        calls:
+          - [ setDomainRepo, [@dothiv.repository.domain] ]
+
+    dothiv.premiumconfigurator.controller.preview:
+        class: Dothiv\PremiumConfiguratorBundle\Controller\PremiumConfiguratorPreviewController
+        arguments:
+          - @templating
+          - @dothiv.repository.domain
+          - @dothiv.repository.banner
+
+    dothiv.premiumconfigurator.api.controller.attachment:
+        class: %dothiv.api.controller.attachment.class%
+        arguments:
+         - @dothiv.premiumconfigurator.service.attachment
+         - @security.context
+         - @serializer
+
+    dothiv.premiumconfigurator.api.controller.banner:
+        class: Dothiv\PremiumConfiguratorBundle\Controller\BannerController
+        arguments:
+         - @security.context
+         - @dothiv.repository.domain
+         - @dothiv.repository.banner
+         - @validator
+         - @serializer
+        calls:
+         - [ setPremiumBannerRepo, [@dothiv.repository.premiumconfigurator.banner] ]
+         - [ setAttachmentRepo, [@dothiv.repository.attachment] ]
+         - [ setAttachmentStore, [@dothiv.premiumconfigurator.service.attachment_store] ]
+
+    dothiv.premiumconfigurator.api.controller.subscription:
+        class: Dothiv\PremiumConfiguratorBundle\Controller\SubscriptionController
+        arguments:
+         - @security.context
+         - @dothiv.repository.domain
+         - @dothiv.repository.premiumconfigurator.subscription
+         - @serializer
