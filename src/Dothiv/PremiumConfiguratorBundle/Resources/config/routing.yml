@@ -55,3 +55,17 @@ dothiv_premiumconfig_banner_config_get:
         _controller: dothiv.premiumconfigurator.api.controller.banner:getConfigAction
         _format: json
     methods: [GET]
+
+dothiv_premiumconfig_banner_subscription_set:
+    path:     /api/premium-configurator/{name}/subscription
+    defaults:
+        _controller: dothiv.premiumconfigurator.api.controller.subscription:setSubscriptionAction
+        _format: json
+    methods: [PUT]
+
+dothiv_premiumconfig_banner_subscription_get:
+    path:     /api/premium-configurator/{name}/subscription
+    defaults:
+        _controller: dothiv.premiumconfigurator.api.controller.subscription:getSubscriptionAction
+        _format: json
+    methods: [GET]

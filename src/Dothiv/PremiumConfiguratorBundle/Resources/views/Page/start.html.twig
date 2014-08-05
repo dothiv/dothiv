@@ -93,10 +93,29 @@
     angular.module('dotHIVApp.services').factory('config', function () {
         var config = {
             locale: '{{ locale }}',
-            domain: '{{ app.request.get('domain') }}'
+            domain: '{{ app.request.get('domain') }}',
+            stripe: {
+                publishableKey: '{{ stripe_publishable_key }}',
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}
+                logo: '{{ asset_url }}',
+                {% endimage %}
+                testMode: {{ stripe_testmode }}
+            },
+            strings: {
+                pc: {
+                    stripe: {
+                        checkout: {
+                            name: '{{ 'pc.stripe.checkout.name'|trans }}',
+                            description: '{{ 'pc.stripe.checkout.description'|trans({'%%domain%%': app.request.get('domain')}) }}',
+                            button: '{{ 'pc.stripe.checkout.button'|trans }}'
+                        }
+                    }
+                }
+            }
         };
         return config;
     });
 </script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
 </body>
 </html>

@@ -17,6 +17,7 @@ class DothivPremiumConfiguratorExtension extends Extension
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
         $container->setParameter('dothiv_premium_configurator.attachments', $config['attachments']);
+        $container->setParameter('dothiv_premium_configurator.stripe', $config['stripe']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('controllers.yml');

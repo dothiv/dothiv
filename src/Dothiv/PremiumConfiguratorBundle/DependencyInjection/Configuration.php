@@ -31,6 +31,11 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('stripe')
+                    ->children()
+                        ->scalarNode('plan')->isRequired()->end()
+                    ->end()
+                ->end()
             ->end();
         return $treeBuilder;
     }

@@ -34,6 +34,8 @@ twig:
       assets_version: %assets_version%
       googleanalytics_charity: %googleanalytics_charity%
       googleanalytics_registry: %googleanalytics_registry%
+      stripe_publishable_key: %stripe_publishable_key%
+      stripe_testmode: %stripe_testmode%
 
 # Assetic Configuration
 assetic:
@@ -155,6 +157,8 @@ dothiv_premium_configurator:
         thumbnail:
             width: 100,
             height: 100
+    stripe:
+        plan: 'premium-clickcounter'
 
 parameters:
     # Default HTTP cache lifetime for pages

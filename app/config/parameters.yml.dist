@@ -31,10 +31,6 @@ parameters:
 
     assets_version: 1404223225
 
-    #
-    # PARAMETERS USED IN DEV MODE
-    #
-
     # Node and modules
     node_bin: /usr/bin/node
     node_modules: %kernel.root_dir%/../node_modules
@@ -49,3 +45,8 @@ parameters:
     # Google Analytics IDs
     googleanalytics_charity: UA-XXXX-Y
     googleanalytics_registry: UA-XXXX-Y
+
+    # Stripe
+    stripe_publishable_key: pk_test_4UBhOksBIPyBqmY3zSOaiFub
+    stripe_secret_key: sk_test_4UBhr322KNAeOblSRCMIxXEU
+    stripe_testmode: 1

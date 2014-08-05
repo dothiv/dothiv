@@ -34,7 +34,8 @@
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "nelmio/cors-bundle": "~1.0",
         "doctrine/migrations": "1.0.*@dev",
-        "doctrine/doctrine-migrations-bundle": "2.1.*@dev"
+        "doctrine/doctrine-migrations-bundle": "2.1.*@dev",
+        "stripe/stripe-php": "1.*"
     },
     "require-dev": {
         "phploc/phploc": "*",

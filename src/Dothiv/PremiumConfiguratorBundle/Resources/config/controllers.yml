@@ -35,6 +35,14 @@ services:
          - @validator
          - @serializer
         calls:
-         - [ setPremiumBannerRepo, [@dothiv.repository.premiumbanner] ]
+         - [ setPremiumBannerRepo, [@dothiv.repository.premiumconfigurator.banner] ]
          - [ setAttachmentRepo, [@dothiv.repository.attachment] ]
          - [ setAttachmentStore, [@dothiv.premiumconfigurator.service.attachment_store] ]
+
+    dothiv.premiumconfigurator.api.controller.subscription:
+        class: Dothiv\PremiumConfiguratorBundle\Controller\SubscriptionController
+        arguments:
+         - @security.context
+         - @dothiv.repository.domain
+         - @dothiv.repository.premiumconfigurator.subscription
+         - @serializer
