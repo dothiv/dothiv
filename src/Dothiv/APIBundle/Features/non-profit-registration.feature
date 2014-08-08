@@ -1,3 +1,4 @@
+@APIBundle @NonProfitRegistration
 Feature: Non-Profit Registration
   A user should be able create a non-profit registration
 
@@ -74,7 +75,6 @@ Feature: Non-Profit Registration
       | locality        | Big City                         |
       | country         | United States                    |
       | website         | http://example.com/              |
-      | forward         | 0                                |
       | terms           | 1                                |
       | personPhone     | +49178451                        |
       | personFax       | +49178452                        |
