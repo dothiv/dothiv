@@ -5,7 +5,6 @@ namespace Dothiv\APIBundle\Security\Authentication\Provider;
 
 use Dothiv\APIBundle\Security\Authentication\Token\Oauth2BearerToken;
 use Dothiv\BusinessBundle\Entity\UserToken;
-use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
