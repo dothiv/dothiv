@@ -79,10 +79,16 @@ class User implements UserInterface
      */
     protected $tokens;
 
+    /**
+     * @var string[]
+     */
+    protected $roles;
+
     public function __construct()
     {
         $this->domains = new ArrayCollection();
         $this->tokens  = new ArrayCollection();
+        $this->roles   = array('ROLE_USER');
     }
 
     public function getSurname()
@@ -158,7 +164,18 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
+    }
+
+    /**
+     * @param string[] $roles
+     *
+     * @return self
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+        return $this;
     }
 
     /**

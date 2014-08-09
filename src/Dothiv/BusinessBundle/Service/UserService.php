@@ -10,6 +10,7 @@ use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
+use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -21,34 +22,41 @@ class UserService implements UserProviderInterface, UserServiceInterface
     /**
      * @var UserRepositoryInterface
      */
-    private $userRepo;
+    protected $userRepo;
 
     /**
      * @var UserTokenRepositoryInterface
      */
-    private $userTokenRepo;
+    protected $userTokenRepo;
 
     /**
      * @var Clock
      */
-    private $clock;
+    protected $clock;
 
     /**
      * @var EventDispatcher
      */
-    private $dispatcher;
+    protected $dispatcher;
+
+    /**
+     * @var string
+     */
+    protected $loginLinkEventName;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
         UserTokenRepositoryInterface $userTokenRepository,
         Clock $clock,
-        EventDispatcher $dispatcher
+        EventDispatcher $dispatcher,
+        $loginLinkEventName
     )
     {
-        $this->userRepo      = $userRepository;
-        $this->userTokenRepo = $userTokenRepository;
-        $this->clock         = $clock;
-        $this->dispatcher    = $dispatcher;
+        $this->userRepo           = $userRepository;
+        $this->userTokenRepo      = $userTokenRepository;
+        $this->clock              = $clock;
+        $this->dispatcher         = $dispatcher;
+        $this->loginLinkEventName = $loginLinkEventName;
     }
 
     /**
@@ -83,7 +91,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'WakeupScreen\BackendBundle\Entity\User';
+        return $class === 'Dothiv\BusinessBundle\Entity\User';
     }
 
     /**
@@ -100,7 +108,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     {
         /* @var User $user */
         /* @var UserToken $token */
-        $user = $this->userRepo->getUserByEmail($email)->getOrCall(function () {
+        $user = Option::fromValue($this->loadUserByUsername($email))->getOrCall(function () {
             throw new EntityNotFoundException();
         });
 
@@ -112,7 +120,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
             throw new TemporarilyUnavailableException($token->getLifeTime());
         }
         $token = $this->createUserToken($user);
-        $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token, $httpHost, $locale));
+        $this->dispatcher->dispatch($this->loginLinkEventName, new UserTokenEvent($token, $httpHost, $locale));
     }
 
     protected function createUserToken(User $user, $lifetimeInSeconds = 1800)

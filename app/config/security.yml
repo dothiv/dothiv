@@ -6,6 +6,8 @@ security:
     providers:
         user:
             id: dothiv.businessbundle.service.user
+        admin:
+            id: dothiv.admin.service.user
         contentful_webhook:
             id: dothiv_contentful.service.webhook_user
 
@@ -29,6 +31,12 @@ security:
             provider:   user
             oauth2:     true
 
+        admin:
+            pattern:    ^/admin/api/(admin)
+            stateless:  true
+            provider:   admin
+            oauth2:     true
+
         contentful_webhook:
             pattern: ^/contentful/webhook
             provider: contentful_webhook
@@ -38,4 +46,5 @@ security:
     access_control:
       - { path: ^/api/user, roles: ROLE_USER }
       - { path: ^/api/domain, roles: ROLE_USER }
+      - { path: ^/admin/api, roles: ROLE_ADMIN }
       - { path: ^/contentful/webhook, roles: ROLE_CONTENTFUL_WEBHOOK }

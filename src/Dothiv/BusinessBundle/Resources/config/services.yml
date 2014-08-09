@@ -32,6 +32,7 @@ services:
         - @dothiv.repository.user_token
         - @clock
         - @event_dispatcher
+        - 'dothiv.business.user.loginlink.requested'
 
     dothiv.businessbundle.service.attachment:
         class: %dothiv.businessbundle.service.attachment.class%

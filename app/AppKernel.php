@@ -40,6 +40,7 @@ class AppKernel extends Kernel
             new Dothiv\PremiumConfiguratorBundle\DothivPremiumConfiguratorBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Dothiv\AdminBundle\DothivAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
