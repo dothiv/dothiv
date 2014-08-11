@@ -5,6 +5,7 @@ namespace Dothiv\BusinessBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
@@ -80,7 +81,7 @@ class User implements UserInterface
     protected $tokens;
 
     /**
-     * @var string[]
+     * @var string[]|Role[]
      */
     protected $roles;
 
@@ -168,7 +169,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param string[] $roles
+     * @param string[]|Role[] $roles
      *
      * @return self
      */

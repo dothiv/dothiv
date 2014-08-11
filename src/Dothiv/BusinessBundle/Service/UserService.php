@@ -13,6 +13,7 @@ use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Util\SecureRandom;
@@ -44,12 +45,18 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     protected $loginLinkEventName;
 
+    /**
+     * @var string
+     */
+    protected $domain;
+
     public function __construct(
         UserRepositoryInterface $userRepository,
         UserTokenRepositoryInterface $userTokenRepository,
         Clock $clock,
         EventDispatcher $dispatcher,
-        $loginLinkEventName
+        $loginLinkEventName,
+        $domain
     )
     {
         $this->userRepo           = $userRepository;
@@ -57,6 +64,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $this->clock              = $clock;
         $this->dispatcher         = $dispatcher;
         $this->loginLinkEventName = $loginLinkEventName;
+        $this->domain             = $domain;
     }
 
     /**
@@ -75,7 +83,63 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     public function loadUserByUsername($username)
     {
-        return $this->userRepo->getUserByEmail($username)->getOrThrow(new UsernameNotFoundException());
+        if ($this->isAdminUsername($username)) {
+            $user = $this->getOrCreateAdminByUsername($username);
+        } else {
+            $user = $this->userRepo->getUserByEmail($username)->getOrThrow(new UsernameNotFoundException());
+        }
+        $user->setRoles($this->getRoles($user));
+        return $user;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return Role[]
+     */
+    public function getRoles(User $user)
+    {
+        $roles = array('ROLE_USER');
+        if ($this->isAdmin($user)) {
+            $roles[] = 'ROLE_ADMIN';
+        }
+        return $roles;
+    }
+
+    /**
+     * @param string $username
+     *
+     * @return boolean
+     */
+    protected function isAdminUsername($username)
+    {
+        return preg_match('/' . preg_quote($this->domain) . '$/', $username) !== false;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function isAdmin(User $user)
+    {
+        return $this->isAdminUsername($user->getUsername());
+    }
+
+    protected function getOrCreateAdminByUsername($username)
+    {
+        $optionalUser = $this->userRepo->getUserByEmail($username);
+        if ($optionalUser->isDefined()) {
+            return $optionalUser->get();
+        }
+        $user = new User();
+        $user->setEmail($username);
+        $user->setHandle($this->generateToken());
+        $user->setFirstname('');
+        $user->setSurname('');
+        $this->userRepo->persist($user)->flush();
+        return $user;
+
     }
 
     /**
