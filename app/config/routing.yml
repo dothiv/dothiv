@@ -41,5 +41,6 @@ dothiv_premium_configurator:
 
 # Admin Dashboard
 dothiv_admin:
+    host: %registrydomain%
     resource: "@DothivAdminBundle/Resources/config/routing.yml"
     prefix:   /admin/

@@ -48,7 +48,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     /**
      * @var string
      */
-    protected $domain;
+    protected $adminUserDomain;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
@@ -56,7 +56,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
         Clock $clock,
         EventDispatcher $dispatcher,
         $loginLinkEventName,
-        $domain
+        $adminUserDomain
     )
     {
         $this->userRepo           = $userRepository;
@@ -64,7 +64,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $this->clock              = $clock;
         $this->dispatcher         = $dispatcher;
         $this->loginLinkEventName = $loginLinkEventName;
-        $this->domain             = $domain;
+        $this->adminUserDomain    = $adminUserDomain;
     }
 
     /**
@@ -113,7 +113,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     protected function isAdminUsername($username)
     {
-        return preg_match('/' . preg_quote($this->domain) . '$/', $username) !== false;
+        return preg_match('/' . preg_quote($this->adminUserDomain) . '$/', $username) !== false;
     }
 
     /**

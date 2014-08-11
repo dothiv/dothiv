@@ -6,8 +6,6 @@ security:
     providers:
         user:
             id: dothiv.businessbundle.service.user
-        admin:
-            id: dothiv.admin.service.user
         contentful_webhook:
             id: dothiv_contentful.service.webhook_user
 
@@ -34,7 +32,7 @@ security:
         admin:
             pattern:    ^/admin/api/(admin)
             stateless:  true
-            provider:   admin
+            provider:   user
             oauth2:     true
 
         contentful_webhook:
