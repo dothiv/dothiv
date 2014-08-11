@@ -1,0 +1,10 @@
+parameters:
+    dothiv.business.report.domain.class: Dothiv\BusinessBundle\Report\DomainReporter
+
+services:
+    dothiv.business.report.domain:
+        class: %dothiv.business.report.domain.class%
+        arguments:
+        - @dothiv.repository.domain
+        tags:
+        - { name: dothiv_admin.stats.reporter, id: "domains" }

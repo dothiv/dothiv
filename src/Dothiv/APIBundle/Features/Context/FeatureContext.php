@@ -336,7 +336,26 @@ class FeatureContext extends BehatContext
      */
     public function theJsonNodeShouldBeEqualToExtrasvisualurl($node, $storageName)
     {
-        $val = $this->getValue('{' . $storageName. '}');
+        $val = $this->getValue('{' . $storageName . '}');
         $this->getSubcontext('json')->theJsonNodeShouldBeEqualTo($node, (string)$val);
+    }
+
+    /**
+     * @Given /^the JSON object should be a list with at least (?P<num>\d+) element$/
+     */
+    public function theJsonObjectShouldBeAListWithAtLeastElement($num)
+    {
+        $json = (array)$this->getJson();
+        \PHPUnit_Framework_Assert::assertTrue(count($json) >= $num, sprintf('List does not have at least %d elements!', $num));
+    }
+
+    /**
+     * @Given /^the JSON node "(?P<node>[^"]*)" should contain at least (?P<num>\d+) element$/
+     */
+    public function theJsonNodeShouldContainAtLeastElement($node, $num)
+    {
+        $json = $this->getJson();
+        \PHPUnit_Framework_Assert::assertObjectHasAttribute($node, $json);
+        \PHPUnit_Framework_Assert::assertTrue(count($json->$node) >= $num, sprintf('List does not have at least %d elements!', $num));
     }
 }
