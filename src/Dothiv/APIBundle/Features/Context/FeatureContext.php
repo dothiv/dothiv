@@ -96,6 +96,9 @@ class FeatureContext extends BehatContext
         $em         = $this->getEntityManager();
         $entityInfo = $em->getClassMetadata($entityName);
         $entity     = new $entityInfo->name;
+        if (method_exists($entity, 'setCreated')) {
+            $entity->setCreated(new \DateTime());
+        }
         foreach ($table->getRowsHash() as $k => $v) {
             $setter = 'set' . ucfirst($k);
             $entity->$setter($this->getValue($v));

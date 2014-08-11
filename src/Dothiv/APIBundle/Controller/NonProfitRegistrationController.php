@@ -2,7 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
-use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
+use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
 use Dothiv\APIBundle\Request\NonProfitRegistrationGetRequest;
 use Dothiv\APIBundle\Request\NonProfitRegistrationPutRequest;
 use Dothiv\BusinessBundle\Entity\Attachment;
@@ -22,7 +22,7 @@ use Dothiv\APIBundle\Annotation\ApiRequest;
 
 class NonProfitRegistrationController
 {
-    use CreateResponseTrait;
+    use CreateJsonResponseTrait;
 
     /**
      * @var SecurityContext
