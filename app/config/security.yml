@@ -30,7 +30,7 @@ security:
             oauth2:     true
 
         admin:
-            pattern:    ^/admin/api/(admin)
+            pattern:    ^/admin/api/(stats)
             stateless:  true
             provider:   user
             oauth2:     true

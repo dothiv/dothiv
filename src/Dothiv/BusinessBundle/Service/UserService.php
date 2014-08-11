@@ -113,7 +113,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     protected function isAdminUsername($username)
     {
-        return preg_match('/' . preg_quote($this->adminUserDomain) . '$/', $username) !== false;
+        return preg_match('/' . preg_quote($this->adminUserDomain) . '$/', $username) === 1;
     }
 
     /**
