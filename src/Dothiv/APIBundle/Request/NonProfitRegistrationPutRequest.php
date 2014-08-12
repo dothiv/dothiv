@@ -92,6 +92,11 @@ class NonProfitRegistrationPutRequest extends NonProfitRegistrationGetRequest
     /**
      * @var string
      */
+    public $concept;
+
+    /**
+     * @var string
+     */
     public $orgPhone;
 
     /**

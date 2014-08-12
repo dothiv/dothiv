@@ -29,6 +29,7 @@ Feature: Non-Profit Registration
       | personFirstname | Jill                             |
       | personSurname   | Jones                            |
       | personEmail     | jill@example.com                 |
+      | personPosition  | CEO                              |
       | organization    | ACME Inc.                        |
       | proof           | ad54af9f3a2e137d04588712e3d98e0d |
       | about           | ACME Stuff                       |
@@ -37,6 +38,7 @@ Feature: Non-Profit Registration
       | locality        | Big City                         |
       | country         | United States                    |
       | website         | http://example.com/              |
+      | concept         | I have this idea …               |
       | forward         | 1                                |
       | terms           | 1                                |
       | personPhone     | +49178451                        |
@@ -49,6 +51,7 @@ Feature: Non-Profit Registration
     And the JSON node "personFirstname" should contain "Jill"
     And the JSON node "personSurname" should contain "Jones"
     And the JSON node "personEmail" should contain "jill@example.com"
+    And the JSON node "personPosition" should contain "CEO"
     And the JSON node "organization" should contain "ACME Inc."
     And the JSON node "about" should contain "ACME Stuff"
     And the JSON node "field" should contain "prevention"
@@ -56,6 +59,7 @@ Feature: Non-Profit Registration
     And the JSON node "locality" should contain "Big City"
     And the JSON node "country" should contain "United States"
     And the JSON node "website" should contain "http://example.com/"
+    And the JSON node "concept" should contain "I have this idea …"
     And the JSON node "forward" should contain "1"
     And the JSON node "personPhone" should contain "+49178451"
     And the JSON node "personFax" should contain "+49178452"
@@ -67,6 +71,7 @@ Feature: Non-Profit Registration
       | personFirstname | Jill                             |
       | personSurname   | Jones                            |
       | personEmail     | jill@example.com                 |
+      | personPosition  | CEO                              |
       | organization    | ACME Inc.                        |
       | proof           | ad54af9f3a2e137d04588712e3d98e0d |
       | about           | ACME Stuff                       |
@@ -75,6 +80,7 @@ Feature: Non-Profit Registration
       | locality        | Big City                         |
       | country         | United States                    |
       | website         | http://example.com/              |
+      | concept         | I have this idea …               |
       | terms           | 1                                |
       | personPhone     | +49178451                        |
       | personFax       | +49178452                        |
