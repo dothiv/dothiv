@@ -67,6 +67,13 @@ class NonProfitRegistration extends Entity
 
     /**
      * @var string
+     * @ORM\Column(type="string",length=255,nullable=true)
+     * @Serializer\Expose
+     */
+    protected $personPosition; // e.g.: CEO
+
+    /**
+     * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
      * @Assert\Email
@@ -131,6 +138,13 @@ class NonProfitRegistration extends Entity
      * @Serializer\Expose
      */
     protected $about; // e.g.: ACME Stuff
+
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     * @Serializer\Expose
+     */
+    protected $concept;
 
     /**
      * @var string
@@ -509,5 +523,43 @@ class NonProfitRegistration extends Entity
     public function getReceiptSent()
     {
         return $this->receiptSent;
+    }
+
+    /**
+     * @param string $personPosition
+     *
+     * @return self
+     */
+    public function setPersonPosition($personPosition)
+    {
+        $this->personPosition = $personPosition;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPersonPosition()
+    {
+        return $this->personPosition;
+    }
+
+    /**
+     * @param string $concept
+     *
+     * @return self
+     */
+    public function setConcept($concept)
+    {
+        $this->concept = $concept;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConcept()
+    {
+        return $this->concept;
     }
 }
