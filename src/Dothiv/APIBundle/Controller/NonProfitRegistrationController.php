@@ -138,6 +138,7 @@ class NonProfitRegistrationController
         $registration->setPersonEmail($model->personEmail);
         $registration->setPersonPhone($model->personPhone);
         $registration->setPersonFax($model->personFax);
+        $registration->setPersonPosition($model->personPosition);
         $registration->setOrganization($model->organization);
         $registration->setOrgPhone($model->orgPhone);
         $registration->setOrgFax($model->orgFax);
@@ -149,6 +150,7 @@ class NonProfitRegistrationController
         $registration->setCountry($model->country);
         $registration->setWebsite($model->website);
         $registration->setForward($model->forward);
+        $registration->setConcept($model->concept);
 
         try {
             $this->nonProfitRegistrationRepo->persist($registration)->flush();
