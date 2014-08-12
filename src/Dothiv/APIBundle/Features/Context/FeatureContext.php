@@ -10,6 +10,9 @@ use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Sanpi\Behatch\Context\BehatchContext;
@@ -350,12 +353,46 @@ class FeatureContext extends BehatContext
     }
 
     /**
-     * @Given /^the JSON node "(?P<node>[^"]*)" should contain at least (?P<num>\d+) element$/
+     * @Given /^the JSON node "(?P<node>[^"]*)" should contain at least (?P<num>\d+) elements*$/
      */
-    public function theJsonNodeShouldContainAtLeastElement($node, $num)
+    public function theJsonNodeShouldContainAtLeastElements($node, $num)
     {
         $json = $this->getJson();
         \PHPUnit_Framework_Assert::assertObjectHasAttribute($node, $json);
         \PHPUnit_Framework_Assert::assertTrue(count($json->$node) >= $num, sprintf('List does not have at least %d elements!', $num));
+    }
+
+    /**
+     * @Given /^the JSON node "(?P<node>[^"]*)" should contain (?P<num>\d+) elements*$/
+     */
+    public function theJsonNodeShouldContainElements($node, $num)
+    {
+        $json = $this->getJson();
+        \PHPUnit_Framework_Assert::assertObjectHasAttribute($node, $json);
+        \PHPUnit_Framework_Assert::assertTrue(count($json->$node) == $num, sprintf('List does not have %d elements!', $num));
+    }
+
+    /**
+     * @Given /^the fixture "(?P<fixturename>[^"]*)" is loaded$/
+     */
+    public function theFixtureIsLoaded($fixturename)
+    {
+        $loader = new Loader();
+        $this->getMainContext()
+            ->getSubcontext('doctrine_fixtures_context')
+            ->loadFixtureClasses($loader, array(
+                $fixturename
+            ));
+        $em       = $this->getEntityManager();
+        $executor = new ORMExecutor($em, new ORMPurger());
+        $executor->execute($loader->getFixtures(), true);
+    }
+
+    /**
+     * @Given /^I debug the JSON$/
+     */
+    public function iDebugTheJson()
+    {
+        print_r($this->getJson());
     }
 }
