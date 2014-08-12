@@ -30,7 +30,7 @@ security:
             oauth2:     true
 
         admin:
-            pattern:    ^/admin/api/(stats)
+            pattern:    ^/admin/api/(stats|nonprofitregistration)
             stateless:  true
             provider:   user
             oauth2:     true
