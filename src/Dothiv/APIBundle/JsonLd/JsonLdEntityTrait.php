@@ -3,21 +3,18 @@
 namespace Dothiv\APIBundle\JsonLd;
 
 use Dothiv\BusinessBundle\ValueObject\URLValue;
-
 use JMS\Serializer\Annotation as Serializer;
 
 trait JsonLdEntityTrait
 {
     /**
      * @var URLValue
-     * @Serializer\Expose
      * @Serializer\SerializedName("@context")
      */
     protected $jsonLdContext;
 
     /**
      * @var URLValue
-     * @Serializer\Expose
      * @Serializer\SerializedName("@id")
      */
     protected $jsonLdId;
