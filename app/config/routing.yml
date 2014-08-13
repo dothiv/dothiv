@@ -32,9 +32,3 @@ dothiv_domain_iframe:
 dothiv_contentful:
     resource: "@DothivContentfulBundle/Resources/config/routing.yml"
     prefix:   /contentful/
-
-# Premium Configurator
-dothiv_premium_configurator:
-    host: %charitydomain%
-    resource: "@DothivPremiumConfiguratorBundle/Resources/config/routing.yml"
-    prefix:   /

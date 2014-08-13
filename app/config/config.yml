@@ -48,7 +48,6 @@ assetic:
       - 'DothivTwitterBootstrapBundle'
       - 'DothivAngularJsBundle'
       - 'DothivQLPPartnerBundle'
-      - 'DothivPremiumConfiguratorBundle'
     #java: /usr/bin/java
     filters:
         less:
@@ -149,16 +148,6 @@ dothiv_charity_website:
 dothiv_contentful:
     webhook:
         httpBasicPassword: %contenful_webhook_password%
-
-dothiv_premium_configurator:
-    attachments:
-        location: '%kernel.root_dir%/../web/uploads/clickcounter'
-        url_prefix: '/uploads/clickcounter'
-        thumbnail:
-            width: 100,
-            height: 100
-    stripe:
-        plan: 'premium-clickcounter'
 
 parameters:
     # Default HTTP cache lifetime for pages
