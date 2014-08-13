@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dabf86125b80fcaaf9ccbf4f59a18994",
+    "hash": "6c894f89f5a9053ca8ab6eb30676d9e3",
     "packages": [
         {
             "name": "behat/behat",
@@ -2518,6 +2518,48 @@
             "time": "2014-06-12 07:22:15"
         },
         {
+            "name": "podio/podio-php",
+            "version": "v4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/podio/podio-php.git",
+                "reference": "acb7314bc04368b0fbbd7adbbc14f807f3090033"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/podio/podio-php/zipball/acb7314bc04368b0fbbd7adbbc14f807f3090033",
+                "reference": "acb7314bc04368b0fbbd7adbbc14f807f3090033",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/",
+                    "models/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Haugstrup Pedersen",
+                    "email": "haugstrup@podio.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Client for Podio API",
+            "homepage": "http://github.com/podio/podio-php",
+            "keywords": [
+                "podio"
+            ],
+            "time": "2014-07-17 19:11:31"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -4796,6 +4838,7 @@
         "sanpi/behatch-contexts": 20,
         "behat/mink-extension": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.4.0",
         "ext-gmagick": "*"
