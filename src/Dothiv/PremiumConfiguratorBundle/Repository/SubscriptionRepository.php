@@ -4,6 +4,7 @@ namespace Dothiv\PremiumConfiguratorBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use Dothiv\PremiumConfiguratorBundle\Entity\Subscription;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\PremiumConfiguratorBundle\Exception\InvalidArgumentException;
@@ -12,10 +13,7 @@ use Symfony\Component\Validator\ValidatorInterface;
 
 class SubscriptionRepository extends DoctrineEntityRepository implements SubscriptionRepositoryInterface
 {
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
+    use ValidatorTrait;
 
     /**
      * {@inheritdoc}
@@ -48,11 +46,7 @@ class SubscriptionRepository extends DoctrineEntityRepository implements Subscri
      */
     public function persist(Subscription $subscription)
     {
-        $errors = $this->validator->validate($subscription);
-        if (count($errors) != 0) {
-            throw new InvalidArgumentException((string)$errors);
-        }
-        $this->getEntityManager()->persist($subscription);
+        $this->getEntityManager()->persist($this->validate($subscription));
         return $this;
     }
 
@@ -62,21 +56,5 @@ class SubscriptionRepository extends DoctrineEntityRepository implements Subscri
     public function flush()
     {
         $this->getEntityManager()->flush();
-    }
-
-    /**
-     * @param ValidatorInterface $validator
-     */
-    public function setValidator(ValidatorInterface $validator)
-    {
-        $this->validator = $validator;
-    }
-
-    /**
-     * @return ValidatorInterface
-     */
-    public function getValidator()
-    {
-        return $this->validator;
     }
 }
