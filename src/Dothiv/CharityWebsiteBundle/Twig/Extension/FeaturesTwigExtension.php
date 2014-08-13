@@ -10,11 +10,18 @@ class FeaturesTwigExtension extends \Twig_Extension
     private $features;
 
     /**
-     * @param array $features associative array of features array('featurename' => bool)
+     * @var array
      */
-    public function __construct(array $features)
+    private $bundles;
+
+    /**
+     * @param array $features associative array of features array('featurename' => bool)
+     * @param array $bundles  list of available bundles
+     */
+    public function __construct(array $features, array $bundles)
     {
         $this->features = $features;
+        $this->bundles  = $bundles;
     }
 
     /**
@@ -26,7 +33,7 @@ class FeaturesTwigExtension extends \Twig_Extension
         foreach ($this->features as $name => $config) {
             $features[$name] = $config['enabled'];
         }
-        return array('features' => $features);
+        return array('features' => $features, 'bundles' => $this->bundles);
     }
 
     public function getName()
