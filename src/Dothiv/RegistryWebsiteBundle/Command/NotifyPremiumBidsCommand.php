@@ -9,9 +9,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class NotifiyPremiumBidsCommand extends ContainerAwareCommand
+/**
+ * Creates an item for every bid in a podio app.
+ */
+class NotifyPremiumBidsCommand extends ContainerAwareCommand
 {
-
     protected function configure()
     {
         $this

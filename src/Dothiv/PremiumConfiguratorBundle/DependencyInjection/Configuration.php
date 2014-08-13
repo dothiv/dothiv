@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('location')->defaultValue('%kernel.root_dir%/../web/uploads/clickcounter')->end()
                         ->scalarNode('url_prefix')->defaultValue('/uploads/clickcounter')->end()
                         ->arrayNode('thumbnail')
+                            ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('width')->defaultValue('100')->end()
                                 ->scalarNode('height')->defaultValue('100')->end()
