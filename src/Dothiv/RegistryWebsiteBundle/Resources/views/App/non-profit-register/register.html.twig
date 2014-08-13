@@ -18,7 +18,7 @@
                 <label for="registerSurname">Name</label>
                 <input type="text" data-ng-model="registrationForm.surname" class="form-control" id="registerSurname" required>
             </div>
-            <button type="submit" class="btn btn-primary" data-ng-click="submit()" data-ng-disabled="registrationForm.$invalid" data-ng-show="!submitting">
+            <button type="submit" data-ng-click="submit()" data-ng-disabled="registrationForm.$invalid" data-ng-show="!submitting">
                 Submit
             </button>
             <input type="hidden" data-ng-model="registrationForm.locale" data-ng-init="registrationForm.locale='{{ locale }}'">
@@ -29,7 +29,9 @@
             <p>No password?! We think passwords suck, <a href="http://notes.xoxco.com/post/27999787765/is-it-time-for-password-less-login">and other do, too</a>. Everytime you wish to log in, we'll send a login link to your email address. That's fast, easy and secure.</p>
 
             <p>We need to confirm your Email address in order to keep in touch with you.</p>
-            <a href="{{ path('dothiv_register_nonprofit_form', {'locale': locale}) }}#!/login">I already have an account!</a>
+            <nav>
+                <a href="{{ path('dothiv_register_nonprofit_form', {'locale': locale}) }}#!/login">I already have an account!</a>
+            </nav>
         </div>
     </fieldset>
 </form>

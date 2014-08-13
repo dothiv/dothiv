@@ -67,3 +67,9 @@ dothiv_registry_report:
         page: report
     requirements:
         locale:  en|ky
+
+dothiv_registry_sedo:
+    path: /api/premiumbid
+    defaults:
+        _controller: dothiv.registry.web.controller.premiumBid:createBidAction
+        _format: json

@@ -1,0 +1,40 @@
+{% trans_default_domain "registry" %}
+<div data-ng-controller="SedoFormController">
+    <form role="form" name="sedoForm" novalidate class="explained" data-ng-show="!success">
+        <fieldset>
+            <div class="form-group">
+                <label for="sedoFormSurname">Surname</label>
+                <input type="text" data-ng-model="bid.surname" id="sedoFormSurname" required maxlength="255">
+            </div>
+            <div class="form-group">
+                <label for="sedoFormFirstname">Firstname</label>
+                <input type="text" data-ng-model="bid.firstname" id="sedoFormFirstname" required maxlength="255">
+            </div>
+            <div class="form-group">
+                <label for="sedoFormDomain">Domain Name<br>
+                    <small>e.g. example.hiv</small>
+                </label>
+                <input type="text" data-ng-model="bid.name" id="sedoFormDomain" required data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/">
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" data-ng-model="sedoForm.terms" data-ng-true-value="1" data-ng-false-value="0">I
+                    hereby confirm and accept the special terms for premium .hiv domains. </label>
+            </div>
+            <button type="submit" data-ng-click="submit()" data-ng-disabled="sedoForm.$invalid || sedoForm.terms != '1'" data-ng-class="{loading: loading}">
+                <span data-ng-show="!loading">Confirm your bid</span>
+                <span data-ng-show="loading"><i class="loading"></i> confirming …</span>
+            </button>
+        </fieldset>
+    </form>
+    <div class="errorMessage" role="alert" data-ng-show="errorMessage">
+        <button type="button" class="close" data-ng-click="errorMessage=''">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <p data-ng-bind="errorMessage"></p>
+    </div>
+    <div data-ng-show="success">
+        <p>Thank you!</p>
+
+        <p><a href="https://sedo.com/">&laquo; Back to the sedo marketplace</a></p>
+    </div>
+</div>
