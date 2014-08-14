@@ -10,6 +10,8 @@ use Symfony\Component\Routing\Router;
  * Adds the bundles routes on demand.
  *
  * Circumvents being required to configure routing in the routing.yml.
+ *
+ * TODO: handle this during compile time (hint: it's not straight forward, as routes are not serializeable)
  */
 class RoutingListener
 {
