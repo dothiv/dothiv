@@ -38,3 +38,6 @@ parameters:
     stripe_publishable_key: pk_test_somekey
     stripe_secret_key: sk_test_somekey
     stripe_testmode: 1
+
+    # Money conversion
+    eur_to_usd: 1.328515

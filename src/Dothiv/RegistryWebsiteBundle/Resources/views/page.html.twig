@@ -148,6 +148,7 @@
 {% block angular_app %}
 {% javascripts
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/app.js'
+    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/MoneyFormatter.js'
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/PreregisterFormController.js'
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/SedoFormController.js'
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/RegistrarsListController.js'
@@ -164,7 +165,8 @@
         var config = {
             locale: '{{ locale }}',
             countdown_start: '{{ countdown_start|date_w3c }}',
-            countdown_end: '{{ general_availability|date_w3c }}'
+            countdown_end: '{{ general_availability|date_w3c }}',
+            eur_to_usd: {{ eur_to_usd }}
         };
         return config;
     });
