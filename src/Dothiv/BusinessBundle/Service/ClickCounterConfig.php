@@ -103,12 +103,8 @@ class ClickCounterConfig implements ClickCounterConfigInterface
         );
         foreach ($this->locales as $locale) {
             $config['strings'][$locale] = array(
-                'heading'    => $this->getString('heading', $locale),
-                'subheading' => $this->getString('subheading', $locale),
-                'about'      => $this->getString('about', $locale),
-                'activated'  => $this->getString('activated', $locale),
-                'money'      => $this->getString('money', $locale),
-                'clickcount' => $this->getString('clickcount', $locale),
+                'heading'      => $this->getString('heading', $locale),
+                'shortheading' => $this->getString('shortheading', $locale)
             );
         }
         return $config;
