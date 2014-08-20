@@ -211,10 +211,15 @@ class PageController
         if ($request->get('markdown')) {
             $parsedown = new \Parsedown();
             $fields    = explode(',', $request->get('markdown'));
-            foreach ($fields as $field) {
+            foreach ($fields as $fieldDef) {
+                list($field, $flag) = strpos($fieldDef, ':') > 0 ? explode(':', $fieldDef, 2) : array($fieldDef, null);
                 foreach ($view as $k => $v) {
                     if (property_exists($view[$k], $field)) {
-                        $view[$k]->$field = $parsedown->text($view[$k]->$field);
+                        $m = $parsedown->text($view[$k]->$field);
+                        if ($flag == 'inline') {
+                            $m = strip_tags($m, '<strong><em><a>');
+                        }
+                        $view[$k]->$field = $m;
                     }
                 }
             }

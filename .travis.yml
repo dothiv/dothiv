@@ -58,7 +58,7 @@ script:
   - phpunit -c app
 # Javascript testing
   - ./node_modules/karma/bin/karma start src/Dothiv/CharityWebsiteBundle/Resources/test/1.2/config/travis-karma.conf.js
-  - ./node_modules/karma/bin/karma start src/Dothiv/RegistryWebsiteBundle/Resources/test/1.2/config/travis-karma.conf.js
+  - ./node_modules/karma/bin/karma start src/Dothiv/BaseWebsiteBundle/Resources/test/1.2/config/travis-karma.conf.js
 #-e2e: - DISPLAY=:99.0 KARMA_BIN=./node_modules/karma/bin/karma ./src/Dothiv/CharityWebsiteBundle/Resources/test/travis-e2e-test.sh
 
 after_failure:
