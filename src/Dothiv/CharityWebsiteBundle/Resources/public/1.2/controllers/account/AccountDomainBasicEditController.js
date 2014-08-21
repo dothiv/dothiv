@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditController', ['$scope', '$location', '$stateParams', 'dothivBannerResource',
-    function ($scope, $location, $stateParams, dothivBannerResource) {
+angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditController', ['$scope', '$location', '$stateParams', 'dothivBannerResource', '$modal',
+    function ($scope, $location, $stateParams, dothivBannerResource, $modal) {
 
         $scope.errorMessage = null;
 
@@ -9,7 +9,7 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
         $scope.$watch('domaineditbasic', function () {
             $scope.domaineditbasic.$data = {};
             $scope.domaineditbasic.$data.forwarding = 'true';
-            $scope.domaineditbasic.$data.secondvisit = true;
+            $scope.domaineditbasic.$data.secondvisit = false;
         });
 
         // retrieve domain id from URL parameters and get domain/banner information
@@ -25,18 +25,39 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
             },
             function () { // error
                 // no banner available, creating new one
-                $scope.domaineditbasic.$data.forwarding = 'false';
-                $scope.banner.redirect_url = null;
+                $scope.domaineditbasic.$data.forwarding = 'true';
+                $scope.banner.redirect_url = getDefaultRedirect();
                 $scope.banner.language = 'de';
                 $scope.banner.position_first = 'center';
                 $scope.banner.position = 'top';
             }
         );
 
+        function getDefaultRedirect()
+        {
+            return 'http://' + domainName.split('.hiv').join('.com');
+        }
+
         $scope.$watch('domaineditbasic.$data.forwarding', function (forwarding) {
-            if (forwarding == 'false')
+            if (forwarding == 'false') {
                 $scope.banner.redirect_url = null;
+            } else {
+                $scope.banner.redirect_url = getDefaultRedirect();
+            }
         });
+
+        $scope.$watch('banner.position', function (position) {
+            if (position != "invisible") {
+                return;
+            }
+            $modal.open({'templateUrl': 'invisiblehint.html'});
+        });
+
+        $scope.$watch('domaineditbasic.$data.secondvisit', function (secondvisit) {
+            if (secondvisit) {
+                return;
+            }
+        })
 
         // form configuration
         $scope.nextStep = function (tab, form) {
@@ -52,7 +73,7 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
 
             // do not submit values of disabled input fields
             if ($scope.domaineditbasic.$data.secondvisit == false) {
-                $scope.banner.position_alternative = null;
+                $scope.banner.position = $scope.banner.position_first;
             }
             if ($scope.domaineditbasic.$data.forwarding == 'false') {
                 $scope.banner.redirect_url = null;
@@ -66,7 +87,6 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
                 },
                 function (response) { // error
                     $scope.errorMessage = response.statusText;
-                    $scope.tabs[1].active = true;
                 }
             );
         };
