@@ -39,10 +39,10 @@ class AppKernel extends Kernel
             new Dothiv\QLPPartnerBundle\DothivQLPPartnerBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Dothiv\PremiumConfiguratorBundle\DothivPremiumConfiguratorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Dothiv\PremiumConfiguratorBundle\DothivPremiumConfiguratorBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
