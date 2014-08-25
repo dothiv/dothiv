@@ -22,6 +22,7 @@ class PremiumBannerRepository extends DoctrineEntityRepository implements Premiu
         return Option::fromValue(
             $this->createQueryBuilder('p')
                 ->andWhere('p.banner = :banner')->setParameter('banner', $banner)
+                ->leftJoin('p.visual', 'v')
                 ->getQuery()
                 ->getOneOrNullResult()
         );

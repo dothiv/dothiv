@@ -4,30 +4,11 @@
     <div id="topnav">
         <div class="inner">
             <nav class="layouts">
-                <button data-ng-click="bannerPosition = 'center'">
-                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-center.png' %}
-                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.center{% endtrans %}" data-ng-show="bannerPosition == 'center'">
-                    {% endimage %}
-                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-center-off.png' %}
-                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.center{% endtrans %}" data-ng-show="bannerPosition != 'center'">
-                    {% endimage %}
+                {% for position in ['top', 'bottom', 'left', 'right', 'topleft-micro', 'top-micro', 'topright-micro'] %}
+                <button data-ng-click="bannerPosition = '{{ position }}'">
+                    <img src="/bundles/dothivpremiumconfigurator/images/position/{{ position }}.png" alt="{{ ('domain.position.' ~ position)|trans }}" data-ng-class="{active: bannerPosition == '{{ position }}'}">
                 </button>
-                <button data-ng-click="bannerPosition = 'top'">
-                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-top.png' %}
-                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.top{% endtrans %}" data-ng-show="bannerPosition == 'top'">
-                    {% endimage %}
-                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-top-off.png' %}
-                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.top{% endtrans %}" data-ng-show="bannerPosition != 'top'">
-                    {% endimage %}
-                </button>
-                <button data-ng-click="bannerPosition = 'right'">
-                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-right.png' %}
-                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.right{% endtrans %}" data-ng-show="bannerPosition == 'right'">
-                    {% endimage %}
-                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/banner-position-right-off.png' %}
-                    <img src="{{ asset_url }}" alt="{% trans %}pc.preview.right{% endtrans %}" data-ng-show="bannerPosition != 'right'">
-                    {% endimage %}
-                </button>
+                {% endfor %}
             </nav>
             <nav class="preview">
                 <button data-ng-click="fullscreen = true" data-ng-show="!fullscreen">

@@ -75,7 +75,13 @@ class PremiumBannerConfigPutRequest extends PremiumBannerConfigGetRequest
      * @var string
      * @Assert\Length(max=255)
      */
-    public $headlineFontStyle;
+    public $headlineFontWeight;
+
+    /**
+     * @var integer
+     * @Assert\Range(min=8,max=30)
+     */
+    public $headlineFontSize;
 
     /**
      * @var string
@@ -87,5 +93,11 @@ class PremiumBannerConfigPutRequest extends PremiumBannerConfigGetRequest
      * @var string
      * @Assert\Length(max=255)
      */
-    public $textFontStyle;
+    public $textFontWeight;
+
+    /**
+     * @var integer
+     * @Assert\Range(min=8,max=30)
+     */
+    public $textFontSize;
 }
