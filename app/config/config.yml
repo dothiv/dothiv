@@ -37,6 +37,8 @@ twig:
       stripe_publishable_key: %stripe_publishable_key%
       stripe_testmode: %stripe_testmode%
       eur_to_usd: %eur_to_usd%
+      premium_price: %premium_price%
+      devat: %devat%
 
 # Assetic Configuration
 assetic:
@@ -157,6 +159,8 @@ parameters:
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
 
 dothiv_premium_configurator:
+    price: %premium_price%
+    vat: %devat%
     attachments:
       thumbnails:
         - { label: visual, width: 44, height: 44 }

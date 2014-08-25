@@ -16,6 +16,8 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('dothiv_premium_configurator');
         $rootNode
             ->children()
+                ->scalarNode('price')->defaultValue(1000)->end()
+                ->scalarNode('vat')->defaultValue(19)->end()
                 ->arrayNode('attachments')
                     ->addDefaultsIfNotSet()
                     ->children()

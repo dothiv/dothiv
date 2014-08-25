@@ -66,7 +66,6 @@
     </article>
 </header>
 <main data-ui-view></main>
-<footer></footer>
 {% block angular_app %}
     {% javascripts
     '@DothivPremiumConfiguratorBundle/Resources/public/js/vendor/jquery.js'
@@ -111,6 +110,16 @@
                         }
                     }
                 }
+            },
+            cycle_start: '{{ 'now'|date }}',
+            cycle_end: '{{ '+1 month'|date }}',
+            price: {
+                net: {{ premium_price / 100 }},
+                vat: {{ premium_price / 100 * devat / 100 }},
+                total: {{ premium_price / 100 + premium_price / 100 * devat / 100 }}
+            },
+            vat: {
+                de: {{ devat }}
             }
         };
         return config;
