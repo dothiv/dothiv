@@ -19,5 +19,9 @@
                 <a rel="next" data-ng-click="next()" data-ng-show="hasNext()">{% trans %}pc.nav.next{% endtrans %}</a>
             {% endblock nav %}
         </nav>
+        <footer>
+            {% set footnote = content('Block', 'clickcounter.legal') %}
+            {{ footnote.text|markdown }}
+        </footer>
     </article>
 </div>
