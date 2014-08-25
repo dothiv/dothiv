@@ -55,9 +55,9 @@ Feature: Configure Premium Banner
       | bgColor           | #f7f7f7                          |
       | barColor          | #e00073                          |
       | headlineFont      | Source Sans Pro                  |
-      | headlineFontStyle | 900                              |
+      | headlineFontWeight | 900                              |
       | textFont          | BenchNine                        |
-      | textFontStyle     | regular                          |
+      | textFontWeight     | regular                          |
       | extrasHeadline    | Headline                         |
       | extrasText        | Text                             |
       | extrasLinkUrl     | http://wurst.de/                 |
@@ -73,9 +73,9 @@ Feature: Configure Premium Banner
     And the JSON node "bgColor" should contain "#f7f7f7"
     And the JSON node "barColor" should contain "#e00073"
     And the JSON node "headlineFont" should contain "Source Sans Pro"
-    And the JSON node "headlineFontStyle" should contain "900"
+    And the JSON node "headlineFontWeight" should contain "900"
     And the JSON node "textFont" should contain "BenchNine"
-    And the JSON node "textFontStyle" should contain "regular"
+    And the JSON node "textFontWeight" should contain "regular"
     And the JSON node "extrasHeadline" should contain "Headline"
     And the JSON node "extrasText" should contain "Text"
     And the JSON node "extrasLinkUrl" should contain "http://wurst.de/"

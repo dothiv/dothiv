@@ -96,7 +96,14 @@ class PremiumBanner extends Entity
      * @var string
      * @Serializer\Expose
      */
-    protected $headlineFontStyle;
+    protected $headlineFontWeight;
+
+    /**
+     * @ORM\Column(type="integer",nullable=true)
+     * @var int
+     * @Serializer\Expose
+     */
+    protected $headlineFontSize;
 
     /**
      * @ORM\Column(type="string",nullable=true)
@@ -112,7 +119,14 @@ class PremiumBanner extends Entity
      * @var string
      * @Serializer\Expose
      */
-    protected $textFontStyle;
+    protected $textFontWeight;
+
+    /**
+     * @ORM\Column(type="integer",nullable=true)
+     * @var int
+     * @Serializer\Expose
+     */
+    protected $textFontSize;
 
     /**
      * @ORM\Column(type="string",nullable=true)
@@ -338,19 +352,19 @@ class PremiumBanner extends Entity
     }
 
     /**
-     * @param string|null $headlineFontStyle
+     * @param string|null $headlineFontWeight
      */
-    public function setHeadlineFontStyle($headlineFontStyle = null)
+    public function setHeadlineFontWeight($headlineFontWeight = null)
     {
-        $this->headlineFontStyle = $headlineFontStyle;
+        $this->headlineFontWeight = $headlineFontWeight;
     }
 
     /**
      * @return string|null
      */
-    public function getHeadlineFontStyle()
+    public function getHeadlineFontWeight()
     {
-        return $this->headlineFontStyle;
+        return $this->headlineFontWeight;
     }
 
     /**
@@ -370,19 +384,19 @@ class PremiumBanner extends Entity
     }
 
     /**
-     * @param string|null $textFontStyle
+     * @param string|null $textFontWeight
      */
-    public function setTextFontStyle($textFontStyle = null)
+    public function setTextFontWeight($textFontWeight = null)
     {
-        $this->textFontStyle = $textFontStyle;
+        $this->textFontWeight = $textFontWeight;
     }
 
     /**
      * @return string|null
      */
-    public function getTextFontStyle()
+    public function getTextFontWeight()
     {
-        return $this->textFontStyle;
+        return $this->textFontWeight;
     }
 
     /**
@@ -440,4 +454,43 @@ class PremiumBanner extends Entity
     {
         return $this->context;
     }
+
+    /**
+     * @param int $headlineFontSize
+     *
+     * @return self
+     */
+    public function setHeadlineFontSize($headlineFontSize)
+    {
+        $this->headlineFontSize = $headlineFontSize;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeadlineFontSize()
+    {
+        return $this->headlineFontSize;
+    }
+
+    /**
+     * @param int $textFontSize
+     *
+     * @return self
+     */
+    public function setTextFontSize($textFontSize)
+    {
+        $this->textFontSize = $textFontSize;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTextFontSize()
+    {
+        return $this->textFontSize;
+    }
+
 }

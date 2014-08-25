@@ -125,17 +125,19 @@ class BannerController extends \Dothiv\APIBundle\Controller\BannerController
          *
          * @param $type
          */
-        $setTextValue = function ($type) use ($premiumBanner, $configRequest) {
+        $setScalarValue = function ($type) use ($premiumBanner, $configRequest) {
             $setter = 'set' . ucfirst($type);
             $premiumBanner->$setter(Option::fromValue($configRequest->$type)->getOrElse(null));
         };
-        $setTextValue('extrasHeadline');
-        $setTextValue('extrasLinkLabel');
-        $setTextValue('extrasText');
-        $setTextValue('headlineFont');
-        $setTextValue('headlineFontStyle');
-        $setTextValue('textFont');
-        $setTextValue('textFontStyle');
+        $setScalarValue('extrasHeadline');
+        $setScalarValue('extrasLinkLabel');
+        $setScalarValue('extrasText');
+        $setScalarValue('headlineFont');
+        $setScalarValue('headlineFontWeight');
+        $setScalarValue('headlineFontSize');
+        $setScalarValue('textFont');
+        $setScalarValue('textFontWeight');
+        $setScalarValue('textFontSize');
 
         $errors = $this->validator->validate($premiumBanner);
         if (count($errors) > 0) {

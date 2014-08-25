@@ -1,0 +1,16 @@
+{% trans_default_domain "charity" %}
+<form role="form" novalidate name="bannerForm">
+    <fieldset>
+        <div class="fields-legend">
+            {{ section.text|default()|markdown }}
+        </div>
+        <div class="fields">
+            <div class="form-group">
+                <label for="redirect_url">
+                    {{ section.title }}
+                </label>
+                <input type="url" id="redirect_url" data-ng-model="banner.redirect_url" data-ng-blur="updateBannerSettings()">
+            </div>
+        </div>
+    </fieldset>
+</form>

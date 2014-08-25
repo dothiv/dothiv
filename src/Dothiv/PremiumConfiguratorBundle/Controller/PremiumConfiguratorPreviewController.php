@@ -2,12 +2,15 @@
 
 namespace Dothiv\PremiumConfiguratorBundle\Controller;
 
-use Dothiv\BaseWebsiteBundle\Controller\PageController;
-use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
+use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\BusinessBundle\Service\LinkableAttachmentStoreInterface;
+use Dothiv\PremiumConfiguratorBundle\Entity\PremiumBanner;
+use Dothiv\PremiumConfiguratorBundle\Repository\PremiumBannerRepositoryInterface;
+use JMS\Serializer\SerializerInterface;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,24 +30,58 @@ class PremiumConfiguratorPreviewController
     private $bannerRepo;
 
     /**
+     * @var PremiumBannerRepositoryInterface
+     */
+    private $premiumBannerRepo;
+
+    /**
      * @var DomainRepositoryInterface
      */
     private $domainRepo;
 
     /**
-     * @param EngineInterface           $renderer
-     * @param DomainRepositoryInterface $domainRepo
-     * @param BannerRepositoryInterface $bannerRepo
+     * @var Content
+     */
+    private $content;
+
+    /**
+     * @var LinkableAttachmentStoreInterface
+     */
+    private $attachmentStore;
+
+    /**
+     * @var \Parsedown
+     */
+    private $parsedown;
+
+    /**
+     * @param EngineInterface                  $renderer
+     * @param DomainRepositoryInterface        $domainRepo
+     * @param BannerRepositoryInterface        $bannerRepo
+     * @param LinkableAttachmentStoreInterface $attachmentStore
+     * @param PremiumBannerRepositoryInterface $premiumBannerRepo
+     * @param Content                          $content
+     * @param SerializerInterface              $serializer
      */
     public function __construct(
         EngineInterface $renderer,
         DomainRepositoryInterface $domainRepo,
-        BannerRepositoryInterface $bannerRepo
+        BannerRepositoryInterface $bannerRepo,
+        PremiumBannerRepositoryInterface $premiumBannerRepo,
+        LinkableAttachmentStoreInterface $attachmentStore,
+        Content $content,
+        SerializerInterface $serializer
     )
     {
-        $this->renderer   = $renderer;
-        $this->domainRepo = $domainRepo;
-        $this->bannerRepo = $bannerRepo;
+        $this->renderer          = $renderer;
+        $this->domainRepo        = $domainRepo;
+        $this->bannerRepo        = $bannerRepo;
+        $this->premiumBannerRepo = $premiumBannerRepo;
+        $this->attachmentStore   = $attachmentStore;
+        $this->content           = $content;
+        $this->serializer        = $serializer;
+        $this->parsedown         = new \Parsedown();
+        $this->parsedown->setBreaksEnabled(false);
     }
 
     /**
@@ -75,34 +112,58 @@ class PremiumConfiguratorPreviewController
      */
     public function previewBannerConfigAction(Request $request, $locale, $domain)
     {
-        $banner   = $this->getBannerForDomain($domain);
-        $ref      = $request->headers->get('Referer');
-        $position = 'center';
-        if ($ref) {
-            $query = parse_url($request->headers->get('Referer'), PHP_URL_QUERY);
-            parse_str($query, $params);
-            if (isset($params['position']) && in_array($params['position'], array('top', 'right'))) {
-                $position = $params['position'];
+        $banner                = $this->getBannerForDomain($domain);
+        $premiumBannerOptional = $this->premiumBannerRepo->findByBanner($banner);
+        $config                = array(
+            'money'        => '&euro;1234.56',
+            'percent'      => 0.25,
+            'firstvisit'   => $banner->getPosition(),
+            'secondvisit'  => $banner->getPositionAlternative(),
+            'heading'      => $this->getString('heading', $locale),
+            'shortheading' => $this->getString('shortheading', $locale),
+        );
+        if ($premiumBannerOptional->isDefined()) {
+            $config['premium'] = true;
+            /** @var PremiumBanner $premiumBanner */
+            $premiumBanner = $premiumBannerOptional->get();
+            if (Option::fromValue($premiumBanner->getVisual())->isDefined()) {
+                $config['visual'] = (string)$this->attachmentStore->getUrl($premiumBanner->getVisual(), 'image/*;scale=visual');
+                $config['visual@micro'] = (string)$this->attachmentStore->getUrl($premiumBanner->getVisual(), 'image/*;scale=visual-micro');
+            }
+            if (Option::fromValue($premiumBanner->getBg())->isDefined()) {
+                $config['bg'] = (string)$this->attachmentStore->getUrl($premiumBanner->getBg(), 'image/*;scale=bg');
+            }
+            if (Option::fromValue($premiumBanner->getBarColor())->isDefined()) {
+                $config['barColor'] = (string)$premiumBanner->getBarColor();
+            }
+            if (Option::fromValue($premiumBanner->getBgColor())->isDefined()) {
+                $config['bgColor'] = (string)$premiumBanner->getBgColor();
+            }
+            if (Option::fromValue($premiumBanner->getFontColor())->isDefined()) {
+                $config['fontColor'] = (string)$premiumBanner->getFontColor();
+            }
+            if (Option::fromValue($premiumBanner->getHeadlineFont())->isDefined()) {
+                $config['headlineFont'] = $premiumBanner->getHeadlineFont();
+                $config['headlineFontWeight'] = $premiumBanner->getHeadlineFontWeight();
+                $config['headlineFontSize'] = $premiumBanner->getHeadlineFontSize();
+            }
+            if (Option::fromValue($premiumBanner->getTextFont())->isDefined()) {
+                $config['textFont'] = $premiumBanner->getTextFont();
+                $config['textFontWeight'] = $premiumBanner->getTextFontWeight();
+                $config['textFontSize'] = $premiumBanner->getTextFontSize();
             }
         }
+
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json; charset=utf8');
-        $response->setContent(json_encode(array(
-            'about'       => 'This project will be funded',
-            'unlocked'    => 1234.56,
-            'money'       => '&euro;1234.56',
-            'clickcount'  => '1,234,560 clicks',
-            'percent'     => 0.5,
-            'activated'   => 'More about the <strong>dotHIV</strong> initiative',
-            'clicks'      => 1234560,
-            'donated'     => 0.0,
-            'firstvisit'  => $position,
-            'increment'   => 0.001,
-            'heading'     => 'Thanks!',
-            'secondvisit' => $position,
-            'subheading'  => 'Every click is worth 0.1&cent;'
-        )));
+        $response->setContent($this->serializer->serialize($config, 'json'));
         return $response;
+    }
+
+    protected function getString($code, $locale)
+    {
+        $v = $this->content->buildEntry('String', $code, $locale)->value;
+        return strip_tags($this->parsedown->text($v), '<strong><em><a>');
     }
 
     /**
