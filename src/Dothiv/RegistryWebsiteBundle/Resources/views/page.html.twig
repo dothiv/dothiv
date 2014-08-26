@@ -23,7 +23,7 @@
 <html lang="{{ locale }}">
 <head>
     {% set title %}{% spaceless %}
-        {% if title|default("")|length > 0 %}{{ title }} |{% endif %}{% trans %}registry.fullname{% endtrans %}
+        {% if title|default("")|length > 0 %}{{ title }} |{% endif %} {% trans %}registry.fullname{% endtrans %}
     {% endspaceless %}{% endset %}
     <title>
         {{ title }}
