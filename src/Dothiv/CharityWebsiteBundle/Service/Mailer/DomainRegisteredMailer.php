@@ -60,7 +60,7 @@ class DomainRegisteredMailer
             $firstname = $owner;
         }
         $user      = $this->userService->getOrCreateUser($email, $firstname, $surname);
-        $userToken = $this->userService->getLoginToken($user);
+        $userToken = $this->userService->createUserToken($user, 86400 * 14);
 
         $link = $this->router->generate(
             'dothiv_charity_account_index',
