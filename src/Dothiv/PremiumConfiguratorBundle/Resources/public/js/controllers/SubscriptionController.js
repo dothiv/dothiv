@@ -5,8 +5,9 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
         $scope.block = 'pc.subscription.checking';
         $scope.domain = config.domain;
         $scope.subscription = {
+            domain: config.domain,
             type: null,
-            name: null,
+            fullname: null,
             address1: null,
             address2: null,
             taxNo: null,
@@ -37,11 +38,9 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
             token: function (token) {
                 $rootScope.$apply(function () {
                     $scope.block = 'pc.subscription.purchased';
-                    dothivPremiumSubscription.create({
-                        domain: config.domain,
-                        token: token.id,
-                        livemode: token.livemode
-                    });
+                    $scope.subscription.token = token.id;
+                    $scope.subscription.livemode = token.livemode;
+                    dothivPremiumSubscription.create($scope.subscription);
                 });
             },
             closed: function () {
