@@ -2,9 +2,14 @@
   nav {
     button, a {
       &:extend(.btn all);
-      .btn-primary;
       .pull-right;
       text-decoration: none;
+    }
+    button[type=submit] {
+      .btn-primary;
+    }
+    button + button {
+      margin-right: @grid-gutter-width;
     }
   }
 }

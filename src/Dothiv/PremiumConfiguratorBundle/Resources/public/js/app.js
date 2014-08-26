@@ -56,6 +56,15 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
                 });
             }
         });
+        $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
+            $('a').filter(function (index, a) {
+                var href = $(a).attr('href');
+                if (!href) {
+                    return false;
+                }
+                return href.match('^(http|\/\/)') ? true : false;
+            }).attr('target', '_blank');
+        });
         $state.transitionTo('=.start');
     }])
 ;
