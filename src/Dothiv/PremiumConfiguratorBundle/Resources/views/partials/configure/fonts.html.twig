@@ -32,7 +32,7 @@
                             ></select>
                 </div>
                 <div class="form-group" data-ng-show="fontsForm.{{ fontType }}FontLabel && fontsForm.{{ fontType }}Font">
-                    <label for="font-{{ fontType }}Size"> {{ ('pc.font.' ~ fontType ~ '.size')|trans }}<br> </label><br>
+                    <label for="font-{{ fontType }}Size"> {{ ('pc.font.' ~ fontType ~ '.size')|trans }}<br> </label>
                     <input type="number" id="font-{{ fontType }}Size" name="font-{{ fontType }}Size"
                             data-ng-model="premiumBanner.{{ fontType }}FontSize"
                             data-ng-change="updatePremiumSettings()"
