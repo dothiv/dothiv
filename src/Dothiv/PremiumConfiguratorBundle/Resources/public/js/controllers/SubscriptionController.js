@@ -174,5 +174,15 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
         $scope.countryEditDisabled = function () {
             return $scope.subscription.type == 'deorg';
         }
+
+        $scope.allChecked = function () {
+            var allChecked = true;
+            for (var k in $scope.confirm) {
+                if ($scope.confirm[k] != true) {
+                    allChecked = false;
+                }
+            }
+            return allChecked;
+        }
     }
 ]);

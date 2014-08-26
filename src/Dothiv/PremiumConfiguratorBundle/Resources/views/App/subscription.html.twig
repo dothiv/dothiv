@@ -106,12 +106,13 @@
                         </div>
                     </fieldset>
                     <nav>
-                        <button type="submit" data-ng-click="subscriptionStep = 'checkout'" data-ng-disabled="subscriptionForm.$invalid">next</button>
-                        <button type="reset" data-ng-disabled="subscriptionForm.$pristine" data-ng-click="resetSubscriptionForm()">reset</button>
+                        <button type="submit" data-ng-click="subscriptionStep = 'checkout'" data-ng-disabled="subscriptionForm.$invalid">{% trans %}pc.checkout.form.button.next{% endtrans %}</button>
+                        <button type="reset" data-ng-disabled="subscriptionForm.$pristine" data-ng-click="resetSubscriptionForm()">{% trans %}pc.checkout.form.button.reset{% endtrans %}</button>
                     </nav>
                 </form>
 
                 {% set subscription_review = subscription.children[2] %}
+                {% set subscription_confirm = subscription.children[3] %}
                 {% set subscription_item = subscription_review.children[0] %}
                 {% set subscription_vat = subscription_review.children[1] %}
                 <div data-ng-show="subscriptionStep == 'checkout'">
@@ -175,9 +176,31 @@
                         </tfoot>
                     </table>
 
-                    <nav>
-                        <button class="primary" data-ng-click="checkout()">{% trans %}pc.checkout.button{% endtrans %}</button>
-                    </nav>
+                    <form role="form" novalidate name="confirmForm">
+                        <fieldset>
+                            <legend>{{ subscription_confirm.title }}</legend>
+                            <div class="fields-legend">
+                                {{ subscription_confirm.text|default()|markdown }}
+                            </div>
+                            <div class="fields">
+                                {% for checkbox in subscription_confirm.children %}
+                                    <div class="form-group" data-ng-init="confirm.checkbox{{ loop.index }} = false">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox"
+                                                    data-ng-model="confirm.checkbox{{ loop.index }}"
+                                                    >
+                                            {{ checkbox.text|markdown|striptags('<a><em><strong>')|raw }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </fieldset>
+                        <nav>
+
+                            <button type="submit" data-ng-click="checkout()" data-ng-disabled="!allChecked()">{% trans %}pc.checkout.button{% endtrans %}</button>
+                            <button type="button" data-ng-click="subscriptionStep = 'form'">{% trans %}pc.checkout.form.button.previous{% endtrans %}</button>
+                        </nav>
+                    </form>
 
                     {% if stripe_testmode %}
                         <h2>Test mode</h2>
@@ -192,6 +215,7 @@
                         </dl>
                     {% endif %}
                 </div>
+
             </div>
             <div data-ng-show="block == 'pc.subscription.subscribed' || block == 'pc.subscription.purchased'">
             <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}">{% trans %}pc.preview.finish{% endtrans %}</a>
