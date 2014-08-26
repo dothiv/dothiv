@@ -27,17 +27,35 @@ Feature: Create subscription
     And I send a PUT request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription" with JSON values:
       | token    | tok_14O6xC42KFPpMZB0Q9FRb662 |
       | liveMode | true                         |
+      | type     | noneu                        |
+      | fullname | John Doe                     |
+      | address1 | Street Name                  |
+      | address2 | City Name                    |
+      | country  | Country Name                 |
+      | vatNo    | 123456                       |
+      | taxNo    | 456123                       |
     Then the response status code should be 200
     And I send a GET request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription"
     Then the response status code should be 200
     And the header "content-type" should contain "application/json"
     And the JSON node "liveMode" should contain "1"
+    And the JSON node "fullname" should contain "John Doe"
+    And the JSON node "address1" should contain "Street Name"
+    And the JSON node "address2" should contain "City Name"
+    And the JSON node "country" should contain "Country Name"
+    And the JSON node "vatNo" should contain "123456"
+    And the JSON node "taxNo" should contain "456123"
 
   Scenario: Purchase subscription for invalid domain
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
     And I send a PUT request to "http://click4life.hiv.dev/api/premium-configurator/invalid.hiv/subscription" with JSON values:
       | token    | tok_14O6xC42KFPpMZB0Q9FRb662 |
       | livemode | true                         |
+      | type     | euprivate                    |
+      | fullname | John Doe                     |
+      | address1 | Street Name                  |
+      | address2 | City Name                    |
+      | country  | Country Name                 |
     Then the response status code should be 404
 
   Scenario: Purchase subscription for other users domain
@@ -45,4 +63,10 @@ Feature: Create subscription
     And I send a PUT request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription" with JSON values:
       | token    | tok_14O6xC42KFPpMZB0Q9FRb662 |
       | livemode | true                         |
+      | type     | deorg                        |
+      | fullname | John Doe                     |
+      | address1 | Street Name                  |
+      | address2 | City Name                    |
+      | country  | Germany (Deutschland)        |
+      | vatNo    | 123456                       |
     Then the response status code should be 403

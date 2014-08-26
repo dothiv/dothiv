@@ -25,4 +25,4 @@ Feature: Image
     And I send a GET request to {uploadedImage}
     Then the response status code should be 200
     And the header "content-type" should contain "image/png"
-    And the image should be 100x100
+    And the image should be 44x44
