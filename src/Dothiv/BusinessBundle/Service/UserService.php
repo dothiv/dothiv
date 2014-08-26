@@ -115,7 +115,10 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token, $httpHost, $locale));
     }
 
-    protected function createUserToken(User $user, $lifetimeInSeconds = 1800)
+    /**
+     * {@inheritdoc}
+     */
+    public function createUserToken(User $user, $lifetimeInSeconds = 1800)
     {
         $token = new UserToken();
         $token->setUser($user);

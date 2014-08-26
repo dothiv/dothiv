@@ -36,4 +36,14 @@ interface UserServiceInterface
      * @return UserToken
      */
     public function getLoginToken(User $user);
+
+    /**
+     * Creates a token for the given user.
+     *
+     * @param User $user
+     * @param int  $lifetimeInSeconds
+     *
+     * @return UserToken
+     */
+    public function createUserToken(User $user, $lifetimeInSeconds = 1800);
 }
