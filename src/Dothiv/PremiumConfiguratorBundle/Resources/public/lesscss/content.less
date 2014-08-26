@@ -17,6 +17,7 @@ div.content article {
   footer {
     .make-sm-column(12);
     font-size: 0.8125em;
+    margin-top: 4em;
   }
   nav {
     .make-sm-column(12);
@@ -81,3 +82,13 @@ main {
   }
 }
 
+table {
+  &:extend(.table all);
+  &:extend(.table-striped all);
+  td, th {
+    &.money {
+      text-align: right;
+    }
+  }
+
+}

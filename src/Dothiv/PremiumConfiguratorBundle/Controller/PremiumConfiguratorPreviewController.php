@@ -179,7 +179,7 @@ class PremiumConfiguratorPreviewController
         $banner   = $this->getBannerForDomain($domain);
         $response = new Response();
         $response->headers->set('Content-Type', 'text/html; charset=utf8');
-        $response->setContent(file_get_contents(__DIR__ . '/../Resources/public/banner/' . $file));
+        $response->setContent(file_get_contents(__DIR__ . '/../Resources/public/clickcounter/' . $file));
         return $response;
     }
 

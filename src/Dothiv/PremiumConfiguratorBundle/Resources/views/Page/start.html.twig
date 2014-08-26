@@ -111,12 +111,16 @@
                     }
                 }
             },
-            cycle_start: '{{ 'now'|date }}',
-            cycle_end: '{{ '+1 month'|date }}',
+            {% set cycle_format = 'M. dS Y' %}
+            {% if locale == 'de' %}
+            {% set cycle_format = 'd.m.Y' %}
+            {% endif %}
+            cycle_start: '{{ 'now'|date(cycle_format) }}',
+            cycle_end: '{{ '+1 month'|date_modify("-1 day")|date(cycle_format) }}',
             price: {
-                net: {{ premium_price / 100 }},
-                vat: {{ premium_price / 100 * devat / 100 }},
-                total: {{ premium_price / 100 + premium_price / 100 * devat / 100 }}
+                net: {{ premium_price }},
+                vat: {{ (premium_price * devat / 100)|round }},
+                total: {{ premium_price + (premium_price * devat / 100)|round }}
             },
             vat: {
                 de: {{ devat }}

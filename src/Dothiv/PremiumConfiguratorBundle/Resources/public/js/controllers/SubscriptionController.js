@@ -13,24 +13,23 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
             vatNo: null,
             cycle_start: config.cycle_start,
             cycle_end: config.cycle_end,
-            vat: config.vat.de
+            vat: config.vat.de,
+            country: null
         };
-        $scope.countries = $http.get('/bundles/dothivbasewebsite/data/countries.json');
+        $scope.countries = [];
+        $http.get('/bundles/dothivbasewebsite/data/countries.json').success(function (data) {
+            $scope.countries = data;
+        });
 
-
-        $scope.block = 'pc.subscription.nosubscription';
-
-        /*
-         $scope.subscription = dothivPremiumSubscription.get(
-         {domain: config.domain},
-         function () {
-         $scope.block = 'pc.subscription.subscribed';
-         },
-         function () {
-         $scope.block = 'pc.subscription.nosubscription';
-         }
-         );
-         */
+        dothivPremiumSubscription.get(
+            {domain: config.domain},
+            function () {
+                $scope.block = 'pc.subscription.subscribed';
+            },
+            function () {
+                $scope.block = 'pc.subscription.nosubscription';
+            }
+        );
 
         var handler = StripeCheckout.configure({
             key: config.stripe.publishableKey,
@@ -49,11 +48,25 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
             }
         });
 
+        function totalIncludesTax() {
+            return $scope.subscription.type == 'euorgnet'
+                || $scope.subscription.type == 'euorg'
+                || $scope.subscription.type == 'deorg'
+                || $scope.subscription.type == 'euprivate';
+        }
+
+        $scope.totalIncludesTax = totalIncludesTax;
+
+        function getAmount() {
+            return totalIncludesTax() ? config.price.total : config.price.net;
+
+        }
+
         $scope.checkout = function () {
             handler.open({
                 name: config.strings.pc.stripe.checkout.name,
                 description: config.strings.pc.stripe.checkout.description,
-                amount: 1295,
+                amount: getAmount(),
                 currency: 'EUR',
                 email: security.user.email,
                 panelLabel: config.strings.pc.stripe.checkout.button
@@ -67,7 +80,6 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
         };
 
         $scope.vatNoRequired = function () {
-            console.log($scope.subscription);
             var vatNoRequired = $scope.subscription.type == 'euorgnet'
                 || $scope.subscription.type == 'deorg';
             if (vatNoRequired) {
@@ -90,7 +102,7 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
 
         $scope.vatTaxNoRequired = function () {
             return $scope.vatNoRequired() || $scope.taxNoRequired();
-        }
+        };
 
         $scope.totalIncludesTax = function () {
             return $scope.subscription.type == 'euorgnet'
@@ -99,10 +111,68 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
                 || $scope.subscription.type == 'euprivate';
         }
 
-        $scope.$watch('$scope.subscription.type', function (type) {
-            if ($scope.subscription.type == 'deorg') {
-                $scope.subscription.country = 'Deutschland';
+        // Country selection limits
+
+        function getCountryLabel(search) {
+            for (var i = 0; i < $scope.countries.length; i++) {
+                if ($scope.countries[i].search(search) >= 0) {
+                    return $scope.countries[i];
+                }
+            }
+        }
+
+        var country_de = 'Germany';
+        var eu_countries_without_de = [
+            'Belgium',
+            'Bulgaria',
+            'Denmark',
+            'Estonia',
+            'Finland',
+            'France',
+            'Greece',
+            'United Kingdom',
+            'Ireland',
+            'Italy',
+            'Croatia',
+            'Lettland',
+            'Latvia',
+            'Luxemburg',
+            'Malta',
+            'Netherlands',
+            'Austria',
+            'Poland',
+            'Portugal',
+            'Rumania',
+            'Sweden',
+            'Slovakia',
+            'Slovenia',
+            'Spain',
+            'Czechia',
+            'Hungary',
+            'Cyprus'
+        ];
+        $scope.$watch('subscription.type', function (type) {
+            if (type == 'deorg') {
+                $scope.subscription.country = getCountryLabel(country_de);
             }
         });
+
+        $scope.filterCountries = function () {
+            if ($scope.subscription.type == 'deorg') {
+                return [getCountryLabel(country_de)];
+            }
+            if ($scope.subscription.type.substr(0, 2) == 'eu') {
+                return eu_countries_without_de.map(getCountryLabel);
+            }
+            var euCountries = eu_countries_without_de.map(getCountryLabel);
+            euCountries.push(getCountryLabel(country_de));
+            return $scope.countries.filter(function (c) {
+                return euCountries.indexOf(c) > -1
+            }).map(getCountryLabel);
+        }
+
+        $scope.countryEditDisabled = function () {
+            return $scope.subscription.type == 'deorg';
+        }
     }
 ]);

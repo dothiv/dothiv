@@ -35,7 +35,7 @@
                                                     data-ng-model="subscription.type"
                                                     >
                                             {{ subtype.title }}
-                                        </label><br>
+                                        </label>
                                         {{ subtype.text|markdown }}
                                     {% endfor %}
                                 </div>
@@ -51,14 +51,14 @@
                         </div>
                         <div class="fields">
                             <div class="form-group">
-                                <label for="subscriptionName">{% trans %}pc.subscription.name{% endtrans %}</label><br>
+                                <label for="subscriptionFormName">{% trans %}pc.subscription.name{% endtrans %}</label>
                                 <input type="text" id="subscriptionFormName"
                                         data-ng-model="subscription.name"
                                         required
                                         >
                             </div>
                             <div class="form-group">
-                                <label for="subscriptionFormAddress1">{% trans %}pc.subscription.address1{% endtrans %}</label><br>
+                                <label for="subscriptionFormAddress1">{% trans %}pc.subscription.address1{% endtrans %}</label>
                                 <input type="text" id="subscriptionFormAddress1"
                                         data-ng-model="subscription.address1"
                                         required
@@ -66,15 +66,26 @@
                             </div>
                             <div class="form-group">
                                 <label for="subscriptionFormAddress2">{% trans %}pc.subscription.address2{% endtrans %}<br>
-                                    <small>{% trans %}pc.subscription.optional{% endtrans %}</small></label><br>
+                                    <small>{% trans %}pc.subscription.optional{% endtrans %}</small></label>
                                 <input type="text" id="subscriptionFormAddress2"
                                         data-ng-model="subscription.address2"
                                         >
                             </div>
+                            <div class="form-group">
+                                <label for="subscriptionCountry">
+                                    {% trans %}pc.subscription.country{% endtrans %}
+                                </label>
+                                <input type="text" id="subscriptionCountry"
+                                       data-ng-model="subscription.country"
+                                       data-typeahead="country for country in filterCountries() | filter:$viewValue | limitTo:3"
+                                       data-ng-hide="countryEditDisabled()"
+                                        >
+                                <span data-ng-show="countryEditDisabled()" data-ng-bind="subscription.country"></span>
+                            </div>
                             <div class="form-group" data-ng-show="vatTaxNoRequired()">
                                 <label for="subscriptionFormVatNo">
                                     {% trans %}pc.subscription.vatno{% endtrans %}
-                                </label><br>
+                                </label>
                                 <input type="text" id="subscriptionFormVatNo"
                                         data-ng-model="subscription.vatNo"
                                         data-ng-required="vatNoRequired()"
@@ -84,24 +95,16 @@
                             <div class="form-group" data-ng-show="vatTaxNoRequired()">
                                 <label for="subscriptionFormTaxNo">
                                     {% trans %}pc.subscription.taxno{% endtrans %}
-                                </label><br>
+                                </label>
                                 <input type="text" id="subscriptionFormTaxNo"
                                         data-ng-model="subscription.taxNo"
                                         data-ng-required="taxNoRequired()"
                                         data-ng-disabled="!taxNoRequired()"
                                         >
                             </div>
-                            <div class="form-group">
-                                <label for="subscriptionCountry">
-                                    {% trans %}pc.subscription.country{% endtrans %}
-                                </label>
-                                <input type="text" id="subscriptionCountry"
-                                        data-ng-model="subscription.country"
-                                        >
-                            </div>
+                            <p><small data-ng-bind="subscription.type"></small></p>
                         </div>
                     </fieldset>
-                    <div data-ng-bind="subscription.type"></div>
                     <nav>
                         <button type="submit" data-ng-click="subscriptionStep = 'checkout'" data-ng-disabled="subscriptionForm.$invalid">next</button>
                         <button type="reset" data-ng-disabled="subscriptionForm.$pristine" data-ng-click="resetSubscriptionForm()">reset</button>
@@ -114,6 +117,26 @@
                 <div data-ng-show="subscriptionStep == 'checkout'">
                     <h3>{{ subscription_review.title }}</h3>
                     {{ subscription_review.text|default()|markdown }}
+
+                    <p>
+                        <span data-ng-bind="subscription.name"></span><br>
+                    </p>
+                    <p>
+                        <span data-ng-bind="subscription.address1"></span><br>
+                        <span data-ng-bind="subscription.address2"></span><br>
+                        <span data-ng-bind="subscription.country"></span>
+                    </p>
+                    <p>
+                        <span data-ng-show="subscription.taxNo">
+                            {% trans %}pc.subscription.taxno{% endtrans %}:
+                            <span data-ng-bind="subscription.taxNo"></span><br>
+                        </span>
+                        <span data-ng-show="subscription.vatNo">
+                            {% trans %}pc.subscription.vatno{% endtrans %}:
+                            <span data-ng-bind="subscription.vatNo"></span><br>
+                        </span>
+                        <small data-ng-bind="subscription.type"></small>
+                    </p>
 
                     <table>
                         <tbody>
@@ -152,24 +175,23 @@
                         </tfoot>
                     </table>
 
+                    <nav>
+                        <button class="primary" data-ng-click="checkout()">{% trans %}pc.checkout.button{% endtrans %}</button>
+                    </nav>
 
-                    <button class="primary" data-ng-click="checkout()">{% trans %}pc.checkout.button{% endtrans %}</button>
-
+                    {% if stripe_testmode %}
+                        <h2>Test mode</h2>
+                        <p>Use this test card data:</p>
+                        <dl>
+                            <dt>card number</dt>
+                            <dd><code>4242424242424242</code></dd>
+                            <dt>expiry date</dt>
+                            <dd><code>{{ 'now'|date('m/y') }}</code></dd>
+                            <dt>CV</dt>
+                            <dd><code>123</code></dd>
+                        </dl>
+                    {% endif %}
                 </div>
-
-
-                {% if stripe_testmode %}
-                    <h2>Test mode</h2>
-                    <p>Use this test card data:</p>
-                    <dl>
-                        <dt>card number</dt>
-                        <dd><code>4242424242424242</code></dd>
-                        <dt>expiry date</dt>
-                        <dd><code>{{ 'now'|date('m/y') }}</code></dd>
-                        <dt>CV</dt>
-                        <dd><code>123</code></dd>
-                    </dl>
-                {% endif %}
             </div>
             <div data-ng-show="block == 'pc.subscription.subscribed' || block == 'pc.subscription.purchased'">
             <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}">{% trans %}pc.preview.finish{% endtrans %}</a>
