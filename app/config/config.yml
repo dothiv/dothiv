@@ -28,7 +28,6 @@ twig:
     globals:
       facebook_app_id: %facebook_app_id%
       twitter_widget_id: %twitter_widget_id%
-      countdown_start: 2014-06-21T00:00:00Z
       general_availability: 2014-08-26T14:00:00Z
       sunrise: 2014-07-21T14:00:00Z
       assets_version: %assets_version%
@@ -146,7 +145,6 @@ dothiv_charity_website:
         - { name: projects, enabled: true, routing: true }
         - { name: profile, enabled: true, routing: true, config: true }
         - { name: pinkbar_clickcounter, enabled: false }
-        - { name: pinkbar_countdown, enabled: true }
 
 dothiv_contentful:
     webhook:
