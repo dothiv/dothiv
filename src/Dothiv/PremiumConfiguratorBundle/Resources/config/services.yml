@@ -1,8 +1,6 @@
 parameters:
     dothiv.premiumconfigurator.service.attachment_store.class: Dothiv\PremiumConfiguratorBundle\Service\AttachmentStoreService
     dothiv.premiumconfigurator.mailer.subscription_confirmed.class: Dothiv\PremiumConfiguratorBundle\Service\Mailer\SubscriptionConfirmedMailer
-    dothiv.premiumconfigurator.routing.loader.class: Dothiv\PremiumConfiguratorBundle\Routing\RoutingLoader
-    dothiv.premiumconfigurator.routing.listener.class: Dothiv\PremiumConfiguratorBundle\Routing\RoutingListener
 
 services:
     dothiv.premiumconfigurator.service.attachment:
@@ -24,17 +22,3 @@ services:
         class: %dothiv.premiumconfigurator.mailer.subscription_confirmed.class%
         arguments:
         - @dothiv.charity.service.mailer.content
-
-    dothiv.premiumconfigurator.routing.loader:
-        class: %dothiv.premiumconfigurator.routing.loader.class%
-        tags:
-         - { name: routing.loader }
-
-    dothiv.premiumconfigurator.routing.listener:
-        class: %dothiv.premiumconfigurator.routing.listener.class%
-        arguments:
-        - @dothiv.premiumconfigurator.routing.loader
-        - @router
-        - @doctrine_cache.providers.dothiv_premium_routing_cache
-        tags:
-        - { name: kernel.event_listener, event: kernel.request, priority: 33 }
