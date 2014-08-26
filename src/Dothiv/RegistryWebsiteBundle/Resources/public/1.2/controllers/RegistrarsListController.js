@@ -10,8 +10,6 @@ angular.module('dotHIVApp.controllers').controller('RegistrarsListController', [
 
         function buildPrice(registrar, currency) {
             var col = 'pricePerYear' + currency;
-            console.log(registrar);
-            console.log(registrar[col]);
             if (typeof  registrar[col] == 'undefined') {
                 return ["–", Infinity];
             }
@@ -42,10 +40,10 @@ angular.module('dotHIVApp.controllers').controller('RegistrarsListController', [
                         priceUSD: priceUSD[1],
                         priceEUR: priceEUR[1],
                         url: data[k].url,
-                        promotion: $sce.trustAsHtml(data[k].promotion)
+                        promotion: $sce.trustAsHtml(data[k].promotion),
+                        privateRegistrar: data[k].privateRegistrar == true
                     }
                 );
-
             }
             $scope.registrars = registrars;
         }

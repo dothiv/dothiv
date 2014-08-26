@@ -33,7 +33,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr data-ng-repeat="r in registrars | orderBy:predicate">
+        <tr data-ng-repeat="r in registrars | filter:{privateRegistrar:false} | orderBy:predicate ">
 
             <td><a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}"><img
                             alt="{% verbatim %}{{ r.name }}{% endverbatim %}"
