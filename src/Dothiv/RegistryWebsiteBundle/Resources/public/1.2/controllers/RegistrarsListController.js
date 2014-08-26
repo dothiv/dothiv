@@ -3,18 +3,21 @@
 angular.module('dotHIVApp.controllers').controller('RegistrarsListController', ['$scope', '$http', 'config', 'MoneyFormatter', '$sce',
     function ($scope, $http, config, MoneyFormatter, $sce) {
 
-        $scope.predicate = 'random';
+        $scope.predicate = ['priceUSD', 'priceEUR'];
 
         var mf = new MoneyFormatter(config.locale);
         $scope.registrars = [];
 
-        function buildPrice(registrar) {
-            if (typeof  registrar.pricePerYear == 'undefined') {
+        function buildPrice(registrar, currency) {
+            var col = 'pricePerYear' + currency;
+            console.log(registrar);
+            console.log(registrar[col]);
+            if (typeof  registrar[col] == 'undefined') {
                 return ["–", Infinity];
             }
-            var value = parseInt(registrar.pricePerYear, 10);
+            var value = parseInt(registrar[col], 10);
             var sortValue = value;
-            if (registrar.pricePerYearCurrency == 'USD') {
+            if (currency == 'Usd') {
                 sortValue = sortValue / config.eur_to_usd;
                 var valueLabel = mf.decimalFormat(value, '$');
             } else {
@@ -27,17 +30,19 @@ angular.module('dotHIVApp.controllers').controller('RegistrarsListController', [
             var registrars = [];
             var num = data.length;
             for (var k in data) {
-                var price = buildPrice(data[k]);
+                var priceUSD = buildPrice(data[k], 'Usd');
+                var priceEUR = buildPrice(data[k], 'Eur');
                 registrars.push(
                     {
                         name: data[k].name,
                         image: data[k].image,
                         country: data[k].country,
-                        priceLabel: price[0],
-                        price: price[1],
+                        priceUSDLabel: priceUSD[0],
+                        priceEURLabel: priceEUR[0],
+                        priceUSD: priceUSD[1],
+                        priceEUR: priceEUR[1],
                         url: data[k].url,
-                        promotion: $sce.trustAsHtml(data[k].promotion),
-                        random: parseInt(Math.random() * num)
+                        promotion: $sce.trustAsHtml(data[k].promotion)
                     }
                 );
 
