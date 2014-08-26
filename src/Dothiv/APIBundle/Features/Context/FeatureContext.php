@@ -328,9 +328,7 @@ class FeatureContext extends BehatContext
         );
         $expectedSize = sprintf("%dx%d", $width, $height);
         $actualSize   = sprintf("%dx%d", $imagesize[0], $imagesize[1]);
-        if ($actualSize !== $expectedSize) {
-            throw new \Exception(sprintf("Size of image is %s where %s was expected.", $actualSize, $expectedSize));
-        }
+        \PHPUnit_Framework_Assert::assertEquals($expectedSize, $actualSize);
     }
 
     /**
