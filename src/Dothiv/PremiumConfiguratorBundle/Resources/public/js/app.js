@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngRoute', 'ui.router', 'colorpicker.module'])
+angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngRoute', 'ui.router', 'colorpicker.module', 'ui.bootstrap'])
     .config(['$locationProvider', function ($locationProvider) {
         $locationProvider.hashPrefix('!');
     }])

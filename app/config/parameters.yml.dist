@@ -50,6 +50,8 @@ parameters:
     stripe_publishable_key: pk_test_4UBhOksBIPyBqmY3zSOaiFub
     stripe_secret_key: sk_test_4UBhr322KNAeOblSRCMIxXEU
     stripe_testmode: 1
+    premium_price: 1000
+    devat: 19
 
     # Money conversion
     eur_to_usd: 1.328515
