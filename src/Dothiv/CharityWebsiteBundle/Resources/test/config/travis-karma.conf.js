@@ -17,7 +17,6 @@ module.exports = function (config) {
             'public/controllers/HeaderController.js',
             'public/controllers/BlockController.js',
             'public/controllers/PinkbarControllerClicks.js',
-            'public/controllers/PinkbarControllerCountdown.js',
             'public/controllers/HowitWorksController.js',
             // CharityWebsiteBundle: tests
             'test/unit/**/*.js'

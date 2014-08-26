@@ -86,11 +86,6 @@
     </header>
 </div>
 {% block subheader %}
-<div id="countdown" data-ng-controller="PinkbarControllerCountdown" data-ng-cloak data-ng-hidden="!visible">
-    <div class="text">
-        {{ 'countdown.text'|trans|markdown }}
-    </div>
-</div>
 {% for section in registry_content('Collection', 'nav.main')|default({'items': []}).items %}
     {% if loop.first %}
         <div class="outer-texture">
@@ -152,7 +147,6 @@
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/PreregisterFormController.js'
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/SedoFormController.js'
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/RegistrarsListController.js'
-    '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/PinkbarControllerCountdown.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js'
 %}
@@ -164,8 +158,6 @@
     angular.module('dotHIVApp.services').factory('config', function() {
         var config = {
             locale: '{{ locale }}',
-            countdown_start: '{{ countdown_start|date_w3c }}',
-            countdown_end: '{{ general_availability|date_w3c }}',
             eur_to_usd: {{ eur_to_usd }}
         };
         return config;
