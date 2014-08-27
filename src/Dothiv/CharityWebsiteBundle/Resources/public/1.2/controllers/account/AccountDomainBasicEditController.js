@@ -4,8 +4,9 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
     function ($scope, $location, $stateParams, dothivBannerResource, $modal) {
 
         $scope.errorMessage = null;
+        $scope.banner = {};
 
-        // set default values when form is initialized
+            // set default values when form is initialized
         $scope.$watch('domaineditbasic', function () {
             $scope.domaineditbasic.$data = {};
             $scope.domaineditbasic.$data.forwarding = 'true';
@@ -16,7 +17,7 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
         var domainName = $stateParams.name;
         $scope.domain = {name: domainName};
 
-        $scope.banner = dothivBannerResource.get(
+        dothivBannerResource.get(
             {domain: domainName},
             function (data) { // success
                 $scope.domaineditbasic.$data.forwarding = (typeof data.redirect_url !== "undefined") ? "true" : "false";
@@ -46,18 +47,19 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
             }
         });
 
+        // FIXME: don't show warning if loading page
         $scope.$watch('banner.position', function (position) {
             if (position != "invisible") {
                 return;
             }
             $modal.open({'templateUrl': 'invisiblehint.html'});
         });
-
-        $scope.$watch('domaineditbasic.$data.secondvisit', function (secondvisit) {
-            if (secondvisit) {
+        $scope.$watch('banner.position_first', function (position) {
+            if (position != "invisible") {
                 return;
             }
-        })
+            $modal.open({'templateUrl': 'invisiblehint.html'});
+        });
 
         // form configuration
         $scope.nextStep = function (tab, form) {

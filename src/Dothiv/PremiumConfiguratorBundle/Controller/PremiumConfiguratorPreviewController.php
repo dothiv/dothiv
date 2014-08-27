@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
 
 class PremiumConfiguratorPreviewController
 {
@@ -55,6 +56,11 @@ class PremiumConfiguratorPreviewController
     private $parsedown;
 
     /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
      * @param EngineInterface                  $renderer
      * @param DomainRepositoryInterface        $domainRepo
      * @param BannerRepositoryInterface        $bannerRepo
@@ -62,6 +68,7 @@ class PremiumConfiguratorPreviewController
      * @param PremiumBannerRepositoryInterface $premiumBannerRepo
      * @param Content                          $content
      * @param SerializerInterface              $serializer
+     * @param RouterInterface                  $router
      */
     public function __construct(
         EngineInterface $renderer,
@@ -70,7 +77,8 @@ class PremiumConfiguratorPreviewController
         PremiumBannerRepositoryInterface $premiumBannerRepo,
         LinkableAttachmentStoreInterface $attachmentStore,
         Content $content,
-        SerializerInterface $serializer
+        SerializerInterface $serializer,
+        RouterInterface $router
     )
     {
         $this->renderer          = $renderer;
@@ -80,6 +88,7 @@ class PremiumConfiguratorPreviewController
         $this->attachmentStore   = $attachmentStore;
         $this->content           = $content;
         $this->serializer        = $serializer;
+        $this->router            = $router;
         $this->parsedown         = new \Parsedown();
         $this->parsedown->setBreaksEnabled(false);
     }
@@ -97,7 +106,9 @@ class PremiumConfiguratorPreviewController
         $data     = array(
             'domain'    => $banner->getDomain(),
             'banner'    => $banner,
-            'iframeUrl' => Option::fromValue($banner->getRedirectUrl())->getOrElse(sprintf('http://%s/', $banner->getDomain()->getName()))
+            'iframeUrl' => Option::fromValue($banner->getRedirectUrl())->getOrElse(
+                    $this->router->generate('dothiv_premiumconfig_blank', array('locale' => $locale, 'domain' => $domain))
+            )
         );
         $response = new Response();
         return $this->renderer->renderResponse('DothivPremiumConfiguratorBundle:Page:preview.html.twig', $data, $response);
@@ -127,7 +138,7 @@ class PremiumConfiguratorPreviewController
             /** @var PremiumBanner $premiumBanner */
             $premiumBanner = $premiumBannerOptional->get();
             if (Option::fromValue($premiumBanner->getVisual())->isDefined()) {
-                $config['visual'] = (string)$this->attachmentStore->getUrl($premiumBanner->getVisual(), 'image/*;scale=visual');
+                $config['visual']       = (string)$this->attachmentStore->getUrl($premiumBanner->getVisual(), 'image/*;scale=visual');
                 $config['visual@micro'] = (string)$this->attachmentStore->getUrl($premiumBanner->getVisual(), 'image/*;scale=visual-micro');
             }
             if (Option::fromValue($premiumBanner->getBg())->isDefined()) {
@@ -143,14 +154,14 @@ class PremiumConfiguratorPreviewController
                 $config['fontColor'] = (string)$premiumBanner->getFontColor();
             }
             if (Option::fromValue($premiumBanner->getHeadlineFont())->isDefined()) {
-                $config['headlineFont'] = $premiumBanner->getHeadlineFont();
+                $config['headlineFont']       = $premiumBanner->getHeadlineFont();
                 $config['headlineFontWeight'] = $premiumBanner->getHeadlineFontWeight();
-                $config['headlineFontSize'] = $premiumBanner->getHeadlineFontSize();
+                $config['headlineFontSize']   = $premiumBanner->getHeadlineFontSize();
             }
             if (Option::fromValue($premiumBanner->getTextFont())->isDefined()) {
-                $config['textFont'] = $premiumBanner->getTextFont();
+                $config['textFont']       = $premiumBanner->getTextFont();
                 $config['textFontWeight'] = $premiumBanner->getTextFontWeight();
-                $config['textFontSize'] = $premiumBanner->getTextFontSize();
+                $config['textFontSize']   = $premiumBanner->getTextFontSize();
             }
         }
 
