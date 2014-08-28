@@ -3,8 +3,8 @@
 namespace Dothiv\BusinessBundle\Tests\Entity\Command;
 
 use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
-use Dothiv\BusinessBundle\Entity\Banner;
-use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Command\ClickCounterStatsCommand;
+use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author    Markus Tacker <m@dotHIV.org>
  */
-class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
+class ClickCounterStatsCommandTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Symfony\Component\Console\Input\InputInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -38,7 +38,7 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \Doctrine\ORM\EntityRepository|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $mockBannerRepo;
+    private $mockConfigRepo;
 
     /**
      * @test
@@ -47,7 +47,7 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldBeInstantiateable()
     {
-        $this->assertInstanceOf('Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand', $this->getTestObject());
+        $this->assertInstanceOf('Dothiv\BusinessBundle\Command\ClickCounterStatsCommand', $this->getTestObject());
     }
 
     /**
@@ -56,25 +56,32 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
      * @group   Command
      * @depends itShouldBeInstantiateable
      */
-    public function itShouldConfigureBanners()
+    public function itShouldFetchStats()
     {
-        $domain = new Domain();
-        $domain->setName('stop.hiv');
-        $banner = new Banner();
-        $banner->setDomain($domain);
-
         $containerMap = array(
             array('clickcounter', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockClickCounterConfig),
-            array('dothiv.repository.banner', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockBannerRepo),
+            array('dothiv.repository.config', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockConfigRepo),
         );
         $this->mockContainer->expects($this->any())->method('get')
             ->will($this->returnValueMap($containerMap));
 
-        $this->mockBannerRepo->expects($this->once())->method('findAll')
-            ->will($this->returnValue(array($banner)));
+        $this->mockClickCounterConfig->expects($this->once())->method('getClickCount')
+            ->will($this->returnValue(1234));
 
-        $this->mockClickCounterConfig->expects($this->once())->method('setup')
-            ->with($banner);
+        $config = new Config();
+        $config->setName('clickcount');
+        $this->mockConfigRepo->expects($this->once())->method('get')
+            ->with('clickcount')
+            ->will($this->returnValue($config));
+
+        $this->mockConfigRepo->expects($this->once())->method('persist')
+            ->with($this->callback(function(Config $config) {
+                $this->assertEquals(1234, $config->getValue());
+                return true;
+            }))
+            ->will($this->returnSelf());
+
+        $this->mockConfigRepo->expects($this->once())->method('flush');
 
         $this->assertEquals(0, $this->getTestObject()->run($this->mockInput, $this->mockOutput));
     }
@@ -84,7 +91,7 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
      */
     protected function getTestObject()
     {
-        $command = new ClickCounterConfigureCommand();
+        $command = new ClickCounterStatsCommand();
         $command->setContainer($this->mockContainer);
         return $command;
     }
@@ -112,7 +119,7 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockBannerRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\BannerRepositoryInterface')
+        $this->mockConfigRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface')
             ->disableOriginalConstructor()
             ->getMock();
     }
