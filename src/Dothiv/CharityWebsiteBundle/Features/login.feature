@@ -20,7 +20,7 @@ Feature: Login
       | email  | someone@example.com |
       | locale | en                  |
     Then the response status code should be 429
-    And the header "Retry-After" should be equal to "1800"
+    And the header "Retry-After" should be equal to "1209600"
 
   Scenario: Request login link after token lifetime exceeded
     Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:

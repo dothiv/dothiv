@@ -6,6 +6,7 @@ use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
+use Dothiv\BusinessBundle\Service\ClickCounterException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -39,11 +40,20 @@ class ClickCounterRetrieveCommand extends ContainerAwareCommand
             $output->writeln('No banners found!');
         }
         foreach ($banners as $banner) {
-            $config = $cc->get($banner->getDomain());
-            $domain = $banner->getDomain();
-            $domain->setClickcount($config->clicks);
-            $domainRepo->persist($domain)->flush();
-            $output->writeln(sprintf('%s:  %d', $domain->getName(), $domain->getClickcount()));
+            try {
+                $config = $cc->get($banner->getDomain());
+                $domain = $banner->getDomain();
+                $domain->setClickcount($config->clicks_domain);
+                $domainRepo->persist($domain)->flush();
+                if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
+                    $output->writeln(sprintf('%s:  %d', $domain->getName(), $domain->getClickcount()));
+                }
+            } catch (ClickCounterException $e) {
+                $output->writeln('[Error] ' . $e->getMessage());
+                if ($output->getVerbosity() >= OutputInterface::VERBOSITY_DEBUG) {
+                    $output->writeln($e->response);
+                }
+            }
         }
     }
 }

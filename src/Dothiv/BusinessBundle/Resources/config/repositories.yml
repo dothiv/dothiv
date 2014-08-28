@@ -16,6 +16,8 @@ parameters:
     dothiv.repository.nonprofitregistration.repository.class: Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepository
     dothiv.repository.premiumbid.entity.class: 'DothivBusinessBundle:PremiumBid'
     dothiv.repository.premiumbid.repository.class: Dothiv\BusinessBundle\Repository\PremiumBidRepository
+    dothiv.repository.config.entity.class: 'DothivBusinessBundle:Config'
+    dothiv.repository.config.repository.class: Dothiv\BusinessBundle\Repository\ConfigRepository
 
 services:
     dothiv.repository.banner:
@@ -73,5 +75,13 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.premiumbid.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
+
+    dothiv.repository.config:
+        class: %dothiv.repository.config.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.config.entity.class% ]
         calls:
         - [setValidator, ["@validator"]]

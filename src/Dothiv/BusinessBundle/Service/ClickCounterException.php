@@ -7,6 +7,12 @@ namespace Dothiv\BusinessBundle\Service;
  * click counter API.
  *
  * @author Nils Wisiol <mail@nils-wisiol.de>
+ * @author Markus Tacker <m@click4life.hiv>
  */
-class ClickCounterException extends \Exception {
+class ClickCounterException extends \Exception
+{
+    /**
+     * @var string
+     */
+    public $response;
 }

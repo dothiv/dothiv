@@ -47,3 +47,8 @@ parameters:
 
     # Money conversion
     eur_to_usd: 1.328515
+
+    # Pinkbar
+    eur_goal: 61801
+    already_donated: 0
+    eur_increment: 0.001
