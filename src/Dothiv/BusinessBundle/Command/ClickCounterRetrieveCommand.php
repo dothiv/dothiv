@@ -41,7 +41,7 @@ class ClickCounterRetrieveCommand extends ContainerAwareCommand
         foreach ($banners as $banner) {
             $config = $cc->get($banner->getDomain());
             $domain = $banner->getDomain();
-            $domain->setClickcount($config->clicks);
+            $domain->setClickcount($config->clicks_domain);
             $domainRepo->persist($domain)->flush();
             $output->writeln(sprintf('%s:  %d', $domain->getName(), $domain->getClickcount()));
         }
