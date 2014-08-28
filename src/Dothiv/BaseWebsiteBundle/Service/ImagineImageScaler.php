@@ -3,8 +3,7 @@
 
 namespace Dothiv\BaseWebsiteBundle\Service;
 
-use Dothiv\BaseWebsiteBundle\Service\ThumbnailConfiguration;
-use Imagine\Gmagick\Imagine;
+use Imagine\Image\AbstractImagine;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
@@ -12,11 +11,11 @@ use Imagine\Image\Point;
 class ImagineImageScaler implements ImageScalerInterface
 {
     /**
-     * @var \Imagine\Gmagick\Imagine
+     * @var AbstractImagine
      */
     private $imagine;
 
-    public function __construct(Imagine $imagine)
+    public function __construct(AbstractImagine $imagine)
     {
         $this->imagine = $imagine;
     }
