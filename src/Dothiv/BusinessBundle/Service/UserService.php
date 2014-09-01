@@ -91,7 +91,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'WakeupScreen\BackendBundle\Entity\User';
+        return $class === 'Dothiv\BusinessBundle\Entity\User';
     }
 
     /**
