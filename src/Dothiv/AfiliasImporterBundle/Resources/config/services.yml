@@ -1,0 +1,7 @@
+parameters:
+#    dothiv_afilias_importer.example.class: Dothiv\AfiliasImporterBundle\Example
+
+services:
+#    dothiv_afilias_importer.example:
+#        class: %dothiv_afilias_importer.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

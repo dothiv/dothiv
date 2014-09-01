@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+Link: </registrations?offsetKey=2863499>; rel="next"
+Date: Mon, 01 Sep 2014 15:51:43 GMT
+
+{"@context":"http://jsonld.click4life.hiv/List","@id":"/registrations","@type":"http://jsonld.click4life.hiv/Afilias/RegistrationEvent","items":[{"@context":"http://jsonld.click4life.hiv/Afilias/RegistrationEvent","DomainId":"2863429","DomainName":"bcme.hiv","DomainCreatedOn":"2014-07-21 17:34:18.349+00","RegistrarExtId":"1061-EM","RegistrantClientId":"mmr-138842","RegistrantName":"Domain Administrator","RegistrantOrg":"Bcme LLC.","RegistrantEmail":"domain@bcme.com"},{"@context":"http://jsonld.click4life.hiv/Afilias/RegistrationEvent","DomainId":"2863499","DomainName":"acme.hiv","DomainCreatedOn":"2014-07-21 17:43:29.824+00","RegistrarExtId":"1061-EM","RegistrantClientId":"mmr-105291","RegistrantName":"Domain Administrator","RegistrantOrg":"Acme Inc.","RegistrantEmail":"ccops@acme.com"}],"total":2}
