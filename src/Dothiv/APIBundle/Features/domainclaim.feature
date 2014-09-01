@@ -10,6 +10,7 @@ Feature: Claim Domain
     Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
       | user     | {user}                          |
       | token    | usert0k3n                       |
+      | scope    | domainclaim                     |
       | lifetime | {\DateTime@2014-01-02T13:44:15} |
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
       | name       | test.hiv     |
@@ -54,6 +55,7 @@ Feature: Claim Domain
     Given the "DothivBusinessBundle:UserToken" entity exists in "janeToken" with values:
       | user     | {jane}                          |
       | token    | j4n3st0k3n                      |
+      | scope    | domainclaim                     |
       | lifetime | {\DateTime@2014-01-02T13:44:15} |
     Given I add Bearer token equal to "abc8c04a75255c72ba3952421272caf4294acf06"
     And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:

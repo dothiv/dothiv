@@ -40,10 +40,11 @@ interface UserServiceInterface
     /**
      * Creates a token for the given user.
      *
-     * @param User $user
-     * @param int  $lifetimeInSeconds
+     * @param User   $user
+     * @param string $scope
+     * @param int    $lifetimeInSeconds
      *
      * @return UserToken
      */
-    public function createUserToken(User $user, $lifetimeInSeconds = 1800);
+    public function createUserToken(User $user, $scope, $lifetimeInSeconds = 1800);
 }

@@ -111,7 +111,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
             $token = $tokens->first();
             throw new TemporarilyUnavailableException($token->getLifeTime());
         }
-        $token = $this->createUserToken($user);
+        $token = $this->createUserToken($user, 'login');
         $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token, $httpHost, $locale));
     }
 
@@ -120,11 +120,12 @@ class UserService implements UserProviderInterface, UserServiceInterface
      *
      * FIXME: Change default $lifetimeInSeconds to 1800, after https://trello.com/c/3pr0Swch has been implemented
      */
-    public function createUserToken(User $user, $lifetimeInSeconds = 1209600)
+    public function createUserToken(User $user, $scope, $lifetimeInSeconds = 1209600)
     {
         $token = new UserToken();
         $token->setUser($user);
         $token->setToken($this->generateToken());
+        $token->setScope($scope);
         $d = $this->clock->getNow()->modify('+' . $lifetimeInSeconds . ' seconds');
         $token->setLifetime($d);
         $this->userTokenRepo->persist($token)->flush();
@@ -140,7 +141,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
             return !$token->isRevoked();
         });
         if ($tokens->isEmpty()) {
-            return $this->createUserToken($user);
+            return $this->createUserToken($user, 'login');
         }
         return $tokens->first();
     }

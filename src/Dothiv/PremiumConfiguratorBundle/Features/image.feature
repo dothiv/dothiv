@@ -11,6 +11,7 @@ Feature: Image
     And the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
       | user     | {user}                          |
       | token    | usert0k3n                       |
+      | scope    | login                           |
       | lifetime | {\DateTime@2014-01-02T13:44:15} |
 
   Scenario: Upload public file

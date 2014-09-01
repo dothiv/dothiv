@@ -10,7 +10,10 @@ use JMS\Serializer\Annotation as Serializer;
  * Represents a user's login token
  *
  * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\UserTokenRepository")
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="usertoken__user_token",columns={"user_id", "token"}), @ORM\UniqueConstraint(name="usertoken__bearerToken",columns={"bearerToken"})})
+ * @ORM\Table(
+ *      uniqueConstraints={@ORM\UniqueConstraint(name="usertoken__user_token",columns={"user_id", "token"}), @ORM\UniqueConstraint(name="usertoken__bearerToken",columns={"bearerToken"})},
+ *      indexes={…} TODO
+ * )
  *
  * @Serializer\ExclusionPolicy("all")
  *
@@ -31,8 +34,18 @@ class UserToken extends Entity
      * The token used to login.
      *
      * @ORM\Column(type="string", nullable=false)
+     *
+     * @var string
      */
     protected $token;
+
+    /**
+     * Scope of the token.
+     *
+     * @ORM\Column(type="string", nullable=false)
+     * @var string
+     */
+    protected $scope;
 
     /**
      * The lifetime of the token
@@ -149,4 +162,24 @@ class UserToken extends Entity
     {
         return $this->revokedTime;
     }
+
+    /**
+     * @param string $scope
+     * @return self
+     */
+    public function setScope($scope)
+    {
+        $this->scope = $scope;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScope()
+    {
+        return $this->scope;
+    }
+
+
 }
