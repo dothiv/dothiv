@@ -3,9 +3,11 @@
 namespace Dothiv\BusinessBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dothiv\BusinessBundle\Entity\Traits\CreateTime;
 use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Represents a user's login token
@@ -25,6 +27,8 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class UserToken extends Entity
 {
+    use CreateTime;
+
     /**
      * The domain that displays this banner
      *

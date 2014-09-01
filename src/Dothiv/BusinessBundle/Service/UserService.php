@@ -39,17 +39,24 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     private $dispatcher;
 
+    /**
+     * @var int Time in seconds to wait between sending a new login link
+     */
+    private $linkRequestWait;
+
     public function __construct(
         UserRepositoryInterface $userRepository,
         UserTokenRepositoryInterface $userTokenRepository,
         Clock $clock,
-        EventDispatcher $dispatcher
+        EventDispatcher $dispatcher,
+        $linkRequestWait
     )
     {
-        $this->userRepo      = $userRepository;
-        $this->userTokenRepo = $userTokenRepository;
-        $this->clock         = $clock;
-        $this->dispatcher    = $dispatcher;
+        $this->userRepo        = $userRepository;
+        $this->userTokenRepo   = $userTokenRepository;
+        $this->clock           = $clock;
+        $this->dispatcher      = $dispatcher;
+        $this->linkRequestWait = (int)$linkRequestWait;
     }
 
     /**
@@ -110,8 +117,19 @@ class UserService implements UserProviderInterface, UserServiceInterface
             return !$token->isRevoked();
         });
         if (!$tokens->isEmpty()) {
-            $token = $tokens->first();
-            throw new TemporarilyUnavailableException($token->getLifeTime());
+            $maxAge = null;
+            $maxAgeToken = null;
+            foreach ($tokens as $token) {
+                if ($token->getCreated() > $maxAge) {
+                    $maxAge = $token->getCreated();
+                    $maxAgeToken = $token;
+                }
+            }
+            $diff = $this->clock->getNow()->getTimestamp() - $maxAge->getTimestamp();
+            if ($diff < $this->linkRequestWait) {
+                $waitUntil = $this->clock->getNow()->modify(sprintf('+%d seconds', $this->linkRequestWait - $diff));
+                throw new TemporarilyUnavailableException($waitUntil);
+            }
         }
         $token = $this->createUserToken($user, $scope);
         $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token, $httpHost, $locale));
