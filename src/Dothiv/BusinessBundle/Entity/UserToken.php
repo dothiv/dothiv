@@ -3,6 +3,7 @@
 namespace Dothiv\BusinessBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -11,8 +12,11 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\UserTokenRepository")
  * @ORM\Table(
- *      uniqueConstraints={@ORM\UniqueConstraint(name="usertoken__user_token",columns={"user_id", "token"}), @ORM\UniqueConstraint(name="usertoken__bearerToken",columns={"bearerToken"})},
- *      indexes={…} TODO
+ *      uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="usertoken__user_token",columns={"user_id", "token"}),
+ *          @ORM\UniqueConstraint(name="usertoken__bearerToken",columns={"bearerToken"})
+ *      },
+ *      indexes={@ORM\Index(name="usertoken__scope_idex", columns={"scope"})})
  * )
  *
  * @Serializer\ExclusionPolicy("all")
@@ -164,22 +168,21 @@ class UserToken extends Entity
     }
 
     /**
-     * @param string $scope
+     * @param IdentValue $scope
+     *
      * @return self
      */
-    public function setScope($scope)
+    public function setScope(IdentValue $scope)
     {
-        $this->scope = $scope;
+        $this->scope = (string)$scope;
         return $this;
     }
 
     /**
-     * @return string
+     * @return IdentValue
      */
     public function getScope()
     {
-        return $this->scope;
+        return new IdentValue($this->scope);
     }
-
-
 }

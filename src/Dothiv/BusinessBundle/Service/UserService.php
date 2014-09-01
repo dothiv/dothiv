@@ -10,6 +10,7 @@ use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
+use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -104,14 +105,15 @@ class UserService implements UserProviderInterface, UserServiceInterface
             throw new EntityNotFoundException();
         });
 
-        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow())->filter(function (UserToken $token) {
+        $scope  = new IdentValue('login');
+        $tokens = $this->userTokenRepo->getActiveTokens($user, $scope, $this->clock->getNow())->filter(function (UserToken $token) {
             return !$token->isRevoked();
         });
         if (!$tokens->isEmpty()) {
             $token = $tokens->first();
             throw new TemporarilyUnavailableException($token->getLifeTime());
         }
-        $token = $this->createUserToken($user, 'login');
+        $token = $this->createUserToken($user, $scope);
         $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token, $httpHost, $locale));
     }
 
@@ -120,7 +122,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
      *
      * FIXME: Change default $lifetimeInSeconds to 1800, after https://trello.com/c/3pr0Swch has been implemented
      */
-    public function createUserToken(User $user, $scope, $lifetimeInSeconds = 1209600)
+    public function createUserToken(User $user, IdentValue $scope, $lifetimeInSeconds = 1209600)
     {
         $token = new UserToken();
         $token->setUser($user);
@@ -137,11 +139,12 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     public function getLoginToken(User $user)
     {
-        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow())->filter(function (UserToken $token) {
+        $scope  = new IdentValue('login');
+        $tokens = $this->userTokenRepo->getActiveTokens($user, $scope, $this->clock->getNow())->filter(function (UserToken $token) {
             return !$token->isRevoked();
         });
         if ($tokens->isEmpty()) {
-            return $this->createUserToken($user, 'login');
+            return $this->createUserToken($user, $scope);
         }
         return $tokens->first();
     }

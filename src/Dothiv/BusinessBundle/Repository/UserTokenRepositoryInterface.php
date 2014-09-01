@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
+use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use PhpOption\Option;
 
 /**
@@ -14,12 +15,13 @@ use PhpOption\Option;
 interface UserTokenRepositoryInterface extends ObjectRepository
 {
     /**
-     * @param User      $user
-     * @param \DateTime $minLifetime
+     * @param User       $user
+     * @param IdentValue $scope
+     * @param \DateTime  $minLifetime
      *
      * @return UserToken[]|ArrayCollection
      */
-    public function getActiveTokens(User $user, \DateTime $minLifetime);
+    public function getActiveTokens(User $user, IdentValue $scope, \DateTime $minLifetime);
 
     /**
      * @param string $bearerToken

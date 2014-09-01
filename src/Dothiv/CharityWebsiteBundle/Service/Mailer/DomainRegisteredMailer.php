@@ -6,6 +6,7 @@ use Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailerInterface;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Event\DomainEvent;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
+use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -60,7 +61,7 @@ class DomainRegisteredMailer
             $firstname = $owner;
         }
         $user      = $this->userService->getOrCreateUser($email, $firstname, $surname);
-        $userToken = $this->userService->createUserToken($user, 'domainclaim', 86400 * 14);
+        $userToken = $this->userService->createUserToken($user, new IdentValue('domainclaim'), 86400 * 14);
 
         $link = $this->router->generate(
             'dothiv_charity_account_index',
