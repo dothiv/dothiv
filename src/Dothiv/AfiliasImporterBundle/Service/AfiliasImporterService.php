@@ -4,7 +4,6 @@
 namespace Dothiv\AfiliasImporterBundle\Service;
 
 use Dothiv\AfiliasImporterBundle\Exception\ServiceException;
-use Dothiv\AfiliasImporterBundle\Model\AfiliasRegistrationEvent;
 use Dothiv\AfiliasImporterBundle\Model\PaginatedList;
 use Dothiv\BusinessBundle\ValueObject\URLValue;
 use Guzzle\Http\ClientInterface;
@@ -111,7 +110,7 @@ class AfiliasImporterService implements AfiliasImporterServiceInterface
     {
         $linkHeader = $response->getHeader('Link');
         if (empty($linkHeader)) {
-            return;
+            return null;
         }
         if (preg_match('/<([^>]+)>; *rel="next"/', $linkHeader, $nextMatch)) {
             $path  = $nextMatch[1];
