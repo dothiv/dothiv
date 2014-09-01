@@ -6,6 +6,7 @@ use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
+use Dothiv\BusinessBundle\ValueObject\IdentValue;
 
 interface UserServiceInterface
 {
@@ -40,10 +41,11 @@ interface UserServiceInterface
     /**
      * Creates a token for the given user.
      *
-     * @param User $user
-     * @param int  $lifetimeInSeconds
+     * @param User       $user
+     * @param IdentValue $scope
+     * @param int        $lifetimeInSeconds
      *
      * @return UserToken
      */
-    public function createUserToken(User $user, $lifetimeInSeconds = 1800);
+    public function createUserToken(User $user, IdentValue $scope, $lifetimeInSeconds = 1800);
 }
