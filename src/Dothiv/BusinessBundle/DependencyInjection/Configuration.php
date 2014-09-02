@@ -36,6 +36,14 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end()
+            ->arrayNode('podio')
+                ->children()
+                    ->scalarNode('appId')->isRequired()->end()
+                    ->scalarNode('appToken')->isRequired()->end()
+                    ->scalarNode('clientId')->isRequired()->end()
+                    ->scalarNode('clientSecret')->isRequired()->end()
+                ->end()
+            ->end()
             ->end();
         return $treeBuilder;
     }

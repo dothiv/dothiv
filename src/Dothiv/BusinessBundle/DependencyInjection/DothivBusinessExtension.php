@@ -21,6 +21,7 @@ class DothivBusinessExtension extends Extension
         $container->setParameter('dothiv_business.attachments_location', $config['attachments_location']);
         $container->setParameter('dothiv_business.clickcounter', $config['clickcounter']);
         $container->setParameter('dothiv_business.link_request_wait', $config['link_request_wait']);
+        $container->setParameter('dothiv_business.podio', $config['podio']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');

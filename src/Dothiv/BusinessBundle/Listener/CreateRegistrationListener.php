@@ -6,7 +6,10 @@ use Dothiv\AfiliasImporterBundle\Event\DomainRegisteredEvent;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Service\IRegistration;
 
-class DomainRegisteredListener
+/**
+ * Creates a new domain entity via the registration service for every new domain registration
+ */
+class CreateRegistrationListener
 {
     /**
      * @var IRegistration

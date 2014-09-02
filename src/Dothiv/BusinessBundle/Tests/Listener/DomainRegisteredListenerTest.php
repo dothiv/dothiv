@@ -4,10 +4,10 @@
 namespace Dothiv\BusinessBundle\Tests\Listener;
 
 use Dothiv\AfiliasImporterBundle\Event\DomainRegisteredEvent;
-use Dothiv\BusinessBundle\Listener\DomainRegisteredListener;
+use Dothiv\BusinessBundle\Listener\CreateRegistrationListener;
 use PhpOption\None;
 
-class DomainRegisteredListenerTest extends \PHPUnit_Framework_TestCase
+class CreateRegistrationListenerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Dothiv\BusinessBundle\Service\IRegistration|\PHPUnit_Framework_MockObject_MockObject
@@ -25,7 +25,7 @@ class DomainRegisteredListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldBeInstantiable()
     {
-        $this->assertInstanceOf('\Dothiv\BusinessBundle\Listener\DomainRegisteredListener', $this->getTestObject());
+        $this->assertInstanceOf('\Dothiv\BusinessBundle\Listener\CreateRegistrationListener', $this->getTestObject());
     }
 
     /**
@@ -56,11 +56,11 @@ class DomainRegisteredListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return DomainRegisteredListener
+     * @return CreateRegistrationListener
      */
     protected function getTestObject()
     {
-        return new DomainRegisteredListener($this->mockRegistration, $this->mockDomainRepo);
+        return new CreateRegistrationListener($this->mockRegistration, $this->mockDomainRepo);
     }
 
     public function setUp()
