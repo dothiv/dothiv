@@ -2,9 +2,8 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Dothiv\BusinessBundle\Entity\Registrar;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
+use Dothiv\BusinessBundle\Entity\Registrar;
 use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use PhpOption\Option;
 
