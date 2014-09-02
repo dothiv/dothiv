@@ -35,10 +35,14 @@ class NotifyPodioRegistrationListener
         if ($domain->getRegistrar()->canSendRegistrationNotification()) {
             $fields['status'] = 1;
         }
-        \Podio::setup($this->config['clientId'], $this->config['clientSecret']);
-        \Podio::authenticate_with_app($this->config['appId'], $this->config['appToken']);
-        \PodioItem::create($this->config['appId'], array(
-            'fields' => $fields
-        ));
+        try {
+            \Podio::setup($this->config['clientId'], $this->config['clientSecret']);
+            \Podio::authenticate_with_app($this->config['appId'], $this->config['appToken']);
+            \PodioItem::create($this->config['appId'], array(
+                'fields' => $fields
+            ));
+        } catch (\PodioError $e) {
+            // TODO: Log.
+        }
     }
 } 
