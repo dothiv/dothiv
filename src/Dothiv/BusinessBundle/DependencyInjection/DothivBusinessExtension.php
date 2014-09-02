@@ -26,5 +26,6 @@ class DothivBusinessExtension extends Extension
         $loader->load('services.yml');
         $loader->load('repositories.yml');
         $loader->load('validators.yml');
+        $loader->load('listeners.yml');
     }
 }

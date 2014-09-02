@@ -1,0 +1,11 @@
+parameters:
+  dothiv_business.listener.domain_registered.class: Dothiv\BusinessBundle\Listener\DomainRegisteredListener
+
+services:
+  dothiv_business.listener.domain_registered:
+    class: %dothiv_business.listener.domain_registered.class%
+    arguments:
+      - @registration
+      - @dothiv.repository.domain
+    tags:
+      - { name: dothiv.business.event_listener, event: dothiv_afilias_importer.domain_registered, method: onDomainRegistered }
