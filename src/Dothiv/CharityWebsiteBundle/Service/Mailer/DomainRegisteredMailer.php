@@ -50,6 +50,10 @@ class DomainRegisteredMailer
      */
     public function sendRegisteredDomainMail(Domain $domain)
     {
+        $registrar = $domain->getRegistrar();
+        if (!$registrar->canSendRegistrationNotification()) {
+            return;
+        }
         $email     = $domain->getOwnerEmail();
         $surname   = null;
         $firstname = null;

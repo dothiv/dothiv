@@ -12,7 +12,11 @@ Feature: Claim Domain without a token
       | token    | usert0k3n                                                   |
       | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@domainclaim} |
       | lifetime | {\DateTime@2014-01-02T13:44:15}                             |
+    And the "DothivBusinessBundle:Registrar" entity exists in "registrar" with values:
+      | extId | 1234-AC        |
+      | name  | ACME Registrar |
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
+      | registrar  | {registrar}  |
       | name       | test.hiv     |
       | token      | domaint0k3n  |
       | ownerEmail | john@doe.com |
@@ -21,6 +25,7 @@ Feature: Claim Domain without a token
 
   Scenario: Claim domain without a token (when user email is owner email)
     Given the "DothivBusinessBundle:Domain" entity exists in "domain2" with values:
+      | registrar  | {registrar}         |
       | name       | test2.hiv           |
       | token      | domaint0k3n2        |
       | ownerEmail | someone@example.com |
@@ -31,6 +36,7 @@ Feature: Claim Domain without a token
 
   Scenario: Do not claim twice
     Given the "DothivBusinessBundle:Domain" entity exists in "domain2" with values:
+      | registrar  | {registrar}         |
       | name       | test2.hiv           |
       | token      | domaint0k3n2        |
       | ownerEmail | someone@example.com |

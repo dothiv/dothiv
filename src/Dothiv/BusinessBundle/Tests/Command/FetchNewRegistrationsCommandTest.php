@@ -65,9 +65,12 @@ class FetchNewRegistrationsCommandTest extends \PHPUnit_Framework_TestCase
         $this->mockContainer->expects($this->any())->method('get')
             ->will($this->returnValueMap($containerMap));
 
+        $parameterMap = array(
+            array('dothiv_afilias_importer.service_url', 'http://localhost:8666/'),
+            array('kernel.environment', 'test'),
+        );
         $this->mockContainer->expects($this->any())->method('getParameter')
-            ->with('dothiv_afilias_importer.service_url')
-            ->will($this->returnValue('http://localhost:8666/'));
+            ->will($this->returnValueMap($parameterMap));
 
         $this->mockAfiliasImporterService->expects($this->once())->method('fetchRegistrations')
             ->with($this->callback(function (URLValue $url) {

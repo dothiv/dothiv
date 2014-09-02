@@ -13,9 +13,13 @@ Feature: Create subscription
       | token    | usert0k3n                                             |
       | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@login} |
       | lifetime | {\DateTime@2014-01-02T13:44:15}                       |
+    And the "DothivBusinessBundle:Registrar" entity exists in "registrar" with values:
+      | extId | 1234-AC        |
+      | name  | ACME Registrar |
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
-      | name  | test.hiv |
-      | owner | {user}   |
+      | registrar | {registrar} |
+      | name      | test.hiv    |
+      | owner     | {user}      |
     And I add "Accept" header equal to "application/json"
 
   Scenario: Initially, no subscription should exist

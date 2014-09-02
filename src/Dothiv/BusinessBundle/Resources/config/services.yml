@@ -16,8 +16,9 @@ services:
     registration:
         class: %registration.class%
         arguments:
-        - @doctrine.orm.entity_manager
         - @event_dispatcher
+        - @dothiv.repository.domain
+        - @dothiv.repository.registrar
 
     clock:
         class: %dothiv.businessbundle.service.clock.class%

@@ -32,6 +32,15 @@ interface DomainRepositoryInterface extends ObjectRepository
     public function persist(Domain $domain);
 
     /**
+     * Remove the entity.
+     *
+     * @param Domain $domain
+     *
+     * @return self
+     */
+    public function remove(Domain $domain);
+
+    /**
      * Flush the entity manager.
      *
      * @return self

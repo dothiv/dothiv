@@ -56,4 +56,14 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         $this->getEntityManager()->flush();
         return $this;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove(Domain $domain)
+    {
+        $this->getEntityManager()->remove($domain);
+        return $this;
+    }
+
 }

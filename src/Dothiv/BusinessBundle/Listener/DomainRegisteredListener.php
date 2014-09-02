@@ -34,7 +34,12 @@ class DomainRegisteredListener
     public function onDomainRegistered(DomainRegisteredEvent $event)
     {
         if ($this->domainRepo->getDomainByName($event->DomainName)->isEmpty()) {
-            $this->registrationService->registered($event->DomainName, $event->RegistrantEmail, $event->RegistrantName);
+            $this->registrationService->registered(
+                $event->DomainName,
+                $event->RegistrantEmail,
+                $event->RegistrantName,
+                $event->RegistrarExtId
+            );
         }
     }
 } 

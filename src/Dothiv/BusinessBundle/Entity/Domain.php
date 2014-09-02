@@ -112,6 +112,15 @@ class Domain extends Entity
     private $tokenSent;
 
     /**
+     * The registrar of the domain
+     *
+     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Registrar",inversedBy="domains")
+     * @var Registrar
+     */
+    protected $registrar;
+
+    /**
      * The constructor
      */
     public function __construct()
@@ -316,5 +325,24 @@ class Domain extends Entity
     public function getTokenSent()
     {
         return $this->tokenSent;
+    }
+
+    /**
+     * @param Registrar $registrar
+     *
+     * @return self
+     */
+    public function setRegistrar(Registrar $registrar)
+    {
+        $this->registrar = $registrar;
+        return $this;
+    }
+
+    /**
+     * @return Registrar
+     */
+    public function getRegistrar()
+    {
+        return $this->registrar;
     }
 }

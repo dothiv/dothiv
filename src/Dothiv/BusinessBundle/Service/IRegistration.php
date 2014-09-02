@@ -15,11 +15,12 @@ interface IRegistration
     /**
      * Call this function for a newly registered domain.
      *
-     * @param string $name       The domain name, e.g. 'mydomain.hiv'.
-     * @param string $ownerEmail The domain owner's email address.
-     * @param string $ownerName  The domain owner's name.
+     * @param string $name           The domain name, e.g. 'mydomain.hiv'.
+     * @param string $ownerEmail     The domain owner's email address.
+     * @param string $ownerName      The domain owner's name.
+     * @param string $registrarExtId The extId of the registrar
      */
-    function registered($name, $ownerEmail, $ownerName);
+    function registered($name, $ownerEmail, $ownerName, $registrarExtId);
 
     /**
      * Call this function for domains that have been deleted.
@@ -31,10 +32,11 @@ interface IRegistration
     /**
      * Call this function for domains that have been transferred.
      *
-     * @param string $name       The domain name, e.g. 'mydomain.hiv'.
-     * @param string $ownerEmail The new domain owner's email address.
-     * @param string $ownerName  The new domain owner's name.
+     * @param string $name           The domain name, e.g. 'mydomain.hiv'.
+     * @param string $ownerEmail     The new domain owner's email address.
+     * @param string $ownerName      The new domain owner's name.
+     * @param string $registrarExtId The extId of the registrar
      */
-    function transferred($name, $ownerEmail, $ownerName);
+    function transferred($name, $ownerEmail, $ownerName, $registrarExtId);
 
 }

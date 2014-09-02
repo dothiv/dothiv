@@ -12,7 +12,11 @@ Feature: Claim Domain
       | token    | usert0k3n                                                   |
       | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@domainclaim} |
       | lifetime | {\DateTime@2014-01-02T13:44:15}                             |
+    And the "DothivBusinessBundle:Registrar" entity exists in "registrar" with values:
+      | extId | 1234-AC        |
+      | name  | ACME Registrar |
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
+      | registrar  | {registrar}  |
       | name       | test.hiv     |
       | token      | domaint0k3n  |
       | ownerEmail | john@doe.com |
