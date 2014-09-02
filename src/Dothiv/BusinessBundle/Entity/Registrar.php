@@ -34,7 +34,7 @@ class Registrar extends Entity
      * @ORM\Column(type="string",length=255,nullable=false)
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\RegEx("/^[1-9][0-9]{3}-[A-Z]{2}$/")
+     * @Assert\Regex("/^[1-9][0-9]{3}-[A-Z]{2}$/")
      * @var string
      */
     protected $extId;
