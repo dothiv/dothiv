@@ -84,4 +84,15 @@ class PaginatedList
     {
         return $this->total;
     }
+
+    /**
+     * @param mixed $item
+     *
+     * @return self
+     */
+    public function add($item)
+    {
+        $this->items->add($item);
+        return $this;
+    }
 }

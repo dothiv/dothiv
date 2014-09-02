@@ -3,16 +3,16 @@
 
 namespace Dothiv\AfiliasImporterBundle\Service;
 
-use Dothiv\AfiliasImporterBundle\Model\PaginatedList;
+use Dothiv\BusinessBundle\ValueObject\URLValue;
 
 interface AfiliasImporterServiceInterface
 {
     /**
-     * Returns the domain registrations.
+     * Fetch domain registrations from url
      *
-     * @param string $url
+     * @param URLValue $url
      *
-     * @return PaginatedList
+     * @return URLValue Next Url
      */
-    public function getRegistrations($url);
+    public function fetchRegistrations(URLValue $url);
 } 

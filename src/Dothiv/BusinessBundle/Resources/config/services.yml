@@ -52,3 +52,8 @@ services:
             - @dothiv_contentful.content
             - @dothiv.websitebase.contentful.view_builder
             - %contenful_space_clickcounter%
+
+    dothiv.business.event_dispatcher:
+        class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
+        arguments:
+            - @service_container

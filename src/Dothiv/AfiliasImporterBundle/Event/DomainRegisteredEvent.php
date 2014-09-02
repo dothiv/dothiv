@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Dothiv\AfiliasImporterBundle\Model;
+namespace Dothiv\AfiliasImporterBundle\Event;
 
-use Dothiv\BusinessBundle\ValueObject\URLValue;
+use Symfony\Component\EventDispatcher\Event;
 
-class AfiliasRegistrationEvent
+class DomainRegisteredEvent extends Event
 {
     /**
      * @var string

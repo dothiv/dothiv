@@ -3,11 +3,13 @@
 
 namespace Dothiv\AfiliasImporterBundle\Service;
 
+use Dothiv\AfiliasImporterBundle\AfiliasImporterBundleEvents;
 use Dothiv\AfiliasImporterBundle\Exception\ServiceException;
 use Dothiv\AfiliasImporterBundle\Model\PaginatedList;
 use Dothiv\BusinessBundle\ValueObject\URLValue;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\Response;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AfiliasImporterService implements AfiliasImporterServiceInterface
 {
@@ -17,25 +19,34 @@ class AfiliasImporterService implements AfiliasImporterServiceInterface
     private $client;
 
     /**
-     * @param ClientInterface $client
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
-    public function __construct(ClientInterface $client)
+    private $eventDispatcher;
+
+    /**
+     * @param ClientInterface          $client
+     * @param EventDispatcherInterface $eventDispatcher
+     */
+    public function __construct(ClientInterface $client, EventDispatcherInterface $eventDispatcher)
     {
-        $this->client = $client;
+        $this->client          = $client;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
-     * Returns the domain registrations.
-     *
-     * @param string $url
-     *
-     * @return PaginatedList
+     * {@inheritdoc}
      */
-    public function getRegistrations($url)
+    public function fetchRegistrations(URLValue $url)
     {
-        $request  = $this->client->get($url, array('Accept' => 'application/json'));
+        $request  = $this->client->get((string)$url, array('Accept' => 'application/json'));
         $response = $request->send();
-        return $this->getListResponse($response, '\Dothiv\AfiliasImporterBundle\Model\AfiliasRegistrationEvent');
+        $list     = $this->getListResponse($response, '\Dothiv\AfiliasImporterBundle\Event\DomainRegisteredEvent');
+
+        foreach ($list->getItems() as $event) {
+            $this->eventDispatcher->dispatch(AfiliasImporterBundleEvents::DOMAIN_REGISTERED, $event);
+        }
+
+        return $list->getNextUrl();
     }
 
     protected function getListResponse(Response $response, $itemClass)
@@ -65,8 +76,9 @@ class AfiliasImporterService implements AfiliasImporterServiceInterface
             $instance = new $itemClass();
             foreach (get_class_vars($itemClass) as $k => $v) {
                 $instance->$k = $item->$k;
+
             }
-            $list->getItems()->add($item);
+            $list->add($instance);
         }
 
         $list->setNextUrl($this->getNextUrl($response));

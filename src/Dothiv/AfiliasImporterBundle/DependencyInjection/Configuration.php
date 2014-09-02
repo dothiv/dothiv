@@ -16,6 +16,11 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root('dothiv_afilias_importer');
+        $rootNode
+            ->children()
+                ->scalarNode('service_url')->defaultValue('http://localhost:8666/')->end()
+            ->end();
         return $treeBuilder;
     }
 }

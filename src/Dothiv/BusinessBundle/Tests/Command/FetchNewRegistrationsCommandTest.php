@@ -4,12 +4,14 @@ namespace Dothiv\BusinessBundle\Tests\Entity\Command;
 
 use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
 use Dothiv\BusinessBundle\Command\FetchNewRegistrationsCommand;
-use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
+use Dothiv\BusinessBundle\Entity\Config;
+use Dothiv\BusinessBundle\ValueObject\URLValue;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Test for FetchNewRegistrationsCommandTest.
+ * Test for FetchNewRegistrationsCommand
  *
- * @author    Markus Tacker <m@dotHIV.org>
+ * @author Markus Tacker <m@click4life.hiv>
  */
 class FetchNewRegistrationsCommandTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,9 +31,9 @@ class FetchNewRegistrationsCommandTest extends \PHPUnit_Framework_TestCase
     private $mockContainer;
 
     /**
-     * @var ClickCounterConfigInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Dothiv\AfiliasImporterBundle\Service\AfiliasImporterServiceInterface|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $mockClickCounterConfig;
+    private $mockAfiliasImporterService;
 
     /**
      * @var \Doctrine\ORM\EntityRepository|\PHPUnit_Framework_MockObject_MockObject
@@ -56,7 +58,40 @@ class FetchNewRegistrationsCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldFetchRegistrations()
     {
-        $this->markTestIncomplete();
+        $containerMap = array(
+            array('dothiv_afilias_importer.service', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockAfiliasImporterService),
+            array('dothiv.repository.config', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockConfigRepo),
+        );
+        $this->mockContainer->expects($this->any())->method('get')
+            ->will($this->returnValueMap($containerMap));
+
+        $this->mockContainer->expects($this->any())->method('getParameter')
+            ->with('dothiv_afilias_importer.service_url')
+            ->will($this->returnValue('http://localhost:8666/'));
+
+        $this->mockAfiliasImporterService->expects($this->once())->method('fetchRegistrations')
+            ->with($this->callback(function (URLValue $url) {
+                $this->assertEquals('http://localhost:8666/registrations', (string)$url);
+                return true;
+            }))
+            ->will($this->returnValue('http://localhost:8666/registrations?offsetKey=2863499'));
+
+        $config = new Config();
+        $config->setName('dothiv_afilias_importer.next_url');
+        $this->mockConfigRepo->expects($this->once())->method('get')
+            ->with('dothiv_afilias_importer.next_url')
+            ->will($this->returnValue($config));
+
+        $this->mockConfigRepo->expects($this->once())->method('persist')
+            ->with($this->callback(function (Config $config) {
+                $this->assertEquals('http://localhost:8666/registrations?offsetKey=2863499', $config->getValue());
+                return true;
+            }))
+            ->will($this->returnSelf());
+
+        $this->mockConfigRepo->expects($this->once())->method('flush');
+
+        $this->assertEquals(0, $this->getTestObject()->run($this->mockInput, $this->mockOutput));
     }
 
     /**
@@ -85,6 +120,14 @@ class FetchNewRegistrationsCommandTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->mockContainer = $this->getMockBuilder('\Symfony\Component\DependencyInjection\ContainerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->mockAfiliasImporterService = $this->getMockBuilder('\Dothiv\AfiliasImporterBundle\Service\AfiliasImporterServiceInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->mockConfigRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface')
             ->disableOriginalConstructor()
             ->getMock();
     }
