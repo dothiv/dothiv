@@ -5,6 +5,7 @@ namespace Dothiv\BusinessBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
@@ -79,10 +80,16 @@ class User implements UserInterface
      */
     protected $tokens;
 
+    /**
+     * @var string[]|Role[]
+     */
+    protected $roles;
+
     public function __construct()
     {
         $this->domains = new ArrayCollection();
         $this->tokens  = new ArrayCollection();
+        $this->roles   = array('ROLE_USER');
     }
 
     public function getSurname()
@@ -158,7 +165,18 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
+    }
+
+    /**
+     * @param string[]|Role[] $roles
+     *
+     * @return self
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+        return $this;
     }
 
     /**

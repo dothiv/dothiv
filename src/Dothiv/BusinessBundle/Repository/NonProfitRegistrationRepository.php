@@ -57,4 +57,58 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
             ->getQuery()
             ->getResult());
     }
+
+    /**
+     * Returns a list of active nonprofit registraions.
+     *
+     * @param mixed|null $offsetKey
+     * @param mixed|null $offsetDir
+     *
+     * @return PaginatedResult
+     */
+    public function getActivePaginated($offsetKey = null, $offsetDir = null)
+    {
+        list(, $total, $minKey, $maxKey) = $this->createQueryBuilder('r')->select('COUNT(r), MAX(r.id), MIN(r.id)')->getQuery()->getScalarResult()[0];
+        $paginatedResult = new PaginatedResult(10, $total);
+        $qb              = $this->createQueryBuilder('r');
+        $offsetDir       = Option::fromValue($offsetDir)->getOrElse('forward');
+        if (Option::fromValue($offsetKey)->isDefined()) {
+            if ($offsetDir == 'back') {
+                $qb->orderBy('r.id', 'ASC');
+                $qb->andWhere('r.id > :offsetKey')->setParameter('offsetKey', $offsetKey);
+            } else { // forward
+                $qb->orderBy('r.id', 'DESC');
+                $qb->andWhere('r.id < :offsetKey')->setParameter('offsetKey', $offsetKey);
+            }
+
+        } else {
+            $qb->orderBy('r.id', 'DESC');
+        }
+        $qb->setMaxResults($paginatedResult->getItemsPerPage());
+
+        $items = $qb
+            ->getQuery()
+            ->getResult();
+        if ($offsetDir == 'back') {
+            $items = array_reverse($items);
+        }
+        $result = new ArrayCollection($items);
+        if ($result->count() == 0) {
+            return $paginatedResult;
+        }
+        $paginatedResult->setResult($result);
+        if ($result->count() == $paginatedResult->getItemsPerPage()) {
+            $paginatedResult->setNextPageKey(function (NonProfitRegistration $registration) use ($maxKey) {
+                return $registration->getId() != $maxKey ? $registration->getId() : null;
+            });
+        }
+        if ($offsetKey !== null) {
+            $paginatedResult->setPrevPageKey(function (NonProfitRegistration $registration) use ($minKey) {
+                return $registration->getId() != $minKey ? $registration->getId() : null;
+            });
+        }
+
+        return $paginatedResult;
+    }
+
 }

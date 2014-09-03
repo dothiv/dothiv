@@ -10,9 +10,11 @@ use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
+use PhpOption\Option;
 use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Util\SecureRandom;
@@ -22,22 +24,32 @@ class UserService implements UserProviderInterface, UserServiceInterface
     /**
      * @var UserRepositoryInterface
      */
-    private $userRepo;
+    protected $userRepo;
 
     /**
      * @var UserTokenRepositoryInterface
      */
-    private $userTokenRepo;
+    protected $userTokenRepo;
 
     /**
      * @var Clock
      */
-    private $clock;
+    protected $clock;
 
     /**
      * @var EventDispatcher
      */
-    private $dispatcher;
+    protected $dispatcher;
+
+    /**
+     * @var string
+     */
+    protected $loginLinkEventName;
+
+    /**
+     * @var string
+     */
+    protected $adminUserDomain;
 
     /**
      * @var int Time in seconds to wait between sending a new login link
@@ -49,9 +61,17 @@ class UserService implements UserProviderInterface, UserServiceInterface
         UserTokenRepositoryInterface $userTokenRepository,
         Clock $clock,
         EventDispatcher $dispatcher,
+        $loginLinkEventName,
+        $adminUserDomain,
         $linkRequestWait
     )
     {
+        $this->userRepo           = $userRepository;
+        $this->userTokenRepo      = $userTokenRepository;
+        $this->clock              = $clock;
+        $this->dispatcher         = $dispatcher;
+        $this->loginLinkEventName = $loginLinkEventName;
+        $this->adminUserDomain    = $adminUserDomain;
         $this->userRepo        = $userRepository;
         $this->userTokenRepo   = $userTokenRepository;
         $this->clock           = $clock;
@@ -75,7 +95,63 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     public function loadUserByUsername($username)
     {
-        return $this->userRepo->getUserByEmail($username)->getOrThrow(new UsernameNotFoundException());
+        if ($this->isAdminUsername($username)) {
+            $user = $this->getOrCreateAdminByUsername($username);
+        } else {
+            $user = $this->userRepo->getUserByEmail($username)->getOrThrow(new UsernameNotFoundException());
+        }
+        $user->setRoles($this->getRoles($user));
+        return $user;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return Role[]
+     */
+    public function getRoles(User $user)
+    {
+        $roles = array('ROLE_USER');
+        if ($this->isAdmin($user)) {
+            $roles[] = 'ROLE_ADMIN';
+        }
+        return $roles;
+    }
+
+    /**
+     * @param string $username
+     *
+     * @return boolean
+     */
+    protected function isAdminUsername($username)
+    {
+        return preg_match('/' . preg_quote($this->adminUserDomain) . '$/', $username) === 1;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function isAdmin(User $user)
+    {
+        return $this->isAdminUsername($user->getUsername());
+    }
+
+    protected function getOrCreateAdminByUsername($username)
+    {
+        $optionalUser = $this->userRepo->getUserByEmail($username);
+        if ($optionalUser->isDefined()) {
+            return $optionalUser->get();
+        }
+        $user = new User();
+        $user->setEmail($username);
+        $user->setHandle($this->generateToken());
+        $user->setFirstname('');
+        $user->setSurname('');
+        $this->userRepo->persist($user)->flush();
+        return $user;
+
     }
 
     /**
@@ -108,7 +184,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     {
         /* @var User $user */
         /* @var UserToken $token */
-        $user = $this->userRepo->getUserByEmail($email)->getOrCall(function () {
+        $user = Option::fromValue($this->loadUserByUsername($email))->getOrCall(function () {
             throw new EntityNotFoundException();
         });
 
@@ -132,7 +208,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
             }
         }
         $token = $this->createUserToken($user, $scope);
-        $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token, $httpHost, $locale));
+        $this->dispatcher->dispatch($this->loginLinkEventName, new UserTokenEvent($token, $httpHost, $locale));
     }
 
     /**

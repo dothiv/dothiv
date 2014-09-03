@@ -2,7 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
-use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
+use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
 use Dothiv\APIBundle\Request\LoginLinkRequest;
 use Dothiv\APIBundle\Request\UserCreateRequest;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
@@ -19,7 +19,7 @@ use Dothiv\APIBundle\Annotation\ApiRequest;
 
 class AccountController
 {
-    use CreateResponseTrait;
+    use CreateJsonResponseTrait;
 
     /**
      * @var UserServiceInterface

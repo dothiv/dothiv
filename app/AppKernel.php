@@ -41,6 +41,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Dothiv\PremiumConfiguratorBundle\DothivPremiumConfiguratorBundle(),
             new Dothiv\AfiliasImporterBundle\DothivAfiliasImporterBundle(),
+            new Dothiv\AdminBundle\DothivAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

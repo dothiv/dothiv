@@ -2,7 +2,7 @@
 
 namespace Dothiv\PremiumConfiguratorBundle\Controller;
 
-use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
+use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
 use Dothiv\APIBundle\Controller\Traits\DomainNameTrait;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\ValueObject\EmailValue;
@@ -20,7 +20,7 @@ use Dothiv\APIBundle\Annotation\ApiRequest;
 class SubscriptionController
 {
     use DomainNameTrait;
-    use CreateResponseTrait;
+    use CreateJsonResponseTrait;
 
     public function __construct(
         SecurityContextInterface $securityContext,

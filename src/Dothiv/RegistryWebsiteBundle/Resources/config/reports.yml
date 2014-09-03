@@ -1,0 +1,10 @@
+parameters:
+    dothiv.registry.report.nonprofitregistration.class: Dothiv\RegistryWebsiteBundle\Report\NonProfitRegistrationReporter
+
+services:
+    dothiv.registry.report.nonprofitregistration:
+        class: %dothiv.registry.report.nonprofitregistration.class%
+        arguments:
+        - @dothiv.repository.nonprofitregistration
+        tags:
+        - { name: dothiv_admin.stats.reporter, id: "nonprofitregistrations" }

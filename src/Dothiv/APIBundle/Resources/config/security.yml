@@ -4,6 +4,7 @@ services:
         arguments:
           - ""
           - @dothiv.repository.user_token
+          - @dothiv.businessbundle.service.user
 
     dothiv.apibundle.oauth2.security.authentication.listener:
         class: Dothiv\APIBundle\Security\Firewall\Oauth2BearerListener

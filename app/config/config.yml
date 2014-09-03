@@ -49,6 +49,8 @@ assetic:
       - 'DothivTwitterBootstrapBundle'
       - 'DothivAngularJsBundle'
       - 'DothivQLPPartnerBundle'
+      - 'DothivPremiumConfiguratorBundle'
+      - 'DothivAdminBundle'
     #java: /usr/bin/java
     filters:
         less:
