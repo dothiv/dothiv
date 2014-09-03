@@ -31,4 +31,18 @@ interface AttachmentServiceInterface
      * @return Option of URLValue
      */
     public function getUrl(Attachment $attachment);
+
+    /**
+     * @param string $handle
+     *
+     * @return Option of Attachment
+     */
+    public function getAttachment($handle);
+
+    /**
+     * @param Attachment $attachment
+     *
+     * @return Option of SplFileInfo
+     */
+    public function getFile(Attachment $attachment);
 }

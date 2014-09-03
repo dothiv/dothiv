@@ -10,6 +10,7 @@ use Dothiv\BusinessBundle\Service\AttachmentStoreInterface;
 use Dothiv\BusinessBundle\Service\LinkableAttachmentStoreInterface;
 use Dothiv\BusinessBundle\ValueObject\PathValue;
 use Dothiv\BusinessBundle\ValueObject\URLValue;
+use PhpOption\None;
 use PhpOption\Option;
 use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -78,13 +79,13 @@ class AttachmentStoreService implements AttachmentStoreInterface, LinkableAttach
      */
     public function getUrl(Attachment $attachment, $accept = null)
     {
-        $sizeLabels = $this->thumbnailConfigurations->map(function(ThumbnailConfiguration $c) {
+        $sizeLabels = $this->thumbnailConfigurations->map(function (ThumbnailConfiguration $c) {
             return $c->getLabel();
         });
-        $scale = $sizeLabels[0];
+        $scale      = $sizeLabels[0];
         // Check if scale request via accept header
         $a = AcceptHeader::fromString($accept);
-        foreach($a->all() as $item) {
+        foreach ($a->all() as $item) {
             $acceptScale = $item->getAttribute('scale');
             if (Option::fromValue($acceptScale)->isEmpty()) {
                 continue;
@@ -106,5 +107,18 @@ class AttachmentStoreService implements AttachmentStoreInterface, LinkableAttach
                 $filename->getPathname()
             )
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function retrieve(Attachment $attachment)
+    {
+        $file = new \SplFileInfo($this->config['location'] . DIRECTORY_SEPARATOR . sprintf('%s.%s', $attachment->getHandle(), $attachment->getExtension()));
+        if ($file->isFile()) {
+            return Option::fromValue($file);
+        } else {
+            return None::create();
+        }
     }
 }
