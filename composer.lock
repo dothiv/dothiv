@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3d57315af0c1ac85c103ade36f2a8f60",
+    "hash": "bece74208f8b600c1b2fa54099a87135",
     "packages": [
         {
             "name": "behat/behat",
@@ -245,16 +245,16 @@
         },
         {
             "name": "cocur/slugify",
-            "version": "v0.10",
+            "version": "v0.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cocur/slugify.git",
-                "reference": "69c2d2db3b5212a3a449ea8d01fae34d4438ca43"
+                "reference": "56b8981e5ea194c1033eabcadcf6004679d54c23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/69c2d2db3b5212a3a449ea8d01fae34d4438ca43",
-                "reference": "69c2d2db3b5212a3a449ea8d01fae34d4438ca43",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/56b8981e5ea194c1033eabcadcf6004679d54c23",
+                "reference": "56b8981e5ea194c1033eabcadcf6004679d54c23",
                 "shasum": ""
             },
             "require": {
@@ -298,7 +298,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2014-08-26 19:17:51"
+            "time": "2014-09-01 21:06:00"
         },
         {
             "name": "doctrine/annotations",
@@ -3158,20 +3158,21 @@
         },
         {
             "name": "stof/doctrine-extensions-bundle",
-            "version": "dev-master",
+            "version": "v1.1.0",
+            "target-dir": "Stof/DoctrineExtensionsBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stof/StofDoctrineExtensionsBundle.git",
-                "reference": "cfe13e8c64a5067f6d0ce63630a0c97911789198"
+                "reference": "0aa21137bcae43241ffa047946bbdd46b91a2b0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/cfe13e8c64a5067f6d0ce63630a0c97911789198",
-                "reference": "cfe13e8c64a5067f6d0ce63630a0c97911789198",
+                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/0aa21137bcae43241ffa047946bbdd46b91a2b0a",
+                "reference": "0aa21137bcae43241ffa047946bbdd46b91a2b0a",
                 "shasum": ""
             },
             "require": {
-                "gedmo/doctrine-extensions": "~2.3.1",
+                "gedmo/doctrine-extensions": "2.3.*",
                 "php": ">=5.3.2",
                 "symfony/framework-bundle": "~2.1"
             },
@@ -3186,8 +3187,8 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Stof\\DoctrineExtensionsBundle\\": ""
+                "psr-0": {
+                    "Stof\\DoctrineExtensionsBundle": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3215,7 +3216,7 @@
                 "translatable",
                 "tree"
             ],
-            "time": "2014-08-28 20:29:53"
+            "time": "2013-06-23 16:53:41"
         },
         {
             "name": "stripe/stripe-php",
@@ -5027,7 +5028,6 @@
         "cocur/slugify": 0,
         "behat/common-contexts": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
-        "stof/doctrine-extensions-bundle": 20,
         "doctrine/migrations": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "behat/symfony2-extension": 20,
