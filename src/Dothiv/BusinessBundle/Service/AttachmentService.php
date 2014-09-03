@@ -87,4 +87,20 @@ class AttachmentService implements AttachmentServiceInterface
         $sr = new SecureRandom();
         return bin2hex($sr->nextBytes(16));
     }
-} 
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAttachment($handle)
+    {
+        return $this->attachmentRepo->getAttachmentByHandle($handle);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFile(Attachment $attachment)
+    {
+        return $this->store->retrieve($attachment);
+    }
+}

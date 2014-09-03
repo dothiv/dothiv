@@ -4,8 +4,10 @@ namespace Dothiv\BusinessBundle\Tests\Entity\Command;
 
 use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
 use Dothiv\BusinessBundle\Entity\Banner;
+use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
+use Dothiv\BusinessBundle\Service\Clock;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -41,6 +43,11 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
     private $mockBannerRepo;
 
     /**
+     * @var \Doctrine\ORM\EntityRepository|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockConfigRepo;
+
+    /**
      * @test
      * @group DothivBusinessBundle
      * @group Command
@@ -66,9 +73,24 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
         $containerMap = array(
             array('clickcounter', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockClickCounterConfig),
             array('dothiv.repository.banner', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockBannerRepo),
+            array('dothiv.repository.config', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockConfigRepo),
+            array('clock', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->getClock()),
         );
         $this->mockContainer->expects($this->any())->method('get')
             ->will($this->returnValueMap($containerMap));
+
+        $config = new Config();
+        $config->setName('clickcounter_config.last_run');
+        $this->mockConfigRepo->expects($this->once())->method('get')
+            ->with('clickcounter_config.last_run')
+            ->will($this->returnValue($config));
+        $this->mockConfigRepo->expects($this->once())->method('persist')
+            ->with($this->callback(function (Config $config) {
+                $this->assertEquals('2014-01-02T13:14:15+00:00', $config->getValue());
+                return true;
+            }))
+            ->will($this->returnSelf());
+        $this->mockConfigRepo->expects($this->once())->method('flush');
 
         $this->mockBannerRepo->expects($this->once())->method('findAll')
             ->will($this->returnValue(array($banner)));
@@ -87,6 +109,15 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
         $command = new ClickCounterConfigureCommand();
         $command->setContainer($this->mockContainer);
         return $command;
+    }
+
+    /**
+     * @return Clock
+     */
+    protected function getClock()
+    {
+        $clock = new Clock(new \DateTime('2014-01-02T13:14:15Z'));
+        return $clock;
     }
 
     /**
@@ -113,6 +144,10 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->mockBannerRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\BannerRepositoryInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->mockConfigRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface')
             ->disableOriginalConstructor()
             ->getMock();
     }
