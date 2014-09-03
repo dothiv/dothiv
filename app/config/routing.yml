@@ -39,3 +39,9 @@ dothiv_premium_configurator:
     host: %charitydomain%
     resource: "@DothivPremiumConfiguratorBundle/Resources/config/routing.yml"
     prefix:   /
+
+# Admin Dashboard
+dothiv_admin:
+    host: %registrydomain%
+    resource: "@DothivAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin/

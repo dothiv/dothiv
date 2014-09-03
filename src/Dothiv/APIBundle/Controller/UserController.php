@@ -2,7 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
-use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
+use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class UserController
 {
-    use CreateResponseTrait;
+    use CreateJsonResponseTrait;
 
     /**
      * @var DomainRepositoryInterface

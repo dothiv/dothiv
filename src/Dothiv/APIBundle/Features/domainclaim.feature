@@ -8,10 +8,15 @@ Feature: Claim Domain
       | firstname | John                |
       | surname   | Doe                 |
     Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
-      | user     | {user}                          |
-      | token    | usert0k3n                       |
-      | lifetime | {\DateTime@2014-01-02T13:44:15} |
+      | user     | {user}                                                      |
+      | token    | usert0k3n                                                   |
+      | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@domainclaim} |
+      | lifetime | {\DateTime@2014-01-02T13:44:15}                             |
+    And the "DothivBusinessBundle:Registrar" entity exists in "registrar" with values:
+      | extId | 1234-AC        |
+      | name  | ACME Registrar |
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
+      | registrar  | {registrar}  |
       | name       | test.hiv     |
       | token      | domaint0k3n  |
       | ownerEmail | john@doe.com |
@@ -52,9 +57,10 @@ Feature: Claim Domain
       | firstname | Jane             |
       | surname   | Doe              |
     Given the "DothivBusinessBundle:UserToken" entity exists in "janeToken" with values:
-      | user     | {jane}                          |
-      | token    | j4n3st0k3n                      |
-      | lifetime | {\DateTime@2014-01-02T13:44:15} |
+      | user     | {jane}                                                      |
+      | token    | j4n3st0k3n                                                  |
+      | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@domainclaim} |
+      | lifetime | {\DateTime@2014-01-02T13:44:15}                             |
     Given I add Bearer token equal to "abc8c04a75255c72ba3952421272caf4294acf06"
     And I send a POST request to "http://click4life.hiv.dev/api/domain/claim" with JSON values:
       | token | domaint0k3n |

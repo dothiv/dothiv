@@ -1,7 +1,11 @@
 <?php
 
 namespace Dothiv\BusinessBundle\ValueObject;
+use JMS\Serializer\Annotation as Serializer;
 
+/**
+ * @Serializer\ExclusionPolicy("all")
+ */
 class PathValue implements StringValue
 {
     /**
@@ -30,6 +34,7 @@ class PathValue implements StringValue
 
     /**
      * {@inheritdoc}
+     * @Serializer\HandlerCallback("json", direction = "serialization")
      */
     public function __toString()
     {

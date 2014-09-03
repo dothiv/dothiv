@@ -10,6 +10,9 @@ use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Sanpi\Behatch\Context\BehatchContext;
@@ -96,6 +99,9 @@ class FeatureContext extends BehatContext
         $em         = $this->getEntityManager();
         $entityInfo = $em->getClassMetadata($entityName);
         $entity     = new $entityInfo->name;
+        if (method_exists($entity, 'setCreated')) {
+            $entity->setCreated(new \DateTime());
+        }
         foreach ($table->getRowsHash() as $k => $v) {
             $setter = 'set' . ucfirst($k);
             $entity->$setter($this->getValue($v));
@@ -218,19 +224,6 @@ class FeatureContext extends BehatContext
     }
 
     /**
-     * @Given /^\{(?P<storageName>[^\}]*)\} should be a list with (?P<nth>\d+) elements?$/
-     */
-    public function theStoredObjectShouldBeAListWithElement($storageName, $nth)
-    {
-        $list = $this->getValue('{' . $storageName . '}');
-        if ($list instanceof ArrayCollection) {
-            $list = $list->toArray();
-        }
-        \PHPUnit_Framework_Assert::assertInternalType('array', $list);
-        \PHPUnit_Framework_Assert::assertEquals(intval($nth), count($list));
-    }
-
-    /**
      * @return \stdClass|array
      */
     private function getJson()
@@ -328,7 +321,9 @@ class FeatureContext extends BehatContext
         );
         $expectedSize = sprintf("%dx%d", $width, $height);
         $actualSize   = sprintf("%dx%d", $imagesize[0], $imagesize[1]);
-        \PHPUnit_Framework_Assert::assertEquals($expectedSize, $actualSize);
+        if ($actualSize !== $expectedSize) {
+            throw new \Exception(sprintf("Size of image is %s where %s was expected.", $actualSize, $expectedSize));
+        }
     }
 
     /**
@@ -352,10 +347,76 @@ class FeatureContext extends BehatContext
     }
 
     /**
+     * @Given /^the JSON object should be a list with at least (?P<num>\d+) element$/
+     */
+    public function theJsonObjectShouldBeAListWithAtLeastElement($num)
+    {
+        $json = (array)$this->getJson();
+        \PHPUnit_Framework_Assert::assertTrue(count($json) >= $num, sprintf('List does not have at least %d elements!', $num));
+    }
+
+    /**
+     * @Given /^the JSON node "(?P<node>[^"]*)" should contain at least (?P<num>\d+) elements*$/
+     */
+    public function theJsonNodeShouldContainAtLeastElements($node, $num)
+    {
+        $json = $this->getJson();
+        \PHPUnit_Framework_Assert::assertObjectHasAttribute($node, $json);
+        \PHPUnit_Framework_Assert::assertTrue(count($json->$node) >= $num, sprintf('List does not have at least %d elements!', $num));
+    }
+
+    /**
+     * @Given /^the JSON node "(?P<node>[^"]*)" should contain (?P<num>\d+) elements*$/
+     */
+    public function theJsonNodeShouldContainElements($node, $num)
+    {
+        $json = $this->getJson();
+        \PHPUnit_Framework_Assert::assertObjectHasAttribute($node, $json);
+        \PHPUnit_Framework_Assert::assertTrue(count($json->$node) == $num, sprintf('List does not have %d elements!', $num));
+    }
+
+    /**
+     * @Given /^the fixture "(?P<fixturename>[^"]*)" is loaded$/
+     */
+    public function theFixtureIsLoaded($fixturename)
+    {
+        $loader = new Loader();
+        $this->getMainContext()
+            ->getSubcontext('doctrine_fixtures_context')
+            ->loadFixtureClasses($loader, array(
+                $fixturename
+            ));
+        $em       = $this->getEntityManager();
+        $executor = new ORMExecutor($em, new ORMPurger());
+        $executor->execute($loader->getFixtures(), true);
+    }
+
+    /**
+     * @Given /^I debug the JSON$/
+     */
+    public function iDebugTheJson()
+    {
+        print_r($this->getJson());
+    }
+
+    /**
      * @Given /^I debug the response$/
      */
     public function iDebugTheResponse()
     {
         echo $this->getSubcontext('mink')->getSession()->getPage()->getContent();
+    }
+
+    /**
+     * @Given /^\{(?P<storageName>[^\}]*)\} should be a list with (?P<nth>\d+) elements?$/
+     */
+    public function theStoredObjectShouldBeAListWithElement($storageName, $nth)
+    {
+        $list = $this->getValue('{' . $storageName . '}');
+        if ($list instanceof ArrayCollection) {
+            $list = $list->toArray();
+        }
+        \PHPUnit_Framework_Assert::assertInternalType('array', $list);
+        \PHPUnit_Framework_Assert::assertEquals(intval($nth), count($list));
     }
 }

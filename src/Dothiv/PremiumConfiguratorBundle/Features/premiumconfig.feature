@@ -9,12 +9,17 @@ Feature: Configure Premium Banner
       | firstname | John                |
       | surname   | Doe                 |
     Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
-      | user     | {user}                          |
-      | token    | usert0k3n                       |
-      | lifetime | {\DateTime@2014-01-02T13:44:15} |
+      | user     | {user}                                                |
+      | token    | usert0k3n                                             |
+      | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@login} |
+      | lifetime | {\DateTime@2014-01-02T13:44:15}                       |
+    And the "DothivBusinessBundle:Registrar" entity exists in "registrar" with values:
+      | extId | 1234-AC        |
+      | name  | ACME Registrar |
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
-      | name  | test.hiv |
-      | owner | {user}   |
+      | registrar | {registrar} |
+      | name      | test.hiv    |
+      | owner     | {user}      |
     And the "DothivBusinessBundle:Banner" entity exists in "banner" with values:
       | domain              | {domain}  |
       | language            | fr        |

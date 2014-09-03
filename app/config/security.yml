@@ -29,6 +29,12 @@ security:
             provider:   user
             oauth2:     true
 
+        admin:
+            pattern:    ^/admin/api/(stats|nonprofitregistration)
+            stateless:  true
+            provider:   user
+            oauth2:     true
+
         contentful_webhook:
             pattern: ^/contentful/webhook
             provider: contentful_webhook
@@ -36,6 +42,6 @@ security:
               realm: "Contentful Webhook Area"
 
     access_control:
-      - { path: ^/api/user, roles: ROLE_USER }
-      - { path: ^/api/domain, roles: ROLE_USER }
+      - { path: ^/api/(user|domain|attachment|nonprofit|premium-configurator), roles: ROLE_USER }
+      - { path: ^/admin/api, roles: ROLE_ADMIN }
       - { path: ^/contentful/webhook, roles: ROLE_CONTENTFUL_WEBHOOK }

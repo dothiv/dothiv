@@ -1,0 +1,13 @@
+parameters:
+    dothiv_afilias_importer.service.class: Dothiv\AfiliasImporterBundle\Service\AfiliasImporterService
+    dothiv_afilias_importer.service.client.class: Guzzle\Http\Client
+
+services:
+    dothiv_afilias_importer.service.client:
+        class: %dothiv_afilias_importer.service.client.class%
+
+    dothiv_afilias_importer.service:
+        class: %dothiv_afilias_importer.service.class%
+        arguments:
+        - @dothiv_afilias_importer.service.client
+        - @dothiv.business.event_dispatcher

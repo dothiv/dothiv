@@ -24,7 +24,8 @@ class RegistrationRegisteredCommand extends ContainerAwareCommand
             ->setDescription('Take action for a new registered domain.')
             ->addArgument('domain', InputArgument::REQUIRED, 'The name of the registered domain.')
             ->addArgument('email', InputArgument::REQUIRED, 'The email address of the registrant.')
-            ->addArgument('name', InputArgument::REQUIRED, 'The name of the registrant.');
+            ->addArgument('name', InputArgument::REQUIRED, 'The name of the registrant.')
+            ->addArgument('extId', InputArgument::REQUIRED, 'Registrar ID.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -35,7 +36,8 @@ class RegistrationRegisteredCommand extends ContainerAwareCommand
         $domain = $reg->registered(
             $input->getArgument('domain'),
             $input->getArgument('email'),
-            $input->getArgument('name')
+            $input->getArgument('name'),
+            $input->getArgument('extId')
         );
         $output->writeln('Registration token for ' . $domain->getName() . ': ' . $domain->getToken());
 

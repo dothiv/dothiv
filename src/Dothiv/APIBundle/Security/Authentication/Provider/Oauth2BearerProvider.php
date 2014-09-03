@@ -5,8 +5,8 @@ namespace Dothiv\APIBundle\Security\Authentication\Provider;
 
 use Dothiv\APIBundle\Security\Authentication\Token\Oauth2BearerToken;
 use Dothiv\BusinessBundle\Entity\UserToken;
-use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
+use Dothiv\BusinessBundle\Service\UserService;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -18,9 +18,19 @@ class Oauth2BearerProvider implements AuthenticationProviderInterface
      */
     private $userTokenRepo;
 
-    public function __construct(UserProviderInterface $userProvider, UserTokenRepositoryInterface $userTokenRepo)
+    /**
+     * @var UserService
+     */
+    private $userService;
+
+    public function __construct(
+        UserProviderInterface $userProvider,
+        UserTokenRepositoryInterface $userTokenRepo,
+        UserService $userService
+    )
     {
         $this->userTokenRepo = $userTokenRepo;
+        $this->userService   = $userService;
     }
 
     public function authenticate(TokenInterface $token)
@@ -36,7 +46,8 @@ class Oauth2BearerProvider implements AuthenticationProviderInterface
             if ($userToken->isRevoked()) {
                 return $token;
             }
-            $user               = $userToken->getUser();
+            $user = $userToken->getUser();
+            $user->setRoles($this->userService->getRoles($user));
             $authenticatedToken = new Oauth2BearerToken($user->getRoles());
             $authenticatedToken->setUser($user);
             $authenticatedToken->setBearerToken($token->getBearerToken());
