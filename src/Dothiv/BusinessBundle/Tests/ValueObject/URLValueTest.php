@@ -46,11 +46,11 @@ class URLValueTest extends \PHPUnit_Framework_TestCase
      * @group   unit
      * @group   ValueObject
      * @depends itShouldParseAnURL
-     * @expectedException \Dothiv\BusinessBundle\Exception\InvalidArgumentException
      */
     public function urlsAlwaysShouldHaveATrailingSlash()
     {
-        new URLValue('https://click4life.hiv');
+        $d = new URLValue('https://click4life.hiv');
+        $this->assertEquals('https://click4life.hiv/', (string)$d);
     }
 
     /**
