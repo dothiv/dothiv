@@ -1,5 +1,8 @@
 {% trans_default_domain "charity" %}
 <form role="form" novalidate name="colorsForm" class="color">
+    <div class="fields-legend">
+        {{ section.text|markdown }}
+    </div>
     <div class="fields">
         {% set colorType = 'font' %}
         {% block colorpicker %}
@@ -22,8 +25,5 @@
         {{ block('colorpicker') }}
         {% set colorType = 'bar' %}
         {{ block('colorpicker') }}
-    </div>
-    <div class="fields-legend">
-        {{ section.text|markdown }}
     </div>
 </form>

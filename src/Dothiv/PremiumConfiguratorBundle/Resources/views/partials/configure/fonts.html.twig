@@ -1,7 +1,13 @@
 {% trans_default_domain "charity" %}
 <form role="form" novalidate name="fontsForm" class="font">
+    <div class="fields-legend">
+        {{ section.text|markdown }}
+    </div>
     <div class="fields">
         {% set fontType = 'headline' %}
+        {% set minFontSize = 8 %}
+        {% set maxFontSize = 30 %}
+        {% set fontSize = 22 %}
         {% block font %}
             <fieldset>
                 <div class="form-group">
@@ -19,18 +25,26 @@
                 </div>
                 <div class="form-group" data-ng-show="fontsForm.{{ fontType }}FontLabel && fontsForm.{{ fontType }}Font">
                     <label for="font-{{ fontType }}Style"> {{ ('pc.font.' ~ fontType ~ '.style')|trans }}<br> </label>
-                    <select name="{{ fontType }}FontStyle" id="font-{{ fontType }}Style"
-                            data-ng-model="premiumBanner.{{ fontType }}FontStyle"
+                    <select name="{{ fontType }}FontWeight" id="font-{{ fontType }}Style"
+                            data-ng-model="premiumBanner.{{ fontType }}FontWeight"
                             data-ng-options="style for style in fontsForm.{{ fontType }}Font.variants"
                             data-ng-change="updatePremiumSettings()"
                             ></select>
                 </div>
+                <div class="form-group" data-ng-show="fontsForm.{{ fontType }}FontLabel && fontsForm.{{ fontType }}Font">
+                    <label for="font-{{ fontType }}Size"> {{ ('pc.font.' ~ fontType ~ '.size')|trans }}<br> </label>
+                    <input type="number" id="font-{{ fontType }}Size" name="font-{{ fontType }}Size"
+                            data-ng-model="premiumBanner.{{ fontType }}FontSize"
+                            data-ng-change="updatePremiumSettings()"
+                            min="{{ minFontSize }}"
+                            max="{{ maxFontSize }}"
+                            value="{{ fontSize }}"
+                            >
+                </div>
             </fieldset>
         {% endblock %}
         {% set fontType = 'text' %}
+        {% set fontSize = 14 %}
         {{ block('font') }}
-    </div>
-    <div class="fields-legend">
-        {{ section.text|markdown }}
     </div>
 </form>

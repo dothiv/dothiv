@@ -9,12 +9,17 @@ Feature: Configure Premium Banner
       | firstname | John                |
       | surname   | Doe                 |
     Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
-      | user     | {user}                          |
-      | token    | usert0k3n                       |
-      | lifetime | {\DateTime@2014-01-02T13:44:15} |
+      | user     | {user}                                                |
+      | token    | usert0k3n                                             |
+      | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@login} |
+      | lifetime | {\DateTime@2014-01-02T13:44:15}                       |
+    And the "DothivBusinessBundle:Registrar" entity exists in "registrar" with values:
+      | extId | 1234-AC        |
+      | name  | ACME Registrar |
     And the "DothivBusinessBundle:Domain" entity exists in "domain" with values:
-      | name  | test.hiv |
-      | owner | {user}   |
+      | registrar | {registrar} |
+      | name      | test.hiv    |
+      | owner     | {user}      |
     And the "DothivBusinessBundle:Banner" entity exists in "banner" with values:
       | domain              | {domain}  |
       | language            | fr        |
@@ -49,20 +54,20 @@ Feature: Configure Premium Banner
   Scenario: Configure Premium Banner
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
     And I send a PUT request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/banner" with JSON values:
-      | visual            | de73ec9a8df00d79cd81c937cffa66bb |
-      | bg                | 7d0e009eaa16bba3f7aae0ba670190df |
-      | fontColor         | #333                             |
-      | bgColor           | #f7f7f7                          |
-      | barColor          | #e00073                          |
-      | headlineFont      | Source Sans Pro                  |
-      | headlineFontStyle | 900                              |
-      | textFont          | BenchNine                        |
-      | textFontStyle     | regular                          |
-      | extrasHeadline    | Headline                         |
-      | extrasText        | Text                             |
-      | extrasLinkUrl     | http://wurst.de/                 |
-      | extrasLinkLabel   | Wurst!                           |
-      | extrasVisual      | 45472ae3e87c3632c9b7e407b12acd5f |
+      | visual             | de73ec9a8df00d79cd81c937cffa66bb |
+      | bg                 | 7d0e009eaa16bba3f7aae0ba670190df |
+      | fontColor          | #333                             |
+      | bgColor            | #f7f7f7                          |
+      | barColor           | #e00073                          |
+      | headlineFont       | Source Sans Pro                  |
+      | headlineFontWeight | 900                              |
+      | textFont           | BenchNine                        |
+      | textFontWeight     | regular                          |
+      | extrasHeadline     | Headline                         |
+      | extrasText         | Text                             |
+      | extrasLinkUrl      | http://wurst.de/                 |
+      | extrasLinkLabel    | Wurst!                           |
+      | extrasVisual       | 45472ae3e87c3632c9b7e407b12acd5f |
     Then the response status code should be 200
     And I send a GET request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/banner"
     Then the response status code should be 200
@@ -73,9 +78,9 @@ Feature: Configure Premium Banner
     And the JSON node "bgColor" should contain "#f7f7f7"
     And the JSON node "barColor" should contain "#e00073"
     And the JSON node "headlineFont" should contain "Source Sans Pro"
-    And the JSON node "headlineFontStyle" should contain "900"
+    And the JSON node "headlineFontWeight" should contain "900"
     And the JSON node "textFont" should contain "BenchNine"
-    And the JSON node "textFontStyle" should contain "regular"
+    And the JSON node "textFontWeight" should contain "regular"
     And the JSON node "extrasHeadline" should contain "Headline"
     And the JSON node "extrasText" should contain "Text"
     And the JSON node "extrasLinkUrl" should contain "http://wurst.de/"

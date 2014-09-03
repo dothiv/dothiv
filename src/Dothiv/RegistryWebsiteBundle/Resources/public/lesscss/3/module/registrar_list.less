@@ -1,9 +1,36 @@
 .registrar-list-module {
   margin-top: 2em;
-  div {
-    text-align: center;
-    float: left;
-    width: 33%;
-    height: 140px;
+
+  table {
+    &:extend(.table all);
+    tbody {
+      tr {
+        td {
+          vertical-align: middle;
+        }
+      }
+    }
+    thead {
+      tr {
+        th {
+          white-space: nowrap;
+        }
+      }
+    }
+    td, th {
+      &.price {
+        text-align: right;
+      }
+    }
+    thead {
+      i.order-down {
+        .glyphicon;
+        .glyphicon-chevron-down;
+      }
+      i.order-up{
+        .glyphicon;
+        .glyphicon-chevron-up;
+      }
+    }
   }
 }

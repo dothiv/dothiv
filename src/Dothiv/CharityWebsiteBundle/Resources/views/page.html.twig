@@ -69,9 +69,6 @@
     {% if features.pinkbar_clickcounter %}
     {% include "DothivCharityWebsiteBundle:partials:pinkbar_clickcounter.html.twig" %}
     {% endif %}
-    {% if features.pinkbar_countdown %}
-    {% include "DothivCharityWebsiteBundle:partials:pinkbar_countdown.html.twig" %}
-    {% endif %}
     {% block header %}
         <hr class="bottom-shadow">
     {% endblock header %}
@@ -139,6 +136,7 @@
 
 {% block angular_app %}
 {% javascripts
+'@DothivPremiumConfiguratorBundle/Resources/public/js/vendor/jquery.js'
 '@DothivCharityWebsiteBundle/Resources/public/1.2/contentApp.js'
 '@DothivCharityWebsiteBundle/Resources/public/1.2/filters/*.js'
 '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/*.js'
@@ -153,14 +151,15 @@ output='js/*.min.js'
     'use strict';
     angular.module('dotHIVApp.services').factory('config', function() {
         var config = {
-            locale: '{{ locale }}',
-            countdown_start: '{{ countdown_start|date_w3c }}',
-            countdown_end: '{{ general_availability|date_w3c }}'
+            locale: '{{ locale }}'
         };
         return config;
     });
 </script>
 {% endblock angular_config %}
+
+{# Click-Counter #}
+<script src="//dothiv-registry.appspot.com/static/clickcounter.min.js" type="text/javascript"></script>
 
 {# Twitter #}
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

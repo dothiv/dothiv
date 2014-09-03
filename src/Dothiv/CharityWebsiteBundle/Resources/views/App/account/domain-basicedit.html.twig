@@ -2,7 +2,11 @@
 {% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
 
 {% set step1 = content('Block', 'basicedit.step1') %}
+{% set step1_forwarding = step1.children[0] %}
+{% set step1_language = step1.children[1] %}
 {% set step2 = content('Block', 'basicedit.step2') %}
+{% set step2_secondvisit = step2.children[0] %}
+{% set step2_invisiblehint = step2.children[1] %}
 {% set step3 = content('Block', 'basicedit.step3') %}
 {% set step3_code = step3.children[0] %}
 {% set step3_forwarding = step3.children[1] %}
@@ -10,7 +14,7 @@
 <div class="container">
     <div class="row">
         <div class="span12 profile-heading">
-            <h2>{% trans %}account.profile.domains.edit{% endtrans %}</h2>
+            <h2>{% trans %}basicedit.headline{% endtrans %}</h2>
         </div>
     </div>
     <div class="row">
@@ -34,28 +38,43 @@
                                 </div>
                             {% endif %}
                             <div class="row-fluid">
-                                <div class="offset2 span4">
+                                <div class="offset2 span8">
+                                    <div>
+                                        {{ step1_forwarding.text|markdown }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="offset2 span8">
                                     <label>
-                                        <input type="radio" name="forwardRadio" data-ng-model="domaineditbasic.$data.forwarding" value="false">
-                                        {% trans %}basicedit.forwarding.disable{% endtrans %}
-                                    </label> <label>
-                                        <input type="radio" name="forwardRadio" data-ng-model="domaineditbasic.$data.forwarding" value="true">
-                                        {% trans %}basicedit.forwarding.enable{% endtrans %}
+                                        <input type="radio" name="forwardRadio" data-ng-model="domaineditbasic.$data.forwarding" value="true"> {{ step1_forwarding.children[0].title }}
+                                        <br>
+                                        <small>{{ step1_forwarding.children[0].text }}</small>
                                     </label>
 
                                     <div data-ng-show="domaineditbasic.$data.forwarding == 'true'">
-                                        <label for="basicEditFormTargetName">
-                                            {% trans %}basicedit.forwarding.targeturl{% endtrans %}<br>
-                                            <small>{% trans %}basicedit.forwarding.targeturl.info{% endtrans %}</small>
+                                        <label for="basicEditFormTargetName"> {{ step1_forwarding.children[1].title }}
+                                            <br>
+                                            <small>{{ step1_forwarding.children[1].text }}</small>
                                         </label>
                                         <input type="url" name="targetName" id="basicEditFormTargetName" data-ng-model="banner.redirect_url" data-ng-required="domaineditbasic.$data.forwarding == 'true'">
                                     </div>
-                                </div>
-                                <div class="span4">
+
                                     <label>
-                                        {% trans %}basicedit.language{% endtrans %}
+                                        <input type="radio" name="forwardRadio" data-ng-model="domaineditbasic.$data.forwarding" value="false"> {{ step1_forwarding.children[2].title }}
+                                        <br>
+                                        <small>{{ step1_forwarding.children[2].text }}</small>
                                     </label>
 
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="offset2 span8">
+                                    {{ step1_language.text|markdown }}
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="offset2 span8">
                                     <div class="horizontal-radio-group">
                                         {% for l in ['en', 'de', 'es', 'fr'] %}
                                             <label>
@@ -87,46 +106,55 @@
                                 </div>
                             {% endif %}
                             <div class="row-fluid">
-                                <div class="offset2 span3 position-radio-container">
-                                    <label class="position-label center">
-                                        <input type="radio" name="positionRadio" data-ng-model="banner.position_first" value="center" id="positionRadioCenter" required>
-                                        {% trans %}domain.position.center{% endtrans %}
-                                    </label>
-                                </div>
-                                <div class="span3 position-radio-container">
-                                    <label class="position-label top">
-                                        <input type="radio" name="positionRadio" data-ng-model="banner.position_first" value="top" id="positionRadioTop" required>
-                                        {% trans %}domain.position.top{% endtrans %}
-                                    </label>
-                                </div>
-                                <div class="span3 position-radio-container">
-                                    <label class="position-label right">
-                                        <input type="radio" name="positionRadio" data-ng-model="banner.position_first" value="right" id="positionRadioRight" required>
-                                        {% trans %}domain.position.right{% endtrans %}
-                                    </label>
-                                </div>
+                                {% for p in ['top', 'bottom', 'left', 'right'] %}
+                                    {% if loop.first %}
+                                        {% set offset = "offset2" %}
+                                    {% else %}
+                                        {% set offset = "" %}
+                                    {% endif %}
+                                    {% block position %}
+                                        <div class="span2 {{ offset }} position-radio-container">
+                                            <label>
+                                                {# Not possible with assetic: https://github.com/kriswallsmith/assetic/issues/60 #}
+                                                <img src="/bundles/dothivcharitywebsite/images/clickcounter/{{ p }}.png" alt="{{ p }}"><br>
+                                                <input type="radio" name="positionRadio" data-ng-model="banner.position_first" value="{{ p }}" required><br>
+                                                {{ ('domain.position.' ~ p)|trans }}
+                                            </label>
+                                        </div>
+                                    {% endblock %}
+                                {% endfor %}
                             </div>
+                            <div class="row-fluid">
+                                {% set offset = "offset8" %}
+                                {% set p = "invisible" %}
+                                {{ block('position') }}
+                            </div>
+
                             <div class="row-fluid">
                                 <div class="offset2 span8">
                                     <label>
                                         <input type="checkbox" name="secondvisitBox" data-ng-model="domaineditbasic.$data.secondvisit" value="true">
-                                        {% trans %}basicedit.secondvisit.option{% endtrans %}
+                                        {{ step2_secondvisit.title }}
                                     </label>
+                                    {{ step2_secondvisit.text|markdown }}
                                 </div>
                             </div>
-                            <div class="row-fluid">
-                                <div class="offset2 span3 position-radio-container" data-ng-show="domaineditbasic.$data.secondvisit == true">
-                                    <label class="position-label top">
-                                        <input type="radio" name="secondpositionRadio" data-ng-model="banner.position" value="top" id="altPositionRadioTop" data-ng-required="domaineditbasic.$data.secondvisit == true">
-                                        {% trans %}domain.position.top{% endtrans %}
-                                    </label>
-                                </div>
-                                <div class="span3 position-radio-container" data-ng-show="domaineditbasic.$data.secondvisit == true">
-                                    <label class="position-label right">
-                                        <input type="radio" name="secondpositionRadio" data-ng-model="banner.position" value="right" id="altPositionRadioRight" data-ng-required="domaineditbasic.$data.secondvisit == true">
-                                        {% trans %}domain.position.right{% endtrans %}
-                                    </label>
-                                </div>
+                            <div class="row-fluid" data-ng-show="domaineditbasic.$data.secondvisit == true">
+                                {% for p in ['topleft-micro', 'top-micro', 'topright-micro', 'invisible'] %}
+                                    {% if loop.first %}
+                                        {% set offset = "offset2" %}
+                                    {% else %}
+                                        {% set offset = "" %}
+                                    {% endif %}
+                                    <div class="span2 {{ offset }} position-radio-container">
+                                        <label>
+                                            {# Not possible with assetic: https://github.com/kriswallsmith/assetic/issues/60 #}
+                                            <img src="/bundles/dothivcharitywebsite/images/clickcounter/{{ p }}.png" alt="{{ p }}"><br>
+                                            <input type="radio" name="secondpositionRadio" data-ng-model="banner.position" value="{{ p }}" data-ng-required="domaineditbasic.$data.secondvisit == true"><br>
+                                            {{ ('domain.position.' ~ p)|trans }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
                             </div>
                             <div class="row-fluid">
                                 <div class="offset2 span4">
@@ -209,3 +237,12 @@
         </div>
     </div>
 </div>
+<script type="text/ng-template" id="invisiblehint.html">
+    <div class="modal-body">
+        {{ step2_invisiblehint.text|markdown }}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-ng-click="$dismiss()">OK</button>
+    </div>
+</script>
+

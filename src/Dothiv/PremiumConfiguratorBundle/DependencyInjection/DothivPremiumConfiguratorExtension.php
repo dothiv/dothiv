@@ -4,10 +4,11 @@ namespace Dothiv\PremiumConfiguratorBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-class DothivPremiumConfiguratorExtension extends Extension
+class DothivPremiumConfiguratorExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritDoc}
@@ -26,5 +27,26 @@ class DothivPremiumConfiguratorExtension extends Extension
         if ($container->getParameter("kernel.environment") == 'test') {
             $loader->load('services_test.yml');
         }
+
+        // Add to assetic bundles
+        $asseticBundles   = $container->getParameter('assetic.bundles');
+        $asseticBundles[] = 'DothivPremiumConfiguratorBundle';
+        $container->setParameter('assetic.bundles', $asseticBundles);
+    }
+
+    /**
+     * Allow an extension to prepend the extension configurations.
+     *
+     * @param ContainerBuilder $container
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        $cacheConfig = array();
+
+        $cacheConfig['providers']['dothiv_premium_routing_cache'] = array(
+            'namespace' => 'dothiv_premium_routing_cache',
+            'type'      => 'file_system'
+        );
+        $container->prependExtensionConfig('doctrine_cache', $cacheConfig);
     }
 }

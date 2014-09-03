@@ -5,7 +5,10 @@ namespace Dothiv\BusinessBundle\Service;
 use Doctrine\Common\Persistence\ObjectManager;
 use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Entity\Registrar;
 use Dothiv\BusinessBundle\Event\DomainEvent;
+use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\RegistrarRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Util\SecureRandom;
 
@@ -17,10 +20,6 @@ use Symfony\Component\Security\Core\Util\SecureRandom;
  */
 class Registration implements IRegistration
 {
-    /**
-     * @var ObjectManager
-     */
-    protected $om;
 
     /**
      * @var EventDispatcherInterface
@@ -28,27 +27,49 @@ class Registration implements IRegistration
     private $eventDispatcher;
 
     /**
-     * @param ObjectManager            $om
-     * @param EventDispatcherInterface $eventDispatcher
+     * @var DomainRepositoryInterface
+     */
+    private $domainRepo;
+
+    /**
+     * @var RegistrarRepositoryInterface
+     */
+    private $registrarRepo;
+
+    /**
+     * @param EventDispatcherInterface     $eventDispatcher
+     * @param DomainRepositoryInterface    $domainRepo
+     * @param RegistrarRepositoryInterface $registrarRepo
      */
     public function __construct(
-        ObjectManager $om,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        DomainRepositoryInterface $domainRepo,
+        RegistrarRepositoryInterface $registrarRepo
     )
     {
-        $this->om              = $om;
         $this->eventDispatcher = $eventDispatcher;
+        $this->domainRepo      = $domainRepo;
+        $this->registrarRepo   = $registrarRepo;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function registered($name, $ownerEmail, $ownerName)
+    public function registered($name, $ownerEmail, $ownerName, $registrarExtId)
     {
         // check if domain is already known
-        if ($this->om->getRepository('DothivBusinessBundle:Domain')->findBy(array('name' => $name))) {
+        if ($this->domainRepo->getDomainByName($name)->isDefined()) {
             throw new RegistrationException('Tried to register already registered domain ' . $name . ' for ' . $ownerEmail . '.');
         }
+
+        // Find registrar
+        $registrarRepo = $this->registrarRepo;
+        $registrar     = $registrarRepo->findByExtId($registrarExtId)->getOrCall(function () use ($registrarExtId, $registrarRepo) {
+            $registrar = new Registrar();
+            $registrar->setExtId($registrarExtId);
+            $registrarRepo->persist($registrar)->flush();
+            return $registrar;
+        });
 
         // create domain object
         $d = new Domain();
@@ -56,10 +77,10 @@ class Registration implements IRegistration
         $d->setOwnerEmail($ownerEmail);
         $d->setOwnerName($ownerName);
         $d->setToken($this->generateToken());
+        $d->setRegistrar($registrar);
 
         // save domain
-        $this->om->persist($d);
-        $this->om->flush();
+        $this->domainRepo->persist($d)->flush();
 
         // Dispatch event.
         $this->eventDispatcher->dispatch(BusinessEvents::DOMAIN_REGISTERED, new DomainEvent($d));
@@ -72,26 +93,24 @@ class Registration implements IRegistration
      */
     public function deleted($name)
     {
-        $domains = $this->om->getRepository('DothivBusinessBundle:Domain')->findBy(array('name' => $name));
-
-        if (count($domains) == 0) {
+        $optionalDomain = $this->domainRepo->getDomainByName($name);
+        if ($optionalDomain->isEmpty()) {
             throw new RegistrationException('Tried to delete not-registered domain ' . $name . '.');
         }
-
-        $this->om->remove($domains[0]);
-        $this->om->flush();
+        $domain = $optionalDomain->get();
+        $this->domainRepo->remove($domain)->flush();
 
         // Dispatch event.
-        $this->eventDispatcher->dispatch(BusinessEvents::DOMAIN_DELETED, new DomainEvent($domains[0]));
+        $this->eventDispatcher->dispatch(BusinessEvents::DOMAIN_DELETED, new DomainEvent($domain));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function transferred($name, $ownerEmail, $ownerName)
+    public function transferred($name, $ownerEmail, $ownerName, $registrarExtId)
     {
         $this->deleted($name);
-        $domain = $this->registered($name, $ownerEmail, $ownerName);
+        $domain = $this->registered($name, $ownerEmail, $ownerName, $registrarExtId);
 
         // Dispatch event.
         $this->eventDispatcher->dispatch(BusinessEvents::DOMAIN_TRANSFERRED, new DomainEvent($domain));

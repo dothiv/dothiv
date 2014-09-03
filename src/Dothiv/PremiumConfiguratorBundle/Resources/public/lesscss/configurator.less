@@ -43,14 +43,18 @@ body {
           border-left: 2px solid @body-bg;
         }
         img {
-          max-height: 50px;
-          margin: 0.5em;
+          max-height: 40px;
+          margin: 5px 0;
+          opacity: 0.25;
+          &.active {
+            opacity: 1;
+          }
         }
       }
     }
     nav.preview {
       .pull-right;
-      margin-top: 0.925em;
+      margin-top: 5px;
       button {
         &:extend(.btn)
       ;
@@ -105,63 +109,6 @@ body {
         margin-top: 1em;
         min-height: 150px;
       }
-      div.fields {
-        .make-xs-column(8);
-        .container-fluid;
-      }
-      div.fields-legend {
-        .make-xs-column(4);
-        font-size: @font-size-base;
-      }
-      label {
-        small {
-          font-weight: @font-weight-regular;
-        }
-      }
-
-      form {
-        position: relative;
-        .clearfix;
-        nav {
-          position: absolute;
-          bottom: 0;
-          right: @grid-gutter-width / 2;
-          button, label {
-            &:extend(.btn all)
-          ;
-          }
-          button[type=reset] {
-            .btn-danger;
-          }
-          button[type=submit], label {
-            .btn-primary;
-          }
-        }
-        .radio-inline, .checkbox-inline {
-          font-size: @font-size-base;
-        }
-      }
-
-      input[type=text], input[type=url], select, textarea {
-        &:extend(.form-control all)
-      ;
-        &.ng-valid {
-          border-color: @brand-success;
-          &.ng-pristine {
-            border-color: @input-border;
-          }
-        }
-        &.ng-invalid {
-          border-color: @brand-danger;
-          &.ng-pristine {
-            border-color: @input-border;
-          }
-        }
-        &.ng-pristine {
-        }
-        &.ng-dirty {
-        }
-      }
 
       // Image upload
       fieldset.imageupload {
@@ -192,6 +139,9 @@ body {
       form.images {
         fieldset {
           .make-xs-column(6);
+          &.imageupload {
+            min-height: 100px;
+          }
         }
       }
 

@@ -62,6 +62,16 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
                 });
             }
         });
+        // Open external links in new windows.
+        $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
+            $('a').filter(function (index, a) {
+                var href = $(a).attr('href');
+                if (!href) {
+                    return false;
+                }
+                return href.match('^(http|\/\/)') ? true : false;
+            }).attr('target', '_blank');
+        });
     }])
 ;
 angular.module('dotHIVApp.services', ['ui.router', 'dotHIVApp.controllers', 'ngResource', 'ngCookies', 'ui.bootstrap']);

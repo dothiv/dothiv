@@ -25,3 +25,8 @@ services:
           - %assets_version%
           - @clock
           - %page_lifetime%
+
+    dothiv.registry.web.controller.premiumBid:
+        class: Dothiv\RegistryWebsiteBundle\Controller\PremiumBidController
+        arguments:
+        - @dothiv.repository.premiumbid

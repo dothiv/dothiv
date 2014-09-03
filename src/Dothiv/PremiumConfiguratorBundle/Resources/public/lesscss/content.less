@@ -5,16 +5,22 @@ body {
 }
 
 div.content article {
+  .make-row();
   @media (min-width: @screen-xs-min) {
     margin-top: 20px;
     margin-bottom: 40px;
 
   }
   section {
-    .make-row();
+    .make-sm-column(12);
+  }
+  footer {
+    .make-sm-column(12);
+    font-size: 0.8125em;
+    margin-top: 4em;
   }
   nav {
-    .make-row();
+    .make-sm-column(12);
     margin-top: 2em;
     a {
       .btn;
@@ -76,7 +82,13 @@ main {
   }
 }
 
-body > footer {
-  margin-top: 1em;
-  margin-bottom: 1em;
+table {
+  &:extend(.table all);
+  &:extend(.table-striped all);
+  td, th {
+    &.money {
+      text-align: right;
+    }
+  }
+
 }

@@ -1,14 +1,14 @@
 {% trans_default_domain "charity" %}
 {% use "DothivPremiumConfiguratorBundle:partials:configure/blocks.html.twig" %}
 <form role="form" novalidate name="imagesForm" class="images">
+    <div class="fields-legend">
+        {{ section.text|markdown }}
+    </div>
     <div class="fields">
         {% set imageType = 'visual' %}
         {{ block('imageupload') }}
         {% set imageType = 'bg' %}
         {{ block('imageupload') }}
-    </div>
-    <div class="fields-legend">
-        {{ section.text|markdown }}
     </div>
 </form>
 

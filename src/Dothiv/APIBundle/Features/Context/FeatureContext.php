@@ -132,13 +132,16 @@ class FeatureContext extends BehatContext
      * Calls the method of a named service and stores the result.
      *
      * @Given /^"(?P<storageName>[^"]*)" contains the result of calling "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service with values:$/
+     * @Given /^"(?P<storageName>[^"]*)" contains the result of calling "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service$/
      */
-    public function theResultOfCallingWithIsStoredIn($serviceId, $methodName, $storageName, TableNode $table)
+    public function theResultOfCallingWithIsStoredIn($serviceId, $methodName, $storageName, TableNode $table = null)
     {
         $service = $this->kernel->getContainer()->get($serviceId);
         $args    = array();
-        foreach ($table->getRow(0) as $positionalArg) {
-            $args[] = $this->getValue($positionalArg);
+        if ($table !== null) {
+            foreach ($table->getRow(0) as $positionalArg) {
+                $args[] = $this->getValue($positionalArg);
+            }
         }
         $result = call_user_func_array(array($service, $methodName), $args);
         $this->store($storageName, $result);
@@ -394,5 +397,26 @@ class FeatureContext extends BehatContext
     public function iDebugTheJson()
     {
         print_r($this->getJson());
+    }
+
+    /**
+     * @Given /^I debug the response$/
+     */
+    public function iDebugTheResponse()
+    {
+        echo $this->getSubcontext('mink')->getSession()->getPage()->getContent();
+    }
+
+    /**
+     * @Given /^\{(?P<storageName>[^\}]*)\} should be a list with (?P<nth>\d+) elements?$/
+     */
+    public function theStoredObjectShouldBeAListWithElement($storageName, $nth)
+    {
+        $list = $this->getValue('{' . $storageName . '}');
+        if ($list instanceof ArrayCollection) {
+            $list = $list->toArray();
+        }
+        \PHPUnit_Framework_Assert::assertInternalType('array', $list);
+        \PHPUnit_Framework_Assert::assertEquals(intval($nth), count($list));
     }
 }

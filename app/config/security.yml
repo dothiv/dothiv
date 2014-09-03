@@ -42,7 +42,6 @@ security:
               realm: "Contentful Webhook Area"
 
     access_control:
-      - { path: ^/api/user, roles: ROLE_USER }
-      - { path: ^/api/domain, roles: ROLE_USER }
+      - { path: ^/api/(user|domain|attachment|nonprofit|premium-configurator), roles: ROLE_USER }
       - { path: ^/admin/api, roles: ROLE_ADMIN }
       - { path: ^/contentful/webhook, roles: ROLE_CONTENTFUL_WEBHOOK }

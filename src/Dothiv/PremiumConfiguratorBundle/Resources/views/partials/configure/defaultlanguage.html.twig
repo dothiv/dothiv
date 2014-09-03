@@ -1,0 +1,24 @@
+{% trans_default_domain "charity" %}
+<form role="form" novalidate name="bannerForm">
+    <fieldset>
+        <div class="fields-legend">
+            {{ section.text|default()|markdown }}
+        </div>
+        <div class="fields">
+            <div class="form-group">
+                <label>
+                    {{ section.title }}
+                </label>
+                <div>
+                {% for l in ['en', 'de', 'es', 'fr'] %}
+                    <label class="radio-inline">
+                        <input type="radio" name="defaultLanguage" value="{{ l }}" data-ng-model="banner.language" data-ng-blur="updateBannerSettings()">
+                        {% set code = 'domain.language.' ~ l %}
+                        {{ code|trans }}
+                    </label>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

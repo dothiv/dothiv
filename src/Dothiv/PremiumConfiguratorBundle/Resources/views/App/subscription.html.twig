@@ -1,7 +1,7 @@
 {% trans_default_domain "charity" %}
 <div class="content">
     <article>
-        {% for block in  page.blocks %}
+        {% for block in page.blocks %}
             <section data-ng-show="block == '{{ block.code }}'">
                 <div class="block">
                     {% if block.title is defined %}
@@ -13,25 +13,223 @@
                 </div>
             </section>
         {% endfor %}
+
         <section class="subscription">
+            {% set subscription = content('Block', 'pc.subscription') %}
+
             <div data-ng-show="block == 'pc.subscription.nosubscription'">
-                <button class="primary" data-ng-click="checkout()">{% trans %}pc.checkout.button{% endtrans %}</button>
-                {% if stripe_testmode %}
-                    <h2>Test mode</h2>
-                    <p>Use this test card data:</p>
-                    <dl>
-                        <dt>card number</dt>
-                        <dd><code>4242424242424242</code></dd>
-                        <dt>expiry date</dt>
-                        <dd><code>{{ 'now'|date('m/y') }}</code></dd>
-                        <dt>CV</dt>
-                        <dd><code>123</code></dd>
-                    </dl>
-                {% endif %}
+
+                {% set subscription_type = subscription.children[0] %}
+                <form role="form" novalidate name="subscriptionForm" data-ng-show="subscriptionStep == 'form'">
+                    <fieldset data-ng-hide="subscription.type">
+                        <legend>{{ subscription_type.title }}</legend>
+                        <div class="fields-legend">
+                            {{ subscription_type.text|default()|markdown }}
+                        </div>
+                        <div class="fields">
+                            <div class="form-group">
+                                <div>
+                                    {% for subtype in subscription_type.children %}
+                                        <label class="radio-inline">
+                                            <input type="radio" name="subscriptionType" value="{{ subtype.code }}"
+                                                    data-ng-model="subscription.type"
+                                                    >
+                                            {{ subtype.title }}
+                                        </label>
+                                        {{ subtype.text|markdown }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    {% set subscription_invoice = subscription.children[1] %}
+                    <fieldset data-ng-show="subscription.type">
+                        <legend>{{ subscription_invoice.title }}</legend>
+                        <div class="fields-legend">
+                            {{ subscription_invoice.text|default()|markdown }}
+                        </div>
+                        <div class="fields">
+                            <div class="form-group">
+                                <label for="subscriptionFormName">{% trans %}pc.subscription.name{% endtrans %}</label>
+                                <input type="text" id="subscriptionFormName"
+                                        data-ng-model="subscription.fullname"
+                                        maxlength="255"
+                                        required
+                                        >
+                            </div>
+                            <div class="form-group">
+                                <label for="subscriptionFormAddress1">{% trans %}pc.subscription.address1{% endtrans %}</label>
+                                <input type="text" id="subscriptionFormAddress1"
+                                        data-ng-model="subscription.address1"
+                                        maxlength="255"
+                                        required
+                                        >
+                            </div>
+                            <div class="form-group">
+                                <label for="subscriptionFormAddress2">{% trans %}pc.subscription.address2{% endtrans %}<br>
+                                    <small>{% trans %}pc.subscription.optional{% endtrans %}</small></label>
+                                <input type="text" id="subscriptionFormAddress2"
+                                        data-ng-model="subscription.address2"
+                                        maxlength="255"
+                                        >
+                            </div>
+                            <div class="form-group">
+                                <label for="subscriptionCountry">
+                                    {% trans %}pc.subscription.country{% endtrans %}
+                                </label>
+                                <input type="text" id="subscriptionCountry"
+                                        maxlength="255"
+                                        data-ng-model="subscription.country"
+                                        data-typeahead="country for country in filterCountries() | filter:$viewValue | limitTo:3"
+                                        data-ng-hide="countryEditDisabled()"
+                                        >
+                                <span data-ng-show="countryEditDisabled()" data-ng-bind="subscription.country"></span>
+                            </div>
+                            <div class="form-group" data-ng-show="vatTaxNoRequired()">
+                                <label for="subscriptionFormVatNo">
+                                    {% trans %}pc.subscription.vatno{% endtrans %}
+                                </label>
+                                <input type="text" id="subscriptionFormVatNo"
+                                        maxlength="255"
+                                        data-ng-model="subscription.vatNo"
+                                        data-ng-required="vatNoRequired()"
+                                        data-ng-disabled="!vatNoRequired()"
+                                        >
+                            </div>
+                            <div class="form-group" data-ng-show="vatTaxNoRequired()">
+                                <label for="subscriptionFormTaxNo">
+                                    {% trans %}pc.subscription.taxno{% endtrans %}
+                                </label>
+                                <input type="text" id="subscriptionFormTaxNo"
+                                        maxlength="255"
+                                        data-ng-model="subscription.taxNo"
+                                        data-ng-required="taxNoRequired()"
+                                        data-ng-disabled="!taxNoRequired()"
+                                        >
+                            </div>
+                            <p><small data-ng-bind="subscription.type"></small></p>
+                        </div>
+                    </fieldset>
+                    <nav>
+                        <button type="submit" data-ng-click="subscriptionStep = 'checkout'" data-ng-disabled="subscriptionForm.$invalid">{% trans %}pc.checkout.form.button.next{% endtrans %}</button>
+                        <button type="reset" data-ng-disabled="subscriptionForm.$pristine" data-ng-click="resetSubscriptionForm()">{% trans %}pc.checkout.form.button.reset{% endtrans %}</button>
+                    </nav>
+                </form>
+
+                {% set subscription_review = subscription.children[2] %}
+                {% set subscription_confirm = subscription.children[3] %}
+                {% set subscription_item = subscription_review.children[0] %}
+                {% set subscription_vat = subscription_review.children[1] %}
+                <div data-ng-show="subscriptionStep == 'checkout'">
+                    <h3>{{ subscription_review.title }}</h3>
+                    {{ subscription_review.text|default()|markdown }}
+
+                    <p>
+                        <span data-ng-bind="subscription.name"></span><br>
+                    </p>
+                    <p>
+                        <span data-ng-bind="subscription.address1"></span><br>
+                        <span data-ng-bind="subscription.address2"></span><br>
+                        <span data-ng-bind="subscription.country"></span>
+                    </p>
+                    <p>
+                        <span data-ng-show="subscription.taxNo">
+                            {% trans %}pc.subscription.taxno{% endtrans %}:
+                            <span data-ng-bind="subscription.taxNo"></span><br>
+                        </span>
+                        <span data-ng-show="subscription.vatNo">
+                            {% trans %}pc.subscription.vatno{% endtrans %}:
+                            <span data-ng-bind="subscription.vatNo"></span><br>
+                        </span>
+                        <small data-ng-bind="subscription.type"></small>
+                    </p>
+
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                {{ subscription_item.title }}<br>
+                                <small>{{ subscription_item.text|default() }}</small>
+                            </td>
+                            <td class="money">
+                                {{ (premium_price / 100)|money }}
+                            </td>
+                        </tr>
+                        <tr data-ng-show="totalIncludesTax()">
+                            <td>
+                                {{ subscription_vat.title }}<br>
+                                <small>{{ subscription_vat.text|default() }}</small>
+                            </td>
+                            <td class="money">
+                                {{ (premium_price / 100 * devat / 100)|money }}
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr data-ng-show="totalIncludesTax()">
+                            <td>Total</td>
+                            <td class="money">
+                                {{ (premium_price / 100 + premium_price / 100 * devat / 100)|money }}
+                            </td>
+                        </tr>
+                        <tr data-ng-hide="totalIncludesTax()">
+                            <td>Total</td>
+                            <td class="money">
+                                {{ (premium_price / 100)|money }}
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                    <form role="form" novalidate name="confirmForm">
+                        <fieldset>
+                            <legend>{{ subscription_confirm.title }}</legend>
+                            <div class="fields-legend">
+                                {{ subscription_confirm.text|default()|markdown }}
+                            </div>
+                            <div class="fields">
+                                {% for checkbox in subscription_confirm.children %}
+                                    <div class="form-group" data-ng-init="confirm.checkbox{{ loop.index }} = false">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox"
+                                                    data-ng-model="confirm.checkbox{{ loop.index }}"
+                                                    >
+                                            {{ checkbox.text|markdown|striptags('<a><em><strong>')|raw }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </fieldset>
+                        <nav>
+
+                            <button type="submit" data-ng-click="checkout()" data-ng-disabled="!allChecked()">{% trans %}pc.checkout.button{% endtrans %}</button>
+                            <button type="button" data-ng-click="subscriptionStep = 'form'">{% trans %}pc.checkout.form.button.previous{% endtrans %}</button>
+                        </nav>
+                    </form>
+
+                    {% if stripe_testmode %}
+                        <h2>Test mode</h2>
+                        <p>Use this test card data:</p>
+                        <dl>
+                            <dt>card number</dt>
+                            <dd><code>4242424242424242</code></dd>
+                            <dt>expiry date</dt>
+                            <dd><code>{{ 'now'|date('m/y') }}</code></dd>
+                            <dt>CV</dt>
+                            <dd><code>123</code></dd>
+                        </dl>
+                    {% endif %}
+                </div>
+
             </div>
             <div data-ng-show="block == 'pc.subscription.subscribed' || block == 'pc.subscription.purchased'">
             <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}">{% trans %}pc.preview.finish{% endtrans %}</a>
             </div>
         </section>
+        <footer>
+            {% set footnote = content('Block', 'clickcounter.legal') %}
+            {{ footnote.text|markdown }}
+        </footer>
     </article>
 </div>

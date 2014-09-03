@@ -17,8 +17,9 @@ services:
     registration:
         class: %registration.class%
         arguments:
-        - @doctrine.orm.entity_manager
         - @event_dispatcher
+        - @dothiv.repository.domain
+        - @dothiv.repository.registrar
 
     clock:
         class: %dothiv.businessbundle.service.clock.class%
@@ -35,6 +36,7 @@ services:
         - @event_dispatcher
         - 'dothiv.business.user.loginlink.requested'
         - "%charitydomain%"
+        - %dothiv_business.link_request_wait%
 
     dothiv.businessbundle.service.attachment:
         class: %dothiv.businessbundle.service.attachment.class%
@@ -59,3 +61,8 @@ services:
         class: %dothiv.business.service.nonprofitregistration.class%
         arguments:
         - @dothiv.repository.nonprofitregistration
+
+    dothiv.business.event_dispatcher:
+        class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
+        arguments:
+            - @service_container

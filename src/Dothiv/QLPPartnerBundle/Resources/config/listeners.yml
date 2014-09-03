@@ -1,9 +1,0 @@
-services:
-    dothiv.qlp.contentful.qlp_image_listener:
-        class: %dothiv.base.web.contentul.image_listener.class%
-        arguments:
-            - @dothiv.websitebase.contentful.image_scaler
-            - 'QLP'
-            - 'logo'
-        tags:
-            - { name: kernel.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }

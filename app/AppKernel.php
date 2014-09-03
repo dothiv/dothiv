@@ -37,9 +37,10 @@ class AppKernel extends Kernel
             new Dothiv\AngularJsBundle\DothivAngularJsBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Dothiv\QLPPartnerBundle\DothivQLPPartnerBundle(),
-            new Dothiv\PremiumConfiguratorBundle\DothivPremiumConfiguratorBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Dothiv\PremiumConfiguratorBundle\DothivPremiumConfiguratorBundle(),
+            new Dothiv\AfiliasImporterBundle\DothivAfiliasImporterBundle(),
             new Dothiv\AdminBundle\DothivAdminBundle(),
         );
 

@@ -12,8 +12,16 @@ dothiv_premiumconfig_preview:
     requirements:
         locale: ^(en|de|ky)$
 
+dothiv_premiumconfig_blank:
+    path:     /{locale}/premium-configurator/{domain}/blank
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    'DothivPremiumConfiguratorBundle:Page:blank.html.twig'
+    requirements:
+        locale: ^(en|de|ky)$
+
 dothiv_premiumconfig_preview_config:
-    path:     /{locale}/premium-configurator/{domain}/demo.json
+    path:     /{locale}/premium-configurator/{domain}/config.json
     defaults:
         _controller: dothiv.premiumconfigurator.controller.preview:previewBannerConfigAction
     requirements:
@@ -24,7 +32,7 @@ dothiv_premiumconfig_preview_banner:
     defaults:
         _controller: dothiv.premiumconfigurator.controller.preview:previewBannerFileAction
     requirements:
-        file: ^banner-(center|right|top).html
+        file: ^clickcounter-(top|bottom|left|right|topleft-micro|top-micro|topright-micro).html
     requirements:
         locale: ^(en|de|ky)$
 

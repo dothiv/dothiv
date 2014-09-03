@@ -3,6 +3,7 @@
 namespace Dothiv\PremiumConfiguratorBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\Banner;
+use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use Dothiv\PremiumConfiguratorBundle\Entity\PremiumBanner;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\PremiumConfiguratorBundle\Exception\InvalidArgumentException;
@@ -11,10 +12,7 @@ use Symfony\Component\Validator\ValidatorInterface;
 
 class PremiumBannerRepository extends DoctrineEntityRepository implements PremiumBannerRepositoryInterface
 {
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
+    use ValidatorTrait;
 
     /**
      * {@inheritdoc}
@@ -24,6 +22,7 @@ class PremiumBannerRepository extends DoctrineEntityRepository implements Premiu
         return Option::fromValue(
             $this->createQueryBuilder('p')
                 ->andWhere('p.banner = :banner')->setParameter('banner', $banner)
+                ->leftJoin('p.visual', 'v')
                 ->getQuery()
                 ->getOneOrNullResult()
         );
@@ -34,11 +33,7 @@ class PremiumBannerRepository extends DoctrineEntityRepository implements Premiu
      */
     public function persist(PremiumBanner $premiumBanner)
     {
-        $errors = $this->validator->validate($premiumBanner);
-        if (count($errors) != 0) {
-            throw new InvalidArgumentException((string)$errors);
-        }
-        $this->getEntityManager()->persist($premiumBanner);
+        $this->getEntityManager()->persist($this->validate($premiumBanner));
         return $this;
     }
 
@@ -48,21 +43,5 @@ class PremiumBannerRepository extends DoctrineEntityRepository implements Premiu
     public function flush()
     {
         $this->getEntityManager()->flush();
-    }
-
-    /**
-     * @param ValidatorInterface $validator
-     */
-    public function setValidator(ValidatorInterface $validator)
-    {
-        $this->validator = $validator;
-    }
-
-    /**
-     * @return ValidatorInterface
-     */
-    public function getValidator()
-    {
-        return $this->validator;
     }
 }

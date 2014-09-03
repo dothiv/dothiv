@@ -42,7 +42,7 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @group DotHIVBusinessBundle
+     * @group DothivBusinessBundle
      * @group Command
      */
     public function itShouldBeInstantiateable()
@@ -52,7 +52,7 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @group   DotHIVBusinessBundle
+     * @group   DothivBusinessBundle
      * @group   Command
      * @depends itShouldBeInstantiateable
      */

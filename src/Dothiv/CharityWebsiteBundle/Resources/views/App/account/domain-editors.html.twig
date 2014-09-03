@@ -64,6 +64,9 @@
                             <hr />
                             <p class="lead text-center"><i class="icon-clock"></i> {% trans %}profile.domain.editors.basic.time{% endtrans %}</p>
                             <div class="row-fluid">
+                                <a href="http://clickcounter.hiv/" target="_blank" class="span12 btn btn-default">{% trans %}profile.domain.editors.preview{% endtrans %}</a>
+                            </div>
+                            <div class="row-fluid">
                                 <button class="span12 btn btn-primary" data-ng-click="editBasic()">{% trans %}profile.domain.editors.basic.button{% endtrans %}</button>
                             </div>
                         </div>
@@ -72,9 +75,19 @@
                             <hr />
                             <p class="lead text-center"><i class="icon-clock"></i> {% trans %}profile.domain.editors.premium.time{% endtrans %}</p>
                             <div class="row-fluid">
+                                <a href="http://clickcounter.hiv/" target="_blank" class="span12 btn btn-default">{% trans %}profile.domain.editors.preview{% endtrans %}</a>
+                            </div>
+                            <div class="row-fluid">
+                                {% if "DothivPremiumConfiguratorBundle" in bundles %}
                                 <a data-ng-href="{{ path('dothiv_premiumconfig_page', {'domain': 'example.hiv', 'locale': locale})|trans({'example.hiv': '{{domain.name}}'}) }}" class="span12 btn btn-primary">{% trans %}profile.domain.editors.premium.button{% endtrans %}</a>
+                                {% else %}
+                                <button class="span12 btn btn-primary" disabled>{% trans %}profile.domain.editors.premium.button{% endtrans %}</button>
+                                {% endif %}
                             </div>
                         </div>
+                        {% if "DothivPremiumConfiguratorBundle" not in bundles %}
+                        <div class="coming-soon">{% trans %}profile.domain.editors.premium.comingsoon{% endtrans %}</div>
+                        {% endif %}
                     </div>
                 </div>
 

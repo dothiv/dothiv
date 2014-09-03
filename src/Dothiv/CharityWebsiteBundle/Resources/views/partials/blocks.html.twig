@@ -29,13 +29,13 @@
 {% endif %}
 {% if block.textMore is defined %}
     <nav class="cfblock-text-more expand-text">
-        <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" data-ng-click="textMoreVisible=1" data-ng-hide="textMoreVisible" class="more">{% trans %}expand.text.label{% endtrans %}</a>
+        <a href="{{ app.request.getPathInfo }}#{{ block.code|default(block.cfMeta.itemId)|slugify }}" data-ng-click="textMoreVisible=1" data-ng-hide="textMoreVisible" class="more">{% trans %}expand.text.label{% endtrans %}</a>
     </nav>
     <div class="cfblock-textMore" data-ng-show="textMoreVisible">
         {{ block.textMore|markdown }}
     </div>
     <nav class="expand-text">
-        <a href="#{{ block.code|default(block.cfMeta.itemId)|slugify }}" data-ng-click="textMoreVisible=0" data-ng-show="textMoreVisible" class="less">{% trans %}contract.text.label{% endtrans %}</a>
+        <a href="{{ app.request.getPathInfo }}#{{ block.code|default(block.cfMeta.itemId)|slugify }}" data-ng-click="textMoreVisible=0" data-ng-show="textMoreVisible" class="less">{% trans %}contract.text.label{% endtrans %}</a>
     </nav>
 {% endif %}
 {% endblock cf_textContentBlock %}

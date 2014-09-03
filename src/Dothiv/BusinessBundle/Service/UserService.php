@@ -11,6 +11,7 @@ use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use PhpOption\Option;
+use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Role\Role;
@@ -50,13 +51,19 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     protected $adminUserDomain;
 
+    /**
+     * @var int Time in seconds to wait between sending a new login link
+     */
+    private $linkRequestWait;
+
     public function __construct(
         UserRepositoryInterface $userRepository,
         UserTokenRepositoryInterface $userTokenRepository,
         Clock $clock,
         EventDispatcher $dispatcher,
         $loginLinkEventName,
-        $adminUserDomain
+        $adminUserDomain,
+        $linkRequestWait
     )
     {
         $this->userRepo           = $userRepository;
@@ -65,6 +72,11 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $this->dispatcher         = $dispatcher;
         $this->loginLinkEventName = $loginLinkEventName;
         $this->adminUserDomain    = $adminUserDomain;
+        $this->userRepo        = $userRepository;
+        $this->userTokenRepo   = $userTokenRepository;
+        $this->clock           = $clock;
+        $this->dispatcher      = $dispatcher;
+        $this->linkRequestWait = (int)$linkRequestWait;
     }
 
     /**
@@ -176,22 +188,40 @@ class UserService implements UserProviderInterface, UserServiceInterface
             throw new EntityNotFoundException();
         });
 
-        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow())->filter(function (UserToken $token) {
+        $scope  = new IdentValue('login');
+        $tokens = $this->userTokenRepo->getActiveTokens($user, $scope, $this->clock->getNow())->filter(function (UserToken $token) {
             return !$token->isRevoked();
         });
         if (!$tokens->isEmpty()) {
-            $token = $tokens->first();
-            throw new TemporarilyUnavailableException($token->getLifeTime());
+            $maxAge = null;
+            $maxAgeToken = null;
+            foreach ($tokens as $token) {
+                if ($token->getCreated() > $maxAge) {
+                    $maxAge = $token->getCreated();
+                    $maxAgeToken = $token;
+                }
+            }
+            $diff = $this->clock->getNow()->getTimestamp() - $maxAge->getTimestamp();
+            if ($diff < $this->linkRequestWait) {
+                $waitUntil = $this->clock->getNow()->modify(sprintf('+%d seconds', $this->linkRequestWait - $diff));
+                throw new TemporarilyUnavailableException($waitUntil);
+            }
         }
-        $token = $this->createUserToken($user);
+        $token = $this->createUserToken($user, $scope);
         $this->dispatcher->dispatch($this->loginLinkEventName, new UserTokenEvent($token, $httpHost, $locale));
     }
 
-    protected function createUserToken(User $user, $lifetimeInSeconds = 1800)
+    /**
+     * {@inheritdoc}
+     *
+     * FIXME: Change default $lifetimeInSeconds to 1800, after https://trello.com/c/3pr0Swch has been implemented
+     */
+    public function createUserToken(User $user, IdentValue $scope, $lifetimeInSeconds = 1209600)
     {
         $token = new UserToken();
         $token->setUser($user);
         $token->setToken($this->generateToken());
+        $token->setScope($scope);
         $d = $this->clock->getNow()->modify('+' . $lifetimeInSeconds . ' seconds');
         $token->setLifetime($d);
         $this->userTokenRepo->persist($token)->flush();
@@ -203,11 +233,12 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     public function getLoginToken(User $user)
     {
-        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow())->filter(function (UserToken $token) {
+        $scope  = new IdentValue('login');
+        $tokens = $this->userTokenRepo->getActiveTokens($user, $scope, $this->clock->getNow())->filter(function (UserToken $token) {
             return !$token->isRevoked();
         });
         if ($tokens->isEmpty()) {
-            return $this->createUserToken($user);
+            return $this->createUserToken($user, $scope);
         }
         return $tokens->first();
     }

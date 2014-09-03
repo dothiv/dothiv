@@ -1,14 +1,14 @@
 {% trans_default_domain "charity" %}
 {% use "DothivPremiumConfiguratorBundle:partials:configure/blocks.html.twig" %}
 <div class="extras-intro" data-ng-hide="showExtras">
+    <div class="fields-legend">
+        {{ section.text|markdown }}
+        <button data-ng-click="showExtras = true">{{ section.textMore }}</button>
+    </div>
     <div class="fields">
         {% if section.image is defined %}
             <img src="{{ section.image.file.thumbnails.medium }}" alt="{{ section.image.title }}">
         {% endif %}
-    </div>
-    <div class="fields-legend">
-        {{ section.text|markdown }}
-        <button data-ng-click="showExtras = true">{{ section.textMore }}</button>
     </div>
 </div>
 <form role="form" novalidate name="extrasForm" data-ng-show="showExtras" class="extras">
