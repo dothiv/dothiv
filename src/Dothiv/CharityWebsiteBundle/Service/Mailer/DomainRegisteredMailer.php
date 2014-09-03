@@ -4,6 +4,7 @@ namespace Dothiv\CharityWebsiteBundle\Service\Mailer;
 
 use Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailerInterface;
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Entity\Registrar;
 use Dothiv\BusinessBundle\Event\DomainEvent;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Service\Clock;
@@ -44,7 +45,7 @@ class DomainRegisteredMailer
      * @param RouterInterface           $router
      * @param UserServiceInterface      $userService
      * @param DomainRepositoryInterface $domainRepo
-     * @param Clock $clock
+     * @param Clock                     $clock
      */
     public function __construct(
         ContentMailerInterface $contentMailer,
@@ -93,14 +94,18 @@ class DomainRegisteredMailer
         $link .= sprintf('#!/auth/%s/%s', $user->getHandle(), $userToken->getBearerToken());
 
         $data = array(
-            'domainName' => $domain->getName(),
-            'ownerName'  => $domain->getOwnerName(),
-            'ownerEmail' => $domain->getOwnerEmail(),
-            'loginLink'  => $link,
-            'claimToken' => $domain->getToken(),
+            'domainName'     => $domain->getName(),
+            'ownerName'      => $domain->getOwnerName(),
+            'ownerEmail'     => $domain->getOwnerEmail(),
+            'loginLink'      => $link,
+            'claimToken'     => $domain->getToken(),
+            'registrar'      => $registrar->getName(),
+            'registrarExtId' => $registrar->getExtId(),
         );
 
-        $this->contentMailer->sendContentTemplateMail('domain.registered', 'en', $domain->getOwnerEmail(), $domain->getOwnerName(), $data);
+        $template = $registrar->getRegistrationNotification() == Registrar::REGISTRATION_NOFITICATION_COBRANDED ? 'domain.registered.cobranded' : 'domain.registered';
+
+        $this->contentMailer->sendContentTemplateMail($template, 'en', $domain->getOwnerEmail(), $domain->getOwnerName(), $data);
 
         $domain->setTokenSent($this->clock->getNow());
         $this->domainRepo->persist($domain)->flush();
