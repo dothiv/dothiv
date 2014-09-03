@@ -6,7 +6,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\Domain;
 use PhpOption\Option;
 
-interface DomainRepositoryInterface extends ObjectRepository
+interface DomainRepositoryInterface extends ObjectRepository, CRUDRepository
 {
     /**
      * @param string $name
