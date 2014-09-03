@@ -18,6 +18,8 @@ parameters:
     dothiv.repository.premiumbid.repository.class: Dothiv\BusinessBundle\Repository\PremiumBidRepository
     dothiv.repository.config.entity.class: 'DothivBusinessBundle:Config'
     dothiv.repository.config.repository.class: Dothiv\BusinessBundle\Repository\ConfigRepository
+    dothiv.repository.registrar.entity.class: 'DothivBusinessBundle:Registrar'
+    dothiv.repository.registrar.repository.class: Dothiv\BusinessBundle\Repository\RegistrarRepository
 
 services:
     dothiv.repository.banner:
@@ -83,5 +85,13 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.config.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
+
+    dothiv.repository.registrar:
+        class: %dothiv.repository.registrar.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.registrar.entity.class% ]
         calls:
         - [setValidator, ["@validator"]]

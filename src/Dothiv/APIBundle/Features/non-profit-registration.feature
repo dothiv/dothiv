@@ -9,9 +9,10 @@ Feature: Non-Profit Registration
       | firstname | John                |
       | surname   | Doe                 |
     And the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
-      | user     | {user}                          |
-      | token    | usert0k3n                       |
-      | lifetime | {\DateTime@2014-01-02T13:44:15} |
+      | user     | {user}                                                |
+      | token    | usert0k3n                                             |
+      | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@login} |
+      | lifetime | {\DateTime@2014-01-02T13:44:15}                       |
     And the "DothivBusinessBundle:Attachment" entity exists in "attachment" with values:
       | user      | {user}                           |
       | handle    | ad54af9f3a2e137d04588712e3d98e0d |

@@ -43,4 +43,13 @@ interface NonProfitRegistrationRepositoryInterface extends ObjectRepository
      * @return NonProfitRegistration[]|ArrayCollection
      */
     public function getUnconfirmed();
+
+    /**
+     * Returns a list of active nonprofit registraions.
+     *
+     * @param mixed|null $offsetKey
+     *
+     * @return PaginatedResult
+     */
+    public function getActivePaginated($offsetKey);
 }

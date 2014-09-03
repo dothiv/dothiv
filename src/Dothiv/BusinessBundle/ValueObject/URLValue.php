@@ -4,6 +4,11 @@ namespace Dothiv\BusinessBundle\ValueObject;
 
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 
+use JMS\Serializer\Annotation as Serializer;
+
+/**
+ * @Serializer\ExclusionPolicy("all")
+ */
 class URLValue implements StringValue
 {
     /**
@@ -55,6 +60,7 @@ class URLValue implements StringValue
      * Converts the value to a string.
      *
      * @return string
+     * @Serializer\HandlerCallback("json", direction = "serialization")
      */
     public function __toString()
     {

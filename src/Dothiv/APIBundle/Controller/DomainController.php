@@ -2,7 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
-use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
+use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
 use Dothiv\APIBundle\Request\ClaimRequest;
 use Dothiv\APIBundle\Request\DomainNameRequest;
 use Dothiv\BusinessBundle\BusinessEvents;
@@ -27,7 +27,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class DomainController
 {
-    use CreateResponseTrait;
+    use CreateJsonResponseTrait;
 
     /**
      * @var DomainRepositoryInterface

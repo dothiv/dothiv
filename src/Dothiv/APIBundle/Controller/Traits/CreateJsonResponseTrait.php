@@ -4,7 +4,7 @@ namespace Dothiv\APIBundle\Controller\Traits;
 
 use Symfony\Component\HttpFoundation\Response;
 
-trait CreateResponseTrait
+trait CreateJsonResponseTrait
 {
     /**
      * @return Response

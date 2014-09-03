@@ -5,8 +5,9 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
 
         $scope.errorMessage = null;
         $scope.banner = {};
+        $scope.banner.$resolved = false;
 
-            // set default values when form is initialized
+        // set default values when form is initialized
         $scope.$watch('domaineditbasic', function () {
             $scope.domaineditbasic.$data = {};
             $scope.domaineditbasic.$data.forwarding = 'true';
@@ -23,6 +24,8 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
                 $scope.domaineditbasic.$data.forwarding = (typeof data.redirect_url !== "undefined") ? "true" : "false";
                 $scope.domaineditbasic.$data.secondvisit = data.position != data.position_first;
                 $scope.banner = data;
+                $scope.banner.domain = domainName;
+                $scope.banner.$resolved = true;
             },
             function () { // error
                 // no banner available, creating new one
@@ -31,11 +34,12 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
                 $scope.banner.language = 'de';
                 $scope.banner.position_first = 'center';
                 $scope.banner.position = 'top';
+                $scope.banner.domain = domainName;
+                $scope.banner.$resolved = true;
             }
         );
 
-        function getDefaultRedirect()
-        {
+        function getDefaultRedirect() {
             return 'http://' + domainName.split('.hiv').join('.com');
         }
 
@@ -81,8 +85,8 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
                 $scope.banner.redirect_url = null;
             }
 
-            $scope.banner.$update(
-                {domain: domainName},
+            dothivBannerResource.update(
+                $scope.banner,
                 function () {
                     // activate final tab
                     tab.active = true;

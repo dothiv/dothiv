@@ -1,5 +1,7 @@
 parameters:
     dothiv.api.controller.attachment.class: Dothiv\APIBundle\Controller\AttachmentController
+    dothiv.api.controller.account.class: Dothiv\APIBundle\Controller\AccountController
+    dothiv.api.controller.user.class: Dothiv\APIBundle\Controller\UserController
 
 services:
     dothiv.api.controller.domain:
@@ -22,7 +24,7 @@ services:
          - @serializer
 
     dothiv.api.controller.user:
-        class: Dothiv\APIBundle\Controller\UserController
+        class: %dothiv.api.controller.user.class%
         arguments:
          - @security.context
          - @dothiv.repository.domain
@@ -32,7 +34,7 @@ services:
          - @clock
 
     dothiv.api.controller.account:
-        class: Dothiv\APIBundle\Controller\AccountController
+        class: %dothiv.api.controller.account.class%
         arguments:
          - @dothiv.businessbundle.service.user
          - @dothiv.repository.user

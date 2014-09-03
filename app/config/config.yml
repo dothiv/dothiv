@@ -1,7 +1,6 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: doctrine_extensions.yml }
 
 framework:
     #esi:             ~
@@ -50,6 +49,8 @@ assetic:
       - 'DothivTwitterBootstrapBundle'
       - 'DothivAngularJsBundle'
       - 'DothivQLPPartnerBundle'
+      - 'DothivPremiumConfiguratorBundle'
+      - 'DothivAdminBundle'
     #java: /usr/bin/java
     filters:
         less:
@@ -127,6 +128,11 @@ dothiv_business:
     attachments_location: '%kernel.root_dir%/attachments'
     clickcounter:
         secret: '%clickcounter_auth_secret%'
+    podio:
+        appId: '%dothiv_business.podio.appId%'
+        appToken: '%dothiv_business.podio.appToken%'
+        clientId: '%dothiv_business.podio.clientId%'
+        clientSecret: '%dothiv_business.podio.clientSecret%'
 
 dothiv_base_website:
     thumbnails:

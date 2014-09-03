@@ -2,7 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
-use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
+use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
 use Dothiv\APIBundle\Controller\Traits\DomainNameTrait;
 use Dothiv\APIBundle\Request\BannerConfigRequest;
 use Dothiv\APIBundle\Request\DomainNameRequest;
@@ -21,7 +21,7 @@ use Dothiv\APIBundle\Annotation\ApiRequest;
 class BannerController
 {
     use DomainNameTrait;
-    use CreateResponseTrait;
+    use CreateJsonResponseTrait;
 
     /**
      * @var DomainRepositoryInterface

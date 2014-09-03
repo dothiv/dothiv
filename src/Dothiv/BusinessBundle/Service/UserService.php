@@ -10,8 +10,11 @@ use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
+use PhpOption\Option;
+use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Util\SecureRandom;
@@ -21,34 +24,59 @@ class UserService implements UserProviderInterface, UserServiceInterface
     /**
      * @var UserRepositoryInterface
      */
-    private $userRepo;
+    protected $userRepo;
 
     /**
      * @var UserTokenRepositoryInterface
      */
-    private $userTokenRepo;
+    protected $userTokenRepo;
 
     /**
      * @var Clock
      */
-    private $clock;
+    protected $clock;
 
     /**
      * @var EventDispatcher
      */
-    private $dispatcher;
+    protected $dispatcher;
+
+    /**
+     * @var string
+     */
+    protected $loginLinkEventName;
+
+    /**
+     * @var string
+     */
+    protected $adminUserDomain;
+
+    /**
+     * @var int Time in seconds to wait between sending a new login link
+     */
+    private $linkRequestWait;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
         UserTokenRepositoryInterface $userTokenRepository,
         Clock $clock,
-        EventDispatcher $dispatcher
+        EventDispatcher $dispatcher,
+        $loginLinkEventName,
+        $adminUserDomain,
+        $linkRequestWait
     )
     {
-        $this->userRepo      = $userRepository;
-        $this->userTokenRepo = $userTokenRepository;
-        $this->clock         = $clock;
-        $this->dispatcher    = $dispatcher;
+        $this->userRepo           = $userRepository;
+        $this->userTokenRepo      = $userTokenRepository;
+        $this->clock              = $clock;
+        $this->dispatcher         = $dispatcher;
+        $this->loginLinkEventName = $loginLinkEventName;
+        $this->adminUserDomain    = $adminUserDomain;
+        $this->userRepo        = $userRepository;
+        $this->userTokenRepo   = $userTokenRepository;
+        $this->clock           = $clock;
+        $this->dispatcher      = $dispatcher;
+        $this->linkRequestWait = (int)$linkRequestWait;
     }
 
     /**
@@ -67,7 +95,63 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     public function loadUserByUsername($username)
     {
-        return $this->userRepo->getUserByEmail($username)->getOrThrow(new UsernameNotFoundException());
+        if ($this->isAdminUsername($username)) {
+            $user = $this->getOrCreateAdminByUsername($username);
+        } else {
+            $user = $this->userRepo->getUserByEmail($username)->getOrThrow(new UsernameNotFoundException());
+        }
+        $user->setRoles($this->getRoles($user));
+        return $user;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return Role[]
+     */
+    public function getRoles(User $user)
+    {
+        $roles = array('ROLE_USER');
+        if ($this->isAdmin($user)) {
+            $roles[] = 'ROLE_ADMIN';
+        }
+        return $roles;
+    }
+
+    /**
+     * @param string $username
+     *
+     * @return boolean
+     */
+    protected function isAdminUsername($username)
+    {
+        return preg_match('/' . preg_quote($this->adminUserDomain) . '$/', $username) === 1;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function isAdmin(User $user)
+    {
+        return $this->isAdminUsername($user->getUsername());
+    }
+
+    protected function getOrCreateAdminByUsername($username)
+    {
+        $optionalUser = $this->userRepo->getUserByEmail($username);
+        if ($optionalUser->isDefined()) {
+            return $optionalUser->get();
+        }
+        $user = new User();
+        $user->setEmail($username);
+        $user->setHandle($this->generateToken());
+        $user->setFirstname('');
+        $user->setSurname('');
+        $this->userRepo->persist($user)->flush();
+        return $user;
+
     }
 
     /**
@@ -83,7 +167,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'WakeupScreen\BackendBundle\Entity\User';
+        return $class === 'Dothiv\BusinessBundle\Entity\User';
     }
 
     /**
@@ -100,19 +184,31 @@ class UserService implements UserProviderInterface, UserServiceInterface
     {
         /* @var User $user */
         /* @var UserToken $token */
-        $user = $this->userRepo->getUserByEmail($email)->getOrCall(function () {
+        $user = Option::fromValue($this->loadUserByUsername($email))->getOrCall(function () {
             throw new EntityNotFoundException();
         });
 
-        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow())->filter(function (UserToken $token) {
+        $scope  = new IdentValue('login');
+        $tokens = $this->userTokenRepo->getActiveTokens($user, $scope, $this->clock->getNow())->filter(function (UserToken $token) {
             return !$token->isRevoked();
         });
         if (!$tokens->isEmpty()) {
-            $token = $tokens->first();
-            throw new TemporarilyUnavailableException($token->getLifeTime());
+            $maxAge = null;
+            $maxAgeToken = null;
+            foreach ($tokens as $token) {
+                if ($token->getCreated() > $maxAge) {
+                    $maxAge = $token->getCreated();
+                    $maxAgeToken = $token;
+                }
+            }
+            $diff = $this->clock->getNow()->getTimestamp() - $maxAge->getTimestamp();
+            if ($diff < $this->linkRequestWait) {
+                $waitUntil = $this->clock->getNow()->modify(sprintf('+%d seconds', $this->linkRequestWait - $diff));
+                throw new TemporarilyUnavailableException($waitUntil);
+            }
         }
-        $token = $this->createUserToken($user);
-        $this->dispatcher->dispatch(BusinessEvents::USER_LOGINLINK_REQUESTED, new UserTokenEvent($token, $httpHost, $locale));
+        $token = $this->createUserToken($user, $scope);
+        $this->dispatcher->dispatch($this->loginLinkEventName, new UserTokenEvent($token, $httpHost, $locale));
     }
 
     /**
@@ -120,11 +216,12 @@ class UserService implements UserProviderInterface, UserServiceInterface
      *
      * FIXME: Change default $lifetimeInSeconds to 1800, after https://trello.com/c/3pr0Swch has been implemented
      */
-    public function createUserToken(User $user, $lifetimeInSeconds = 1209600)
+    public function createUserToken(User $user, IdentValue $scope, $lifetimeInSeconds = 1209600)
     {
         $token = new UserToken();
         $token->setUser($user);
         $token->setToken($this->generateToken());
+        $token->setScope($scope);
         $d = $this->clock->getNow()->modify('+' . $lifetimeInSeconds . ' seconds');
         $token->setLifetime($d);
         $this->userTokenRepo->persist($token)->flush();
@@ -136,11 +233,12 @@ class UserService implements UserProviderInterface, UserServiceInterface
      */
     public function getLoginToken(User $user)
     {
-        $tokens = $this->userTokenRepo->getActiveTokens($user, $this->clock->getNow())->filter(function (UserToken $token) {
+        $scope  = new IdentValue('login');
+        $tokens = $this->userTokenRepo->getActiveTokens($user, $scope, $this->clock->getNow())->filter(function (UserToken $token) {
             return !$token->isRevoked();
         });
         if ($tokens->isEmpty()) {
-            return $this->createUserToken($user);
+            return $this->createUserToken($user, $scope);
         }
         return $tokens->first();
     }

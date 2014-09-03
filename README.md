@@ -11,8 +11,6 @@ This application provides both client and server for the dotHIV platform.
 Build status
 -------------
 
- * Symfony2 Tests: [![Build Status](http://vishnu.dothiv.org:8080/buildStatus/icon?job=dothiv)](http://vishnu.dothiv.org:8080/job/dothiv/)
- * AngularJS Unit Tests: [![Build Status](http://vishnu.dothiv.org:8080/buildStatus/icon?job=dothiv-karma)](http://vishnu.dothiv.org:8080/job/dothiv-karma/)
  * Travis: [![Build Status](https://secure.travis-ci.org/dothiv/dothiv.png)](http://travis-ci.org/dothiv/dothiv)
 
 How to contribute
