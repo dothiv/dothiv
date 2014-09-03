@@ -2,7 +2,7 @@
 
 namespace Dothiv\APIBundle\Controller;
 
-use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
+use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use Dothiv\BusinessBundle\Service\AttachmentServiceInterface;
 use JMS\Serializer\Serializer;
@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class AttachmentController
 {
-    use CreateResponseTrait;
+    use CreateJsonResponseTrait;
 
     /**
      * @var SecurityContext

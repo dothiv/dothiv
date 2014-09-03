@@ -5,6 +5,7 @@ parameters:
     dothiv.businessbundle.service.attachment.class: Dothiv\BusinessBundle\Service\AttachmentService
     dothiv.businessbundle.service.attachment_store.class: Dothiv\BusinessBundle\Service\AttachmentStoreService
     registration.class: Dothiv\BusinessBundle\Service\Registration
+    dothiv.business.service.nonprofitregistration.class: Dothiv\BusinessBundle\Service\NonprofitRegistrationService
 
 services:
     clickcounter:
@@ -33,6 +34,8 @@ services:
         - @dothiv.repository.user_token
         - @clock
         - @event_dispatcher
+        - 'dothiv.business.user.loginlink.requested'
+        - "%charitydomain%"
         - %dothiv_business.link_request_wait%
 
     dothiv.businessbundle.service.attachment:
@@ -53,6 +56,11 @@ services:
             - @dothiv_contentful.content
             - @dothiv.websitebase.contentful.view_builder
             - %contenful_space_clickcounter%
+
+    dothiv.business.service.nonprofitregistration:
+        class: %dothiv.business.service.nonprofitregistration.class%
+        arguments:
+        - @dothiv.repository.nonprofitregistration
 
     dothiv.business.event_dispatcher:
         class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher

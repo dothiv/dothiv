@@ -4,6 +4,7 @@ namespace Dothiv\APIBundle\Listener;
 
 use Doctrine\Common\Annotations\Reader;
 use Dothiv\APIBundle\Annotation\ApiRequest;
+use PhpOption\Option;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -40,27 +41,34 @@ class ViewRequestListener
         $method     = $object->getMethod($controller[1]);
         $request    = $event->getRequest();
 
-        foreach ($this->reader->getMethodAnnotations($method) as $annotation) {
-            if (!($annotation instanceof ApiRequest)) continue;
-            /* @var ApiRequest $annotation */
+        // The class for validating the request data can be set via the routing definition as _dothiv.ApiRequest
+        // or as an attribute on the Method as @ApiRequest.
+        $annotation = Option::fromValue($request->attributes->get('_dothiv.ApiRequest'))
+            ->map(function ($requestClass) {
+                return new ApiRequest(array('value' => $requestClass));
+            })
+            ->getOrElse($this->reader->getMethodAnnotation($method, 'Dothiv\APIBundle\Annotation\ApiRequest'));
 
-            $modelClass = $annotation->getModel();
-            $model      = new $modelClass;
-
-            $this->setModelData($request, $model);
-            $this->setModelDataFromRouteParams($request, $model);
-
-            $errors = $this->validator->validate($model);
-
-            if (count($errors) == 0) {
-                $request->attributes->set('model', $model);
-                return;
-            }
-
-            throw new BadRequestHttpException(
-                (string)$errors
-            );
+        if (empty($annotation)) {
+            return;
         }
+
+        $modelClass = $annotation->getModel();
+        $model      = new $modelClass;
+
+        $this->setModelData($request, $model);
+        $this->setModelDataFromRouteParams($request, $model);
+
+        $errors = $this->validator->validate($model);
+
+        if (count($errors) == 0) {
+            $request->attributes->set('model', $model);
+            return;
+        }
+
+        throw new BadRequestHttpException(
+            (string)$errors
+        );
     }
 
     protected function setModelData(Request $request, $model)

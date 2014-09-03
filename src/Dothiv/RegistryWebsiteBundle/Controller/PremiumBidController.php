@@ -2,7 +2,7 @@
 
 namespace Dothiv\RegistryWebsiteBundle\Controller;
 
-use Dothiv\APIBundle\Controller\Traits\CreateResponseTrait;
+use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
 
 use Dothiv\APIBundle\Annotation\ApiRequest;
 use Dothiv\BusinessBundle\Entity\PremiumBid;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PremiumBidController
 {
-    use CreateResponseTrait;
+    use CreateJsonResponseTrait;
 
     /**
      * @var PremiumBidRepositoryInterface

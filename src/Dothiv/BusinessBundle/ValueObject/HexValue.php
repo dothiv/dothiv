@@ -3,7 +3,11 @@
 namespace Dothiv\BusinessBundle\ValueObject;
 
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
+use JMS\Serializer\Annotation as Serializer;
 
+/**
+ * @Serializer\ExclusionPolicy("all")
+ */
 class HexValue implements StringValue
 {
     private $hex;
@@ -41,6 +45,7 @@ class HexValue implements StringValue
 
     /**
      * {@inheritdoc}
+     * @Serializer\HandlerCallback("json", direction = "serialization")
      */
     public function __toString()
     {
