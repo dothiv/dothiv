@@ -36,9 +36,11 @@ class URLValue implements StringValue
         if ($this->parts === false
             || !isset($this->parts['scheme'])
             || !isset($this->parts['host'])
-            || !isset($this->parts['path'])
         ) {
             throw new InvalidArgumentException(sprintf('Invalid url provided: "%s"', $url));
+        }
+        if (!isset($this->parts['path'])) {
+            $url .= '/';
         }
         $this->url = $url;
     }
