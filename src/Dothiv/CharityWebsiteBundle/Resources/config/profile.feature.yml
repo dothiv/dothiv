@@ -18,6 +18,8 @@ services:
         - @dothiv.charity.service.mailer.content
         - @router
         - @dothiv.businessbundle.service.user
+        - @dothiv.repository.domain
+        - @clock
         tags:
             - { name: kernel.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
             - { name: kernel.event_listener, event: dothiv.business.domain.claim_token_requested, method: onDomainRegistered }
