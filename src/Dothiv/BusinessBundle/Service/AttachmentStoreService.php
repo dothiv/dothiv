@@ -30,4 +30,17 @@ class AttachmentStoreService implements AttachmentStoreInterface
     {
         $file->move($this->storeDir, sprintf('%s.%s', $attachment->getHandle(), $file->guessExtension()));
     }
-} 
+
+    /**
+     * {@inheritdoc}
+     */
+    public function retrieve(Attachment $attachment)
+    {
+        $file = new \SplFileInfo($this->storeDir . DIRECTORY_SEPARATOR . sprintf('%s.%s', $attachment->getHandle(), $attachment->getExtension()));
+        if ($file->isFile()) {
+            return Option::fromValue($file);
+        } else {
+            return None::create();
+        }
+    }
+}
