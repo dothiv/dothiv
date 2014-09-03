@@ -5,6 +5,8 @@ namespace Dothiv\CharityWebsiteBundle\Service\Mailer;
 use Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailerInterface;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Event\DomainEvent;
+use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\BusinessBundle\Service\Clock;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
 use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -28,19 +30,35 @@ class DomainRegisteredMailer
     private $contentMailer;
 
     /**
-     * @param ContentMailerInterface $contentMailer
-     * @param RouterInterface        $router
-     * @param UserServiceInterface   $userService
+     * @var DomainRepositoryInterface
+     */
+    private $domainRepo;
+
+    /**
+     * @var Clock
+     */
+    private $clock;
+
+    /**
+     * @param ContentMailerInterface    $contentMailer
+     * @param RouterInterface           $router
+     * @param UserServiceInterface      $userService
+     * @param DomainRepositoryInterface $domainRepo
+     * @param Clock $clock
      */
     public function __construct(
         ContentMailerInterface $contentMailer,
         RouterInterface $router,
-        UserServiceInterface $userService
+        UserServiceInterface $userService,
+        DomainRepositoryInterface $domainRepo,
+        Clock $clock
     )
     {
         $this->router        = $router;
         $this->userService   = $userService;
         $this->contentMailer = $contentMailer;
+        $this->domainRepo    = $domainRepo;
+        $this->clock         = $clock;
     }
 
     /**
@@ -83,6 +101,9 @@ class DomainRegisteredMailer
         );
 
         $this->contentMailer->sendContentTemplateMail('domain.registered', 'en', $domain->getOwnerEmail(), $domain->getOwnerName(), $data);
+
+        $domain->setTokenSent($this->clock->getNow());
+        $this->domainRepo->persist($domain)->flush();
     }
 
     public function onDomainRegistered(DomainEvent $event)
