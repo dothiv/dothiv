@@ -25,8 +25,8 @@ angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserRe
     function _clearCredentials() {
         User.setHandle(null);
         User.setAuthToken(null);
-        $cookies.securityUserHandle = null;
-        $cookies.securityAuthToken = null;
+        delete $cookies.securityUserHandle;
+        delete $cookies.securityAuthToken;
         delete $http.defaults.headers.common['Authorization'];
     }
 
@@ -37,19 +37,16 @@ angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserRe
             },
             // on success
             function (value, headers) {
-                _user = $q.defer();
-                _user.resolve({});
-                _clearCredentials();
                 (callback || angular.noop)(value, headers);
             },
             // on error
             function (data, status, headers, config) {
-                _user = $q.defer();
-                _user.resolve({});
-                _clearCredentials();
                 (callback || angular.noop)(false, data);
             }
         );
+        _user = $q.defer();
+        _user.resolve({});
+        _clearCredentials();
     }
 
     function _loadCookieCredentials() {

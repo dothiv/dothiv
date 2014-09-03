@@ -9,9 +9,10 @@ Feature: Image
       | firstname | John                |
       | surname   | Doe                 |
     And the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
-      | user     | {user}                          |
-      | token    | usert0k3n                       |
-      | lifetime | {\DateTime@2014-01-02T13:44:15} |
+      | user     | {user}                                                |
+      | token    | usert0k3n                                             |
+      | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@login} |
+      | lifetime | {\DateTime@2014-01-02T13:44:15}                       |
 
   Scenario: Upload public file
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
@@ -25,4 +26,4 @@ Feature: Image
     And I send a GET request to {uploadedImage}
     Then the response status code should be 200
     And the header "content-type" should contain "image/png"
-    And the image should be 100x100
+    And the image should be 44x44

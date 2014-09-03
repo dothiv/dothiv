@@ -79,11 +79,13 @@ class ClickCounterConfig implements ClickCounterConfigInterface
         $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
         if ($status < 200 || $status >= 300) {
-            throw new ClickCounterException(
+            $e           = new ClickCounterException(
                 sprintf(
-                    'Failed to read config for "%s": %s', $domainname, $response
+                    'Failed to read config for "%s"', $domainname
                 )
             );
+            $e->response = $response;
+            throw $e;
         }
         return json_decode($response);
     }
@@ -103,12 +105,9 @@ class ClickCounterConfig implements ClickCounterConfigInterface
         );
         foreach ($this->locales as $locale) {
             $config['strings'][$locale] = array(
-                'heading'    => $this->getString('heading', $locale),
-                'subheading' => $this->getString('subheading', $locale),
-                'about'      => $this->getString('about', $locale),
-                'activated'  => $this->getString('activated', $locale),
-                'money'      => $this->getString('money', $locale),
-                'clickcount' => $this->getString('clickcount', $locale),
+                'heading'      => $this->getString('heading', $locale),
+                'shortheading' => $this->getString('shortheading', $locale),
+                'money'        => '%unlocked%'
             );
         }
         return $config;
@@ -164,5 +163,26 @@ class ClickCounterConfig implements ClickCounterConfigInterface
             'Accept: application/json',
             'Authorization: Basic ' . base64_encode(':' . $secret),
         );
+    }
+
+    /**
+     * Reads the total click count.
+     *
+     * @return int
+     * @throws ClickCounterException
+     */
+    function getClickCount()
+    {
+        $ch = curl_init($this->baseUrl . '/stats/clickcount');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        if ($status < 200 || $status >= 300) {
+            $e           = new ClickCounterException('Failed to read clickcount');
+            $e->response = $response;
+            throw $e;
+        }
+        return (int)$response;
     }
 }

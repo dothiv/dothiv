@@ -20,108 +20,31 @@
                   click4life.hiv
 
 -->
-<html lang="{{ locale }}">
+<html>
 <head>
-    <title>
-        {{ qlp.domain ~ ".hiv" }}
-    </title>
+    <title>{{ qlp.domain ~ ".hiv" }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% stylesheets '@DothivQLPPartnerBundle/Resources/lesscss/styles.less' filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}">
-    {% endstylesheets %}
-    {% image '@DothivCharityWebsiteBundle/Resources/public/images/favicon.png' %}
-    <link rel="shortcut icon" href="{{ asset_url }}">
-    {% endimage %}
-    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
-    {% javascripts
-    '@DothivAngularJsBundle/Resources/public/angular/angular.js'
-    filter='?ngmin,?closureecma5'
-    output='js/*.min.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    <!-- Social Media Sharing -->
-    {% set description = qlp.text.text|trans({'%hivdomain%': qlp.domain ~ ".hiv", '%partnerdomain%': qlp.partnerDomain})|split("\n")[0] %}
-    <!-- Twitter cards support -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="dotHIV">
-    <meta name="twitter:title" content="{{ qlp.domain ~ ".hiv" }}">
-    <meta name="twitter:description" content="{{ description }}">
-    <meta name="twitter:creator" content="dotHIV">
-    <meta name="twitter:image:src" content="{{ app.request.uriForPath(qlp.logo.file.thumbnails.friend) }}">
-    <!-- Facebook open graph support -->
-    <meta property="og:title" content="{{ qlp.domain ~ ".hiv" }}">
-    <meta property="og:description" content="{{ description }}">
-    <meta property="og:image" content="{{ app.request.uriForPath(qlp.logo.file.thumbnails.friend) }}">
-    <meta property="og:site_name" content="{{ qlp.domain ~ ".hiv" }}">
-    <meta property="og:type" content="website">
-</head>
-<body data-ng-app="dotHIVApp">
-<header>
-    <article>
-        <section>
-            <h1>
-                {% image '@DothivQLPPartnerBundle/Resources/public/images/dothiv-logo.png' %}
-                <img src="{{ asset_url }}" alt="{{ qlp.text.title }}"><br>
-                {% endimage %}
-                {{ qlp.text.title }}
-            </h1>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
 
-            {% if qlp.logo is defined %}
-            <h2>
-                <img src="{{ qlp.logo.file.thumbnails.friend }}" alt="{{ qlp.logo.title }}">
-            </h2>
-            {% endif %}
-        </section>
-    </article>
-</header>
-<div id="countdown" data-ng-controller="PinkbarControllerCountdown">
-    <div class="inner">
-        <article>
-            <section>
-                <div class="bar">
-                    {{ 'home.pinkbar.popover.countdown'|trans|markdown }}
-                </div>
-            </section>
-        </article>
-    </div>
-</div>
-<main>
-    <article>
-        <section>
-            <div>
-                {{ qlp.text.text|trans({'%hivdomain%': qlp.domain ~ ".hiv", '%partnerdomain%': qlp.partnerDomain})|markdown }}
-            </div>
-        </section>
-        <section>
-            <div class="hero"><a href="{{ path('dothiv_charity_index', {'locale': locale}) }}">click4life.hiv</a></div>
-        </section>
-    </article>
-</main>
-<footer>
-    {% image '@DothivQLPPartnerBundle/Resources/public/images/dothiv-ribbon.png' %}
-    <img src="{{ asset_url }}" alt="{{ qlp.text.title }}"><br>
-    {% endimage %}
-</footer>
-{% block angular_app %}
-    {% javascripts
-    '@DothivQLPPartnerBundle/Resources/public/js/app.js'
-    '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/PinkbarControllerCountdown.js'
-    filter='?ngmin,?closureecma5'
-    output='js/*.min.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock angular_app %}
-<script type="text/javascript">
-    'use strict';
-    angular.module('dotHIVApp.services').factory('config', function () {
-        var config = {
-            locale: '{{ locale }}',
-            countdown_start: '{{ countdown_start|date_w3c }}',
-            countdown_end: '{{ general_availability|date_w3c }}'
-        };
-        return config;
-    });
-</script>
+        iframe.page {
+            border: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<iframe src="//{{ qlp.partnerDomain }}" width="100%" height="100%" class="page" id="clickcounter-target-iframe"></iframe>
+<script src="//dothiv-registry.appspot.com/static/clickcounter.min.js" type="text/javascript"></script>
 </body>
 </html>

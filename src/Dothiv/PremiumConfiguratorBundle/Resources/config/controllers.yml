@@ -18,6 +18,11 @@ services:
           - @templating
           - @dothiv.repository.domain
           - @dothiv.repository.banner
+          - @dothiv.repository.premiumconfigurator.banner
+          - @dothiv.premiumconfigurator.service.attachment_store
+          - @dothiv.business.contentful.clickcounter_content
+          - @serializer
+          - @router
 
     dothiv.premiumconfigurator.api.controller.attachment:
         class: %dothiv.api.controller.attachment.class%

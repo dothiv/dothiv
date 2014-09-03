@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngRoute', 'ui.router', 'colorpicker.module'])
+angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngRoute', 'ui.router', 'colorpicker.module', 'ui.bootstrap'])
     .config(['$locationProvider', function ($locationProvider) {
         $locationProvider.hashPrefix('!');
     }])
@@ -55,6 +55,15 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
                     }
                 });
             }
+        });
+        $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
+            $('a').filter(function (index, a) {
+                var href = $(a).attr('href');
+                if (!href) {
+                    return false;
+                }
+                return href.match('^(http|\/\/)') ? true : false;
+            }).attr('target', '_blank');
         });
         $state.transitionTo('=.start');
     }])

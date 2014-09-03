@@ -26,4 +26,11 @@ interface ClickCounterConfigInterface
      * @param Domain $domain
      */
     function get(Domain $domain);
+
+    /**
+     * Reads the total click count.
+     *
+     * @return int
+     */
+    function getClickCount();
 }

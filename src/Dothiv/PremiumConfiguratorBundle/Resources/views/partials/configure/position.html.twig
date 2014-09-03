@@ -1,0 +1,60 @@
+{% trans_default_domain "charity" %}
+{% set firstvisit = section.children[0] %}
+{% set subsequentvisit = section.children[1] %}
+<form role="form" novalidate name="bannerForm">
+    <fieldset>
+        <div class="fields-legend">
+            {{ firstvisit.text|default()|markdown }}
+        </div>
+        <div class="fields">
+            <div class="form-group">
+                <label>
+                    {{ firstvisit.title }}
+                </label>
+                <div>
+                    {% for p in ['top', 'bottom', 'left', 'right'] %}
+                        <label class="radio-inline">
+                            <input type="radio" name="firstVisit" value="{{ p }}" data-ng-model="banner.position_first" data-ng-change="updateBannerSettings()">
+                            {% set code = 'domain.position.' ~ p %}
+                            {{ code|trans }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <div class="fields-legend">
+            {{ subsequentvisit.text|default()|markdown }}
+        </div>
+        <div class="fields">
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" data-ng-model="bannerForm.enableSubsequentVisit">
+                    {{ subsequentvisit.title }}
+                </label>
+                <div data-ng-show="bannerForm.enableSubsequentVisit">
+                    {% for p in ['topleft-micro', 'top-micro', 'topright-micro', 'invisible'] %}
+                        <label class="radio-inline">
+                            <input type="radio" name="subsequentVisit" value="{{ p }}" data-ng-model="banner.position" data-ng-change="updateBannerSettings()" data-ng-required="bannerForm.enableSubsequentVisit">
+                            {% set code = 'domain.position.' ~ p %}
+                            {{ code|trans }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<script type="text/ng-template" id="positionInvisibleWarning.html">
+    {% set modal = content('Block', 'pc.errormodal.positionInvisibleWarning') %}
+    <header>
+        <h2>{{ modal.title }}</h2>
+    </header>
+    <article>
+        {{ modal.text|markdown }}
+    </article>
+    <footer>
+        <button data-ng-click="$dismiss()">Close</button>
+    </footer>
+</script>

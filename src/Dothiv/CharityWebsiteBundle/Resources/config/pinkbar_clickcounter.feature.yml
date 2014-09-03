@@ -1,7 +1,13 @@
 services:
     dothiv.charity.web.controller.pinkbar:
-        class: Dothiv\BaseWebsiteBundle\Controller\PinkbarController
+        class: Dothiv\CharityWebsiteBundle\Controller\PinkbarController
         arguments:
           - @translator
-          - 0.0
-          - 0.0
+          - @dothiv.websitebase.money_format
+          - @dothiv.repository.config
+          - @serializer
+          - %eur_goal%
+          - %already_donated%
+          - %eur_increment%
+          - @clock
+          - %page_lifetime%

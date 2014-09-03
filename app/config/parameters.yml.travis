@@ -38,8 +38,23 @@ parameters:
     googleanalytics_charity: UA-XXXX-Y
     googleanalytics_registry: UA-XXXX-Y
 
-
     # Stripe
     stripe_publishable_key: pk_test_somekey
     stripe_secret_key: sk_test_somekey
     stripe_testmode: 1
+    premium_price: 1000
+    devat: 19
+
+    # Money conversion
+    eur_to_usd: 1.328515
+
+    # Pinkbar
+    eur_goal: 61801
+    already_donated: 0
+    eur_increment: 0.001
+
+    # Podio
+    dothiv_business.podio.appId: 1234
+    dothiv_business.podio.appToken: 1234
+    dothiv_business.podio.clientId: 1234
+    dothiv_business.podio.clientSecret: 1234

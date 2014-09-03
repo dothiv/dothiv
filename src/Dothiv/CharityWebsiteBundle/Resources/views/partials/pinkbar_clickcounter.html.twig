@@ -1,55 +1,52 @@
 {% trans_default_domain "charity" %}
-<!-- adopt for mobile useage -->
-<div id="pinbkar" data-ng-controller="PinkbarControllerClicks" class="clearfix">
-    <div class="pink-bar rightside">
-
-        <div class="pink-bar leftside text-right" data-ng-style="{ width: bar.percent * 100 + '%' }">
-            <button type="button" data-btn-checkbox data-ng-model="expanded" data-btn-checkbox-true="true" data-btn-checkbox-false="false" data-ng-show="bar.percent * 10 > 4">
-                <p>
-                    <span class="pink-bar-text" data-ng-show="bar.enabled">{% trans %}home.pinkbar.activated{% endtrans %}</span>
-                    <span class="pink-bar-text bold" id="active-money" data-ng-bind="bar.unlocked_label"></span>
-                    <i data-ng-show="!showfunding" class="icon-tick-lower icon-white"></i>
-                    <i data-ng-show="showfunding" class="icon-tick-upper icon-white"></i>
-                </p>
-            </button>
+<div id="pinkbar" data-ng-controller="PinkbarControllerClicks" class="clearfix" data-ng-cloak>
+    <div class="pink-bar">
+        <div class="pink-progress" data-ng-style="{width: (bar.percent * 100) + '%'}"></div>
+        <div class="pink-label">
+            <div class="container">
+                <div class="row-fluid">
+                    <div class="span11 text">
+                        <p data-ng-show="bar">{% trans %}home.pinkbar.activated{% endtrans %}</p>
+                    </div>
+                    <div class="span1">
+                        <button type="button" data-btn-checkbox data-ng-model="expanded" data-btn-checkbox-true="true" data-btn-checkbox-false="false" data-ng-class="{true:'active'}[expanded]" class="pull-right"></button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button type="button" data-btn-checkbox data-ng-model="expanded" data-btn-checkbox-true="true" data-btn-checkbox-false="false" data-ng-show="bar.percent * 10 < 4">
-            <p>
-                <i data-ng-show="!showfunding" class="icon-tick-lower"></i>
-                <i data-ng-show="showfunding" class="icon-tick-upper"></i>
-                <span class="pink-bar-text right">{% trans %}home.pinkbar.activated{% endtrans %}</span>
-                <span class="pink-bar-text right bold" id="active-money" data-ng-bind="bar.unlocked_label"></span>
-            </p>
-        </button>
     </div>
     <div class="pink-bar-popover-handle">
-        <div data-ng-show="showfunding" data-ng-animate="{show: 'pink-bar-popover-show', hide: 'pink-bar-popover-hide'}"
-             class="pink-bar-popover">
+        <div data-ng-show="expanded" data-ng-animate="{show: 'pink-bar-popover-show', hide: 'pink-bar-popover-hide'}" class="pink-bar-popover">
             <div class="container">
                 <div class="row first">
-                    <div class="span6 pink-bar-text">
-                        <div data-ng-show="bar.enabled">
-                            <p>{% trans %}home.pinkbar.popover.currentStatus{% endtrans %}</p>
-
-                            <p><span class="activeMoney" id="active-money-popover">€ [[ bar.current ]]</span>
-                                {% trans %}home.pinkbar.popover.areActivated{% endtrans %}</p>
-
-                            <p><span class="activeMoney" id="clicks-popover" data-ng-bind="bar.clicks"></span>
-                                {% trans %}home.pinkbar.popover.missing{% endtrans %}</p>
-                            <hr>
+                    <div class="span6">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                {% set pinkbarintro = content('Block', 'pinkbar.intro') %}
+                                <h2>{{ pinkbarintro.title }}</h2>
+                                {{ pinkbarintro.text|markdown }}
+                            </div>
                         </div>
-                        <p>{% trans %}home.pinkbar.popover.shareNow{% endtrans %}</p>
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-text="{% trans %}share.twitter.text{% endtrans %}">{% trans %}share.twitter.button{% endtrans %}</a>
-                        <div class="fb-like" data-href="{{ app.request.uri }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <p>{% trans %}home.pinkbar.popover.shareNow{% endtrans %}</p>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <a href="https://twitter.com/share" class="twitter-share-button" data-text="{% trans %}share.twitter.text{% endtrans %}">{% trans %}
+                                    share.twitter.button{% endtrans %}</a>
+
+                                <div class="fb-like" data-href="{{ app.request.uri }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="span6 pink-bar-text">
-                        <iframe data-ng-show="showfunding" data-ng-src="//www.youtube.com/embed/l3ZHd8qbSpE"
-                                allowfullscreen></iframe>
-                        <p>{% trans %}home.pinkbar.popover.viewVideo{% endtrans %}
-                            <br>{% trans %}home.pinkbar.popover.how{% endtrans %}</p>
+                    <div class="span6">
+                        <iframe data-ng-show="expanded" data-ng-src="//www.youtube.com/embed/l3ZHd8qbSpE" allowfullscreen class="video"></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

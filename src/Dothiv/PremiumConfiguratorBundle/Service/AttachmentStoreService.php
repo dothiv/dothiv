@@ -2,6 +2,7 @@
 
 namespace Dothiv\PremiumConfiguratorBundle\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BaseWebsiteBundle\Service\ThumbnailConfiguration;
 use Dothiv\BaseWebsiteBundle\Service\ImageScalerInterface;
 use Dothiv\BusinessBundle\Entity\Attachment;
@@ -9,6 +10,8 @@ use Dothiv\BusinessBundle\Service\AttachmentStoreInterface;
 use Dothiv\BusinessBundle\Service\LinkableAttachmentStoreInterface;
 use Dothiv\BusinessBundle\ValueObject\PathValue;
 use Dothiv\BusinessBundle\ValueObject\URLValue;
+use PhpOption\Option;
+use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -30,9 +33,9 @@ class AttachmentStoreService implements AttachmentStoreInterface, LinkableAttach
     private $scaler;
 
     /**
-     * @var ThumbnailConfiguration
+     * @var ThumbnailConfiguration[]|ArrayCollection
      */
-    private $thumbnailConfiguration;
+    private $thumbnailConfigurations;
 
     /**
      * @var string
@@ -41,18 +44,21 @@ class AttachmentStoreService implements AttachmentStoreInterface, LinkableAttach
 
     public function __construct($config, RouterInterface $router, ImageScalerInterface $scaler, $domain)
     {
-        $this->config                 = $config;
-        $this->router                 = $router;
-        $this->scaler                 = $scaler;
-        $this->thumbnailConfiguration = new ThumbnailConfiguration(
-            'small',
-            $this->config['thumbnail']['width'],
-            $this->config['thumbnail']['height'],
-            $this->config['thumbnail']['thumbnail'],
-            $this->config['thumbnail']['exact'],
-            $this->config['thumbnail']['fillbg']
-        );
-        $this->domain                 = $domain;
+        $this->config                  = $config;
+        $this->router                  = $router;
+        $this->scaler                  = $scaler;
+        $this->thumbnailConfigurations = new ArrayCollection();
+        foreach ($this->config['thumbnails'] as $label => $c) {
+            $this->thumbnailConfigurations->add(new ThumbnailConfiguration(
+                $label,
+                $c['width'],
+                $c['height'],
+                $c['thumbnail'],
+                $c['exact'],
+                $c['fillbg']
+            ));
+        }
+        $this->domain = $domain;
     }
 
     /**
@@ -60,18 +66,37 @@ class AttachmentStoreService implements AttachmentStoreInterface, LinkableAttach
      */
     public function store(Attachment $attachment, UploadedFile $file)
     {
-        $original  = $file->move($this->config['location'], sprintf('%s.%s', $attachment->getHandle(), $file->guessExtension()));
-        $thumbnail = PathValue::create($original)->addFilenameSuffix('@' . $this->thumbnailConfiguration->getLabel());
-        $this->scaler->scale($original, $this->thumbnailConfiguration, $thumbnail->getFileInfo());
+        $original = $file->move($this->config['location'], sprintf('%s.%s', $attachment->getHandle(), $file->guessExtension()));
+        $this->thumbnailConfigurations->map(function (ThumbnailConfiguration $config) use ($original) {
+            $thumbnail = PathValue::create($original)->addFilenameSuffix('@' . $config->getLabel());
+            $this->scaler->scale($original, $config, $thumbnail->getFileInfo());
+        });
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getUrl(Attachment $attachment)
+    public function getUrl(Attachment $attachment, $accept = null)
     {
+        $sizeLabels = $this->thumbnailConfigurations->map(function(ThumbnailConfiguration $c) {
+            return $c->getLabel();
+        });
+        $scale = $sizeLabels[0];
+        // Check if scale request via accept header
+        $a = AcceptHeader::fromString($accept);
+        foreach($a->all() as $item) {
+            $acceptScale = $item->getAttribute('scale');
+            if (Option::fromValue($acceptScale)->isEmpty()) {
+                continue;
+            }
+            if (!$sizeLabels->contains($acceptScale)) {
+                continue;
+            }
+            $scale = $acceptScale;
+            break;
+        }
         $filename = PathValue::create($attachment->getHandle() . '.' . $attachment->getExtension())
-            ->addFilenameSuffix('@' . $this->thumbnailConfiguration->getLabel());
+            ->addFilenameSuffix('@' . $scale);
         return new URLValue(
             sprintf(
                 '%s://%s%s%s',

@@ -66,6 +66,64 @@ class Subscription extends Entity
     protected $token;
 
     /**
+     * @var string
+     * @ORM\Column(type="string",nullable=false)
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Assert\Choice({"noneu", "euorgnet", "euorg", "deorg", "euprivate"})
+     * @Serializer\Expose
+     */
+    protected $type;
+
+    /**
+     * @ORM\Column(type="string",nullable=false)
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Serializer\Expose
+     */
+    protected $fullname;
+
+    /**
+     * @ORM\Column(type="string",nullable=false)
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Serializer\Expose
+     */
+    protected $address1;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     * @Serializer\Expose
+     */
+    protected $address2;
+
+    /**
+     * @ORM\Column(type="string",nullable=false)
+     * @var string
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Serializer\Expose
+     */
+    protected $country;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     * @Serializer\Expose
+     */
+    protected $vatNo;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     * @Serializer\Expose
+     */
+    protected $taxNo;
+
+    /**
      * The stripe customer id for this subscription.
      *
      * @ORM\Column(type="string",nullable=true)
@@ -196,6 +254,139 @@ class Subscription extends Entity
     public function getEmail()
     {
         return new EmailValue($this->email);
+    }
+
+    /**
+     * @param string $address1
+     *
+     * @return self
+     */
+    public function setAddress1($address1)
+    {
+        $this->address1 = $address1;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress1()
+    {
+        return $this->address1;
+    }
+
+    /**
+     * @param string $address2
+     *
+     * @return self
+     */
+    public function setAddress2($address2 = null)
+    {
+        $this->address2 = $address2;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
+    }
+
+    /**
+     * @param string $country
+     *
+     * @return self
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $fullname
+     *
+     * @return self
+     */
+    public function setFullname($fullname)
+    {
+        $this->fullname = $fullname;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullname()
+    {
+        return $this->fullname;
+    }
+
+    /**
+     * @param string $taxNo
+     *
+     * @return self
+     */
+    public function setTaxNo($taxNo = null)
+    {
+        $this->taxNo = $taxNo;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTaxNo()
+    {
+        return $this->taxNo;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return self
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $vatNo
+     *
+     * @return self
+     */
+    public function setVatNo($vatNo = null)
+    {
+        $this->vatNo = $vatNo;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getVatNo()
+    {
+        return $this->vatNo;
     }
 
 }

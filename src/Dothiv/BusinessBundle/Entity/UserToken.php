@@ -3,14 +3,23 @@
 namespace Dothiv\BusinessBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dothiv\BusinessBundle\Entity\Traits\CreateTime;
+use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Represents a user's login token
  *
  * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\UserTokenRepository")
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="usertoken__user_token",columns={"user_id", "token"}), @ORM\UniqueConstraint(name="usertoken__bearerToken",columns={"bearerToken"})})
+ * @ORM\Table(
+ *      uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="usertoken__user_token",columns={"user_id", "token"}),
+ *          @ORM\UniqueConstraint(name="usertoken__bearerToken",columns={"bearerToken"})
+ *      },
+ *      indexes={@ORM\Index(name="usertoken__scope_idex", columns={"scope"})})
+ * )
  *
  * @Serializer\ExclusionPolicy("all")
  *
@@ -18,6 +27,8 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class UserToken extends Entity
 {
+    use CreateTime;
+
     /**
      * The domain that displays this banner
      *
@@ -31,8 +42,18 @@ class UserToken extends Entity
      * The token used to login.
      *
      * @ORM\Column(type="string", nullable=false)
+     *
+     * @var string
      */
     protected $token;
+
+    /**
+     * Scope of the token.
+     *
+     * @ORM\Column(type="string", nullable=false)
+     * @var string
+     */
+    protected $scope;
 
     /**
      * The lifetime of the token
@@ -148,5 +169,24 @@ class UserToken extends Entity
     public function getRevokedTime()
     {
         return $this->revokedTime;
+    }
+
+    /**
+     * @param IdentValue $scope
+     *
+     * @return self
+     */
+    public function setScope(IdentValue $scope)
+    {
+        $this->scope = (string)$scope;
+        return $this;
+    }
+
+    /**
+     * @return IdentValue
+     */
+    public function getScope()
+    {
+        return new IdentValue($this->scope);
     }
 }

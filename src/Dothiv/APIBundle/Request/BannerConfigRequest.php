@@ -21,7 +21,7 @@ class BannerConfigRequest extends DomainNameRequest
      * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\Choice({"top","center","right"})
+     * @Assert\Choice({"top", "bottom", "left", "right", "topleft-micro", "top-micro", "topright-micro", "invisible"})
      */
     public $position;
 
@@ -29,7 +29,7 @@ class BannerConfigRequest extends DomainNameRequest
      * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\Choice({"top","center","right"})
+     * @Assert\Choice({"top", "bottom", "left", "right", "invisible"})
      */
     public $position_first;
 

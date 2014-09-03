@@ -1,0 +1,9 @@
+{% trans_default_domain "registry" %}
+<div class="registrar-list-private-module" data-ng-controller="RegistrarsListController" data-ng-cloak>
+    <div data-ng-repeat="r in registrars | filter:{privateRegistrar:true}"><a
+                data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}"><img
+                    alt="{% verbatim %}{{ r.name }}{% endverbatim %}"
+                    data-ng-src="{% verbatim %}{{ r.image.file.thumbnails.supporter }}{% endverbatim %}">
+        </a>
+    </div>
+</div>

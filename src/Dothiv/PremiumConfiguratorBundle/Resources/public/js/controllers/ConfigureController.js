@@ -4,19 +4,21 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
     function ($rootScope, $scope, dothivBannerResource, dothivPremiumBannerResource, config, $state, $modal, $timeout, AttachmentUploader, $http) {
 
         $scope.fullscreen = false;
-        $scope.bannerPosition = 'center';
+        $scope.bannerPosition = 'top';
         $scope.iframeUrl = null;
         $scope.iframeBaseUrl = null;
         $scope.iframeStyle = {};
         $scope.configuratorStyle = {};
-        $scope.settings = 'general';
+        $scope.settings = 'forwarding';
         $scope.bannerForm = {};
         $scope.fontsForm = {};
         $scope.uploadedImages = {};
         // TODO: fetch settings from server.
         $scope.config = {
             'max_upload_size': '10MB',
-            'image_size': '100x100px'
+            'image_size': '44x44px',
+            'image_size_micro': '22x22px',
+            'image_size_bg': '150x150px'
         };
 
         // Image Uploaders
@@ -74,9 +76,9 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
                     $modal.open({'templateUrl': 'forbidden.html', 'backdrop': 'static'});
                 }
                 if (response.status == 404) {
-                    $scope.banner.redirect_url = null;
-                    $scope.banner.language = 'de';
-                    $scope.banner.position_first = 'center';
+                    $scope.banner.redirect_url = 'http://' + config.domain.split('.hiv').join('.com');
+                    $scope.banner.language = 'en';
+                    $scope.banner.position_first = 'top';
                     $scope.banner.position = 'top';
                     $scope.banner.domain = config.domain;
                 }
@@ -182,7 +184,7 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
             if ($scope.iframeBaseUrl == null) {
                 $scope.iframeBaseUrl = $scope.iframeUrl;
             }
-            $scope.iframeUrl = $scope.iframeBaseUrl + '?position=' + $scope.bannerPosition + '&' + (new Date() / 1000);
+            $scope.iframeUrl = $scope.iframeBaseUrl + '?dothivclickcounter[position]=' + $scope.bannerPosition + '&' + (new Date() / 1000);
         }
 
         $scope.$watch('bannerPosition', function () {
@@ -196,6 +198,23 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         });
         $scope.$watch('showExtras', function () {
             $timeout(updateIframeSize, 100);
+        });
+        $scope.$watch('bannerForm.enableSubsequentVisit', function(enableSubsequentVisit) {
+            if (!enableSubsequentVisit) {
+                $scope.banner.position = null;
+            }
+        });
+        $scope.$watch('banner.position', function(position) {
+            if (position == 'invisible') {
+                $modal.open({'templateUrl': 'positionInvisibleWarning.html'});
+            } else if (position == null) {
+                $scope.bannerPosition = $scope.banner.position_first;
+            } else {
+                $scope.bannerPosition = position;
+            }
+        });
+        $scope.$watch('banner.position_first', function(position) {
+            $scope.bannerPosition = position;
         });
 
         $scope.clearExtras = function () {

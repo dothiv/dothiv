@@ -22,6 +22,7 @@ class DothivCharityWebsiteExtension extends Extension
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
         $container->setParameter('dothiv_charity_website.features', $config['features']);
+        $container->setParameter('dothiv_charity_website.bundles', array_keys($container->getParameter('kernel.bundles')));
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');

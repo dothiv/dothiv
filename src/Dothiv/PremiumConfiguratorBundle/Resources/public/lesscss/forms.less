@@ -1,0 +1,61 @@
+div.fields {
+  .make-xs-column(8);
+  .container-fluid;
+}
+div.fields-legend {
+  .make-xs-column(4);
+  font-size: @font-size-base;
+}
+label {
+  display: block;
+  small {
+    font-weight: @font-weight-regular;
+  }
+}
+
+form {
+  position: relative;
+  .clearfix;
+  nav {
+    position: absolute;
+    bottom: 0;
+    right: @grid-gutter-width / 2;
+    button, label {
+      &:extend(.btn all)
+    ;
+    }
+    button[type=reset] {
+      .btn-danger;
+    }
+    button[type=submit], label {
+      .btn-primary;
+    }
+    button + button {
+      margin-right: @grid-gutter-width;
+    }
+  }
+  .radio-inline, .checkbox-inline {
+    font-size: @font-size-base;
+  }
+}
+
+input[type=text], input[type=url], input[type=number], select, textarea {
+  &:extend(.form-control all)
+;
+  &.ng-valid {
+    border-color: @brand-success;
+    &.ng-pristine {
+      border-color: @input-border;
+    }
+  }
+  &.ng-invalid {
+    border-color: @brand-danger;
+    &.ng-pristine {
+      border-color: @input-border;
+    }
+  }
+  &.ng-pristine {
+  }
+  &.ng-dirty {
+  }
+}

@@ -1,8 +1,51 @@
 {% trans_default_domain "registry" %}
 <div class="registrar-list-module" data-ng-controller="RegistrarsListController" data-ng-cloak>
-    <div data-ng-repeat="r in registrars">
-        <a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}">
-            <img alt="{% verbatim %}{{ r.name }}{% endverbatim %}" data-ng-src="{% verbatim %}{{ r.image.file.thumbnails.supporter }}{% endverbatim %}" data-ng-show="r.image">
-        </a>
-    </div>
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            <th>
+                {% trans %}module.registrar-list.heading.name{% endtrans %}
+                <a data-ng-click="predicate = '+name'"><i class="order-down"></i></a>
+                <a data-ng-click="predicate = '-name'"><i class="order-up"></i></a>
+            </th>
+            <th>
+                {% trans %}module.registrar-list.heading.promotion{% endtrans %}
+                <a data-ng-click="predicate = '+promotion'"><i class="order-down"></i></a>
+                <a data-ng-click="predicate = '-promotion'"><i class="order-up"></i></a>
+            </th>
+            <th class="price" colspan="2">
+                {% trans %}module.registrar-list.heading.price{% endtrans %}
+            </th>
+        </tr>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th class="price" >
+                $
+                <a data-ng-click="predicate = ['+priceUSD', '+priceEUR']"><i class="order-down"></i></a>
+            </th>
+            <th class="price" >
+                €
+                <a data-ng-click="predicate = ['+priceEUR', '+priceUSD']"><i class="order-down"></i></a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="r in registrars | filter:{privateRegistrar:false} | orderBy:predicate ">
+
+            <td><a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}"><img
+                            alt="{% verbatim %}{{ r.name }}{% endverbatim %}"
+                            data-ng-src="{% verbatim %}{{ r.image.file.thumbnails.supporter }}{% endverbatim %}">
+                </a></td>
+            <td>
+                <a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}" data-ng-bind="r.name"></a>
+            </td>
+            <td data-ng-bind-html="r.promotion"></td>
+            <td class="price" data-ng-bind="r.priceUSDLabel"></td>
+            <td class="price" data-ng-bind="r.priceEURLabel"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>

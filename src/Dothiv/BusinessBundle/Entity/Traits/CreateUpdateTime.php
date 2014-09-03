@@ -7,13 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait CreateUpdateTime
 {
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
+    use CreateTime;
 
     /**
      * @var \DateTime $updated
@@ -22,22 +16,6 @@ trait CreateUpdateTime
      * @ORM\Column(type="datetime")
      */
     private $updated;
-
-    /**
-     * @param \DateTime $created
-     */
-    public function setCreated(\DateTime $created)
-    {
-        $this->created = $created;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
 
     /**
      * @param \DateTime $updated

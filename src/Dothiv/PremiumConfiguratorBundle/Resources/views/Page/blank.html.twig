@@ -1,0 +1,46 @@
+{% trans_default_domain "charity" %}
+<!DOCTYPE html>
+<!--
+
+
+            _|_|          _|_|
+            _|_|          _|_|
+            _|_|
+            _|_|
+            _|_|_|_|      _|_|  _|_|    _|_|
+            _|_|_|_|_|    _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+      _|_|  _|_|    _|_|  _|_|    _|_|_|_|
+      _|_|  _|_|    _|_|  _|_|      _|_|
+
+ .hiv domains – The Red Ribbon of the digital age
+
+                  click4life.hiv
+
+-->
+<html lang="{{ app.request.get('locale') }}">
+<head>
+    <title>
+        {{ app.request.get('domain') }}
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% stylesheets
+    'bundles/dothivpremiumconfigurator/lesscss/blank.less'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/favicon.png' %}
+    <link rel="shortcut icon" href="{{ asset_url }}">
+    {% endimage %}
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
+    <base href="/">
+</head>
+<body>
+<main>
+    <h1>{{ 'pc.blank.title'|trans({'%%domain%%': app.request.get('domain')}) }}</h1>
+</main>
+</body>
+</html>
