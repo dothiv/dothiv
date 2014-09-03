@@ -283,6 +283,12 @@ class FeatureContext extends BehatContext
     {
         $json = $this->getJson();
         \PHPUnit_Framework_Assert::assertObjectHasAttribute($name, $json);
+        if (is_bool($json->$name)) {
+            return true;
+        }
+        if (is_int($json->$name)) {
+            return true;
+        }
         \PHPUnit_Framework_Assert::assertNotEmpty($json->$name);
     }
 
@@ -418,5 +424,23 @@ class FeatureContext extends BehatContext
         }
         \PHPUnit_Framework_Assert::assertInternalType('array', $list);
         \PHPUnit_Framework_Assert::assertEquals(intval($nth), count($list));
+    }
+
+    /**
+     * @Given /^the JSON node "(?P<name>[^"]*)" should be equal to (?P<bool>true|false)$/
+     */
+    public function theJsonNodeShouldBeABoolean($name, $bool)
+    {
+        $this->theJsonNodeShouldNotBeEmpty($name);
+        \PHPUnit_Framework_Assert::assertEquals($this->getJson()->$name, $bool == 'true' ? true : false);
+    }
+
+    /**
+     * @Given /^the JSON node "(?P<name>[^"]*)" should be equal to (?P<number>\d+)$/
+     */
+    public function theJsonNodeShouldBeEqualToNumber($name, $number)
+    {
+        $this->theJsonNodeShouldNotBeEmpty($name);
+        \PHPUnit_Framework_Assert::assertEquals($this->getJson()->$name, (int)$number);
     }
 }
