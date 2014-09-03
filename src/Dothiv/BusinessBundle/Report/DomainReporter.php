@@ -9,6 +9,7 @@ use Dothiv\AdminBundle\Stats\ReporterInterface;
 use Dothiv\APIBundle\JsonLd\JsonLdEntityTrait;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use PhpOption\Option;
 
 class DomainReporter implements ReporterInterface
 {
@@ -38,11 +39,19 @@ class DomainReporter implements ReporterInterface
      */
     public function getReports()
     {
-        $reports = new ArrayCollection();
-        $r       = new Report();
-        $r->setTitle('Total');
-        $r->setResolution(Report::RESOLUTION_TOTAL);
-        $reports->set('total', $r);
+        $reports            = new ArrayCollection();
+        $totalDomainsReport = new Report();
+        $totalDomainsReport->setTitle('Total');
+        $totalDomainsReport->setResolution(Report::RESOLUTION_TOTAL);
+        $reports->set('total', $totalDomainsReport);
+        $clickCountersReport = new Report();
+        $clickCountersReport->setTitle('Click-Counters');
+        $clickCountersReport->setResolution(Report::RESOLUTION_TOTAL);
+        $reports->set('clickcounters', $clickCountersReport);
+        $clicksReport = new Report();
+        $clicksReport->setTitle('Clicks');
+        $clicksReport->setResolution(Report::RESOLUTION_TOTAL);
+        $reports->set('clicks', $clicksReport);
         return $reports;
     }
 
@@ -57,6 +66,10 @@ class DomainReporter implements ReporterInterface
             case 'total':
             default:
                 return $this->getTotal();
+            case 'clickcounters':
+                return $this->getClickCounters();
+            case 'clicks':
+                return $this->getClicks();
         }
     }
 
@@ -74,6 +87,46 @@ class DomainReporter implements ReporterInterface
             }
             $count += 1;
 
+        }
+        $events = new ArrayCollection();
+        $events->add(new ReportEvent($date, $count));
+        return $events;
+    }
+
+    /**
+     * @return ReportEvent[]|ArrayCollection
+     */
+    protected function getClickCounters()
+    {
+        $date  = null;
+        $count = 0;
+        foreach ($this->domainRepo->findAll() as $domain) {
+            /** @var Domain $domain */
+            if (Option::fromValue($domain->getActiveBanner())->isDefined()) {
+                $count += 1;
+                if ($domain->getCreated() > $date) {
+                    $date = $domain->getCreated();
+                }
+            }
+        }
+        $events = new ArrayCollection();
+        $events->add(new ReportEvent($date, $count));
+        return $events;
+    }
+
+    /**
+     * @return ReportEvent[]|ArrayCollection
+     */
+    protected function getClicks()
+    {
+        $date  = null;
+        $count = 0;
+        foreach ($this->domainRepo->findAll() as $domain) {
+            /** @var Domain $domain */
+            $count += $domain->getClickcount();
+            if ($domain->getCreated() > $date) {
+                $date = $domain->getCreated();
+            }
         }
         $events = new ArrayCollection();
         $events->add(new ReportEvent($date, $count));
