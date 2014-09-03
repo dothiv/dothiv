@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use LogicException;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * The dotHIV banner to be shown on websites
@@ -14,10 +15,12 @@ use LogicException;
  * @Serializer\ExclusionPolicy("all")
  *
  * @author Benedikt Budig <bb@dothiv.org>
- * @author Markus Tacker <m@dotHIV.org>
+ * @author Markus Tacker <m@click4life.hiv>
  */
 class Banner extends Entity
 {
+    use Traits\CreateUpdateTime;
+
     /**
      * Domain to redirect to, if desired
      *
