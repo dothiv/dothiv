@@ -1,0 +1,50 @@
+#hivdomains {
+  padding-top: @grid-gutter-width;
+  padding-bottom: @grid-gutter-width;
+  section {
+    position: relative;
+    text-align: center;
+    padding-top: @grid-gutter-width;
+    padding-bottom: @grid-gutter-width;
+
+    h3 {
+      font-weight: @font-weight-regular;
+      font-size: 3em;
+      text-align: center;
+      margin: 0;
+      margin-left: 60px;
+      margin-right: 60px;
+    }
+    nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      a[rel=prev], a[rel=next] {
+        font-size: 5em;
+        display: inline-block;
+        line-height: 50px;
+        font-weight: @font-weight-regular;
+        cursor: pointer;
+        text-decoration: none;
+        position: absolute;
+        top: @grid-gutter-width;
+        &[rel=prev] {
+          left: @grid-gutter-width / 2;
+        }
+        &[rel=next] {
+          right: @grid-gutter-width / 2;
+        }
+      }
+    }
+  }
+  footer {
+    text-align: center;
+  }
+  a[rel=friend] {
+    &:extend(.btn all);
+    &:extend(.btn-primary all);
+    margin-top: @grid-gutter-width;
+    margin-bottom: @grid-gutter-width;
+  }
+}

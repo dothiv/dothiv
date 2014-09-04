@@ -26,7 +26,7 @@ dothiv_registry_content_api:
         _controller: dothiv.registry.web.controller.page:contentAction
     requirements:
         locale:  en
-        type: Registrar
+        type: Registrar|hivDomain
 
 dothiv_registry_app_template:
     pattern:  /{locale}/app/{section}/{page}.{_format}
