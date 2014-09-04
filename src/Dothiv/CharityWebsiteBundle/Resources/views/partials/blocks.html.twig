@@ -9,6 +9,8 @@
         {% include "DothivCharityWebsiteBundle:behaviour:facebook_feed.html.twig" %}
     {% elseif "twitter_stream" in block.behaviour|default('block') %}
         {% include "DothivCharityWebsiteBundle:behaviour:twitter_stream.html.twig" %}
+    {% elseif "socialboard" in block.behaviour|default('block') %}
+        {% include "DothivCharityWebsiteBundle:behaviour:socialboard.html.twig" %}
     {% else %}
         {% set thumbnail_size = thumbnail_size|default(block|behaviour('thumbnails')) %}
         {{ block('cf_contentBlock') }}
