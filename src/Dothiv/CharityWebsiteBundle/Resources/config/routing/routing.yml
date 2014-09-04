@@ -27,7 +27,7 @@ dothiv_charity_content_api:
         _controller: dothiv.charity.web.controller.page:contentAction
     requirements:
         locale:  en|de
-        type: Quote
+        type: Quote|hivDomain
 
 dothiv_charity_about_index:
     pattern:  /{locale}/p/about/mission
