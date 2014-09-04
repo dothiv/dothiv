@@ -41,6 +41,28 @@
     </div>
     <hr class="bottom-shadow">
 
+    {# Domains #}
+    <div data-ng-cloak data-ng-controller="HivDomainListController" data-ng-show="domain">
+        <div class="container domains">
+            <div class="row">
+                <div class="span12">
+                    <h3>{% trans %}hivdomains.title{% endtrans %}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12 domain">
+                    <h4 data-ng-bind="domain.name"></h4>
+                    <a data-ng-href="{{ '{{domain.link}}' }}" rel="friend" target="_blank">Visit site</a>
+                    <nav>
+                        <a rel="prev" data-ng-click="prev()">&lt;</a>
+                        <a rel="next" data-ng-click="next()">&gt;</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <hr class="bottom-shadow">
+    </div>
+
     {# Projects #}
     {% include "DothivCharityWebsiteBundle:partials:projects.html.twig" %}
 
