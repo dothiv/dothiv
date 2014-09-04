@@ -63,6 +63,41 @@
         <hr class="bottom-shadow">
     </div>
 
+    {# Moments #}
+    {% set heroes = content('Block', 'heroes') %}
+    {% for hero in heroes.children|default([]) %}
+        <div class="container domains">
+            <div class="row">
+                <div class="span12">
+                    <h3>{{ hero.title|default("") }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                {% set children = hero.children|default([hero]) %}
+                {% set span = 12 / children|length %}
+                {% for child in children %}
+                <div class="span{{ span }}">
+                    {% if child.image is defined %}
+                        <img src="{{ child.image.file.thumbnails.small }}" alt="{{ child.image.title }}" class="underlined-image">
+                    {% endif %}
+
+                    <h4>{{ child.title|default("") }}</h4>
+
+                    {{ child.text|default("")|markdown }}
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <hr class="bottom-shadow">
+    {% endfor %}
+
+    {# Moments #}
+    {% set hero = content('Block', 'clickstart') %}
+    {% if hero %}
+        {{ block('hero') }}
+    {% endif %}
+
     {# Projects #}
     {% include "DothivCharityWebsiteBundle:partials:projects.html.twig" %}
 
