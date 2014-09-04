@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
+use Dothiv\BusinessBundle\Repository\Traits\PaginatedQueryTrait;
 use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use PhpOption\Option;
 use Symfony\Component\Validator\ValidatorInterface;
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\ValidatorInterface;
 class NonProfitRegistrationRepository extends DoctrineEntityRepository implements NonProfitRegistrationRepositoryInterface
 {
     use ValidatorTrait;
+    use PaginatedQueryTrait;
 
     /**
      * {@inheritdoc}
@@ -59,56 +61,18 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
     }
 
     /**
-     * Returns a list of active nonprofit registraions.
-     *
-     * @param mixed|null $offsetKey
-     * @param mixed|null $offsetDir
-     *
-     * @return PaginatedResult
+     * {@inheritdoc}
      */
-    public function getActivePaginated($offsetKey = null, $offsetDir = null)
+    public function getPaginated($offsetKey = null, $offsetDir = null)
     {
-        list(, $total, $minKey, $maxKey) = $this->createQueryBuilder('r')->select('COUNT(r), MAX(r.id), MIN(r.id)')->getQuery()->getScalarResult()[0];
-        $paginatedResult = new PaginatedResult(10, $total);
-        $qb              = $this->createQueryBuilder('r');
-        $offsetDir       = Option::fromValue($offsetDir)->getOrElse('forward');
-        if (Option::fromValue($offsetKey)->isDefined()) {
-            if ($offsetDir == 'back') {
-                $qb->orderBy('r.id', 'ASC');
-                $qb->andWhere('r.id > :offsetKey')->setParameter('offsetKey', $offsetKey);
-            } else { // forward
-                $qb->orderBy('r.id', 'DESC');
-                $qb->andWhere('r.id < :offsetKey')->setParameter('offsetKey', $offsetKey);
-            }
-
-        } else {
-            $qb->orderBy('r.id', 'DESC');
-        }
-        $qb->setMaxResults($paginatedResult->getItemsPerPage());
-
-        $items = $qb
-            ->getQuery()
-            ->getResult();
-        if ($offsetDir == 'back') {
-            $items = array_reverse($items);
-        }
-        $result = new ArrayCollection($items);
-        if ($result->count() == 0) {
-            return $paginatedResult;
-        }
-        $paginatedResult->setResult($result);
-        if ($result->count() == $paginatedResult->getItemsPerPage()) {
-            $paginatedResult->setNextPageKey(function (NonProfitRegistration $registration) use ($maxKey) {
-                return $registration->getId() != $maxKey ? $registration->getId() : null;
-            });
-        }
-        if ($offsetKey !== null) {
-            $paginatedResult->setPrevPageKey(function (NonProfitRegistration $registration) use ($minKey) {
-                return $registration->getId() != $minKey ? $registration->getId() : null;
-            });
-        }
-
-        return $paginatedResult;
+        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $offsetKey, $offsetDir);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getItemByIdentifier($identifier)
+    {
+        return $this->getNonProfitRegistrationByDomainName($identifier);
+    }
 }

@@ -3,11 +3,14 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Repository\Traits\PaginatedQueryTrait;
 use PhpOption\Option;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 
 class DomainRepository extends DoctrineEntityRepository implements DomainRepositoryInterface
 {
+    use PaginatedQueryTrait;
+    
     /**
      * @param string $name
      *
@@ -64,6 +67,22 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
     {
         $this->getEntityManager()->remove($domain);
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPaginated($offsetKey = null, $offsetDir = null)
+    {
+        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $offsetKey, $offsetDir);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getItemByIdentifier($identifier)
+    {
+        return $this->getDomainByName($identifier);
     }
 
 }
