@@ -133,3 +133,15 @@ main {
     }
   }
 }
+
+div.outer > aside {
+  &:extend(.container);
+  article {
+    header, section {
+      .make-row();
+    }
+    h2 {
+      .make-xs-column(12);
+    }
+  }
+}

@@ -111,6 +111,7 @@
         {% block content %}{% endblock content %}
     </main>
 </div>
+{% block aftercontent %}{% endblock aftercontent %}
 <div class="outer-grey">
     <footer class="page">
         <article>
@@ -144,9 +145,11 @@
 {% javascripts
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/app.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/MoneyFormatter.js'
+    '@DothivBaseWebsiteBundle/Resources/public/1.2/filters/*.js'
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/PreregisterFormController.js'
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/SedoFormController.js'
     '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/RegistrarsListController.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/HivDomainListController.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js'
 %}
