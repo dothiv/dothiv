@@ -11,7 +11,7 @@ use PhpOption\Option;
 /**
  * This repository contains the NonProfitRegistrations.
  */
-interface NonProfitRegistrationRepositoryInterface extends ObjectRepository
+interface NonProfitRegistrationRepositoryInterface extends ObjectRepository, CRUDRepository
 {
     /**
      * Persist the entity.
@@ -43,13 +43,4 @@ interface NonProfitRegistrationRepositoryInterface extends ObjectRepository
      * @return NonProfitRegistration[]|ArrayCollection
      */
     public function getUnconfirmed();
-
-    /**
-     * Returns a list of active nonprofit registraions.
-     *
-     * @param mixed|null $offsetKey
-     *
-     * @return PaginatedResult
-     */
-    public function getActivePaginated($offsetKey);
 }
