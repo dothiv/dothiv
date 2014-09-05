@@ -17,11 +17,21 @@
       margin: 20px 10px 0 10px;
       padding-left: 20px;
       background: url('/bundles/dothivcharitywebsite/images/small-tick-right-e00073.png') no-repeat 2px center;
+      &.button {
+        padding: 0.5em 1em 0.5em 0.5em;
+        color: white;
+        text-decoration: none;
+        background: @darkpink url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 95% center;
+        &:hover {
+          color: white;
+          background-color: lighten(@darkpink, 20%);
+        }
+      }
     }
     a:hover, a.active {
       color: @darkpink;
     }
-    margin-top: 32px;
+    margin-top: 20px;
 
     .barmenu {
       float: left;

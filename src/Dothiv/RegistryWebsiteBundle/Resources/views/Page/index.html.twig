@@ -19,3 +19,22 @@
         {% endfor %}
     </article>
 {% endblock %}
+{% block aftercontent %}
+    <div class="outer">
+        <aside data-ng-controller="HivDomainListController">
+            <article id="hivdomains" data-ng-show="domain">
+                <header>
+                    <h2>{% trans %}hivdomains.title{% endtrans %}</h2>
+                </header>
+                <section>
+                    <h3 data-ng-bind="domain.name"></h3>
+                    <a data-ng-href="%%domain.link%%" rel="friend" target="_blank">{% trans %}hivdomains.visit{% endtrans %}</a>
+                    <nav>
+                        <a rel="prev" data-ng-click="prev()">&lt;</a>
+                        <a rel="next" data-ng-click="next()">&gt;</a>
+                    </nav>
+                </section>
+            </article>
+        </aside>
+    </div>
+{% endblock aftercontent %}

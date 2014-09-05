@@ -107,7 +107,7 @@ class ClickCounterConfig implements ClickCounterConfigInterface
             $config['strings'][$locale] = array(
                 'heading'      => $this->getString('heading', $locale),
                 'shortheading' => $this->getString('shortheading', $locale),
-                'money'        => '%unlocked%'
+                'money'        => $this->getString('bar', $locale),
             );
         }
         return $config;

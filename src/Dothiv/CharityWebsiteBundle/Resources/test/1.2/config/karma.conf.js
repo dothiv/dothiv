@@ -13,7 +13,6 @@ module.exports = function (config) {
             'AngularJsBundle/Resources/public/angular/angular-mocks.js',
             // *WebsiteBundle
             'CharityWebsiteBundle/Resources/public/1.2/app.js',
-            'CharityWebsiteBundle/Resources/public/1.2/filters/*.js',
             'CharityWebsiteBundle/Resources/public/1.2/controllers/*.js',
             'BaseWebsiteBundle/Resources/public/1.2/services/*.js',
             'BaseWebsiteBundle/Resources/public/1.2/services/models/*.js',
