@@ -3,35 +3,48 @@
     <table>
         <thead>
         <tr>
-            <th></th>
-            <th>
-                {% trans %}module.registrar-list.heading.name{% endtrans %}
-                <a data-ng-click="predicate = '+name'"><i class="order-down"></i></a>
-                <a data-ng-click="predicate = '-name'"><i class="order-up"></i></a>
+            <th colspan="2" class="name">
+                <a data-ng-click="flipPredicate('name')">
+                    {% trans %}module.registrar-list.heading.name{% endtrans %}
+                    <span class="order-icons">
+                        <i class="order-down" data-ng-class="{active: predicate == '+name'}"></i>
+                        <i class="order-up" data-ng-class="{active: predicate == '-name'}"></i>
+                    </span>
+                </a>
+            </th>
+            <th class="promition">
+                <a data-ng-click="flipPredicate('promotion')">
+                    {% trans %}module.registrar-list.heading.promotion{% endtrans %}
+                    <span class="order-icons">
+                        <i class="order-down" data-ng-class="{active: predicate == '+promotion'}"></i>
+                        <i class="order-up" data-ng-class="{active: predicate == '-promotion'}"></i>
+                    </span>
+                </a>
+            </th>
+            <th class="price">
+                <a data-ng-click="flipPredicate('price' + currency)">
+                    {% trans %}module.registrar-list.heading.price{% endtrans %}
+                    <span class="order-icons">
+                        <i class="order-down" data-ng-class="{active: predicate == '+price' + currency}"></i>
+                        <i class="order-up" data-ng-class="{active: predicate == '-price' + currency}"></i>
+                    </span>
+                </a>
             </th>
             <th>
-                {% trans %}module.registrar-list.heading.promotion{% endtrans %}
-                <a data-ng-click="predicate = '+promotion'"><i class="order-down"></i></a>
-                <a data-ng-click="predicate = '-promotion'"><i class="order-up"></i></a>
-            </th>
-            <th class="price" colspan="2">
-                {% trans %}module.registrar-list.heading.price{% endtrans %}
-            </th>
-        </tr>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th class="price" >
-                $
-                <a data-ng-click="predicate = ['+priceUSD', '+priceEUR']"><i class="order-down"></i></a>
-            </th>
-            <th class="price" >
-                €
-                <a data-ng-click="predicate = ['+priceEUR', '+priceUSD']"><i class="order-down"></i></a>
+                <select data-ng-model="currency" name="currency" data-ng-change="predicate = '+price' + currency;">
+                    <option value="USD">$</option>
+                    <option value="EUR">€</option>
+                </select>
             </th>
         </tr>
         </thead>
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <small>{% trans %}module.registrar-list.footer.conversion{% endtrans %}</small>
+            </td>
+        </tr>
+        </tfoot>
         <tbody>
         <tr data-ng-repeat="r in registrars | filter:{privateRegistrar:false} | orderBy:predicate ">
 
@@ -43,8 +56,13 @@
                 <a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}" data-ng-bind="r.name"></a>
             </td>
             <td data-ng-bind-html="r.promotion"></td>
-            <td class="price" data-ng-bind="r.priceUSDLabel"></td>
-            <td class="price" data-ng-bind="r.priceEURLabel"></td>
+            <td class="price">
+                <span data-ng-bind="r.priceUSDLabel" data-ng-show="currency == 'USD'"></span>
+                <span data-ng-bind="r.priceEURLabel" data-ng-show="currency == 'EUR'"></span>
+            </td>
+            <td>
+                <a class="button" data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}">{% trans %}module.registrar-list.register{% endtrans %}</a>
+            </td>
         </tr>
         </tbody>
     </table>

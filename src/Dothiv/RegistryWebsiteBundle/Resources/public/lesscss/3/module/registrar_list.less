@@ -3,10 +3,20 @@
 
   table {
     &:extend(.table all);
+    col {
+        width: 33%;
+    }
     tbody {
       tr {
         td {
           vertical-align: middle;
+          a.button {
+            &:extend(.btn all);
+            &:extend(.btn-primary all);
+            &:hover {
+              text-decoration: none;
+            }
+          }
         }
       }
     }
@@ -14,22 +24,58 @@
       tr {
         th {
           white-space: nowrap;
+          &.name {
+            width: 40%;
+          }
         }
       }
     }
     td, th {
       &.price {
         text-align: right;
+        font-weight: @font-weight-bold;
       }
     }
     thead {
+      span.order-icons {
+        position: relative;
+        display: inline-block;
+        height: 20px;
+        vertical-align: text-bottom;
+        i {
+          font-size: 0.5em;
+          position: absolute;
+          left: 0;
+        }
+      }
       i.order-down {
         .glyphicon;
         .glyphicon-chevron-down;
+        bottom: 0;
+        top: inherit;
       }
       i.order-up{
         .glyphicon;
         .glyphicon-chevron-up;
+        top: 0;
+      }
+      i {
+        opacity: 0.25;
+        color: #000000;
+        &.active {
+          opacity: 1;
+          color: @brand-primary;
+        }
+      }
+      a:hover {
+        text-decoration: none;
+      }
+      select {
+        &:extend(.form-control all);
+        &:extend(.input-sm all);
+        display: inline-block;
+        width: 70px;
+        margin-right: @grid-gutter-width / 2;
       }
     }
   }

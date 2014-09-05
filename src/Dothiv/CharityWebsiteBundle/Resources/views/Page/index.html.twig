@@ -41,6 +41,81 @@
     </div>
     <hr class="bottom-shadow">
 
+    {# Domains #}
+    <div data-ng-cloak data-ng-controller="HivDomainListController" data-ng-show="domain">
+        <div class="container domains">
+            <div class="row">
+                <div class="span12">
+                    <h3>{% trans %}hivdomains.title{% endtrans %}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12 domain">
+                    <h4 data-ng-bind="domain.name"></h4>
+                    <a data-ng-href="{{ '{{domain.link}}' }}" rel="friend" target="_blank">Visit site</a>
+                    <nav>
+                        <a rel="prev" data-ng-click="prev()">&lt;</a>
+                        <a rel="next" data-ng-click="next()">&gt;</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <hr class="bottom-shadow">
+    </div>
+
+    {# Moments #}
+    {% set heroes = content('Block', 'heroes') %}
+    {% for hero in heroes.children|default([]) %}
+        <div class="container domains">
+            <div class="row">
+                <div class="span12">
+                    <h3>{{ hero.title|default("") }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                {% set children = hero.children|default([hero]) %}
+                {% set span_left = 12 %}
+                {% set children_left = children|length %}
+                {% for child in children %}
+                    {% set child_span = child|behaviour('span') %}
+                    {% if child_span > 0 %}
+                        {% set span_left = span_left - child_span %}
+                        {% set children_left = children_left - 1 %}
+                    {% endif %}
+                {% endfor %}
+                {% set other_span = span_left / children_left %}
+                {% for child in children %}
+                {% set child_span = child|behaviour('span')|default(other_span) %}
+                <div class="span{{ child_span }}">
+                    {% if child.image is defined %}
+                        {% set thumbnail_size = child|behaviour('thumbnails')|default('small') %}
+                        <img src="{{ child.image.file.thumbnails[thumbnail_size] }}"
+                             alt="{{ child.image.title }}"
+                             {% if child.title is defined or child.text is defined %}
+                             class="underlined-image"
+                             {% else %}
+                             class="image"
+                             {% endif %}
+                            >
+                    {% endif %}
+
+                    <h4>{{ child.title|default("") }}</h4>
+
+                    {{ child.text|default("")|markdown }}
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <hr class="bottom-shadow">
+    {% endfor %}
+
+    {# Moments #}
+    {% set hero = content('Block', 'clickstart') %}
+    {% if hero %}
+        {{ block('hero') }}
+    {% endif %}
+
     {# Projects #}
     {% include "DothivCharityWebsiteBundle:partials:projects.html.twig" %}
 

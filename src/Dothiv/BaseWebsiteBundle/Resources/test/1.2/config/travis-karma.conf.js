@@ -15,6 +15,7 @@ module.exports = function (config) {
             'BaseWebsiteBundle/Resources/test/1.2/app.js',
             'BaseWebsiteBundle/Resources/public/1.2/services/*.js',
             'BaseWebsiteBundle/Resources/public/1.2/services/models/*.js',
+            'BaseWebsiteBundle/Resources/public/1.2/filters/*.js',
             'BaseWebsiteBundle/Resources/test/1.2/unit/**/*.js'
         ],
         autoWatch: false,
