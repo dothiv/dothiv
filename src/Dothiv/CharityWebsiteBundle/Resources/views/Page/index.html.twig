@@ -74,11 +74,29 @@
             </div>
             <div class="row">
                 {% set children = hero.children|default([hero]) %}
-                {% set span = 12 / children|length %}
+                {% set span_left = 12 %}
+                {% set children_left = children|length %}
                 {% for child in children %}
-                <div class="span{{ span }}">
+                    {% set child_span = child|behaviour('span') %}
+                    {% if child_span > 0 %}
+                        {% set span_left = span_left - child_span %}
+                        {% set children_left = children_left - 1 %}
+                    {% endif %}
+                {% endfor %}
+                {% set other_span = span_left / children_left %}
+                {% for child in children %}
+                {% set child_span = child|behaviour('span')|default(other_span) %}
+                <div class="span{{ child_span }}">
                     {% if child.image is defined %}
-                        <img src="{{ child.image.file.thumbnails.small }}" alt="{{ child.image.title }}" class="underlined-image">
+                        {% set thumbnail_size = child|behaviour('thumbnails')|default('small') %}
+                        <img src="{{ child.image.file.thumbnails[thumbnail_size] }}"
+                             alt="{{ child.image.title }}"
+                             {% if child.title is defined or child.text is defined %}
+                             class="underlined-image"
+                             {% else %}
+                             class="image"
+                             {% endif %}
+                            >
                     {% endif %}
 
                     <h4>{{ child.title|default("") }}</h4>
