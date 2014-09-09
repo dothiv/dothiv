@@ -74,14 +74,14 @@ class DomainRegisteredMailer
             return;
         }
         $email     = $domain->getOwnerEmail();
-        $surname   = null;
         $firstname = null;
+        $surname   = null;
         $owner     = $domain->getOwnerName();
         if ($pos = strrpos($owner, ' ')) {
             $firstname = trim(substr($owner, 0, $pos));
             $surname   = trim(substr($owner, $pos));
         } else {
-            $firstname = $owner;
+            $surname = $owner;
         }
         $user      = $this->userService->getOrCreateUser($email, $firstname, $surname);
         $userToken = $this->userService->createUserToken($user, new IdentValue('domainclaim'), 86400 * 14);
