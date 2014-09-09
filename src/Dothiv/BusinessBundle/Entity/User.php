@@ -49,18 +49,18 @@ class User implements UserInterface
     /**
      * First name
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Serializer\Expose
-     * @Assert\NotBlank
      */
     protected $firstname;
 
     /**
      * Last name
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false)
      * @Serializer\Expose
      * @Assert\NotBlank
+     * @Assert\NotNull
      */
     protected $surname;
 
