@@ -12,18 +12,24 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments:
-          - %dothiv_contentful.item.content_type.class%
+        - %dothiv_contentful.item.content_type.class%
+        calls:
+        - [setValidator, ["@validator"]]
 
     dothiv_contentful.repo.asset:
         class: %dothiv_contentful.repo.asset.class%
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments:
-          - %dothiv_contentful.item.asset.class%
+        - %dothiv_contentful.item.asset.class%
+        calls:
+        - [setValidator, ["@validator"]]
 
     dothiv_contentful.repo.entry:
         class: %dothiv_contentful.repo.entry.class%
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments:
-          - %dothiv_contentful.item.entry.class%
+        - %dothiv_contentful.item.entry.class%
+        calls:
+        - [setValidator, ["@validator"]]
