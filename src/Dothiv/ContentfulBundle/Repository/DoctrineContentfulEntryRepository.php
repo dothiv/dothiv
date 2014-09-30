@@ -4,12 +4,15 @@ namespace Dothiv\ContentfulBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
+use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use Dothiv\ContentfulBundle\Item\ContentfulContentType;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
 use PhpOption\Option;
 
 class DoctrineContentfulEntryRepository extends EntityRepository implements ContentfulEntryRepository
 {
+    use ValidatorTrait;
+    
     /**
      * {@inheritdoc}
      */
