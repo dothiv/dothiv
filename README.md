@@ -12,6 +12,7 @@ Build status
 -------------
 
  * Travis: [![Build Status](https://secure.travis-ci.org/dothiv/dothiv.png)](http://travis-ci.org/dothiv/dothiv)
+ * Jenkins: [![Build Status](http://jenkins.tld.hiv:8080/job/dothiv/badge/icon)](http://jenkins.tld.hiv:8080/job/dothiv/)
 
 How to contribute
 -----------------

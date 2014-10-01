@@ -27,42 +27,56 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.banner.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
 
     dothiv.repository.user:
         class: %dothiv.repository.user.repository.class%
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.user.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
 
     dothiv.repository.user_token:
         class: %dothiv.repository.user_token.repository.class%
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.user_token.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
 
     dothiv.repository.domain:
         class: %dothiv.repository.domain.repository.class%
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.domain.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
 
     dothiv.repository.banner:
         class: %dothiv.repository.banner.repository.class%
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.banner.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
 
     dothiv.repository.domainclaim:
         class: %dothiv.repository.domainclaim.repository.class%
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.domainclaim.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
 
     dothiv.repository.attachment:
         class: %dothiv.repository.attachment.repository.class%
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.attachment.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
 
     dothiv.repository.nonprofitregistration:
         class: %dothiv.repository.nonprofitregistration.repository.class%

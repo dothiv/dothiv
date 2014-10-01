@@ -24,6 +24,6 @@ class LandingPageController extends PageController
         } catch (InvalidArgumentException $e) {
             throw new NotFoundHttpException("$partner not found.");
         }
-        return parent::pageAction($request, strtolower($entry->language), $partner, null, 'Page:landingpage', 'QLP');
+        return parent::pageAction($request, 'en', $partner, null, 'Page:landingpage', 'QLP');
     }
 }
