@@ -32,8 +32,10 @@
             <exclude>
                 <directory>../src/*/*Bundle/Resources</directory>
                 <directory>../src/*/*Bundle/Tests</directory>
+                <directory>../src/*/*Bundle/DependencyInjection</directory>
                 <directory>../src/*/Bundle/*Bundle/Resources</directory>
                 <directory>../src/*/Bundle/*Bundle/Tests</directory>
+                <directory>../src/*/Bundle/*Bundle/DependencyInjection</directory>
                 <directory>../src/Dothiv/AngularJsBundle</directory>
                 <directory>../src/Dothiv/TwitterBootstrapBundle</directory>
             </exclude>
