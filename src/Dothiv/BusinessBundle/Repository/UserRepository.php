@@ -3,11 +3,14 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use PhpOption\Option;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 
 class UserRepository extends DoctrineEntityRepository implements UserRepositoryInterface
 {
+    use ValidatorTrait;
+    
     /**
      * @param string $email
      *
@@ -28,7 +31,7 @@ class UserRepository extends DoctrineEntityRepository implements UserRepositoryI
      */
     public function persist(User $user)
     {
-        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->persist($this->validate($user));
         return $this;
     }
 

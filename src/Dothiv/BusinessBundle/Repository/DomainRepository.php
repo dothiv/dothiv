@@ -4,12 +4,14 @@ namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\Traits\PaginatedQueryTrait;
+use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use PhpOption\Option;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 
 class DomainRepository extends DoctrineEntityRepository implements DomainRepositoryInterface
 {
     use PaginatedQueryTrait;
+    use ValidatorTrait;
     
     /**
      * @param string $name
@@ -47,7 +49,7 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
      */
     public function persist(Domain $domain)
     {
-        $this->getEntityManager()->persist($domain);
+        $this->getEntityManager()->persist($this->validate($domain));
         return $this;
     }
 

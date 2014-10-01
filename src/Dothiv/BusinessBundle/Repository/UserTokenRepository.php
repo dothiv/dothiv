@@ -5,12 +5,15 @@ namespace Dothiv\BusinessBundle\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
+use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use Dothiv\BusinessBundle\ValueObject\IdentValue;
 use PhpOption\Option;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 
 class UserTokenRepository extends DoctrineEntityRepository implements UserTokenRepositoryInterface
 {
+    use ValidatorTrait;
+    
     /**
      * {@inheritdoc}
      */
@@ -50,7 +53,7 @@ class UserTokenRepository extends DoctrineEntityRepository implements UserTokenR
      */
     public function persist(UserToken $userToken)
     {
-        $this->getEntityManager()->persist($userToken);
+        $this->getEntityManager()->persist($this->validate($userToken));
         return $this;
     }
 }
