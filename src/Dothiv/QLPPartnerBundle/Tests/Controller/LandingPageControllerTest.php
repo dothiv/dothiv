@@ -41,6 +41,19 @@ class LandingPageControllerTest extends WebTestCase
         $this->assertEquals('//moniker.com/some/path', $crawler->filterXPath('//body/iframe')->attr('src'));
     }
 
+    /**
+     * @test
+     * @group QLPPartnerBundle
+     * @group Controller
+     * @group Integration
+     */
+    public function itShouldSendErrorOnMissingPartner()
+    {
+        $client = static::createClient();
+        $client->request('GET', 'http://acme.friends.click4life.hiv.dev/');
+        $this->assertTrue($client->getResponse()->isNotFound());
+    }
+
     public function setup()
     {
         $client    = static::createClient();
