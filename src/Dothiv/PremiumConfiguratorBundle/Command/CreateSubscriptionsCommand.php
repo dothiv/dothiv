@@ -2,11 +2,12 @@
 
 namespace Dothiv\PremiumConfiguratorBundle\Command;
 
+use Dothiv\BusinessBundle\Service\Clock;
 use Dothiv\PremiumConfiguratorBundle\Repository\SubscriptionRepositoryInterface;
+use Dothiv\PremiumConfiguratorBundle\Service\InvoiceServiceInterface;
 use Dothiv\PremiumConfiguratorBundle\Service\Mailer\SubscriptionConfirmedMailer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateSubscriptionsCommand extends ContainerAwareCommand
@@ -23,6 +24,10 @@ class CreateSubscriptionsCommand extends ContainerAwareCommand
         /** @var SubscriptionRepositoryInterface $subscriptionRepo */
         $subscriptionRepo = $this->getContainer()->get('dothiv.repository.premiumconfigurator.subscription');
         $stripeConfig     = $this->getContainer()->getParameter('dothiv_premium_configurator.stripe');
+        /** @var InvoiceServiceInterface $invoiceService */
+        $invoiceService = $this->getContainer()->get('dothiv.premiumconfigurator.service.invoice');
+        /** @var Clock $clock */
+        $clock = $this->getContainer()->get('clock');
         /** @var SubscriptionConfirmedMailer $mailer */
         $mailer = $this->getContainer()->get('dothiv.premiumconfigurator.mailer.subscription_confirmed');
 
@@ -40,7 +45,9 @@ class CreateSubscriptionsCommand extends ContainerAwareCommand
                 );
                 $subscription->activate($customer);
                 $subscriptionRepo->persist($subscription)->flush();
-                $mailer->sendSubscriptionCreatedMail($subscription);
+                $invoice = $invoiceService->createInvoiceForSubscription($subscription, $clock->getNow());
+                // TODO: persist invoices for subscription (for follow-up invoices)
+                $mailer->sendSubscriptionCreatedMail($subscription, $invoice);
             } catch (\Stripe_CardError $e) {
                 $output->writeln(
                     sprintf('Failed to subscribe %s for %s.', $subscription->getEmail(), $subscription->getDomain()->getName())
