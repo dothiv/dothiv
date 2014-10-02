@@ -13,6 +13,7 @@ parameters:
     mailer_password:   ~
     mailer_port:       25
     mailer_encryption: ~
+    mailer_auth_mode: ~
     email_from_name:    Markus from dotHIV
     email_from_address: m@tld.hiv
 
