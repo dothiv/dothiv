@@ -20,7 +20,7 @@ trait ContentfulSys
      * @ORM\Id
      * @Assert\NotBlank()
      * @Assert\NotNull()
-     * @Assert\Range(min=1)
+     * @Assert\Range(min=0)
      * @Assert\Type("integer")
      * @var int
      */
