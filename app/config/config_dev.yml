@@ -24,9 +24,3 @@ monolog:
 
 assetic:
     use_controller: true
-
-swiftmailer:
-    spool:     { type: memory }
-    # for mailtrap.io
-    auth_mode: cram-md5
-    port: 2525
