@@ -47,7 +47,7 @@ dothiv_admin:
     prefix:   /admin/
 
 # Pay it forward
-dothiv_admin:
+dothiv_payitforward:
     host: %registrydomain%
     resource: "@DothivPayitforwardBundle/Resources/config/routing.yml"
     prefix:   /{locale}/payitforward/
