@@ -29,3 +29,5 @@
 /app/config/parameters_test.yml
 /web/uploads
 /*.sh
+/web/vendor
+/web/assetic

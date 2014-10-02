@@ -1,0 +1,7 @@
+dothiv_payitforward_checkout:
+    path:     /checkout
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    'DothivPayitforwardBundle:Default:checkout.html.twig'
+    requirements:
+        locale: ^(en|de|ky)$
