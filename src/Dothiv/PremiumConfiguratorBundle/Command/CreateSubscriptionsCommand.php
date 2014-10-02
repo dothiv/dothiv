@@ -35,9 +35,11 @@ class CreateSubscriptionsCommand extends ContainerAwareCommand
 
         foreach ($subscriptionRepo->findInactive() as $subscription) {
             try {
+                // TODO: persist invoices for subscription (for follow-up invoices)
+                $invoice = $invoiceService->createInvoiceForSubscription($subscription, $clock->getNow());
                 $customer = \Stripe_Customer::create(array(
                     'card'  => $subscription->getToken(), // obtained from Stripe.js
-                    'plan'  => $stripeConfig['plan'],
+                    'plan'  => $invoice->getVatPercent() > 0 ? 'premium-clickcounter-vat' : 'premium-clickcounter-novat',
                     'email' => (string)$subscription->getEmail()
                 ));
                 $output->writeln(
@@ -45,8 +47,7 @@ class CreateSubscriptionsCommand extends ContainerAwareCommand
                 );
                 $subscription->activate($customer);
                 $subscriptionRepo->persist($subscription)->flush();
-                $invoice = $invoiceService->createInvoiceForSubscription($subscription, $clock->getNow());
-                // TODO: persist invoices for subscription (for follow-up invoices)
+
                 $mailer->sendSubscriptionCreatedMail($subscription, $invoice);
             } catch (\Stripe_CardError $e) {
                 $output->writeln(
