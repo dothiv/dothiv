@@ -1,5 +1,6 @@
 parameters:
     dothiv.premiumconfigurator.service.attachment_store.class: Dothiv\PremiumConfiguratorBundle\Service\AttachmentStoreService
+    dothiv.premiumconfigurator.service.invoice.class: Dothiv\PremiumConfiguratorBundle\Service\InvoiceService
     dothiv.premiumconfigurator.mailer.subscription_confirmed.class: Dothiv\PremiumConfiguratorBundle\Service\Mailer\SubscriptionConfirmedMailer
 
 services:
@@ -18,7 +19,15 @@ services:
         - @dothiv.websitebase.service.image_scaler
         - %charitydomain%
 
+    dothiv.premiumconfigurator.service.invoice:
+        class: %dothiv.premiumconfigurator.service.invoice.class%
+        arguments:
+        - @dothiv.repository.invoice
+        - %premium_price%
+        - %devat%
+
     dothiv.premiumconfigurator.mailer.subscription_confirmed:
         class: %dothiv.premiumconfigurator.mailer.subscription_confirmed.class%
         arguments:
         - @dothiv.charity.service.mailer.content
+        - @dothiv.websitebase.money_format

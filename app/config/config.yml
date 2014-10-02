@@ -98,7 +98,8 @@ swiftmailer:
     password:   %mailer_password%
     port:       %mailer_port%
     encryption: %mailer_encryption%
-    spool:      { type: memory }
+    auth_mode:  %mailer_auth_mode%
+    spool:     { type: memory }
 
 # Gregwar's form
 gregwar_form: ~

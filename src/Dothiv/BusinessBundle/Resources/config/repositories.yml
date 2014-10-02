@@ -20,6 +20,8 @@ parameters:
     dothiv.repository.config.repository.class: Dothiv\BusinessBundle\Repository\ConfigRepository
     dothiv.repository.registrar.entity.class: 'DothivBusinessBundle:Registrar'
     dothiv.repository.registrar.repository.class: Dothiv\BusinessBundle\Repository\RegistrarRepository
+    dothiv.repository.invoice.entity.class: 'DothivBusinessBundle:Invoice'
+    dothiv.repository.invoice.repository.class: Dothiv\BusinessBundle\Repository\InvoiceRepository
 
 services:
     dothiv.repository.banner:
@@ -107,5 +109,13 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.registrar.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
+
+    dothiv.repository.invoice:
+        class: %dothiv.repository.invoice.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.invoice.entity.class% ]
         calls:
         - [setValidator, ["@validator"]]

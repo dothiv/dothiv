@@ -24,6 +24,12 @@ class Subscription extends Entity
 {
     use CreateUpdateTime;
 
+    const TYPE_NONEU = 'noneu';
+    const TYPE_EUORGNET = 'euorgnet';
+    const TYPE_EUORG = 'euorg';
+    const TYPE_DEORG = 'deorg';
+    const TYPE_EUPRIVATE = 'euprivate';
+
     /**
      * The domain for this subscription
      *
