@@ -38,12 +38,6 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-                ->arrayNode('stripe')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('plan')->defaultValue('premium-clickcounter')->end()
-                    ->end()
-                ->end()
             ->end();
         return $treeBuilder;
     }
