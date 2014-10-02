@@ -50,6 +50,10 @@ class ImageAssetScaler implements LoggerAwareInterface
      */
     public function scaleAsset(ContentfulAsset $asset)
     {
+        if (!isset($asset->file)) {
+            $this->log('Asset %s has no file.', $asset);
+            return;
+        }
         foreach ($asset->file as $locale => $info) {
             if (substr($info['contentType'], 0, 6) != 'image/') {
                 return;

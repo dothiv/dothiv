@@ -26,7 +26,7 @@ class DoctrineContentfulContentTypeRepository extends EntityRepository implement
      */
     public function persist(ContentfulContentType $contentType)
     {
-        $this->getEntityManager()->persist($contentType);
+        $this->getEntityManager()->persist($this->validate($contentType));
         return $this;
     }
 
