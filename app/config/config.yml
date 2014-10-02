@@ -64,6 +64,37 @@ assetic:
             compilation_level: SIMPLE_OPTIMIZATIONS
         #yui_css:
         #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
+    assets:
+        punycode_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/bestiejs-punycode/punycode.js
+        angular_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular.js
+        angular_js_resource:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular-resource.js
+        angular_js_route:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular-route.js
+        angular_js_cookies:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular-cookies.js
+        angular_ui_router:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angular-ui-router/release/angular-ui-router.js
+        angular_ui_bootstrap:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+            - %kernel.root_dir%/../vendor/components/bootstrap/ui-bootstrap.js
+        angular_ui_bootstrap_tpls:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+            - %kernel.root_dir%/../vendor/components/bootstrap/ui-bootstrap-tpls.js
+        angular_file_upload:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/nervgh-angular-file-upload/angular-file-upload.js
+
 
 # Doctrine Configuration
 doctrine:
