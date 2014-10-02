@@ -23,7 +23,6 @@ class CreateSubscriptionsCommand extends ContainerAwareCommand
     {
         /** @var SubscriptionRepositoryInterface $subscriptionRepo */
         $subscriptionRepo = $this->getContainer()->get('dothiv.repository.premiumconfigurator.subscription');
-        $stripeConfig     = $this->getContainer()->getParameter('dothiv_premium_configurator.stripe');
         /** @var InvoiceServiceInterface $invoiceService */
         $invoiceService = $this->getContainer()->get('dothiv.premiumconfigurator.service.invoice');
         /** @var Clock $clock */
