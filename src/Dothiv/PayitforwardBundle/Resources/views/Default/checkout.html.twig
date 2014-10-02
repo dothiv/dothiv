@@ -1,0 +1,27 @@
+{% trans_default_domain "registry" %}
+{% set locale = app.request.get('locale') %}
+{% set page = registry_content('Page', 'payitforward', locale) %}
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivRegistryWebsiteBundle:Page:content.html.twig" %}
+{% block content %}
+    <p>App goes here</p>
+    <div data-ui-view></div>
+{% endblock %}
+{% block angular_app %}
+    {% javascripts
+    '@punycode_js'
+    '@angular_js_resource'
+    '@angular_js_route'
+    '@angular_js_cookies'
+    '@angular_ui_router'
+    '@angular_ui_bootstrap_tpls'
+    '@angular_file_upload'
+    '@DothivPayitforwardBundle/Resources/public/js/app.js'
+    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'
+    filter='?ngmin,?closureecma5'
+    output='js/*.min.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock angular_app %}
