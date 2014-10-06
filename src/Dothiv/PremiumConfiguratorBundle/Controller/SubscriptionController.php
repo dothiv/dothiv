@@ -101,6 +101,7 @@ class SubscriptionController
         $this->subscriptionRepo->persist($subscription)->flush();
 
         $response = $this->createResponse();
+        $response->setStatusCode(201);
         $response->setContent($this->serializer->serialize($subscription, 'json'));
         return $response;
     }

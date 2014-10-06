@@ -50,4 +50,4 @@ dothiv_admin:
 dothiv_payitforward:
     host: %registrydomain%
     resource: "@DothivPayitforwardBundle/Resources/config/routing.yml"
-    prefix:   /{locale}/payitforward/
+    prefix:   /

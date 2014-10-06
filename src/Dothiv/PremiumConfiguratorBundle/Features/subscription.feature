@@ -39,7 +39,7 @@ Feature: Create subscription
       | country  | Country Name                 |
       | vatNo    | 123456                       |
       | taxNo    | 456123                       |
-    Then the response status code should be 200
+    Then the response status code should be 201
     And I send a GET request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription"
     Then the response status code should be 200
     And the header "content-type" should contain "application/json"

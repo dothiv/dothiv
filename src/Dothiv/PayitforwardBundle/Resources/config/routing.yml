@@ -1,5 +1,5 @@
 dothiv_payitforward_checkout:
-    path:     /checkout
+    path:     /{locale}/payitforward/checkout
     defaults:
         _controller: FrameworkBundle:Template:template
         template:    'DothivPayitforwardBundle:Default:checkout.html.twig'
@@ -7,10 +7,17 @@ dothiv_payitforward_checkout:
         locale: ^(en|de|ky)$
 
 dothiv_payitforward_app_template:
-    pattern:  /app/{page}.{_format}
+    pattern:  /{locale}/payitforward/app/{page}.{_format}
     defaults:
         _controller: dothiv.payitforward.web.controller.app:templateAction
         section: payitforward
     requirements:
         _format:  html
         locale:  en|de|ky
+
+dothiv_payitforward_order_create:
+    path:     /api/payitforward/order
+    defaults:
+        _controller: dothiv.payitforward.api.controller.order:createAction
+        _format: json
+    methods: [PUT]

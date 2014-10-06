@@ -1,0 +1,12 @@
+parameters:
+    dothiv.repository.payitforward.order.entity.class: 'DothivPayitforwardBundle:Order'
+    dothiv.repository.payitforward.order.repository.class: Dothiv\PayitforwardBundle\Repository\OrderRepository
+
+services:
+    dothiv.repository.payitforward.order:
+        class: %dothiv.repository.payitforward.order.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.payitforward.order.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
