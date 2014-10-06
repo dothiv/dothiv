@@ -71,6 +71,7 @@ class LoginLinkMailer
             UrlGeneratorInterface::ABSOLUTE_URL
         );
         $link .= sprintf('#!/auth/%s/%s', $user->getHandle(), $userToken);
+        $link = preg_replace('%^http://%', 'https://', $link);
 
         $data = array(
             'loginLink' => $link,
