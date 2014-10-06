@@ -172,16 +172,9 @@ class UserService implements UserProviderInterface, UserServiceInterface
     }
 
     /**
-     * @param string $email
-     * @param string $httpHost
-     * @param string $locale
-     *
-     * @return void
-     *
-     * @throws EntityNotFoundException If user not found.
-     * @throws TemporarilyUnavailableException If mail has been sent.
+     * {@inheritdoc}
      */
-    public function sendLoginLinkForEmail($email, $httpHost, $locale)
+    public function sendLoginLinkForEmail($email, $httpHost, $locale, $route = null)
     {
         /* @var User $user */
         /* @var UserToken $token */
@@ -209,7 +202,9 @@ class UserService implements UserProviderInterface, UserServiceInterface
             }
         }
         $token = $this->createUserToken($user, $scope);
-        $this->dispatcher->dispatch($this->loginLinkEventName, new UserTokenEvent($token, $httpHost, $locale));
+        $e     = new UserTokenEvent($token, $httpHost, $locale);
+        $e->setRoute($route);
+        $this->dispatcher->dispatch($this->loginLinkEventName, $e);
     }
 
     /**

@@ -3,9 +3,10 @@
 {% set page = registry_content('Page', 'payitforward', locale) %}
 {% set title %}{{ page.title }}{% endset %}
 {% extends "DothivRegistryWebsiteBundle:Page:content.html.twig" %}
+{% block headernav %}{% endblock headernav %}
+{% block subheader %}{% endblock subheader %}
 {% block content %}
-    <p>App goes here</p>
-    <div data-ui-view></div>
+    <article data-ui-view></article>
 {% endblock %}
 {% block angular_app %}
     {% javascripts
@@ -19,9 +20,53 @@
     '@DothivPayitforwardBundle/Resources/public/js/app.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'
+    '@DothivPayitforwardBundle/Resources/public/js/controllers/*.js'
+    '@DothivPayitforwardBundle/Resources/public/js/services/models/*.js'
     filter='?ngmin,?closureecma5'
-    output='js/*.min.js'
-    %}
+    output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-{% endblock angular_app %}
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+{% endblock %}
+{% block angular_config %}
+<script type="text/javascript">
+    'use strict';
+    angular.module('dotHIVApp.services').factory('config', function () {
+        var config = {
+            locale: '{{ locale }}',
+            domain: '{{ app.request.get('domain') }}',
+            stripe: {
+                publishableKey: '{{ stripe_publishable_key }}',
+                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}
+                logo: '{{ asset_url }}',
+                {% endimage %}
+                testMode: {{ stripe_testmode }}
+            },
+            price: {
+                net: [
+                    0,
+                    {{ payitforward_price }},
+                    {{ payitforward_price * 2 }},
+                    {{ payitforward_price * 3 }}
+                ],
+                vat: [
+                    0,
+                    {{ (payitforward_price * devat * 1/ 100)|round }},
+                    {{ (payitforward_price * devat * 2/ 100)|round }},
+                    {{ (payitforward_price * devat * 3/ 100)|round }}
+                ],
+                total: [
+                    0,
+                    {{ payitforward_price + (payitforward_price * devat / 100)|round }},
+                    {{ payitforward_price * 2 + (payitforward_price * 2 * devat / 100)|round }},
+                    {{ payitforward_price * 3 + (payitforward_price * 3 * devat / 100)|round }}
+                ]
+            },
+            vat: {
+                de: {{ devat }}
+            }
+        };
+        return config;
+    });
+</script>
+{% endblock angular_config %}

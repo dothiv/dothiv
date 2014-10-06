@@ -5,3 +5,12 @@ dothiv_payitforward_checkout:
         template:    'DothivPayitforwardBundle:Default:checkout.html.twig'
     requirements:
         locale: ^(en|de|ky)$
+
+dothiv_payitforward_app_template:
+    pattern:  /app/{page}.{_format}
+    defaults:
+        _controller: dothiv.payitforward.web.controller.app:templateAction
+        section: payitforward
+    requirements:
+        _format:  html
+        locale:  en|de|ky

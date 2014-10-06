@@ -37,6 +37,7 @@ twig:
       eur_to_usd: %eur_to_usd%
       premium_price: %premium_price%
       devat: %devat%
+      payitforward_price: %payitforward_price%
 
 # Assetic Configuration
 assetic:
@@ -203,3 +204,6 @@ dothiv_premium_configurator:
         - { label: visual, width: 44, height: 44 }
         - { label: visual-micro, width: 22, height: 22 }
         - { label: bg, width: 150, height: 150 }
+
+dothiv_payitforward:
+    price: %payitforward_price%

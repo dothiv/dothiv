@@ -65,7 +65,7 @@ class AccountController
         try {
             /** @var LoginLinkRequest $model */
             $model = $request->attributes->get('model');
-            $this->userService->sendLoginLinkForEmail($model->email, $request->getHttpHost(), $model->locale);
+            $this->userService->sendLoginLinkForEmail($model->email, $request->getHttpHost(), $model->locale, $model->route);
             $response = $this->createResponse();
             $response->setStatusCode(201);
             return $response;
@@ -95,7 +95,7 @@ class AccountController
             throw new ConflictHttpException();
         }
         $user = $this->userService->getOrCreateUser($createRequest->email, $createRequest->firstname, $createRequest->surname);
-        $this->userService->sendLoginLinkForEmail($user->getEmail(), $request->getHttpHost(), $createRequest->locale);
+        $this->userService->sendLoginLinkForEmail($user->getEmail(), $request->getHttpHost(), $createRequest->locale, $createRequest->route);
         $response = $this->createResponse();
         $response->setStatusCode(201);
         $response->setContent($this->serializer->serialize($user, 'json'));
