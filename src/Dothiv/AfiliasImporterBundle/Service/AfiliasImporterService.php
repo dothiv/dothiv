@@ -6,7 +6,7 @@ namespace Dothiv\AfiliasImporterBundle\Service;
 use Dothiv\AfiliasImporterBundle\AfiliasImporterBundleEvents;
 use Dothiv\AfiliasImporterBundle\Exception\ServiceException;
 use Dothiv\AfiliasImporterBundle\Model\PaginatedList;
-use Dothiv\BusinessBundle\ValueObject\URLValue;
+use Dothiv\ValueObject\URLValue;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\Response;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

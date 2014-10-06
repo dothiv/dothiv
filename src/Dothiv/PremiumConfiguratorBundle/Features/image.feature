@@ -9,10 +9,10 @@ Feature: Image
       | firstname | John                |
       | surname   | Doe                 |
     And the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
-      | user     | {user}                                                |
-      | token    | usert0k3n                                             |
-      | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@login} |
-      | lifetime | {\DateTime@2014-01-02T13:44:15}                       |
+      | user     | {user}                                 |
+      | token    | usert0k3n                              |
+      | scope    | {\Dothiv\ValueObject\IdentValue@login} |
+      | lifetime | {\DateTime@2014-01-02T13:44:15}        |
 
   Scenario: Upload public file
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"

@@ -5,7 +5,7 @@ namespace Dothiv\BusinessBundle\Tests\Entity\Command;
 use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
 use Dothiv\BusinessBundle\Command\FetchNewRegistrationsCommand;
 use Dothiv\BusinessBundle\Entity\Config;
-use Dothiv\BusinessBundle\ValueObject\URLValue;
+use Dothiv\ValueObject\URLValue;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

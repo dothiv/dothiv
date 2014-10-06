@@ -8,7 +8,7 @@ use Dothiv\APIBundle\Request\UserCreateRequest;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
 use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,7 @@ class AccountController
     private $userRepo;
 
     /**
-     * @var \Dothiv\BusinessBundle\Service\Clock
+     * @var \Dothiv\ValueObject\ClockValue
      */
     private $clock;
 
@@ -40,7 +40,7 @@ class AccountController
         UserServiceInterface $userService,
         UserRepositoryInterface $userRepo,
         Serializer $serializer,
-        Clock $clock
+        ClockValue $clock
     )
     {
         $this->userService = $userService;

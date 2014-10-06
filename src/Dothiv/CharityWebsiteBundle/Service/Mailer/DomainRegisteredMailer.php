@@ -7,9 +7,9 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\Registrar;
 use Dothiv\BusinessBundle\Event\DomainEvent;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
-use Dothiv\BusinessBundle\ValueObject\IdentValue;
+use Dothiv\ValueObject\IdentValue;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -36,7 +36,7 @@ class DomainRegisteredMailer
     private $domainRepo;
 
     /**
-     * @var Clock
+     * @var ClockValue
      */
     private $clock;
 
@@ -45,14 +45,14 @@ class DomainRegisteredMailer
      * @param RouterInterface           $router
      * @param UserServiceInterface      $userService
      * @param DomainRepositoryInterface $domainRepo
-     * @param Clock                     $clock
+     * @param ClockValue                $clock
      */
     public function __construct(
         ContentMailerInterface $contentMailer,
         RouterInterface $router,
         UserServiceInterface $userService,
         DomainRepositoryInterface $domainRepo,
-        Clock $clock
+        ClockValue $clock
     )
     {
         $this->router        = $router;

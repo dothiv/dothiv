@@ -6,7 +6,7 @@ use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
-use Dothiv\BusinessBundle\ValueObject\IdentValue;
+use Dothiv\ValueObject\IdentValue;
 
 interface UserServiceInterface
 {

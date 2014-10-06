@@ -7,12 +7,11 @@ use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
-
 
 class UserController
 {
@@ -39,7 +38,7 @@ class UserController
     private $securityContext;
 
     /**
-     * @var Clock
+     * @var ClockValue
      */
     private $clock;
 
@@ -54,7 +53,7 @@ class UserController
         UserRepositoryInterface $userRepo,
         UserTokenRepositoryInterface $userTokenRepo,
         Serializer $serializer,
-        Clock $clock
+        ClockValue $clock
     )
     {
         $this->domainRepo      = $domainRepo;

@@ -5,7 +5,7 @@ namespace Dothiv\AfiliasImporterBundle\Tests\Service;
 use Dothiv\AfiliasImporterBundle\AfiliasImporterBundleEvents;
 use Dothiv\AfiliasImporterBundle\Event\DomainRegisteredEvent;
 use Dothiv\AfiliasImporterBundle\Service\AfiliasImporterService;
-use Dothiv\BusinessBundle\ValueObject\URLValue;
+use Dothiv\ValueObject\URLValue;
 use Guzzle\Http\Client;
 use Guzzle\Plugin\Mock\MockPlugin;
 

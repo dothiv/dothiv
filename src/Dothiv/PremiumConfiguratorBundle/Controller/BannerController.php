@@ -115,10 +115,10 @@ class BannerController extends \Dothiv\APIBundle\Controller\BannerController
                 $premiumBanner->$setter(null);
             }
         };
-        $setHexValue('fontColor', 'Dothiv\BusinessBundle\ValueObject\HexValue');
-        $setHexValue('barColor', 'Dothiv\BusinessBundle\ValueObject\HexValue');
-        $setHexValue('bgColor', 'Dothiv\BusinessBundle\ValueObject\HexValue');
-        $setHexValue('extrasLinkUrl', 'Dothiv\BusinessBundle\ValueObject\URLValue');
+        $setHexValue('fontColor', 'Dothiv\ValueObject\HexValue');
+        $setHexValue('barColor', 'Dothiv\ValueObject\HexValue');
+        $setHexValue('bgColor', 'Dothiv\ValueObject\HexValue');
+        $setHexValue('extrasLinkUrl', 'Dothiv\ValueObject\URLValue');
 
         /**
          * Sets a text property on the $premiumBanner
