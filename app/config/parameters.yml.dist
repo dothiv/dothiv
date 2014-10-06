@@ -53,6 +53,7 @@ parameters:
     stripe_testmode: 1
     premium_price: 1000
     devat: 19
+    payitforward_price: 16000
 
     # Money conversion
     eur_to_usd: 1.328515

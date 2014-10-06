@@ -14,6 +14,11 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $treeBuilder->root('dothiv_payitforward');
+        $rootNode = $treeBuilder->root('dothiv_payitforward');
+        $rootNode
+            ->children()
+                ->scalarNode('price')->defaultValue(16000)->end()
+            ->end();
         return $treeBuilder;
     }
 }

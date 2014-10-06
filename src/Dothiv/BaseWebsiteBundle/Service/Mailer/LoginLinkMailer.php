@@ -5,11 +5,13 @@ namespace Dothiv\BaseWebsiteBundle\Service\Mailer;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Event\UserTokenEvent;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
+use PhpOption\Option;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class LoginLinkMailer
 {
+
     /**
      * @var string
      */
@@ -52,18 +54,19 @@ class LoginLinkMailer
     }
 
     /**
-     * @param UserToken $token
-     * @param string    $locale
+     * @param UserToken   $token
+     * @param string      $locale
+     * @param string|null $route (optional route to use, instead of default)
      *
      * @return void
      */
-    public function sendLoginMail(UserToken $token, $locale)
+    public function sendLoginMail(UserToken $token, $locale, $route = null)
     {
         $userToken = $token->getBearerToken();
         $user      = $token->getUser();
 
         $link = $this->router->generate(
-            $this->route,
+            Option::fromValue($route)->getOrElse($this->route),
             array('locale' => $locale),
             UrlGeneratorInterface::ABSOLUTE_URL
         );
@@ -91,6 +94,6 @@ class LoginLinkMailer
         if ($host != $this->host) {
             return;
         }
-        $this->sendLoginMail($event->getUserToken(), $event->getLocale());
+        $this->sendLoginMail($event->getUserToken(), $event->getLocale(), $event->getRoute());
     }
 }

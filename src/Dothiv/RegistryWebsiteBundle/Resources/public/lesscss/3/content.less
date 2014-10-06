@@ -107,6 +107,15 @@ main {
       list-style: none;
       padding: 0;
     }
+    table {
+      &:extend(.table all);
+      &:extend(.table-striped all);
+      td, th {
+        &.money {
+          text-align: right;
+        }
+      }
+    }
   }
   div.content-with-aside {
     article.content {
