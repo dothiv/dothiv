@@ -9,3 +9,10 @@ services:
           - %assets_version%
           - @clock
           - %page_lifetime%
+
+    dothiv.payitforward.api.controller.order:
+        class: Dothiv\PayitforwardBundle\Controller\OrderController
+        arguments:
+         - @security.context
+         - @dothiv.repository.payitforward.order
+         - @serializer
