@@ -4,7 +4,7 @@
 namespace Dothiv\AfiliasImporterBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Dothiv\BusinessBundle\ValueObject\URLValue;
+use Dothiv\ValueObject\URLValue;
 
 class PaginatedList
 {

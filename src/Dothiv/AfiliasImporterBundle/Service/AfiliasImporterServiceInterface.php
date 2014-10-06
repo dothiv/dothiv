@@ -3,7 +3,7 @@
 
 namespace Dothiv\AfiliasImporterBundle\Service;
 
-use Dothiv\BusinessBundle\ValueObject\URLValue;
+use Dothiv\ValueObject\URLValue;
 
 interface AfiliasImporterServiceInterface
 {

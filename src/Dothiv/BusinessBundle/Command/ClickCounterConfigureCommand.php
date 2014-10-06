@@ -7,7 +7,7 @@ use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
 use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,7 +54,7 @@ class ClickCounterConfigureCommand extends ContainerAwareCommand
             }
             $cc->setup($banner);
         }
-        /** @var Clock $clock */
+        /** @var ClockValue $clock */
         $clock = $this->getContainer()->get('clock');
         $config->setValue($clock->getNow()->format(DATE_W3C));
         $configRepo->persist($config)->flush();

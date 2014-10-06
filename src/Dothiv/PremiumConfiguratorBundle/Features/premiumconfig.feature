@@ -9,10 +9,10 @@ Feature: Configure Premium Banner
       | firstname | John                |
       | surname   | Doe                 |
     Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
-      | user     | {user}                                                |
-      | token    | usert0k3n                                             |
-      | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@login} |
-      | lifetime | {\DateTime@2014-01-02T13:44:15}                       |
+      | user     | {user}                                 |
+      | token    | usert0k3n                              |
+      | scope    | {\Dothiv\ValueObject\IdentValue@login} |
+      | lifetime | {\DateTime@2014-01-02T13:44:15}        |
     And the "DothivBusinessBundle:Registrar" entity exists in "registrar" with values:
       | extId | 1234-AC        |
       | name  | ACME Registrar |

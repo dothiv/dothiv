@@ -3,7 +3,7 @@
 namespace Dothiv\RegistryWebsiteBundle\Command;
 
 use Dothiv\BusinessBundle\Repository\PremiumBidRepositoryInterface;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -22,14 +22,13 @@ class NotifyPremiumBidsCommand extends ContainerAwareCommand
             ->addOption('appId', 'i', InputOption::VALUE_REQUIRED, 'Podio app id')
             ->addOption('appToken', 't', InputOption::VALUE_REQUIRED, 'App token')
             ->addOption('clientId', 'c', InputOption::VALUE_REQUIRED, 'Client id')
-            ->addOption('clientSecret', 'S', InputOption::VALUE_REQUIRED, 'Client secret')
-        ;
+            ->addOption('clientSecret', 'S', InputOption::VALUE_REQUIRED, 'Client secret');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var $premiumBidRepo PremiumBidRepositoryInterface */
-        /** @var $clock Clock */
+        /** @var $clock ClockValue */
         $premiumBidRepo = $this->getContainer()->get('dothiv.repository.premiumbid');
         $clock          = $this->getContainer()->get('clock');
 

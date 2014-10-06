@@ -7,7 +7,7 @@ use Dothiv\BusinessBundle\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Dothiv\BusinessBundle\Entity\Traits\CreateUpdateTime;
 use Dothiv\BusinessBundle\Entity\User;
-use Dothiv\BusinessBundle\ValueObject\EmailValue;
+use Dothiv\ValueObject\EmailValue;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Gedmo\Mapping\Annotation as Gedmo;

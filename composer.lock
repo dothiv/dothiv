@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4284da21f6a82dde548561283abb9efd",
+    "hash": "99780ce611fd473e10060541021d6298",
     "packages": [
         {
             "name": "angular-ui/bootstrap",
@@ -350,6 +350,7 @@
                 "shasum": null
             },
             "require": {
+                "components/angular.js": "1.2.x",
                 "robloach/component-installer": "*"
             },
             "type": "component",
@@ -1718,6 +1719,58 @@
                 "twig"
             ],
             "time": "2014-05-23 11:29:35"
+        },
+        {
+            "name": "dothiv/dothiv-valueobject-bundle",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dothiv/DothivValueObjectBundle.git",
+                "reference": "75807706a4980b09554782f68fc1f68935d8a0b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dothiv/DothivValueObjectBundle/zipball/75807706a4980b09554782f68fc1f68935d8a0b8",
+                "reference": "75807706a4980b09554782f68fc1f68935d8a0b8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "symfony/framework-bundle": "~2.3"
+            },
+            "require-dev": {
+                "covex-nn/phpcb": "*",
+                "pdepend/pdepend": "*",
+                "phploc/phploc": "*",
+                "phpmd/phpmd": "*",
+                "phpunit/phpunit": "*",
+                "sebastian/phpcpd": "*",
+                "squizlabs/php_codesniffer": "*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Dothiv\\ValueObject": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "TLD dotHIV Registry GmbH",
+                    "homepage": "https://tld.hiv/"
+                }
+            ],
+            "description": "dotHIV valueobject bundle for Symfony2 is a collection of value objects.",
+            "homepage": "http://github.com/dotHIV/DothivValueObjectBundle",
+            "keywords": [
+                "Symfony2",
+                "ValueObject",
+                "bundle"
+            ],
+            "time": "2014-10-06 07:25:14"
         },
         {
             "name": "erusev/parsedown",

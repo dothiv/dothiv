@@ -6,7 +6,7 @@ use Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IframeController
 {
+
     /**
      * @var EngineInterface
      */
@@ -31,7 +32,7 @@ class IframeController
     private $assetsModified;
 
     /**
-     * @var Clock
+     * @var ClockValue
      */
     private $clock;
 
@@ -50,7 +51,7 @@ class IframeController
      * @param RequestLastModifiedCache  $lastModifiedCache
      * @param EngineInterface           $renderer
      * @param int                       $assets_version
-     * @param Clock                     $clock
+     * @param ClockValue                $clock
      * @param int                       $pageLifetime In seconds
      */
     public function __construct(
@@ -58,7 +59,7 @@ class IframeController
         RequestLastModifiedCache $lastModifiedCache,
         EngineInterface $renderer,
         $assets_version,
-        Clock $clock,
+        ClockValue $clock,
         $pageLifetime
     )
     {
@@ -84,7 +85,6 @@ class IframeController
         $response->setExpires($this->clock->getNow()->modify(sprintf('+%d seconds', $this->pageLifetime)));
 
         $lmc = $this->lastModifiedCache;
-
 
         // Check if page is not modified.
         $uriLastModified = $lmc->getLastModified($request)->getOrElse($this->assetsModified);

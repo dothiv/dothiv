@@ -2,7 +2,7 @@
 
 namespace Dothiv\PremiumConfiguratorBundle\Command;
 
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use Dothiv\PremiumConfiguratorBundle\Repository\SubscriptionRepositoryInterface;
 use Dothiv\PremiumConfiguratorBundle\Service\InvoiceServiceInterface;
 use Dothiv\PremiumConfiguratorBundle\Service\Mailer\SubscriptionConfirmedMailer;
@@ -25,7 +25,7 @@ class CreateSubscriptionsCommand extends ContainerAwareCommand
         $subscriptionRepo = $this->getContainer()->get('dothiv.repository.premiumconfigurator.subscription');
         /** @var InvoiceServiceInterface $invoiceService */
         $invoiceService = $this->getContainer()->get('dothiv.premiumconfigurator.service.invoice');
-        /** @var Clock $clock */
+        /** @var ClockValue $clock */
         $clock = $this->getContainer()->get('clock');
         /** @var SubscriptionConfirmedMailer $mailer */
         $mailer = $this->getContainer()->get('dothiv.premiumconfigurator.mailer.subscription_confirmed');

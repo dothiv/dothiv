@@ -8,10 +8,10 @@ Feature: Logout
       | firstname | John                |
       | surname   | Doe                 |
     Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
-      | user     | {user}                                                |
-      | token    | usert0k3n                                             |
-      | scope    | {\Dothiv\BusinessBundle\ValueObject\IdentValue@login} |
-      | lifetime | {\DateTime@2014-01-02T13:44:15}                       |
+      | user     | {user}                                 |
+      | token    | usert0k3n                              |
+      | scope    | {\Dothiv\ValueObject\IdentValue@login} |
+      | lifetime | {\DateTime@2014-01-02T13:44:15}        |
     And I add "Accept" header equal to "application/json"
     And I add "Content-Type" header equal to "application/json"
 

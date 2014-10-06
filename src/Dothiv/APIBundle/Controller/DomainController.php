@@ -13,7 +13,7 @@ use Dothiv\APIBundle\Annotation\ApiRequest;
 use Dothiv\BusinessBundle\Event\DomainEvent;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainClaimRepositoryInterface;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use JMS\Serializer\SerializerInterface;
 use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -55,7 +55,7 @@ class DomainController
     private $dispatcher;
 
     /**
-     * @var Clock
+     * @var ClockValue
      */
     private $clock;
 
@@ -66,7 +66,7 @@ class DomainController
         DomainClaimRepositoryInterface $domainClaimRepo,
         SerializerInterface $serializer,
         EventDispatcherInterface $dispatcher,
-        Clock $clock
+        ClockValue $clock
     )
     {
         $this->domainRepo      = $domainRepo;
