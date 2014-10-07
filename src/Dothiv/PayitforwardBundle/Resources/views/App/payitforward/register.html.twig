@@ -2,10 +2,10 @@
 {% use "DothivRegistryWebsiteBundle:App:blocks.html.twig" %}
 
 {{ block('errorMessage') }}
-<form role="form" name="registrationForm" novalidate class="explained" data-ng-show="!done" method="post">
+<form role="form" name="registrationForm" novalidate class="explained" method="post">
     <fieldset>
         <legend>Create an account</legend>
-        <div class="fields">
+        <div class="fields" data-ng-show="!done" >
             <div class="form-group">
                 <label for="registerEmail">Email address</label>
                 <input type="email" data-ng-model="registrationForm.email" class="form-control" id="registerEmail" required>
@@ -23,7 +23,7 @@
             </button>
             <input type="hidden" data-ng-model="registrationForm.locale" data-ng-init="registrationForm.locale='{{ locale }}'">
         </div>
-        <div class="fields-legend">
+        <div class="fields-legend" data-ng-show="!done" >
             <p>First, create an account by providing your name and your email address.</p>
 
             <p>No password?! We think passwords suck, <a href="http://notes.xoxco.com/post/27999787765/is-it-time-for-password-less-login">and other do, too</a>. Everytime you wish to log in, we'll send a login link to your email address. That's fast, easy and secure.</p>
@@ -33,11 +33,9 @@
                 <a href="{{ path('dothiv_payitforward_checkout', {'locale': locale}) }}#!/login">I already have an account!</a>
             </nav>
         </div>
+        <div data-ng-show="done">
+            <p><strong>Great!</strong></p>
+            <p>Now please check your inbox and click on the link we just send you.</p>
+        </div>
     </fieldset>
 </form>
-
-<div data-ng-show="done">
-    <h3>Great!</h3>
-
-    <p>Now please check your inbox and click on the link we just send you.</p>
-</div>

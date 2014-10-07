@@ -8,6 +8,7 @@ use Dothiv\BusinessBundle\Entity\Traits\CreateTime;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
+use Dothiv\ValueObject\TwitterHandleValue;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
@@ -90,7 +91,7 @@ class Order extends Entity
 
     /**
      * @ORM\Column(type="string",nullable=true)
-     * @var string
+     * @var TwitterHandleValue
      * @Serializer\Expose
      * @Assert\Regex("/^@[a-zA-Z0-9_]{1,15}$/")
      */
@@ -165,7 +166,106 @@ class Order extends Entity
     protected $taxNo;
 
     /**
-     * The stripe customer id for this subscription.
+     * The first domain the user orders
+     *
+     * @var HivDomainValue
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Serializer\Expose
+     * @Assert\Regex("/^([a-z0-9]|xn--)(?:[a-z0-9]|-(?!-)){1,62}[a-z0-9]\.hiv$/")
+     */
+    protected $domain1;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     * @Serializer\Expose
+     */
+    protected $domain1Name;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     * @Serializer\Expose
+     */
+    protected $domain1Company;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var TwitterHandleValue
+     * @Serializer\Expose
+     * @Assert\Regex("/^@[a-zA-Z0-9_]{1,15}$/")
+     */
+    protected $domain1Twitter;
+
+    /**
+     * The first domain the user orders
+     *
+     * @var HivDomainValue
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Serializer\Expose
+     * @Assert\Regex("/^([a-z0-9]|xn--)(?:[a-z0-9]|-(?!-)){1,62}[a-z0-9]\.hiv$/")
+     */
+    protected $domain2;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     * @Serializer\Expose
+     */
+    protected $domain2Name;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     * @Serializer\Expose
+     */
+    protected $domain2Company;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var TwitterHandleValue
+     * @Serializer\Expose
+     * @Assert\Regex("/^@[a-zA-Z0-9_]{1,15}$/")
+     */
+    protected $domain2Twitter;
+
+    /**
+     * The first domain the user orders
+     *
+     * @var HivDomainValue
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Serializer\Expose
+     * @Assert\Regex("/^([a-z0-9]|xn--)(?:[a-z0-9]|-(?!-)){1,62}[a-z0-9]\.hiv$/")
+     */
+    protected $domain3;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     * @Serializer\Expose
+     */
+    protected $domain3Name;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     * @Serializer\Expose
+     */
+    protected $domain3Company;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var TwitterHandleValue
+     * @Serializer\Expose
+     * @Assert\Regex("/^@[a-zA-Z0-9_]{1,15}$/")
+     */
+    protected $domain3Twitter;
+
+    /**
+     * The stripe customer id for this order.
      *
      * @ORM\Column(type="string",nullable=true)
      * @var string
@@ -189,6 +289,14 @@ class Order extends Entity
     {
         $this->liveMode = $liveMode ? 1 : 0;
         return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getLiveMode()
+    {
+        return $this->liveMode;
     }
 
     /**
@@ -458,7 +566,252 @@ class Order extends Entity
         $this->domainDonor = $domainDonor;
         return $this;
     }
-    
-    
+
+    /**
+     * @return TwitterHandleValue|null
+     */
+    public function getDomainDonorTwitter()
+    {
+        return empty($this->domainDonorTwitter) ? null : new TwitterHandleValue($this->domainDonorTwitter);
+    }
+
+    /**
+     * @param TwitterHandleValue|null $domainDonorTwitter
+     *
+     * @return self
+     */
+    public function setDomainDonorTwitter(TwitterHandleValue $domainDonorTwitter = null)
+    {
+        $this->domainDonorTwitter = empty($domainDonorTwitter) ? null : (string)$domainDonorTwitter;
+        return $this;
+    }
+
+    /**
+     * @return HivDomainValue|null
+     */
+    public function getDomain1()
+    {
+        return empty($this->domain1) ? null : new HivDomainValue($this->domain1);
+    }
+
+    /**
+     * @param HivDomainValue|null $domain1
+     *
+     * @return self
+     */
+    public function setDomain1(HivDomainValue $domain1 = null)
+    {
+        $this->domain1 = empty($domain1) ? null : (string)$domain1;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDomain1Company()
+    {
+        return $this->domain1Company;
+    }
+
+    /**
+     * @param string|null $domain1Company
+     *
+     * @return self
+     */
+    public function setDomain1Company($domain1Company = null)
+    {
+        $this->domain1Company = $domain1Company;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDomain1Name()
+    {
+        return $this->domain1Name;
+    }
+
+    /**
+     * @param string|null $domain1Name
+     *
+     * @return self
+     */
+    public function setDomain1Name($domain1Name = null)
+    {
+        $this->domain1Name = $domain1Name;
+        return $this;
+    }
+
+    /**
+     * @return TwitterHandleValue|null
+     */
+    public function getDomain1Twitter()
+    {
+        return empty($this->domain1Twitter) ? null : new TwitterHandleValue($this->domain1Twitter);
+    }
+
+    /**
+     * @param TwitterHandleValue|null $domain1Twitter
+     *
+     * @return self
+     */
+    public function setDomain1Twitter(TwitterHandleValue $domain1Twitter)
+    {
+        $this->domain1Twitter = empty($domain1Twitter) ? null : (string)$domain1Twitter;
+        return $this;
+    }
+
+    /**
+     * @return HivDomainValue|null
+     */
+    public function getDomain2()
+    {
+        return empty($this->domain2) ? null : new HivDomainValue($this->domain2);
+    }
+
+    /**
+     * @param HivDomainValue|null $domain2
+     *
+     * @return self
+     */
+    public function setDomain2(HivDomainValue $domain2 = null)
+    {
+        $this->domain2 = empty($domain2) ? null : (string)$domain2;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDomain2Company()
+    {
+        return $this->domain2Company;
+    }
+
+    /**
+     * @param string|null $domain2Company
+     *
+     * @return self
+     */
+    public function setDomain2Company($domain2Company = null)
+    {
+        $this->domain2Company = $domain2Company;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDomain2Name()
+    {
+        return $this->domain2Name;
+    }
+
+    /**
+     * @param string|null $domain2Name
+     *
+     * @return self
+     */
+    public function setDomain2Name($domain2Name = null)
+    {
+        $this->domain2Name = $domain2Name;
+        return $this;
+    }
+
+    /**
+     * @return TwitterHandleValue|null
+     */
+    public function getDomain2Twitter()
+    {
+        return empty($this->domain2Twitter) ? null : new TwitterHandleValue($this->domain2Twitter);
+    }
+
+    /**
+     * @param TwitterHandleValue|null $domain2Twitter
+     *
+     * @return self
+     */
+    public function setDomain2Twitter(TwitterHandleValue $domain2Twitter)
+    {
+        $this->domain2Twitter = empty($domain2Twitter) ? null : (string)$domain2Twitter;
+        return $this;
+    }
+
+    /**
+     * @return HivDomainValue|null
+     */
+    public function getDomain3()
+    {
+        return empty($this->domain3) ? null : new HivDomainValue($this->domain3);
+    }
+
+    /**
+     * @param HivDomainValue|null $domain3
+     *
+     * @return self
+     */
+    public function setDomain3(HivDomainValue $domain3 = null)
+    {
+        $this->domain3 = empty($domain3) ? null : (string)$domain3;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDomain3Company()
+    {
+        return $this->domain3Company;
+    }
+
+    /**
+     * @param string|null $domain3Company
+     *
+     * @return self
+     */
+    public function setDomain3Company($domain3Company = null)
+    {
+        $this->domain3Company = $domain3Company;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDomain3Name()
+    {
+        return $this->domain3Name;
+    }
+
+    /**
+     * @param string|null $domain3Name
+     *
+     * @return self
+     */
+    public function setDomain3Name($domain3Name = null)
+    {
+        $this->domain3Name = $domain3Name;
+        return $this;
+    }
+
+    /**
+     * @return TwitterHandleValue|null
+     */
+    public function getDomain3Twitter()
+    {
+        return empty($this->domain3Twitter) ? null : new TwitterHandleValue($this->domain3Twitter);
+    }
+
+    /**
+     * @param TwitterHandleValue|null $domain3Twitter
+     *
+     * @return self
+     */
+    public function setDomain3Twitter(TwitterHandleValue $domain3Twitter)
+    {
+        $this->domain3Twitter = empty($domain3Twitter) ? null : (string)$domain3Twitter;
+        return $this;
+    }
 
 } 
