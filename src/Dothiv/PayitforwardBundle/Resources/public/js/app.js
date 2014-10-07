@@ -49,12 +49,11 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
                 security.schedule(function () {
                     if (!security.isAuthenticated()) {
                         event.preventDefault();
-                        $state.transitionTo('register');
+                        $state.transitionTo('login');
                     }
                 });
             }
         });
-        $state.transitionTo('=.order');
     }])
 ;
 angular.module('dotHIVApp.services', ['dotHIVApp.controllers', 'ui.router', 'ngResource', 'ngCookies']);

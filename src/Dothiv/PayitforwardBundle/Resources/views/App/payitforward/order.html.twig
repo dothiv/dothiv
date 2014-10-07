@@ -1,6 +1,8 @@
 {% trans_default_domain "registry" %}
 {% use "DothivRegistryWebsiteBundle:App:blocks.html.twig" %}
 
+<h3>Payitforward.hiv</h3>
+
 {{ block('errorMessage') }}
 <form role="form" name="orderForm" novalidate class="explained" data-ng-show="step == 'form'" method="post">
     <fieldset>
@@ -308,14 +310,8 @@
         world.</p>
 
     <p>Your voucher codes for the free domains, your invoice and some help to notify your friends about their new .hiv
-        domain are already in your email inbox.</p>
-
-    <h3>Share</h3>
-
-    <p>Now tell the world about your gifts – and don't forget to link your friends:</p>
-
-    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Coolest gift ever! We got %%order.domain%% from %%order.domainDonorTwitter%%! It's our pleasure to payitforward.hiv for %%order.domain1Twitter%%, %%order.domain2Twitter%% &amp; %%order.domain3Twitter%%." data-lang="en" data-hashtags="dotHIV" data-url="http://payitforward.hiv/">Tweet</a>
-
-    <div class="fb-like" data-href="http://payitforward.hiv/" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="tahoma" data-action="recommend"></div>
+        will arrive soon in your inbox. Please check your Spam folder if you cannot find it.</p>
+    
+    <p>In case of open questions, please contact <a href="mailto:support@tld.hiv">support@tld.hiv</a>.</p>
 
 </div>

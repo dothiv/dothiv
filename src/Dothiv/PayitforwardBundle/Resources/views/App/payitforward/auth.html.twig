@@ -1,13 +1,13 @@
 {% trans_default_domain "registry" %}
 {% use "DothivRegistryWebsiteBundle:App:blocks.html.twig" %}
 
+
 <div data-ng-show="!error">
-    <h3>Verifying credentials</h3>
+    <h3>Verifying credentials …</h3>
     {{ block('progress') }}
 </div>
 
 <div data-ng-show="error">
-    <p>
-        Failed to verify credentials. </p>
-    <a href="#!/login">Please request a new token.</a>
+    <h3>Failed to verify credentials!</h3>
+    <p><a href="{{ path('dothiv_payitforward_checkout', {'locale': locale}) }}#!/login">Please request a new token.</a></p>
 </div>
