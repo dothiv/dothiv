@@ -32,11 +32,11 @@ Feature: Order payitforward vouchers
       | country            | Germany (Deutschland)        |
       | vatNo              | 1243                         |
       | taxNo              | 45678                        |
-      | domain1            | super.hiv                    |
+      | domain1            | süper.hiv                    |
       | domain1Name        | Super User                   |
       | domain1Company     | Super Company                |
       | domain1Twitter     | @super                       |
-      | domain2            | awesome.hiv                  |
+      | domain2            | AWESOME.hiv                  |
       | domain2Name        | Awesome User                 |
       | domain2Company     | Awesome Company              |
       | domain2Twitter     | @awesome                     |
