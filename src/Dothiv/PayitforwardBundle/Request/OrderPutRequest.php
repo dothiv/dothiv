@@ -424,7 +424,7 @@ class OrderPutRequest
      */
     public function setDomain($domain)
     {
-        $this->domain = strtolower($domain);
+        $this->domain = (string)HivDomainValue::createFromUTF8($domain);
         return $this;
     }
 
@@ -481,7 +481,7 @@ class OrderPutRequest
      */
     public function setDomain1($domain1 = null)
     {
-        $this->domain1 = empty($domain1) ? null : strtolower($domain1);
+        $this->domain1 = empty($domain1) ? null : (string)HivDomainValue::createFromUTF8($domain1);
         return $this;
     }
 
@@ -557,7 +557,7 @@ class OrderPutRequest
      */
     public function setDomain2($domain2 = null)
     {
-        $this->domain2 = empty($domain2) ? null : strtolower($domain2);
+        $this->domain2 = empty($domain2) ? null : (string)HivDomainValue::createFromUTF8($domain2);
         return $this;
     }
 
@@ -633,7 +633,7 @@ class OrderPutRequest
      */
     public function setDomain3($domain3 = null)
     {
-        $this->domain3 = empty($domain3) ? null : strtolower($domain3);
+        $this->domain3 = empty($domain3) ? null : (string)HivDomainValue::createFromUTF8($domain3);
         return $this;
     }
 
