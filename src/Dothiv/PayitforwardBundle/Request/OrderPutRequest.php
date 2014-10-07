@@ -500,7 +500,7 @@ class OrderPutRequest
      */
     public function setDomain1Company($domain1Company = null)
     {
-        $this->domain1Company = $domain1Company;
+        $this->domain1Company = empty($domain1Company) ? null : $domain1Company;
         return $this;
     }
 
@@ -519,7 +519,7 @@ class OrderPutRequest
      */
     public function setDomain1Name($domain1Name = null)
     {
-        $this->domain1Name = $domain1Name;
+        $this->domain1Name = empty($domain1Name) ? null : $domain1Name;
         return $this;
     }
 
@@ -576,7 +576,7 @@ class OrderPutRequest
      */
     public function setDomain2Company($domain2Company = null)
     {
-        $this->domain2Company = $domain2Company;
+        $this->domain2Company = empty($domain2Company) ? null : $domain2Company;
         return $this;
     }
 
@@ -595,7 +595,7 @@ class OrderPutRequest
      */
     public function setDomain2Name($domain2Name = null)
     {
-        $this->domain2Name = $domain2Name;
+        $this->domain2Name = empty($domain2Name) ? null : $domain2Name;
         return $this;
     }
 
@@ -652,7 +652,7 @@ class OrderPutRequest
      */
     public function setDomain3Company($domain3Company = null)
     {
-        $this->domain3Company = $domain3Company;
+        $this->domain3Company = empty($domain3Company) ? null : $domain3Company;
         return $this;
     }
 
@@ -671,7 +671,7 @@ class OrderPutRequest
      */
     public function setDomain3Name($domain3Name = null)
     {
-        $this->domain3Name = $domain3Name;
+        $this->domain3Name = empty($domain3Name) ? null : $domain3Name;
         return $this;
     }
 

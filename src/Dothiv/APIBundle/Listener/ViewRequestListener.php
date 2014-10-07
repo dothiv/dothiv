@@ -12,6 +12,7 @@ use Symfony\Component\Validator\ValidatorInterface;
 
 class ViewRequestListener
 {
+
     /**
      * @var Reader
      */
@@ -103,6 +104,7 @@ class ViewRequestListener
     protected function setModelDataFromArray($data, $model)
     {
         foreach ($data as $k => $v) {
+            $v      = trim($v);
             $setter = $this->toSetter($k);
             if (method_exists($model, $setter)) {
                 $model->$setter($v);
