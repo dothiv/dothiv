@@ -1,7 +1,24 @@
 parameters:
-#    dothiv_payitforward.example.class: Dothiv\PayitforwardBundle\Example
+    dothiv.payitforward.service.invoice.class: Dothiv\PayitforwardBundle\Service\InvoiceService
+    dothiv.payitforward.service.order.class: Dothiv\PayitforwardBundle\Service\OrderService
+    dothiv.payitforward.mailer.order.class: Dothiv\PayitforwardBundle\Service\Mailer\OrderMailer
 
 services:
-#    dothiv_payitforward.example:
-#        class: %dothiv_payitforward.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    dothiv.payitforward.service.invoice:
+        class: %dothiv.payitforward.service.invoice.class%
+        arguments:
+        - @dothiv.repository.invoice
+        - %payitforward_price%
+        - %devat%
+        
+    dothiv.payitforward.service.order:
+        class: %dothiv.payitforward.service.order.class%
+        arguments:
+        - @dothiv.repository.payitforward.voucher
+        - @doctrine.orm.entity_manager
+
+    dothiv.payitforward.mailer.order:
+        class: %dothiv.payitforward.mailer.order.class%
+        arguments:
+        - @dothiv.registry.service.mailer.content
+        - @dothiv.websitebase.money_format

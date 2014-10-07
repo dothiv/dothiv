@@ -2,6 +2,7 @@
 
 namespace Dothiv\PayitforwardBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\PayitforwardBundle\Entity\Order;
 use Dothiv\PayitforwardBundle\Exception\InvalidArgumentException;
@@ -27,4 +28,11 @@ interface OrderRepositoryInterface extends ObjectRepository
      * @return self
      */
     public function flush();
+    
+    /**
+     * Returns orders which have not been processed.
+     * 
+     * @return ArrayCollection|Order[]
+     */
+    function findNew();
 }

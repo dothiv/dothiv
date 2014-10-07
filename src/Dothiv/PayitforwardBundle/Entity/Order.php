@@ -265,12 +265,12 @@ class Order extends Entity
     protected $domain3Twitter;
 
     /**
-     * The stripe customer id for this order.
+     * The stripe charge id for this order.
      *
      * @ORM\Column(type="string",nullable=true)
      * @var string
      */
-    protected $customer;
+    protected $charge;
 
     /**
      * @ORM\Column(type="integer",nullable=false)
@@ -814,4 +814,50 @@ class Order extends Entity
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getCharge()
+    {
+        return $this->charge;
+    }
+
+    /**
+     * @param string|null $charge
+     *
+     * @return self
+     */
+    public function setCharge($charge = null)
+    {
+        $this->charge = empty($charge) ? null : $charge;
+        return $this;
+    }
+
+    /**
+     * Return the number of vouchers for this order.
+     *
+     * @return int
+     */
+    public function getNumVouchers()
+    {
+        $numVouchers = 0;
+        for ($i = 1; $i <= 3; $i++) {
+            $getter = 'getDomain' . $i;
+            $domain = $this->$getter();
+            if (!empty($domain)) {
+                $numVouchers++;
+            }
+        }
+        return $numVouchers;
+    }
+
+    /**
+     * Activates the order and sets the stripe charge id.
+     *
+     * @param $charge
+     */
+    public function activate($charge)
+    {
+        $this->charge = $charge;
+    }
 } 
