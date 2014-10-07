@@ -7,6 +7,7 @@ use Symfony\Component\EventDispatcher\Event;
 
 class UserTokenEvent extends Event
 {
+
     /**
      * @var UserToken
      */
@@ -21,6 +22,11 @@ class UserTokenEvent extends Event
      * @var string
      */
     private $locale;
+
+    /**
+     * @var string
+     */
+    private $route;
 
     /**
      * @param UserToken $UserToken
@@ -80,5 +86,24 @@ class UserTokenEvent extends Event
     public function getLocale()
     {
         return $this->locale;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    /**
+     * @param string $route
+     *
+     * @return self
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
+        return $this;
     }
 }

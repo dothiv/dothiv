@@ -7,7 +7,7 @@ use Dothiv\AfiliasImporterBundle\Event\DomainRegisteredEvent;
 use Dothiv\AfiliasImporterBundle\Service\AfiliasImporterServiceInterface;
 use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
-use Dothiv\BusinessBundle\ValueObject\URLValue;
+use Dothiv\ValueObject\URLValue;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;

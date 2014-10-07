@@ -1,0 +1,18 @@
+services:
+    dothiv.payitforward.web.controller.app:
+        class: Dothiv\BaseWebsiteBundle\Controller\AppController
+        arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
+          - @templating
+          - @dothiv.registry.contentful.registry_content
+          - "DothivPayitforwardBundle"
+          - %assets_version%
+          - @clock
+          - %page_lifetime%
+
+    dothiv.payitforward.api.controller.order:
+        class: Dothiv\PayitforwardBundle\Controller\OrderController
+        arguments:
+         - @security.context
+         - @dothiv.repository.payitforward.order
+         - @serializer

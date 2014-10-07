@@ -66,9 +66,17 @@ form.explained {
       width: 33%;
     }
   }
-  button[type=submit] {
+  button {
     .btn;
-    .btn-primary;
     .pull-right;
+  }
+  button[type=submit] {
+    .btn-primary;
+  }
+  button[type=button] {
+    .btn-default;
+  }
+  button + button {
+    margin-right: 1em;
   }
 }

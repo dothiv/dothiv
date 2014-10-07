@@ -9,7 +9,7 @@ use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder;
 use Dothiv\BaseWebsiteBundle\Controller\PageController;
 use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use Dothiv\ContentfulBundle\ContentfulEvents;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
 use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PageControllerTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Content
      */
@@ -293,11 +294,11 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Clock
+     * @return ClockValue
      */
     protected function getClock()
     {
-        $clock = new Clock(new \DateTime('2014-08-01T12:34:56Z'));
+        $clock = new ClockValue(new \DateTime('2014-08-01T12:34:56Z'));
         return $clock;
     }
 

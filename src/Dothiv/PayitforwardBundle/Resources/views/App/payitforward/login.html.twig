@@ -1,0 +1,33 @@
+{% trans_default_domain "registry" %}
+{% use "DothivRegistryWebsiteBundle:App:blocks.html.twig" %}
+
+<h3>Payitforward.hiv</h3>
+
+<form role="form" name="loginForm" novalidate class="explained" method="post">
+    <fieldset>
+        <legend>Login to an existing account</legend>
+        <div class="fields" data-ng-show="!done">
+            {{ block('errorMessage') }}
+            <div class="form-group">
+                <label for="loginEmail">Email address</label>
+                <input type="email" data-ng-model="loginForm.email" class="form-control" id="loginEmail" required>
+            </div>
+            <button type="submit" data-ng-click="submit()" data-ng-disabled="loading || loginForm.$invalid" data-ng-class="{loading: loading}">
+                <span data-ng-show="!loading">login</span> <span data-ng-show="loading"><i></i> logging in…</span>
+            </button>
+            <input type="hidden" data-ng-model="loginForm.locale" data-ng-init="loginForm.locale='{{ locale }}'">
+        </div>
+        <div class="fields-legend" data-ng-show="!done">
+            <p>Log in to your existing acount by providing your email address.</p>
+
+            <p>We will then send you an email address with a login link.</p>
+            <nav>
+                <a href="{{ path('dothiv_payitforward_checkout', {'locale': locale}) }}#!/register">I have no account!</a>
+            </nav>
+        </div>
+        <div data-ng-show="done">
+            <p><strong>Great!</strong></p>
+            <p>Now please check your inbox and click on the link we just send you.</p>
+        </div>
+    </fieldset>
+</form>

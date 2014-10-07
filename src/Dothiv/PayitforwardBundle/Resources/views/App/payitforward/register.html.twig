@@ -1,0 +1,43 @@
+{% trans_default_domain "registry" %}
+{% use "DothivRegistryWebsiteBundle:App:blocks.html.twig" %}
+
+<h3>Payitforward.hiv</h3>
+
+<form role="form" name="registrationForm" novalidate class="explained" method="post">
+    <fieldset>
+        <legend>Create an account</legend>
+        <div class="fields" data-ng-show="!done" >
+            {{ block('errorMessage') }}
+            <div class="form-group">
+                <label for="registerEmail">Email address</label>
+                <input type="email" data-ng-model="registrationForm.email" class="form-control" id="registerEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="registerFirstname">Firstname</label>
+                <input type="text" data-ng-model="registrationForm.firstname" class="form-control" id="registerFirstname" required>
+            </div>
+            <div class="form-group">
+                <label for="registerSurname">Name</label>
+                <input type="text" data-ng-model="registrationForm.surname" class="form-control" id="registerSurname" required>
+            </div>
+            <button type="submit" data-ng-click="submit()" data-ng-disabled="loading || registrationForm.$invalid" data-ng-class="{loading: loading}">
+                <span data-ng-show="!loading">submit</span> <span data-ng-show="loading"><i></i> submitting …</span>
+            </button>
+            <input type="hidden" data-ng-model="registrationForm.locale" data-ng-init="registrationForm.locale='{{ locale }}'">
+        </div>
+        <div class="fields-legend" data-ng-show="!done" >
+            <p>First, create an account by providing your name and your email address.</p>
+
+            <p>No password?! We don't like passwords, <a href="http://notes.xoxco.com/post/27999787765/is-it-time-for-password-less-login">and other do, too</a>. Everytime you wish to log in, we'll send a login link to your email address. That's fast, easy and secure.</p>
+
+            <p>We need to confirm your Email address in order to keep in touch with you.</p>
+            <nav>
+                <a href="{{ path('dothiv_payitforward_checkout', {'locale': locale}) }}#!/login">I already have an account!</a>
+            </nav>
+        </div>
+        <div data-ng-show="done">
+            <p><strong>Great!</strong></p>
+            <p>Now please check your inbox and click on the link we just send you.</p>
+        </div>
+    </fieldset>
+</form>

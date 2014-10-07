@@ -45,3 +45,9 @@ dothiv_admin:
     host: %registrydomain%
     resource: "@DothivAdminBundle/Resources/config/routing.yml"
     prefix:   /admin/
+
+# Pay it forward
+dothiv_payitforward:
+    host: %registrydomain%
+    resource: "@DothivPayitforwardBundle/Resources/config/routing.yml"
+    prefix:   /

@@ -3,7 +3,7 @@
 namespace Dothiv\BusinessBundle\Service;
 
 use Dothiv\BusinessBundle\Entity\Attachment;
-use Dothiv\BusinessBundle\ValueObject\URLValue;
+use Dothiv\ValueObject\URLValue;
 
 interface LinkableAttachmentStoreInterface
 {

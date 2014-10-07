@@ -2,7 +2,6 @@
 
 namespace Dothiv\BusinessBundle\Service;
 
-use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Event\UserTokenEvent;
@@ -10,8 +9,9 @@ use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
+use Dothiv\ValueObject\ClockValue;
 use PhpOption\Option;
-use Dothiv\BusinessBundle\ValueObject\IdentValue;
+use Dothiv\ValueObject\IdentValue;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Role\Role;
@@ -21,6 +21,7 @@ use Symfony\Component\Security\Core\Util\SecureRandom;
 
 class UserService implements UserProviderInterface, UserServiceInterface
 {
+
     /**
      * @var UserRepositoryInterface
      */
@@ -32,7 +33,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     protected $userTokenRepo;
 
     /**
-     * @var Clock
+     * @var ClockValue
      */
     protected $clock;
 
@@ -59,7 +60,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     public function __construct(
         UserRepositoryInterface $userRepository,
         UserTokenRepositoryInterface $userTokenRepository,
-        Clock $clock,
+        ClockValue $clock,
         EventDispatcher $dispatcher,
         $loginLinkEventName,
         $adminUserDomain,
@@ -72,11 +73,11 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $this->dispatcher         = $dispatcher;
         $this->loginLinkEventName = $loginLinkEventName;
         $this->adminUserDomain    = $adminUserDomain;
-        $this->userRepo        = $userRepository;
-        $this->userTokenRepo   = $userTokenRepository;
-        $this->clock           = $clock;
-        $this->dispatcher      = $dispatcher;
-        $this->linkRequestWait = (int)$linkRequestWait;
+        $this->userRepo           = $userRepository;
+        $this->userTokenRepo      = $userTokenRepository;
+        $this->clock              = $clock;
+        $this->dispatcher         = $dispatcher;
+        $this->linkRequestWait    = (int)$linkRequestWait;
     }
 
     /**
@@ -171,16 +172,9 @@ class UserService implements UserProviderInterface, UserServiceInterface
     }
 
     /**
-     * @param string $email
-     * @param string $httpHost
-     * @param string $locale
-     *
-     * @return void
-     *
-     * @throws EntityNotFoundException If user not found.
-     * @throws TemporarilyUnavailableException If mail has been sent.
+     * {@inheritdoc}
      */
-    public function sendLoginLinkForEmail($email, $httpHost, $locale)
+    public function sendLoginLinkForEmail($email, $httpHost, $locale, $route = null)
     {
         /* @var User $user */
         /* @var UserToken $token */
@@ -193,11 +187,11 @@ class UserService implements UserProviderInterface, UserServiceInterface
             return !$token->isRevoked();
         });
         if (!$tokens->isEmpty()) {
-            $maxAge = null;
+            $maxAge      = null;
             $maxAgeToken = null;
             foreach ($tokens as $token) {
                 if ($token->getCreated() > $maxAge) {
-                    $maxAge = $token->getCreated();
+                    $maxAge      = $token->getCreated();
                     $maxAgeToken = $token;
                 }
             }
@@ -208,7 +202,9 @@ class UserService implements UserProviderInterface, UserServiceInterface
             }
         }
         $token = $this->createUserToken($user, $scope);
-        $this->dispatcher->dispatch($this->loginLinkEventName, new UserTokenEvent($token, $httpHost, $locale));
+        $e     = new UserTokenEvent($token, $httpHost, $locale);
+        $e->setRoute($route);
+        $this->dispatcher->dispatch($this->loginLinkEventName, $e);
     }
 
     /**

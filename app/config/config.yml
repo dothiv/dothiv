@@ -37,6 +37,7 @@ twig:
       eur_to_usd: %eur_to_usd%
       premium_price: %premium_price%
       devat: %devat%
+      payitforward_price: %payitforward_price%
 
 # Assetic Configuration
 assetic:
@@ -51,6 +52,7 @@ assetic:
       - 'DothivQLPPartnerBundle'
       - 'DothivPremiumConfiguratorBundle'
       - 'DothivAdminBundle'
+      - 'DothivPayitforwardBundle'
     #java: /usr/bin/java
     filters:
         less:
@@ -63,6 +65,37 @@ assetic:
             compilation_level: SIMPLE_OPTIMIZATIONS
         #yui_css:
         #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
+    assets:
+        punycode_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/bestiejs-punycode/punycode.js
+        angular_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular.js
+        angular_js_resource:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular-resource.js
+        angular_js_route:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular-route.js
+        angular_js_cookies:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular-cookies.js
+        angular_ui_router:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angular-ui-router/release/angular-ui-router.js
+        angular_ui_bootstrap:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+            - %kernel.root_dir%/../vendor/components/bootstrap/ui-bootstrap.js
+        angular_ui_bootstrap_tpls:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+            - %kernel.root_dir%/../vendor/components/bootstrap/ui-bootstrap-tpls.js
+        angular_file_upload:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/nervgh-angular-file-upload/angular-file-upload.js
+
 
 # Doctrine Configuration
 doctrine:
@@ -171,3 +204,6 @@ dothiv_premium_configurator:
         - { label: visual, width: 44, height: 44 }
         - { label: visual-micro, width: 22, height: 22 }
         - { label: bg, width: 150, height: 150 }
+
+dothiv_payitforward:
+    price: %payitforward_price%

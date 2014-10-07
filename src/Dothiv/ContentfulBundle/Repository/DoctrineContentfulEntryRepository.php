@@ -27,7 +27,7 @@ class DoctrineContentfulEntryRepository extends EntityRepository implements Cont
      */
     function persist(ContentfulEntry $entry)
     {
-        $this->getEntityManager()->persist($entry);
+        $this->getEntityManager()->persist($this->validate($entry));
         return $this;
     }
 

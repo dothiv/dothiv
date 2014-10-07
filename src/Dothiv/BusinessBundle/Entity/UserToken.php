@@ -4,7 +4,7 @@ namespace Dothiv\BusinessBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Dothiv\BusinessBundle\Entity\Traits\CreateTime;
-use Dothiv\BusinessBundle\ValueObject\IdentValue;
+use Dothiv\ValueObject\IdentValue;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Gedmo\Mapping\Annotation as Gedmo;

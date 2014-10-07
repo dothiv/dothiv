@@ -26,7 +26,7 @@ class DoctrineContentfulAssetRepository extends EntityRepository implements Cont
      */
     function persist(ContentfulAsset $asset)
     {
-        $this->getEntityManager()->persist($asset);
+        $this->getEntityManager()->persist($this->validate($asset));
     }
 
     /**

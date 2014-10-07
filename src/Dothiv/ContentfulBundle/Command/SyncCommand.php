@@ -21,6 +21,7 @@ class SyncCommand extends ContainerAwareCommand
             ->setDescription('Sync entries from a space')
             ->addOption('space', 'S', InputOption::VALUE_REQUIRED, 'ID of the space', 'cfexampleapi')
             ->addOption('access_token', 't', InputOption::VALUE_REQUIRED, 'Access token', 'b4c0n73n7fu1')
+            ->addOption('endpoint', 'p', InputOption::VALUE_OPTIONAL, 'Endpoint to sync from', 'https://cdn.contentful.com')
             ->addOption('next_sync_url', 'c', InputOption::VALUE_REQUIRED, 'Next sync url');
     }
 
@@ -36,6 +37,7 @@ class SyncCommand extends ContainerAwareCommand
             $client,
             $this->getContainer()->get('event_dispatcher')
         );
+        $adapter->setEndpoint($input->getOption('endpoint'));
         $adapter->setLogger(new OutputInterfaceLogger($output));
 
         $nextSyncUrl = null;
@@ -49,6 +51,10 @@ class SyncCommand extends ContainerAwareCommand
         if (!empty($nextSyncUrlOpt)) {
             $nextSyncUrl = $nextSyncUrlOpt;
         }
+        if (parse_url($nextSyncUrl, PHP_URL_HOST) !== parse_url($input->getOption('endpoint'), PHP_URL_HOST)) {
+            // Do not continue sync from different endpoint.
+            $nextSyncUrl = null;
+        }
         if (!empty($nextSyncUrl)) {
             $adapter->setNextSyncUrl($nextSyncUrl);
             $client->setEtag($etag);
@@ -58,4 +64,4 @@ class SyncCommand extends ContainerAwareCommand
         $cache->save($cacheKey, $nextSyncUrl);
         $cache->save($cacheKey . '.etag', $client->header('etag'));
     }
-} 
+}

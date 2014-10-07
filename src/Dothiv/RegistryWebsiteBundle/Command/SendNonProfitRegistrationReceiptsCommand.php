@@ -2,7 +2,7 @@
 
 namespace Dothiv\RegistryWebsiteBundle\Command;
 
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,7 +21,7 @@ class SendNonProfitRegistrationReceiptsCommand extends ContainerAwareCommand
     {
         /** @var $nprRepo \Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepositoryInterface */
         /** @var $mailer \Dothiv\RegistryWebsiteBundle\Service\Mailer\NonProfitRegistrationMailer */
-        /** @var $clock Clock */
+        /** @var $clock ClockValue */
         $nprRepo = $this->getContainer()->get('dothiv.repository.nonprofitregistration');
         $mailer  = $this->getContainer()->get('dothiv.registry.service.mailer.nonprofitregistration');
         $clock   = $this->getContainer()->get('clock');

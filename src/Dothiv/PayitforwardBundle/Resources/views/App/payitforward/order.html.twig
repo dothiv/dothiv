@@ -1,0 +1,317 @@
+{% trans_default_domain "registry" %}
+{% use "DothivRegistryWebsiteBundle:App:blocks.html.twig" %}
+
+<h3>Payitforward.hiv</h3>
+
+{{ block('errorMessage') }}
+<form role="form" name="orderForm" novalidate class="explained" data-ng-show="step == 'form'" method="post">
+    <fieldset>
+        <legend>That's me:</legend>
+        <div class="fields">
+            <div class="fields">
+                <div class="form-group">
+                    <label for="domainsFormFirstname">First name</label>
+                    <input type="text" data-ng-model="order.firstname" id="domainsFormFirstname" required maxlength="255">
+                </div>
+                <div class="form-group">
+                    <label for="domainsFormSurname">Last name</label>
+                    <input type="text" data-ng-model="order.surname" id="domainsFormSurname" required maxlength="255">
+                </div>
+                <div class="form-group">
+                    <label for="domainsFormEmail">Email address</label>
+                    <input type="email" data-ng-model="order.email" class="form-control" id="domainsFormEmail" required maxlength="255">
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>I've receive this .hiv domain as a gift:</legend>
+        <div class="fields">
+            <div class="fields">
+                <div class="form-group">
+                    <label for="domainsFormDomain">.hiv domain 
+                        <small>e.g. <code>example.hiv</code>, (optional)</small>
+                    </label>
+                    <input type="text" data-ng-model="order.domain" id="domainsFormDomain" data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/">
+                </div>
+                <div class="form-group">
+                    <label for="domainsDomainDonor">Donor's name (First name, last name) <small>(optional)</small></label>
+                    <input type="text" data-ng-model="order.domainDonor" id="domainsDomainDonor" maxlength="255">
+                </div>
+                <div class="form-group">
+                    <label for="domainsDomainDonorTwitter">Donor's twitter handle <small>e.g. <code>@acme</code> (optional)</small></label>
+                    <input type="text" data-ng-model="order.domainDonorTwitter" id="domainsDomainDonorTwitter" data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/">
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Billing Address</legend>
+        <div class="fields">
+            <div class="fields">
+                <div class="form-group">
+                    <label>
+                        <input type="radio" name="orderFormType" id="orderFormTypeDeorg" value="deorg" data-ng-model="order.type">
+                        Germany based organization
+                        <small>Price will be including VAT. You need to provide your VAT Reg. No. or Tax No.</small>
+                    </label><br> <label>
+                        <input type="radio" name="orderFormType" id="orderFormTypeEuprivate" value="euprivate" data-ng-model="order.type">
+                        Private person
+                        <small>Price will be including VAT</small>
+                    </label><br> <label>
+                        <input type="radio" name="orderFormType" id="orderFormTypeNoneu" value="noneu" data-ng-model="order.type">
+                        Non-EU organization
+                        <small>Price will be excluding VAT</small>
+                    </label><br> <label>
+                        <input type="radio" name="orderFormType" id="orderFormTypeEuorgnet" value="euorgnet" data-ng-model="order.type">
+                        EU based organization with VAT Reg. No.
+                        <small>Price will be excluding VAT. You must provide your VAT Reg. No. Service are subject to
+                            the reverse charge. VAT is to be accounted for by the recipient
+                        </small>
+                    </label><br> <label>
+                        <input type="radio" name="orderFormType" id="orderFormTypeEuorg" value="euorg" data-ng-model="order.type">
+                        EU based organization without VAT Reg. No.
+                        <small>Price will be including VAT</small>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="orderFormName">Name</label>
+                    <input type="text" id="orderFormName" data-ng-model="order.fullname" maxlength="255" required>
+                </div>
+                <div class="form-group">
+                    <label for="orderFormAddress1">Address</label>
+                    <input type="text" id="orderFormAddress1" data-ng-model="order.address1" maxlength="255" required>
+                </div>
+                <div class="form-group">
+                    <label for="orderFormAddress2">Address ctd.
+                        <small>(optional)</small>
+                    </label> <input type="text" id="orderFormAddress2" data-ng-model="order.address2" maxlength="255">
+                </div>
+                <div class="form-group">
+                    <label for="subscriptionCountry">Country</label>
+                    <input type="text" id="subscriptionCountry" maxlength="255" data-ng-model="order.country" data-typeahead="country for country in countries | filter:$viewValue | limitTo:3" data-ng-hide="countryEditDisabled()">
+                    <span data-ng-show="countryEditDisabled()" data-ng-bind="order.country"></span>
+                </div>
+                <div class="form-group" data-ng-show="vatTaxNoRequired()">
+                    <label for="orderFormVatNo">VAT Reg. No.</label>
+                    <input type="text" id="orderFormVatNo" maxlength="255" data-ng-model="order.vatNo" data-ng-required="vatNoRequired()" data-ng-disabled="!vatNoRequired()">
+                </div>
+                <div class="form-group" data-ng-show="vatTaxNoRequired()">
+                    <label for="orderFormTaxNo">Tax No.</label>
+                    <input type="text" id="orderFormTaxNo" maxlength="255" data-ng-model="order.taxNo" data-ng-required="taxNoRequired()" data-ng-disabled="!taxNoRequired()">
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    {% set d = 1 %}
+    {% set s = "first" %}
+    {% set required = "required" %}
+    {% block domain %}
+        <fieldset>
+            <legend>My {{ s }} .hiv domain present goes to:</legend>
+            <div class="fields">
+                <div class="fields">
+                    <div class="form-group">
+                        <label for="domainsFormdomain{{ d }}Domain">Domain {{ d }}
+                            <small>e.g. <code>example.hiv</code>{% if not required %} (optional){% endif %}</small>
+                        </label>
+                        <input type="text" data-ng-model="order.domain{{ d }}" id="domainsFormdomain{{ d }}Domain" {{ required }} data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/">
+                    </div>
+                    <div class="form-group">
+                        <label for="domainsFormdomain{{ d }}Name">First name, last name{% if not required %}
+                            <small>(optional)</small>{% endif %}</label>
+                        <input type="text" data-ng-model="order.domain{{ d }}Name" id="domainsFormdomain{{ d }}Name" {{ required }} maxlength="255">
+                    </div>
+                    <div class="form-group">
+                        <label for="domainsFormdomain{{ d }}Company">Company{% if not required %}
+                            <small>(optional)</small>{% endif %}</label>
+                        <input type="text" data-ng-model="order.domain{{ d }}Company" id="domainsFormdomain{{ d }}Company" {{ required }} maxlength="255">
+                    </div>
+                    <div class="form-group">
+                        <label for="domainsFormdomain{{ d }}Twitter">Twitter handle <small>e.g. <code>@acme</code> (optional)</small>
+                        </label>
+                        <input type="text" data-ng-model="order.domain{{ d }}Twitter" id="domainsFormdomain{{ d }}Twitter" data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    {% endblock domain %}
+    {% set required = "" %}
+    {% set d = 2 %}
+    {% set s = "second" %}
+    {{ block('domain') }}
+    {% set d = 3 %}
+    {% set s = "third" %}
+    {{ block('domain') }}
+    <nav>
+        <button type="submit" data-ng-click="step = 'review'" data-ng-disabled="orderForm.$invalid">Review</button>
+    </nav>
+</form>
+
+<div data-ng-show="step == 'review'">
+    <h3>Please review your order</h3>
+
+    <h4>Your details</h4>
+
+    <p>
+        <span data-ng-bind="order.firstname"></span> <span data-ng-bind="order.surname"></span><br>
+        <span data-ng-bind="order.email"></span>
+    </p>
+
+    <p><em>Voucher codes and invoice will be sent to this email address after confirmation.</em></p>
+
+    <h4>Your order</h4>
+
+    {% set d = 1 %}
+    {% block domainInfo %}
+        <p data-ng-show="order.domain{{ d }}">
+            <span data-ng-bind="order.domain{{ d }}"></span> for <span data-ng-bind="order.domain{{ d }}Name"></span>
+            (<span data-ng-bind="order.domain{{ d }}Company"></span>) </p>
+    {% endblock domainInfo %}
+    {% set d = 2 %}
+    {{ block('domainInfo') }}
+    {% set d = 3 %}
+    {{ block('domainInfo') }}
+
+    <h4>Invoice details</h4>
+
+    <p>
+        <span data-ng-bind="order.fullname"></span><br> <span data-ng-bind="order.address1"></span><br>
+        <span data-ng-bind="order.address2"></span><br> <span data-ng-bind="order.country"></span>
+    </p>
+
+    <p>
+        <span data-ng-show="order.taxNo">
+            Tax No.:
+            <span data-ng-bind="order.taxNo"></span><br>
+        </span>
+        <span data-ng-show="order.vatNo">
+            VAT Reg. No.:
+            <span data-ng-bind="order.vatNo"></span><br>
+        </span>
+    </p>
+
+    <table>
+        <tbody>
+        {% set d = 1 %}
+        {% block item %}
+            <tr data-ng-show="order.domain{{ d }}">
+                <td>
+                    Payitforward domain: <span data-ng-bind="order.domain{{ d }}"></span>
+                </td>
+                <td class="money">
+                    {{ (payitforward_price / 100)|money }}
+                </td>
+            </tr>
+        {% endblock item %}
+        {% set d = 2 %}
+        {{ block('item') }}
+        {% set d = 3 %}
+        {{ block('item') }}
+        <tr data-ng-show="totalIncludesTax()">
+            <td>
+                19% VAT
+            </td>
+            <td class="money">
+                {% set d = 1 %}
+                {% block vat %}
+                    <span data-ng-show="numDomains() == {{ d }}">
+                    {{ (payitforward_price / 100 * d * devat / 100)|money }}
+                    </span>
+                {% endblock vat %}
+                {% set d = 2 %}
+                {{ block('vat') }}
+                {% set d = 3 %}
+                {{ block('vat') }}
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr data-ng-show="totalIncludesTax()">
+            <td>Total</td>
+            <td class="money">
+                {% set d = 1 %}
+                {% block total %}
+                    <span data-ng-show="numDomains() == {{ d }}">
+                    {{ (payitforward_price * d / 100 + payitforward_price / 100 * d * devat / 100)|money }}
+                    </span>
+                {% endblock total %}
+                {% set d = 2 %}
+                {{ block('total') }}
+                {% set d = 3 %}
+                {{ block('total') }}
+            </td>
+        </tr>
+        <tr data-ng-hide="totalIncludesTax()">
+            <td>Total</td>
+            <td class="money">
+                {{ (payitforward_price / 100)|money }}
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <form novalidate name="reviewForm" role="form" class="explained">
+        <fieldset>
+            <legend>Please confirm …</legend>
+            <div class="fields-legend"></div>
+            <div class="fields">
+                <div class="form-group" data-ng-init="confirm.checkbox1 = false">
+                    <label class="checkbox-inline"> <input type="checkbox" data-ng-model="confirm.checkbox1"> I've read
+                        and accept the <a href="/en/c/imprint#agb" target="_blank">Terms &amp; Conditions</a> </label>
+                </div>
+                <div class="form-group" data-ng-init="confirm.checkbox2 = false">
+                    <label class="checkbox-inline"> <input type="checkbox" data-ng-model="confirm.checkbox2"> All
+                        entered data is correct </label>
+                </div>
+                <div class="form-group" data-ng-init="confirm.checkbox3 = false">
+                    <label class="checkbox-inline"> <input type="checkbox" data-ng-model="confirm.checkbox3"> I
+                        understand that each voucher code is worth 1 (one) year of a .hiv domain registration and cannot
+                        be refunded. Voucher codes are not bound to a specific .hiv domain. </label>
+                </div>
+                <div class="form-group" data-ng-init="confirm.checkbox4 = false">
+                    <label class="checkbox-inline"> <input type="checkbox" data-ng-model="confirm.checkbox4"> I agree
+                        that dotHIV may contact me and the presentee for the purpose of the payitforward campaign.
+                        Contactdata is gathered solely for this purpose. </label>
+                </div>
+                <div class="form-group" data-ng-init="confirm.checkbox5 = false">
+                    <label class="checkbox-inline"> <input type="checkbox" data-ng-model="confirm.checkbox5"> I order
+                        the above mentioned voucher codes with obligation to pay. </label>
+                </div>
+            </div>
+        </fieldset>
+        <nav>
+            <button type="submit" data-ng-click="checkout()" data-ng-disabled="!allChecked()">Enter payment data
+            </button>
+            <button type="button" data-ng-click="step = 'form'">back</button>
+        </nav>
+    </form>
+
+    {% if stripe_testmode %}
+        <h2>Test mode</h2>
+        <p>Use this test card data:</p>
+        <dl>
+            <dt>card number</dt>
+            <dd><code>4242424242424242</code></dd>
+            <dt>expiry date</dt>
+            <dd><code>{{ 'now'|date('m/y') }}</code></dd>
+            <dt>CV</dt>
+            <dd><code>123</code></dd>
+        </dl>
+    {% endif %}
+</div>
+
+<div data-ng-show="step == 'paid'">
+    <h3>Thank you!</h3>
+
+    <p>Dear %%order.firstname%% %%order.surname%%,</p>
+
+    <p>Thank you very much for passing on the digital Red Ribbon. Your contribution helps to save lives all over the
+        world.</p>
+
+    <p>Your voucher codes for the free domains, your invoice and some help to notify your friends about their new .hiv
+        will arrive soon in your inbox. Please check your Spam folder if you cannot find it.</p>
+    
+    <p>In case of open questions, please contact <a href="mailto:support@tld.hiv">support@tld.hiv</a>.</p>
+
+</div>

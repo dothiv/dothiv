@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
-use Dothiv\BusinessBundle\ValueObject\IdentValue;
+use Dothiv\ValueObject\IdentValue;
 use PhpOption\Option;
 
 /**

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
-use Dothiv\BusinessBundle\ValueObject\IdentValue;
+use Dothiv\ValueObject\IdentValue;
 use PhpOption\Option;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 
