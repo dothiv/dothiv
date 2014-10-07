@@ -7,7 +7,7 @@ use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var \Symfony\Component\Console\Input\InputInterface|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -112,11 +113,11 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Clock
+     * @return ClockValue
      */
     protected function getClock()
     {
-        $clock = new Clock(new \DateTime('2014-01-02T13:14:15Z'));
+        $clock = new ClockValue(new \DateTime('2014-01-02T13:14:15Z'));
         return $clock;
     }
 

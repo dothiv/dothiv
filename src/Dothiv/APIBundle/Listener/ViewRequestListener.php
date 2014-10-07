@@ -4,6 +4,7 @@ namespace Dothiv\APIBundle\Listener;
 
 use Doctrine\Common\Annotations\Reader;
 use Dothiv\APIBundle\Annotation\ApiRequest;
+use Dothiv\ContentfulBundle\Logger\LoggerAwareTrait;
 use PhpOption\Option;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -12,6 +13,8 @@ use Symfony\Component\Validator\ValidatorInterface;
 
 class ViewRequestListener
 {
+    use LoggerAwareTrait;
+
     /**
      * @var Reader
      */
@@ -56,8 +59,13 @@ class ViewRequestListener
         $modelClass = $annotation->getModel();
         $model      = new $modelClass;
 
-        $this->setModelData($request, $model);
-        $this->setModelDataFromRouteParams($request, $model);
+        try {
+            $this->setModelData($request, $model);
+            $this->setModelDataFromRouteParams($request, $model);
+        } catch (\Exception $e) {
+            $this->log($e->getMessage());
+            throw new BadRequestHttpException($e->getMessage());
+        }
 
         $errors = $this->validator->validate($model);
 
@@ -66,6 +74,7 @@ class ViewRequestListener
             return;
         }
 
+        $this->log((string)$errors);
         throw new BadRequestHttpException(
             (string)$errors
         );
@@ -103,6 +112,7 @@ class ViewRequestListener
     protected function setModelDataFromArray($data, $model)
     {
         foreach ($data as $k => $v) {
+            $v      = trim($v);
             $setter = $this->toSetter($k);
             if (method_exists($model, $setter)) {
                 $model->$setter($v);

@@ -5,7 +5,7 @@ namespace Dothiv\PremiumConfiguratorBundle\Controller;
 use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
 use Dothiv\APIBundle\Controller\Traits\DomainNameTrait;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
-use Dothiv\BusinessBundle\ValueObject\EmailValue;
+use Dothiv\ValueObject\EmailValue;
 use Dothiv\PremiumConfiguratorBundle\Entity\Subscription;
 use Dothiv\PremiumConfiguratorBundle\Repository\SubscriptionRepositoryInterface;
 use Dothiv\PremiumConfiguratorBundle\Request\SubscriptionPutRequest;
@@ -101,6 +101,7 @@ class SubscriptionController
         $this->subscriptionRepo->persist($subscription)->flush();
 
         $response = $this->createResponse();
+        $response->setStatusCode(201);
         $response->setContent($this->serializer->serialize($subscription, 'json'));
         return $response;
     }

@@ -10,6 +10,7 @@ use Dothiv\ContentfulBundle\Event\ContentfulContentTypeEvent;
 use Dothiv\ContentfulBundle\Event\ContentfulContentTypesEvent;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
 use Dothiv\ContentfulBundle\Event\DeletedContentfulEntryEvent;
+use Dothiv\ContentfulBundle\Exception\InvalidArgumentException;
 use Dothiv\ContentfulBundle\Exception\RuntimeException;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Item\ContentfulContentType;
@@ -26,7 +27,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
     /**
      * @var string
      */
-    private $baseUrl;
+    private $endpoint = 'https://cdn.contentful.com';
 
     /**
      * @var HttpClientInterface
@@ -56,10 +57,6 @@ class HttpClientAdapter implements ContentfulApiAdapter
     public function __construct($spaceId, HttpClientInterface $client, EventDispatcherInterface $dispatcher)
     {
         $this->spaceId    = $spaceId;
-        $this->baseUrl    = sprintf(
-            'https://cdn.contentful.com/spaces/%s/',
-            urlencode($spaceId)
-        );
         $this->client     = $client;
         $this->dispatcher = $dispatcher;
     }
@@ -80,8 +77,8 @@ class HttpClientAdapter implements ContentfulApiAdapter
      */
     protected function syncContentTypes()
     {
-        $data  = $this->fetch($this->buildUrl('content_types'));
-        $types = new ArrayCollection();
+        $data   = $this->fetch($this->buildUrl('content_types'));
+        $types  = new ArrayCollection();
         $reader = new ContentfulContentTypeReader($this->spaceId);
         foreach ($data->items as $ctype) {
             $contentType = $reader->getContentType($ctype);
@@ -124,7 +121,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
             $this->syncFrom($data->nextPageUrl, $contentTypes);
         }
         if (property_exists($data, 'nextSyncUrl')) {
-            // FIXME: store next sync URL
+            // FIXME: store next sync URL.
             $this->nextSyncUrl = $data->nextSyncUrl;
             $this->log('Done. Start next sync from %s', $data->nextSyncUrl);
         }
@@ -154,7 +151,13 @@ class HttpClientAdapter implements ContentfulApiAdapter
         if ($params == null) {
             $params = array();
         }
-        $url = $this->baseUrl . $path . '?' . http_build_query($params);
+        $url = sprintf(
+            '%s/spaces/%s/%s?%s',
+            $this->endpoint,
+            urlencode($this->spaceId),
+            $path,
+            http_build_query($params)
+        );
         return $url;
     }
 
@@ -162,7 +165,7 @@ class HttpClientAdapter implements ContentfulApiAdapter
      * @param string $url
      *
      * @return object
-     * @throws \Dothiv\ContentfulBundle\Exception\RuntimeException
+     * @throws RuntimeException
      */
     protected function fetch($url)
     {
@@ -178,5 +181,24 @@ class HttpClientAdapter implements ContentfulApiAdapter
         }
         $this->log('Fetched %d items.', count($data->items));
         return $data;
+    }
+
+    /**
+     * @param string $endpoint
+     *
+     * @throws InvalidArgumentException
+     */
+    public function setEndpoint($endpoint)
+    {
+        if (!filter_var($endpoint, FILTER_VALIDATE_URL)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Not an url: %s',
+                    $endpoint
+                )
+            );
+        }
+        $parts          = parse_url($endpoint);
+        $this->endpoint = sprintf('%s://%s', $parts['scheme'], $parts['host']);
     }
 }

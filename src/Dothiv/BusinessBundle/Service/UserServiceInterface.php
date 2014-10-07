@@ -6,21 +6,22 @@ use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
-use Dothiv\BusinessBundle\ValueObject\IdentValue;
+use Dothiv\ValueObject\IdentValue;
 
 interface UserServiceInterface
 {
     /**
-     * @param string $email
-     * @param string $httpHost
-     * @param string $locale
+     * @param string      $email
+     * @param string      $httpHost
+     * @param string      $locale
+     * @param string|null $route
      *
      * @return void
      *
      * @throws EntityNotFoundException If user not found.
      * @throws TemporarilyUnavailableException If mail has been sent.
      */
-    public function sendLoginLinkForEmail($email, $httpHost, $locale);
+    public function sendLoginLinkForEmail($email, $httpHost, $locale, $route = null);
 
     /**
      * @param string $email

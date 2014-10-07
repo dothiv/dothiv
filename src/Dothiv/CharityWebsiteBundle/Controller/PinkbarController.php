@@ -11,7 +11,7 @@ namespace Dothiv\CharityWebsiteBundle\Controller;
 
 use Dothiv\BaseWebsiteBundle\Service\MoneyFormatServiceInterface;
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use JMS\Serializer\SerializerInterface;
 use PhpOption\Option;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +20,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class PinkbarController
 {
+
     /**
      * @var float how many EUR to increment on click
      */
@@ -56,7 +57,7 @@ class PinkbarController
     private $serializer;
 
     /**
-     * @var Clock
+     * @var ClockValue
      */
     private $clock;
 
@@ -73,7 +74,7 @@ class PinkbarController
      * @param float                       $eurGoal
      * @param float                       $alreadyDonated
      * @param float                       $eurIncrement
-     * @param Clock                       $clock
+     * @param ClockValue                  $clock
      * @param int                         $pageLifetime In seconds
      */
     public function __construct(
@@ -84,7 +85,7 @@ class PinkbarController
         $eurGoal,
         $alreadyDonated,
         $eurIncrement,
-        Clock $clock,
+        ClockValue $clock,
         $pageLifetime)
     {
         $this->translator         = $translator;

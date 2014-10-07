@@ -16,9 +16,14 @@ trait ContentfulItem
      */
     private $fields = array();
 
+    /**
+     * @param string $key
+     *
+     * @return mixed|null
+     */
     public function __get($key)
     {
-        return $this->fields[$key];
+        return isset($this->fields[$key]) ? $this->fields[$key] : null;
     }
 
     public function __set($key, $value)
@@ -27,11 +32,19 @@ trait ContentfulItem
         return $this;
     }
 
+    /**
+     * @param $name
+     *
+     * @return bool
+     */
     public function __isset($name)
     {
         return array_key_exists($name, $this->fields);
     }
 
+    /**
+     * @return array
+     */
     public function getFields()
     {
         return $this->fields;

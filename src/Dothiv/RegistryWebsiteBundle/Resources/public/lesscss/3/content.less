@@ -37,6 +37,14 @@ main {
             margin-bottom: 1em;
           }
         }
+        &.buttonlinks-primary {
+          a {
+            &:extend(.btn all);
+            &:extend(.btn-primary all);
+            &:extend(.pull-right);
+            margin-bottom: 1em;
+          }
+        }
       }
       &.cols2 {
         .block {
@@ -98,6 +106,15 @@ main {
     ul.downloads {
       list-style: none;
       padding: 0;
+    }
+    table {
+      &:extend(.table all);
+      &:extend(.table-striped all);
+      td, th {
+        &.money {
+          text-align: right;
+        }
+      }
     }
   }
   div.content-with-aside {

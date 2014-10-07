@@ -8,7 +8,7 @@ use Dothiv\APIBundle\Request\UserCreateRequest;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
 use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,7 @@ class AccountController
     private $userRepo;
 
     /**
-     * @var \Dothiv\BusinessBundle\Service\Clock
+     * @var \Dothiv\ValueObject\ClockValue
      */
     private $clock;
 
@@ -40,7 +40,7 @@ class AccountController
         UserServiceInterface $userService,
         UserRepositoryInterface $userRepo,
         Serializer $serializer,
-        Clock $clock
+        ClockValue $clock
     )
     {
         $this->userService = $userService;
@@ -65,7 +65,7 @@ class AccountController
         try {
             /** @var LoginLinkRequest $model */
             $model = $request->attributes->get('model');
-            $this->userService->sendLoginLinkForEmail($model->email, $request->getHttpHost(), $model->locale);
+            $this->userService->sendLoginLinkForEmail($model->email, $request->getHttpHost(), $model->locale, $model->route);
             $response = $this->createResponse();
             $response->setStatusCode(201);
             return $response;
@@ -95,7 +95,7 @@ class AccountController
             throw new ConflictHttpException();
         }
         $user = $this->userService->getOrCreateUser($createRequest->email, $createRequest->firstname, $createRequest->surname);
-        $this->userService->sendLoginLinkForEmail($user->getEmail(), $request->getHttpHost(), $createRequest->locale);
+        $this->userService->sendLoginLinkForEmail($user->getEmail(), $request->getHttpHost(), $createRequest->locale, $createRequest->route);
         $response = $this->createResponse();
         $response->setStatusCode(201);
         $response->setContent($this->serializer->serialize($user, 'json'));

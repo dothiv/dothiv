@@ -1,0 +1,7 @@
+parameters:
+#    dothiv_payitforward.example.class: Dothiv\PayitforwardBundle\Example
+
+services:
+#    dothiv_payitforward.example:
+#        class: %dothiv_payitforward.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

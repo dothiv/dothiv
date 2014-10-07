@@ -5,7 +5,7 @@ namespace Dothiv\BaseWebsiteBundle\Contentful;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BaseWebsiteBundle\Service\ImageScalerInterface;
 use Dothiv\BaseWebsiteBundle\Service\ThumbnailConfiguration;
-use Dothiv\BusinessBundle\ValueObject\PathValue;
+use Dothiv\ValueObject\PathValue;
 use Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapter;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Logger\LoggerAwareTrait;
@@ -50,6 +50,10 @@ class ImageAssetScaler implements LoggerAwareInterface
      */
     public function scaleAsset(ContentfulAsset $asset)
     {
+        if (!isset($asset->file)) {
+            $this->log('Asset %s has no file.', $asset);
+            return;
+        }
         foreach ($asset->file as $locale => $info) {
             if (substr($info['contentType'], 0, 6) != 'image/') {
                 return;

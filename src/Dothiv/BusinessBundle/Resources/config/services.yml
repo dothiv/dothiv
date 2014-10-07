@@ -1,6 +1,6 @@
 parameters:
     clickcounter.class: Dothiv\BusinessBundle\Service\ClickCounterConfig
-    dothiv.businessbundle.service.clock.class: Dothiv\BusinessBundle\Service\Clock
+    dothiv.businessbundle.service.clock.class: Dothiv\ValueObject\ClockValue
     dothiv.businessbundle.service.user.class: Dothiv\BusinessBundle\Service\UserService
     dothiv.businessbundle.service.attachment.class: Dothiv\BusinessBundle\Service\AttachmentService
     dothiv.businessbundle.service.attachment_store.class: Dothiv\BusinessBundle\Service\AttachmentStoreService

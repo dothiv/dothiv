@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class LoginLinkRequest
 {
+
     /**
      * @var string
      * @Assert\NotNull
@@ -24,4 +25,11 @@ class LoginLinkRequest
      * @Assert\Regex("/^(de|en|ky)$/")
      */
     public $locale;
+
+    /**
+     * @var string
+     * @Assert\Regex("/^[a-z_]+$/")
+     */
+    public $route;
+
 }

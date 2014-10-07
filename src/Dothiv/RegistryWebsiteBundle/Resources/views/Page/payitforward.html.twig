@@ -1,0 +1,20 @@
+{% extends "DothivRegistryWebsiteBundle:Page:content.html.twig" %}
+{% block content %}
+    <div class="content-with-aside">
+        <article class="content">
+            {% for childBlock in page.blocks|default([]) %}
+                {% set blocks = [childBlock] %}
+                {{ block('cf_section') }}
+            {% endfor %}
+        </article>
+        <aside>
+            {% set aside = registry_content('Block', 'aside.payitforward') %}
+            {% for childBlock in aside.children|default([aside]) %}
+                {% set blocks = [childBlock] %}
+                <article class="content">
+                    {{ block('cf_section') }}
+                </article>
+            {% endfor %}
+        </aside>
+    </div>
+{% endblock content %}

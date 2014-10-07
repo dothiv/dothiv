@@ -5,7 +5,7 @@ namespace Dothiv\BaseWebsiteBundle\Controller;
 use Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache;
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
-use Dothiv\BusinessBundle\Service\Clock;
+use Dothiv\ValueObject\ClockValue;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PageController
 {
+
     /**
      * @var EngineInterface
      */
@@ -39,7 +40,7 @@ class PageController
     private $assetsModified;
 
     /**
-     * @var Clock
+     * @var ClockValue
      */
     private $clock;
 
@@ -54,7 +55,7 @@ class PageController
      * @param Content                  $content
      * @param string                   $bundle
      * @param int                      $assets_version
-     * @param Clock                    $clock
+     * @param ClockValue               $clock
      * @param int                      $pageLifetime In seconds
      */
     public function __construct(
@@ -63,7 +64,7 @@ class PageController
         Content $content,
         $bundle,
         $assets_version,
-        Clock $clock,
+        ClockValue $clock,
         $pageLifetime
     )
     {

@@ -9,7 +9,7 @@
         </article>
         <aside>
             {% set aside = registry_content('Block', 'aside.register') %}
-            {% for childBlock in aside.children|default([]) %}
+            {% for childBlock in aside.children|default([aside]) %}
                 {% set blocks = [childBlock] %}
                 <article class="content">
                 {{ block('cf_section') }}

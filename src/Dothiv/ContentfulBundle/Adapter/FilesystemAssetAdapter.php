@@ -80,6 +80,7 @@ class FilesystemAssetAdapter implements ContentfulAssetAdapter
      * @param string          $locale
      *
      * @return string|null
+     * @throws InvalidArgumentException
      */
     protected function getExtension(ContentfulAsset $asset, $locale)
     {
@@ -104,14 +105,24 @@ class FilesystemAssetAdapter implements ContentfulAssetAdapter
      * @return void
      * @throws RuntimeException
      */
-    function cache(ContentfulAsset $asset)
+    public function cache(ContentfulAsset $asset)
     {
+        if (!isset($asset->file)) {
+            $this->log('Asset %s has no file.', $asset);
+            return;
+        }
         foreach ($asset->file as $locale => $file) {
+            if (empty($file)) {
+                // File not published.
+                $this->log('Asset %s contains unpublished file for %s.', $asset, $locale);
+                continue;
+            }
             $localFile = $this->getLocalFile($asset, $locale);
             if ($localFile->isFile()) {
                 continue;
             }
-            $this->log('Caching "%s" file for asset "%s" as "%s" ...',
+            $this->log(
+                'Caching "%s" file for asset "%s" as "%s" ...',
                 $locale,
                 $asset->getId(),
                 $localFile->getPathname()
