@@ -1,11 +1,13 @@
 {% trans_default_domain "registry" %}
 {% use "DothivRegistryWebsiteBundle:App:blocks.html.twig" %}
 
-{{ block('errorMessage') }}
+<h3>Payitforward.hiv</h3>
+
 <form role="form" name="registrationForm" novalidate class="explained" method="post">
     <fieldset>
         <legend>Create an account</legend>
         <div class="fields" data-ng-show="!done" >
+            {{ block('errorMessage') }}
             <div class="form-group">
                 <label for="registerEmail">Email address</label>
                 <input type="email" data-ng-model="registrationForm.email" class="form-control" id="registerEmail" required>
