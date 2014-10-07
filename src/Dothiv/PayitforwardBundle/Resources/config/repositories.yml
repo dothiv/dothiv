@@ -1,6 +1,8 @@
 parameters:
     dothiv.repository.payitforward.order.entity.class: 'DothivPayitforwardBundle:Order'
     dothiv.repository.payitforward.order.repository.class: Dothiv\PayitforwardBundle\Repository\OrderRepository
+    dothiv.repository.payitforward.voucher.entity.class: 'DothivPayitforwardBundle:Voucher'
+    dothiv.repository.payitforward.voucher.repository.class: Dothiv\PayitforwardBundle\Repository\VoucherRepository
 
 services:
     dothiv.repository.payitforward.order:
@@ -8,5 +10,13 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.payitforward.order.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
+
+    dothiv.repository.payitforward.voucher:
+        class: %dothiv.repository.payitforward.voucher.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.payitforward.voucher.entity.class% ]
         calls:
         - [setValidator, ["@validator"]]
