@@ -18,7 +18,7 @@ class BehatTest extends WebTestCase
      */
     public function ensureThatBehatScenariosMeetAcceptanceCriteria()
     {
-        $features = '@DothivPayitforwardBundleBundle';
+        $features = '@DothivPayitforwardBundle';
 
         try {
             $input  = new ArrayInput(array('--format' => 'progress', 'features' => $features));
