@@ -35,13 +35,6 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldPersist()
     {
-        $user = new User();
-        $user->setHandle('userhandle');
-        $user->setEmail('someone@example.com');
-        $user->setFirstname('John');
-        $user->setSurname('Doe');
-        $this->getTestEntityManager()->persist($user);
-
         $data = array(
             'firstname'          => 'John',
             'surname'            => 'Doe',
@@ -72,6 +65,31 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
             'liveMode'           => '0',
         );
 
+        $order = $this->createOrder();
+
+        $repo = $this->getTestObject();
+        $repo->persist($order);
+        $repo->flush();
+        $all = $repo->findAll();
+        $this->assertEquals(1, count($all));
+        $e = $all[0];
+        foreach ($data as $k => $v) {
+            $getter = 'get' . ucfirst($k);
+            $this->assertEquals($v, $e->$getter(), 'Invalid ' . $k);
+        }
+
+        return $repo;
+    }
+
+    protected function createOrder()
+    {
+        $user = new User();
+        $user->setHandle('userhandle');
+        $user->setEmail('someone@example.com');
+        $user->setFirstname('John');
+        $user->setSurname('Doe');
+        $this->getTestEntityManager()->persist($user);
+
         $order = new Order();
         $order->setUser($user);
         $order->setFirstname('John');
@@ -101,16 +119,32 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $order->setDomain3Twitter(new TwitterHandleValue('@rad'));
         $order->setToken('tok_14kcI342KFPpMZB0scN8KPTM');
         $order->setLiveMode('0');
-        $repo = $this->getTestObject();
+        return $order;
+    }
+
+    /**
+     * @test
+     * @group   Entity
+     * @group   PayitforwardBundle
+     * @group   Order
+     * @group   Integration
+     * @depends itShouldPersist
+     */
+    public function itShouldReturnNewOrders()
+    {
+        $order = $this->createOrder();
+        $repo  = $this->getTestObject();
         $repo->persist($order);
         $repo->flush();
-        $all = $repo->findAll();
-        $this->assertEquals(1, count($all));
-        $e = $all[0];
-        foreach ($data as $k => $v) {
-            $getter = 'get' . ucfirst($k);
-            $this->assertEquals($v, $e->$getter(), 'Invalid ' . $k);
-        }
+        $newOrders = $repo->findNew();
+        $this->assertInstanceOf('\Doctrine\Common\Collections\ArrayCollection', $newOrders);
+        $this->assertEquals(1, $newOrders->count());
+        $this->assertEquals($order, $newOrders->first());
+
+        $order->setCharge('abc');
+        $repo->persist($order)->flush();
+        $newOrders2 = $repo->findNew();
+        $this->assertEquals(0, $newOrders2->count());
     }
 
     /**
