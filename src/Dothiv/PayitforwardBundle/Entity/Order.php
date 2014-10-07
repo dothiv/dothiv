@@ -18,7 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Represents an order.
  *
  * @ORM\Entity(repositoryClass="Dothiv\PayitforwardBundle\Repository\OrderRepository")
- * @ORM\Table(name="payitforward_order")
+ * @ORM\Table(name="PayitforwardOrder")
  * @Serializer\ExclusionPolicy("all")
  */
 class Order extends Entity
