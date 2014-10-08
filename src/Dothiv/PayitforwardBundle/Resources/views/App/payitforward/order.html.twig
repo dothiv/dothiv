@@ -299,6 +299,7 @@
             <dd><code>123</code></dd>
         </dl>
     {% endif %}
+    
 </div>
 
 <div data-ng-show="step == 'paid'">
@@ -313,5 +314,25 @@
         will arrive soon in your inbox. Please check your Spam folder if you cannot find it.</p>
     
     <p>In case of open questions, please contact <a href="mailto:support@tld.hiv">support@tld.hiv</a>.</p>
+
+    <h4>Now tell the world about your gifts – and don't forget to link your friends:</h4>
+
+    <p>Share payitforward.hiv on Facebook:</p>
+
+    <blockquote class="userquote">
+        <p data-ng-bind="fbText"></p>
+    </blockquote>
+
+    <facebook url="http://payitforward.hiv/"></facebook>
+
+    <hr>
+
+    <p>Share payitforward.hiv on Twitter:</p>
+
+    <blockquote class="userquote">
+        <p data-ng-bind="tweetText"></p>
+    </blockquote>
+
+    <twitter url="http://payitforward.hiv/" hashtags="dotHIV" lang="en" text="tweetText"></twitter>
 
 </div>
