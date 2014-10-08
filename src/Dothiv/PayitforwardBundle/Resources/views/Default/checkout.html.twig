@@ -20,53 +20,83 @@
     '@DothivPayitforwardBundle/Resources/public/js/app.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'
+    '@DothivPayitforwardBundle/Resources/public/js/directives/*.js'
     '@DothivPayitforwardBundle/Resources/public/js/controllers/*.js'
     '@DothivPayitforwardBundle/Resources/public/js/services/models/*.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    {# Stripe #}
     <script src="https://checkout.stripe.com/checkout.js"></script>
+    {# Twitter #}
+    <script type="text/javascript">
+        window.twttr = (function (d, s, id) {
+            var t, js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            return window.twttr || (t = {
+                _e: [], ready: function (f) {
+                    t._e.push(f)
+                }
+            })
+        }(document, "script", "twitter-wjs"));
+    </script>
+    {# Facebook #}
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/{{ app.request.locale }}/sdk.js#xfbml=1&appId={{ facebook_app_id }}&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
 {% endblock %}
 {% block angular_config %}
-<script type="text/javascript">
-    'use strict';
-    angular.module('dotHIVApp.services').factory('config', function () {
-        var config = {
-            locale: '{{ locale }}',
-            domain: '{{ app.request.get('domain') }}',
-            stripe: {
-                publishableKey: '{{ stripe_publishable_key }}',
-                {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}
-                logo: '{{ asset_url }}',
-                {% endimage %}
-                testMode: {{ stripe_testmode }}
-            },
-            price: {
-                net: [
-                    0,
-                    {{ payitforward_price }},
-                    {{ payitforward_price * 2 }},
-                    {{ payitforward_price * 3 }}
-                ],
-                vat: [
-                    0,
-                    {{ (payitforward_price * devat * 1/ 100)|round }},
-                    {{ (payitforward_price * devat * 2/ 100)|round }},
-                    {{ (payitforward_price * devat * 3/ 100)|round }}
-                ],
-                total: [
-                    0,
-                    {{ payitforward_price + (payitforward_price * devat / 100)|round }},
-                    {{ payitforward_price * 2 + (payitforward_price * 2 * devat / 100)|round }},
-                    {{ payitforward_price * 3 + (payitforward_price * 3 * devat / 100)|round }}
-                ]
-            },
-            vat: {
-                de: {{ devat }}
-            }
-        };
-        return config;
-    });
-</script>
+    <script type="text/javascript">
+        'use strict';
+        angular.module('dotHIVApp.services').factory('config', function () {
+            var config = {
+                locale: '{{ locale }}',
+                domain: '{{ app.request.get('domain') }}',
+                stripe: {
+                    publishableKey: '{{ stripe_publishable_key }}',
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}
+                    logo: '{{ asset_url }}',
+                    {% endimage %}
+                    testMode: {{ stripe_testmode }}
+                },
+                price: {
+                    net: [
+                        0,
+                        {{ payitforward_price }},
+                        {{ payitforward_price * 2 }},
+                        {{ payitforward_price * 3 }}
+                    ],
+                    vat: [
+                        0,
+                        {{ (payitforward_price * devat * 1/ 100)|round }},
+                        {{ (payitforward_price * devat * 2/ 100)|round }},
+                        {{ (payitforward_price * devat * 3/ 100)|round }}
+                    ],
+                    total: [
+                        0,
+                        {{ payitforward_price + (payitforward_price * devat / 100)|round }},
+                        {{ payitforward_price * 2 + (payitforward_price * 2 * devat / 100)|round }},
+                        {{ payitforward_price * 3 + (payitforward_price * 3 * devat / 100)|round }}
+                    ]
+                },
+                vat: {
+                    de: {{ devat }}
+                }
+            };
+            return config;
+        });
+    </script>
 {% endblock angular_config %}
