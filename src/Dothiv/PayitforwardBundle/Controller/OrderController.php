@@ -7,7 +7,6 @@ use Dothiv\ValueObject\EmailValue;
 use Dothiv\PayitforwardBundle\Entity\Order;
 use Dothiv\PayitforwardBundle\Repository\OrderRepositoryInterface;
 use Dothiv\PayitforwardBundle\Request\OrderPutRequest;
-use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -19,13 +18,11 @@ class OrderController
 
     public function __construct(
         SecurityContextInterface $securityContext,
-        OrderRepositoryInterface $orderRepo,
-        SerializerInterface $serializer
+        OrderRepositoryInterface $orderRepo
     )
     {
         $this->securityContext = $securityContext;
         $this->orderRepo       = $orderRepo;
-        $this->serializer      = $serializer;
     }
 
     /**
@@ -77,7 +74,6 @@ class OrderController
 
         $response = $this->createResponse();
         $response->setStatusCode(201);
-        $response->setContent($this->serializer->serialize($order, 'json'));
         return $response;
     }
 }
