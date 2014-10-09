@@ -15,9 +15,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Represents a voucher.
  *
  * @ORM\Entity(repositoryClass="Dothiv\PayitforwardBundle\Repository\VoucherRepository")
- * @ORM\Table(name="PayitforwardVoucher")
  * @Serializer\ExclusionPolicy("all")
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="payitforward_voucher__code",columns={"code"})})
+ * @ORM\Table(name="PayitforwardVoucher", uniqueConstraints={@ORM\UniqueConstraint(name="payitforward_voucher__code",columns={"code"})})
  */
 class Voucher extends Entity
 {
