@@ -45,10 +45,22 @@ class OrderMailer implements OrderMailerInterface
      */
     public function send(Order $order, Invoice $invoice, ArrayCollection $vouchers)
     {
-        $locale     = 'en';
-        $dateFormat = 'M. jS Y'; // de: 'd.m.Y'
-        $domain     = $order->getDomain();
-        $data       = array(
+        $deCountries = array(
+            'Deutschland',
+            'Österreich',
+            'Schweiz'
+        );
+        $locale      = 'en';
+        $dateFormat  = 'M. jS Y';
+        foreach ($deCountries as $c) {
+            if (stristr($order->getCountry(), $c) !== false) {
+                $locale     = 'de';
+                $dateFormat = 'd.m.Y';
+            }
+        }
+
+        $domain = $order->getDomain();
+        $data   = array(
             'firstname' => $order->getFirstname(),
             'surname'   => $order->getSurname(),
             'domain'    => empty($domain) ? null : $domain->toUTF8(),
@@ -87,7 +99,7 @@ class OrderMailer implements OrderMailerInterface
         }
 
         $name = $order->getFirstname() . ' ' . $order->getSurname();
-        
+
         $this->contentMailer->sendContentTemplateMail('payitforward.order', $locale, (string)$order->getEmail(), $name, $data);
     }
 } 
