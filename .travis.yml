@@ -5,6 +5,10 @@ php:
   - 5.5
   - 5.4
 
+branches:
+  only:
+    - master
+
 before_install:
 # headless testing
   - "export DISPLAY=:99.0"

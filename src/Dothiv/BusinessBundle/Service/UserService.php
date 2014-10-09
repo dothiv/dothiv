@@ -178,9 +178,11 @@ class UserService implements UserProviderInterface, UserServiceInterface
     {
         /* @var User $user */
         /* @var UserToken $token */
-        $user = Option::fromValue($this->loadUserByUsername($email))->getOrCall(function () {
+        try {
+            $user = $this->loadUserByUsername($email);
+        } catch (UsernameNotFoundException $e) {
             throw new EntityNotFoundException();
-        });
+        }
 
         $scope  = new IdentValue('login');
         $tokens = $this->userTokenRepo->getActiveTokens($user, $scope, $this->clock->getNow())->filter(function (UserToken $token) {

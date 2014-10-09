@@ -45,26 +45,33 @@ form.explained {
   }
   fieldset {
     .clearfix;
-    .fields {
-      width: 66%;
-      float: left;
-    }
     .fields-legend {
-      width: 33%;
-      float: right;
-      p {
-        margin-left: 1em;
+      margin-bottom: 1em;
+    }
+    @media (min-width: @screen-sm-min) {
+      .fields {
+        width: 66%;
+        float: left;
       }
-      nav {
-        a {
-          .pull-right;
+      .fields-legend {
+        margin-bottom: 0;
+        width: 33%;
+        float: right;
+        p {
+          margin-left: 1em;
+        }
+        nav {
+          a {
+            .pull-right;
+          }
         }
       }
+      .form-group-third {
+        .form-group;
+        width: 33%;
+      }
     }
-    .form-group-third {
-      .form-group;
-      width: 33%;
-    }
+
   }
   button {
     .btn;
