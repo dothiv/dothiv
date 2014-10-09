@@ -1,10 +1,32 @@
-.footer {
-    height: 342px;
-    margin-top: 30px;
-    
-    .span4 {
-        margin-top: 23px;
+footer.page {
+  &:extend(.container)
+;
+  font-size: @font-size-small;
+  article {
+    .make-row();
+    padding-bottom: 30px;
+    div.logo {
+      .make-sm-column(12);
+      @media (min-width: @screen-sm-min) {
+        padding-top: 30px;
+      }
+      padding-bottom: 30px;
+      h2 {
+        &:extend(.logoplustext all)
+      ;
+        small {
+          font-size: @font-size-small;
+          left: 75px;
+        }
+      }
     }
-    
-    * li { white-space: nowrap }
+    section, nav {
+      .make-sm-column(4);
+    }
+    nav {
+      a {
+        display: block;
+      }
+    }
+  }
 }
