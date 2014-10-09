@@ -5,9 +5,9 @@ angular.module('dotHIVApp.controllers').controller('OrderController', ['$rootSco
     $scope.step = 'form';
     $scope.order = {
         type: 'deorg',
-        domain1: '',
-        domain2: '',
-        domain3: ''
+         domain1: '',
+         domain2: '',
+         domain3: ''
     };
 
     security.updateUserInfo(function () {
@@ -21,7 +21,7 @@ angular.module('dotHIVApp.controllers').controller('OrderController', ['$rootSco
     $http.get('/bundles/dothivbasewebsite/data/countries.json').success(function (data) {
         $scope.countries = data;
     });
-    
+
     // Review
 
     $scope.numDomains = function () {
@@ -43,7 +43,7 @@ angular.module('dotHIVApp.controllers').controller('OrderController', ['$rootSco
         }
         return allChecked;
     };
-    
+
     function getStripeAmount() {
         return totalIncludesTax() ? config.price.total[$scope.numDomains()] : config.price.net[$scope.numDomains()];
     }
@@ -110,4 +110,52 @@ angular.module('dotHIVApp.controllers').controller('OrderController', ['$rootSco
     }
 
     $scope.totalIncludesTax = totalIncludesTax;
+
+    // Twitter Text handling
+    $scope.tweetText = '';
+    function updateTweetText() {
+        var tweetText = '';
+        if ($scope.order.domain && $scope.order.domainDonorTwitter) {
+            tweetText = 'Coolest gift ever! We got ' + $scope.order.domain + ' from ' + $scope.order.domainDonorTwitter + '! ';
+        }
+        if ($scope.order.domain1Twitter || $scope.order.domain2Twitter || $scope.order.domain3Twitter) {
+            tweetText += "It's our pleasure to payitforward.hiv for ";
+            var domains = [];
+            if ($scope.order.domain1Twitter) domains.push($scope.order.domain1Twitter);
+            if ($scope.order.domain2Twitter) domains.push($scope.order.domain2Twitter);
+            if ($scope.order.domain3Twitter) domains.push($scope.order.domain3Twitter);
+            if (domains.length == 1) {
+                tweetText += domains[0];
+            } else if (domains.length == 2) {
+                tweetText += domains.join(' & ');
+            } else if (domains.length == 3) {
+                tweetText += domains[0] + ', ' + domains[1] + ' & ' + domains[2];
+            }
+            tweetText += ".";
+        }
+        $scope.tweetText = tweetText;
+    }
+
+    // Facebook Text handling
+    $scope.fbText = '';
+    function updateFbText() {
+        var fbText = '';
+        if ($scope.order.domain) {
+            fbText = 'Coolest gift ever! We got ' + $scope.order.domain;
+            if ($scope.order.domainDonor) {
+                fbText += ' from ' + $scope.order.domainDonor;
+            }
+            fbText += '! Please accept and use your digital Red Ribbon. Send a gift of your own to three of your friends, business partners or clients. Together we start a new digital movement for the end of AIDS.';
+        }
+        $scope.fbText = fbText;
+    }
+
+    function updateSharingText() {
+        updateTweetText();
+        updateFbText();
+    }
+    
+    $scope.updateSharingText = updateSharingText;
+    $scope.updateFbText = updateFbText;
+    $scope.updateTweetText = updateTweetText;
 }]);
