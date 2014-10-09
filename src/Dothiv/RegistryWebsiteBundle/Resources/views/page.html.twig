@@ -86,25 +86,29 @@
     </header>
 </div>
 {% block subheader %}
-{% for section in registry_content('Collection', 'nav.main')|default({'items': []}).items %}
-    {% if loop.first %}
-        <div class="outer-texture">
-        <nav class="main sections{{ loop.length }}">
-    {% endif %}
-    <section>
-        {% for item in section.items %}
-            {% if item.cfMeta.contentType == "String" %}
-                <h2>{{ item.value }}</h2>
-            {% elseif item.cfMeta.contentType == "Page" %}
-                <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': item.code|replace('.', '/')}) }}">{{ item.title }}</a>
-            {% endif %}
-        {% endfor %}
-    </section>
-    {% if loop.last %}
-        </nav>
-        </div>
-    {% endif %}
-{% endfor %}
+    {% for section in registry_content('Collection', 'nav.main')|default({'items': []}).items %}
+        {% if loop.first %}
+            <div class="outer-texture">
+            <nav class="main">
+        {% endif %}
+        <section class="{% if loop.last %}last{% endif %}">
+            {% for item in section.items %}
+                {% if item.cfMeta.contentType == "String" %}
+                    <h2>{{ item.value }} </h2>
+                {% endif %}
+            {% endfor %}
+            {% for item in section.items %}
+                {% if item.cfMeta.contentType == "Page" %}
+                    <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': item.code|replace('.', '/')}) }}">{{ item.title }}</a>
+                {% endif %}
+            {% endfor %}
+        </section>
+        {% if loop.last %}
+            <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': 'register'}) }}" class="button">{{ 'menu.register'|trans }}</a>
+            </nav>
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endblock subheader %}
 <div class="outer">
     <main>

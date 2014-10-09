@@ -1,15 +1,15 @@
 nav.main {
-  &:extend(.container)
-;
-  .clearfix();
-
+  &:extend(.container);
   padding: 0;
-
   section {
-    .make-sm-column(4);
+    float: left;
     h2 {
       font-size: @font-size-base;
       padding: 10px;
+    }
+    h2:after {
+      .glyphicon;
+      content: "\e114";
     }
     a {
       display: block;
@@ -25,12 +25,15 @@ nav.main {
       color: @text-color;
     }
     @media (min-width: @screen-sm-min) {
-      margin-bottom: 40px;
-      margin-top: 40px;
+      padding: @grid-gutter-width / 4 @grid-gutter-width @grid-gutter-width / 4 0;
+      margin: @grid-gutter-width / 2;
+      border-right: 1px solid @btn-default-bg;
+
+      
       h2 {
-        margin-bottom: 20px;
-        font-size: @font-size-h2;
+        margin: 0 0 @grid-gutter-width / 2 0;
         padding: 0;
+        font-size: @font-size-h2;
       }
 
       a {
@@ -43,5 +46,16 @@ nav.main {
         border: 0;
       }
     }
+    &.last {
+      @media (min-width: @screen-sm-min) {
+        border-right: none;
+      }
+    }
+  }
+  a.button {
+    &:extend(.btn all);
+    &:extend(.btn-primary all);
+    .pull-right;
+    margin-top: @grid-gutter-width / 2 + 10px;
   }
 }
