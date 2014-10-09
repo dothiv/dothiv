@@ -95,6 +95,10 @@ assetic:
         angular_file_upload:
             inputs:
             - %kernel.root_dir%/../vendor/components/nervgh-angular-file-upload/angular-file-upload.js
+        bootstrap_glyphicons:
+            inputs:
+            - %kernel.root_dir%/../vendor/twitter/bootstrap/fonts/glyphicons-halflings-regular.woff
+            - %kernel.root_dir%/../vendor/twitter/bootstrap/fonts/glyphicons-halflings-regular.ttf
 
 
 # Doctrine Configuration
