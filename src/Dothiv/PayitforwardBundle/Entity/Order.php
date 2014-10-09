@@ -854,10 +854,13 @@ class Order extends Entity
     /**
      * Activates the order and sets the stripe charge id.
      *
-     * @param $charge
+     * @param \Stripe_Charge $charge
+     *
+     * @return self
      */
-    public function activate($charge)
+    public function activate(\Stripe_Charge $charge)
     {
-        $this->charge = $charge;
+        $this->charge = $charge->id;
+        return $this;
     }
 } 
