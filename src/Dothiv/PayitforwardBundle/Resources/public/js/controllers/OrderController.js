@@ -114,7 +114,7 @@ angular.module('dotHIVApp.controllers').controller('OrderController', ['$rootSco
     // Twitter Text handling
     $scope.tweetText = '';
     function updateTweetText() {
-        var tweetText = '';
+        var tweetText = 'Coolest gift ever! Send a gift of your own to three of your friends and start a new digital movement for the end of AIDS.';
         if ($scope.order.domain && $scope.order.domainDonorTwitter) {
             tweetText = 'Coolest gift ever! We got ' + $scope.order.domain + ' from ' + $scope.order.domainDonorTwitter + '! ';
         }
@@ -139,7 +139,7 @@ angular.module('dotHIVApp.controllers').controller('OrderController', ['$rootSco
     // Facebook Text handling
     $scope.fbText = '';
     function updateFbText() {
-        var fbText = '';
+        var fbText = 'Coolest gift ever! Send a gift of your own to three of your friends, business partners or clients. Together we start a new digital movement for the end of AIDS.';
         if ($scope.order.domain) {
             fbText = 'Coolest gift ever! We got ' + $scope.order.domain;
             if ($scope.order.domainDonor) {
