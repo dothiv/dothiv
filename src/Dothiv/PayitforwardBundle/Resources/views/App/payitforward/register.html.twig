@@ -6,6 +6,16 @@
 <form role="form" name="registrationForm" novalidate class="explained" method="post">
     <fieldset>
         <legend>Create an account</legend>
+        <div class="fields-legend" data-ng-show="!done" >
+            <p>First, create an account by providing your name and your email address.</p>
+
+            <p>No password?! We don't like passwords, <a href="http://notes.xoxco.com/post/27999787765/is-it-time-for-password-less-login">and other do, too</a>. Everytime you wish to log in, we'll send a login link to your email address. That's fast, easy and secure.</p>
+
+            <p>We need to confirm your Email address in order to keep in touch with you.</p>
+            <nav>
+                <a href="{{ path('dothiv_payitforward_checkout', {'locale': locale}) }}#!/login">I already have an account!</a>
+            </nav>
+        </div>
         <div class="fields" data-ng-show="!done" >
             {{ block('errorMessage') }}
             <div class="form-group">
@@ -24,16 +34,6 @@
                 <span data-ng-show="!loading">submit</span> <span data-ng-show="loading"><i></i> submitting …</span>
             </button>
             <input type="hidden" data-ng-model="registrationForm.locale" data-ng-init="registrationForm.locale='{{ locale }}'">
-        </div>
-        <div class="fields-legend" data-ng-show="!done" >
-            <p>First, create an account by providing your name and your email address.</p>
-
-            <p>No password?! We don't like passwords, <a href="http://notes.xoxco.com/post/27999787765/is-it-time-for-password-less-login">and other do, too</a>. Everytime you wish to log in, we'll send a login link to your email address. That's fast, easy and secure.</p>
-
-            <p>We need to confirm your Email address in order to keep in touch with you.</p>
-            <nav>
-                <a href="{{ path('dothiv_payitforward_checkout', {'locale': locale}) }}#!/login">I already have an account!</a>
-            </nav>
         </div>
         <div data-ng-show="done">
             <p><strong>Great!</strong></p>

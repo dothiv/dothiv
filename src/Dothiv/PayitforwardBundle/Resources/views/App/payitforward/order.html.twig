@@ -1,10 +1,23 @@
 {% trans_default_domain "registry" %}
 {% use "DothivRegistryWebsiteBundle:App:blocks.html.twig" %}
 
-<h3>Payitforward.hiv</h3>
+{% set page = registry_content('Block', 'payitforward.order') %}
+
+<div class="clearfix block">
+    {% if page.image.file is defined %}
+        {% set image_asset = page.image %}
+        {% set src = image_asset.file.thumbnails[thumbnail_size|default('small')] %}
+        <img src="{{ src }}" alt="{{ image_asset.title }}" title="{{ image_asset.description|default(image_asset.title) }}" class="pull-right" width="100">
+    {% endif %}
+    <h3>
+        {{ page.title }}
+    </h3>
+
+    {{ page.text|default()|markdown }}
+</div>
 
 {{ block('errorMessage') }}
-<form role="form" name="orderForm" novalidate class="explained" data-ng-show="step == 'form'" method="post">
+<form role="form" name="orderForm" novalidate class="explained block" data-ng-show="step == 'form'" method="post">
     <fieldset>
         <legend>That's me:</legend>
         <div class="fields">
@@ -99,7 +112,7 @@
                 </div>
                 <div class="form-group">
                     <label for="subscriptionCountry">Country</label>
-                    <input type="text" id="subscriptionCountry" maxlength="255" data-ng-model="order.country" data-typeahead="country for country in countries | filter:$viewValue | limitTo:3" data-ng-hide="countryEditDisabled()">
+                    <input type="text" id="subscriptionCountry" maxlength="255" data-ng-model="order.country" data-typeahead="country for country in countries | filter:$viewValue | limitTo:3" data-ng-hide="countryEditDisabled()" required>
                     <span data-ng-show="countryEditDisabled()" data-ng-bind="order.country"></span>
                 </div>
                 <div class="form-group" data-ng-show="vatTaxNoRequired()">
@@ -139,7 +152,7 @@
                     </div>
                     <div class="form-group">
                         <label for="domainsFormdomain{{ d }}Company">Company <small>(optional)</small></label>
-                        <input type="text" data-ng-model="order.domain{{ d }}Company" id="domainsFormdomain{{ d }}Company" {{ required }} maxlength="255">
+                        <input type="text" data-ng-model="order.domain{{ d }}Company" id="domainsFormdomain{{ d }}Company" maxlength="255">
                     </div>
                     <div class="form-group">
                         <label for="domainsFormdomain{{ d }}Twitter">Twitter handle <small>e.g. <code>@acme</code> (optional)</small>
@@ -167,7 +180,7 @@
     </nav>
 </form>
 
-<div data-ng-show="step == 'review'">
+<div data-ng-show="step == 'review'" class="block">
     <h3>Please review your order</h3>
 
     <h4>Your details</h4>
@@ -273,7 +286,6 @@
     <form novalidate name="reviewForm" role="form" class="explained">
         <fieldset>
             <legend>Please confirm …</legend>
-            <div class="fields-legend"></div>
             <div class="fields">
                 <div class="form-group" data-ng-init="confirm.checkbox1 = false">
                     <label class="checkbox-inline"> <input type="checkbox" data-ng-model="confirm.checkbox1"> I've read
@@ -321,7 +333,7 @@
     
 </div>
 
-<div data-ng-show="step == 'paid'">
+<div data-ng-show="step == 'paid'" class="block">
     <h3>Thank you!</h3>
 
     <p>Dear %%order.firstname%% %%order.surname%%,</p>
