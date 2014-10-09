@@ -127,7 +127,7 @@ angular.module('dotHIVApp.controllers').controller('OrderController', ['$rootSco
             if (domains.length == 1) {
                 tweetText += domains[0];
             } else if (domains.length == 2) {
-                tweetText += domains.join(' &amp; ');
+                tweetText += domains.join(' & ');
             } else if (domains.length == 3) {
                 tweetText += domains[0] + ', ' + domains[1] + ' & ' + domains[2];
             }
@@ -154,11 +154,8 @@ angular.module('dotHIVApp.controllers').controller('OrderController', ['$rootSco
         updateTweetText();
         updateFbText();
     }
-
-    $scope.$watch('order.domain', updateSharingText);
-    $scope.$watch('order.domainDonor', updateFbText);
-    $scope.$watch('order.domainDonorTwitter', updateTweetText);
-    $scope.$watch('order.domain1Twitter', updateTweetText);
-    $scope.$watch('order.domain2Twitter', updateTweetText);
-    $scope.$watch('order.domain3Twitter', updateTweetText);
+    
+    $scope.updateSharingText = updateSharingText;
+    $scope.updateFbText = updateFbText;
+    $scope.updateTweetText = updateTweetText;
 }]);
