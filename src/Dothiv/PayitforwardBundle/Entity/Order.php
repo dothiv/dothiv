@@ -35,7 +35,7 @@ class Order extends Entity
      * The user who created this subscription.
      *
      * @ORM\ManyToOne(targetEntity="Dothiv\BusinessBundle\Entity\User")
-     * @ORM\JoinColumn(onDelete="RESTRICT",nullable=false)
+     * @ORM\JoinColumn(onDelete="RESTRICT", nullable=false)
      * @var User
      */
     protected $user;
@@ -83,14 +83,14 @@ class Order extends Entity
     protected $domain;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      * @Serializer\Expose
      */
     protected $domainDonor;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var TwitterHandleValue
      * @Serializer\Expose
      * @Assert\Regex("/^@[a-zA-Z0-9_]{1,15}$/")
@@ -100,7 +100,7 @@ class Order extends Entity
     /**
      * The stripe token returned by the checkout.
      *
-     * @ORM\Column(type="string",nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank
      * @Assert\NotNull
      * @var string
@@ -109,7 +109,7 @@ class Order extends Entity
 
     /**
      * @var string
-     * @ORM\Column(type="string",nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      * @Assert\NotNull
      * @Assert\NotBlank
      * @Assert\Choice({"noneu", "euorgnet", "euorg", "deorg", "euprivate"})
@@ -118,7 +118,7 @@ class Order extends Entity
     protected $type;
 
     /**
-     * @ORM\Column(type="string",nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
@@ -127,7 +127,7 @@ class Order extends Entity
     protected $fullname;
 
     /**
-     * @ORM\Column(type="string",nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
@@ -136,14 +136,14 @@ class Order extends Entity
     protected $address1;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      * @Serializer\Expose
      */
     protected $address2;
 
     /**
-     * @ORM\Column(type="string",nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
@@ -152,14 +152,14 @@ class Order extends Entity
     protected $country;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      * @Serializer\Expose
      */
     protected $vatNo;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      * @Serializer\Expose
      */
@@ -177,21 +177,21 @@ class Order extends Entity
     protected $domain1;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      * @Serializer\Expose
      */
     protected $domain1Name;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      * @Serializer\Expose
      */
     protected $domain1Company;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var TwitterHandleValue
      * @Serializer\Expose
      * @Assert\Regex("/^@[a-zA-Z0-9_]{1,15}$/")
@@ -210,21 +210,21 @@ class Order extends Entity
     protected $domain2;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      * @Serializer\Expose
      */
     protected $domain2Name;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      * @Serializer\Expose
      */
     protected $domain2Company;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var TwitterHandleValue
      * @Serializer\Expose
      * @Assert\Regex("/^@[a-zA-Z0-9_]{1,15}$/")
@@ -243,21 +243,21 @@ class Order extends Entity
     protected $domain3;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      * @Serializer\Expose
      */
     protected $domain3Name;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      * @Serializer\Expose
      */
     protected $domain3Company;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var TwitterHandleValue
      * @Serializer\Expose
      * @Assert\Regex("/^@[a-zA-Z0-9_]{1,15}$/")
@@ -267,13 +267,13 @@ class Order extends Entity
     /**
      * The stripe charge id for this order.
      *
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @var string
      */
     protected $charge;
 
     /**
-     * @ORM\Column(type="integer",nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      * @Assert\NotNull
      * @Assert\Range(min=0,max=1)
      * @Serializer\Expose
@@ -530,26 +530,26 @@ class Order extends Entity
     }
 
     /**
-     * @return HivDomainValue
+     * @return HivDomainValue|null
      */
     public function getDomain()
     {
-        return new HivDomainValue($this->domain);
+        return empty($this->domain) ? null : new HivDomainValue($this->domain);
     }
 
     /**
-     * @param HivDomainValue $domain
+     * @param HivDomainValue|null $domain
      *
      * @return self
      */
-    public function setDomain(HivDomainValue $domain)
+    public function setDomain(HivDomainValue $domain = null)
     {
-        $this->domain = (string)$domain;
+        $this->domain = empty($domain) ? null : (string)$domain;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getDomainDonor()
     {
@@ -557,11 +557,11 @@ class Order extends Entity
     }
 
     /**
-     * @param string $domainDonor
+     * @param string|null $domainDonor
      *
      * @return self
      */
-    public function setDomainDonor($domainDonor)
+    public function setDomainDonor($domainDonor = null)
     {
         $this->domainDonor = $domainDonor;
         return $this;
@@ -656,7 +656,7 @@ class Order extends Entity
      *
      * @return self
      */
-    public function setDomain1Twitter(TwitterHandleValue $domain1Twitter)
+    public function setDomain1Twitter(TwitterHandleValue $domain1Twitter = null)
     {
         $this->domain1Twitter = empty($domain1Twitter) ? null : (string)$domain1Twitter;
         return $this;
@@ -732,7 +732,7 @@ class Order extends Entity
      *
      * @return self
      */
-    public function setDomain2Twitter(TwitterHandleValue $domain2Twitter)
+    public function setDomain2Twitter(TwitterHandleValue $domain2Twitter = null)
     {
         $this->domain2Twitter = empty($domain2Twitter) ? null : (string)$domain2Twitter;
         return $this;
@@ -808,7 +808,7 @@ class Order extends Entity
      *
      * @return self
      */
-    public function setDomain3Twitter(TwitterHandleValue $domain3Twitter)
+    public function setDomain3Twitter(TwitterHandleValue $domain3Twitter = null)
     {
         $this->domain3Twitter = empty($domain3Twitter) ? null : (string)$domain3Twitter;
         return $this;
