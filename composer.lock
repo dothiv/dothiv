@@ -386,16 +386,16 @@
         },
         {
             "name": "components/angular.js",
-            "version": "1.2.19",
+            "version": "1.2.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/angular.js.git",
-                "reference": "e31b7c59905b7309ad36b990efc0eec95fe18d11"
+                "reference": "40e9911775766542f357613f756824e66025d4f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/angular.js/zipball/e31b7c59905b7309ad36b990efc0eec95fe18d11",
-                "reference": "e31b7c59905b7309ad36b990efc0eec95fe18d11",
+                "url": "https://api.github.com/repos/components/angular.js/zipball/40e9911775766542f357613f756824e66025d4f3",
+                "reference": "40e9911775766542f357613f756824e66025d4f3",
                 "shasum": ""
             },
             "type": "component",
@@ -686,7 +686,7 @@
             ],
             "description": "Shim repository for Angular.js",
             "homepage": "http://angularjs.org",
-            "time": "2014-07-09 16:18:45"
+            "time": "2014-10-07 16:17:11"
         },
         {
             "name": "components/bestiejs-punycode",

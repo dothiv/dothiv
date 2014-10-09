@@ -36,11 +36,21 @@
                 </div>
                 <div class="form-group">
                     <label for="domainsDomainDonor">Donor's name (First name, last name) <small>(optional)</small></label>
-                    <input type="text" data-ng-model="order.domainDonor" id="domainsDomainDonor" maxlength="255">
+                    <input type="text" 
+                            data-ng-model="order.domainDonor"
+                            data-ng-blur="updateFbText()"
+                            id="domainsDomainDonor" 
+                            maxlength="255"
+                            >
                 </div>
                 <div class="form-group">
                     <label for="domainsDomainDonorTwitter">Donor's twitter handle <small>e.g. <code>@acme</code> (optional)</small></label>
-                    <input type="text" data-ng-model="order.domainDonorTwitter" id="domainsDomainDonorTwitter" data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/">
+                    <input type="text" 
+                            data-ng-model="order.domainDonorTwitter" 
+                            id="domainsDomainDonorTwitter" 
+                            data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/"
+                            data-ng-blur="updateTweetText()"
+                            >
                 </div>
             </div>
         </div>
@@ -115,7 +125,12 @@
                         <label for="domainsFormdomain{{ d }}Domain">Domain {{ d }}
                             <small>e.g. <code>example.hiv</code>{% if not required %} (optional){% endif %}</small>
                         </label>
-                        <input type="text" data-ng-model="order.domain{{ d }}" id="domainsFormdomain{{ d }}Domain" {{ required }} data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/">
+                        <input type="text" 
+                                data-ng-model="order.domain{{ d }}" 
+                                data-ng-blur="updateSharingText()" 
+                                id="domainsFormdomain{{ d }}Domain" {{ required }} 
+                                data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/"
+                                >
                     </div>
                     <div class="form-group">
                         <label for="domainsFormdomain{{ d }}Name">First name, last name{% if not required %}
@@ -123,14 +138,18 @@
                         <input type="text" data-ng-model="order.domain{{ d }}Name" id="domainsFormdomain{{ d }}Name" {{ required }} maxlength="255">
                     </div>
                     <div class="form-group">
-                        <label for="domainsFormdomain{{ d }}Company">Company{% if not required %}
-                            <small>(optional)</small>{% endif %}</label>
+                        <label for="domainsFormdomain{{ d }}Company">Company <small>(optional)</small></label>
                         <input type="text" data-ng-model="order.domain{{ d }}Company" id="domainsFormdomain{{ d }}Company" {{ required }} maxlength="255">
                     </div>
                     <div class="form-group">
                         <label for="domainsFormdomain{{ d }}Twitter">Twitter handle <small>e.g. <code>@acme</code> (optional)</small>
                         </label>
-                        <input type="text" data-ng-model="order.domain{{ d }}Twitter" id="domainsFormdomain{{ d }}Twitter" data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/">
+                        <input type="text" 
+                                data-ng-model="order.domain{{ d }}Twitter"
+                                data-ng-blur="updateTweetText()"
+                                id="domainsFormdomain{{ d }}Twitter" 
+                                data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/"
+                                >
                     </div>
                 </div>
             </div>
