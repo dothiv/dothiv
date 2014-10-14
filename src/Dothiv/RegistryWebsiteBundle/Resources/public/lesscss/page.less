@@ -13,7 +13,6 @@ body {
 
 .outer {
   background-color: white;
-  margin-top: 50px;
   &:first-child {
     margin-top: 0;
   }
@@ -28,9 +27,12 @@ body {
 }
 
 .outer-texture {
-  &:extend(.outer all)
-;
+  &:extend(.outer all);
   background: #f6f6f6 url('/bundles/dothivregistrywebsite/images/texture.png');
+  margin-top: 0;
+  @media (min-width: @screen-lg-min) {
+    margin-top: 10px;
+  }
 }
 
 .outer-grey {

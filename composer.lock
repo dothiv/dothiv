@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "99780ce611fd473e10060541021d6298",
+    "hash": "5139cbe12b7353ac2f4b8f841c3d8987",
     "packages": [
         {
             "name": "angular-ui/bootstrap",
@@ -358,6 +358,29 @@
                 "component": {
                     "scripts": [
                         "release/angular-ui-router.js"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "component/besite-jquery-mmenu",
+            "version": "4.5.7",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/BeSite/jQuery.mmenu/archive/v4.5.7.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "components/angular.js": "1.2.x",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "src/js/jquery.mmenu.min.js",
+                        "src/css/jquery.mmenu.css"
                     ]
                 }
             }
