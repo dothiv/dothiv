@@ -1,47 +1,127 @@
 nav.main {
-  &:extend(.container)
-;
-  .clearfix();
+  &:extend(.container);
 
-  padding: 0;
-
-  section {
-    .make-sm-column(4);
-    h2 {
-      font-size: @font-size-base;
-      padding: 10px;
+  button.toggle {
+    .btn;
+    .btn-default;
+    position: absolute;
+    top: @grid-gutter-width;
+    right: @grid-gutter-width;
+    span.icon-bar {
+      display: block;
+      width: 22px;
+      height: 4px;
+      border-radius: 1px;
+      background-color: @text-color;
+      margin: 4px 0;
     }
+  }
+
+  @media (min-width: @screen-sm-min) {
+    position: relative;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li.section {
+      float: left;
+      width: 25%;
+      padding: @grid-gutter-width / 4 0 @grid-gutter-width / 4 @grid-gutter-width / 2;
+      margin: @grid-gutter-width / 2 @grid-gutter-width / 2 @grid-gutter-width / 2 0;
+      border-left: 1px solid @btn-default-bg;
+      &.first {
+        border-left: none;
+        padding-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    span.title {
+      font-size: @font-size-h4;
+      margin: 0 0 @grid-gutter-width / 2 0;
+      padding: 0;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
     a {
       display: block;
-      padding: 10px;
-      border-top: 1px solid @text-color;
-      text-align: center;
     }
-    a:last-child {
-      border-bottom: 1px solid @text-color;
 
-    }
     a, a:visited {
       color: @text-color;
     }
-    @media (min-width: @screen-sm-min) {
-      margin-bottom: 40px;
-      margin-top: 40px;
-      h2 {
-        margin-bottom: 20px;
-        font-size: @font-size-h2;
-        padding: 0;
-      }
 
-      a {
-        padding: 0;
-        border: 0;
-        text-align: left;
-      }
+    a.button {
+      .btn;
+      .btn-primary;
+      position: absolute;
+      top: @grid-gutter-width / 2 + 5px;
+      right: 0;
+    }
 
-      a:last-child {
-        border: 0;
+    button.toggle {
+      padding: 0;
+      outline: none;
+      border: 0;
+      background: 0;
+      position: absolute;
+      top: @grid-gutter-width / 2 + 12px;
+      left: -@grid-gutter-width / 2;
+      font-size: @font-size-h4;
+      color: @text-color;
+      .registry-icon;
+      span {
+        &:before {
+          content: "^";
+        }
+        &.collapsed {
+          &:before {
+            content: "v";
+          }
+        }
+        &.icon-bar {
+          display: none;
+        }
       }
+      &:hover, &:active, &:focus {
+        background: 0;
+        color: @text-color;
+        outline: none;
+      }
+    }
+
+    &.collapsed {
+      button.toggle {
+        content: "v";
+      }
+      li.section {
+        a {
+          display: none;
+        }
+        h2 {
+          margin-bottom: 0;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  @media (min-width: @screen-md-min) {
+    span.title {
+      font-size: @font-size-h3;
+    }
+
+    button.toggle {
+      top: @grid-gutter-width / 2 + 20px;
+    }
+
+
+    a.button {
+      top: @grid-gutter-width / 2 + 10px;
     }
   }
 }

@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "registryicons";
+  src: url("/css/fonts/registryicons.eot");
+  src: url("/css/fonts/registryicons.eot?#iefix") format("embedded-opentype"),
+  url("/css/fonts/registryicons.woff") format("woff"),
+  url("/css/fonts/registryicons.ttf") format("truetype"),
+  url("/css/fonts/registryicons.svg#registryicons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.registry-icon {
+  font-family: "registryicons" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.registry-icon-left-open-big:before {
+  content: "<";
+}
+
+.registry-icon-right-open-big:before {
+  content: ">";
+}
+
+.registry-icon-down-open-big:before {
+  content: "v";
+}
+
+.registry-icon-up-open-big:before {
+  content: "^";
+}
