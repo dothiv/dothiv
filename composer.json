@@ -43,7 +43,8 @@
         "component/angular-ui-router": "0.2.11",
         "angular-ui/bootstrap": "dev-master@dev",
         "component/nervgh-angular-file-upload": "1.x",
-        "dothiv/dothiv-valueobject-bundle": "1.x"
+        "dothiv/dothiv-valueobject-bundle": "1.x",
+        "component/besite-jquery-mmenu": "4.x"
     },
     "require-dev": {
         "phploc/phploc": "*",
@@ -155,6 +156,30 @@
                 "require": {
                     "robloach/component-installer": "*",
                     "components/angular.js": "1.2.x"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "component/besite-jquery-mmenu",
+                "type": "component",
+                "version": "4.5.7",
+                "dist": {
+                    "url": "https://github.com/BeSite/jQuery.mmenu/archive/v4.5.7.zip",
+                    "type": "zip"
+                },
+                "extra": {
+                    "component": {
+                        "scripts": [
+                            "src/js/jquery.mmenu.min.all.js",
+                            "src/css/jquery.mmenu.all.css"
+                        ]
+                    }
+                },
+                "require": {
+                    "robloach/component-installer": "*",
+                    "components/jquery": "*"
                 }
             }
         }
