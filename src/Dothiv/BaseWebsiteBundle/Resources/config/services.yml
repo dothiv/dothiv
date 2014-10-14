@@ -23,7 +23,7 @@ services:
             - [ setTimeout, [%assetic.filter.closure.timeout%] ]
             - [ setCompilationLevel, [%assetic.filter.closure.compilation_level%] ]
             - [ setLanguage, ['ECMASCRIPT5'] ]
-
+            
     dothiv.websitebase.contentful.view_builder:
             class: %dothiv.websitebase.contentful.view_builder.class%
             arguments:
