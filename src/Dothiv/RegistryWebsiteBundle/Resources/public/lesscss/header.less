@@ -1,0 +1,51 @@
+header.page {
+  &:extend(.container)
+;
+  section {
+    .make-row();
+    &.logo {
+      .clearfix();
+      position: relative;
+      @media (min-width: @screen-xs-min) {
+      }
+      h1 {
+        .make-sm-column(6);
+        &:extend(.logoplustext all);
+        margin: @header-margin 0;
+      }
+      nav {
+        margin-right: @grid-gutter-width / 2;
+        a {
+          .pull-right;
+          &:before {
+            .registry-icon;
+            content: ">";
+            font-size: @font-size-small;
+          }
+        }
+        @media (min-width: @screen-sm-min) {
+          position: absolute;
+          right: 0;
+          margin-right: 0;
+          bottom: @header-margin;
+          margin-bottom: 0;
+          a {
+            text-align: left;
+            display: block;
+            &:before {
+              display: none;
+            }
+          }
+        }
+        a.charity {
+          color: @color-pink;
+          img {
+            vertical-align: bottom;
+            margin-bottom: 5px;
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}

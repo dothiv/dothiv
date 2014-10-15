@@ -30,7 +30,10 @@
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% stylesheets 'bundles/dothivregistrywebsite/lesscss/3/styles.less' filter='cssrewrite' %}
+    {% stylesheets 
+        'bundles/dothivregistrywebsite/lesscss/styles.less'
+        '@jquery_mmenu_css'
+        filter='cssrewrite' %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
     <link rel="shortcut icon" href="{{ asset("bundles/dothivregistrywebsite/images/favicon.png") }}">
@@ -77,34 +80,61 @@
             </a>
             {% block headernav %}
             <nav>
-                <a href="{{ path('dothiv_charity_index', {'locale': locale}) }}" rel="friend met"
-                   class="external">{% trans %}
-                    gmbh.header.back{% endtrans %}</a>
+                <a href="{{ path('dothiv_charity_index', {'locale': locale}) }}" rel="friend met" class="charity external">
+                    {% trans %}gmbh.header.back{% endtrans %}
+                    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-logo.svg' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}charity.fullname{% endtrans %}" width="60" height="35">
+                    {% endimage %}
+                </a>
             </nav>
             {% endblock headernav %}
         </section>
     </header>
 </div>
 {% block subheader %}
-{% for section in registry_content('Collection', 'nav.main')|default({'items': []}).items %}
-    {% if loop.first %}
-        <div class="outer-texture">
-        <nav class="main sections{{ loop.length }}">
-    {% endif %}
-    <section>
-        {% for item in section.items %}
-            {% if item.cfMeta.contentType == "String" %}
-                <h2>{{ item.value }}</h2>
-            {% elseif item.cfMeta.contentType == "Page" %}
-                <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': item.code|replace('.', '/')}) }}">{{ item.title }}</a>
-            {% endif %}
-        {% endfor %}
-    </section>
-    {% if loop.last %}
-        </nav>
-        </div>
-    {% endif %}
-{% endfor %}
+    {% for section in registry_content('Collection', 'nav.main')|default({'items': []}).items %}
+        {% if loop.first %}
+            <div class="outer-texture" data-ng-controller="MainNavController">
+            <nav class="main" data-ng-class="{collapsed: collapsed}">
+            <div id="mainmenu">
+            <ul>
+        {% endif %}
+            {% set section_first = loop.first %}
+            {% set section_last = loop.last %}
+            {% for item in section.items %}
+                {% if item.cfMeta.contentType == "String" %}
+                    <li class="section {% if section_first %}first{% endif %} {% if section_last %}last{% endif %}">
+                        <span class="title" data-ng-click="toggle()">{{ item.value }}</span>
+                        <ul>
+                            {% for item in section.items %}
+                                {% if item.cfMeta.contentType == "Page" %}
+                                    <li><a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': item.code|replace('.', '/')}) }}">{{ item.title }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        {% if loop.last %}
+                <li><a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': 'register'}) }}" class="button">{{ 'menu.register'|trans }}</a></li>
+            </ul>
+            </div>
+            <button class="toggle-chevron" type="button" data-ng-click="toggle()">
+                <span data-ng-class="{collapsed: collapsed}"></span>
+                <span class="sr-only">{% trans %}toggle.nav{% endtrans %}</span>
+            </button>
+            <button class="toggle" type="button" data-ng-click="toggle()">
+                <span data-ng-class="{collapsed: collapsed}">
+                    <span class="sr-only">{% trans %}toggle.nav{% endtrans %}</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </span>
+            </button>
+            </nav>
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endblock subheader %}
 <div class="outer">
     <main>
@@ -143,13 +173,17 @@
 </div>
 {% block angular_app %}
 {% javascripts
-    '@DothivRegistryWebsiteBundle/Resources/public/1.2/app.js'
+    '@jquery'
+    '@jquery_mmenu_js'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/menu.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/app.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/MoneyFormatter.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/filters/*.js'
-    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/PreregisterFormController.js'
-    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/SedoFormController.js'
-    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/RegistrarsListController.js'
-    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/HivDomainListController.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/PreregisterFormController.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/SedoFormController.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/RegistrarsListController.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/HivDomainListController.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/MainNavController.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js'
 %}
