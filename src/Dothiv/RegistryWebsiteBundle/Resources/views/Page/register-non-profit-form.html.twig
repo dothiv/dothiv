@@ -9,17 +9,17 @@
 {% endblock %}
 {% block angular_app %}
     {% javascripts
-    '@DothivBaseWebsiteBundle/Resources/public/vendor/github.com/bestiejs/punycode.js/punycode.js'
-    '@DothivAngularJsBundle/Resources/public/angular/angular-resource.js'
-    '@DothivAngularJsBundle/Resources/public/angular/angular-route.js'
-    '@DothivAngularJsBundle/Resources/public/angular/angular-cookies.js'
-    '@DothivAngularJsBundle/Resources/public/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
-    '@DothivAngularJsBundle/Resources/public/extra/angular-ui.github.io/ui-bootstrap/3/angular-ui-bootstrap-tpls.js'
-    '@DothivAngularJsBundle/Resources/public/extra/github.com/nervgh/angular-file-upload/angular-file-upload.js'
-    '@DothivRegistryWebsiteBundle/Resources/public/1.2/nonProfitRegisterApp.js'
+    '@punycode_js'
+    '@angular_js_resource'
+    '@angular_js_route'
+    '@angular_js_cookies'
+    '@angular_ui_router'
+    '@angular_ui_bootstrap_tpls'
+    '@angular_file_upload'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/nonProfitRegisterApp.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'
-    '@DothivRegistryWebsiteBundle/Resources/public/1.2/controllers/NonProfitRegister/*.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/NonProfitRegister/*.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js'
     %}
