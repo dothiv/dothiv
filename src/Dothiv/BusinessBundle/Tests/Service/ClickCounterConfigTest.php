@@ -72,9 +72,9 @@ class ClickCounterConfigTest extends \PHPUnit_Framework_TestCase
         }
 
         $expectedHeaders = array(
-            'Content-type: application/json; charset=utf-8',
-            'Accept: application/json',
-            'Authorization: Basic ' . base64_encode(':somesecret'),
+            'Content-type'  => 'application/json; charset=utf-8',
+            'Accept'        => 'application/json',
+            'Authorization' => 'Basic ' . base64_encode(':somesecret'),
         );
         $response        = new Response(204);
         $request         = $this->getMock('\Guzzle\Http\Message\RequestInterface');
