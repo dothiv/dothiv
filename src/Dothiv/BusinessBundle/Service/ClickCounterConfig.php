@@ -106,6 +106,9 @@ class ClickCounterConfig implements ClickCounterConfigInterface
             'default_locale' => $banner->getLanguage(),
             'strings'        => array(),
         );
+        if ($banner->getRedirectUrl()) {
+            $config['redirect_url'] = $banner->getRedirectUrl();
+        }
         foreach ($this->locales as $locale) {
             $config['strings'][$locale] = array(
                 'heading'      => $this->getString('heading', $locale),
