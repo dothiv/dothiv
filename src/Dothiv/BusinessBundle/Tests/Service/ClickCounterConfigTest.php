@@ -76,7 +76,7 @@ class ClickCounterConfigTest extends \PHPUnit_Framework_TestCase
             'Accept: application/json',
             'Authorization: Basic ' . base64_encode(':somesecret'),
         );
-        $response        = new Response(200);
+        $response        = new Response(204);
         $request         = $this->getMock('\Guzzle\Http\Message\RequestInterface');
         $request->expects($this->once())->method('send')
             ->willReturn($response);
