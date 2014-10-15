@@ -9,7 +9,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: fadeout(@brand-primary, 20%);
 }
 nav.main {
   &:extend(.container);
@@ -24,8 +24,8 @@ nav.main {
     .btn;
     .btn-default;
     position: absolute;
-    top: @grid-gutter-width;
-    right: @grid-gutter-width;
+    top: @header-margin;
+    right: @grid-gutter-width / 2;
     background-color: #f3f3f3;
     span.icon-bar {
       display: block;
@@ -42,8 +42,42 @@ nav.main {
       }
     }
   }
+  
+  button.toggle-chevron {
+    display: none;
+    position: absolute;
+    top: @grid-gutter-width / 2 + 12px;
+    left: -@grid-gutter-width / 2;
+    font-size: @font-size-h4;
+    color: @text-color;
+    background: 0;
+    border: 0;
+    .registry-icon;
+    span {
+      &:before {
+        content: "^";
+      }
+      &.collapsed {
+        &:before {
+          content: "v";
+        }
+      }
+      &.icon-bar {
+        display: none;
+      }
+    }
+    &:hover, &:active, &:focus {
+      outline: none;
+    }
+  }
 
   @media (min-width: @screen-sm-min) {
+    button.toggle {
+      display: none;
+    }
+    button.toggle-chevron {
+      display: block;
+    }
     position: relative;
 
     ul {
@@ -89,39 +123,8 @@ nav.main {
       right: 0;
     }
 
-    button.toggle {
-      padding: 0;
-      outline: none;
-      border: 0;
-      background: 0;
-      position: absolute;
-      top: @grid-gutter-width / 2 + 12px;
-      left: -@grid-gutter-width / 2;
-      font-size: @font-size-h4;
-      color: @text-color;
-      .registry-icon;
-      span {
-        &:before {
-          content: "^";
-        }
-        &.collapsed {
-          &:before {
-            content: "v";
-          }
-        }
-        &.icon-bar {
-          display: none;
-        }
-      }
-      &:hover, &:active, &:focus {
-        background: 0;
-        color: @text-color;
-        outline: none;
-      }
-    }
-
     &.collapsed {
-      button.toggle {
+      button.toggle-chevron {
         content: "v";
       }
       li.section {
@@ -141,10 +144,10 @@ nav.main {
       font-size: @font-size-h3;
     }
 
-    button.toggle {
+    button.toggle-chevron {
       top: @grid-gutter-width / 2 + 20px;
+      left: -@grid-gutter-width;
     }
-
 
     a.button {
       top: @grid-gutter-width / 2 + 10px;
