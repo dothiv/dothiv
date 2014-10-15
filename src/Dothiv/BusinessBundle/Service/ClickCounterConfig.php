@@ -139,7 +139,7 @@ class ClickCounterConfig implements ClickCounterConfigInterface
      */
     private function postConfig($domainname, $config)
     {
-        $response = $this->client->post($this->baseUrl . '/config/' . $domainname, $this->getHeaders(), json_encode($config))->send();
+        $response = $this->client->post($this->baseUrl . '/config/' . $domainname, $this->getHeadersMap(), json_encode($config))->send();
         if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
             throw new ClickCounterException(
                 sprintf(
@@ -161,6 +161,19 @@ class ClickCounterConfig implements ClickCounterConfigInterface
             'Accept: application/json',
             'Authorization: Basic ' . base64_encode(':' . $secret),
         );
+    }
+
+    /**
+     * Like @getHeaders but as a map.
+     */
+    private function getHeadersMap()
+    {
+        $map = array();
+        foreach ($this->getHeaders() as $v) {
+            list($k, $v) = explode(':', $v);
+            $map[trim($k)] = trim($v);
+        }
+        return $map;
     }
 
     /**
