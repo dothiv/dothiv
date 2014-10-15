@@ -2,18 +2,15 @@
 
 namespace Dothiv\BusinessBundle\Service;
 
-use Doctrine\Common\Persistence\ObjectManager;
-
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\BusinessBundle\Repository\DomainClaimRepositoryInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Guzzle\Http\Client;
+use Guzzle\Http\ClientInterface;
 
 class ClickCounterConfig implements ClickCounterConfigInterface
 {
+
     /**
      * @var string[]
      */
@@ -39,6 +36,11 @@ class ClickCounterConfig implements ClickCounterConfigInterface
      */
     private $parsedown;
 
+    /**
+     * @var ClientInterface
+     */
+    private $client;
+
     public function __construct(
         $config,
         Content $content
@@ -50,6 +52,7 @@ class ClickCounterConfig implements ClickCounterConfigInterface
         $this->content   = $content;
         $this->parsedown = new \Parsedown();
         $this->parsedown->setBreaksEnabled(false);
+        $this->client = new Client();
     }
 
     public function setup(Banner $banner)
@@ -128,27 +131,19 @@ class ClickCounterConfig implements ClickCounterConfigInterface
      * @param string $domainname The name of the domain to be POSTed
      * @param string $config     The text/plain configuration to POST.
      *
-     * @return array of return status code and response.
+     * @return void
      * @throws ClickCounterException
      */
     private function postConfig($domainname, $config)
     {
-        $ch = curl_init($this->baseUrl . '/config/' . $domainname);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getHeaders());
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($config));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $response = curl_exec($ch);
-        $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        if ($status < 200 || $status >= 300) {
+        $response = $this->client->post($this->baseUrl . '/config/' . $domainname, $this->getHeaders(), json_encode($config))->send();
+        if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
             throw new ClickCounterException(
                 sprintf(
                     'Failed to write config for "%s"', $domainname
                 )
             );
         }
-        return $response;
     }
 
     /**
@@ -184,5 +179,16 @@ class ClickCounterConfig implements ClickCounterConfigInterface
             throw $e;
         }
         return (int)$response;
+    }
+
+    /**
+     * @param ClientInterface $client
+     *
+     * @return self
+     */
+    public function setClient(ClientInterface $client)
+    {
+        $this->client = $client;
+        return $this;
     }
 }
