@@ -7,28 +7,42 @@ header.page {
       .clearfix();
       position: relative;
       @media (min-width: @screen-xs-min) {
-        padding-bottom: @grid-gutter-width / 2;
-        padding-top: @grid-gutter-width;
       }
       h1 {
         .make-sm-column(6);
         &:extend(.logoplustext all);
+        margin: @header-margin 0;
       }
       nav {
-        margin-bottom: 10px;
+        margin-right: @grid-gutter-width / 2;
         a {
-          display: block;
-          text-align: center;
+          .pull-right;
+          &:before {
+            .registry-icon;
+            content: ">";
+            font-size: @font-size-small;
+          }
         }
         @media (min-width: @screen-sm-min) {
           position: absolute;
-          right: 10px;
-          bottom: 40px;
+          right: 0;
+          margin-right: 0;
+          bottom: @header-margin;
           margin-bottom: 0;
           a {
             text-align: left;
             display: block;
-            margin-top: 10px;
+            &:before {
+              display: none;
+            }
+          }
+        }
+        a.charity {
+          color: @color-pink;
+          img {
+            vertical-align: bottom;
+            margin-bottom: 5px;
+            margin-left: 10px;
           }
         }
       }

@@ -80,9 +80,12 @@
             </a>
             {% block headernav %}
             <nav>
-                <a href="{{ path('dothiv_charity_index', {'locale': locale}) }}" rel="friend met"
-                   class="external">{% trans %}
-                    gmbh.header.back{% endtrans %}</a>
+                <a href="{{ path('dothiv_charity_index', {'locale': locale}) }}" rel="friend met" class="charity external">
+                    {% trans %}gmbh.header.back{% endtrans %}
+                    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-logo.svg' %}
+                    <img src="{{ asset_url }}" alt="{% trans %}charity.fullname{% endtrans %}" width="60" height="35">
+                    {% endimage %}
+                </a>
             </nav>
             {% endblock headernav %}
         </section>
@@ -113,12 +116,16 @@
                 {% endif %}
             {% endfor %}
         {% if loop.last %}
-                <li><a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': 'register'}) }}" class="button">{{ 'Domain registrieren >'|trans }}</a></li>
+                <li><a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': 'register'}) }}" class="button">{{ 'menu.register'|trans }}</a></li>
             </ul>
             </div>
+            <button class="toggle-chevron" type="button" data-ng-click="toggle()">
+                <span data-ng-class="{collapsed: collapsed}"></span>
+                <span class="sr-only">{% trans %}toggle.nav{% endtrans %}</span>
+            </button>
             <button class="toggle" type="button" data-ng-click="toggle()">
                 <span data-ng-class="{collapsed: collapsed}">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">{% trans %}toggle.nav{% endtrans %}</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
