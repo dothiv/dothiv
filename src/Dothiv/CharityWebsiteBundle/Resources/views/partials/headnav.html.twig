@@ -33,7 +33,7 @@
                     <a href="{{ path('dothiv_charity_projects', {'locale': locale}) }}">{% trans %}header.bar.project{% endtrans %}</a>
                     {% endif %}
                     <a href="{{ path('dothiv_charity_about_index', {'locale': locale}) }}">{% trans %}header.bar.aboutHIV{% endtrans %}</a>
-                    <a href="{{ path('dothiv_registry_register', {'locale': 'en'}) }}" class="button">{% trans %}header.bar.registerurl{% endtrans %}</a>
+                    <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'register'}) }}" class="button">{% trans %}header.bar.registerurl{% endtrans %}</a>
                 </nav>
             </div>
         </div>
