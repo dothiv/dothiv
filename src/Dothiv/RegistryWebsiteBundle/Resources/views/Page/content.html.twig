@@ -28,7 +28,7 @@
 
 {% block cf_block_videocontent %}
     {% if block.video is defined %}
-        <iframe width="616" height="346" src="{{ block.video.embed_url }}" allowfullscreen class="video"></iframe>
+        <iframe src="{{ block.video.embed_url }}" allowfullscreen class="video"></iframe>
     {% endif %}
 {% endblock cf_block_videocontent %}
 
