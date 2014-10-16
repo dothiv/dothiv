@@ -35,6 +35,8 @@ services:
         arguments:
         - @mailer
         - @dothiv.registry.contentful.registry_content
+        - @dothiv_contentful.asset
+        - @dothiv_contentful.repo.asset
         - %email_from_address%
         - %email_from_name%
 

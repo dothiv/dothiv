@@ -7,7 +7,7 @@
     {% if page.image.file is defined %}
         {% set image_asset = page.image %}
         {% set src = image_asset.file.thumbnails[thumbnail_size|default('small')] %}
-        <img src="{{ src }}" alt="{{ image_asset.title }}" title="{{ image_asset.description|default(image_asset.title) }}" class="pull-right" width="100">
+        <img src="{{ src }}" alt="{{ image_asset.title }}" title="{{ image_asset.description|default(image_asset.title) }}" class="pull-right" width="100" style="width: 100px;">
     {% endif %}
     <h3>
         {{ page.title }}

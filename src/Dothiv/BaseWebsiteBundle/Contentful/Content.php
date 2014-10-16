@@ -8,6 +8,7 @@ use Dothiv\ContentfulBundle\Item\ContentfulEntry;
 
 class Content
 {
+
     /**
      * @var ContentfulContentAdapter
      */
@@ -88,5 +89,13 @@ class Content
     public function getViewBuilder()
     {
         return $this->viewBuilder;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpaceId()
+    {
+        return $this->spaceId;
     }
 }
