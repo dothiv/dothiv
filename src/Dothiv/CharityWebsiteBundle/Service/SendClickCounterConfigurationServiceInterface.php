@@ -19,6 +19,13 @@ interface SendClickCounterConfigurationServiceInterface
     public function sendConfiguration(HivDomainValue $domain);
 
     /**
+     * Send the click-counter configuration to the owner of the domain
+     *
+     * @param Domain $domain
+     */
+    public function sendConfigurationForDomain(Domain $domain);
+
+    /**
      * Returns a list of domains which need to be notified.
      *
      * @return Domain[]|ArrayCollection
