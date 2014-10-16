@@ -2,6 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\Domain;
 use PhpOption\Option;
@@ -46,4 +47,11 @@ interface DomainRepositoryInterface extends ObjectRepository, CRUDRepository
      * @return self
      */
     public function flush();
+    
+    /**
+     * Returns a list of domains which click-counters have not yet been installed.
+     *
+     * @return ArrayCollection|Domain[]
+     */
+    public function findUninstalled();
 }

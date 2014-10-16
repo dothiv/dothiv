@@ -2,6 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\Traits\PaginatedQueryTrait;
 use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
@@ -12,7 +13,7 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
 {
     use PaginatedQueryTrait;
     use ValidatorTrait;
-    
+
     /**
      * @param string $name
      *
@@ -85,6 +86,20 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
     public function getItemByIdentifier($identifier)
     {
         return $this->getDomainByName($identifier);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findUninstalled()
+    {
+        return new ArrayCollection(
+            $this->createQueryBuilder('d')
+                ->andWhere('d.activeBanner IS NOT NULL')
+                ->andWhere('d.clickcount = 0')
+                ->getQuery()
+                ->getResult()
+        );
     }
 
 }
