@@ -410,26 +410,26 @@ class OrderPutRequest
     }
 
     /**
-     * @return HivDomainValue
+     * @return HivDomainValue|null
      */
     public function getDomain()
     {
-        return new HivDomainValue($this->domain);
+        return $this->domain;
     }
 
     /**
-     * @param $domain
+     * @param string|null $domain
      *
      * @return self
      */
     public function setDomain($domain)
     {
-        $this->domain = (string)HivDomainValue::createFromUTF8($domain);
+        $this->domain = empty($domain) ? null : HivDomainValue::createFromUTF8($domain);
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getDomainDonor()
     {
@@ -437,7 +437,7 @@ class OrderPutRequest
     }
 
     /**
-     * @param string $domainDonor
+     * @param string|null $domainDonor
      *
      * @return self
      */
@@ -448,7 +448,7 @@ class OrderPutRequest
     }
 
     /**
-     * @return TwitterHandleValue
+     * @return TwitterHandleValue|null
      */
     public function getDomainDonorTwitter()
     {
@@ -456,7 +456,7 @@ class OrderPutRequest
     }
 
     /**
-     * @param string $domainDonorTwitter|null
+     * @param string|null $domainDonorTwitter
      *
      * @return self
      */
