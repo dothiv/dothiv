@@ -9,6 +9,8 @@ services:
         arguments:
         - @mailer
         - @dothiv.charity.contentful.charity_content
+        - @dothiv_contentful.asset
+        - @dothiv_contentful.repo.asset
         - %email_from_address%
         - %email_from_name%
 
