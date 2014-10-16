@@ -158,7 +158,7 @@
                     <header>
                         <h3>{% trans %}account.profile.domains.overview{% endtrans %}</h3>
 
-                        <a href="{{ path('dothiv_registry_register', {'locale': 'en'}) }}">{% trans %}
+                        <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'register'}) }}">{% trans %}
                             profile.overview.domain.button{% endtrans %}</a>
 
                         <form class="form-search" data-ng-show="domains.length > itemsPerPage" novalidate>
