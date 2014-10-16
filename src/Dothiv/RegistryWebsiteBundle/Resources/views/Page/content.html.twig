@@ -15,8 +15,12 @@
     {% if block.image.file is defined %}
         {% set image_asset = block.image %}
         {% set image_link = block.imageLink|default(false) %}
-        {% set src = image_asset.file.thumbnails[thumbnail_size|default('small')] %}{% if image_link|default(false) %}
-        <a href="{{ image_link }}">{% endif %}
+        {% if thumbnail_size == "original" %}
+        {% set src = image_asset.file.url %}
+        {% else %}
+        {% set src = image_asset.file.thumbnails[thumbnail_size|default('small')] %}
+        {% endif %}
+        {% if image_link|default(false) %}<a href="{{ image_link }}">{% endif %}
         <img src="{{ src }}" alt="{{ image_asset.title }}" title="{{ image_asset.description|default(image_asset.title) }}">
         {% if image_link|default(false) %}</a>{% endif %}
     {% endif %}
@@ -24,7 +28,7 @@
 
 {% block cf_block_videocontent %}
     {% if block.video is defined %}
-        <iframe width="616" height="346" src="{{ block.video.embed_url }}" allowfullscreen class="video"></iframe>
+        <iframe src="{{ block.video.embed_url }}" allowfullscreen class="video"></iframe>
     {% endif %}
 {% endblock cf_block_videocontent %}
 
@@ -36,9 +40,10 @@
             {% endif %}
             <li>
                 <a href="{{ download.file.url }}" title="{{ download.title }}">{{ download.title }}</a>
-                <small>({{ (download.file.details.size / 1024 / 1024) | round(0, 'ceil') }} MB)</small>
-                {% if download.description is defined %},
-                    <small>{{ download.description }}</small>{% endif %}
+                    <small>({{ (download.file.details.size / 1024 / 1024) | round(0, 'ceil') }} MB)</small>
+                {% if download.description is defined %}
+                    <small>{{ download.description }}</small>
+                {% endif %}
             </li>
             {% if loop.last %}
                 </ul>
@@ -69,15 +74,6 @@
     {% endif %}
 {% endblock cf_block_children %}
 
-{% block content %}
-    <article class="content">
-        {% for childBlock in page.blocks|default([]) %}
-            {% set blocks = [childBlock] %}
-            {{ block('cf_section') }}
-        {% endfor %}
-    </article>
-{% endblock %}
-
 {% block cf_section %}
     {% set level = level|default(2) %}
     {% set cols = blocks|length %}
@@ -106,3 +102,27 @@
         {{ block('cf_block_children') }}
     </div>
 {% endblock cf_block %}
+
+{% block content %}
+    {% set aside = page.aside|default([]) %}
+    {% if aside|length > 0 %}
+    <div class="content-with-aside">
+    {% endif %}
+    <article class="content">
+        {% for childBlock in page.blocks|default([]) %}
+            {% set blocks = [childBlock] %}
+            {{ block('cf_section') }}
+        {% endfor %}
+    </article>
+    {% if aside|length > 0 %}
+        <aside>
+            {% for childBlock in aside %}
+            {% set blocks = [childBlock] %}
+            <article class="content">
+                {{ block('cf_section') }}
+            </article>
+            {% endfor %}
+        </aside>
+    </div>
+    {% endif %}
+{% endblock %}
