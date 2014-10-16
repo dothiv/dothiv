@@ -40,9 +40,10 @@
             {% endif %}
             <li>
                 <a href="{{ download.file.url }}" title="{{ download.title }}">{{ download.title }}</a>
-                <small>({{ (download.file.details.size / 1024 / 1024) | round(0, 'ceil') }} MB)</small>
-                {% if download.description is defined %},
-                    <small>{{ download.description }}</small>{% endif %}
+                    <small>({{ (download.file.details.size / 1024 / 1024) | round(0, 'ceil') }} MB)</small>
+                {% if download.description is defined %}
+                    <small>{{ download.description }}</small>
+                {% endif %}
             </li>
             {% if loop.last %}
                 </ul>
