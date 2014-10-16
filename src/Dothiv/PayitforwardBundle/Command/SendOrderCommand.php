@@ -44,6 +44,7 @@ class SendOrderCommand extends ContainerAwareCommand
             }
             try {
                 $invoice = $invoiceService->createInvoice($order);
+                $mailer->send($order, $invoice, $vouchers);
                 $charge  = \Stripe_Charge::create(array(
                     'amount'      => $invoice->getTotalPrice(),
                     'currency'    => 'eur',
