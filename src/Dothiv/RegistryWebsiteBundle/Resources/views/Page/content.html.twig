@@ -69,15 +69,6 @@
     {% endif %}
 {% endblock cf_block_children %}
 
-{% block content %}
-    <article class="content">
-        {% for childBlock in page.blocks|default([]) %}
-            {% set blocks = [childBlock] %}
-            {{ block('cf_section') }}
-        {% endfor %}
-    </article>
-{% endblock %}
-
 {% block cf_section %}
     {% set level = level|default(2) %}
     {% set cols = blocks|length %}
@@ -106,3 +97,27 @@
         {{ block('cf_block_children') }}
     </div>
 {% endblock cf_block %}
+
+{% block content %}
+    {% set aside = page.aside|default([]) %}
+    {% if aside|length > 0 %}
+    <div class="content-with-aside">
+    {% endif %}
+    <article class="content">
+        {% for childBlock in page.blocks|default([]) %}
+            {% set blocks = [childBlock] %}
+            {{ block('cf_section') }}
+        {% endfor %}
+    </article>
+    {% if aside|length > 0 %}
+        <aside>
+            {% for childBlock in aside %}
+            {% set blocks = [childBlock] %}
+            <article class="content">
+                {{ block('cf_section') }}
+            </article>
+            {% endfor %}
+        </aside>
+    </div>
+    {% endif %}
+{% endblock %}

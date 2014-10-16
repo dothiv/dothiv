@@ -36,14 +36,6 @@ dothiv_registry_app_template:
         _format:  html
         locale:  en|de|ky
 
-dothiv_registry_register:
-    pattern:  /{locale}/c/register
-    defaults:
-        _controller: dothiv.registry.web.controller.page:pageAction
-        page: register
-    requirements:
-        locale:  en|ky
-
 dothiv_registry_content:
     pattern:  /{locale}/c/{page}
     defaults:
