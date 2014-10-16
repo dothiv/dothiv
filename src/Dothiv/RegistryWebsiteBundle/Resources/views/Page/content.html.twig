@@ -15,8 +15,12 @@
     {% if block.image.file is defined %}
         {% set image_asset = block.image %}
         {% set image_link = block.imageLink|default(false) %}
-        {% set src = image_asset.file.thumbnails[thumbnail_size|default('small')] %}{% if image_link|default(false) %}
-        <a href="{{ image_link }}">{% endif %}
+        {% if thumbnail_size == "original" %}
+        {% set src = image_asset.file.url %}
+        {% else %}
+        {% set src = image_asset.file.thumbnails[thumbnail_size|default('small')] %}
+        {% endif %}
+        {% if image_link|default(false) %}<a href="{{ image_link }}">{% endif %}
         <img src="{{ src }}" alt="{{ image_asset.title }}" title="{{ image_asset.description|default(image_asset.title) }}">
         {% if image_link|default(false) %}</a>{% endif %}
     {% endif %}
