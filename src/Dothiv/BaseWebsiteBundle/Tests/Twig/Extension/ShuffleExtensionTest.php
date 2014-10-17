@@ -26,6 +26,14 @@ class ShuffleTwigExtensionTest extends \PHPUnit_Framework_TestCase
     public function itShouldShuffle()
     {
         $array  = array(
+            'Every', 'day', 'I\'m', 'shuffling',
+            'Every', 'day', 'I\'m', 'shuffling',
+            'Every', 'day', 'I\'m', 'shuffling',
+            'Every', 'day', 'I\'m', 'shuffling',
+            'Every', 'day', 'I\'m', 'shuffling',
+            'Every', 'day', 'I\'m', 'shuffling',
+            'Every', 'day', 'I\'m', 'shuffling',
+            'Every', 'day', 'I\'m', 'shuffling',
             'Every', 'day', 'I\'m', 'shuffling'
         );
         $before = join(' ', $array);
