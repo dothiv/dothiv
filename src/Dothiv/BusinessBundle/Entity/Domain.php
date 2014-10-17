@@ -38,13 +38,6 @@ class Domain extends Entity
     protected $name;
 
     /**
-     * A list of domains that offer equivalent or similiar content.
-     *
-     * @ORM\OneToMany(targetEntity="DomainAlternative",mappedBy="hivDomain")
-     */
-    protected $alternatives;
-
-    /**
      * The owning user of the domain
      *
      * @ORM\ManyToOne(targetEntity="User",inversedBy="domains")

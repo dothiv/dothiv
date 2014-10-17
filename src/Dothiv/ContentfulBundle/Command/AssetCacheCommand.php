@@ -23,8 +23,8 @@ class AssetCacheCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var $adapter \Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapter */
-        /** @var $assetRepo \Dothiv\ContentfulBundle\Repository\ContentfulAssetRepository */
+        /** @var $adapter \Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapterInterface */
+        /** @var $assetRepo \Dothiv\ContentfulBundle\Repository\ContentfulAssetRepositoryInterface */
         $adapter   = $this->getContainer()->get('dothiv_contentful.asset');
         $assetRepo = $this->getContainer()->get('dothiv_contentful.repo.asset');
         $adapter->setLogger(new OutputInterfaceLogger($output));

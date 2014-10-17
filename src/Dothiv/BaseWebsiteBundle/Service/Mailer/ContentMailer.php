@@ -2,9 +2,9 @@
 
 namespace Dothiv\BaseWebsiteBundle\Service\Mailer;
 
-use Dothiv\BaseWebsiteBundle\Contentful\Content;
-use Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapter;
-use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepository;
+use Dothiv\BaseWebsiteBundle\Contentful\ContentInterface;
+use Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapterInterface;
+use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepositoryInterface;
 
 class ContentMailer implements ContentMailerInterface
 {
@@ -25,33 +25,38 @@ class ContentMailer implements ContentMailerInterface
     private $emailFromName;
 
     /**
-     * @var Content
+     * @var ContentInterface
      */
     private $content;
 
     /**
-     * @var ContentfulAssetAdapter
+     * @var ContentfulAssetAdapterInterface
      */
     private $assetAdapter;
 
     /**
-     * @var ContentfulAssetRepository
+     * @var ContentfulAssetRepositoryInterface
      */
     private $assetRepo;
 
     /**
+     * @var \Twig_Environment
+     */
+    private $twig;
+
+    /**
      * @param \Swift_Mailer             $mailer
-     * @param Content                   $content
-     * @param ContentfulAssetAdapter    $assetAdapter
-     * @param ContentfulAssetRepository $assetRepo
+     * @param ContentInterface          $content
+     * @param ContentfulAssetAdapterInterface    $assetAdapter
+     * @param ContentfulAssetRepositoryInterface $assetRepo
      * @param string                    $emailFromAddress
      * @param string                    $emailFromName
      */
     public function __construct(
         \Swift_Mailer $mailer,
-        Content $content,
-        ContentfulAssetAdapter $assetAdapter,
-        ContentfulAssetRepository $assetRepo,
+        ContentInterface $content,
+        ContentfulAssetAdapterInterface $assetAdapter,
+        ContentfulAssetRepositoryInterface $assetRepo,
         $emailFromAddress,
         $emailFromName)
     {
@@ -61,6 +66,7 @@ class ContentMailer implements ContentMailerInterface
         $this->assetRepo        = $assetRepo;
         $this->emailFromAddress = $emailFromAddress;
         $this->emailFromName    = $emailFromName;
+        $this->twig             = new \Twig_Environment(new \Twig_Loader_String());
     }
 
     /**
@@ -73,17 +79,13 @@ class ContentMailer implements ContentMailerInterface
     public function sendContentTemplateMail($code, $locale, $to, $toName, $data)
     {
         $template = $this->content->buildEntry('eMail', $code, $locale);
-        $twig     = new \Twig_Environment(new \Twig_Loader_String());
-        $subject  = $twig->render($template->subject, $data);
-        $text     = $twig->render($template->text, $data);
+        $subject  = $this->twig->render($template->subject, $data);
+        $text     = $this->twig->render($template->text, $data);
 
-        // send email
-        $message = \Swift_Message::newInstance();
-        $message
-            ->setSubject($subject)
-            ->setFrom($this->emailFromAddress, $this->emailFromName)
-            ->setTo($to, $toName)
-            ->setBody($text);
+        // prepare email
+        $message = $this->createMessage($to, $toName);
+        $message->setSubject($subject);
+        $message->setBody($text);
 
         // Add HTML part.
         if (property_exists($template, 'html')) {
@@ -92,7 +94,7 @@ class ContentMailer implements ContentMailerInterface
                 $html .= $template->htmlHead;
             }
             $parsedown = new \Parsedown();
-            $html .= $twig->render($parsedown->text($template->html), $data);
+            $html .= $this->twig->render($parsedown->text($template->html), $data);
             if (property_exists($template, 'htmlFoot')) {
                 $html .= $template->htmlFoot;
             }
@@ -116,6 +118,46 @@ class ContentMailer implements ContentMailerInterface
             }
         }
 
+        $this->sendMessage($message);
+    }
+
+    /**
+     * @param $message
+     */
+    protected function sendMessage(\Swift_Message $message)
+    {
         $this->mailer->send($message);
     }
+
+    /**
+     * @param $to
+     * @param $toName
+     *
+     * @return \Swift_Message
+     */
+    protected function createMessage($to, $toName)
+    {
+        $message = \Swift_Message::newInstance();
+        $message
+            ->setFrom($this->emailFromAddress, $this->emailFromName)
+            ->setTo($to, $toName);
+        return $message;
+    }
+
+    /**
+     * @return ContentInterface
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return \Twig_Environment
+     */
+    public function getTwig()
+    {
+        return $this->twig;
+    }
+
 } 

@@ -5,7 +5,7 @@ namespace Dothiv\ContentfulBundle\Adapter;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Psr\Log\LoggerAwareInterface;
 
-interface ContentfulAssetAdapter extends LoggerAwareInterface
+interface ContentfulAssetAdapterInterface extends LoggerAwareInterface
 {
     /**
      * @param ContentfulAsset $asset

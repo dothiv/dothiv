@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\Banner;
 
+/**
+ * @TODO: Rename to ClickcounterRepositoryInterface
+ */
 interface BannerRepositoryInterface extends ObjectRepository
 {
     /**

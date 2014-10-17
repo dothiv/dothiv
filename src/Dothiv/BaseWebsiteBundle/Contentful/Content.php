@@ -6,7 +6,7 @@ use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
 use Dothiv\ContentfulBundle\Adapter\ContentfulContentAdapter;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
 
-class Content
+class Content implements ContentInterface
 {
 
     /**
@@ -37,14 +37,7 @@ class Content
     }
 
     /**
-     * Builds the view data for the entry.
-     *
-     * @param string $contentTypeName
-     * @param string $entryName
-     * @param string $locale
-     *
-     * @throws InvalidArgumentException If entry is not found.
-     * @return object
+     * {@inheritdoc}
      */
     public function buildEntry($contentTypeName, $entryName, $locale)
     {
@@ -65,12 +58,7 @@ class Content
     }
 
     /**
-     * Builds the view data for entrys of the given content type.
-     *
-     * @param string $contentTypeName
-     * @param string $locale
-     *
-     * @return object[]
+     * {@inheritdoc}
      */
     public function buildEntries($contentTypeName, $locale)
     {
@@ -92,7 +80,7 @@ class Content
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getSpaceId()
     {

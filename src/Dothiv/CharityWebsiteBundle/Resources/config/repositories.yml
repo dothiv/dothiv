@@ -1,0 +1,12 @@
+parameters:
+    dothiv.repository.domain_configuration_notification.entity.class: 'DothivCharityWebsiteBundle:DomainConfigurationNotification'
+    dothiv.repository.domain_configuration_notification.repository.class: Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepository
+
+services:
+    dothiv.repository.domain_configuration_notification:
+        class: %dothiv.repository.domain_configuration_notification.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.domain_configuration_notification.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]

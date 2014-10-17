@@ -1,5 +1,7 @@
 parameters:
     dothiv.charity.routing.loader.class: Dothiv\CharityWebsiteBundle\Routing\RoutingLoader
+    dothiv.charity.clickcounter_notification.class: Dothiv\CharityWebsiteBundle\Service\ClickCounterConfigurationService
+    dothiv.charity.clickcounter_notification.mailer.class: Dothiv\CharityWebsiteBundle\Service\Mailer\DomainConfigurationMailer
 
 services:
     dothiv.charity.routing.loader:
@@ -24,3 +26,20 @@ services:
             - @dothiv_contentful.content
             - @dothiv.websitebase.contentful.view_builder
             - %contenful_space_charity%
+            
+    dothiv.charity.clickcounter_notification.mailer:
+        class: %dothiv.charity.clickcounter_notification.mailer.class%
+        arguments:
+        - @mailer
+        - @dothiv.charity.contentful.charity_content
+        - @dothiv_contentful.asset
+        - @dothiv_contentful.repo.asset
+        - %email_from_address%
+        - %email_from_name%
+            
+    dothiv.charity.clickcounter_notification:
+        class: %dothiv.charity.clickcounter_notification.class%
+        arguments:
+        - @dothiv.repository.domain
+        - @dothiv.repository.domain_configuration_notification
+        - @dothiv.charity.clickcounter_notification.mailer

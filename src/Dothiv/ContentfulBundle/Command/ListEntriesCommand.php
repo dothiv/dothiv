@@ -6,7 +6,7 @@ use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\EntityManager;
 use Dothiv\ContentfulBundle\Adapter\HttpClientAdapter;
 use Dothiv\ContentfulBundle\Logger\OutputInterfaceLogger;
-use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepository;
+use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepositoryInterface;
 use Dothiv\ContentfulBundle\Repository\ContentfulContentTypeRepository;
 use Dothiv\ContentfulBundle\Repository\ContentfulEntryRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;

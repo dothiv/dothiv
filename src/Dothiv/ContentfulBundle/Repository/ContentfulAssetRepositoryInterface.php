@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use PhpOption\Option;
 
-interface ContentfulAssetRepository
+interface ContentfulAssetRepositoryInterface
 {
     /**
      * @param string $spaceId
