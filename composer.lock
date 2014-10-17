@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5139cbe12b7353ac2f4b8f841c3d8987",
+    "hash": "c88a8b7fd653af2285cbfd4a2231e1f7",
     "packages": [
         {
             "name": "angular-ui/bootstrap",
@@ -381,6 +381,29 @@
                     "scripts": [
                         "src/js/jquery.mmenu.min.js",
                         "src/css/jquery.mmenu.css"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "component/buberdds-angular-bootstrap-colorpicker",
+            "version": "3.0.8",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/buberdds/angular-bootstrap-colorpicker/archive/v3.0.8.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "components/angular.js": "1.2.x",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "css/colorpicker.css",
+                        "js/bootstrap-colorpicker-module.js"
                     ]
                 }
             }
