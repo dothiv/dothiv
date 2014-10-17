@@ -12,15 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class SchemaValidityFunctionalTest extends WebTestCase
 {
-    /**
-     * @var \Doctrine\Common\Persistence\ObjectManager
-     */
-    private $em;
 
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
      */
-    private $magentoEm;
+    private $em;
 
     /**
      * {@inheritDoc}
@@ -42,9 +38,6 @@ class SchemaValidityFunctionalTest extends WebTestCase
     {
         $validator = new SchemaValidator($this->em);
         $this->assertSame(array(), $validator->validateMapping(), 'Schema has valid mappings');
-        // This could be used to create the schema
-        // $schemaTool = new SchemaTool($em);
-        // $schemaTool->createSchema($em->getMetadataFactory()->getAllMetadata());
     }
 
     /**

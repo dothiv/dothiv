@@ -6,15 +6,15 @@ use Dothiv\ContentfulBundle\Exception\InvalidArgumentException;
 use Dothiv\ContentfulBundle\Exception\RuntimeException;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Logger\LoggerAwareTrait;
-use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepository;
+use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepositoryInterface;
 use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
 
-class FilesystemAssetAdapter implements ContentfulAssetAdapter
+class FilesystemAssetAdapter implements ContentfulAssetAdapterInterface
 {
     use LoggerAwareTrait;
 
     /**
-     * @var ContentfulAssetRepository
+     * @var ContentfulAssetRepositoryInterface
      */
     private $assetRepo;
 
@@ -31,9 +31,9 @@ class FilesystemAssetAdapter implements ContentfulAssetAdapter
     /**
      * @param string                    $webPath
      * @param string                    $localPath
-     * @param ContentfulAssetRepository $assetRepo
+     * @param ContentfulAssetRepositoryInterface $assetRepo
      */
-    public function __construct($webPath, $localPath, ContentfulAssetRepository $assetRepo)
+    public function __construct($webPath, $localPath, ContentfulAssetRepositoryInterface $assetRepo)
     {
         $this->webPath   = rtrim($webPath, '/');
         $this->localPath = rtrim($localPath, '/');
