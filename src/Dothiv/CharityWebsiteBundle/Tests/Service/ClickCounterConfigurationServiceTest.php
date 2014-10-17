@@ -4,7 +4,9 @@ namespace Dothiv\CharityWebsiteBundle\Tests\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailerInterface;
+use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\CharityWebsiteBundle\Entity\DomainConfigurationNotification;
 use Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepositoryInterface;
@@ -84,7 +86,8 @@ class ClickCounterConfigurationServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldSendConfiguration()
     {
-        $domain = new Domain();
+        $domain = $this->createDomain();
+
         $this->mockDomainRepo->expects($this->once())->method('getDomainByName')
             ->with('example.hiv')
             ->willReturn(Option::fromValue($domain));
@@ -110,8 +113,8 @@ class ClickCounterConfigurationServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldSendConfigurationForDomain()
     {
-        $domain = new Domain();
-
+        $domain = $this->createDomain();
+        
         $this->mockDomainNotificationRepo->expects($this->once())->method('persist')
             ->with($this->callback(function (DomainConfigurationNotification $n) use ($domain) {
                 $this->assertEquals($domain, $n->getDomain());
@@ -162,5 +165,22 @@ class ClickCounterConfigurationServiceTest extends \PHPUnit_Framework_TestCase
             = $this->getMock('\Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepositoryInterface');
         $this->mockContentMailer
             = $this->getMock('\Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailerInterface');
+    }
+
+    /**
+     * @return Domain
+     */
+    protected function createDomain()
+    {
+        $domain = new Domain();
+        $domain->setName('example.hiv');
+        $owner = new User();
+        $owner->setFirstname('John');
+        $owner->setSurname('Doe');
+        $banner = new Banner();
+        $banner->setDomain($domain);
+        $domain->setActiveBanner($banner);
+        $domain->setOwner($owner);
+        return $domain;
     }
 } 

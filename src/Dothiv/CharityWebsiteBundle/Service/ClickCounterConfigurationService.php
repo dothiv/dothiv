@@ -47,7 +47,7 @@ class ClickCounterConfigurationService implements SendClickCounterConfigurationS
     public function sendConfiguration(HivDomainValue $domain)
     {
         /** @var Domain $entity */
-        $entity = $this->domainRepo->getDomainByName((string)$domain)->getOrCall(function () use ($domain) {
+        $entity = $this->domainRepo->getDomainByName((string)$domain)->getOrCall(function () {
             throw new EntityNotFoundException();
         });
 
@@ -79,12 +79,21 @@ class ClickCounterConfigurationService implements SendClickCounterConfigurationS
         $notification->setDomain($domain);
         $this->domainConfigNotificationRepo->persist($notification)->flush();
 
+        $hivDomain = HivDomainValue::create($domain->getName());
+        $data      = array(
+            'firstname'             => $domain->getOwner()->getFirstname(),
+            'surname'               => $domain->getOwner()->getSurname(),
+            'domainName'            => $hivDomain->toUTF8(),
+            'secondLevelDomainName' => $hivDomain->getSecondLevel(),
+            'forward'               => $domain->getActiveBanner()->getRedirectUrl()
+        );
+
         $this->mailer->sendContentTemplateMail(
             'domain.configuration',
             'en',
             $domain->getOwnerEmail(),
             $domain->getOwnerName(),
-            $domain
+            $data
         );
     }
 
