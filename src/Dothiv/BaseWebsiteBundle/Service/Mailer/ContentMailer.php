@@ -66,6 +66,7 @@ class ContentMailer implements ContentMailerInterface
         $this->assetRepo        = $assetRepo;
         $this->emailFromAddress = $emailFromAddress;
         $this->emailFromName    = $emailFromName;
+        $this->twig             = new \Twig_Environment(new \Twig_Loader_String());
     }
 
     /**
@@ -78,17 +79,13 @@ class ContentMailer implements ContentMailerInterface
     public function sendContentTemplateMail($code, $locale, $to, $toName, $data)
     {
         $template = $this->content->buildEntry('eMail', $code, $locale);
-        $twig     = new \Twig_Environment(new \Twig_Loader_String());
-        $subject  = $twig->render($template->subject, $data);
-        $text     = $twig->render($template->text, $data);
+        $subject  = $this->twig->render($template->subject, $data);
+        $text     = $this->twig->render($template->text, $data);
 
-        // send email
-        $message = \Swift_Message::newInstance();
-        $message
-            ->setSubject($subject)
-            ->setFrom($this->emailFromAddress, $this->emailFromName)
-            ->setTo($to, $toName)
-            ->setBody($text);
+        // prepare email
+        $message = $this->createMessage($to, $toName);
+        $message->setSubject($subject);
+        $message->setBody($text);
 
         // Add HTML part.
         if (property_exists($template, 'html')) {
@@ -97,7 +94,7 @@ class ContentMailer implements ContentMailerInterface
                 $html .= $template->htmlHead;
             }
             $parsedown = new \Parsedown();
-            $html .= $twig->render($parsedown->text($template->html), $data);
+            $html .= $this->twig->render($parsedown->text($template->html), $data);
             if (property_exists($template, 'htmlFoot')) {
                 $html .= $template->htmlFoot;
             }
@@ -121,6 +118,46 @@ class ContentMailer implements ContentMailerInterface
             }
         }
 
+        $this->sendMessage($message);
+    }
+
+    /**
+     * @param $message
+     */
+    protected function sendMessage(\Swift_Message $message)
+    {
         $this->mailer->send($message);
     }
+
+    /**
+     * @param $to
+     * @param $toName
+     *
+     * @return \Swift_Message
+     */
+    protected function createMessage($to, $toName)
+    {
+        $message = \Swift_Message::newInstance();
+        $message
+            ->setFrom($this->emailFromAddress, $this->emailFromName)
+            ->setTo($to, $toName);
+        return $message;
+    }
+
+    /**
+     * @return ContentInterface
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return \Twig_Environment
+     */
+    public function getTwig()
+    {
+        return $this->twig;
+    }
+
 } 
