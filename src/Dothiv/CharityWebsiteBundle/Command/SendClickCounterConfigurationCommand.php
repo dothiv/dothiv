@@ -27,5 +27,9 @@ class SendClickCounterConfigurationCommand extends ContainerAwareCommand
         /** @var SendClickCounterConfigurationServiceInterface $service */
         $service = $this->getContainer()->get('dothiv.charity.clickcounter_notification');
         $service->sendConfiguration(new HivDomainValue($input->getArgument('domain')));
+        // clear mail spool, see http://symfony.com/doc/2.0/cookbook/console/sending_emails.html
+        if ($this->getContainer()->getParameter("kernel.environment") != 'test') {
+            $this->getContainer()->get('mailer')->getTransport()->getSpool()->flushQueue($this->getContainer()->get('swiftmailer.transport.real'));
+        }
     }
 }
