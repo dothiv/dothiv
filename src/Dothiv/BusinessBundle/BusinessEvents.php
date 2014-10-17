@@ -13,4 +13,6 @@ final class BusinessEvents
     const DOMAIN_DELETED = 'dothiv.business.domain.deleted';
 
     const USER_LOGINLINK_REQUESTED = 'dothiv.business.user.loginlink.requested';
+
+    const CLICKCOUNTER_CONFIGURATION = 'dothiv.basewebsite.clickcounter.configuration';
 }

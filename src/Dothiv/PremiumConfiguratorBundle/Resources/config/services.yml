@@ -2,6 +2,7 @@ parameters:
     dothiv.premiumconfigurator.service.attachment_store.class: Dothiv\PremiumConfiguratorBundle\Service\AttachmentStoreService
     dothiv.premiumconfigurator.service.invoice.class: Dothiv\PremiumConfiguratorBundle\Service\InvoiceService
     dothiv.premiumconfigurator.mailer.subscription_confirmed.class: Dothiv\PremiumConfiguratorBundle\Service\Mailer\SubscriptionConfirmedMailer
+    dothiv.premiumconfigurator.configuration_decorator.class: Dothiv\PremiumConfiguratorBundle\Service\PremiumClickCounterConfigurationDecorator
 
 services:
     dothiv.premiumconfigurator.service.attachment:
@@ -31,3 +32,8 @@ services:
         arguments:
         - @dothiv.charity.service.mailer.content
         - @dothiv.websitebase.money_format
+
+    dothiv.premiumconfigurator.configuration_decorator:
+        class: %dothiv.premiumconfigurator.configuration_decorator.class%
+        arguments:
+        - @dothiv.premiumconfigurator.service.attachment_store

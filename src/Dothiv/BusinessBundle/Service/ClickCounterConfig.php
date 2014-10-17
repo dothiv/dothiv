@@ -2,11 +2,14 @@
 
 namespace Dothiv\BusinessBundle\Service;
 
-use Dothiv\BaseWebsiteBundle\Contentful\Content;
+use Dothiv\BaseWebsiteBundle\Contentful\ContentInterface;
+use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Event\ClickCounterConfigurationEvent;
 use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ClickCounterConfig implements ClickCounterConfigInterface
 {
@@ -17,7 +20,7 @@ class ClickCounterConfig implements ClickCounterConfigInterface
     private $locales;
 
     /**
-     * @var Content
+     * @var ContentInterface
      */
     private $content;
 
@@ -41,9 +44,15 @@ class ClickCounterConfig implements ClickCounterConfigInterface
      */
     private $client;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
     public function __construct(
         $config,
-        Content $content
+        ContentInterface $content,
+        EventDispatcherInterface $dispatcher
     )
     {
         $this->locales   = $config['locales'];
@@ -52,7 +61,8 @@ class ClickCounterConfig implements ClickCounterConfigInterface
         $this->content   = $content;
         $this->parsedown = new \Parsedown();
         $this->parsedown->setBreaksEnabled(false);
-        $this->client = new Client();
+        $this->client     = new Client();
+        $this->dispatcher = $dispatcher;
     }
 
     public function setup(Banner $banner)
@@ -60,6 +70,10 @@ class ClickCounterConfig implements ClickCounterConfigInterface
         $domain = $banner->getDomain();
         // render config
         $config = $this->buildBannerConfig($banner);
+        
+        $config = $this->dispatcher->dispatch(
+            BusinessEvents::CLICKCOUNTER_CONFIGURATION, new ClickCounterConfigurationEvent($domain, $config)
+        )->getConfig();
 
         // do clickcounter API request
         $this->postConfig($domain->getName(), $config);

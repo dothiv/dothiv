@@ -1,0 +1,12 @@
+parameters:
+  dothiv.premiumconfigurator.listener.clickcounter_configuration.class: Dothiv\PremiumConfiguratorBundle\Listener\ClickCounterConfigurationListener
+
+services:
+  dothiv.premiumconfigurator.listener.clickcounter_configuration:
+    class: %dothiv.premiumconfigurator.listener.clickcounter_configuration.class%
+    arguments:
+      - @dothiv.repository.premiumconfigurator.subscription
+      - @dothiv.repository.premiumconfigurator.banner
+      - @dothiv.premiumconfigurator.configuration_decorator
+    tags:
+      - { name: dothiv.business.event_listener, event: dothiv.basewebsite.clickcounter.configuration, method: onClickCounterConfiguration }
