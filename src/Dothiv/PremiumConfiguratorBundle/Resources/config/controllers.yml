@@ -19,7 +19,7 @@ services:
           - @dothiv.repository.domain
           - @dothiv.repository.banner
           - @dothiv.repository.premiumconfigurator.banner
-          - @dothiv.premiumconfigurator.service.attachment_store
+          - @dothiv.premiumconfigurator.configuration_decorator
           - @dothiv.business.contentful.clickcounter_content
           - @serializer
           - @router
