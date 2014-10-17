@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BaseWebsiteBundle\Service\ImageScalerInterface;
 use Dothiv\BaseWebsiteBundle\Service\ThumbnailConfiguration;
 use Dothiv\ValueObject\PathValue;
-use Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapter;
+use Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapterInterface;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Logger\LoggerAwareTrait;
 use Imagine\Image\Point;
@@ -23,7 +23,7 @@ class ImageAssetScaler implements LoggerAwareInterface
     private $defaultLanguage;
 
     /**
-     * @var \Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapter
+     * @var \Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapterInterface
      */
     private $assetAdapter;
 
@@ -37,7 +37,7 @@ class ImageAssetScaler implements LoggerAwareInterface
      */
     private $sizes;
 
-    public function __construct($defaultLanguage, ContentfulAssetAdapter $assetAdapter, ImageScalerInterface $scaler)
+    public function __construct($defaultLanguage, ContentfulAssetAdapterInterface $assetAdapter, ImageScalerInterface $scaler)
     {
         $this->defaultLanguage = $defaultLanguage;
         $this->assetAdapter    = $assetAdapter;

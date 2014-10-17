@@ -2,9 +2,9 @@
 
 namespace Dothiv\BaseWebsiteBundle\Service\Mailer;
 
-use Dothiv\BaseWebsiteBundle\Contentful\Content;
-use Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapter;
-use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepository;
+use Dothiv\BaseWebsiteBundle\Contentful\ContentInterface;
+use Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapterInterface;
+use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepositoryInterface;
 
 class ContentMailer implements ContentMailerInterface
 {
@@ -25,33 +25,38 @@ class ContentMailer implements ContentMailerInterface
     private $emailFromName;
 
     /**
-     * @var Content
+     * @var ContentInterface
      */
     private $content;
 
     /**
-     * @var ContentfulAssetAdapter
+     * @var ContentfulAssetAdapterInterface
      */
     private $assetAdapter;
 
     /**
-     * @var ContentfulAssetRepository
+     * @var ContentfulAssetRepositoryInterface
      */
     private $assetRepo;
 
     /**
+     * @var \Twig_Environment
+     */
+    private $twig;
+
+    /**
      * @param \Swift_Mailer             $mailer
-     * @param Content                   $content
-     * @param ContentfulAssetAdapter    $assetAdapter
-     * @param ContentfulAssetRepository $assetRepo
+     * @param ContentInterface          $content
+     * @param ContentfulAssetAdapterInterface    $assetAdapter
+     * @param ContentfulAssetRepositoryInterface $assetRepo
      * @param string                    $emailFromAddress
      * @param string                    $emailFromName
      */
     public function __construct(
         \Swift_Mailer $mailer,
-        Content $content,
-        ContentfulAssetAdapter $assetAdapter,
-        ContentfulAssetRepository $assetRepo,
+        ContentInterface $content,
+        ContentfulAssetAdapterInterface $assetAdapter,
+        ContentfulAssetRepositoryInterface $assetRepo,
         $emailFromAddress,
         $emailFromName)
     {

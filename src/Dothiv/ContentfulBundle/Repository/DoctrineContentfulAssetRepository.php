@@ -8,7 +8,7 @@ use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use PhpOption\Option;
 
-class DoctrineContentfulAssetRepository extends EntityRepository implements ContentfulAssetRepository
+class DoctrineContentfulAssetRepository extends EntityRepository implements ContentfulAssetRepositoryInterface
 {
     use ValidatorTrait;
     

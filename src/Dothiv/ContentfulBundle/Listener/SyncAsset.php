@@ -5,19 +5,19 @@ namespace Dothiv\ContentfulBundle\Listener;
 use Dothiv\ContentfulBundle\Event\ContentfulAssetEvent;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Item\Traits\ContentfulItem;
-use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepository;
+use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepositoryInterface;
 
 class SyncAsset
 {
     /**
-     * @var ContentfulAssetRepository
+     * @var ContentfulAssetRepositoryInterface
      */
     private $assetRepo;
 
     /**
-     * @param ContentfulAssetRepository $assetRepo
+     * @param ContentfulAssetRepositoryInterface $assetRepo
      */
-    public function __construct(ContentfulAssetRepository $assetRepo)
+    public function __construct(ContentfulAssetRepositoryInterface $assetRepo)
     {
         $this->assetRepo = $assetRepo;
     }
