@@ -6,7 +6,7 @@ use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\EntityManager;
 use Dothiv\ContentfulBundle\Adapter\HttpClientAdapter;
 use Dothiv\ContentfulBundle\Logger\OutputInterfaceLogger;
-use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepository;
+use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepositoryInterface;
 use Dothiv\ContentfulBundle\Repository\ContentfulContentTypeRepository;
 use Dothiv\ContentfulBundle\Repository\ContentfulEntryRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -26,8 +26,8 @@ class ListAssetsCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var ContentfulAssetRepository $repo */
-        /** @var $adapter \Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapter */
+        /** @var ContentfulAssetRepositoryInterface $repo */
+        /** @var $adapter \Dothiv\ContentfulBundle\Adapter\ContentfulAssetAdapterInterface */
         /** @var TableHelper $table */
         $repo    = $this->getContainer()->get('dothiv_contentful.repo.asset');
         $adapter = $this->getContainer()->get('dothiv_contentful.asset');

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\ContentfulBundle\Exception\InvalidArgumentException;
 use Dothiv\ContentfulBundle\Item\ContentfulAsset;
 use Dothiv\ContentfulBundle\Item\ContentfulContentType;
-use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepository;
+use Dothiv\ContentfulBundle\Repository\ContentfulAssetRepositoryInterface;
 use Dothiv\ContentfulBundle\Repository\ContentfulContentTypeRepository;
 use Dothiv\ContentfulBundle\Repository\ContentfulEntryRepository;
 use PhpOption\Option;
@@ -25,20 +25,20 @@ class RepositoryContentAdapter implements ContentfulContentAdapter
     private $entryRepo;
 
     /**
-     * @var ContentfulAssetRepository
+     * @var ContentfulAssetRepositoryInterface
      */
     private $assetRepo;
 
     /**
-     * @var ContentfulAssetAdapter
+     * @var ContentfulAssetAdapterInterface
      */
     private $assetAdapter;
 
     public function __construct(
         ContentfulContentTypeRepository $contentTypeRepo,
         ContentfulEntryRepository $entryRepo,
-        ContentfulAssetRepository $assetRepo,
-        ContentfulAssetAdapter $assetAdapter
+        ContentfulAssetRepositoryInterface $assetRepo,
+        ContentfulAssetAdapterInterface $assetAdapter
     )
     {
         $this->contentTypeRepo = $contentTypeRepo;
