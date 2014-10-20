@@ -13,6 +13,7 @@ use Dothiv\PremiumConfiguratorBundle\Repository\PremiumBannerRepositoryInterface
 use Dothiv\PremiumConfiguratorBundle\Service\PremiumClickCounterConfigurationDecorator;
 use Dothiv\PremiumConfiguratorBundle\Service\PremiumClickCounterConfigurationDecoratorInterface;
 use JMS\Serializer\SerializerInterface;
+use PhpOption\None;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -105,11 +106,19 @@ class PremiumConfiguratorPreviewController
      */
     public function previewAction(Request $request, $locale, $domain)
     {
-        $banner   = $this->getBannerForDomain($domain);
+        $banner              = $this->getBannerForDomain($domain);
+        $redirectUrlOptional = Option::fromValue($banner->getRedirectUrl());
+        if ($redirectUrlOptional->isDefined()) {
+            // Do not render preview when protocol mismatch
+            if ($request->getScheme() != parse_url($redirectUrlOptional->get(), PHP_URL_SCHEME)) {
+                $redirectUrlOptional = None::create();
+            }
+        }
+        
         $data     = array(
             'domain'    => $banner->getDomain(),
             'banner'    => $banner,
-            'iframeUrl' => Option::fromValue($banner->getRedirectUrl())->getOrElse(
+            'iframeUrl' => $redirectUrlOptional->getOrElse(
                 $this->router->generate('dothiv_premiumconfig_blank', array('locale' => $locale, 'domain' => $domain))
             )
         );
