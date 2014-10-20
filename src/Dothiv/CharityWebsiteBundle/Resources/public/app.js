@@ -42,7 +42,7 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
                 controller: 'AccountDomainBasicEditController'
             });
     }])
-    .run(['$rootScope', 'security', '$state', function ($rootScope, security, $state) {
+    .run(['$rootScope', 'security', '$state', '$window', function ($rootScope, security, $state, $window) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (toState.name.match('^profile\.')) {
                 // Get the current user when the application starts (in case they are still logged in from a previous session)
@@ -64,13 +64,15 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
         });
         // Open external links in new windows.
         $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
-            $('a').filter(function (index, a) {
-                var href = $(a).attr('href');
-                if (!href) {
-                    return false;
-                }
-                return href.match('^(http|\/\/)') ? true : false;
-            }).attr('target', '_blank');
+            $window.setTimeout(function() {
+                $('a').filter(function (index, a) {
+                    var href = $(a).attr('href');
+                    if (!href) {
+                        return false;
+                    }
+                    return href.match('^(http|\/\/)') ? true : false;
+                }).attr('target', '_blank');    
+            }, 0);
         });
     }])
 ;
