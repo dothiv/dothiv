@@ -2,12 +2,14 @@
 
 namespace Dothiv\PremiumConfiguratorBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\PremiumConfiguratorBundle\Entity\PremiumBanner;
 use Dothiv\PremiumConfiguratorBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
 
-interface PremiumBannerRepositoryInterface
+interface PremiumBannerRepositoryInterface extends ObjectRepository
 {
     /**
      * @param Banner $banner
@@ -32,4 +34,11 @@ interface PremiumBannerRepositoryInterface
      * @return self
      */
     public function flush();
+
+    /**
+     * @param \DateTime $dateTime
+     *
+     * @return ArrayCollection|PremiumBanner[]
+     */
+    public function findUpdatedSince(\DateTime $dateTime);
 } 

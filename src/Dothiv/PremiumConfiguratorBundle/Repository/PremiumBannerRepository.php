@@ -2,6 +2,7 @@
 
 namespace Dothiv\PremiumConfiguratorBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use Dothiv\PremiumConfiguratorBundle\Entity\PremiumBanner;
@@ -43,5 +44,16 @@ class PremiumBannerRepository extends DoctrineEntityRepository implements Premiu
     public function flush()
     {
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findUpdatedSince(\DateTime $dateTime)
+    {
+        return new ArrayCollection($this->createQueryBuilder('p')
+            ->andWhere('p.updated >= :dateTime')->setParameter('dateTime', $dateTime)
+            ->getQuery()
+            ->getResult());
     }
 }
