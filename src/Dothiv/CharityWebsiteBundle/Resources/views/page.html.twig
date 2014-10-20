@@ -36,7 +36,7 @@
     <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}">
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
-    '@DothivAngularJsBundle/Resources/public/angular/angular.js'
+    '@angular_js'
     '@DothivAngularJsBundle/Resources/public/extra/angular-ui.github.io/ui-bootstrap/2/angular-ui-bootstrap-tpls.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
@@ -141,10 +141,10 @@
 
 {% block angular_app %}
 {% javascripts
-'@DothivPremiumConfiguratorBundle/Resources/public/js/vendor/jquery.js'
-'@DothivCharityWebsiteBundle/Resources/public/1.2/contentApp.js'
+'@jquery'
+'@DothivCharityWebsiteBundle/Resources/public/contentApp.js'
 '@DothivBaseWebsiteBundle/Resources/public/1.2/filters/*.js'
-'@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/*.js'
+'@DothivCharityWebsiteBundle/Resources/public/controllers/*.js'
 filter='?ngmin,?closureecma5'
 output='js/*.min.js'
 %}

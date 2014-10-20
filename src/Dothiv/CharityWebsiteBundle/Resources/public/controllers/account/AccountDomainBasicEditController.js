@@ -16,7 +16,10 @@ angular.module('dotHIVApp.controllers').controller('AccountDomainBasicEditContro
 
         // retrieve domain id from URL parameters and get domain/banner information
         var domainName = $stateParams.name;
-        $scope.domain = {name: domainName};
+        $scope.domain = {
+            name: domainName,
+            secondLevelDomainName: domainName.replace(/.hiv$/, "")
+        };
 
         dothivBannerResource.get(
             {domain: domainName},
