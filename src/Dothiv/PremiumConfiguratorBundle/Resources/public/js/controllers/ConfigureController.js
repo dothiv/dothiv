@@ -164,7 +164,7 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
                     $modal.open({'templateUrl': 'updatefailed.html', 'scope': modalScope});
                 }
             );
-        }
+        };
 
         function updateIframeSize() {
             var headerHeight = $('body > header').outerHeight();
@@ -220,12 +220,12 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
         $scope.clearExtras = function () {
             for (var k in $scope.premiumBanner) {
                 if (k.substr(0, 5) == 'extra') {
-                    $scope.premiumBanner[k] = null;
+                    delete $scope.premiumBanner[k];
                 }
             }
             for (var k in $scope.uploadedImages) {
                 if (k.substr(0, 5) == 'extra') {
-                    $scope.uploadedImages[k] = null;
+                    delete $scope.uploadedImages[k];
                 }
             }
         };

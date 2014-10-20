@@ -128,8 +128,12 @@ assetic:
         jquery_mmenu_css:
             inputs:
             - %kernel.root_dir%/../vendor/component/besite-jquery-mmenu/src/css/jquery.mmenu.all.css
-
-
+        angular_colorpicker_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/buberdds-angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js
+        angular_colorpicker_css:
+              inputs:
+              - %kernel.root_dir%/../vendor/components/buberdds-angular-bootstrap-colorpicker/css/colorpicker.css
 
 # Doctrine Configuration
 doctrine:
