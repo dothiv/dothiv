@@ -22,6 +22,7 @@ parameters:
 
     charitydomain:     click4life.hiv
     registrydomain:    tld.hiv
+    clickCounterPreviewDomainNonSSL: premium-preview.clickcounter.hiv
 
     facebook_app_id:   486753724803417
     facebook_app_secret: yourfacebooksecret
