@@ -90,7 +90,7 @@ class ClickCounterConfigurationService implements SendClickCounterConfigurationS
 
         $this->mailer->sendContentTemplateMail(
             'domain.configuration',
-            'en',
+            $domain->getActiveBanner()->getLanguage(),
             $domain->getOwnerEmail(),
             $domain->getOwnerName(),
             $data
