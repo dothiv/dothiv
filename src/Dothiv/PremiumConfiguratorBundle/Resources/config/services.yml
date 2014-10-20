@@ -16,7 +16,6 @@ services:
         class: %dothiv.premiumconfigurator.service.attachment_store.class%
         arguments:
         - %dothiv_premium_configurator.attachments%
-        - @router
         - @dothiv.websitebase.service.image_scaler
         - %charitydomain%
 

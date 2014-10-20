@@ -53,7 +53,7 @@ Feature: Configure Premium Banner
 
   Scenario: Configure Premium Banner
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
-    And I send a PUT request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/banner" with JSON values:
+    And I send a PUT request to "https://click4life.hiv.dev/api/premium-configurator/test.hiv/banner" with JSON values:
       | visual             | de73ec9a8df00d79cd81c937cffa66bb |
       | bg                 | 7d0e009eaa16bba3f7aae0ba670190df |
       | fontColor          | #333                             |
@@ -69,7 +69,7 @@ Feature: Configure Premium Banner
       | extrasLinkLabel    | Wurst!                           |
       | extrasVisual       | 45472ae3e87c3632c9b7e407b12acd5f |
     Then the response status code should be 200
-    And I send a GET request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/banner"
+    And I send a GET request to "https://click4life.hiv.dev/api/premium-configurator/test.hiv/banner"
     Then the response status code should be 200
     And the header "content-type" should contain "application/json"
     And the JSON node "visual" should contain "de73ec9a8df00d79cd81c937cffa66bb"
@@ -93,11 +93,11 @@ Feature: Configure Premium Banner
 
   Scenario: Configure Premium Banner for invalid domain
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
-    And I send a PUT request to "http://click4life.hiv.dev/api/premium-configurator/invalid.hiv/banner" with JSON values:
+    And I send a PUT request to "https://click4life.hiv.dev/api/premium-configurator/invalid.hiv/banner" with JSON values:
       | extrasText | Text |
     Then the response status code should be 404
 
   Scenario: Configure Premium Banner for other users domain
     Given I add Bearer token equal to "bla"
-    And I send a PUT request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/banner"
+    And I send a PUT request to "https://click4life.hiv.dev/api/premium-configurator/test.hiv/banner"
     Then the response status code should be 403
