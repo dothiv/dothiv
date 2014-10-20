@@ -60,7 +60,7 @@ class PremiumBanner extends Entity
 
     /**
      * @ORM\Column(type="string",nullable=true)
-     * @Assert\RegEx("/^#[A-F0-9]{6}$/")
+     * @Assert\Regex("/^#[A-F0-9]{6}$/")
      * @var HexValue
      * @Serializer\Expose
      */
@@ -68,7 +68,7 @@ class PremiumBanner extends Entity
 
     /**
      * @ORM\Column(type="string",nullable=true)
-     * @Assert\RegEx("/^#[A-F0-9]{6}$/")
+     * @Assert\Regex("/^#[A-F0-9]{6}$/")
      * @var HexValue
      * @Serializer\Expose
      */
@@ -76,7 +76,7 @@ class PremiumBanner extends Entity
 
     /**
      * @ORM\Column(type="string",nullable=true)
-     * @Assert\RegEx("/^#[A-F0-9]{6}$/")
+     * @Assert\Regex("/^#[A-F0-9]{6}$/")
      * @var HexValue
      * @Serializer\Expose
      */
@@ -162,7 +162,7 @@ class PremiumBanner extends Entity
     /**
      * The regular banner
      *
-     * @ORM\ManyToOne(targetEntity="Dothiv\BusinessBundle\Entity\Banner")
+     * @ORM\ManyToOne(targetEntity="Dothiv\BusinessBundle\Entity\Banner", fetch="EAGER")
      * @ORM\JoinColumn(onDelete="CASCADE")
      * @var Banner
      */
