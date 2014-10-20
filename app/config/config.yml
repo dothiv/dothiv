@@ -38,6 +38,7 @@ twig:
       premium_price: %premium_price%
       devat: %devat%
       payitforward_price: %payitforward_price%
+      click_counter_preview_domain_non_ssl: %clickCounterPreviewDomainNonSSL%
 
 # Assetic Configuration
 assetic:

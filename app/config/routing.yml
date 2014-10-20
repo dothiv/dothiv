@@ -42,7 +42,6 @@ dothiv_contentful:
 
 # Premium Configurator
 dothiv_premium_configurator:
-    host: %charitydomain%
     resource: "@DothivPremiumConfiguratorBundle/Resources/config/routing.yml"
     prefix:   /
 
