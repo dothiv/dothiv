@@ -5,9 +5,9 @@
         <div class="inner">
             <nav class="layouts">
                 {% for position in ['top', 'bottom', 'left', 'right', 'topleft-micro', 'top-micro', 'topright-micro'] %}
-                <button data-ng-click="bannerPosition = '{{ position }}'">
-                    <img src="/bundles/dothivpremiumconfigurator/images/position/{{ position }}.png" alt="{{ ('domain.position.' ~ position)|trans }}" data-ng-class="{active: bannerPosition == '{{ position }}'}">
-                </button>
+                    <button data-ng-click="bannerPosition = '{{ position }}'">
+                        <img src="/bundles/dothivpremiumconfigurator/images/position/{{ position }}.png" alt="{{ ('domain.position.' ~ position)|trans }}" data-ng-class="{active: bannerPosition == '{{ position }}'}">
+                    </button>
                 {% endfor %}
             </nav>
             <nav class="preview">
@@ -93,23 +93,41 @@
     </footer>
 </script>
 <script type="text/ng-template" id="code.html">
-    {% set modal = content('Block', 'pc.modal.code') %}
+    {% set modal = content('Block', 'pc.modal.install') %}
+    {% set code_domain = modal.children[0] %}
+    {% set code_forward = modal.children[1] %}
     <header>
         <h2>{{ modal.title }}</h2>
     </header>
-    <article>
-        <section class="image">
-            <img src="{{ modal.image.file.thumbnails.medium }}" alt="{{ modal.image.title }}">
-        </section>
-        <section>
-            {{ modal.text|markdown }}
-        </section>
-        <section data-ng-hide="redirect_url">
-            {{ modal.children[0].text|markdown }}
-        </section>
-        <section data-ng-show="redirect_url">
-            {{ modal.children[1].text|markdown }}
-        </section>
+    <article data-ng-hide="banner.redirect_url">
+        {% set task = code_domain %}
+        {% block install %}
+            <section>
+                {{ task.text|markdown }}
+            </section>
+            {% if task.textMore is defined %}
+                <section>
+                    {{ task.textMore|markdown }}
+                </section>
+            {% endif %}
+            {% for taskChild in task.children %}
+                {% if taskChild.image %}
+                    <section class="image">
+                        <img src="{{ taskChild.image.file.url }}" alt="{{ taskChild.image.title }}">
+                    </section>
+                {% endif %}
+                <section>
+                    <h4>{{ taskChild.title }}</h4>
+
+                    {{ taskChild.text|markdown }}
+
+                </section>
+            {% endfor %}
+        {% endblock install %}
+    </article>
+    <article data-ng-show="banner.redirect_url">
+        {% set task = code_forward %}
+        {{ block('install') }}
     </article>
     <footer>
         <button data-ng-click="$dismiss()">Abort</button>

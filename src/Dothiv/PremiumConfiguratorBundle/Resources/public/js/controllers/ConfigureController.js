@@ -69,6 +69,7 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
             {'domain': config.domain},
             function () { // success
                 $scope.banner.domain = config.domain;
+                $scope.banner.secondLevelDomainName = config.domain.replace(/\.hiv$/, "");
             },
             function (response) { // error
                 if (response.status == 403) {
@@ -81,6 +82,7 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
                     $scope.banner.position_first = 'top';
                     $scope.banner.position = 'top';
                     $scope.banner.domain = config.domain;
+                    $scope.banner.secondLevelDomainName = config.domain.replace(/\.hiv$/, "");
                 }
             }
         );
@@ -235,8 +237,7 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
 
         $scope.finish = function () {
             var modalScope = $rootScope.$new();
-            modalScope.domain = config.domain;
-            modalScope.redirect_url = $scope.banner.redirect_url;
+            modalScope.banner = $scope.banner;
             $modal.open({'templateUrl': 'code.html', 'scope': modalScope});
         };
         

@@ -195,7 +195,7 @@
                                     {% if task.textMore is defined %}
                                     <div class="row-fluid">
                                         <div class="offset2 span8">
-                                            {{ task.textMore|default("")|markdown }}
+                                            {{ task.textMore|markdown }}
                                         </div>
                                     </div>
                                     {% endif %}
