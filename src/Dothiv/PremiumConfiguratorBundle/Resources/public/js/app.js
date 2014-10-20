@@ -43,7 +43,7 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'ngR
         })
         ;
     }])
-    .run(['$rootScope', 'security', '$state', function ($rootScope, security, $state) {
+    .run(['$rootScope', 'security', '$state', '$window', function ($rootScope, security, $state, $window) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (toState.name.match('^=\.')) {
                 // Get the current user when the application starts (in case they are still logged in from a previous session)
