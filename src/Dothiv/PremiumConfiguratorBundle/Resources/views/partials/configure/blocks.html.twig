@@ -22,7 +22,7 @@
                 pc.image.button.change{% endtrans %}</label>
             <button type="reset"
                     data-ng-show="premiumBanner.{{ imageType }}"
-                    data-ng-click="premiumBanner.{{ imageType }} = null"
+                    data-ng-click="premiumBanner.{{ imageType }} = null; updatePremiumSettings();"
                     >{% trans %}pc.image.button.remove{% endtrans %}</button>
         </nav>
         <input type="file" id="image-{{ imageType }}"

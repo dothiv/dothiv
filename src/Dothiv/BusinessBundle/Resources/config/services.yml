@@ -13,6 +13,7 @@ services:
         arguments:
         - %dothiv_business.clickcounter%
         - @dothiv.business.contentful.clickcounter_content
+        - @dothiv.business.event_dispatcher
 
     registration:
         class: %registration.class%

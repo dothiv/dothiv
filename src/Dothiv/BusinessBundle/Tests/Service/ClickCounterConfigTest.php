@@ -3,12 +3,14 @@
 namespace Dothiv\BusinessBundle\Tests\Service;
 
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
+use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Service\ClickCounterConfig;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ClickCounterConfigTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,6 +24,11 @@ class ClickCounterConfigTest extends \PHPUnit_Framework_TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject|Client
      */
     private $mockClient;
+
+    /**
+     * @var EventDispatcherInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockEventDispatcher;
 
     /**
      * @var array
@@ -110,6 +117,13 @@ class ClickCounterConfigTest extends \PHPUnit_Framework_TestCase
         $this->mockContent->expects($this->any())->method('buildEntry')
             ->willReturn((object)array('value' => 'some string'));
 
+        $this->mockEventDispatcher->expects($this->once())->method('dispatch')
+            ->with(
+                BusinessEvents::CLICKCOUNTER_CONFIGURATION,
+                $this->isInstanceOf('\Dothiv\BusinessBundle\Event\ClickCounterConfigurationEvent')
+            )
+            ->willReturnArgument(1);
+
         $this->createTestObject()->setup($banner);
     }
 
@@ -124,7 +138,7 @@ class ClickCounterConfigTest extends \PHPUnit_Framework_TestCase
             'locales' => $this->locales
         );
 
-        $service = new ClickCounterConfig($config, $this->mockContent);
+        $service = new ClickCounterConfig($config, $this->mockContent, $this->mockEventDispatcher);
         $service->setClient($this->mockClient);
         return $service;
     }
@@ -139,5 +153,9 @@ class ClickCounterConfigTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()->getMock();
 
         $this->mockClient = $this->getMock('\Guzzle\Http\ClientInterface');
+
+        $this->mockEventDispatcher = $this->getMockBuilder('\Symfony\Component\EventDispatcher\EventDispatcherInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 } 

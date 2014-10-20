@@ -23,6 +23,7 @@ class DothivPremiumConfiguratorExtension extends Extension implements PrependExt
         $loader->load('controllers.yml');
         $loader->load('services.yml');
         $loader->load('repositories.yml');
+        $loader->load('listeners.yml');
         if ($container->getParameter("kernel.environment") == 'test') {
             $loader->load('services_test.yml');
         }

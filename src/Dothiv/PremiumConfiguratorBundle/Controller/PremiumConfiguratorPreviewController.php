@@ -10,6 +10,8 @@ use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Service\LinkableAttachmentStoreInterface;
 use Dothiv\PremiumConfiguratorBundle\Entity\PremiumBanner;
 use Dothiv\PremiumConfiguratorBundle\Repository\PremiumBannerRepositoryInterface;
+use Dothiv\PremiumConfiguratorBundle\Service\PremiumClickCounterConfigurationDecorator;
+use Dothiv\PremiumConfiguratorBundle\Service\PremiumClickCounterConfigurationDecoratorInterface;
 use JMS\Serializer\SerializerInterface;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -20,6 +22,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class PremiumConfiguratorPreviewController
 {
+
     /**
      * @var EngineInterface
      */
@@ -46,9 +49,9 @@ class PremiumConfiguratorPreviewController
     private $content;
 
     /**
-     * @var LinkableAttachmentStoreInterface
+     * @var PremiumClickCounterConfigurationDecoratorInterface
      */
-    private $attachmentStore;
+    private $configDecorator;
 
     /**
      * @var \Parsedown
@@ -61,21 +64,21 @@ class PremiumConfiguratorPreviewController
     private $router;
 
     /**
-     * @param EngineInterface                  $renderer
-     * @param DomainRepositoryInterface        $domainRepo
-     * @param BannerRepositoryInterface        $bannerRepo
-     * @param LinkableAttachmentStoreInterface $attachmentStore
-     * @param PremiumBannerRepositoryInterface $premiumBannerRepo
-     * @param Content                          $content
-     * @param SerializerInterface              $serializer
-     * @param RouterInterface                  $router
+     * @param EngineInterface                                    $renderer
+     * @param DomainRepositoryInterface                          $domainRepo
+     * @param BannerRepositoryInterface                          $bannerRepo
+     * @param PremiumClickCounterConfigurationDecoratorInterface $configDecorator
+     * @param PremiumBannerRepositoryInterface                   $premiumBannerRepo
+     * @param Content                                            $content
+     * @param SerializerInterface                                $serializer
+     * @param RouterInterface                                    $router
      */
     public function __construct(
         EngineInterface $renderer,
         DomainRepositoryInterface $domainRepo,
         BannerRepositoryInterface $bannerRepo,
         PremiumBannerRepositoryInterface $premiumBannerRepo,
-        LinkableAttachmentStoreInterface $attachmentStore,
+        PremiumClickCounterConfigurationDecoratorInterface $configDecorator,
         Content $content,
         SerializerInterface $serializer,
         RouterInterface $router
@@ -85,7 +88,7 @@ class PremiumConfiguratorPreviewController
         $this->domainRepo        = $domainRepo;
         $this->bannerRepo        = $bannerRepo;
         $this->premiumBannerRepo = $premiumBannerRepo;
-        $this->attachmentStore   = $attachmentStore;
+        $this->configDecorator   = $configDecorator;
         $this->content           = $content;
         $this->serializer        = $serializer;
         $this->router            = $router;
@@ -107,7 +110,7 @@ class PremiumConfiguratorPreviewController
             'domain'    => $banner->getDomain(),
             'banner'    => $banner,
             'iframeUrl' => Option::fromValue($banner->getRedirectUrl())->getOrElse(
-                    $this->router->generate('dothiv_premiumconfig_blank', array('locale' => $locale, 'domain' => $domain))
+                $this->router->generate('dothiv_premiumconfig_blank', array('locale' => $locale, 'domain' => $domain))
             )
         );
         $response = new Response();
@@ -134,35 +137,7 @@ class PremiumConfiguratorPreviewController
             'shortheading' => $this->getString('shortheading', $locale),
         );
         if ($premiumBannerOptional->isDefined()) {
-            $config['premium'] = true;
-            /** @var PremiumBanner $premiumBanner */
-            $premiumBanner = $premiumBannerOptional->get();
-            if (Option::fromValue($premiumBanner->getVisual())->isDefined()) {
-                $config['visual']       = (string)$this->attachmentStore->getUrl($premiumBanner->getVisual(), 'image/*;scale=visual');
-                $config['visual@micro'] = (string)$this->attachmentStore->getUrl($premiumBanner->getVisual(), 'image/*;scale=visual-micro');
-            }
-            if (Option::fromValue($premiumBanner->getBg())->isDefined()) {
-                $config['bg'] = (string)$this->attachmentStore->getUrl($premiumBanner->getBg(), 'image/*;scale=bg');
-            }
-            if (Option::fromValue($premiumBanner->getBarColor())->isDefined()) {
-                $config['barColor'] = (string)$premiumBanner->getBarColor();
-            }
-            if (Option::fromValue($premiumBanner->getBgColor())->isDefined()) {
-                $config['bgColor'] = (string)$premiumBanner->getBgColor();
-            }
-            if (Option::fromValue($premiumBanner->getFontColor())->isDefined()) {
-                $config['fontColor'] = (string)$premiumBanner->getFontColor();
-            }
-            if (Option::fromValue($premiumBanner->getHeadlineFont())->isDefined()) {
-                $config['headlineFont']       = $premiumBanner->getHeadlineFont();
-                $config['headlineFontWeight'] = $premiumBanner->getHeadlineFontWeight();
-                $config['headlineFontSize']   = $premiumBanner->getHeadlineFontSize();
-            }
-            if (Option::fromValue($premiumBanner->getTextFont())->isDefined()) {
-                $config['textFont']       = $premiumBanner->getTextFont();
-                $config['textFontWeight'] = $premiumBanner->getTextFontWeight();
-                $config['textFontSize']   = $premiumBanner->getTextFontSize();
-            }
+            $config = $this->configDecorator->decorate($config, $premiumBannerOptional->get());
         }
 
         $response = new Response();
