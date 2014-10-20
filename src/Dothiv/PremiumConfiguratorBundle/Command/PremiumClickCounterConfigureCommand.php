@@ -47,7 +47,7 @@ class PremiumClickCounterConfigureCommand extends ClickCounterConfigureCommand
     protected function findUpdatedSince(\DateTime $time)
     {
         /** @var PremiumBannerRepositoryInterface $premiumClickCounterRepo */
-        $premiumClickCounterRepo = $this->getContainer()->get('dothiv.repository.banner');
+        $premiumClickCounterRepo = $this->getContainer()->get('dothiv.repository.premiumconfigurator.banner');
         return $premiumClickCounterRepo->findUpdatedSince($time)
             ->map(function (PremiumBanner $p) {
                 return $p->getBanner();
