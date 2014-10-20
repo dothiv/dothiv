@@ -92,6 +92,7 @@
         var config = {
             locale: '{{ locale }}',
             domain: '{{ app.request.get('domain') }}',
+            clickCounterPreviewDomainNonSSL: '{{ click_counter_preview_domain_non_ssl }}',
             stripe: {
                 publishableKey: '{{ stripe_publishable_key }}',
                 {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}

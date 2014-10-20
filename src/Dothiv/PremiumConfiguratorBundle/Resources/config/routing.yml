@@ -1,4 +1,6 @@
 dothiv_premiumconfig_page:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /{locale}/premium-configurator/{domain}
     defaults:
         _controller: dothiv.premiumconfigurator.controller.page:configuratorPageAction
@@ -6,6 +8,8 @@ dothiv_premiumconfig_page:
         locale: ^(en|de|ky)$
 
 dothiv_premiumconfig_preview:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /{locale}/premium-configurator/{domain}/preview
     defaults:
         _controller: dothiv.premiumconfigurator.controller.preview:previewAction
@@ -13,6 +17,8 @@ dothiv_premiumconfig_preview:
         locale: ^(en|de|ky)$
 
 dothiv_premiumconfig_blank:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /{locale}/premium-configurator/{domain}/blank
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -21,6 +27,8 @@ dothiv_premiumconfig_blank:
         locale: ^(en|de|ky)$
 
 dothiv_premiumconfig_preview_config:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /{locale}/premium-configurator/{domain}/config.json
     defaults:
         _controller: dothiv.premiumconfigurator.controller.preview:previewBannerConfigAction
@@ -28,6 +36,8 @@ dothiv_premiumconfig_preview_config:
         locale: ^(en|de|ky)$
 
 dothiv_premiumconfig_preview_banner:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /{locale}/premium-configurator/{domain}/{file}
     defaults:
         _controller: dothiv.premiumconfigurator.controller.preview:previewBannerFileAction
@@ -37,6 +47,8 @@ dothiv_premiumconfig_preview_banner:
         locale: ^(en|de|ky)$
 
 dothiv_premiumconfig_page_app:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /{locale}/premium-configurator/{domain}/app/{page}.html
     defaults:
         _controller: dothiv.premiumconfigurator.controller.page:configuratorAppPageAction
@@ -44,6 +56,8 @@ dothiv_premiumconfig_page_app:
         locale: ^(en|de|ky)$
 
 dothiv_premiumconfig_attachment:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /api/premium-configurator/image
     defaults:
         _controller: dothiv.premiumconfigurator.api.controller.attachment:createAction
@@ -51,6 +65,8 @@ dothiv_premiumconfig_attachment:
     methods: [POST]
 
 dothiv_premiumconfig_banner_config_set:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /api/premium-configurator/{name}/banner
     defaults:
         _controller: dothiv.premiumconfigurator.api.controller.banner:setConfigAction
@@ -58,6 +74,8 @@ dothiv_premiumconfig_banner_config_set:
     methods: [PUT]
 
 dothiv_premiumconfig_banner_config_get:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /api/premium-configurator/{name}/banner
     defaults:
         _controller: dothiv.premiumconfigurator.api.controller.banner:getConfigAction
@@ -65,6 +83,8 @@ dothiv_premiumconfig_banner_config_get:
     methods: [GET]
 
 dothiv_premiumconfig_banner_subscription_set:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /api/premium-configurator/{name}/subscription
     defaults:
         _controller: dothiv.premiumconfigurator.api.controller.subscription:setSubscriptionAction
@@ -72,8 +92,37 @@ dothiv_premiumconfig_banner_subscription_set:
     methods: [PUT]
 
 dothiv_premiumconfig_banner_subscription_get:
+    host: %charitydomain%
+    schemes:  [https]
     path:     /api/premium-configurator/{name}/subscription
     defaults:
         _controller: dothiv.premiumconfigurator.api.controller.subscription:getSubscriptionAction
         _format: json
     methods: [GET]
+
+## Premium Click-Counter Preview for non-ssl sites
+dothiv_premiumconfig_preview_non_ssl:
+    host: %clickCounterPreviewDomainNonSSL%
+    schemes:  [http]
+    path:     /{domain}/preview
+    defaults:
+        locale: en
+        _controller: dothiv.premiumconfigurator.controller.preview:previewAction
+
+dothiv_premiumconfig_preview_config_non_ssl:
+    host: %clickCounterPreviewDomainNonSSL%
+    schemes:  [http]
+    path:     /{domain}/config.json
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.preview:previewBannerConfigAction
+        locale: en
+
+dothiv_premiumconfig_preview_banner_non_ssl:
+    host: %clickCounterPreviewDomainNonSSL%
+    schemes:  [http]
+    path:     /{domain}/{file}
+    defaults:
+        _controller: dothiv.premiumconfigurator.controller.preview:previewBannerFileAction
+        locale: en
+    requirements:
+        file: ^clickcounter-(top|bottom|left|right|topleft-micro|top-micro|topright-micro).html

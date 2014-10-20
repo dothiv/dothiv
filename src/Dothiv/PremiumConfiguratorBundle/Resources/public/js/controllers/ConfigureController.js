@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$rootScope', '$scope', 'dothivBannerResource', 'dothivPremiumBannerResource', 'config', '$state', '$modal', '$timeout', 'AttachmentUploader', '$http',
-    function ($rootScope, $scope, dothivBannerResource, dothivPremiumBannerResource, config, $state, $modal, $timeout, AttachmentUploader, $http) {
+angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$rootScope', '$scope', 'dothivBannerResource', 'dothivPremiumBannerResource', 'config', '$state', '$modal', '$timeout', 'AttachmentUploader', '$http', '$window',
+    function ($rootScope, $scope, dothivBannerResource, dothivPremiumBannerResource, config, $state, $modal, $timeout, AttachmentUploader, $http, $window) {
 
         $scope.fullscreen = false;
         $scope.bannerPosition = 'top';
@@ -185,6 +185,9 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
                 $scope.iframeBaseUrl = $scope.iframeUrl;
             }
             $scope.iframeUrl = $scope.iframeBaseUrl + '?dothivclickcounter[position]=' + $scope.bannerPosition + '&' + (new Date() / 1000);
+            if (previewWindow) {
+                previewWindow.location.href = getNonSslPreviewUrl();
+            }
         }
 
         $scope.$watch('bannerPosition', function () {
@@ -235,6 +238,23 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$roo
             modalScope.domain = config.domain;
             modalScope.redirect_url = $scope.banner.redirect_url;
             $modal.open({'templateUrl': 'code.html', 'scope': modalScope});
-        }
+        };
+        
+        // Deal with non-ssl sites
+        var previewWindow;
+        $scope.showProtocolMismatchWarning = false;
+        $scope.$watch('banner.redirect_url', function(url) {
+            if (typeof url == "undefined" || url.length == 0) {
+                return;
+            }
+            $scope.showProtocolMismatchWarning = url.match("^https?:")[0] != $window.location.protocol;
+        });
+        var getNonSslPreviewUrl = function()
+        {
+            return 'http://' + config.clickCounterPreviewDomainNonSSL + '/' + config.domain + '/preview?dothivclickcounter[position]=' + $scope.bannerPosition + '&' + (new Date() / 1000);
+        };
+        $scope.openPreview = function() {
+            previewWindow = $window.open(getNonSslPreviewUrl(), 'premiumClickCounterPreview');
+        };
     }
 ]);
