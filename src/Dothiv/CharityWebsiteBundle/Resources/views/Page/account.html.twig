@@ -28,18 +28,18 @@
 
 {% block angular_app %}
     {% javascripts
-    '@DothivPremiumConfiguratorBundle/Resources/public/js/vendor/jquery.js'
+    '@jquery'
     '@DothivBaseWebsiteBundle/Resources/public/vendor/github.com/bestiejs/punycode.js/punycode.js'
-    '@DothivAngularJsBundle/Resources/public/angular/angular-resource.js'
-    '@DothivAngularJsBundle/Resources/public/angular/angular-route.js'
-    '@DothivAngularJsBundle/Resources/public/angular/angular-cookies.js'
-    '@DothivAngularJsBundle/Resources/public/extra/angular-ui.github.io/ui-router/angular-ui-router.js'
-    '@DothivCharityWebsiteBundle/Resources/public/1.2/app.js'
+    '@angular_js_resource'
+    '@angular_js_route'
+    '@angular_js_cookies'
+    '@angular_ui_router'
+    '@DothivCharityWebsiteBundle/Resources/public/app.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'
     '@DothivBaseWebsiteBundle/Resources/public/1.2/filters/*.js'
-    '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/*.js'
-    '@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/account/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/controllers/account/*.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
