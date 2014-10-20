@@ -1,6 +1,17 @@
 div.fields {
   .make-xs-column(8);
   .container-fluid;
+  .warning {
+    margin-top: 0.5em;
+    font-size: 0.8125em;
+    padding: 0.5em;
+    border: 2px solid @brand-warning;
+    background-color: lighten(@brand-warning, 30);
+    border-radius: @border-radius-base;
+    p {
+      margin: 0;
+    }
+  }
 }
 div.fields-legend {
   .make-xs-column(4);

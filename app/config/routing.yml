@@ -18,7 +18,7 @@ dothiv_registry_web:
 
 # QLP landingpages
 dothiv_qlp_partner:
-    host: "{partner}.friends.%charitydomain%"
+    host: "{partner}.hiv"
     resource: "@DothivQLPPartnerBundle/Resources/config/routing.yml"
     prefix:   /
 
@@ -42,7 +42,6 @@ dothiv_contentful:
 
 # Premium Configurator
 dothiv_premium_configurator:
-    host: %charitydomain%
     resource: "@DothivPremiumConfiguratorBundle/Resources/config/routing.yml"
     prefix:   /
 

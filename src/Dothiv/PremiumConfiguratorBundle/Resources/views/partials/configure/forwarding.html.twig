@@ -10,6 +10,15 @@
                     {{ section.title }}
                 </label>
                 <input type="url" id="redirect_url" data-ng-model="banner.redirect_url" data-ng-blur="updateBannerSettings()">
+                <div data-ng-show="showProtocolMismatchWarning" class="warning">
+                    <p>
+                        <strong>{{ section.children[0].title }}</strong>
+                    </p>
+                    {{ section.children[0].text|markdown }}
+                    <p>
+                        <a data-ng-click="openPreview()">{{ section.children[0].textMore }}</a>
+                    </p>
+                </div>
             </div>
         </div>
     </fieldset>
