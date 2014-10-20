@@ -31,22 +31,17 @@ class ClickCounterConfigureCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var $configRepo ConfigRepositoryInterface */
-        /** @var Config $config */
-        $configRepo = $this->getContainer()->get('dothiv.repository.config');
-        $config     = $configRepo->get('clickcounter_config.last_run');
+        $config = $this->getConfig();
         /* @var $cc ClickCounterConfigInterface */
-        /* @var $bannerRepo BannerRepositoryInterface */
         /* @var $banners Banner[] */
-        $cc         = $this->getContainer()->get('clickcounter');
-        $bannerRepo = $this->getContainer()->get('dothiv.repository.banner');
+        $cc = $this->getContainer()->get('clickcounter');
         if (Option::fromValue($config->getValue())->isEmpty() || $input->getOption('force')) {
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_QUIET) {
                 $output->writeln('Fetching all click-counters ...');
             }
-            $banners = $bannerRepo->findAll();
+            $banners = $this->findAll();
         } else {
-            $banners = $bannerRepo->findUpdatedSince(new \DateTime($config->getValue()));
+            $banners = $this->findUpdatedSince(new \DateTime($config->getValue()));
         }
         foreach ($banners as $banner) {
             if ($output->getVerbosity() > OutputInterface::VERBOSITY_QUIET) {
@@ -57,6 +52,43 @@ class ClickCounterConfigureCommand extends ContainerAwareCommand
         /** @var ClockValue $clock */
         $clock = $this->getContainer()->get('clock');
         $config->setValue($clock->getNow()->format(DATE_W3C));
-        $configRepo->persist($config)->flush();
+
+        $this->getConfigRepo()->persist($config)->flush();
+    }
+
+    /**
+     * @return Config
+     */
+    protected function getConfig()
+    {
+        return $this->getConfigRepo()->get('clickcounter_config.last_run');
+    }
+
+    /**
+     * @return Banner[]
+     */
+    protected function findAll()
+    {
+        $bannerRepo = $this->getContainer()->get('dothiv.repository.banner');
+        return $bannerRepo->findAll();
+    }
+
+    /**
+     * @param \DateTime $time
+     *
+     * @return Banner[]
+     */
+    protected function findUpdatedSince(\DateTime $time)
+    {
+        $bannerRepo = $this->getContainer()->get('dothiv.repository.banner');
+        return $bannerRepo->findUpdatedSince($time);
+    }
+
+    /**
+     * @return ConfigRepositoryInterface
+     */
+    protected function getConfigRepo()
+    {
+        return $this->getContainer()->get('dothiv.repository.config');
     }
 }
