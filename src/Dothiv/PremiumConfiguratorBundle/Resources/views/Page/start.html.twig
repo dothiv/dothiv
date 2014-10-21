@@ -81,6 +81,7 @@
     '@DothivPremiumConfiguratorBundle/Resources/public/js/services/*.js'
     '@DothivPremiumConfiguratorBundle/Resources/public/js/services/models/*.js'
     '@DothivPremiumConfiguratorBundle/Resources/public/js/controllers/*.js'
+    '@zeroclipboard_js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
     <script type="text/javascript" src="/assetic{{ asset_url }}"></script>
@@ -109,7 +110,8 @@
                             button: '{{ 'pc.stripe.checkout.button'|trans }}'
                         }
                     }
-                }
+                },
+                copy_to_clipboard: '{{ 'copytoclipoard'|trans }}'
             },
             {% set cycle_format = 'M. jS Y' %}
             {% if locale == 'de' %}
@@ -128,6 +130,7 @@
         };
         return config;
     });
+    ZeroClipboard.config( { swfPath: "/assetic/swf/ZeroClipboard.swf" } );
 </script>
 <script src="https://checkout.stripe.com/checkout.js"></script>
 </body>
