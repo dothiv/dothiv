@@ -1,7 +1,5 @@
 /src/Dothiv/BaseWebsiteBundle/Resources/public/fonts/Harmonia Sans Bold.woff
 /web/bundles/
-/web/css/
-/web/js/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/logs/*
@@ -24,10 +22,8 @@
 /web/contentful
 /app/phpunit.xml
 /src/Dothiv/CharityWebsiteBundle/Resources/test_out/
-/web/images
 /app/attachments
 /app/config/parameters_test.yml
 /web/uploads
 /*.sh
-/web/vendor
 /web/assetic

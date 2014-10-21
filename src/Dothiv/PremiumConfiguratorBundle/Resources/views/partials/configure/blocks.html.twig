@@ -3,7 +3,7 @@
     <fieldset class="imageupload">
         <label for="image-{{ imageType }}">
             {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/empty-image.svg' %}
-            <img src="{{ asset_url }}" alt=""
+            <img src="/assetic{{ asset_url }}" alt=""
                     data-ng-hide="premiumBanner.{{ imageType }}"
                     >
             {% endimage %}

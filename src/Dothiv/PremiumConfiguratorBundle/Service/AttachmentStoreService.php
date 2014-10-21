@@ -24,11 +24,6 @@ class AttachmentStoreService implements AttachmentStoreInterface, LinkableAttach
     private $config;
 
     /**
-     * @var RouterInterface
-     */
-    private $router;
-
-    /**
      * @var ImageScalerInterface
      */
     private $scaler;
@@ -43,10 +38,9 @@ class AttachmentStoreService implements AttachmentStoreInterface, LinkableAttach
      */
     private $domain;
 
-    public function __construct($config, RouterInterface $router, ImageScalerInterface $scaler, $domain)
+    public function __construct($config, ImageScalerInterface $scaler, $domain)
     {
         $this->config                  = $config;
-        $this->router                  = $router;
         $this->scaler                  = $scaler;
         $this->thumbnailConfigurations = new ArrayCollection();
         foreach ($this->config['thumbnails'] as $label => $c) {
@@ -100,8 +94,7 @@ class AttachmentStoreService implements AttachmentStoreInterface, LinkableAttach
             ->addFilenameSuffix('@' . $scale);
         return new URLValue(
             sprintf(
-                '%s://%s%s%s',
-                $this->router->getContext()->getScheme(),
+                'https://%s%s%s',
                 $this->domain,
                 $this->config['url_prefix'],
                 $filename->getPathname()

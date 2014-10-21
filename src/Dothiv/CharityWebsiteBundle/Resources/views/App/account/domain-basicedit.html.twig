@@ -8,8 +8,8 @@
 {% set step2_secondvisit = step2.children[0] %}
 {% set step2_invisiblehint = step2.children[1] %}
 {% set step3 = content('Block', 'basicedit.step3') %}
-{% set step3_code = step3.children[0] %}
-{% set step3_forwarding = step3.children[1] %}
+{% set step3_domain = content('Block', 'basicedit.step3.domain') %}
+{% set step3_forward = content('Block', 'basicedit.step3.forward') %}
 
 <div class="container">
     <div class="row">
@@ -175,45 +175,51 @@
                             <div data-ng-show="!banner.$resolved">
                                 <p class="text-center">{{ block('loading') }}</p>
                             </div>
+                            
                             <div data-ng-show="banner.$resolved">
-                                <div class="row-fluid">
-                                    <div class="offset2 span8">
-                                        <h3>
+                                <div data-ng-show="domaineditbasic.$data.forwarding == 'false'">
+                                    {% set task = step3_domain %}
+                                    {% block install %}
+                                    <div class="row-fluid">
+                                        <div class="offset2 span8">
+                                            <h3>
                                         <span class="span1 text-center">
                                             <i class="icon-greentick"></i>
                                         </span>
                                         <span class="span11">
-                                            {{ step3.text }}
+                                            {{ task.text }}
                                         </span>
-                                        </h3>
+                                            </h3>
+                                        </div>
                                     </div>
+                                    {% if task.textMore is defined %}
+                                    <div class="row-fluid">
+                                        <div class="offset2 span8">
+                                            {{ task.textMore|markdown }}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% for taskChild in task.children %}
+                                    <div class="row-fluid">
+                                        <div class="offset2 span8 well">
+                                            {% if taskChild.image %}
+                                            <p class="text-center">
+                                                <img src="{{ taskChild.image.file.url }}" alt="{{ taskChild.image.title }}"/>
+                                            </p>
+                                            {% endif %}
+
+                                            <h4>{{ taskChild.title }}</h4>
+
+                                            {{ taskChild.text|markdown }}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    {% endblock install %}
                                 </div>
-
-                                <div class="row-fluid">
-                                    <div class="offset2 span8 well" data-ng-show="domaineditbasic.$data.forwarding == 'false'">
-                                        <p class="text-center">
-                                            {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounterjs.png" %}
-                                            <img src="{{ asset_url }}" alt=""/>
-                                            {% endimage %}
-                                        </p>
-
-                                        <h3>{{ step3_code.title }}</h3>
-
-                                        {{ step3_code.text|markdown }}
-                                    </div>
-                                    <div class="offset2 span8 well" data-ng-show="domaineditbasic.$data.forwarding == 'true'">
-                                        <p class="text-center">
-                                            {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounterjs.png" %}
-                                            <img src="{{ asset_url }}" alt=""/>
-                                            {% endimage %}
-                                        </p>
-
-                                        <h3>{{ step3_forwarding.title }}</h3>
-
-                                        {{ step3_forwarding.text|markdown }}
-                                    </div>
+                                <div data-ng-show="domaineditbasic.$data.forwarding == 'true'">
+                                    {% set task = step3_forward %}
+                                    {{ block('install') }}
                                 </div>
-
                                 <div class="row-fluid">
                                     <div class="offset2 span8">
                                         <button class="back" data-ng-click="tab2.active = true">

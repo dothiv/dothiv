@@ -193,3 +193,34 @@ body {
     }
   }
 }
+
+@import "../../dothivregistrywebsite/lesscss/registry-icons";
+
+// Code
+pre.clipboard {
+  padding: 10px 75px 10px 10px;
+  position: relative;
+  button.clipboard {
+    .btn;
+    .btn-default;
+    .registry-icon;
+    font-size: 25px;
+    position: absolute;
+    right: @grid-gutter-width / 3;
+    top: @grid-gutter-width / 3;
+    &:before {
+      &:extend(.registry-icon-clipboard:before);
+    }
+    &.zeroclipboard-is-hover, &:hover {
+      &:extend(.btn-default:hover);
+    }
+    &.zeroclipboard-is-active, &:active, &:focus {
+      &:extend(.btn-default:active);
+    }
+    &.copied {
+      &:before {
+        &:extend(.registry-icon-check:before);
+      }
+    }
+  }
+}

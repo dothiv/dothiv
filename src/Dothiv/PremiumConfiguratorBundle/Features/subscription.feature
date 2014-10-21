@@ -24,12 +24,12 @@ Feature: Create subscription
 
   Scenario: Initially, no subscription should exist
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
-    And I send a GET request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription"
+    And I send a GET request to "https://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription"
     Then the response status code should be 404
 
   Scenario: Purchase subscription
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
-    And I send a PUT request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription" with JSON values:
+    And I send a PUT request to "https://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription" with JSON values:
       | token    | tok_14O6xC42KFPpMZB0Q9FRb662 |
       | liveMode | true                         |
       | type     | noneu                        |
@@ -40,7 +40,7 @@ Feature: Create subscription
       | vatNo    | 123456                       |
       | taxNo    | 456123                       |
     Then the response status code should be 201
-    And I send a GET request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription"
+    And I send a GET request to "https://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription"
     Then the response status code should be 200
     And the header "content-type" should contain "application/json"
     And the JSON node "liveMode" should contain "1"
@@ -53,7 +53,7 @@ Feature: Create subscription
 
   Scenario: Purchase subscription for invalid domain
     Given I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
-    And I send a PUT request to "http://click4life.hiv.dev/api/premium-configurator/invalid.hiv/subscription" with JSON values:
+    And I send a PUT request to "https://click4life.hiv.dev/api/premium-configurator/invalid.hiv/subscription" with JSON values:
       | token    | tok_14O6xC42KFPpMZB0Q9FRb662 |
       | livemode | true                         |
       | type     | euprivate                    |
@@ -65,7 +65,7 @@ Feature: Create subscription
 
   Scenario: Purchase subscription for other users domain
     Given I add Bearer token equal to "bla"
-    And I send a PUT request to "http://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription" with JSON values:
+    And I send a PUT request to "https://click4life.hiv.dev/api/premium-configurator/test.hiv/subscription" with JSON values:
       | token    | tok_14O6xC42KFPpMZB0Q9FRb662 |
       | livemode | true                         |
       | type     | deorg                        |

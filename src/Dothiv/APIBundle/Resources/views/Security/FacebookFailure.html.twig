@@ -6,7 +6,7 @@
         <meta name="fragment" content="!">
         <title>[[ 'title' | translate ]]</title>
         {% stylesheets '@DothivCharityWebsiteBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
+            <link rel="stylesheet" href="/assetic{{ asset_url }}" />
         {% endstylesheets %}
         <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}" />
     </head>

@@ -45,7 +45,8 @@
         "component/nervgh-angular-file-upload": "1.x",
         "dothiv/dothiv-valueobject-bundle": "1.x",
         "component/besite-jquery-mmenu": "4.x",
-        "component/buberdds-angular-bootstrap-colorpicker": "3.x"
+        "component/buberdds-angular-bootstrap-colorpicker": "3.x",
+        "zeroclipboard/zeroclipboard": "2.x"
     },
     "require-dev": {
         "phploc/phploc": "*",

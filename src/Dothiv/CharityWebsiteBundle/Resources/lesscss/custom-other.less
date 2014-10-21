@@ -504,3 +504,31 @@ i {
     margin-bottom: 15px;
   }
 }
+
+// Code
+pre.clipboard {
+  padding: 10px 75px 10px 10px;
+  position: relative;
+  button.clipboard {
+    .registry-icon;
+    padding: 5px;
+    font-size: 30px;
+    color: #737373;
+    text-shadow: 1px 0px 1px #F9F9F9;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    &:before {
+      &:extend(.registry-icon-clipboard:before);
+    }
+    &.zeroclipboard-is-hover, .zeroclipboard-is-active, &:active, &:hover, &:focus {
+      outline: none;
+      background-color: #000;
+    }
+    &.copied {
+      &:before {
+        &:extend(.registry-icon-check:before);
+      } 
+    }
+  }
+}
