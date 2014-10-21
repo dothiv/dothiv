@@ -1,0 +1,104 @@
+# Assetic Configuration
+assetic:
+    write_to:       "%kernel.root_dir%/../web/assetic/"
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:
+      - 'DothivCharityWebsiteBundle'
+      - 'DothivRegistryWebsiteBundle'
+      - 'DothivAPIBundle'
+      - 'DothivTwitterBootstrapBundle'
+      - 'DothivAngularJsBundle'
+      - 'DothivQLPPartnerBundle'
+      - 'DothivPremiumConfiguratorBundle'
+      - 'DothivAdminBundle'
+      - 'DothivPayitforwardBundle'
+    #java: /usr/bin/java
+    filters:
+        less:
+            node: %node_bin%
+            node_paths: [%node_modules%]
+            apply_to: "\.less$"
+        cssrewrite: ~
+        closure:
+            jar: "%kernel.root_dir%/Resources/java/closure/compiler.jar"
+            compilation_level: SIMPLE_OPTIMIZATIONS
+        #yui_css:
+        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
+    assets:
+        punycode_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/bestiejs-punycode/punycode.js
+        angular_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular.js
+        angular_js_resource:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular-resource.js
+        angular_js_route:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular-route.js
+        angular_js_cookies:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angularjs/angular-cookies.js
+        angular_ui_router:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/angular-ui-router/release/angular-ui-router.js
+        angular_ui_bootstrap:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+            - %kernel.root_dir%/../vendor/components/bootstrap/ui-bootstrap.js
+        angular_ui_bootstrap_tpls:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+            - %kernel.root_dir%/../vendor/components/bootstrap/ui-bootstrap-tpls.js
+        angular_file_upload:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/nervgh-angular-file-upload/angular-file-upload.js
+        bootstrap_glyphicons_woff:
+            inputs:
+            - %kernel.root_dir%/../vendor/twitter/bootstrap/fonts/glyphicons-halflings-regular.woff
+            output: css/fonts/glyphicons-halflings-regular.woff
+        bootstrap_glyphicons_ttf:
+            inputs:
+            - %kernel.root_dir%/../vendor/twitter/bootstrap/fonts/glyphicons-halflings-regular.ttf
+            output: css/fonts/glyphicons-halflings-regular.ttf
+        registryicons_svg:
+            inputs:
+            - %kernel.root_dir%/../src/Dothiv/RegistryWebsiteBundle/Resources/public/fonts/registryicons.svg
+            output: css/fonts/registryicons.svg
+        registryicons_woff:
+            inputs:
+            - %kernel.root_dir%/../src/Dothiv/RegistryWebsiteBundle/Resources/public/fonts/registryicons.woff
+            output: css/fonts/registryicons.woff
+        registryicons_ttf:
+            inputs:
+            - %kernel.root_dir%/../src/Dothiv/RegistryWebsiteBundle/Resources/public/fonts/registryicons.ttf
+            output: css/fonts/registryicons.ttf
+        registryicons_eot:
+            inputs:
+            - %kernel.root_dir%/../src/Dothiv/RegistryWebsiteBundle/Resources/public/fonts/registryicons.eot
+            output: css/fonts/registryicons.eot
+        jquery:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+        jquery_mmenu_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/component/besite-jquery-mmenu/src/js/jquery.mmenu.min.all.js
+        jquery_mmenu_css:
+            inputs:
+            - %kernel.root_dir%/../vendor/component/besite-jquery-mmenu/src/css/jquery.mmenu.all.css
+        angular_colorpicker_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/buberdds-angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js
+        angular_colorpicker_css:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/buberdds-angular-bootstrap-colorpicker/css/colorpicker.css
+        # https://github.com/zeroclipboard/zeroclipboard
+        zeroclipboard_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/zeroclipboard/zeroclipboard/dist/ZeroClipboard.js
+        zeroclipboard_swf:
+            inputs:
+            - %kernel.root_dir%/../vendor/zeroclipboard/zeroclipboard/dist/ZeroClipboard.swf
+            output: swf/ZeroClipboard.swf
