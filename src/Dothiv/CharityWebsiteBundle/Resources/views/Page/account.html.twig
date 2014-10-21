@@ -28,6 +28,7 @@
 
 {% block angular_app %}
     {% javascripts
+    '@zeroclipboard_js'
     '@jquery'
     '@DothivBaseWebsiteBundle/Resources/public/vendor/github.com/bestiejs/punycode.js/punycode.js'
     '@angular_js_resource'
@@ -52,9 +53,11 @@
                     login: {
                         notfound: "{% trans %}error.login.notfound{% endtrans %}"
                     }
-                }
+                },
+                copy_to_clipboard: "{% trans %}copytoclipoard{% endtrans %}"
             };
             return strings;
         });
+        ZeroClipboard.config( { swfPath: "/assetic/swf/ZeroClipboard.swf" } );
     </script>
 {% endblock angular_app %}

@@ -42,7 +42,7 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
                 controller: 'AccountDomainBasicEditController'
             });
     }])
-    .run(['$rootScope', 'security', '$state', '$window', function ($rootScope, security, $state, $window) {
+    .run(['$rootScope', 'security', '$state', '$window', 'strings', function ($rootScope, security, $state, $window, strings) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (toState.name.match('^profile\.')) {
                 // Get the current user when the application starts (in case they are still logged in from a previous session)
@@ -62,16 +62,36 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
                 });
             }
         });
+        
         // Open external links in new windows.
         $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
-            $window.setTimeout(function() {
+            $window.setTimeout(function () {
                 $('a').filter(function (index, a) {
                     var href = $(a).attr('href');
                     if (!href) {
                         return false;
                     }
                     return href.match('^(http|\/\/)') ? true : false;
-                }).attr('target', '_blank');    
+                }).attr('target', '_blank');
+
+                // Find source code, add copy-to-clipboard button
+                $('pre code').each(function (index, code) {
+                    var code = $(code);
+                    var pre = code.parent();
+                    if (!pre.hasClass('clipboard')) {
+                        var button = $('<button class="clipboard" title="' + strings.copy_to_clipboard + '"></button>').appendTo(pre);
+                        pre.addClass('clipboard');
+                        var client = new ZeroClipboard(button);
+                        client.on("copy", function (event) {
+                            var clipboard = event.clipboardData;
+                            clipboard.setData("text/plain", code.text());
+                            button.addClass('copied');
+                            $window.setTimeout(function () {
+                                button.removeClass('copied');
+                            }, 1000);
+                        });
+                    }
+                });
             }, 0);
         });
     }])
