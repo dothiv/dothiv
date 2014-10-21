@@ -31,16 +31,16 @@
         {{ title }}
     </title>
     {% stylesheets '@DothivCharityWebsiteBundle/Resources/lesscss/custom-bootstrap.less' filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}">
+    <link rel="stylesheet" href="/assetic{{ asset_url }}">
     {% endstylesheets %}
     <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}">
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
-    '@DothivAngularJsBundle/Resources/public/angular/angular.js'
+    '@angular_js'
     '@DothivAngularJsBundle/Resources/public/extra/angular-ui.github.io/ui-bootstrap/2/angular-ui-bootstrap-tpls.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript" src="/assetic{{ asset_url }}"></script>
     {% endjavascripts %}
     <!-- Social Media Sharing -->
     <!-- Twitter cards support -->
@@ -50,7 +50,7 @@
     <meta name="twitter:description" content="{% trans %}home.who.text{% endtrans %}">
     <meta name="twitter:creator" content="dotHIV">
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
-    <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
+    <meta name="twitter:image:src" content="{{ app.request.uriForPath("/assetic" ~ asset_url) }}">
     {% endimage %}
     <!-- Facebook open graph support -->
     <meta property="og:title" content="{{ title }}">
@@ -117,7 +117,7 @@
                                 <li>
                                     <a class="social-link" href="https://www.facebook.com/dothiv" rel="me">
                                         {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-fb.png' %}
-                                        <img class="social" src="{{ asset_url }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
+                                        <img class="social" src="/assetic{{ asset_url }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
                                         {% endimage %}
                                         {% trans %}footer.social.facebook{% endtrans %}
                                     </a>
@@ -125,7 +125,7 @@
                                 <li>
                                     <a class="social-link" href="https://twitter.com/dotHIV" rel="me">
                                         {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-tw.png' %}
-                                        <img class="social" src="{{ asset_url }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
+                                        <img class="social" src="/assetic{{ asset_url }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
                                         {% endimage %}
                                         {% trans %}footer.social.twitter{% endtrans %}
                                     </a>
@@ -141,14 +141,14 @@
 
 {% block angular_app %}
 {% javascripts
-'@DothivPremiumConfiguratorBundle/Resources/public/js/vendor/jquery.js'
-'@DothivCharityWebsiteBundle/Resources/public/1.2/contentApp.js'
+'@jquery'
+'@DothivCharityWebsiteBundle/Resources/public/contentApp.js'
 '@DothivBaseWebsiteBundle/Resources/public/1.2/filters/*.js'
-'@DothivCharityWebsiteBundle/Resources/public/1.2/controllers/*.js'
+'@DothivCharityWebsiteBundle/Resources/public/controllers/*.js'
 filter='?ngmin,?closureecma5'
 output='js/*.min.js'
 %}
-<script type="text/javascript" src="{{ asset_url }}"></script>
+<script type="text/javascript" src="/assetic{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock angular_app %}
 {% block angular_config %}

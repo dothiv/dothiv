@@ -31,17 +31,17 @@
     'bundles/dothivpremiumconfigurator/lesscss/styles.less'
     '@angular_colorpicker_css'
     filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}">
+    <link rel="stylesheet" href="/assetic{{ asset_url }}">
     {% endstylesheets %}
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/favicon.png' %}
-    <link rel="shortcut icon" href="{{ asset_url }}">
+    <link rel="shortcut icon" href="/assetic{{ asset_url }}">
     {% endimage %}
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
     '@angular_js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript" src="/assetic{{ asset_url }}"></script>
     {% endjavascripts %}
     <base href="/">
 </head>
@@ -51,7 +51,7 @@
         <section>
             <h1 data-ng-cloak>
                 {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/dothiv-logo.png' %}
-                <img src="{{ asset_url }}" alt="{{ page.title }}">
+                <img src="/assetic{{ asset_url }}" alt="{{ page.title }}">
                 {% endimage %}
                 {% trans %}pc.title{% endtrans %}<br>
                 <small>{% trans %}pc.subtitle{% endtrans %}</small>
@@ -59,7 +59,7 @@
             <div id="loading" data-ng-show="loading">
                 {% trans %}pc.loading{% endtrans %}
                 {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/loader.gif' %}
-                <img src="{{ asset_url }}" alt="{% trans %}pc.loading{% endtrans %}">
+                <img src="/assetic{{ asset_url }}" alt="{% trans %}pc.loading{% endtrans %}">
                 {% endimage %}
             </div>
         </section>
@@ -81,9 +81,10 @@
     '@DothivPremiumConfiguratorBundle/Resources/public/js/services/*.js'
     '@DothivPremiumConfiguratorBundle/Resources/public/js/services/models/*.js'
     '@DothivPremiumConfiguratorBundle/Resources/public/js/controllers/*.js'
+    '@zeroclipboard_js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript" src="/assetic{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock angular_app %}
 <script type="text/javascript">
@@ -96,7 +97,7 @@
             stripe: {
                 publishableKey: '{{ stripe_publishable_key }}',
                 {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}
-                logo: '{{ asset_url }}',
+                logo: '/assetic{{ asset_url }}',
                 {% endimage %}
                 testMode: {{ stripe_testmode }}
             },
@@ -109,7 +110,8 @@
                             button: '{{ 'pc.stripe.checkout.button'|trans }}'
                         }
                     }
-                }
+                },
+                copy_to_clipboard: '{{ 'copytoclipoard'|trans }}'
             },
             {% set cycle_format = 'M. jS Y' %}
             {% if locale == 'de' %}
@@ -128,6 +130,7 @@
         };
         return config;
     });
+    ZeroClipboard.config( { swfPath: "/assetic/swf/ZeroClipboard.swf" } );
 </script>
 <script src="https://checkout.stripe.com/checkout.js"></script>
 </body>
