@@ -78,6 +78,9 @@ class AfiliasImporterService implements AfiliasImporterServiceInterface
                 case 'TRANSFER':
                     $type = AfiliasImporterBundleEvents::DOMAIN_TRANSFERRED;
                     break;
+                case 'RENEW':
+                    $type = AfiliasImporterBundleEvents::DOMAIN_RENEWED;
+                    break;
             }
             if (Option::fromValue($type)->isEmpty()) {
                 throw new ServiceException(
