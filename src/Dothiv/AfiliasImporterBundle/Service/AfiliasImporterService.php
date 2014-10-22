@@ -4,15 +4,19 @@
 namespace Dothiv\AfiliasImporterBundle\Service;
 
 use Dothiv\AfiliasImporterBundle\AfiliasImporterBundleEvents;
+use Dothiv\AfiliasImporterBundle\Event\DomainTransactionEvent;
 use Dothiv\AfiliasImporterBundle\Exception\ServiceException;
 use Dothiv\AfiliasImporterBundle\Model\PaginatedList;
+use Dothiv\ContentfulBundle\Exception\RuntimeException;
 use Dothiv\ValueObject\URLValue;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\Response;
+use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AfiliasImporterService implements AfiliasImporterServiceInterface
 {
+
     /**
      * @var \Guzzle\Http\ClientInterface
      */
@@ -44,6 +48,46 @@ class AfiliasImporterService implements AfiliasImporterServiceInterface
 
         foreach ($list->getItems() as $event) {
             $this->eventDispatcher->dispatch(AfiliasImporterBundleEvents::DOMAIN_REGISTERED, $event);
+        }
+
+        return $list->getNextUrl();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function fetchTransactions(URLValue $url)
+    {
+        $request  = $this->client->get((string)$url, array('Accept' => 'application/json'));
+        $response = $request->send();
+        $list     = $this->getListResponse($response, '\Dothiv\AfiliasImporterBundle\Event\DomainTransactionEvent');
+
+        foreach ($list->getItems() as $event) {
+            /** @var DomainTransactionEvent $event */
+            $type = null;
+            switch ($event->Command) {
+                case 'CREATE':
+                    $type = AfiliasImporterBundleEvents::DOMAIN_CREATED;
+                    break;
+                case 'UPDATE':
+                    $type = AfiliasImporterBundleEvents::DOMAIN_UPDATED;
+                    break;
+                case 'DELETE':
+                    $type = AfiliasImporterBundleEvents::DOMAIN_DELETED;
+                    break;
+                case 'TRANSFER':
+                    $type = AfiliasImporterBundleEvents::DOMAIN_TRANSFERRED;
+                    break;
+            }
+            if (Option::fromValue($type)->isEmpty()) {
+                throw new ServiceException(
+                    sprintf(
+                        'Unexpected Command for DomainTransactionEvent: "%s"!',
+                        $event->Command
+                    )
+                );
+            }
+            $this->eventDispatcher->dispatch($type, $event);
         }
 
         return $list->getNextUrl();
