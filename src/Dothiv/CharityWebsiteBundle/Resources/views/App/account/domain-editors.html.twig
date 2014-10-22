@@ -33,7 +33,7 @@
                             <h4>{{ basic.title }}</h4>
                             <p class="text-center">
                                 {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounter.png" %}
-                                <img src="/assetic{{ asset_url }}" alt="{% trans %}profile.domain.editors.basic.imgalt{% endtrans %}"/>
+                                <img src="{{ asset(asset_url) }}" alt="{% trans %}profile.domain.editors.basic.imgalt{% endtrans %}"/>
                                 {% endimage %}
                             </p>
                             <div class="ul-pinkplusstyle">
@@ -48,7 +48,7 @@
                             <h4>{{ premium.title }}</h4>
                             <p class="text-center">
                                 {% image "@DothivCharityWebsiteBundle/Resources/public/images/clickcounterpremium.png" %}
-                                <img src="/assetic{{ asset_url }}" alt="{% trans %}profile.domain.editors.premium.imgalt{% endtrans %}"/>
+                                <img src="{{ asset(asset_url) }}" alt="{% trans %}profile.domain.editors.premium.imgalt{% endtrans %}"/>
                                 {% endimage %}
                             </p>
                             <div class="ul-pinkplusstyle">

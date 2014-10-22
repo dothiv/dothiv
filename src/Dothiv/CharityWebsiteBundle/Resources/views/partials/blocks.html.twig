@@ -197,7 +197,7 @@
 {% block loading %}
 <p class="text-center">
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/loader.gif' %}
-    <img src="/assetic{{ asset_url }}" alt="{% trans %}loading.img{% endtrans %}">
+    <img src="{{ asset(asset_url) }}" alt="{% trans %}loading.img{% endtrans %}">
     {% endimage %}
 </p>
 {% endblock loading %}

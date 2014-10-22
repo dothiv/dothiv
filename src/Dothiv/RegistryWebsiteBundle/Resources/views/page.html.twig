@@ -34,7 +34,7 @@
         'bundles/dothivregistrywebsite/lesscss/styles.less'
         '@jquery_mmenu_css'
         filter='cssrewrite' %}
-    <link rel="stylesheet" href="/assetic{{ asset_url }}">
+    <link rel="stylesheet" href="{{ asset(asset_url) }}">
     {% endstylesheets %}
     <link rel="shortcut icon" href="{{ asset("bundles/dothivregistrywebsite/images/favicon.png") }}">
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
@@ -42,7 +42,7 @@
     '@angular_js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
-    <script type="text/javascript" src="/assetic{{ asset_url }}"></script>
+    <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
     {% endjavascripts %}
     <!-- Social Media Sharing -->
     <!-- Twitter cards support -->
@@ -52,7 +52,7 @@
     <meta name="twitter:description" content="{% trans %}registry.description{% endtrans %}">
     <meta name="twitter:creator" content="tldHIV">
     {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.png' %}
-    <meta name="twitter:image:src" content="{{ app.request.uriForPath("/assetic" ~ asset_url) }}">
+    <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
     {% endimage %}
     <!-- Facebook open graph support -->
     <meta property="og:title" content="{{ title }}">
@@ -71,7 +71,7 @@
             <a href="/" rel="index">
                 <h1>
                     {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.svg' %}
-                    <img src="/assetic{{ asset_url }}" alt="{% trans %}gmbh.fullname{% endtrans %}" width="120" height="69">
+                    <img src="{{ asset(asset_url) }}" alt="{% trans %}gmbh.fullname{% endtrans %}" width="120" height="69">
                     {% endimage %}
                     <small>
                         {{ 'gmbh.header.title'|trans|replace({'|': "\n"})|nl2br }}
@@ -83,7 +83,7 @@
                 <a href="{{ path('dothiv_charity_index', {'locale': locale}) }}" rel="friend met" class="charity external">
                     {% trans %}gmbh.header.back{% endtrans %}
                     {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-logo.svg' %}
-                    <img src="/assetic{{ asset_url }}" alt="{% trans %}charity.fullname{% endtrans %}" width="60" height="35">
+                    <img src="{{ asset(asset_url) }}" alt="{% trans %}charity.fullname{% endtrans %}" width="60" height="35">
                     {% endimage %}
                 </a>
             </nav>
@@ -148,7 +148,7 @@
             <div class="logo">
                 <h2>
                     {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.svg' %}
-                    <img class="logo" src="/assetic{{ asset_url }}" alt="{% trans %}gmbh.fullname{% endtrans %}" width="60" height="35">
+                    <img class="logo" src="{{ asset(asset_url) }}" alt="{% trans %}gmbh.fullname{% endtrans %}" width="60" height="35">
                     {% endimage %}
                     <small>{% trans %}gmbh.footer.slogan{% endtrans %}</small>
                 </h2>
@@ -187,7 +187,7 @@
     filter='?ngmin,?closureecma5'
     output='js/*.min.js'
 %}
-<script type="text/javascript" src="/assetic{{ asset_url }}"></script>
+<script type="text/javascript" src="{{ asset(asset_url) }}"></script>
 {% endjavascripts %}
 {% endblock angular_app %}
 {% block angular_config %}

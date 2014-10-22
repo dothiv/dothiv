@@ -16,11 +16,11 @@
                 {% block wherethemoneygoes %}
                     {% if locale == "de" %}
                         {% image '@DothivCharityWebsiteBundle/Resources/public/images/where_the_money_goes_960_w-de.jpg' %}
-                        <img src="/assetic{{ asset_url }}" alt="" >
+                        <img src="{{ asset(asset_url) }}" alt="" >
                         {% endimage %}
                     {% else %}
                         {% image '@DothivCharityWebsiteBundle/Resources/public/images/where_the_money_goes_960_w.jpg' %}
-                        <img src="/assetic{{ asset_url }}" alt="" >
+                        <img src="{{ asset(asset_url) }}" alt="" >
                         {% endimage %}
                     {% endif %}
 
