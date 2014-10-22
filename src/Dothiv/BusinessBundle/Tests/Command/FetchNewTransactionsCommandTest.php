@@ -3,17 +3,15 @@
 namespace Dothiv\BusinessBundle\Tests\Entity\Command;
 
 use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
-use Dothiv\BusinessBundle\Command\FetchNewRegistrationsCommand;
+use Dothiv\BusinessBundle\Command\FetchNewTransactionsCommand;
 use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\ValueObject\URLValue;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Test for FetchNewRegistrationsCommand
- *
- * @author Markus Tacker <m@click4life.hiv>
+ * Test for FetchNewTransactionsCommandTest
  */
-class FetchNewRegistrationsCommandTest extends \PHPUnit_Framework_TestCase
+class FetchNewTransactionsCommandTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Symfony\Component\Console\Input\InputInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -47,7 +45,7 @@ class FetchNewRegistrationsCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldBeInstantiateable()
     {
-        $this->assertInstanceOf('Dothiv\BusinessBundle\Command\FetchNewRegistrationsCommand', $this->getTestObject());
+        $this->assertInstanceOf('Dothiv\BusinessBundle\Command\FetchNewTransactionsCommand', $this->getTestObject());
     }
 
     /**
@@ -56,7 +54,7 @@ class FetchNewRegistrationsCommandTest extends \PHPUnit_Framework_TestCase
      * @group   Command
      * @depends itShouldBeInstantiateable
      */
-    public function itShouldFetchRegistrations()
+    public function itShouldFetchTransactions()
     {
         $containerMap = array(
             array('dothiv_afilias_importer.service', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockAfiliasImporterService),
@@ -72,22 +70,22 @@ class FetchNewRegistrationsCommandTest extends \PHPUnit_Framework_TestCase
         $this->mockContainer->expects($this->any())->method('getParameter')
             ->will($this->returnValueMap($parameterMap));
 
-        $this->mockAfiliasImporterService->expects($this->once())->method('fetchRegistrations')
+        $this->mockAfiliasImporterService->expects($this->once())->method('fetchTransactions')
             ->with($this->callback(function (URLValue $url) {
-                $this->assertEquals('http://localhost:8666/registrations', (string)$url);
+                $this->assertEquals('http://localhost:8666/transactions', (string)$url);
                 return true;
             }))
-            ->will($this->returnValue('http://localhost:8666/registrations?offsetKey=2863499'));
+            ->will($this->returnValue('http://localhost:8666/transactions?offsetKey=2863499'));
 
         $config = new Config();
-        $config->setName('dothiv_afilias_importer.registrations.next_url');
+        $config->setName('dothiv_afilias_importer.transactions.next_url');
         $this->mockConfigRepo->expects($this->once())->method('get')
-            ->with('dothiv_afilias_importer.registrations.next_url')
+            ->with('dothiv_afilias_importer.transactions.next_url')
             ->will($this->returnValue($config));
 
         $this->mockConfigRepo->expects($this->once())->method('persist')
             ->with($this->callback(function (Config $config) {
-                $this->assertEquals('http://localhost:8666/registrations?offsetKey=2863499', $config->getValue());
+                $this->assertEquals('http://localhost:8666/transactions?offsetKey=2863499', $config->getValue());
                 return true;
             }))
             ->will($this->returnSelf());
@@ -102,7 +100,7 @@ class FetchNewRegistrationsCommandTest extends \PHPUnit_Framework_TestCase
      */
     protected function getTestObject()
     {
-        $command = new FetchNewRegistrationsCommand();
+        $command = new FetchNewTransactionsCommand();
         $command->setContainer($this->mockContainer);
         return $command;
     }

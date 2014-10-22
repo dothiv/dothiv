@@ -3,7 +3,7 @@
 namespace Dothiv\BusinessBundle\Command;
 
 use Dothiv\AfiliasImporterBundle\AfiliasImporterBundleEvents;
-use Dothiv\AfiliasImporterBundle\Event\DomainRegisteredEvent;
+use Dothiv\AfiliasImporterBundle\Event\DomainTransactionEvent;
 use Dothiv\AfiliasImporterBundle\Service\AfiliasImporterServiceInterface;
 use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
@@ -16,17 +16,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * A command to fetch new domain registrations and register the in the app
- *
- * @author Markus Tacker <m@dotHIV.org>
+ * A command to fetch new domain transactions and register them in the app
  */
-class FetchNewRegistrationsCommand extends ContainerAwareCommand
+class FetchNewTransactionsCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('dothiv:registrations:fetch')
-            ->setDescription('Fetch new domain registrations.')
+            ->setName('dothiv:transactions:fetch')
+            ->setDescription('Fetch new domain transactions.')
             ->addOption('url', 'u', InputOption::VALUE_OPTIONAL, 'Importer Service URL');
     }
 
@@ -37,21 +35,30 @@ class FetchNewRegistrationsCommand extends ContainerAwareCommand
         /** @var Config $config */
         $configRepo = $this->getContainer()->get('dothiv.repository.config');
         $service    = $this->getContainer()->get('dothiv_afilias_importer.service');
-        $config     = $configRepo->get('dothiv_afilias_importer.registrations.next_url');
+        $config     = $configRepo->get('dothiv_afilias_importer.transactions.next_url');
 
         $url = Option::fromValue($input->getOption('url'))->getOrElse(
-            Option::fromValue($config->getValue())->getOrElse($this->getContainer()->getParameter('dothiv_afilias_importer.service_url') . 'registrations')
+            Option::fromValue($config->getValue())->getOrElse($this->getContainer()->getParameter('dothiv_afilias_importer.service_url') . 'transactions')
         );
 
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_QUIET) {
             /** @var EventDispatcherInterface $dispatcher */
             $dispatcher = $this->getContainer()->get('dothiv.business.event_dispatcher');
-            $dispatcher->addListener(AfiliasImporterBundleEvents::DOMAIN_REGISTERED, function (DomainRegisteredEvent $event) use ($output) {
-                $output->writeln(sprintf('New registration: %s', $event->DomainName));
-            });
+
+            $eventMap = array(
+                AfiliasImporterBundleEvents::DOMAIN_CREATED     => 'created',
+                AfiliasImporterBundleEvents::DOMAIN_DELETED     => 'deleted',
+                AfiliasImporterBundleEvents::DOMAIN_TRANSFERRED => 'transferred',
+                AfiliasImporterBundleEvents::DOMAIN_UPDATED     => 'updated',
+            );
+            foreach ($eventMap as $type => $meaning) {
+                $dispatcher->addListener($type, function (DomainTransactionEvent $event) use ($output, $meaning) {
+                    $output->writeln(sprintf('Domain %s: %s', $meaning, $event->ObjectName));
+                });
+            }
         }
 
-        $nextUrl = $service->fetchRegistrations(new URLValue($url));
+        $nextUrl = $service->fetchTransactions(new URLValue($url));
         $config->setValue((string)$nextUrl);
         $configRepo->persist($config)->flush();
 
