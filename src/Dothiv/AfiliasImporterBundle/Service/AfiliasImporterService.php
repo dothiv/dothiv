@@ -7,11 +7,9 @@ use Dothiv\AfiliasImporterBundle\AfiliasImporterBundleEvents;
 use Dothiv\AfiliasImporterBundle\Event\DomainTransactionEvent;
 use Dothiv\AfiliasImporterBundle\Exception\ServiceException;
 use Dothiv\AfiliasImporterBundle\Model\PaginatedList;
-use Dothiv\ContentfulBundle\Exception\RuntimeException;
 use Dothiv\ValueObject\URLValue;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\Response;
-use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AfiliasImporterService implements AfiliasImporterServiceInterface
@@ -64,6 +62,19 @@ class AfiliasImporterService implements AfiliasImporterServiceInterface
 
         foreach ($list->getItems() as $event) {
             /** @var DomainTransactionEvent $event */
+            switch ($event->ObjectType) {
+                case 'DOMAIN':
+                    continue; // pass
+                case 'NAMESERVER':
+                    continue 2; // not interesting
+                default:
+                    throw new ServiceException(
+                        sprintf(
+                            'Unexpected ObjectType for DomainTransactionEvent: "%s"!',
+                            $event->ObjectType
+                        )
+                    );
+            }
             $type = null;
             switch ($event->Command) {
                 case 'CREATE':
@@ -81,14 +92,13 @@ class AfiliasImporterService implements AfiliasImporterServiceInterface
                 case 'RENEW':
                     $type = AfiliasImporterBundleEvents::DOMAIN_RENEWED;
                     break;
-            }
-            if (Option::fromValue($type)->isEmpty()) {
-                throw new ServiceException(
-                    sprintf(
-                        'Unexpected Command for DomainTransactionEvent: "%s"!',
-                        $event->Command
-                    )
-                );
+                default:
+                    throw new ServiceException(
+                        sprintf(
+                            'Unexpected Command for DomainTransactionEvent: "%s"!',
+                            $event->Command
+                        )
+                    );
             }
             $this->eventDispatcher->dispatch($type, $event);
         }
