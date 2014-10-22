@@ -23,5 +23,6 @@ services:
     class: %dothiv_business.listener.domain_transaction.class%
     arguments:
       - @registration
+      - @dothiv.repository.domain
     tags:
       - { name: dothiv.business.event_listener, event: dothiv_afilias_importer.domain_deleted, method: onDomainDeleted }
