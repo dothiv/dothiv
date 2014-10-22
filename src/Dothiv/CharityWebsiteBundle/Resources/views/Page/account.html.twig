@@ -43,7 +43,7 @@
     '@DothivCharityWebsiteBundle/Resources/public/controllers/account/*.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
-    <script type="text/javascript" src="/assetic{{ asset_url }}"></script>
+    <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
     {% endjavascripts %}
     <script type="text/javascript">
         'use strict';
@@ -58,6 +58,6 @@
             };
             return strings;
         });
-        ZeroClipboard.config( { swfPath: "/assetic/swf/ZeroClipboard.swf" } );
+        ZeroClipboard.config( { swfPath: "/swf/ZeroClipboard.swf" } );
     </script>
 {% endblock angular_app %}

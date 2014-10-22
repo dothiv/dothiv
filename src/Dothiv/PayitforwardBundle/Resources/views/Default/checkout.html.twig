@@ -25,7 +25,7 @@
     '@DothivPayitforwardBundle/Resources/public/js/services/models/*.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
-    <script type="text/javascript" src="/assetic{{ asset_url }}"></script>
+    <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
     {% endjavascripts %}
     {# Stripe #}
     <script src="https://checkout.stripe.com/checkout.js"></script>
@@ -68,7 +68,7 @@
                 stripe: {
                     publishableKey: '{{ stripe_publishable_key }}',
                     {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}
-                    logo: '/assetic{{ asset_url }}',
+                    logo: '{{ asset(asset_url) }}',
                     {% endimage %}
                     testMode: {{ stripe_testmode }}
                 },
