@@ -1,7 +1,8 @@
 parameters:
   dothiv_business.listener.create_registration.class: Dothiv\BusinessBundle\Listener\CreateRegistrationListener
   dothiv_business.listener.notify_podio_registration.class: Dothiv\BusinessBundle\Listener\NotifyPodioRegistrationListener
-
+  dothiv_business.listener.domain_transaction.class: Dothiv\BusinessBundle\Listener\DomainTransactionListener
+  
 services:
   dothiv_business.listener.create_registration:
     class: %dothiv_business.listener.create_registration.class%
@@ -17,4 +18,10 @@ services:
         - %dothiv_business.podio%
       tags:
         - { name: kernel.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
-        #- { name: dothiv.business.event_listener, event: dothiv_afilias_importer.create_registration, method: onDomainRegistered }
+        
+  dothiv_business.listener.domain_transaction:
+    class: %dothiv_business.listener.domain_transaction.class%
+    arguments:
+      - @registration
+    tags:
+      - { name: dothiv.business.event_listener, event: dothiv_afilias_importer.domain_deleted, method: onDomainDeleted }
