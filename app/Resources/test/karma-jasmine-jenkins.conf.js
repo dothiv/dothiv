@@ -18,6 +18,9 @@ module.exports = function (config) {
             'src/Dothiv/BaseWebsiteBundle/Resources/public/js/services/models/*.js',
             'src/Dothiv/BaseWebsiteBundle/Resources/public/js/filters/*.js',
             'src/Dothiv/BaseWebsiteBundle/Resources/test/unit/**/*.js',
+            // CharityWebsiteBundle
+            'src/Dothiv/CharityWebsiteBundle/Resources/public/js/controllers/**/*.js',
+            'src/Dothiv/CharityWebsiteBundle/Resources/test/unit/**/*.js',
             // RegistryWebsiteBundle
             'src/Dothiv/RegistryWebsiteBundle/Resources/public/js/controllers/**/*.js',
             'src/Dothiv/RegistryWebsiteBundle/Resources/test/unit/**/*.js'
