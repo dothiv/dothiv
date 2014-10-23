@@ -18,7 +18,7 @@ angular.module('dotHIVApp.controllers').controller('HivDomainListController', ['
         }
 
         function setDomain() {
-            $scope.domain = domains[offset];
+            $scope.domain = domains[offset < 0 ? offset + domains.length : offset];
         }
 
         var shuffle = function (o) {
