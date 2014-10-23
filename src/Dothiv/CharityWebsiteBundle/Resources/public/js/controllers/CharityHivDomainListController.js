@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('HivDomainListController', ['$scope', '$http', 'config',
+angular.module('dotHIVApp.controllers').controller('CharityHivDomainListController', ['$scope', '$http', 'config',
     function ($scope, $http, config) {
         var domains = [];
         var offset = 0;
