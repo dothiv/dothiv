@@ -21,21 +21,24 @@ trait PaginatedQueryTrait
      */
     protected function buildPaginatedResult(QueryBuilder $qb, $offsetKey = null, $offsetDir = null)
     {
-        $statsQb = clone $qb;
-        list(, $total, $minKey, $maxKey) = $statsQb->select('COUNT(i), MAX(i.id), MIN(i.id)')->getQuery()->getScalarResult()[0];
+        $sortField = $this->getPaginationSortField();
+        $statsQb   = clone $qb;
+        list(, $total, $minKey, $maxKey)
+            = $statsQb->select(sprintf('COUNT(i), MAX(i.%s), MIN(i.%s)', $sortField, $sortField))
+            ->getQuery()->getScalarResult()[0];
         $paginatedResult = new PaginatedResult(10, $total);
         $offsetDir       = Option::fromValue($offsetDir)->getOrElse('forward');
         if (Option::fromValue($offsetKey)->isDefined()) {
             if ($offsetDir == 'back') {
-                $qb->orderBy('i.id', 'ASC');
-                $qb->andWhere('i.id > :offsetKey')->setParameter('offsetKey', $offsetKey);
+                $qb->orderBy(sprintf('i.%s', $sortField), 'ASC');
+                $qb->andWhere(sprintf('i.%s > :offsetKey', $sortField))->setParameter('offsetKey', $offsetKey);
             } else { // forward
-                $qb->orderBy('i.id', 'DESC');
-                $qb->andWhere('i.id < :offsetKey')->setParameter('offsetKey', $offsetKey);
+                $qb->orderBy(sprintf('i.%s', $sortField), 'DESC');
+                $qb->andWhere(sprintf('i.%s < :offsetKey', $sortField))->setParameter('offsetKey', $offsetKey);
             }
 
         } else {
-            $qb->orderBy('i.id', 'DESC');
+            $qb->orderBy(sprintf('i.%s', $sortField), 'DESC');
         }
         $qb->setMaxResults($paginatedResult->getItemsPerPage());
 
@@ -62,5 +65,13 @@ trait PaginatedQueryTrait
         }
 
         return $paginatedResult;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getPaginationSortField()
+    {
+        return 'id';
     }
 } 

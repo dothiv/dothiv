@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\ConfigRepository")
  * @Serializer\ExclusionPolicy("all")
  */
-class Config
+class Config implements EntityInterface
 {
     use Traits\CreateUpdateTime;
 
