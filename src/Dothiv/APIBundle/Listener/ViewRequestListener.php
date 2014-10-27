@@ -9,6 +9,7 @@ use PhpOption\Option;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\ValidatorInterface;
 
 class ViewRequestListener
@@ -67,7 +68,11 @@ class ViewRequestListener
             throw new BadRequestHttpException($e->getMessage());
         }
 
-        $errors = $this->validator->validate($model);
+        try {
+            $errors = $this->validator->validate($model);
+        } catch (UnexpectedTypeException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
 
         if (count($errors) == 0) {
             $request->attributes->set('model', $model);
