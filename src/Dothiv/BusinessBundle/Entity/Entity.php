@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\MappedSuperclass
  * @Serializer\ExclusionPolicy("all")
  */
-class Entity
+class Entity implements EntityInterface
 {
     /**
      * database primary key

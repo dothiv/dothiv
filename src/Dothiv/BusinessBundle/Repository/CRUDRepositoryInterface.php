@@ -5,7 +5,7 @@ namespace Dothiv\BusinessBundle\Repository;
 
 use PhpOption\Option;
 
-interface CRUDRepository
+interface CRUDRepositoryInterface
 {
     /**
      * Returns a list of items

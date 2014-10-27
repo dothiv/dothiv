@@ -5,12 +5,12 @@ namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\Config;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
-use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use PhpOption\Option;
 
-class ConfigRepository extends DoctrineEntityRepository implements ConfigRepositoryInterface
+class ConfigRepository extends DoctrineEntityRepository implements ConfigRepositoryInterface, CRUDRepositoryInterface
 {
-    use ValidatorTrait;
+    use Traits\ValidatorTrait;
+    use Traits\PaginatedQueryTrait;
 
     /**
      * {@inheritdoc}
@@ -43,4 +43,29 @@ class ConfigRepository extends DoctrineEntityRepository implements ConfigReposit
             return $config;
         });
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPaginated($offsetKey = null, $offsetDir = null)
+    {
+        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $offsetKey, $offsetDir);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getItemByIdentifier($identifier)
+    {
+        return Option::fromValue($this->get($identifier));
+    }
+
+    /**
+     * @return string
+     */
+    protected function getPaginationSortField()
+    {
+        return 'updated';
+    }
+
 }

@@ -11,7 +11,7 @@ use PhpOption\Option;
 /**
  * This repository contains the NonProfitRegistrations.
  */
-interface NonProfitRegistrationRepositoryInterface extends ObjectRepository, CRUDRepository
+interface NonProfitRegistrationRepositoryInterface extends ObjectRepository, CRUDRepositoryInterface
 {
     /**
      * Persist the entity.
