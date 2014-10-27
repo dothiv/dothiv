@@ -2,10 +2,10 @@
 
 <project name="dotHIV Platform" default="build-stable">
     <target name="build"
-            depends="install-deps-latest,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpunit,phpcb,reset-deps"/>
+            depends="install-deps-latest,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpunit,phpcb,karma-jasmine,reset-deps"/>
 
     <target name="build-stable"
-            depends="install-deps,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpunit,phpcb,reset-deps"/>
+            depends="install-deps,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpunit,phpcb,karma-jasmine,reset-deps"/>
 
     <target name="test" depends="phpunit"/>
 
@@ -209,7 +209,7 @@
     <target name="karma-jasmine" description="Run AngularJS Unit Tests" depends="prepare,install-deps-node">
         <exec executable="${basedir}/node_modules/karma/bin/karma" failonerror="true">
             <arg value="start"/>
-            <arg value="${basedir}/app/karma-jasmine.conf.js"/>
+            <arg value="${basedir}/app/Resources/test/karma-jasmine-jenkins.conf.js"/>
         </exec>
     </target>
 </project>

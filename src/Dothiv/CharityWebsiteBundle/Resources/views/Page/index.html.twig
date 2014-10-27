@@ -34,7 +34,7 @@
         <div class="row bottom-hack">
             <div class="pos-rel">
                 {% image '@DothivCharityWebsiteBundle/Resources/public/images/whosbehind.png' %}
-                <img class="overflow-up" src="/assetic{{ asset_url }}" alt="">
+                <img class="overflow-up" src="{{ asset(asset_url) }}" alt="">
                 {% endimage %}
             </div>
         </div>
@@ -42,7 +42,7 @@
     <hr class="bottom-shadow">
 
     {# Domains #}
-    <div data-ng-cloak data-ng-controller="HivDomainListController" data-ng-show="domain">
+    <div data-ng-cloak data-ng-controller="CharityHivDomainListController" data-ng-show="domain">
         <div class="container domains">
             <div class="row">
                 <div class="span12">

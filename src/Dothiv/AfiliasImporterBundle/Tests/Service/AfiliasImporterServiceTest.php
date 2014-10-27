@@ -4,6 +4,7 @@ namespace Dothiv\AfiliasImporterBundle\Tests\Service;
 
 use Dothiv\AfiliasImporterBundle\AfiliasImporterBundleEvents;
 use Dothiv\AfiliasImporterBundle\Event\DomainRegisteredEvent;
+use Dothiv\AfiliasImporterBundle\Event\DomainTransactionEvent;
 use Dothiv\AfiliasImporterBundle\Service\AfiliasImporterService;
 use Dothiv\ValueObject\URLValue;
 use Guzzle\Http\Client;
@@ -11,6 +12,7 @@ use Guzzle\Plugin\Mock\MockPlugin;
 
 class AfiliasImporterServiceTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var Client
      */
@@ -35,7 +37,7 @@ class AfiliasImporterServiceTest extends \PHPUnit_Framework_TestCase
      * @group   DothivAfiliasImporterBundle
      * @depends ensureThatItCanBeInstantiated
      */
-    public function testThatItFetchesTheResults()
+    public function testThatItFetchesTheRegistrations()
     {
         // Mock response
         $plugin = new MockPlugin();
@@ -76,6 +78,54 @@ class AfiliasImporterServiceTest extends \PHPUnit_Framework_TestCase
 
         $nextUrl = $this->getTestObject()->fetchRegistrations(new URLValue('http://localhost:8666/registrations'));
         $this->assertEquals('http://localhost:8666/registrations?offsetKey=2863499', (string)$nextUrl);
+    }
+
+    /**
+     * @test
+     * @group   DothivAfiliasImporterBundle
+     * @depends ensureThatItCanBeInstantiated
+     */
+    public function testThatItFetchesTheTransactions()
+    {
+        // Mock response
+        $plugin = new MockPlugin();
+        $plugin->addResponse(__DIR__ . '/../data/transactions.data');
+        $this->client->addSubscriber($plugin);
+
+        $this->mockEventDispatcher->expects($this->at(0))->method('dispatch')
+            ->with(
+                AfiliasImporterBundleEvents::DOMAIN_CREATED,
+                $this->callback(function (DomainTransactionEvent $event) {
+                    $this->assertEquals("hiv", $event->TLD);
+                    $this->assertEquals("1155-YN", $event->RegistrarExtID);
+                    $this->assertEquals("Whois Networks Co., Ltd.", $event->RegistrarName);
+                    $this->assertEquals("26515244", $event->ServerTrID);
+                    $this->assertEquals("CREATE", $event->Command);
+                    $this->assertEquals("DOMAIN", $event->ObjectType);
+                    $this->assertEquals("samsung.hiv", $event->ObjectName);
+                    $this->assertEquals("2014-07-25 08:04:03", $event->TransactionDate);
+                    return true;
+                })
+            );
+
+        $this->mockEventDispatcher->expects($this->at(8))->method('dispatch')
+            ->with(
+                AfiliasImporterBundleEvents::DOMAIN_DELETED,
+                $this->callback(function (DomainTransactionEvent $event) {
+                    $this->assertEquals("hiv", $event->TLD);
+                    $this->assertEquals("1508-KS", $event->RegistrarExtID);
+                    $this->assertEquals("Key-Systems, LLC", $event->RegistrarName);
+                    $this->assertEquals("27568803", $event->ServerTrID);
+                    $this->assertEquals("DELETE", $event->Command);
+                    $this->assertEquals("DOMAIN", $event->ObjectType);
+                    $this->assertEquals("red2.hiv", $event->ObjectName);
+                    $this->assertEquals("2014-10-01 07:13:23", $event->TransactionDate);
+                    return true;
+                })
+            );
+
+        $nextUrl = $this->getTestObject()->fetchTransactions(new URLValue('http://localhost:8666/transactions'));
+        $this->assertEquals('http://localhost:8666/transactions?offsetKey=27568803', (string)$nextUrl);
     }
 
     /**
