@@ -15,26 +15,27 @@ angular.module('dotHIVApp.controllers').controller('RegistrarsListController', [
             var converted = false;
             if (typeof  registrar[col] == 'undefined') {
                 if (currency == 'Usd' && typeof  registrar['pricePerYearEur'] != 'undefined') {
-                    registrar[col] = registrar['pricePerYearEur'] * config.eur_to_usd;
+                    registrar[col] = registrar['pricePerYearEur'] / config.eur_to_usd;
                     converted = true;
                 } else if (currency == 'Eur' && typeof registrar['pricePerYearUsd'] != 'undefined') {
-                    registrar[col] = registrar['pricePerYearUsd'] / config.eur_to_usd;
+                    registrar[col] = registrar['pricePerYearUsd'] * config.eur_to_usd;
                     converted = true;
                 } else {
                     return ["–", Infinity];
                 }
+
             }
             var value = parseInt(registrar[col], 10);
-            var sortValue = parseInt(registrar['pricePerYearUsd'], 10);
+            var valueLabel;
             if (currency == 'Usd') {
-                var valueLabel = mf.decimalFormat(value, '$');
+                valueLabel = mf.decimalFormat(value, '$');
             } else {
-                var valueLabel = mf.decimalFormat(value, '€');
+                valueLabel = mf.decimalFormat(value, '€');
             }
             if (converted) {
                 valueLabel = '*' + valueLabel;
             }
-            return [valueLabel, sortValue]
+            return [valueLabel, value]
         }
 
         function success(data) {
@@ -72,5 +73,8 @@ angular.module('dotHIVApp.controllers').controller('RegistrarsListController', [
             }
         };
 
-        $http({method: 'GET', url: '/' + config.locale + '/content/Registrar?markdown=promotion:inline'}).success(success);
+        $http({
+            method: 'GET',
+            url: '/' + config.locale + '/content/Registrar?markdown=promotion:inline'
+        }).success(success);
     }]);

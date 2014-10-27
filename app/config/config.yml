@@ -16,7 +16,7 @@ framework:
     templating:
         engines: ['twig']
         assets_version: %assets_version%
-        assets_base_urls: /assetic
+        assets_base_urls: ~
     default_locale:  "%locale%"
     trusted_proxies: ~
     session:         ~

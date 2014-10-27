@@ -30,10 +30,10 @@
     {% stylesheets
     'bundles/dothivpremiumconfigurator/lesscss/blank.less'
     filter='cssrewrite' %}
-    <link rel="stylesheet" href="/assetic{{ asset_url }}">
+    <link rel="stylesheet" href="{{ asset(asset_url) }}">
     {% endstylesheets %}
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/favicon.png' %}
-    <link rel="shortcut icon" href="/assetic{{ asset_url }}">
+    <link rel="shortcut icon" href="{{ asset(asset_url) }}">
     {% endimage %}
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     <base href="/">

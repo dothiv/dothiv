@@ -26,4 +26,7 @@
 /app/config/parameters_test.yml
 /web/uploads
 /*.sh
-/web/assetic
+/web/css
+/web/images
+/web/js
+/web/swf

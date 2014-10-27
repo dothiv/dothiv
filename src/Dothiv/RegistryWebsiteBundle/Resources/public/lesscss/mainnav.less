@@ -23,23 +23,24 @@ nav.main {
   button.toggle {
     .btn;
     .btn-default;
-    position: absolute;
+    position: fixed;
+    z-index: 1000;
     top: @header-margin;
     right: @grid-gutter-width / 2;
     background-color: #f3f3f3;
+    border-color: #adadad;
     span.icon-bar {
       display: block;
       width: 22px;
       height: 4px;
       border-radius: 1px;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: @brand-primary;
       margin: 4px 0;
     }
     &:hover, &:active, &:focus {
-      background-color: rgba(0, 0, 0, 0.3);
-      span.icon-bar {
-        background-color: #f3f3f3;
-      }
+      outline: none;
+      border-color: @brand-primary;
+      background-color: #f3f3f3;
     }
   }
   

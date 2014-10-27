@@ -30,20 +30,20 @@
     {% javascripts
     '@zeroclipboard_js'
     '@jquery'
-    '@DothivBaseWebsiteBundle/Resources/public/vendor/github.com/bestiejs/punycode.js/punycode.js'
+    '@punycode_js'
     '@angular_js_resource'
     '@angular_js_route'
     '@angular_js_cookies'
     '@angular_ui_router'
-    '@DothivCharityWebsiteBundle/Resources/public/app.js'
-    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/*.js'
-    '@DothivBaseWebsiteBundle/Resources/public/1.2/services/models/*.js'
-    '@DothivBaseWebsiteBundle/Resources/public/1.2/filters/*.js'
-    '@DothivCharityWebsiteBundle/Resources/public/controllers/*.js'
-    '@DothivCharityWebsiteBundle/Resources/public/controllers/account/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/js/app.js'
+    '@DothivBaseWebsiteBundle/Resources/public/js/services/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/js/services/models/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/js/filters/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/js/controllers/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/js/controllers/account/*.js'
     filter='?ngmin,?closureecma5'
     output='js/*.min.js' %}
-    <script type="text/javascript" src="/assetic{{ asset_url }}"></script>
+    <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
     {% endjavascripts %}
     <script type="text/javascript">
         'use strict';
@@ -58,6 +58,6 @@
             };
             return strings;
         });
-        ZeroClipboard.config( { swfPath: "/assetic/swf/ZeroClipboard.swf" } );
+        ZeroClipboard.config( { swfPath: "/swf/ZeroClipboard.swf" } );
     </script>
 {% endblock angular_app %}
