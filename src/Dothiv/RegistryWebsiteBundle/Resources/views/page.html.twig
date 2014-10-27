@@ -196,7 +196,7 @@
     angular.module('dotHIVApp.services').factory('config', function() {
         var config = {
             locale: '{{ locale }}',
-            eur_to_usd: {{ eur_to_usd }}
+            eur_to_usd: {{ config('eur_to_usd', 'float') }}
         };
         return config;
     });

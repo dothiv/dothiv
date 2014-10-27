@@ -37,7 +37,6 @@ twig:
       googleanalytics_registry: %googleanalytics_registry%
       stripe_publishable_key: %stripe_publishable_key%
       stripe_testmode: %stripe_testmode%
-      eur_to_usd: %eur_to_usd%
       premium_price: %premium_price%
       devat: %devat%
       payitforward_price: %payitforward_price%

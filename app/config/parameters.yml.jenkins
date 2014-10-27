@@ -44,9 +44,6 @@ parameters:
     devat: 19
     payitforward_price: 16000
 
-    # Money conversion
-    eur_to_usd: 1.328515
-
     # Pinkbar
     eur_goal: 61801
     already_donated: 0
