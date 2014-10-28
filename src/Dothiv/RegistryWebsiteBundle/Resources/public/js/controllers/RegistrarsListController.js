@@ -15,10 +15,10 @@ angular.module('dotHIVApp.controllers').controller('RegistrarsListController', [
             var converted = false;
             if (typeof  registrar[col] == 'undefined') {
                 if (currency == 'Usd' && typeof  registrar['pricePerYearEur'] != 'undefined') {
-                    registrar[col] = registrar['pricePerYearEur'] / config.eur_to_usd;
+                    registrar[col] = registrar['pricePerYearEur'] * config.eur_to_usd;
                     converted = true;
                 } else if (currency == 'Eur' && typeof registrar['pricePerYearUsd'] != 'undefined') {
-                    registrar[col] = registrar['pricePerYearUsd'] * config.eur_to_usd;
+                    registrar[col] = registrar['pricePerYearUsd'] / config.eur_to_usd;
                     converted = true;
                 } else {
                     return ["–", Infinity];
