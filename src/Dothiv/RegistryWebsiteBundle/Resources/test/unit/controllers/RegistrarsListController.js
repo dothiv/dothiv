@@ -9,7 +9,7 @@ describe('RegistrarsListController', function () {
 
         config = {
             locale: 'en',
-            eur_to_usd: 0.5
+            eur_to_usd: 2
         };
         scope = $rootScope.$new();
         ctrl = $controller('RegistrarsListController', {'$scope': scope, 'config': config});
