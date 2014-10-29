@@ -18,4 +18,16 @@ trait CreateJsonResponseTrait
         $response->setMaxAge(0);
         return $response;
     }
+
+    /**
+     * @return Response
+     */
+    protected function createNoContentResponse()
+    {
+        $response = new Response();
+        $response->headers->set('Expires', '-1');
+        $response->setMaxAge(0);
+        $response->setStatusCode(204);
+        return $response;
+    }
 } 

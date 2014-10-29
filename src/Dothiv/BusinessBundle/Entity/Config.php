@@ -78,4 +78,11 @@ class Config implements EntityInterface
         return $this->value;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
+    {
+        return $this->getName();
+    }
 } 

@@ -4,7 +4,7 @@ namespace Dothiv\BusinessBundle\Repository\Traits;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
-use Dothiv\BusinessBundle\Entity\Entity;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Repository\PaginatedResult;
 use PhpOption\Option;
 
@@ -16,12 +16,13 @@ trait PaginatedQueryTrait
      * @param QueryBuilder $qb
      * @param mixed|null   $offsetKey
      * @param mixed|null   $offsetDir
+     * @param string       $sortField
      *
      * @return PaginatedResult
      */
-    protected function buildPaginatedResult(QueryBuilder $qb, $offsetKey = null, $offsetDir = null)
+    protected function buildPaginatedResult(QueryBuilder $qb, $offsetKey = null, $offsetDir = null, $sortField = null)
     {
-        $sortField = $this->getPaginationSortField();
+        $sortField = Option::fromValue($sortField)->getOrElse('id');
         $statsQb   = clone $qb;
         list(, $total, $minKey, $maxKey)
             = $statsQb->select(sprintf('COUNT(i), MAX(i.%s), MIN(i.%s)', $sortField, $sortField))
@@ -36,7 +37,6 @@ trait PaginatedQueryTrait
                 $qb->orderBy(sprintf('i.%s', $sortField), 'DESC');
                 $qb->andWhere(sprintf('i.%s < :offsetKey', $sortField))->setParameter('offsetKey', $offsetKey);
             }
-
         } else {
             $qb->orderBy(sprintf('i.%s', $sortField), 'DESC');
         }
@@ -45,33 +45,22 @@ trait PaginatedQueryTrait
         $items = $qb
             ->getQuery()
             ->getResult();
-        if ($offsetDir == 'back') {
-            $items = array_reverse($items);
-        }
         $result = new ArrayCollection($items);
         if ($result->count() == 0) {
             return $paginatedResult;
         }
         $paginatedResult->setResult($result);
         if ($result->count() == $paginatedResult->getItemsPerPage()) {
-            $paginatedResult->setNextPageKey(function (Entity $item) use ($maxKey) {
+            $paginatedResult->setNextPageKey(function (EntityInterface $item) use ($maxKey) {
                 return $item->getId() != $maxKey ? $item->getId() : null;
             });
         }
         if ($offsetKey !== null) {
-            $paginatedResult->setPrevPageKey(function (Entity $item) use ($minKey) {
+            $paginatedResult->setPrevPageKey(function (EntityInterface $item) use ($minKey) {
                 return $item->getId() != $minKey ? $item->getId() : null;
             });
         }
 
         return $paginatedResult;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getPaginationSortField()
-    {
-        return 'id';
     }
 } 

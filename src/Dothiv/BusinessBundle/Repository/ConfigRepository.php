@@ -3,14 +3,16 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
-use Dothiv\BusinessBundle\Entity\Config;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
+use Dothiv\BusinessBundle\Entity\Config;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
 use PhpOption\Option;
 
 class ConfigRepository extends DoctrineEntityRepository implements ConfigRepositoryInterface, CRUDRepositoryInterface
 {
     use Traits\ValidatorTrait;
     use Traits\PaginatedQueryTrait;
+    use Traits\GetItemEntityName;
 
     /**
      * {@inheritdoc}
@@ -18,6 +20,15 @@ class ConfigRepository extends DoctrineEntityRepository implements ConfigReposit
     public function persist(Config $config)
     {
         $this->getEntityManager()->persist($this->validate($config));
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function persistItem(EntityInterface $item)
+    {
+        $this->persist($item);
         return $this;
     }
 
@@ -49,7 +60,7 @@ class ConfigRepository extends DoctrineEntityRepository implements ConfigReposit
      */
     public function getPaginated($offsetKey = null, $offsetDir = null)
     {
-        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $offsetKey, $offsetDir);
+        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $offsetKey, $offsetDir, 'updated');
     }
 
     /**
@@ -59,13 +70,4 @@ class ConfigRepository extends DoctrineEntityRepository implements ConfigReposit
     {
         return Option::fromValue($this->get($identifier));
     }
-
-    /**
-     * @return string
-     */
-    protected function getPaginationSortField()
-    {
-        return 'updated';
-    }
-
 }
