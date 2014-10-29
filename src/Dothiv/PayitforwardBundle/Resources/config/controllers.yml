@@ -6,7 +6,6 @@ services:
           - @templating
           - @dothiv.registry.contentful.registry_content
           - "DothivPayitforwardBundle"
-          - %assets_version%
           - @clock
           - %page_lifetime%
 

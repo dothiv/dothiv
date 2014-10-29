@@ -9,6 +9,8 @@ use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder;
 use Dothiv\BaseWebsiteBundle\Controller\PageController;
 use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
+use Dothiv\BusinessBundle\Entity\Config;
+use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
 use Dothiv\ValueObject\ClockValue;
 use Dothiv\ContentfulBundle\ContentfulEvents;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
@@ -21,6 +23,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PageControllerTest extends \PHPUnit_Framework_TestCase
 {
+
+    /**
+     * @var ConfigRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockConfigRepo;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Content
@@ -61,7 +68,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldSendLastModifiedHeader()
     {
-        $controller = $this->getTestObject(new \DateTime('2014-01-01T12:34:56Z'));
+        $controller = $this->getTestObject();
+        $this->expectMinLastModifiedDate(new \DateTime('2014-01-01T12:34:56Z'));
 
         $date_older   = new \DateTime('2014-06-02T08:06:17Z');
         $date_newer   = new \DateTime('2014-06-03T08:06:17Z');
@@ -153,50 +161,6 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
      * @test
      * @group   BaseWebsiteBundle
      * @group   Controller
-     * @depends itShouldSendLastModifiedHeader
-     */
-    public function itShouldHonourAssetsDate()
-    {
-        $assetsDate = new \DateTime('2014-07-01T12:34:56Z');
-        $controller = $this->getTestObject($assetsDate);
-        $date       = new \DateTime('2014-06-02T08:06:17Z');
-
-        $this->assertEquals($assetsDate, max($date, $assetsDate));
-
-        $view         = new \stdClass();
-        $view->cfMeta = array(
-            'itemId'      => 'childItem',
-            'updatedAt'   => $date,
-            'contentType' => 'Block'
-
-        );
-
-        // It should build the view for the page.
-        $dispatcher = $this->dispatcher;
-        $this->mockContent->expects($this->at(0))->method('buildEntry')
-            ->with('Page', 'test', 'en')
-            ->will(
-                $this->returnCallback(function () use ($dispatcher, $view) {
-                        $dispatcher->dispatch(BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, new ContentfulViewEvent($view));
-                        return $view;
-                    }
-                ));
-
-        // Get uncached response
-        $request  = new Request();
-        $response = $controller->pageAction(
-            $request,
-            'en',
-            'test'
-        );
-        $this->assertEquals(200, $response->getStatusCode(), 'Request without If-Modified-Since should return status 200!');
-        $this->assertEquals($assetsDate, $response->getLastModified(), 'The last modified date should be that of the assets version, if greater!');
-    }
-
-    /**
-     * @test
-     * @group   BaseWebsiteBundle
-     * @group   Controller
      * @depends itShouldHonourAssetsDate
      */
     public function itShouldSendExpiresHeader()
@@ -224,6 +188,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
     public function itShouldSendNotFoundIfPageMissing()
     {
         $controller = $this->getTestObject();
+        $this->expectMinLastModifiedDate(null);
         $this->mockContent->expects($this->once())->method('buildEntry')
             ->with('Page', 'test', 'en')
             ->will($this->throwException(new InvalidArgumentException()));
@@ -239,13 +204,12 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param \DateTime $assetsDate to use for assets_version
-     *
      * @return PageController
      */
-    protected function getTestObject(\DateTime $assetsDate = null)
+    protected function getTestObject()
     {
-        $lmc = new RequestLastModifiedCache(new ArrayCache());
+        $lmc = new RequestLastModifiedCache(new ArrayCache(), $this->mockConfigRepo);
+
         $this->dispatcher->addListener(
             BaseWebsiteBundleEvents::CONTENTFUL_VIEW_CREATE, array($lmc, 'onViewCreate')
         );
@@ -257,7 +221,6 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
             $this->mockRenderer,
             $this->mockContent,
             'BaseWebsiteBundle',
-            Option::fromValue($assetsDate)->getOrElse(new \DateTime())->getTimestamp(),
             $this->getClock(),
             1800
         );
@@ -291,6 +254,10 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
             $mockTemplateNameParser,
             $mockFileLocator
         );
+
+        $this->mockConfigRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     /**
@@ -300,6 +267,23 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
     {
         $clock = new ClockValue(new \DateTime('2014-08-01T12:34:56Z'));
         return $clock;
+    }
+
+    /**
+     * @param \DateTime $minLastModifiedDate
+     */
+    protected function expectMinLastModifiedDate(\DateTime $minLastModifiedDate = null)
+    {
+        $this->mockConfigRepo->expects($this->once())->method('get')
+            ->with('last_modified_content.min_last_modified')
+            ->willReturnCallback(function () use ($minLastModifiedDate) {
+                $config = new Config();
+                $config->setName('last_modified_content.min_last_modified');
+                if ($minLastModifiedDate !== null) {
+                    $config->setValue($minLastModifiedDate->format(DATE_W3C));
+                }
+                return $config;
+            });
     }
 
 }
