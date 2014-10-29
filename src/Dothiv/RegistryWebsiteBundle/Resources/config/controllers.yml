@@ -6,7 +6,6 @@ services:
           - @templating
           - @dothiv.registry.contentful.registry_content
           - "DothivRegistryWebsiteBundle"
-          - %assets_version%
           - @clock
           - %page_lifetime%
 
@@ -22,7 +21,6 @@ services:
           - @templating
           - @dothiv.registry.contentful.registry_content
           - "DothivRegistryWebsiteBundle"
-          - %assets_version%
           - @clock
           - %page_lifetime%
 

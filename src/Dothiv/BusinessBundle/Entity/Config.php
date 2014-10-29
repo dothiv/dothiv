@@ -71,7 +71,7 @@ class Config implements EntityInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getValue()
     {
