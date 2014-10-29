@@ -3,16 +3,17 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\BusinessBundle\Repository\Traits\PaginatedQueryTrait;
-use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
-use PhpOption\Option;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
+use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
+use Dothiv\BusinessBundle\Repository\Traits;
+use PhpOption\Option;
 
 class DomainRepository extends DoctrineEntityRepository implements DomainRepositoryInterface
 {
-    use PaginatedQueryTrait;
-    use ValidatorTrait;
+    use Traits\PaginatedQueryTrait;
+    use Traits\ValidatorTrait;
+    use Traits\GetItemEntityName;
 
     /**
      * @param string $name
@@ -51,6 +52,15 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
     public function persist(Domain $domain)
     {
         $this->getEntityManager()->persist($this->validate($domain));
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function persistItem(EntityInterface $item)
+    {
+        $this->persist($item);
         return $this;
     }
 
@@ -101,5 +111,4 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
                 ->getResult()
         );
     }
-
 }

@@ -3,6 +3,7 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Dothiv\BusinessBundle\Entity\EntityInterface;
 use PhpOption\Option;
 
 interface CRUDRepositoryInterface
@@ -22,7 +23,32 @@ interface CRUDRepositoryInterface
      *
      * @param string $identifier
      *
-     * @return Option of Entity
+     * @return Option of EntityInterface
      */
     public function getItemByIdentifier($identifier);
+
+    /**
+     * Returns the entity name (e.g. "AcmeBundle:Entity") for the $item.
+     * 
+     * @param EntityInterface $item
+     *
+     * @return string
+     */
+    public function getItemEntityName(EntityInterface $item);
+
+    /**
+     * Persist the entity.
+     *
+     * @param EntityInterface $item
+     *
+     * @return self
+     */
+    public function persistItem(EntityInterface $item);
+
+    /**
+     * Flush changes.
+     *
+     * @return self
+     */
+    public function flush();
 } 
