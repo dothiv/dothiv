@@ -33,7 +33,6 @@ class AppKernel extends Kernel
             new Dothiv\ContentfulBundle\DothivContentfulBundle(),
             new Dothiv\Bundle\ParsedownBundle\DothivParsedownBundle(),
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
-            new Dothiv\TwitterBootstrapBundle\DothivTwitterBootstrapBundle(),
             new Dothiv\AngularJsBundle\DothivAngularJsBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Dothiv\QLPPartnerBundle\DothivQLPPartnerBundle(),
