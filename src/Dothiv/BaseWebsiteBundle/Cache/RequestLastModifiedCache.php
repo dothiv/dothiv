@@ -20,6 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 class RequestLastModifiedCache
 {
     use LoggerAwareTrait;
+    
+    const CONFIG_NAME = 'last_modified_content.min_last_modified';
 
     /**
      * @var Cache
@@ -208,7 +210,7 @@ class RequestLastModifiedCache
     protected function getLastMinModifiedDate()
     {
         if ($this->lastMinModified === null) {
-            $this->lastMinModified = $this->configRepo->get('last_modified_content.min_last_modified');
+            $this->lastMinModified = $this->configRepo->get(static::CONFIG_NAME);
             $v = $this->lastMinModified->getValue();
             if (!empty($v)) {
                 $this->lastMinModifiedDate = new \DateTime($v);

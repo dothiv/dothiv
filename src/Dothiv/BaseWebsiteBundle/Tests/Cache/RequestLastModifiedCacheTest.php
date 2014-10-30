@@ -54,10 +54,10 @@ class RequestLastModifiedCacheTest extends \PHPUnit_Framework_TestCase
     public function itShouldReturnLastModifiedContent(\DateTime $contentModified, \DateTime $expectedModified, \DateTime $minLastModifiedDate = null)
     {
         $this->mockConfigRepo->expects($this->once())->method('get')
-            ->with('last_modified_content.min_last_modified')
+            ->with(RequestLastModifiedCache::CONFIG_NAME)
             ->willReturnCallback(function () use ($minLastModifiedDate) {
                 $config = new Config();
-                $config->setName('last_modified_content.min_last_modified');
+                $config->setName(RequestLastModifiedCache::CONFIG_NAME);
                 if ($minLastModifiedDate !== null) {
                     $config->setValue($minLastModifiedDate->format(DATE_W3C));
                 }

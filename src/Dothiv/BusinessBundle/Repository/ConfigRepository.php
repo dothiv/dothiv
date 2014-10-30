@@ -8,7 +8,7 @@ use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use PhpOption\Option;
 
-class ConfigRepository extends DoctrineEntityRepository implements ConfigRepositoryInterface, CRUDRepositoryInterface
+class ConfigRepository extends DoctrineEntityRepository implements ConfigRepositoryInterface
 {
     use Traits\ValidatorTrait;
     use Traits\PaginatedQueryTrait;
