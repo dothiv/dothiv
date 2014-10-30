@@ -52,12 +52,12 @@ trait PaginatedQueryTrait
         $paginatedResult->setResult($result);
         if ($result->count() == $paginatedResult->getItemsPerPage()) {
             $paginatedResult->setNextPageKey(function (EntityInterface $item) use ($maxKey) {
-                return $item->getId() != $maxKey ? $item->getId() : null;
+                return $item->getPublicId() != $maxKey ? $item->getPublicId() : null;
             });
         }
         if ($offsetKey !== null) {
             $paginatedResult->setPrevPageKey(function (EntityInterface $item) use ($minKey) {
-                return $item->getId() != $minKey ? $item->getId() : null;
+                return $item->getPublicId() != $minKey ? $item->getPublicId() : null;
             });
         }
 

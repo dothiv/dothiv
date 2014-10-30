@@ -62,7 +62,7 @@ class ConfigCommand extends ContainerAwareCommand
         $config = $this->getConfigRepo()->get($name);
         $change = new EntityChange();
         $change->setEntity($this->getConfigRepo()->getItemEntityName($config));
-        $change->setIdentifier(new IdentValue($config->getId()));
+        $change->setIdentifier(new IdentValue($config->getPublicId()));
         $change->addChange(new IdentValue('value'), $config->getValue(), $value);
         $change->setAuthor(new EmailValue(Option::fromValue($input->getOption('user'))->getOrElse('console@' . $this->getContainer()->getParameter('charitydomain'))));
         $this->getEntityChangeRepo()->persist($change)->flush();
