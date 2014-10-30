@@ -375,4 +375,15 @@ class Domain extends Entity
         return $this->getName();
     }
 
+    /**
+     * Marks a domain to be in transfer
+     * 
+     * @return self
+     */
+    public function transfer()
+    {
+        $this->setTransfer(true);
+        return $this;
+    }
+
 }
