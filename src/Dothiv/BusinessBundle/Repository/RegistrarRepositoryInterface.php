@@ -33,4 +33,13 @@ interface RegistrarRepositoryInterface
      * @return Option
      */
     public function findByExtId($extId);
+
+    /**
+     * Returns a registrar for the given $extId, if the registrar does not exist, it is created.
+     *
+     * @param string $extId
+     *
+     * @return Registrar
+     */
+    public function getByExtId($extId);
 }

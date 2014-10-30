@@ -44,4 +44,21 @@ class RegistrarRepository extends DoctrineEntityRepository implements RegistrarR
         );
     }
 
+    /**
+     * Returns a registrar for the given $extId, if the registrar does not exist, it is created.
+     *
+     * @param string $extId
+     *
+     * @return Registrar
+     */
+    public function getByExtId($extId)
+    {
+        return $this->findByExtId($extId)->getOrCall(function () use ($extId) {
+            $registrar = new Registrar();
+            $registrar->setExtId($extId);
+            $this->persist($registrar)->flush();
+            return $registrar;
+        });
+    }
+
 }
