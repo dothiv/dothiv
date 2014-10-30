@@ -338,4 +338,13 @@ class Domain extends Entity
     {
         return $this->registrar;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublicId()
+    {
+        return $this->getName();
+    }
+
 }

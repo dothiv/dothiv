@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\MappedSuperclass
  * @Serializer\ExclusionPolicy("all")
  */
-class Entity implements EntityInterface
+abstract class Entity implements EntityInterface
 {
     /**
      * database primary key
@@ -31,6 +31,14 @@ class Entity implements EntityInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublicId()
+    {
+        return $this->getId();
     }
 
     /**
