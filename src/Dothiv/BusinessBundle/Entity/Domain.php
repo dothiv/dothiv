@@ -114,6 +114,15 @@ class Domain extends Entity
     protected $registrar;
 
     /**
+     * A transfer for this domain has been initiated.
+     *
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $transfer = false;
+
+    /**
      * The constructor
      */
     public function __construct()
@@ -256,7 +265,7 @@ class Domain extends Entity
             $this->activeBanner = null;
         } else {
             $this->activeBanner = $banner;
-            $this->banners->contains($banner) ? : $banner->setDomain($this);
+            $this->banners->contains($banner) ?: $banner->setDomain($this);
         }
     }
 
@@ -337,6 +346,25 @@ class Domain extends Entity
     public function getRegistrar()
     {
         return $this->registrar;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getTransfer()
+    {
+        return $this->transfer;
+    }
+
+    /**
+     * @param boolean $transfer
+     *
+     * @return self
+     */
+    public function setTransfer($transfer)
+    {
+        $this->transfer = (boolean)$transfer;
+        return $this;
     }
 
     /**
