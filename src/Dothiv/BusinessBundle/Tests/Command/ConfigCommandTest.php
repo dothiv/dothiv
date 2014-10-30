@@ -2,10 +2,10 @@
 
 namespace Dothiv\BusinessBundle\Tests\Entity\Command;
 
+use Dothiv\AdminBundle\Repository\EntityChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
 use Dothiv\BusinessBundle\Command\ConfigCommand;
 use Dothiv\BusinessBundle\Entity\Config;
-use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -33,6 +33,11 @@ class ConfigCommandTest extends \PHPUnit_Framework_TestCase
      * @var \Doctrine\ORM\EntityRepository|\PHPUnit_Framework_MockObject_MockObject
      */
     private $mockConfigRepo;
+
+    /**
+     * @var EntityChangeRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockEntityChangeRepo;
 
     /**
      * @test
@@ -107,9 +112,13 @@ class ConfigCommandTest extends \PHPUnit_Framework_TestCase
     {
         $containerMap = array(
             array('dothiv.repository.config', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockConfigRepo),
+            array('dothiv.admin.repository.entity_change', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockEntityChangeRepo),
         );
         $this->mockContainer->expects($this->any())->method('get')
             ->will($this->returnValueMap($containerMap));
+        $this->mockContainer->expects($this->once())->method('getParameter')
+            ->with('charitydomain')
+            ->willReturn('example.com');
 
         $this->mockInput->expects($this->any())->method('getArgument')
             ->will($this->returnValueMap(array(
@@ -131,6 +140,9 @@ class ConfigCommandTest extends \PHPUnit_Framework_TestCase
             }))
             ->willReturnSelf();
         $this->mockConfigRepo->expects($this->once())->method('flush');
+
+        $this->mockEntityChangeRepo->expects($this->once())->method('persist')->willReturnSelf();
+        $this->mockEntityChangeRepo->expects($this->once())->method('flush');
 
         $this->assertEquals(0, $this->getTestObject()->run($this->mockInput, $this->mockOutput));
     }
@@ -169,5 +181,7 @@ class ConfigCommandTest extends \PHPUnit_Framework_TestCase
         $this->mockConfigRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\ConfigRepository')
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->mockEntityChangeRepo = $this->getMock('\Dothiv\AdminBundle\Repository\EntityChangeRepositoryInterface');
     }
 } 

@@ -2,12 +2,11 @@
 
 namespace Dothiv\BusinessBundle\Command;
 
-use Dothiv\BusinessBundle\Entity\Banner;
-use Dothiv\BusinessBundle\Entity\Config;
-use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
+use Dothiv\AdminBundle\Entity\EntityChange;
+use Dothiv\AdminBundle\Repository\EntityChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
-use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
-use Dothiv\ValueObject\ClockValue;
+use Dothiv\ValueObject\EmailValue;
+use Dothiv\ValueObject\IdentValue;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\TableHelper;
@@ -26,6 +25,7 @@ class ConfigCommand extends ContainerAwareCommand
         $this
             ->setName('dothiv:config')
             ->setDescription('Manipulate configurations settings.')
+            ->addOption('user', 'u', InputOption::VALUE_OPTIONAL, 'Email of the user making the change')
             ->addArgument('name', InputArgument::OPTIONAL, 'Name of the configuration setting')
             ->addArgument('value', InputArgument::OPTIONAL, 'Value of the configuration setting to set');
     }
@@ -42,7 +42,7 @@ class ConfigCommand extends ContainerAwareCommand
             $this->listConfig($output, $name);
             return;
         }
-        $this->updateConfig($name, $value);
+        $this->updateConfig($input, $name, $value);
         $this->listConfig($output, $name);
     }
 
@@ -56,10 +56,16 @@ class ConfigCommand extends ContainerAwareCommand
     {
         $this->showTable($output, array($this->getConfigRepo()->get($name)));
     }
-    
-    protected function updateConfig($name, $value)
+
+    protected function updateConfig(InputInterface $input, $name, $value)
     {
         $config = $this->getConfigRepo()->get($name);
+        $change = new EntityChange();
+        $change->setEntity($this->getConfigRepo()->getItemEntityName($config));
+        $change->setIdentifier(new IdentValue($config->getId()));
+        $change->addChange(new IdentValue('value'), $config->getValue(), $value);
+        $change->setAuthor(new EmailValue(Option::fromValue($input->getOption('user'))->getOrElse('console@' . $this->getContainer()->getParameter('charitydomain'))));
+        $this->getEntityChangeRepo()->persist($change)->flush();
         $config->setValue($value);
         $this->getConfigRepo()->persist($config)->flush();
     }
@@ -70,6 +76,14 @@ class ConfigCommand extends ContainerAwareCommand
     protected function getConfigRepo()
     {
         return $this->getContainer()->get('dothiv.repository.config');
+    }
+
+    /**
+     * @return EntityChangeRepositoryInterface
+     */
+    protected function getEntityChangeRepo()
+    {
+        return $this->getContainer()->get('dothiv.admin.repository.entity_change');
     }
 
     /**
