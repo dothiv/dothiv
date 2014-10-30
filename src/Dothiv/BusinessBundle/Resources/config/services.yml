@@ -6,6 +6,7 @@ parameters:
     dothiv.businessbundle.service.attachment_store.class: Dothiv\BusinessBundle\Service\AttachmentStoreService
     registration.class: Dothiv\BusinessBundle\Service\Registration
     dothiv.business.service.nonprofitregistration.class: Dothiv\BusinessBundle\Service\NonprofitRegistrationService
+    dothiv.business.service.whois.class: Dothiv\BusinessBundle\Service\WhoisSocketService
 
 services:
     clickcounter:
@@ -67,3 +68,6 @@ services:
         class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
         arguments:
             - @service_container
+
+    whois:
+        class: %dothiv.business.service.whois.class%
