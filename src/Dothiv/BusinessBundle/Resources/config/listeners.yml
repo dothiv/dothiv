@@ -28,3 +28,4 @@ services:
       - @whois
     tags:
       - { name: dothiv.business.event_listener, event: dothiv_afilias_importer.domain_deleted, method: onDomainDeleted }
+      - { name: dothiv.business.event_listener, event: dothiv_afilias_importer.domain_transferred, method: onDomainTransferred }
