@@ -123,6 +123,15 @@ class Domain extends Entity
     private $transfer = false;
 
     /**
+     * This domain is a non-profit domain
+     *
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $nonprofit = false;
+
+    /**
      * The constructor
      */
     public function __construct()
@@ -377,7 +386,7 @@ class Domain extends Entity
 
     /**
      * Marks a domain to be in transfer
-     * 
+     *
      * @return self
      */
     public function transfer()
@@ -386,4 +395,22 @@ class Domain extends Entity
         return $this;
     }
 
+    /**
+     * @return boolean
+     */
+    public function getNonprofit()
+    {
+        return $this->nonprofit;
+    }
+
+    /**
+     * @param boolean $nonprofit
+     *
+     * @return self
+     */
+    public function setNonprofit($nonprofit)
+    {
+        $this->nonprofit = $nonprofit;
+        return $this;
+    }
 }
