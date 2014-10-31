@@ -58,7 +58,11 @@ class FetchNewTransactionsCommand extends ContainerAwareCommand
             }
         }
 
-        $nextUrl = $service->fetchTransactions(new URLValue($url));
+        $currentUrl = $url;
+        do {
+            $nextUrl = $service->fetchTransactions(new URLValue($currentUrl));
+        } while ($nextUrl != $currentUrl && $currentUrl = $nextUrl);
+
         $config->setValue((string)$nextUrl);
         $configRepo->persist($config)->flush();
 
