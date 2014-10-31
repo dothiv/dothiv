@@ -11,12 +11,11 @@ interface CRUDRepositoryInterface
     /**
      * Returns a list of items
      *
-     * @param mixed|null $offsetKey
-     * @param mixed|null $offsetDir
+     * @param PaginatedQueryOptions $options
      *
      * @return PaginatedResult
      */
-    public function getPaginated($offsetKey = null, $offsetDir = null);
+    public function getPaginated(PaginatedQueryOptions $options);
 
     /**
      * Returns a single item
@@ -29,7 +28,7 @@ interface CRUDRepositoryInterface
 
     /**
      * Returns the entity name (e.g. "AcmeBundle:Entity") for the $item.
-     * 
+     *
      * @param EntityInterface $item
      *
      * @return string

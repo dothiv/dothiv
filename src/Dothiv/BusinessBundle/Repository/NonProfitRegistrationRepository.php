@@ -71,9 +71,9 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
     /**
      * {@inheritdoc}
      */
-    public function getPaginated($offsetKey = null, $offsetDir = null)
+    public function getPaginated(PaginatedQueryOptions $options)
     {
-        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $offsetKey, $offsetDir);
+        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $options);
     }
 
     /**
