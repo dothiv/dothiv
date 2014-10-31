@@ -6,6 +6,7 @@ namespace Dothiv\BusinessBundle\Repository;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
+use Dothiv\BusinessBundle\Model\FilterQuery;
 use PhpOption\Option;
 
 class ConfigRepository extends DoctrineEntityRepository implements ConfigRepositoryInterface
@@ -58,7 +59,7 @@ class ConfigRepository extends DoctrineEntityRepository implements ConfigReposit
     /**
      * {@inheritdoc}
      */
-    public function getPaginated(PaginatedQueryOptions $options)
+    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
         if ($options->getSortField()->isEmpty()) {
             $options->setSortField('updated');

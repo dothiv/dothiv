@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
+use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\Traits;
 use PhpOption\Option;
 
@@ -71,7 +72,7 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
     /**
      * {@inheritdoc}
      */
-    public function getPaginated(PaginatedQueryOptions $options)
+    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
         return $this->buildPaginatedResult($this->createQueryBuilder('i'), $options);
     }

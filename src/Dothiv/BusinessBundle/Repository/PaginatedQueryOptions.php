@@ -3,7 +3,6 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
-use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
 
@@ -88,4 +87,5 @@ class PaginatedQueryOptions
         $this->sortField = $sortField;
         return $this;
     }
+
 } 

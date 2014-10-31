@@ -5,6 +5,7 @@ namespace Dothiv\BusinessBundle\Repository\Traits;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
+use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\PaginatedResult;
 
