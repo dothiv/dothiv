@@ -50,14 +50,15 @@ trait PaginatedQueryTrait
             return $paginatedResult;
         }
         $paginatedResult->setResult($result);
+        $offsetGetter = 'get' . ucfirst($sortField);
         if ($result->count() == $paginatedResult->getItemsPerPage()) {
-            $paginatedResult->setNextPageKey(function (EntityInterface $item) use ($maxKey) {
-                return $item->getPublicId() != $maxKey ? $item->getPublicId() : null;
+            $paginatedResult->setNextPageKey(function (EntityInterface $item) use ($maxKey, $offsetGetter) {
+                return $item->$offsetGetter() != $maxKey ? $item->$offsetGetter() : null;
             });
         }
         if ($offsetKey !== null) {
-            $paginatedResult->setPrevPageKey(function (EntityInterface $item) use ($minKey) {
-                return $item->getPublicId() != $minKey ? $item->getPublicId() : null;
+            $paginatedResult->setPrevPageKey(function (EntityInterface $item) use ($minKey, $offsetGetter) {
+                return $item->$offsetGetter() != $minKey ? $item->$offsetGetter() : null;
             });
         }
 
