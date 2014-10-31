@@ -6,7 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
+use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\Traits;
+use Dothiv\BusinessBundle\Service\FilterQueryParser;
+use Dothiv\ValueObject\URLValue;
 use PhpOption\Option;
 
 class DomainRepository extends DoctrineEntityRepository implements DomainRepositoryInterface
@@ -85,9 +88,26 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
     /**
      * {@inheritdoc}
      */
-    public function getPaginated(PaginatedQueryOptions $options)
+    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
-        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $options);
+        $qb = $this->createQueryBuilder('i');
+        if ($filterQuery->getTerm()->isDefined()) {
+            $qb->andWhere('i.name LIKE :q')->setParameter('q', '%' . $filterQuery->getTerm()->get() . '%');
+        }
+        if ($filterQuery->getProperty('transfer')->isDefined()) {
+            $qb->andWhere('i.transfer = :transfer')->setParameter('transfer', (int)$filterQuery->getProperty('transfer')->get());
+        }
+        if ($filterQuery->getProperty('nonprofit')->isDefined()) {
+            $qb->andWhere('i.nonprofit = :nonprofit')->setParameter('nonprofit', (int)$filterQuery->getProperty('nonprofit')->get());
+        }
+        if ($filterQuery->getProperty('registrar')->isDefined()) {
+            // TODO: Implement URL to public-id for entities.
+            $url       = new URLValue($filterQuery->getProperty('registrar')->get());
+            $pathParts = explode('/', $url->getPath());
+            $qb->leftJoin('i.registrar', 'r');
+            $qb->andWhere('r.extId = :extId')->setParameter('extId', array_pop($pathParts));
+        }
+        return $this->buildPaginatedResult($qb, $options);
     }
 
     /**
