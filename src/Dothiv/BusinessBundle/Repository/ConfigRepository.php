@@ -58,9 +58,12 @@ class ConfigRepository extends DoctrineEntityRepository implements ConfigReposit
     /**
      * {@inheritdoc}
      */
-    public function getPaginated($offsetKey = null, $offsetDir = null)
+    public function getPaginated(PaginatedQueryOptions $options)
     {
-        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $offsetKey, $offsetDir, 'updated');
+        if ($options->getSortField()->isEmpty()) {
+            $options->setSortField('updated');
+        }
+        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $options);
     }
 
     /**

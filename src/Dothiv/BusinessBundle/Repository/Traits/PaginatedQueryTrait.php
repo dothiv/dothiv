@@ -5,44 +5,45 @@ namespace Dothiv\BusinessBundle\Repository\Traits;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
+use Dothiv\BusinessBundle\Repository\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\PaginatedResult;
-use PhpOption\Option;
 
 trait PaginatedQueryTrait
 {
     /**
      * Builds a paginated result.
      *
-     * @param QueryBuilder $qb
-     * @param mixed|null   $offsetKey
-     * @param mixed|null   $offsetDir
-     * @param string       $sortField
+     * @param QueryBuilder          $qb
+     * @param PaginatedQueryOptions $options
      *
      * @return PaginatedResult
      */
-    protected function buildPaginatedResult(QueryBuilder $qb, $offsetKey = null, $offsetDir = null, $sortField = null)
+    protected function buildPaginatedResult(QueryBuilder $qb, PaginatedQueryOptions $options)
     {
-        $sortField = Option::fromValue($sortField)->getOrElse('id');
-        $statsQb   = clone $qb;
+        $sortField = $options->getSortField()->getOrElse('id');
+        if (strpos($sortField, '.') === false) {
+            $sortField = 'i.' . $sortField;
+        }
+        $statsQb = clone $qb;
         list(, $total, $minKey, $maxKey)
-            = $statsQb->select(sprintf('COUNT(i), MAX(i.%s), MIN(i.%s)', $sortField, $sortField))
+            = $statsQb->select(sprintf('COUNT(i), MAX(%s), MIN(%s)', $sortField, $sortField))
             ->getQuery()->getScalarResult()[0];
         $paginatedResult = new PaginatedResult(10, $total);
-        $offsetDir       = Option::fromValue($offsetDir)->getOrElse('forward');
-        if (Option::fromValue($offsetKey)->isDefined()) {
-            if ($offsetDir == 'back') {
-                $qb->orderBy(sprintf('i.%s', $sortField), 'ASC');
-                $qb->andWhere(sprintf('i.%s > :offsetKey', $sortField))->setParameter('offsetKey', $offsetKey);
-            } else { // forward
-                $qb->orderBy(sprintf('i.%s', $sortField), 'DESC');
-                $qb->andWhere(sprintf('i.%s < :offsetKey', $sortField))->setParameter('offsetKey', $offsetKey);
+        $sortDir         = $options->getSortDir()->getOrElse('desc');
+        if (strtolower($sortDir) == 'desc') {
+            $qb->orderBy(sprintf('%s', $sortField), 'DESC');
+            if ($options->getOffsetKey()->isDefined()) {
+                $qb->andWhere(sprintf('%s < :offsetKey', $sortField))->setParameter('offsetKey', $options->getOffsetKey()->get());
             }
-        } else {
-            $qb->orderBy(sprintf('i.%s', $sortField), 'DESC');
+        } else { // forward
+            $qb->orderBy(sprintf('%s', $sortField), 'ASC');
+            if ($options->getOffsetKey()->isDefined()) {
+                $qb->andWhere(sprintf('%s > :offsetKey', $sortField))->setParameter('offsetKey', $options->getOffsetKey()->get());
+            }
         }
         $qb->setMaxResults($paginatedResult->getItemsPerPage());
 
-        $items = $qb
+        $items  = $qb
             ->getQuery()
             ->getResult();
         $result = new ArrayCollection($items);
@@ -50,15 +51,17 @@ trait PaginatedQueryTrait
             return $paginatedResult;
         }
         $paginatedResult->setResult($result);
-        $offsetGetter = 'get' . ucfirst($sortField);
+        $offsetGetter = 'get' . ucfirst($options->getSortField()->getOrElse('id'));
         if ($result->count() == $paginatedResult->getItemsPerPage()) {
             $paginatedResult->setNextPageKey(function (EntityInterface $item) use ($maxKey, $offsetGetter) {
-                return $item->$offsetGetter() != $maxKey ? $item->$offsetGetter() : null;
+                $offsetValue = $item->$offsetGetter();
+                return $offsetValue != $maxKey ? $offsetValue : null;
             });
         }
-        if ($offsetKey !== null) {
+        if ($options->getOffsetKey()->isDefined()) {
             $paginatedResult->setPrevPageKey(function (EntityInterface $item) use ($minKey, $offsetGetter) {
-                return $item->$offsetGetter() != $minKey ? $item->$offsetGetter() : null;
+                $offsetValue = $item->$offsetGetter();
+                return $offsetValue != $minKey ? $offsetValue : null;
             });
         }
 
