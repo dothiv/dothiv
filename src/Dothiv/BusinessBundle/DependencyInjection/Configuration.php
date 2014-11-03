@@ -44,6 +44,20 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('clientSecret')->isRequired()->end()
                 ->end()
             ->end()
+            ->arrayNode('invoice_copy')
+                ->prototype('array')
+                    ->children()
+                        ->scalarNode('name')->isRequired()->end()
+                        ->scalarNode('email')
+                            ->isRequired()
+                            ->validate()
+                            ->ifTrue(function ($s) {
+                                return filter_var($s, FILTER_VALIDATE_EMAIL) === false;
+                            })
+                            ->thenInvalid('Invalid email')
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
         return $treeBuilder;
     }

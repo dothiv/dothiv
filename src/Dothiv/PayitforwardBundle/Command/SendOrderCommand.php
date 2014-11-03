@@ -8,6 +8,7 @@ use Dothiv\PayitforwardBundle\Repository\OrderRepositoryInterface;
 use Dothiv\PayitforwardBundle\Service\InvoiceServiceInterface;
 use Dothiv\PayitforwardBundle\Service\OrderServiceInterface;
 use Dothiv\PayitforwardBundle\Service\Mailer\OrderMailerInterface;
+use Dothiv\ValueObject\EmailValue;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -53,6 +54,9 @@ class SendOrderCommand extends ContainerAwareCommand
                 $order->activate($charge);
                 $orderRepo->persist($order)->flush();
                 $mailer->send($order, $invoice, $vouchers);
+                foreach($this->getContainer()->getParameter('invoice_copy') as $extraRecipient) {
+                    $mailer->send($order, $invoice, $vouchers, new EmailValue($extraRecipient['email']), $extraRecipient['name']);
+                }
                 $output->writeln(
                     sprintf('Processed order by %s.', $order->getEmail())
                 );
