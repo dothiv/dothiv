@@ -6,6 +6,7 @@ use Dothiv\ValueObject\ClockValue;
 use Dothiv\PremiumConfiguratorBundle\Repository\SubscriptionRepositoryInterface;
 use Dothiv\PremiumConfiguratorBundle\Service\InvoiceServiceInterface;
 use Dothiv\PremiumConfiguratorBundle\Service\Mailer\SubscriptionConfirmedMailer;
+use Dothiv\ValueObject\EmailValue;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -35,7 +36,7 @@ class CreateSubscriptionsCommand extends ContainerAwareCommand
         foreach ($subscriptionRepo->findInactive() as $subscription) {
             try {
                 // TODO: persist invoices for subscription (for follow-up invoices)
-                $invoice = $invoiceService->createInvoiceForSubscription($subscription, $clock->getNow());
+                $invoice  = $invoiceService->createInvoiceForSubscription($subscription, $clock->getNow());
                 $customer = \Stripe_Customer::create(array(
                     'card'  => $subscription->getToken(), // obtained from Stripe.js
                     'plan'  => $invoice->getVatPercent() > 0 ? 'premium-clickcounter-vat' : 'premium-clickcounter-novat',
@@ -48,6 +49,9 @@ class CreateSubscriptionsCommand extends ContainerAwareCommand
                 $subscriptionRepo->persist($subscription)->flush();
 
                 $mailer->sendSubscriptionCreatedMail($subscription, $invoice);
+                foreach ($this->getContainer()->getParameter('invoice_copy') as $extraRecipient) {
+                    $mailer->sendSubscriptionCreatedMail($subscription, $invoice, new EmailValue($extraRecipient['email']), $extraRecipient['name']);
+                }
             } catch (\Stripe_CardError $e) {
                 $output->writeln(
                     sprintf('Failed to subscribe %s for %s.', $subscription->getEmail(), $subscription->getDomain()->getName())

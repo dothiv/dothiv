@@ -5,6 +5,7 @@ namespace Dothiv\PremiumConfiguratorBundle\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\PremiumConfiguratorBundle\Entity\Subscription;
+use Dothiv\PremiumConfiguratorBundle\Exception\EntityNotFoundException;
 use Dothiv\PremiumConfiguratorBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
 
@@ -40,4 +41,13 @@ interface SubscriptionRepositoryInterface
      * @return self
      */
     public function flush();
+
+    /**
+     * @param int $id
+     *
+     * @return Subscription
+     *
+     * @throws EntityNotFoundException if order is not found.
+     */
+    public function getById($id);
 } 
