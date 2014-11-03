@@ -28,7 +28,7 @@ class PremiumClickCounterConfigurationDecorator implements PremiumClickCounterCo
      *
      * @return array
      */
-    public function decorate($config, PremiumBanner $premiumBanner)
+    public function decorate(array $config, PremiumBanner $premiumBanner)
     {
         $config['premium'] = true;
         if (Option::fromValue($premiumBanner->getVisual())->isDefined()) {

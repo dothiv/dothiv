@@ -47,7 +47,7 @@ class ValidDomainValidator extends ConstraintValidator
     }
 
     /**
-     * @param array $allowedTLDs
+     * @param array|string $allowedTLDs
      *
      * @throws \InvalidArgumentException If argument is not array.
      */

@@ -76,7 +76,7 @@ class ContentMailer implements ContentMailerInterface
      * @param string $toName
      * @param array  $data
      */
-    public function sendContentTemplateMail($code, $locale, $to, $toName, $data)
+    public function sendContentTemplateMail($code, $locale, $to, $toName, array $data)
     {
         $template = $this->content->buildEntry('eMail', $code, $locale);
         $subject  = $this->twig->render($template->subject, $data);

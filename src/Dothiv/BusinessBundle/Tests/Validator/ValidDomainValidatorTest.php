@@ -50,7 +50,7 @@ class ValidDomainValidatorTest extends \PHPUnit_Framework_TestCase
      * @param string  $domainName  Name of the domain.
      * @param boolean $error       If the domain should be allowed.
      */
-    public function itShouldValidate($allowedTLDs, $domainName, $error)
+    public function itShouldValidate(array $allowedTLDs, $domainName, $error)
     {
         // Set up test data.
         $constraint          = new ValidDomain();
