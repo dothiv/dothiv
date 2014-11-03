@@ -100,6 +100,20 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         if ($filterQuery->getProperty('nonprofit')->isDefined()) {
             $qb->andWhere('i.nonprofit = :nonprofit')->setParameter('nonprofit', (int)$filterQuery->getProperty('nonprofit')->get());
         }
+        if ($filterQuery->getProperty('clickcount')->isDefined()) {
+            if ((int)$filterQuery->getProperty('clickcount')->get()) {
+                $qb->andWhere('i.clickcount > 0'); 
+            } else {
+                $qb->andWhere('i.clickcount = 0');
+            }
+        }
+        if ($filterQuery->getProperty('clickcounterconfig')->isDefined()) {
+            if ((int)$filterQuery->getProperty('clickcounterconfig')->get()) {
+                $qb->andWhere('i.activeBanner IS NOT NULL');
+            } else {
+                $qb->andWhere('i.activeBanner IS NULL');
+            }
+        }
         if ($filterQuery->getProperty('registrar')->isDefined()) {
             // TODO: Implement URL to public-id for entities.
             $url       = new URLValue($filterQuery->getProperty('registrar')->get());
