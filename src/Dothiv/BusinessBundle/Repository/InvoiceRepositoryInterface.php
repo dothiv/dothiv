@@ -4,6 +4,7 @@ namespace Dothiv\BusinessBundle\Repository;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\Invoice;
+use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 
 /**
@@ -27,4 +28,13 @@ interface InvoiceRepositoryInterface extends ObjectRepository
      * @return self
      */
     public function flush();
+
+    /**
+     * @param int $id
+     *
+     * @return Invoice
+     *
+     * @throws EntityNotFoundException if order is not found.
+     */
+    public function getById($id);
 }
