@@ -7,6 +7,7 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use Dothiv\PremiumConfiguratorBundle\Entity\Subscription;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
+use Dothiv\PremiumConfiguratorBundle\Exception\EntityNotFoundException;
 use Dothiv\PremiumConfiguratorBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
 use Symfony\Component\Validator\ValidatorInterface;
@@ -56,5 +57,15 @@ class SubscriptionRepository extends DoctrineEntityRepository implements Subscri
     public function flush()
     {
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getById($id)
+    {
+        return Option::fromValue($this->find($id))->getOrCall(function() use($id) {
+            throw new EntityNotFoundException();
+        });
     }
 }
