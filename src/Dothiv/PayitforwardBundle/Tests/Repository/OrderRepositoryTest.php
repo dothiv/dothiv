@@ -148,6 +148,39 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @group   Entity
+     * @group   PayitforwardBundle
+     * @group   Order
+     * @group   Integration
+     * @depends itShouldBeInstantiateable
+     */
+    public function itShouldGetById()
+    {
+        $order = $this->createOrder();
+        $repo  = $this->getTestObject();
+        $repo->persist($order);
+        $repo->flush();
+        $this->assertEquals($order->getId(), $repo->getById($order->getId())->getId());
+    }
+
+    /**
+     * @test
+     * @group                    Entity
+     * @group                    PayitforwardBundle
+     * @group                    Order
+     * @group                    Integration
+     * @depends                  itShouldGetById
+     * @expectedException \Dothiv\PayitforwardBundle\Exception\EntityNotFoundException
+     * @expectedExceptionMessage Entity was not found.
+     */
+    public function getByIdShouldThrowAnExceptionIfEntityNotFound()
+    {
+        $this->getTestObject()->getById(17);
+        $this->fail('getById() should throw an exception of entity is not found');
+    }
+
+    /**
      * @return OrderRepository
      */
     protected function getTestObject()
