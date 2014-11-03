@@ -6,7 +6,6 @@ assetic:
       - 'DothivCharityWebsiteBundle'
       - 'DothivRegistryWebsiteBundle'
       - 'DothivAPIBundle'
-      - 'DothivTwitterBootstrapBundle'
       - 'DothivAngularJsBundle'
       - 'DothivQLPPartnerBundle'
       - 'DothivPremiumConfiguratorBundle'
@@ -45,11 +44,9 @@ assetic:
             - %kernel.root_dir%/../vendor/components/angular-ui-router/release/angular-ui-router.js
         angular_ui_bootstrap:
             inputs:
-            - %kernel.root_dir%/../vendor/components/jquery/jquery.js
             - %kernel.root_dir%/../vendor/components/bootstrap/ui-bootstrap.js
         angular_ui_bootstrap_tpls:
             inputs:
-            - %kernel.root_dir%/../vendor/components/jquery/jquery.js
             - %kernel.root_dir%/../vendor/components/bootstrap/ui-bootstrap-tpls.js
         angular_file_upload:
             inputs:
@@ -62,6 +59,12 @@ assetic:
             inputs:
             - %kernel.root_dir%/../vendor/twitter/bootstrap/fonts/glyphicons-halflings-regular.ttf
             output: css/fonts/glyphicons-halflings-regular.ttf
+        bootstrap_js:
+            inputs:
+            - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/js/bootstrap.js
+        bootstrap_js_collapse:
+            inputs:
+            - %kernel.root_dir%/../vendor/twitter/bootstrap/js/collapse.js
         registryicons_svg:
             inputs:
             - %kernel.root_dir%/../src/Dothiv/RegistryWebsiteBundle/Resources/public/fonts/registryicons.svg

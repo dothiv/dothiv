@@ -52,6 +52,7 @@ services:
         class: Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache
         arguments:
          - @doctrine_cache.providers.dothiv_base_website_cache
+         - @dothiv.repository.config
         tags:
          - { name: kernel.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
          - { name: kernel.event_listener, event: contentful.entry.sync, method: onEntryUpdate }

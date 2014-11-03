@@ -63,13 +63,7 @@ class Registration implements IRegistration
         }
 
         // Find registrar
-        $registrarRepo = $this->registrarRepo;
-        $registrar     = $registrarRepo->findByExtId($registrarExtId)->getOrCall(function () use ($registrarExtId, $registrarRepo) {
-            $registrar = new Registrar();
-            $registrar->setExtId($registrarExtId);
-            $registrarRepo->persist($registrar)->flush();
-            return $registrar;
-        });
+        $registrar = $this->registrarRepo->getByExtId($registrarExtId);
 
         // create domain object
         $d = new Domain();

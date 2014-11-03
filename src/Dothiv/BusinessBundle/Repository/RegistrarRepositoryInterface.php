@@ -8,7 +8,7 @@ use Dothiv\BusinessBundle\Entity\Registrar;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
 
-interface RegistrarRepositoryInterface
+interface RegistrarRepositoryInterface extends CRUDRepositoryInterface
 {
     /**
      * Persist the entity.
@@ -33,4 +33,13 @@ interface RegistrarRepositoryInterface
      * @return Option
      */
     public function findByExtId($extId);
+
+    /**
+     * Returns a registrar for the given $extId, if the registrar does not exist, it is created.
+     *
+     * @param string $extId
+     *
+     * @return Registrar
+     */
+    public function getByExtId($extId);
 }

@@ -35,11 +35,6 @@ class PageController
     private $lastModifiedCache;
 
     /**
-     * @var \DateTime
-     */
-    private $assetsModified;
-
-    /**
      * @var ClockValue
      */
     private $clock;
@@ -54,7 +49,6 @@ class PageController
      * @param EngineInterface          $renderer
      * @param Content                  $content
      * @param string                   $bundle
-     * @param int                      $assets_version
      * @param ClockValue               $clock
      * @param int                      $pageLifetime In seconds
      */
@@ -63,7 +57,6 @@ class PageController
         EngineInterface $renderer,
         Content $content,
         $bundle,
-        $assets_version,
         ClockValue $clock,
         $pageLifetime
     )
@@ -72,7 +65,6 @@ class PageController
         $this->renderer          = $renderer;
         $this->content           = $content;
         $this->bundle            = $bundle;
-        $this->assetsModified    = new \DateTime('@' . $assets_version);
         $this->clock             = $clock;
         $this->pageLifetime      = (int)$pageLifetime;
     }
@@ -94,10 +86,12 @@ class PageController
         $lmc = $this->getLastModifiedCache();
 
         // Check if page is not modified.
-        $uriLastModified = $lmc->getLastModified($request)->getOrElse($this->assetsModified);
-        $response->setLastModified(max($uriLastModified, $this->assetsModified));
-        if ($response->isNotModified($request)) {
-            return $response;
+        $uriLastModified = $lmc->getLastModified($request);
+        if ($uriLastModified->isDefined()) {
+            $response->setLastModified($uriLastModified->get());
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
         }
 
         // Fetch page.
@@ -121,9 +115,9 @@ class PageController
         $response = $this->renderer->renderResponse($res, $data, $response);
 
         // Store last modified.
-        $lastModifiedDate = max($lmc->getLastModifiedContent(), $this->assetsModified);
+        $lastModifiedDate = $lmc->getLastModifiedContent();
         $response->setLastModified($lastModifiedDate);
-        $this->getLastModifiedCache()->setLastModified($request, $lastModifiedDate);
+        $lmc->setLastModified($request, $lastModifiedDate);
 
         return $response;
     }
@@ -243,15 +237,7 @@ class PageController
     }
 
     /**
-     * @return \DateTime
-     */
-    protected function getAssetsModified()
-    {
-        return $this->assetsModified;
-    }
-
-    /**
-     * @return Clock
+     * @return ClockValue
      */
     protected function getClock()
     {

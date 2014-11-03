@@ -1,6 +1,7 @@
 parameters:
     dothiv.base.web.contentul.video_block_listener.class: Dothiv\BaseWebsiteBundle\Listener\Contentful\ViewCreate\VideoBlockListener
     dothiv.base.web.contentul.image_listener.class: Dothiv\BaseWebsiteBundle\Listener\Contentful\ViewCreate\ImageListener
+    dothiv.base.web.min_last_modified_listener.class: Dothiv\BaseWebsiteBundle\Listener\MinLastModifiedListener
 
 services:
     dothiv.base.web.contentul.video_block_listener:
@@ -17,3 +18,13 @@ services:
         tags:
             - { name: kernel.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
 
+    dothiv.base.web.min_last_modified_listener:
+        class: %dothiv.base.web.min_last_modified_listener.class%
+        arguments:
+            - @dothiv.repository.config
+            - @clock
+            - 'last_modified_content.min_last_modified'
+        tags:
+            - { name: dothiv.business.event_listener, event: dothiv.admin.entity.change, method: onEntityChange }
+        calls:
+         - [ addWatch, ['Dothiv\BusinessBundle\Entity\Config', 'eur_to_usd'] ]

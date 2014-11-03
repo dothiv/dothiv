@@ -3,18 +3,18 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
-use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
-use Dothiv\BusinessBundle\Repository\Traits\PaginatedQueryTrait;
-use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
+use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
+use Dothiv\BusinessBundle\Model\FilterQuery;
+use Dothiv\BusinessBundle\Repository\Traits;
 use PhpOption\Option;
-use Symfony\Component\Validator\ValidatorInterface;
 
 class NonProfitRegistrationRepository extends DoctrineEntityRepository implements NonProfitRegistrationRepositoryInterface
 {
-    use ValidatorTrait;
-    use PaginatedQueryTrait;
+    use Traits\ValidatorTrait;
+    use Traits\PaginatedQueryTrait;
+    use Traits\GetItemEntityName;
 
     /**
      * {@inheritdoc}
@@ -22,6 +22,15 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
     public function persist(NonProfitRegistration $nonProfitRegistration)
     {
         $this->getEntityManager()->persist($this->validate($nonProfitRegistration));
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function persistItem(EntityInterface $item)
+    {
+        $this->persist($item);
         return $this;
     }
 
@@ -63,9 +72,9 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
     /**
      * {@inheritdoc}
      */
-    public function getPaginated($offsetKey = null, $offsetDir = null)
+    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
-        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $offsetKey, $offsetDir);
+        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $options);
     }
 
     /**

@@ -22,10 +22,12 @@ class AppController extends PageController
         $lmc = $this->getLastModifiedCache();
 
         // Check if page is not modified.
-        $uriLastModified = $lmc->getLastModified($request)->getOrElse($this->getAssetsModified());
-        $response->setLastModified(max($uriLastModified, $this->getAssetsModified()));
-        if ($response->isNotModified($request)) {
-            return $response;
+        $uriLastModified = $lmc->getLastModified($request);
+        if ($uriLastModified->isDefined()) {
+            $response->setLastModified($uriLastModified->get());
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
         }
 
         // Render page.
@@ -45,9 +47,9 @@ class AppController extends PageController
         $response = $this->getRenderer()->renderResponse($res, array('locale' => $locale), $response);
 
         // Store last modified.
-        $lastModifiedDate = max($lmc->getLastModifiedContent(), $this->getAssetsModified());
+        $lastModifiedDate = $lmc->getLastModifiedContent();
         $response->setLastModified($lastModifiedDate);
-        $this->getLastModifiedCache()->setLastModified($request, $lastModifiedDate);
+        $lmc->setLastModified($request, $lastModifiedDate);
 
         return $response;
     }

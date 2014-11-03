@@ -4,6 +4,8 @@ namespace Dothiv\BaseWebsiteBundle\Cache;
 
 use Doctrine\Common\Cache\Cache;
 use Dothiv\BaseWebsiteBundle\Event\ContentfulViewEvent;
+use Dothiv\BusinessBundle\Entity\Config;
+use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
 use PhpOption\None;
 use PhpOption\Option;
@@ -18,6 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 class RequestLastModifiedCache
 {
     use LoggerAwareTrait;
+    
+    const CONFIG_NAME = 'last_modified_content.min_last_modified';
 
     /**
      * @var Cache
@@ -30,16 +34,33 @@ class RequestLastModifiedCache
     private $lastModifiedContent;
 
     /**
+     * @var Config
+     */
+    private $lastMinModified;
+
+    /**
+     * @var \DateTime
+     */
+    private $lastMinModifiedDate;
+
+    /**
      * @var array
      */
     private $itemIds = array();
 
     /**
-     * @param Cache $cache
+     * @var ConfigRepositoryInterface
      */
-    public function __construct(Cache $cache)
+    private $configRepo;
+
+    /**
+     * @param Cache                     $cache
+     * @param ConfigRepositoryInterface $configRepo
+     */
+    public function __construct(Cache $cache, ConfigRepositoryInterface $configRepo)
     {
-        $this->cache = $cache;
+        $this->cache      = $cache;
+        $this->configRepo = $configRepo;
     }
 
     /**
@@ -49,7 +70,6 @@ class RequestLastModifiedCache
      */
     public function onViewCreate(ContentfulViewEvent $e)
     {
-
         $viewMeta = $e->getView()->cfMeta;
         if ($viewMeta['contentType'] == 'String') {
             return;
@@ -74,12 +94,17 @@ class RequestLastModifiedCache
      */
     public function getLastModified(Request $request)
     {
+        $optionalMinModified  = $this->getLastMinModifiedDate();
         $optionalLastModified = Option::fromValue($this->cache->fetch($this->getCacheKeyRequest(sha1($request->getUri()), 'lastmodified')), false);
-        if ($optionalLastModified->isEmpty()) {
+        if ($optionalMinModified->orElse($optionalLastModified)->isEmpty()) {
             return None::create();
-        } else {
+        }
+        if ($optionalLastModified->isEmpty()) {
+            return $optionalMinModified;
+        } else if ($optionalMinModified->isEmpty()) {
             return Option::fromValue(new \DateTime($optionalLastModified->get()));
         }
+        return Option::fromValue(max($optionalMinModified->get(), new \DateTime($optionalLastModified->get())));
     }
 
     /**
@@ -132,6 +157,10 @@ class RequestLastModifiedCache
      */
     public function getLastModifiedContent()
     {
+        $lastMinModifiedDateOptional = $this->getLastMinModifiedDate();
+        if ($lastMinModifiedDateOptional->isDefined()) {
+            return max($this->lastModifiedContent, $lastMinModifiedDateOptional->get());
+        }
         return $this->lastModifiedContent;
     }
 
@@ -173,5 +202,20 @@ class RequestLastModifiedCache
                 $logger->debug(sprintf('[Dothiv:RequestLastModifiedCache] Setting last modified time for "%s" to "%s".', $uri, $entry->getUpdatedAt()->format('r')));
             });
         }
+    }
+
+    /**
+     * @return Option of \DateTime
+     */
+    protected function getLastMinModifiedDate()
+    {
+        if ($this->lastMinModified === null) {
+            $this->lastMinModified = $this->configRepo->get(static::CONFIG_NAME);
+            $v = $this->lastMinModified->getValue();
+            if (!empty($v)) {
+                $this->lastMinModifiedDate = new \DateTime($v);
+            }
+        }
+        return Option::fromValue($this->lastMinModifiedDate);
     }
 } 

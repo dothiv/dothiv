@@ -155,18 +155,23 @@
             </div>
             <section>
                 {% set tld = registry_content('Block', 'footer.tldHIV') %}
-                <p>{{ tld.title }}</p>
-                {{ tld.text|markdown }}
+                {% if tld %}
+                    <p>{{ tld.title }}</p>
+                    {{ tld.text|markdown }}
+                {% endif %}
             </section>
-            {% for page in registry_content('Collection', 'nav.footer').items %}
-                {% if loop.first %}
-                    <nav>
-                {% endif %}
-                <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': page.code|replace('.', '/')}) }}">{{ page.title }}</a>
-                {% if loop.last %}
-                    </nav>
-                {% endif %}
-            {% endfor %}
+            {% set footer_nav = registry_content('Collection', 'nav.footer') %}
+            {% if footer_nav %}
+                {% for page in footer_nav.items %}
+                    {% if loop.first %}
+                        <nav>
+                    {% endif %}
+                    <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': page.code|replace('.', '/')}) }}">{{ page.title }}</a>
+                    {% if loop.last %}
+                        </nav>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         </article>
 
     </footer>
@@ -196,7 +201,7 @@
     angular.module('dotHIVApp.services').factory('config', function() {
         var config = {
             locale: '{{ locale }}',
-            eur_to_usd: {{ eur_to_usd }}
+            eur_to_usd: {{ config('eur_to_usd', 'float') }}
         };
         return config;
     });

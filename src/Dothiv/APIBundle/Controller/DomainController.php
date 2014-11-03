@@ -167,48 +167,6 @@ class DomainController
     }
 
     /**
-     * Updates the domain.
-     *
-     * @ApiDoc(
-     *   section="domain",
-     *   resource=true,
-     *   description="Updates the domain.",
-     *   statusCodes={
-     *     200="Successful",
-     *     403="Access denied"
-     *   },
-     *   output="Dothiv\BusinessBundle\Entity\Domain"
-     * )
-     *
-     * @Secure(roles="ROLE_USER")
-     */
-    public function putDomainAction($slug)
-    {
-        $context = $this->get('security.context');
-
-        // fetch domain from database
-        $em     = $this->getDoctrine()->getManager();
-        $domain = $em->getRepository('DothivBusinessBundle:Domain')->findOneBy(array('id' => $slug));
-
-        if ($context->isGranted('ROLE_ADMIN') || $context->getToken()->getUsername() == $domain->getOwner()->getUsername()) {
-
-            // apply form
-            $form = $this->createForm(new DomainType(), $domain);
-            $form->bind($this->getRequest());
-
-            if ($form->isValid()) {
-                $em->persist($domain);
-                $em->flush();
-
-                return null;
-            }
-
-            return array('form' => $form);
-        }
-        throw new HttpException(403);
-    }
-
-    /**
      * @param Domain $domain
      * @param User   $user
      * @param string $token

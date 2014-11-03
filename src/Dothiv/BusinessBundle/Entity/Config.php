@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\ConfigRepository")
  * @Serializer\ExclusionPolicy("all")
  */
-class Config
+class Config implements EntityInterface
 {
     use Traits\CreateUpdateTime;
 
@@ -71,11 +71,26 @@ class Config
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getValue()
     {
         return $this->value;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublicId()
+    {
+        return $this->getId();
+    }
 } 
