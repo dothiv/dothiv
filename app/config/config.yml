@@ -112,7 +112,8 @@ dothiv_business:
         appToken: '%dothiv_business.podio.appToken%'
         clientId: '%dothiv_business.podio.clientId%'
         clientSecret: '%dothiv_business.podio.clientSecret%'
-
+    invoice_copy:
+    - {name: Maria Schönfeld, email: billing@tld.hiv}
 dothiv_base_website:
     thumbnails:
         - { label: 'person', width: 260, height: 300, thumbnail: true }
