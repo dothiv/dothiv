@@ -2,6 +2,7 @@ parameters:
     dothiv.websitebase.twig.extension.date.class: Dothiv\BaseWebsiteBundle\Twig\Extension\DateTwigExtension
     dothiv.websitebase.twig.extension.shuffle.class: Dothiv\BaseWebsiteBundle\Twig\Extension\ShuffleTwigExtension
     dothiv.websitebase.twig.extension.money.class: Dothiv\BaseWebsiteBundle\Twig\Extension\MoneyTwigExtension
+    dothiv.websitebase.twig.extension.config.class: Dothiv\BaseWebsiteBundle\Twig\Extension\ConfigTwigExtension
 
 services:
     dothiv.websitebase.twig.extension.date:
@@ -20,3 +21,10 @@ services:
          - { name: twig.extension }
         arguments:
          - @dothiv.websitebase.money_format
+         
+    dothiv.websitebase.twig.extension.config:
+        class: %dothiv.websitebase.twig.extension.config.class%
+        tags:
+         - { name: twig.extension }
+        arguments:
+         - @dothiv.repository.config

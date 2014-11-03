@@ -27,11 +27,6 @@ class IframeController
     private $lastModifiedCache;
 
     /**
-     * @var \DateTime
-     */
-    private $assetsModified;
-
-    /**
      * @var ClockValue
      */
     private $clock;
@@ -50,7 +45,6 @@ class IframeController
      * @param DomainRepositoryInterface $domainRepo
      * @param RequestLastModifiedCache  $lastModifiedCache
      * @param EngineInterface           $renderer
-     * @param int                       $assets_version
      * @param ClockValue                $clock
      * @param int                       $pageLifetime In seconds
      */
@@ -58,7 +52,6 @@ class IframeController
         DomainRepositoryInterface $domainRepo,
         RequestLastModifiedCache $lastModifiedCache,
         EngineInterface $renderer,
-        $assets_version,
         ClockValue $clock,
         $pageLifetime
     )
@@ -66,7 +59,6 @@ class IframeController
         $this->domainRepo        = $domainRepo;
         $this->lastModifiedCache = $lastModifiedCache;
         $this->renderer          = $renderer;
-        $this->assetsModified    = new \DateTime('@' . $assets_version);
         $this->clock             = $clock;
         $this->pageLifetime      = (int)$pageLifetime;
     }
@@ -87,10 +79,12 @@ class IframeController
         $lmc = $this->lastModifiedCache;
 
         // Check if page is not modified.
-        $uriLastModified = $lmc->getLastModified($request)->getOrElse($this->assetsModified);
-        $response->setLastModified(max($uriLastModified, $this->assetsModified));
-        if ($response->isNotModified($request)) {
-            return $response;
+        $uriLastModified = $lmc->getLastModified($request);
+        if ($uriLastModified->isDefined()) {
+            $response->setLastModified($uriLastModified->get());
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
         }
 
         /** @var Domain $domain */
@@ -113,7 +107,7 @@ class IframeController
         $response = $this->renderer->renderResponse('DothivCharityWebsiteBundle::iframe.html.twig', array('banner' => $banner), $response);
 
         // Store last modified.
-        $lastModifiedDate = max($lmc->getLastModifiedContent(), $this->assetsModified);
+        $lastModifiedDate = $lmc->getLastModifiedContent();
         $response->setLastModified($lastModifiedDate);
         $lmc->setLastModified($request, $lastModifiedDate);
 

@@ -3,13 +3,17 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Entity\Registrar;
-use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
+use Dothiv\BusinessBundle\Model\FilterQuery;
+use Dothiv\BusinessBundle\Repository\Traits;
 use PhpOption\Option;
 
 class RegistrarRepository extends DoctrineEntityRepository implements RegistrarRepositoryInterface
 {
-    use ValidatorTrait;
+    use Traits\PaginatedQueryTrait;
+    use Traits\ValidatorTrait;
+    use Traits\GetItemEntityName;
 
     /**
      * {@inheritdoc}
@@ -44,4 +48,45 @@ class RegistrarRepository extends DoctrineEntityRepository implements RegistrarR
         );
     }
 
+    /**
+     * Returns a registrar for the given $extId, if the registrar does not exist, it is created.
+     *
+     * @param string $extId
+     *
+     * @return Registrar
+     */
+    public function getByExtId($extId)
+    {
+        return $this->findByExtId($extId)->getOrCall(function () use ($extId) {
+            $registrar = new Registrar();
+            $registrar->setExtId($extId);
+            $this->persist($registrar)->flush();
+            return $registrar;
+        });
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getItemByIdentifier($identifier)
+    {
+        return Option::fromValue($this->getByExtId($identifier));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
+    {
+        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $options);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function persistItem(EntityInterface $item)
+    {
+        $this->persist($item);
+        return $this;
+    }
 }

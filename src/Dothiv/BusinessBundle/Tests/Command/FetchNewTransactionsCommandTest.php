@@ -70,9 +70,17 @@ class FetchNewTransactionsCommandTest extends \PHPUnit_Framework_TestCase
         $this->mockContainer->expects($this->any())->method('getParameter')
             ->will($this->returnValueMap($parameterMap));
 
-        $this->mockAfiliasImporterService->expects($this->once())->method('fetchTransactions')
+        // It will fetch the next page until the url no longer changes.
+        $this->mockAfiliasImporterService->expects($this->at(0))->method('fetchTransactions')
             ->with($this->callback(function (URLValue $url) {
                 $this->assertEquals('http://localhost:8666/transactions', (string)$url);
+                return true;
+            }))
+            ->will($this->returnValue('http://localhost:8666/transactions?offsetKey=2863499'));
+
+        $this->mockAfiliasImporterService->expects($this->at(1))->method('fetchTransactions')
+            ->with($this->callback(function (URLValue $url) {
+                $this->assertEquals('http://localhost:8666/transactions?offsetKey=2863499', (string)$url);
                 return true;
             }))
             ->will($this->returnValue('http://localhost:8666/transactions?offsetKey=2863499'));

@@ -6,7 +6,6 @@ services:
           - @templating
           - @dothiv.charity.contentful.charity_content
           - "DothivPremiumConfiguratorBundle"
-          - %assets_version%
           - @clock
           - %page_lifetime%
         calls:

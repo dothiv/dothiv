@@ -6,7 +6,6 @@ services:
           - @templating
           - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
-          - %assets_version%
           - @clock
           - %page_lifetime%
 
@@ -17,7 +16,6 @@ services:
           - @templating
           - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
-          - %assets_version%
           - @clock
           - %page_lifetime%
 
@@ -28,7 +26,6 @@ services:
           - @templating
           - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
-          - %assets_version%
           - @clock
           - %page_lifetime%
 
@@ -39,7 +36,6 @@ services:
           - @templating
           - @dothiv.charity.contentful.charity_content
           - "DothivCharityWebsiteBundle"
-          - %assets_version%
           - @clock
           - %page_lifetime%
 
@@ -54,6 +50,5 @@ services:
           - @dothiv.repository.domain
           - @dothiv.websitebase.cache.request_lastmodified
           - @templating
-          - %assets_version%
           - @clock
           - %page_lifetime%

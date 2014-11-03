@@ -114,6 +114,24 @@ class Domain extends Entity
     protected $registrar;
 
     /**
+     * A transfer for this domain has been initiated.
+     *
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $transfer = false;
+
+    /**
+     * This domain is a non-profit domain
+     *
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $nonprofit = false;
+
+    /**
      * The constructor
      */
     public function __construct()
@@ -256,7 +274,7 @@ class Domain extends Entity
             $this->activeBanner = null;
         } else {
             $this->activeBanner = $banner;
-            $this->banners->contains($banner) ? : $banner->setDomain($this);
+            $this->banners->contains($banner) ?: $banner->setDomain($this);
         }
     }
 
@@ -337,5 +355,62 @@ class Domain extends Entity
     public function getRegistrar()
     {
         return $this->registrar;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getTransfer()
+    {
+        return $this->transfer;
+    }
+
+    /**
+     * @param boolean $transfer
+     *
+     * @return self
+     */
+    public function setTransfer($transfer)
+    {
+        $this->transfer = (boolean)$transfer;
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublicId()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * Marks a domain to be in transfer
+     *
+     * @return self
+     */
+    public function transfer()
+    {
+        $this->setTransfer(true);
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getNonprofit()
+    {
+        return $this->nonprofit;
+    }
+
+    /**
+     * @param boolean $nonprofit
+     *
+     * @return self
+     */
+    public function setNonprofit($nonprofit)
+    {
+        $this->nonprofit = $nonprofit;
+        return $this;
     }
 }

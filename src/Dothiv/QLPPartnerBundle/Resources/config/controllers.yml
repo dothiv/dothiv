@@ -6,6 +6,5 @@ services:
           - @templating
           - @dothiv.charity.contentful.charity_content
           - "DothivQLPPartnerBundle"
-          - %assets_version%
           - @clock
           - %page_lifetime%

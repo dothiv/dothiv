@@ -7,6 +7,7 @@ use Behat\Behat\Event\ScenarioEvent;
 use Behat\CommonContexts\DoctrineFixturesContext;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 class FeatureContext extends BehatContext
     implements KernelAwareInterface
 {
+
     /**
      * @var KernelInterface
      */
@@ -443,4 +445,21 @@ class FeatureContext extends BehatContext
         $this->theJsonNodeShouldNotBeEmpty($name);
         \PHPUnit_Framework_Assert::assertEquals($this->getJson()->$name, (int)$number);
     }
+
+    /**
+     * @Given /^I send a (?P<method>[A-Z]+) request to "(?P<url>[^"]*)" with query:$/
+     */
+    public function iSendAGetRequestToWithQuery($method, $url, TableNode $query)
+    {
+        $parameters = array();
+        foreach ($query->getRows() as $row) {
+            $parameters[$row[0]] = $row[1];
+        }
+        /** @var RawMinkContext $minkContext */
+        $minkContext = $this->getSubcontext('mink');
+        $client      = $minkContext->getSession()->getDriver()->getClient();
+        $client->request($method, $minkContext->locatePath($url), $parameters);
+        $client->followRedirects(true);
+    }
+
 }
