@@ -23,7 +23,7 @@ class ClickCounterConfigurationEvent extends Event
      * @param Domain $domain
      * @param array  $config
      */
-    public function __construct(Domain $domain, $config)
+    public function __construct(Domain $domain, array $config)
     {
         $this->domain = $domain;
         $this->config = $config;

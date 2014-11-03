@@ -19,7 +19,7 @@ class ShuffleTwigExtension extends \Twig_Extension
      *
      * @return array
      */
-    public function shuffle($array)
+    public function shuffle(array $array)
     {
         shuffle($array);
         return $array;

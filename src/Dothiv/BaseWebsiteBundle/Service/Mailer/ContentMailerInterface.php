@@ -13,5 +13,5 @@ interface ContentMailerInterface
      * @param string $toName
      * @param array  $data
      */
-    public function sendContentTemplateMail($code, $locale, $to, $toName, $data);
+    public function sendContentTemplateMail($code, $locale, $to, $toName, array $data);
 }
