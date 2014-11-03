@@ -8,7 +8,9 @@ use Dothiv\BaseWebsiteBundle\Service\MoneyFormatServiceInterface;
 use Dothiv\BusinessBundle\Entity\Invoice;
 use Dothiv\PayitforwardBundle\Entity\Order;
 use Dothiv\PayitforwardBundle\Entity\Voucher;
+use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
+use PhpOption\Option;
 
 class OrderMailer implements OrderMailerInterface
 {
@@ -40,10 +42,12 @@ class OrderMailer implements OrderMailerInterface
      * @param Order                   $order
      * @param Invoice                 $invoice
      * @param ArrayCollection|Voucher $vouchers
+     * @param EmailValue|null         $recipient
+     * @param string|null             $recipientName
      *
      * @return void
      */
-    public function send(Order $order, Invoice $invoice, ArrayCollection $vouchers)
+    public function send(Order $order, Invoice $invoice, ArrayCollection $vouchers, EmailValue $recipient = null, $recipientName = null)
     {
         $deCountries = array(
             'Deutschland',
@@ -98,8 +102,9 @@ class OrderMailer implements OrderMailerInterface
             $vouchers->next();
         }
 
-        $name = $order->getFirstname() . ' ' . $order->getSurname();
+        $recipientName = Option::fromValue($recipientName)->getOrElse($order->getFirstname() . ' ' . $order->getSurname());
+        $recipient     = Option::fromValue($recipient)->getOrElse($order->getEmail());
 
-        $this->contentMailer->sendContentTemplateMail('payitforward.order', $locale, (string)$order->getEmail(), $name, $data);
+        $this->contentMailer->sendContentTemplateMail('payitforward.order', $locale, (string)$recipient, $recipientName, $data);
     }
 } 

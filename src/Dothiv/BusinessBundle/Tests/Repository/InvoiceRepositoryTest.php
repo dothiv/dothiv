@@ -43,6 +43,43 @@ class InvoiceRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @group   Entity
+     * @group   BusinessBundle
+     * @group   Invoice
+     * @group   Integration
+     * @depends itShouldBeInstantiateable
+     */
+    public function itShouldGetById()
+    {
+        $invoice = new Invoice();
+        $invoice->setFullname('John Doe');
+        $invoice->setAddress1('Some Address');
+        $invoice->setCountry('Some Country');
+        $invoice->setItemDescription('Some Item');
+        $repo = $this->getTestObject();
+        $repo->persist($invoice);
+        $repo->flush();
+        $this->assertEquals($invoice->getId(), $repo->getById($invoice->getId())->getId());
+    }
+
+    /**
+     * @test
+     * @group                    Entity
+     * @group                    BusinessBundle
+     * @group                    Invoice
+     * @group                    Integration
+     * @depends                  itShouldGetById
+     * @expectedException \Dothiv\BusinessBundle\Exception\EntityNotFoundException
+     * @expectedExceptionMessage Entity was not found.
+     */
+    public function getByIdShouldThrowAnExceptionIfEntityNotFound()
+    {
+        $this->getTestObject()->getById(17);
+        $this->fail('getById() should throw an exception of entity is not found');
+    }
+
+    /**
      * @return InvoiceRepository
      */
     protected function getTestObject()
