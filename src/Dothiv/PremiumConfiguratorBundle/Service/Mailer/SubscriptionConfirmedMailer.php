@@ -6,8 +6,10 @@ use Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailerInterface;
 use Dothiv\BaseWebsiteBundle\Service\MoneyFormatServiceInterface;
 use Dothiv\BusinessBundle\Entity\Invoice;
 use Dothiv\PremiumConfiguratorBundle\Entity\Subscription;
+use Dothiv\ValueObject\EmailValue;
+use PhpOption\Option;
 
-class SubscriptionConfirmedMailer
+class SubscriptionConfirmedMailer implements SubscriptionConfirmedMailerInterface
 {
 
     /**
@@ -34,12 +36,14 @@ class SubscriptionConfirmedMailer
     }
 
     /**
-     * @param Subscription $subscription
-     * @param Invoice      $invoice
+     * @param Subscription    $subscription
+     * @param Invoice         $invoice
+     * @param EmailValue|null $recipient
+     * @param string|null     $recipientName
      *
      * @return void
      */
-    public function sendSubscriptionCreatedMail(Subscription $subscription, Invoice $invoice)
+    public function sendSubscriptionCreatedMail(Subscription $subscription, Invoice $invoice, EmailValue $recipient = null, $recipientName = null)
     {
         $locale     = 'en';
         $dateFormat = 'M. jS Y'; // de: 'd.m.Y'
@@ -63,8 +67,9 @@ class SubscriptionConfirmedMailer
             )
         );
 
-        $name = $subscription->getUser()->getFirstname() . ' ' . $subscription->getUser()->getSurname();
+        $recipientName = Option::fromValue($recipientName)->getOrElse($subscription->getUser()->getFirstname() . ' ' . $subscription->getUser()->getSurname());
+        $recipient     = Option::fromValue($recipient)->getOrElse($subscription->getEmail());
 
-        $this->contentMailer->sendContentTemplateMail('premium.purchased', $locale, (string)$subscription->getEmail(), $name, $data);
+        $this->contentMailer->sendContentTemplateMail('premium.purchased', $locale, (string)$recipient, $recipientName, $data);
     }
 } 
