@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bf673eb969b3c0a9d95fbb5362b53953",
+    "hash": "fb9b9a62075dc09b02ff1d09fc938168",
     "packages": [
         {
             "name": "angular-ui/bootstrap",
@@ -426,6 +426,28 @@
                 "component": {
                     "scripts": [
                         "angular-file-upload.js"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "component/urish-angular-moment",
+            "version": "0.8.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/urish/angular-moment/archive/0.8.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "moment/moment": "*",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "angular-moment.js"
                     ]
                 }
             }
@@ -2478,6 +2500,60 @@
                 "minification"
             ],
             "time": "2013-07-19 00:03:27"
+        },
+        {
+            "name": "moment/moment",
+            "version": "2.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moment/moment.git",
+                "reference": "d5ff2cfc0000010c37cc5ebe75a5905c943368e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moment/moment/zipball/d5ff2cfc0000010c37cc5ebe75a5905c943368e4",
+                "reference": "d5ff2cfc0000010c37cc5ebe75a5905c943368e4",
+                "shasum": ""
+            },
+            "require": {
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "moment.js"
+                    ],
+                    "files": [
+                        "min/*.js",
+                        "locale/*.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Wood",
+                    "email": "washwithcare@gmail.com"
+                }
+            ],
+            "description": "Parse, validate, manipulate, and display dates in javascript.",
+            "homepage": "http://github.com/moment/moment/",
+            "keywords": [
+                "date",
+                "ender",
+                "format",
+                "i18n",
+                "l10n",
+                "moment",
+                "parse",
+                "time",
+                "validate"
+            ],
+            "time": "2014-09-05 07:49:45"
         },
         {
             "name": "monolog/monolog",
@@ -4737,6 +4813,28 @@
                 "symfony"
             ],
             "time": "2014-02-03 22:28:56"
+        },
+        {
+            "name": "component/rmm5t-jquery-timeago",
+            "version": "1.4.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/rmm5t/jquery-timeago/archive/v1.4.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "components/jquery": "*",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "jquery.timeago.js"
+                    ]
+                }
+            }
         },
         {
             "name": "covex-nn/phpcb",

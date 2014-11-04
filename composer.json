@@ -46,7 +46,8 @@
         "dothiv/dothiv-valueobject-bundle": "1.x",
         "component/besite-jquery-mmenu": "4.x",
         "component/buberdds-angular-bootstrap-colorpicker": "3.x",
-        "zeroclipboard/zeroclipboard": "2.x"
+        "zeroclipboard/zeroclipboard": "2.x",
+        "component/urish-angular-moment": "0.x"
     },
     "require-dev": {
         "phploc/phploc": "*",
@@ -207,6 +208,29 @@
                 "require": {
                     "robloach/component-installer": "*",
                     "components/angular.js": "1.2.x"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "component/urish-angular-moment",
+                "type": "component",
+                "version": "0.8.2",
+                "dist": {
+                    "url": "https://github.com/urish/angular-moment/archive/0.8.2.zip",
+                    "type": "zip"
+                },
+                "extra": {
+                    "component": {
+                        "scripts": [
+                            "angular-moment.js"
+                        ]
+                    }
+                },
+                "require": {
+                    "robloach/component-installer": "*",
+                    "moment/moment": "*"
                 }
             }
         }
