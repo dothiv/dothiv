@@ -223,6 +223,15 @@ class NonProfitRegistration extends Entity
     private $approved;
 
     /**
+     * The domain for this application has been registered
+     *
+     * @var \DateTime|null
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $registered;
+
+    /**
      * @param User $user
      */
     public function setUser(User $user)
@@ -590,6 +599,24 @@ class NonProfitRegistration extends Entity
     public function setApproved(W3CDateTimeValue $when = null)
     {
         $this->approved = !$when ? null : new \DateTime($when->toScalar());
+    }
+
+    /**
+     * @return W3CDateTimeValue|null
+     */
+    public function getRegistered()
+    {
+        return !$this->registered ? null : new W3CDateTimeValue($this->registered);
+    }
+
+    /**
+     * @param W3CDateTimeValue|null $when
+     *
+     * @return self
+     */
+    public function setRegistered(W3CDateTimeValue $when = null)
+    {
+        $this->registered = !$when ? null : new \DateTime($when->toScalar());
     }
 
     /**
