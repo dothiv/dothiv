@@ -96,6 +96,11 @@ assetic:
         angular_colorpicker_css:
             inputs:
             - %kernel.root_dir%/../vendor/components/buberdds-angular-bootstrap-colorpicker/css/colorpicker.css
+        # https://github.com/urish/angular-moment
+        angular_moment:
+            inputs:
+            - %kernel.root_dir%/../vendor/components/moment/moment.js
+            - %kernel.root_dir%/../vendor/components/urish-angular-moment/angular-moment.js
         # https://github.com/zeroclipboard/zeroclipboard
         zeroclipboard_js:
             inputs:
