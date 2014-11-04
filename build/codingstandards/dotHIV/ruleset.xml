@@ -81,7 +81,31 @@
         <!-- We don't want mindless class comments. -->
         <exclude-pattern>*</exclude-pattern>
     </rule>
-    
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag.Missing">
+        <!-- Reason: @inheritdoc is not picked up -->
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Formatting.MultipleStatementAlignment.NotSameWarning">
+        <!-- Reason: Detection is not sane enough -->
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Commenting.InlineComment.InvalidEndChar">
+        <!-- We don't care. -->
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Commenting.DocCommentAlignment.SpaceAfterStar">
+        <!-- Does not work with indented comments like
+         * @ORM\Table(
+         *  indexes={
+         *      @ORM\Index(name="entity_change__author_idx", columns={"author"}),
+         *      @ORM\Index(name="entity_change__entity_idx", columns={"entity"}),
+         *      @ORM\Index(name="entity_change__identifier_idx", columns={"identifier"})
+         *  }
+         * )
+         -->
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+
     <!-- Forbidden functions -->
     <rule ref="Generic.PHP.ForbiddenFunctions">
         <properties>
