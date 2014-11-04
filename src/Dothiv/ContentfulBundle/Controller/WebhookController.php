@@ -37,7 +37,7 @@ class WebhookController implements LoggerAwareInterface
     public function webhookAction(Request $request)
     {
         $topic = $request->headers->get('X-Contentful-Topic');
-        if (empty($topic)) {
+        if (!$topic) {
             $this->log('Missing X-Contentful-Topic header!');
             throw new BadRequestHttpException(sprintf(
                 'Missing X-Contentful-Topic header!'

@@ -112,7 +112,7 @@ class FilesystemAssetAdapter implements ContentfulAssetAdapterInterface
             return;
         }
         foreach ($asset->file as $locale => $file) {
-            if (empty($file)) {
+            if (!$file) {
                 // File not published.
                 $this->log('Asset %s contains unpublished file for %s.', $asset, $locale);
                 continue;

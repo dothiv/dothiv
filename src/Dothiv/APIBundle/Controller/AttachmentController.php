@@ -56,7 +56,7 @@ class AttachmentController
     {
         /* @var User $user */
         $user = $this->securityContext->getToken()->getUser();
-        if (empty($user)) {
+        if (!$user) {
             throw new AccessDeniedHttpException();
         }
         if ($request->files->count() != 1) {

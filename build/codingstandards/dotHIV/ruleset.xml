@@ -81,4 +81,11 @@
         <!-- We don't want mindless class comments. -->
         <exclude-pattern>*</exclude-pattern>
     </rule>
+    
+    <!-- Forbidden functions -->
+    <rule ref="Generic.PHP.ForbiddenFunctions">
+        <properties>
+            <property name="forbiddenFunctions" type="array" value="sizeof=>count,delete=>unset,print=>echo,is_null=>null,create_function=>null,empty=>null,isset=>null,print_r=>null,var_dump=>null,var_export=>null"/>
+        </properties>
+    </rule>
 </ruleset>

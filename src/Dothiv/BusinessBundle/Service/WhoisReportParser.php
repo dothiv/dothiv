@@ -26,7 +26,7 @@ class WhoisReportParser
             list($k, $v) = explode(':', $line, 2);
             $k = trim($k);
             $v = trim($v);
-            if (empty($v)) {
+            if (!$v) {
                 continue;
             }
             if ($report->containsKey($k)) {
