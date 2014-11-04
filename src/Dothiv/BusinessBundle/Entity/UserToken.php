@@ -152,7 +152,7 @@ class UserToken extends Entity
      */
     public function isRevoked()
     {
-        return !empty($this->revokedTime);
+        return $this->revokedTime ? true : false;
     }
 
     /**

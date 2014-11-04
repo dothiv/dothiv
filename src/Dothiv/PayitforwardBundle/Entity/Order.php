@@ -534,7 +534,7 @@ class Order extends Entity
      */
     public function getDomain()
     {
-        return empty($this->domain) ? null : new HivDomainValue($this->domain);
+        return !$this->domain ? null : new HivDomainValue($this->domain);
     }
 
     /**
@@ -544,7 +544,7 @@ class Order extends Entity
      */
     public function setDomain(HivDomainValue $domain = null)
     {
-        $this->domain = empty($domain) ? null : (string)$domain;
+        $this->domain = !$domain ? null : (string)$domain;
         return $this;
     }
 
@@ -572,7 +572,7 @@ class Order extends Entity
      */
     public function getDomainDonorTwitter()
     {
-        return empty($this->domainDonorTwitter) ? null : new TwitterHandleValue($this->domainDonorTwitter);
+        return !$this->domainDonorTwitter ? null : new TwitterHandleValue($this->domainDonorTwitter);
     }
 
     /**
@@ -582,7 +582,7 @@ class Order extends Entity
      */
     public function setDomainDonorTwitter(TwitterHandleValue $domainDonorTwitter = null)
     {
-        $this->domainDonorTwitter = empty($domainDonorTwitter) ? null : (string)$domainDonorTwitter;
+        $this->domainDonorTwitter = !$domainDonorTwitter ? null : (string)$domainDonorTwitter;
         return $this;
     }
 
@@ -591,7 +591,7 @@ class Order extends Entity
      */
     public function getDomain1()
     {
-        return empty($this->domain1) ? null : new HivDomainValue($this->domain1);
+        return !$this->domain1 ? null : new HivDomainValue($this->domain1);
     }
 
     /**
@@ -601,7 +601,7 @@ class Order extends Entity
      */
     public function setDomain1(HivDomainValue $domain1 = null)
     {
-        $this->domain1 = empty($domain1) ? null : (string)$domain1;
+        $this->domain1 = !$domain1 ? null : (string)$domain1;
         return $this;
     }
 
@@ -648,7 +648,7 @@ class Order extends Entity
      */
     public function getDomain1Twitter()
     {
-        return empty($this->domain1Twitter) ? null : new TwitterHandleValue($this->domain1Twitter);
+        return !$this->domain1Twitter ? null : new TwitterHandleValue($this->domain1Twitter);
     }
 
     /**
@@ -658,7 +658,7 @@ class Order extends Entity
      */
     public function setDomain1Twitter(TwitterHandleValue $domain1Twitter = null)
     {
-        $this->domain1Twitter = empty($domain1Twitter) ? null : (string)$domain1Twitter;
+        $this->domain1Twitter = !$domain1Twitter ? null : (string)$domain1Twitter;
         return $this;
     }
 
@@ -667,7 +667,7 @@ class Order extends Entity
      */
     public function getDomain2()
     {
-        return empty($this->domain2) ? null : new HivDomainValue($this->domain2);
+        return !$this->domain2 ? null : new HivDomainValue($this->domain2);
     }
 
     /**
@@ -677,7 +677,7 @@ class Order extends Entity
      */
     public function setDomain2(HivDomainValue $domain2 = null)
     {
-        $this->domain2 = empty($domain2) ? null : (string)$domain2;
+        $this->domain2 = !$domain2 ? null : (string)$domain2;
         return $this;
     }
 
@@ -724,7 +724,7 @@ class Order extends Entity
      */
     public function getDomain2Twitter()
     {
-        return empty($this->domain2Twitter) ? null : new TwitterHandleValue($this->domain2Twitter);
+        return !$this->domain2Twitter ? null : new TwitterHandleValue($this->domain2Twitter);
     }
 
     /**
@@ -734,7 +734,7 @@ class Order extends Entity
      */
     public function setDomain2Twitter(TwitterHandleValue $domain2Twitter = null)
     {
-        $this->domain2Twitter = empty($domain2Twitter) ? null : (string)$domain2Twitter;
+        $this->domain2Twitter = !$domain2Twitter ? null : (string)$domain2Twitter;
         return $this;
     }
 
@@ -743,7 +743,7 @@ class Order extends Entity
      */
     public function getDomain3()
     {
-        return empty($this->domain3) ? null : new HivDomainValue($this->domain3);
+        return !$this->domain3 ? null : new HivDomainValue($this->domain3);
     }
 
     /**
@@ -753,7 +753,7 @@ class Order extends Entity
      */
     public function setDomain3(HivDomainValue $domain3 = null)
     {
-        $this->domain3 = empty($domain3) ? null : (string)$domain3;
+        $this->domain3 = !$domain3 ? null : (string)$domain3;
         return $this;
     }
 
@@ -800,7 +800,7 @@ class Order extends Entity
      */
     public function getDomain3Twitter()
     {
-        return empty($this->domain3Twitter) ? null : new TwitterHandleValue($this->domain3Twitter);
+        return !$this->domain3Twitter ? null : new TwitterHandleValue($this->domain3Twitter);
     }
 
     /**
@@ -810,7 +810,7 @@ class Order extends Entity
      */
     public function setDomain3Twitter(TwitterHandleValue $domain3Twitter = null)
     {
-        $this->domain3Twitter = empty($domain3Twitter) ? null : (string)$domain3Twitter;
+        $this->domain3Twitter = !$domain3Twitter ? null : (string)$domain3Twitter;
         return $this;
     }
 
@@ -829,7 +829,7 @@ class Order extends Entity
      */
     public function setCharge($charge = null)
     {
-        $this->charge = empty($charge) ? null : $charge;
+        $this->charge = !$charge ? null : $charge;
         return $this;
     }
 
@@ -844,7 +844,7 @@ class Order extends Entity
         for ($i = 1; $i <= 3; $i++) {
             $getter = 'getDomain' . $i;
             $domain = $this->$getter();
-            if (!empty($domain)) {
+            if ($domain) {
                 $numVouchers++;
             }
         }

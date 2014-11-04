@@ -40,7 +40,7 @@ class Oauth2BearerListener implements ListenerInterface
         $this->securityContext->setToken($token);
         
         $nullOrNotEmpty = function($value) {
-            return empty($value) ? null : $value;
+            return !$value ? null : $value;
         };
 
         $auth = Option::fromValue($nullOrNotEmpty($request->headers->get('authorization')), null)

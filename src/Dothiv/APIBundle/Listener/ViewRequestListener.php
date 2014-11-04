@@ -53,7 +53,7 @@ class ViewRequestListener
             })
             ->getOrElse($this->reader->getMethodAnnotation($method, 'Dothiv\APIBundle\Annotation\ApiRequest'));
 
-        if (empty($annotation)) {
+        if (!$annotation) {
             return;
         }
 
