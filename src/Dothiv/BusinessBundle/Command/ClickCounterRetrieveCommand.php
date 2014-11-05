@@ -36,7 +36,7 @@ class ClickCounterRetrieveCommand extends ContainerAwareCommand
         $bannerRepo = $this->getContainer()->get('dothiv.repository.banner');
         $domainRepo = $this->getContainer()->get('dothiv.repository.domain');
         $banners    = $bannerRepo->findAll();
-        if (empty($banners)) {
+        if (!$banners) {
             $output->writeln('No banners found!');
         }
         foreach ($banners as $banner) {

@@ -212,7 +212,7 @@ class RequestLastModifiedCache
         if ($this->lastMinModified === null) {
             $this->lastMinModified = $this->configRepo->get(static::CONFIG_NAME);
             $v = $this->lastMinModified->getValue();
-            if (!empty($v)) {
+            if ($v) {
                 $this->lastMinModifiedDate = new \DateTime($v);
             }
         }

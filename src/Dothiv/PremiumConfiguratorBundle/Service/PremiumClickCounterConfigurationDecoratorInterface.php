@@ -15,5 +15,5 @@ interface PremiumClickCounterConfigurationDecoratorInterface
      *
      * @return array
      */
-    function decorate($config, PremiumBanner $premiumBanner);
+    function decorate(array $config, PremiumBanner $premiumBanner);
 } 

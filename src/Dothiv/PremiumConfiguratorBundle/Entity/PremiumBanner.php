@@ -442,7 +442,7 @@ class PremiumBanner extends Entity
     /**
      * @param array $context
      */
-    public function setContext($context)
+    public function setContext(array $context)
     {
         $this->context = $context;
     }

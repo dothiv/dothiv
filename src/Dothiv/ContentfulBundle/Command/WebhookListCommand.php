@@ -24,7 +24,7 @@ class WebhookListCommand extends ContainerAwareCommand
         $client   = new HttpClient($input->getOption('access_token'), 'application/vnd.contentful.management.v1+json');
         $response = $client->get(sprintf('https://api.contentful.com/spaces/%s/webhook_definitions', $input->getOption('space')));
         $data     = json_decode($response);
-        if (empty($data->items)) {
+        if (!$data->items) {
             $output->writeln('No hooks defined.');
         }
         foreach ($data->items as $hook) {

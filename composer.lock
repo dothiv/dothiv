@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7e092dc00b6b71094f16c98a3ac1fcbe",
+    "hash": "fb9b9a62075dc09b02ff1d09fc938168",
     "packages": [
         {
             "name": "angular-ui/bootstrap",
@@ -426,6 +426,28 @@
                 "component": {
                     "scripts": [
                         "angular-file-upload.js"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "component/urish-angular-moment",
+            "version": "0.8.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/urish/angular-moment/archive/0.8.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "moment/moment": "*",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "angular-moment.js"
                     ]
                 }
             }
@@ -1647,12 +1669,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "1a9dffa64e33fdc10f4b4c3f5d7230b74d4a1021"
+                "reference": "f4fe9d9cc21a711d89d91d29c4a4e7945289cdd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/1a9dffa64e33fdc10f4b4c3f5d7230b74d4a1021",
-                "reference": "1a9dffa64e33fdc10f4b4c3f5d7230b74d4a1021",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/f4fe9d9cc21a711d89d91d29c4a4e7945289cdd0",
+                "reference": "f4fe9d9cc21a711d89d91d29c4a4e7945289cdd0",
                 "shasum": ""
             },
             "require": {
@@ -1697,7 +1719,7 @@
                 "database",
                 "migrations"
             ],
-            "time": "2014-08-18 18:03:07"
+            "time": "2014-10-30 14:49:25"
         },
         {
             "name": "doctrine/orm",
@@ -1822,16 +1844,16 @@
         },
         {
             "name": "dothiv/dothiv-valueobject-bundle",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dothiv/DothivValueObjectBundle.git",
-                "reference": "26c8e6dd8d95ffb9b06e1cdffd2a40094f04c8e3"
+                "reference": "40dbe7ce1936fe28ec9f1eff5c1055ce51c28781"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dothiv/DothivValueObjectBundle/zipball/26c8e6dd8d95ffb9b06e1cdffd2a40094f04c8e3",
-                "reference": "26c8e6dd8d95ffb9b06e1cdffd2a40094f04c8e3",
+                "url": "https://api.github.com/repos/dothiv/DothivValueObjectBundle/zipball/40dbe7ce1936fe28ec9f1eff5c1055ce51c28781",
+                "reference": "40dbe7ce1936fe28ec9f1eff5c1055ce51c28781",
                 "shasum": ""
             },
             "require": {
@@ -1871,7 +1893,7 @@
                 "ValueObject",
                 "bundle"
             ],
-            "time": "2014-10-29 10:55:41"
+            "time": "2014-11-03 13:00:27"
         },
         {
             "name": "erusev/parsedown",
@@ -2478,6 +2500,60 @@
                 "minification"
             ],
             "time": "2013-07-19 00:03:27"
+        },
+        {
+            "name": "moment/moment",
+            "version": "2.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moment/moment.git",
+                "reference": "d5ff2cfc0000010c37cc5ebe75a5905c943368e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moment/moment/zipball/d5ff2cfc0000010c37cc5ebe75a5905c943368e4",
+                "reference": "d5ff2cfc0000010c37cc5ebe75a5905c943368e4",
+                "shasum": ""
+            },
+            "require": {
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "moment.js"
+                    ],
+                    "files": [
+                        "min/*.js",
+                        "locale/*.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Wood",
+                    "email": "washwithcare@gmail.com"
+                }
+            ],
+            "description": "Parse, validate, manipulate, and display dates in javascript.",
+            "homepage": "http://github.com/moment/moment/",
+            "keywords": [
+                "date",
+                "ender",
+                "format",
+                "i18n",
+                "l10n",
+                "moment",
+                "parse",
+                "time",
+                "validate"
+            ],
+            "time": "2014-09-05 07:49:45"
         },
         {
             "name": "monolog/monolog",
@@ -3145,16 +3221,16 @@
         },
         {
             "name": "podio/podio-php",
-            "version": "v4.0.1",
+            "version": "v4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/podio/podio-php.git",
-                "reference": "acb7314bc04368b0fbbd7adbbc14f807f3090033"
+                "reference": "a67a6b9406febfbb324888ec8ddde2891e027299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/podio/podio-php/zipball/acb7314bc04368b0fbbd7adbbc14f807f3090033",
-                "reference": "acb7314bc04368b0fbbd7adbbc14f807f3090033",
+                "url": "https://api.github.com/repos/podio/podio-php/zipball/a67a6b9406febfbb324888ec8ddde2891e027299",
+                "reference": "a67a6b9406febfbb324888ec8ddde2891e027299",
                 "shasum": ""
             },
             "require": {
@@ -3183,7 +3259,7 @@
             "keywords": [
                 "podio"
             ],
-            "time": "2014-07-17 19:11:31"
+            "time": "2014-09-29 18:40:52"
         },
         {
             "name": "psr/log",
@@ -4229,16 +4305,16 @@
         },
         {
             "name": "twitter/bootstrap",
-            "version": "v3.2.0",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "c068162161154a4b85110ea1e7dd3d7897ce2b72"
+                "reference": "16dbdbd7a2c6cfa3be4e5dcc52249e577c02c84a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/c068162161154a4b85110ea1e7dd3d7897ce2b72",
-                "reference": "c068162161154a4b85110ea1e7dd3d7897ce2b72",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16dbdbd7a2c6cfa3be4e5dcc52249e577c02c84a",
+                "reference": "16dbdbd7a2c6cfa3be4e5dcc52249e577c02c84a",
                 "shasum": ""
             },
             "replace": {
@@ -4247,7 +4323,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2.x-dev"
+                    "dev-master": "3.3.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4276,7 +4352,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2014-06-26 16:36:48"
+            "time": "2014-10-29 18:56:48"
         },
         {
             "name": "zendframework/zend-code",
@@ -4737,6 +4813,28 @@
                 "symfony"
             ],
             "time": "2014-02-03 22:28:56"
+        },
+        {
+            "name": "component/rmm5t-jquery-timeago",
+            "version": "1.4.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/rmm5t/jquery-timeago/archive/v1.4.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "components/jquery": "*",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "jquery.timeago.js"
+                    ]
+                }
+            }
         },
         {
             "name": "covex-nn/phpcb",
@@ -5469,27 +5567,25 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "1.5.5",
+            "version": "dev-phpcs-fixer",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "5d973e59cf58a0c847f298de84374c96b42b17b3"
+                "reference": "198692e8e15cb4bde41f31742209f4bf61486af3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/5d973e59cf58a0c847f298de84374c96b42b17b3",
-                "reference": "5d973e59cf58a0c847f298de84374c96b42b17b3",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/198692e8e15cb4bde41f31742209f4bf61486af3",
+                "reference": "198692e8e15cb4bde41f31742209f4bf61486af3",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
                 "php": ">=5.1.2"
             },
-            "suggest": {
-                "phpunit/php-timer": "dev-master"
-            },
             "bin": [
-                "scripts/phpcs"
+                "scripts/phpcs",
+                "scripts/phpcbf"
             ],
             "type": "library",
             "extra": {
@@ -5503,12 +5599,12 @@
                     "CodeSniffer/CLI.php",
                     "CodeSniffer/Exception.php",
                     "CodeSniffer/File.php",
+                    "CodeSniffer/Fixer.php",
                     "CodeSniffer/Report.php",
                     "CodeSniffer/Reporting.php",
                     "CodeSniffer/Sniff.php",
                     "CodeSniffer/Tokens.php",
                     "CodeSniffer/Reports/",
-                    "CodeSniffer/CommentParser/",
                     "CodeSniffer/Tokenizers/",
                     "CodeSniffer/DocGenerators/",
                     "CodeSniffer/Standards/AbstractPatternSniff.php",
@@ -5540,7 +5636,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2014-09-25 03:33:46"
+            "time": "2014-11-04 00:15:26"
         },
         {
             "name": "theseer/fdomdocument",
@@ -5596,6 +5692,7 @@
         "doctrine/migrations": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "angular-ui/bootstrap": 20,
+        "squizlabs/php_codesniffer": 20,
         "behat/symfony2-extension": 20,
         "sanpi/behatch-contexts": 20,
         "behat/mink-extension": 20,

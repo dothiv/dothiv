@@ -48,14 +48,14 @@ class SyncCommand extends ContainerAwareCommand
             $etag        = $cache->fetch($cacheKey . '.etag');
         }
         $nextSyncUrlOpt = $input->getOption('next_sync_url');
-        if (!empty($nextSyncUrlOpt)) {
+        if ($nextSyncUrlOpt) {
             $nextSyncUrl = $nextSyncUrlOpt;
         }
         if (parse_url($nextSyncUrl, PHP_URL_HOST) !== parse_url($input->getOption('endpoint'), PHP_URL_HOST)) {
             // Do not continue sync from different endpoint.
             $nextSyncUrl = null;
         }
-        if (!empty($nextSyncUrl)) {
+        if ($nextSyncUrl) {
             $adapter->setNextSyncUrl($nextSyncUrl);
             $client->setEtag($etag);
         }

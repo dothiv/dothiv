@@ -74,7 +74,7 @@ class NonProfitRegistrationController
         /* @var NonProfitRegistration $registration */
         /* @var NonProfitRegistrationGetRequest $model */
         $user = $this->securityContext->getToken()->getUser();
-        if (empty($user)) {
+        if (!$user) {
             throw new AccessDeniedHttpException();
         }
 
@@ -114,7 +114,7 @@ class NonProfitRegistrationController
         /* @var Attachment $proof */
         /* @var NonProfitRegistration $registration */
         $user = $this->securityContext->getToken()->getUser();
-        if (empty($user)) {
+        if (!$user) {
             throw new AccessDeniedHttpException();
         }
 

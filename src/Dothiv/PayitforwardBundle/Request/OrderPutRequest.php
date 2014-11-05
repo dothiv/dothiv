@@ -424,7 +424,7 @@ class OrderPutRequest
      */
     public function setDomain($domain)
     {
-        $this->domain = empty($domain) ? null : HivDomainValue::createFromUTF8($domain);
+        $this->domain = !$domain ? null : HivDomainValue::createFromUTF8($domain);
         return $this;
     }
 
@@ -462,7 +462,7 @@ class OrderPutRequest
      */
     public function setDomainDonorTwitter($domainDonorTwitter = null)
     {
-        $this->domainDonorTwitter = empty($domainDonorTwitter) ? null : new TwitterHandleValue($domainDonorTwitter);
+        $this->domainDonorTwitter = !$domainDonorTwitter ? null : new TwitterHandleValue($domainDonorTwitter);
         return $this;
     }
 
@@ -471,7 +471,7 @@ class OrderPutRequest
      */
     public function getDomain1()
     {
-        return empty($this->domain1) ? null : new HivDomainValue($this->domain1);
+        return !$this->domain1 ? null : new HivDomainValue($this->domain1);
     }
 
     /**
@@ -481,7 +481,7 @@ class OrderPutRequest
      */
     public function setDomain1($domain1 = null)
     {
-        $this->domain1 = empty($domain1) ? null : (string)HivDomainValue::createFromUTF8($domain1);
+        $this->domain1 = !$domain1 ? null : (string)HivDomainValue::createFromUTF8($domain1);
         return $this;
     }
 
@@ -500,7 +500,7 @@ class OrderPutRequest
      */
     public function setDomain1Company($domain1Company = null)
     {
-        $this->domain1Company = empty($domain1Company) ? null : $domain1Company;
+        $this->domain1Company = !$domain1Company ? null : $domain1Company;
         return $this;
     }
 
@@ -519,7 +519,7 @@ class OrderPutRequest
      */
     public function setDomain1Name($domain1Name = null)
     {
-        $this->domain1Name = empty($domain1Name) ? null : $domain1Name;
+        $this->domain1Name = !$domain1Name ? null : $domain1Name;
         return $this;
     }
 
@@ -528,7 +528,7 @@ class OrderPutRequest
      */
     public function getDomain1Twitter()
     {
-        return empty($this->domain1Twitter) ? null : new TwitterHandleValue($this->domain1Twitter);
+        return !$this->domain1Twitter ? null : new TwitterHandleValue($this->domain1Twitter);
     }
 
     /**
@@ -538,7 +538,7 @@ class OrderPutRequest
      */
     public function setDomain1Twitter($domain1Twitter = null)
     {
-        $this->domain1Twitter = empty($domain1Twitter) ? null : $domain1Twitter;
+        $this->domain1Twitter = !$domain1Twitter ? null : $domain1Twitter;
         return $this;
     }
 
@@ -547,7 +547,7 @@ class OrderPutRequest
      */
     public function getDomain2()
     {
-        return empty($this->domain2) ? null : new HivDomainValue($this->domain2);
+        return !$this->domain2 ? null : new HivDomainValue($this->domain2);
     }
 
     /**
@@ -557,7 +557,7 @@ class OrderPutRequest
      */
     public function setDomain2($domain2 = null)
     {
-        $this->domain2 = empty($domain2) ? null : (string)HivDomainValue::createFromUTF8($domain2);
+        $this->domain2 = !$domain2 ? null : (string)HivDomainValue::createFromUTF8($domain2);
         return $this;
     }
 
@@ -576,7 +576,7 @@ class OrderPutRequest
      */
     public function setDomain2Company($domain2Company = null)
     {
-        $this->domain2Company = empty($domain2Company) ? null : $domain2Company;
+        $this->domain2Company = !$domain2Company ? null : $domain2Company;
         return $this;
     }
 
@@ -595,7 +595,7 @@ class OrderPutRequest
      */
     public function setDomain2Name($domain2Name = null)
     {
-        $this->domain2Name = empty($domain2Name) ? null : $domain2Name;
+        $this->domain2Name = !$domain2Name ? null : $domain2Name;
         return $this;
     }
 
@@ -604,7 +604,7 @@ class OrderPutRequest
      */
     public function getDomain2Twitter()
     {
-        return empty($this->domain2Twitter) ? null : new TwitterHandleValue($this->domain2Twitter);
+        return !$this->domain2Twitter ? null : new TwitterHandleValue($this->domain2Twitter);
     }
 
     /**
@@ -614,7 +614,7 @@ class OrderPutRequest
      */
     public function setDomain2Twitter($domain2Twitter = null)
     {
-        $this->domain2Twitter = empty($domain2Twitter) ? null : $domain2Twitter;
+        $this->domain2Twitter = !$domain2Twitter ? null : $domain2Twitter;
         return $this;
     }
 
@@ -623,7 +623,7 @@ class OrderPutRequest
      */
     public function getDomain3()
     {
-        return empty($this->domain3) ? null : new HivDomainValue($this->domain3);
+        return !$this->domain3 ? null : new HivDomainValue($this->domain3);
     }
 
     /**
@@ -633,7 +633,7 @@ class OrderPutRequest
      */
     public function setDomain3($domain3 = null)
     {
-        $this->domain3 = empty($domain3) ? null : (string)HivDomainValue::createFromUTF8($domain3);
+        $this->domain3 = !$domain3 ? null : (string)HivDomainValue::createFromUTF8($domain3);
         return $this;
     }
 
@@ -652,7 +652,7 @@ class OrderPutRequest
      */
     public function setDomain3Company($domain3Company = null)
     {
-        $this->domain3Company = empty($domain3Company) ? null : $domain3Company;
+        $this->domain3Company = !$domain3Company ? null : $domain3Company;
         return $this;
     }
 
@@ -671,7 +671,7 @@ class OrderPutRequest
      */
     public function setDomain3Name($domain3Name = null)
     {
-        $this->domain3Name = empty($domain3Name) ? null : $domain3Name;
+        $this->domain3Name = !$domain3Name ? null : $domain3Name;
         return $this;
     }
 
@@ -680,7 +680,7 @@ class OrderPutRequest
      */
     public function getDomain3Twitter()
     {
-        return empty($this->domain3Twitter) ? null : new TwitterHandleValue($this->domain3Twitter);
+        return !$this->domain3Twitter ? null : new TwitterHandleValue($this->domain3Twitter);
     }
 
     /**
@@ -690,7 +690,7 @@ class OrderPutRequest
      */
     public function setDomain3Twitter($domain3Twitter = null)
     {
-        $this->domain3Twitter = empty($domain3Twitter) ? null : $domain3Twitter;
+        $this->domain3Twitter = !$domain3Twitter ? null : $domain3Twitter;
         return $this;
     }
 
