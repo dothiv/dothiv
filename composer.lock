@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7e092dc00b6b71094f16c98a3ac1fcbe",
+    "hash": "fb9b9a62075dc09b02ff1d09fc938168",
     "packages": [
         {
             "name": "angular-ui/bootstrap",
@@ -426,6 +426,28 @@
                 "component": {
                     "scripts": [
                         "angular-file-upload.js"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "component/urish-angular-moment",
+            "version": "0.8.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/urish/angular-moment/archive/0.8.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "moment/moment": "*",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "angular-moment.js"
                     ]
                 }
             }
@@ -2478,6 +2500,60 @@
                 "minification"
             ],
             "time": "2013-07-19 00:03:27"
+        },
+        {
+            "name": "moment/moment",
+            "version": "2.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moment/moment.git",
+                "reference": "d5ff2cfc0000010c37cc5ebe75a5905c943368e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moment/moment/zipball/d5ff2cfc0000010c37cc5ebe75a5905c943368e4",
+                "reference": "d5ff2cfc0000010c37cc5ebe75a5905c943368e4",
+                "shasum": ""
+            },
+            "require": {
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "moment.js"
+                    ],
+                    "files": [
+                        "min/*.js",
+                        "locale/*.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Wood",
+                    "email": "washwithcare@gmail.com"
+                }
+            ],
+            "description": "Parse, validate, manipulate, and display dates in javascript.",
+            "homepage": "http://github.com/moment/moment/",
+            "keywords": [
+                "date",
+                "ender",
+                "format",
+                "i18n",
+                "l10n",
+                "moment",
+                "parse",
+                "time",
+                "validate"
+            ],
+            "time": "2014-09-05 07:49:45"
         },
         {
             "name": "monolog/monolog",
@@ -4739,6 +4815,28 @@
             "time": "2014-02-03 22:28:56"
         },
         {
+            "name": "component/rmm5t-jquery-timeago",
+            "version": "1.4.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/rmm5t/jquery-timeago/archive/v1.4.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "components/jquery": "*",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "jquery.timeago.js"
+                    ]
+                }
+            }
+        },
+        {
             "name": "covex-nn/phpcb",
             "version": "1.0.4.1",
             "source": {
@@ -5469,27 +5567,25 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "1.5.5",
+            "version": "dev-phpcs-fixer",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "5d973e59cf58a0c847f298de84374c96b42b17b3"
+                "reference": "198692e8e15cb4bde41f31742209f4bf61486af3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/5d973e59cf58a0c847f298de84374c96b42b17b3",
-                "reference": "5d973e59cf58a0c847f298de84374c96b42b17b3",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/198692e8e15cb4bde41f31742209f4bf61486af3",
+                "reference": "198692e8e15cb4bde41f31742209f4bf61486af3",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
                 "php": ">=5.1.2"
             },
-            "suggest": {
-                "phpunit/php-timer": "dev-master"
-            },
             "bin": [
-                "scripts/phpcs"
+                "scripts/phpcs",
+                "scripts/phpcbf"
             ],
             "type": "library",
             "extra": {
@@ -5503,12 +5599,12 @@
                     "CodeSniffer/CLI.php",
                     "CodeSniffer/Exception.php",
                     "CodeSniffer/File.php",
+                    "CodeSniffer/Fixer.php",
                     "CodeSniffer/Report.php",
                     "CodeSniffer/Reporting.php",
                     "CodeSniffer/Sniff.php",
                     "CodeSniffer/Tokens.php",
                     "CodeSniffer/Reports/",
-                    "CodeSniffer/CommentParser/",
                     "CodeSniffer/Tokenizers/",
                     "CodeSniffer/DocGenerators/",
                     "CodeSniffer/Standards/AbstractPatternSniff.php",
@@ -5540,7 +5636,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2014-09-25 03:33:46"
+            "time": "2014-11-04 00:15:26"
         },
         {
             "name": "theseer/fdomdocument",
@@ -5596,6 +5692,7 @@
         "doctrine/migrations": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "angular-ui/bootstrap": 20,
+        "squizlabs/php_codesniffer": 20,
         "behat/symfony2-extension": 20,
         "sanpi/behatch-contexts": 20,
         "behat/mink-extension": 20,
