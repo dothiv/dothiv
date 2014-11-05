@@ -2,12 +2,12 @@
 
 namespace Dothiv\BusinessBundle\Model;
 
+use Dothiv\BusinessBundle\Entity\User;
 use PhpOption\None;
 use PhpOption\Option;
 
 class FilterQuery
 {
-
     /**
      * @var string
      */
@@ -17,6 +17,13 @@ class FilterQuery
      * @var string[]
      */
     private $properties = array();
+
+    /**
+     * If set, the result should be limited to entries accessible to the given user
+     *
+     * @var User
+     */
+    private $user;
 
     /**
      * @return Option of string
@@ -56,4 +63,22 @@ class FilterQuery
         $this->properties[$name] = $value;
     }
 
-} 
+    /**
+     * @return Option of User
+     */
+    public function getUser()
+    {
+        return Option::fromValue($this->user);
+    }
+
+    /**
+     * @param User|null $user
+     *
+     * @return self
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+        return $this;
+    }
+}

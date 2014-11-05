@@ -2,7 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Tests\Entity\Command;
 
-use Dothiv\AdminBundle\Repository\EntityChangeRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\EntityChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
 use Dothiv\BusinessBundle\Command\WhoisCommand;
 use Dothiv\BusinessBundle\Entity\Config;
@@ -107,4 +107,4 @@ class WhoisCommandTest extends \PHPUnit_Framework_TestCase
 
         $this->mockWhoisService = $this->getMock('\Dothiv\BusinessBundle\Service\WhoisServiceInterface');
     }
-} 
+}

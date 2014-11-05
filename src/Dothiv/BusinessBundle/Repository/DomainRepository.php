@@ -8,7 +8,6 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\Traits;
-use Dothiv\BusinessBundle\Service\FilterQueryParser;
 use Dothiv\ValueObject\URLValue;
 use PhpOption\Option;
 
@@ -102,7 +101,7 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         }
         if ($filterQuery->getProperty('clickcount')->isDefined()) {
             if ((int)$filterQuery->getProperty('clickcount')->get()) {
-                $qb->andWhere('i.clickcount > 0'); 
+                $qb->andWhere('i.clickcount > 0');
             } else {
                 $qb->andWhere('i.clickcount = 0');
             }
