@@ -25,7 +25,7 @@ class FilterQueryParser
             return preg_match(static::PROPERTY_MATCH, $part) === 0;
         });
         $term       = trim(join(' ', $queryParts));
-        if (!empty($term)) {
+        if ($term) {
             $query->setTerm($term);
         }
 

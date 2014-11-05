@@ -74,7 +74,25 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
      */
     public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
-        return $this->buildPaginatedResult($this->createQueryBuilder('i'), $options);
+        $qb = $this->createQueryBuilder('i');
+        if ($filterQuery->getTerm()->isDefined()) {
+            $qb->andWhere('i.domain LIKE :q')->setParameter('q', '%' . $filterQuery->getTerm()->get() . '%');
+        }
+        if ($filterQuery->getProperty('approved')->isDefined()) {
+            if ((int)$filterQuery->getProperty('approved')->get()) {
+                $qb->andWhere('i.approved IS NOT NULL');
+            } else {
+                $qb->andWhere('i.approved IS NULL');
+            }
+        }
+        if ($filterQuery->getProperty('registered')->isDefined()) {
+            if ((int)$filterQuery->getProperty('registered')->get()) {
+                $qb->andWhere('i.registered IS NOT NULL');
+            } else {
+                $qb->andWhere('i.registered IS NULL');
+            }
+        }
+        return $this->buildPaginatedResult($qb, $options);
     }
 
     /**
