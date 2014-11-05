@@ -42,25 +42,25 @@
         <div class="fields">
             <div class="fields">
                 <div class="form-group">
-                    <label for="domainsFormDomain">.hiv domain 
+                    <label for="domainsFormDomain">.hiv domain
                         <small>e.g. <code>example.hiv</code>, (optional)</small>
                     </label>
                     <input type="text" data-ng-model="order.domain" id="domainsFormDomain" data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/">
                 </div>
                 <div class="form-group">
                     <label for="domainsDomainDonor">My donor's name (First name, last name) <small>(optional)</small></label>
-                    <input type="text" 
+                    <input type="text"
                             data-ng-model="order.domainDonor"
                             data-ng-blur="updateFbText()"
-                            id="domainsDomainDonor" 
+                            id="domainsDomainDonor"
                             maxlength="255"
                             >
                 </div>
                 <div class="form-group">
                     <label for="domainsDomainDonorTwitter">My donor's twitter handle <small>e.g. <code>@acme</code> (optional)</small></label>
-                    <input type="text" 
-                            data-ng-model="order.domainDonorTwitter" 
-                            id="domainsDomainDonorTwitter" 
+                    <input type="text"
+                            data-ng-model="order.domainDonorTwitter"
+                            id="domainsDomainDonorTwitter"
                             data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/"
                             data-ng-blur="updateTweetText()"
                             >
@@ -138,10 +138,10 @@
                         <label for="domainsFormdomain{{ d }}Domain">Domain {{ d }}
                             <small>e.g. <code>example.hiv</code>{% if not required %} (optional){% endif %}</small>
                         </label>
-                        <input type="text" 
-                                data-ng-model="order.domain{{ d }}" 
-                                data-ng-blur="updateSharingText()" 
-                                id="domainsFormdomain{{ d }}Domain" {{ required }} 
+                        <input type="text"
+                                data-ng-model="order.domain{{ d }}"
+                                data-ng-blur="updateSharingText()"
+                                id="domainsFormdomain{{ d }}Domain" {{ required }}
                                 data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/"
                                 >
                     </div>
@@ -157,10 +157,10 @@
                     <div class="form-group">
                         <label for="domainsFormdomain{{ d }}Twitter">Twitter handle <small>e.g. <code>@acme</code> (optional)</small>
                         </label>
-                        <input type="text" 
+                        <input type="text"
                                 data-ng-model="order.domain{{ d }}Twitter"
                                 data-ng-blur="updateTweetText()"
-                                id="domainsFormdomain{{ d }}Twitter" 
+                                id="domainsFormdomain{{ d }}Twitter"
                                 data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/"
                                 >
                     </div>
@@ -330,7 +330,7 @@
             <dd><code>123</code></dd>
         </dl>
     {% endif %}
-    
+
 </div>
 
 <div data-ng-show="step == 'paid'" class="block">
@@ -343,7 +343,7 @@
 
     <p>Your voucher codes for the free domains, your invoice and some help to notify your friends about their new .hiv
         will arrive soon in your inbox. Please check your Spam folder if you cannot find it.</p>
-    
+
     <p>In case of open questions, please contact <a href="mailto:support@tld.hiv">support@tld.hiv</a>.</p>
 
     <h4>Now tell the world about your gifts – and don't forget to link your friends:</h4>
