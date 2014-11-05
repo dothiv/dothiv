@@ -1,25 +1,25 @@
 <?php
 
-namespace Dothiv\CharityWebsiteBundle\Entity;
+namespace Dothiv\BusinessBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Tests\ORM\Tools\Export\User;
-use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Entity\Traits;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Represents a dismissable notification for a user
  *
- * @ORM\Entity(repositoryClass="Dothiv\CharityWebsiteBundle\Repository\NotificationRepository")
+ * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\UserNotificationRepository")
  * @ORM\Table(
- *  name="CharityUserNotification",
+ *  name="UserNotification",
  *  indexes={
  *      @ORM\Index(name="charity_user_notification__user_idx", columns={"user_id"})
  *  }
  * )
  * @Serializer\ExclusionPolicy("all")
+ * @Assert\Callback(methods={"isValid"})
  */
 class UserNotification implements EntityInterface
 {
@@ -38,7 +38,9 @@ class UserNotification implements EntityInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Dothiv\BusinessBundle\Entity\User")
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
+     * @Assert\Type("Dothiv\BusinessBundle\Entity\User")
+     * @Assert\NotBlank()
      * @var User
      */
     protected $user;
@@ -142,4 +144,15 @@ class UserNotification implements EntityInterface
         return $this;
     }
 
+    /**
+     * Validates user notification
+     *
+     * @param ExecutionContextInterface $context
+     */
+    public function isValid(ExecutionContextInterface $context)
+    {
+        if (count($this->getProperties()) == 0) {
+            $context->addViolationAt('properties', 'UserNotification has no properties!');
+        }
+    }
 }

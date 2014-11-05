@@ -1,0 +1,36 @@
+<?php
+
+namespace Dothiv\BusinessBundle\Repository;
+
+use Dothiv\BusinessBundle\Entity\EntityChange;
+use Dothiv\BusinessBundle\Model\FilterQuery;
+use Dothiv\BusinessBundle\Repository\PaginatedQueryOptions;
+use Dothiv\BusinessBundle\Repository\PaginatedResult;
+use Dothiv\ValueObject\IdentValue;
+
+interface EntityChangeRepositoryInterface
+{
+    /**
+     * @param EntityChange $change
+     *
+     * @return self
+     */
+    public function persist(EntityChange $change);
+
+    /**
+     * @return self
+     */
+    public function flush();
+
+    /**
+     * Creates a paginated result of changes for the entity of type $entity with identifier $identifier
+     *
+     * @param                       $entity
+     * @param IdentValue            $identifier
+     * @param PaginatedQueryOptions $options
+     * @param FilterQuery           $filterQuery
+     *
+     * @return PaginatedResult
+     */
+    public function getPaginated($entity, IdentValue $identifier, PaginatedQueryOptions $options, FilterQuery $filterQuery);
+}

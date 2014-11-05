@@ -4,6 +4,7 @@
 namespace Dothiv\BusinessBundle\Tests\Service;
 
 use Dothiv\BusinessBundle\Service\FilterQueryParser;
+use PhpOption\None;
 
 class FilterQueryParserTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,4 +41,4 @@ class FilterQueryParserTest extends \PHPUnit_Framework_TestCase
     {
         return new FilterQueryParser();
     }
-} 
+}

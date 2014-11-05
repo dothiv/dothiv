@@ -2,8 +2,8 @@
 
 namespace Dothiv\BusinessBundle\Command;
 
-use Dothiv\AdminBundle\Entity\EntityChange;
-use Dothiv\AdminBundle\Repository\EntityChangeRepositoryInterface;
+use Dothiv\BusinessBundle\Entity\EntityChange;
+use Dothiv\BusinessBundle\Repository\EntityChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\IdentValue;
@@ -83,7 +83,7 @@ class ConfigCommand extends ContainerAwareCommand
      */
     protected function getEntityChangeRepo()
     {
-        return $this->getContainer()->get('dothiv.admin.repository.entity_change');
+        return $this->getContainer()->get('dothiv.repository.entity_change');
     }
 
     /**
