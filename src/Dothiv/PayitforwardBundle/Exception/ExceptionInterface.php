@@ -2,7 +2,7 @@
 
 namespace Dothiv\PayitforwardBundle\Exception;
 
-interface Exception
+interface ExceptionInterface
 {
 
-} 
+}
