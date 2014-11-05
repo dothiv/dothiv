@@ -2,7 +2,7 @@
 
 namespace Dothiv\PremiumConfiguratorBundle\Exception;
 
-interface Exception
+interface ExceptionInterface
 {
 
-} 
+}
