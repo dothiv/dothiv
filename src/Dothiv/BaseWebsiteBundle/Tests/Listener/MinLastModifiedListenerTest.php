@@ -2,7 +2,7 @@
 
 namespace Dothiv\BaseWebsiteBundle\Tests\Listener;
 
-use Dothiv\AdminBundle\Entity\EntityChange;
+use Dothiv\BusinessBundle\Entity\EntityChange;
 use Dothiv\AdminBundle\Event\EntityChangeEvent;
 use Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache;
 use Dothiv\BaseWebsiteBundle\Listener\MinLastModifiedListener;
@@ -94,4 +94,4 @@ class MinLastModifiedListenerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
     }
-} 
+}

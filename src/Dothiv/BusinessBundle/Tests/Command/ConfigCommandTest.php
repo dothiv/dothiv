@@ -2,7 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Tests\Entity\Command;
 
-use Dothiv\AdminBundle\Repository\EntityChangeRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\EntityChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
 use Dothiv\BusinessBundle\Command\ConfigCommand;
 use Dothiv\BusinessBundle\Entity\Config;
@@ -112,7 +112,7 @@ class ConfigCommandTest extends \PHPUnit_Framework_TestCase
     {
         $containerMap = array(
             array('dothiv.repository.config', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockConfigRepo),
-            array('dothiv.admin.repository.entity_change', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockEntityChangeRepo),
+            array('dothiv.repository.entity_change', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockEntityChangeRepo),
         );
         $this->mockContainer->expects($this->any())->method('get')
             ->will($this->returnValueMap($containerMap));
@@ -182,6 +182,6 @@ class ConfigCommandTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockEntityChangeRepo = $this->getMock('\Dothiv\AdminBundle\Repository\EntityChangeRepositoryInterface');
+        $this->mockEntityChangeRepo = $this->getMock('\Dothiv\BusinessBundle\Repository\EntityChangeRepositoryInterface');
     }
-} 
+}

@@ -26,5 +26,6 @@ class DothivAPIExtension extends Extension
         $loader->load('security.yml');
         $loader->load('controllers.yml');
         $loader->load('listeners.yml');
+        $loader->load('services.yml');
     }
 }

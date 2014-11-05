@@ -2,6 +2,7 @@ parameters:
     dothiv.api.controller.attachment.class: Dothiv\APIBundle\Controller\AttachmentController
     dothiv.api.controller.account.class: Dothiv\APIBundle\Controller\AccountController
     dothiv.api.controller.user.class: Dothiv\APIBundle\Controller\UserController
+    dothiv.api.controller.crud.class: Dothiv\APIBundle\Controller\CRUDController
 
 services:
     dothiv.api.controller.domain:
@@ -55,3 +56,14 @@ services:
          - @dothiv.repository.attachment
          - @security.context
          - @serializer
+
+    dothiv.api.controller.user_notification:
+        class: %dothiv.api.controller.crud.class%
+        arguments:
+        - @dothiv.repository.user_notification
+        - @dothiv.api.transformer.user_notification
+        - @dothiv.admin.transformer.paginatedlist
+        - @serializer
+        - @dothiv.repository.entity_change
+        - @security.context
+        - @dothiv.api.manipulator.generic
