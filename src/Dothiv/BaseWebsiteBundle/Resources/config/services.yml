@@ -1,5 +1,4 @@
 parameters:
-    dothiv.websitebase.assetic.filter.ngmin.class: Dothiv\BaseWebsiteBundle\Assetic\Filter\NgMinFilter
     dothiv.websitebase.contentful.content.class: Dothiv\BaseWebsiteBundle\Contentful\Content
     dothiv.websitebase.contentful.view_builder.class: Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder
     dothiv.websitebase.contentful.image_scaler.class: Dothiv\BaseWebsiteBundle\Contentful\ImageAssetScaler
@@ -8,22 +7,6 @@ parameters:
     dothiv.websitebase.service.image_scaler.class: Dothiv\BaseWebsiteBundle\Service\ImagineImageScaler
 
 services:
-    dothiv.websitebase.assetic.filter.ngmin:
-        class: %dothiv.websitebase.assetic.filter.ngmin.class%
-        tags:
-            - { name: assetic.filter, alias: ngmin }
-        arguments: [%ngmin_bin%]
-
-    dothiv.websitebase.assetic.filter.closureecma5:
-        class: %assetic.filter.closure.jar.class%
-        tags:
-            - { name: assetic.filter, alias: closureecma5 }
-        arguments: [%assetic.filter.closure.jar%, %assetic.filter.closure.java%]
-        calls:
-            - [ setTimeout, [%assetic.filter.closure.timeout%] ]
-            - [ setCompilationLevel, [%assetic.filter.closure.compilation_level%] ]
-            - [ setLanguage, ['ECMASCRIPT5'] ]
-            
     dothiv.websitebase.contentful.view_builder:
             class: %dothiv.websitebase.contentful.view_builder.class%
             arguments:

@@ -30,7 +30,7 @@
     {% stylesheets
     'bundles/dothivpremiumconfigurator/lesscss/styles.less'
     '@angular_colorpicker_css'
-    filter='cssrewrite' %}
+    filter='cssrewrite,?uglifycss' %}
     <link rel="stylesheet" href="{{ asset(asset_url) }}">
     {% endstylesheets %}
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/favicon.png' %}
@@ -39,7 +39,7 @@
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
     '@angular_js'
-    filter='?ngmin,?closureecma5'
+    filter='?uglifyjs2'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
     {% endjavascripts %}
@@ -83,7 +83,7 @@
     '@DothivPremiumConfiguratorBundle/Resources/public/js/services/models/*.js'
     '@DothivPremiumConfiguratorBundle/Resources/public/js/controllers/*.js'
     '@zeroclipboard_js'
-    filter='?ngmin,?closureecma5'
+    filter='?uglifyjs2'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
     {% endjavascripts %}
