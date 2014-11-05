@@ -29,7 +29,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% stylesheets
     'bundles/dothivpremiumconfigurator/lesscss/blank.less'
-    filter='cssrewrite' %}
+    filter='cssrewrite,?uglifycss' %}
     <link rel="stylesheet" href="{{ asset(asset_url) }}">
     {% endstylesheets %}
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/favicon.png' %}

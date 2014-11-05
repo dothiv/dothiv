@@ -30,17 +30,17 @@
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% stylesheets 
+    {% stylesheets
         'bundles/dothivregistrywebsite/lesscss/styles.less'
         '@jquery_mmenu_css'
-        filter='cssrewrite' %}
+        filter='cssrewrite,?uglifycss' %}
     <link rel="stylesheet" href="{{ asset(asset_url) }}">
     {% endstylesheets %}
     <link rel="shortcut icon" href="{{ asset("bundles/dothivregistrywebsite/images/favicon.png") }}">
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
     '@angular_js'
-    filter='?ngmin,?closureecma5'
+    filter='?uglifyjs2'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
     {% endjavascripts %}
@@ -189,7 +189,7 @@
     '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/RegistrarsListController.js'
     '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/HivDomainListController.js'
     '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/MainNavController.js'
-    filter='?ngmin,?closureecma5'
+    filter='?uglifyjs2'
     output='js/*.min.js'
 %}
 <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
