@@ -162,7 +162,14 @@ class FeatureContext extends BehatContext
         foreach ($matches as $match) {
             if (preg_match('/^(\\\\[\\\\A-Za-z]+)+@(.+)/', $match[1], $classMatch)) {
                 $class = $classMatch[1];
-                return new $class($classMatch[2]);
+                switch ($class) {
+                    case '\array':
+                        return array(json_decode($classMatch[2]));
+                        break;
+                    default:
+                        return new $class($classMatch[2]);
+                }
+
             }
             return $this->storage->get($match[1]);
         }
