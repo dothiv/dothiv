@@ -16,7 +16,7 @@ class DomainConfigurationMailer extends ContentMailer
     /**
      * {@inheritdoc}
      */
-    public function sendContentTemplateMail($code, $locale, $to, $toName, $data)
+    public function sendContentTemplateMail($code, $locale, $to, $toName, array $data)
     {
         $this->data = $data;
         parent::sendContentTemplateMail($code, $locale, $to, $toName, $data);

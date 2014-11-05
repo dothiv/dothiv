@@ -223,7 +223,7 @@ class Domain extends Entity
      */
     public function claim(User $newOwner, $token)
     {
-        if (empty($token))
+        if (!$token)
             throw new InvalidArgumentException('Given token is empty');
         if ($token !== $this->token)
             throw new InvalidArgumentException('Given token did not match');

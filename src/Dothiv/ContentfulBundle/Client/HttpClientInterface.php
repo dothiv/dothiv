@@ -24,7 +24,7 @@ interface HttpClientInterface
      *
      * @return string
      */
-    function post($uri, $data);
+    function post($uri, array $data);
 
     /**
      * @param string $uri
@@ -32,7 +32,7 @@ interface HttpClientInterface
      *
      * @return string
      */
-    function put($uri, $data);
+    function put($uri, array $data);
 
     /**
      * @param string $name

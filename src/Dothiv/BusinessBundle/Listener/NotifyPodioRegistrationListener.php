@@ -17,7 +17,7 @@ class NotifyPodioRegistrationListener
     /**
      * @param array $config
      */
-    public function __construct($config)
+    public function __construct(array $config)
     {
         $this->config = $config;
     }

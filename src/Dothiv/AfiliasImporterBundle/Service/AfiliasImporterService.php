@@ -178,7 +178,7 @@ class AfiliasImporterService implements AfiliasImporterServiceInterface
     protected function getNextUrl(Response $response)
     {
         $linkHeader = $response->getHeader('Link');
-        if (empty($linkHeader)) {
+        if (!$linkHeader) {
             return null;
         }
         if (preg_match('/<([^>]+)>; *rel="next"/', $linkHeader, $nextMatch)) {

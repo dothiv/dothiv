@@ -67,7 +67,7 @@ class OrderMailer implements OrderMailerInterface
         $data   = array(
             'firstname' => $order->getFirstname(),
             'surname'   => $order->getSurname(),
-            'domain'    => empty($domain) ? null : $domain->toUTF8(),
+            'domain'    => !$domain ? null : $domain->toUTF8(),
             'invoice'   => array(
                 'no'               => $invoice->getNo(),
                 'created'          => $invoice->getCreated()->format($dateFormat),
@@ -91,7 +91,7 @@ class OrderMailer implements OrderMailerInterface
             $nameGetter   = 'getDomain' . $i . 'Name';
             $domain       = $order->$domainGetter();
             $name         = $order->$nameGetter();
-            if (empty($domain)) {
+            if (!$domain) {
                 continue;
             }
             $data['vouchers'][] = array(

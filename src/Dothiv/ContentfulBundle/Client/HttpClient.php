@@ -53,7 +53,7 @@ class HttpClient implements HttpClientInterface
      *
      * @return string
      */
-    function post($uri, $data = null)
+    function post($uri, array $data = null)
     {
         $opts = $this->buildOpts('POST');
         if ($data !== null) {
@@ -68,7 +68,7 @@ class HttpClient implements HttpClientInterface
      *
      * @return string
      */
-    function put($uri, $data = null)
+    function put($uri, array $data = null)
     {
         $opts = $this->buildOpts('PUT');
         if ($data !== null) {
