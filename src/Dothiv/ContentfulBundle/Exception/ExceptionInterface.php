@@ -2,6 +2,6 @@
 
 namespace Dothiv\ContentfulBundle\Exception;
 
-interface Exception
+interface ExceptionInterface
 {
 }
