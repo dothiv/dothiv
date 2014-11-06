@@ -2,17 +2,18 @@
 
 namespace Dothiv\BusinessBundle\Service;
 
+use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
+use Dothiv\BusinessBundle\Event\UserEvent;
 use Dothiv\BusinessBundle\Event\UserTokenEvent;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use Dothiv\ValueObject\ClockValue;
-use PhpOption\Option;
 use Dothiv\ValueObject\IdentValue;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -38,7 +39,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     protected $clock;
 
     /**
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      */
     protected $dispatcher;
 
@@ -61,7 +62,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
         UserRepositoryInterface $userRepository,
         UserTokenRepositoryInterface $userTokenRepository,
         ClockValue $clock,
-        EventDispatcher $dispatcher,
+        EventDispatcherInterface $dispatcher,
         $loginLinkEventName,
         $adminUserDomain,
         $linkRequestWait
@@ -76,7 +77,6 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $this->userRepo           = $userRepository;
         $this->userTokenRepo      = $userTokenRepository;
         $this->clock              = $clock;
-        $this->dispatcher         = $dispatcher;
         $this->linkRequestWait    = (int)$linkRequestWait;
     }
 
@@ -252,13 +252,15 @@ class UserService implements UserProviderInterface, UserServiceInterface
     {
         $userRepo = $this->userRepo;
         /* @var User $user */
-        return $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $firstname, $surname, $userRepo) {
+        $eventDispatcher = $this->dispatcher;
+        return $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $firstname, $surname, $userRepo, $eventDispatcher) {
             $user = new User();
             $user->setHandle($this->generateToken());
             $user->setEmail($email);
             $user->setSurname($surname);
             $user->setFirstname($firstname);
             $userRepo->persist($user)->flush();
+            $eventDispatcher->dispatch(BusinessEvents::USER_CREATED, new UserEvent($user));
             return $user;
         });
     }

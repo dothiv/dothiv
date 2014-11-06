@@ -15,4 +15,6 @@ final class BusinessEvents
     const USER_LOGINLINK_REQUESTED = 'dothiv.business.user.loginlink.requested';
 
     const CLICKCOUNTER_CONFIGURATION = 'dothiv.basewebsite.clickcounter.configuration';
+
+    const USER_CREATED = 'dothiv.business.user.created';
 }
