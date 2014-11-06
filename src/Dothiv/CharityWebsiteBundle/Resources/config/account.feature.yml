@@ -19,7 +19,7 @@ services:
         - %email_from_address%
         - %email_from_name%
         tags:
-            - { name: kernel.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
+            - { name: dothiv.business.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
 
     dothiv.charity.service.mailer.login:
         class: %dothiv.charity.service.mailer.login.class%
@@ -31,4 +31,4 @@ services:
         - %email_from_address%
         - %email_from_name%
         tags:
-            - { name: kernel.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }
+            - { name: dothiv.business.event_dispatcher, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }

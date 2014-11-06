@@ -12,7 +12,7 @@ services:
          - @dothiv.repository.domain
          - @dothiv.repository.domainclaim
          - @serializer
-         - @event_dispatcher
+         - @dothiv.business.event_dispatcher
          - @clock
 
     dothiv.api.controller.banner:
