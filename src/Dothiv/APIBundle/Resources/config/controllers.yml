@@ -67,3 +67,5 @@ services:
         - @dothiv.repository.entity_change
         - @security.context
         - @dothiv.api.manipulator.generic
+        calls:
+        - [disableHistory]

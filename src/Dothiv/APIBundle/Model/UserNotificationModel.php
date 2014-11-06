@@ -16,6 +16,12 @@ class UserNotificationModel implements JsonLdEntityInterface
      */
     private $properties;
 
+    /**
+     * @var boolean
+     * @Serializer\Type("integer")
+     */
+    private $dismissed;
+
     public function __construct()
     {
         $this->setJsonLdContext(new URLValue('http://jsonld.click4life.hiv/UserNotification'));
@@ -39,4 +45,24 @@ class UserNotificationModel implements JsonLdEntityInterface
         $this->properties = $properties;
         return $this;
     }
+
+    /**
+     * @return boolean
+     */
+    public function getDismissed()
+    {
+        return $this->dismissed;
+    }
+
+    /**
+     * @param boolean $dismissed
+     *
+     * @return self
+     */
+    public function setDismissed($dismissed)
+    {
+        $this->dismissed = (boolean)$dismissed;
+        return $this;
+    }
+
 }

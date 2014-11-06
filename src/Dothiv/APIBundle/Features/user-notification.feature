@@ -33,5 +33,17 @@ Feature: See user notifications
     And the header "content-type" should contain "application/json"
     And the JSON node "items" should contain 1 elements
 
-  # TODO
-  # Scenario: Mark notification read
+  Scenario: Mark notification read
+    Given I send a PATCH request to "http://click4life.hiv.dev/api/user/userAhandle/notification/1" with JSON values:
+      | dismissed | 1 |
+    Then the response status code should be 204
+    # The notification should be updated
+    When I send a GET request to "http://click4life.hiv.dev/api/user/userAhandle/notification/1"
+    And the JSON node "dismissed" should contain "1"
+    # Unmark
+    Given I send a PATCH request to "http://click4life.hiv.dev/api/user/userAhandle/notification/1" with JSON values:
+      | dismissed | 0 |
+    Then the response status code should be 204
+    # The notification should be updated
+    When I send a GET request to "http://click4life.hiv.dev/api/user/userAhandle/notification/1"
+    And the JSON node "dismissed" should contain "0"
