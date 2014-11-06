@@ -1,0 +1,74 @@
+{% trans_default_domain "charity" %}
+{% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
+
+{% set settings = content('Block', 'account.settings') %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="span12">
+            <h2>{{ settings.title }}</h2>
+
+                <div class="alert alert-danger" role="alert" data-ng-show="error">
+                    <button type="button" class="close" data-dismiss="alert" data-ng-click="error = null"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    Error: {{ '{{error}}' }}!
+                </div>
+
+            <div class="well clearfix" data-ng-init="step = 'form'">
+                <h3>Change email address</h3>
+
+                <div data-ng-show="step == 'form'">
+                    <p>Use this form to change your email address.</p>
+
+                    <form role="form" name="emailChangeForm">
+                        <fieldset class="row-fluid">
+                            <div class="input-group span3">
+                                <label>Current email</label> <span data-ng-bind="user.email"></span>
+                            </div>
+                            <div class="input-group span3">
+                                <label for="profile_email">New email address</label>
+                                <input type="email" maxlength="255" id="profile_email" name="email" data-ng-model="new_email" required>
+                            </div>
+                            <div class="input-group span3">
+                                <label for="profile_email2">Repeat new email address</label>
+                                <input type="email" maxlength="255" id="profile_email2" name="email" data-ng-model="new_email2" required>
+                            </div>
+                        </fieldset>
+                        <nav>
+                            <button type="submit" class="btn btn-primary pull-right" data-ng-disabled="loading || emailChangeForm.$invalid || new_email != new_email2" data-ng-click="submit('confirm');">
+                                continue
+                            </button>
+                        </nav>
+                    </form>
+                </div>
+                <div data-ng-show="step == 'confirm'">
+                    <form role="form" name="emailChangeConfirmForm">
+                        <fieldset>
+                            <div class="input-group">
+                                <label for="verification_code">Ok. Please enter the verification code we've just sent you via email to {{ '{{new_email}}' }}:</label>
+                                <input type="text" maxlength="255" id="verification_code" name="verification_code" data-ng-model="verification_code" required>
+                            </div>
+                        </fieldset>
+                        <nav>
+                            <button type="reset" class="btn btn-default back" data-ng-click="step = 'form'">
+                                {% trans %}generic.button.back{% endtrans %}
+                            </button>
+                            <button type="submit" class="btn btn-primary pull-right" data-ng-disabled="loading || emailChangeConfirmForm.$invalid" data-ng-click="submit('done');">
+                                finish
+                            </button>
+                        </nav>
+                    </form>
+                </div>
+                <div data-ng-show="step == 'done'">
+                    <p>Ok. We've changed your email address.</p>
+                    <nav>
+                        <button type="submit" class="btn btn-primary pull-right" data-ng-click="step = 'form'">
+                            awesome
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
