@@ -61,6 +61,11 @@ class CRUDController
     protected $entityManipulator;
 
     /**
+     * @var bool
+     */
+    protected $storeHistory = true;
+
+    /**
      * @param CRUDRepositoryInterface         $itemRepo
      * @param EntityTransformerInterface      $itemTransformer
      * @param PaginatedListTransformer        $paginatedListTransformer
@@ -212,8 +217,8 @@ class CRUDController
 
         try {
             $newPropertyValues = json_decode($request->getContent());
-            $change            = $this->updateItem($item, (array)$newPropertyValues);
-            $this->entityChangeRepo->persist($change)->flush();
+            $this->updateItem($item, (array)$newPropertyValues);
+            $this->itemRepo->persistItem($item)->flush();
             return $this->createNoContentResponse();
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
@@ -223,19 +228,18 @@ class CRUDController
     /**
      * @param EntityInterface $item
      * @param array           $newPropertyValues
-     *
-     * @return EntityChange
      */
     protected function updateItem(EntityInterface $item, array $newPropertyValues)
     {
-        $change = new EntityChange();
-        $change->setAuthor(new EmailValue($this->securityContext->getToken()->getUser()->getEmail()));
-        $change->setEntity($this->itemRepo->getItemEntityName($item));
-        $change->setIdentifier(new IdentValue($item->getPublicId()));
-
         $changes = $this->entityManipulator->manipulate($item, $newPropertyValues);
-        $change->setChanges($changes);
-        return $change;
+        if ($this->storeHistory) {
+            $change = new EntityChange();
+            $change->setAuthor(new EmailValue($this->securityContext->getToken()->getUser()->getEmail()));
+            $change->setEntity($this->itemRepo->getItemEntityName($item));
+            $change->setIdentifier(new IdentValue($item->getPublicId()));
+            $change->setChanges($changes);
+            $this->entityChangeRepo->persist($change)->flush();
+        }
     }
 
     /**
@@ -256,5 +260,16 @@ class CRUDController
                 );
             }
         }
+    }
+
+    /**
+     * Disable storing of entity changes.
+     *
+     * @return self
+     */
+    public function disableHistory()
+    {
+        $this->storeHistory = false;
+        return $this;
     }
 }
