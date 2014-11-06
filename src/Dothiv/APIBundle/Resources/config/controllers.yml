@@ -33,6 +33,7 @@ services:
          - @dothiv.repository.user_token
          - @serializer
          - @clock
+         - @dothiv.businessbundle.service.user
 
     dothiv.api.controller.account:
         class: %dothiv.api.controller.account.class%

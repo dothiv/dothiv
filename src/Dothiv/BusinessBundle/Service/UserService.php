@@ -4,11 +4,13 @@ namespace Dothiv\BusinessBundle\Service;
 
 use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Event\UserEvent;
 use Dothiv\BusinessBundle\Event\UserTokenEvent;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
+use Dothiv\BusinessBundle\Repository\UserProfileChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use Dothiv\ValueObject\ClockValue;
@@ -54,6 +56,11 @@ class UserService implements UserProviderInterface, UserServiceInterface
     protected $adminUserDomain;
 
     /**
+     * @var UserProfileChangeRepositoryInterface
+     */
+    protected $userChangeRepo;
+
+    /**
      * @var int Time in seconds to wait between sending a new login link
      */
     private $linkRequestWait;
@@ -63,6 +70,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
         UserTokenRepositoryInterface $userTokenRepository,
         ClockValue $clock,
         EventDispatcherInterface $dispatcher,
+        UserProfileChangeRepositoryInterface $userChangeRepo,
         $loginLinkEventName,
         $adminUserDomain,
         $linkRequestWait
@@ -78,6 +86,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $this->userTokenRepo      = $userTokenRepository;
         $this->clock              = $clock;
         $this->linkRequestWait    = (int)$linkRequestWait;
+        $this->userChangeRepo = $userChangeRepo;
     }
 
     /**
@@ -272,5 +281,28 @@ class UserService implements UserProviderInterface, UserServiceInterface
     {
         $sr = new SecureRandom();
         return bin2hex($sr->nextBytes(16));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateUser(User $user)
+    {
+        $changedData = array(
+            'email' => $user->getEmail()
+        );
+        $this->userRepo->refresh($user);
+
+        if ($changedData['email'] == $user->getEmail()) {
+            unset($changedData['email']);
+        }
+
+        $change = new UserProfileChange();
+        $change->setUser($user);
+        $change->setUserUpdate($user->getUpdated());
+        $change->setProperties($changedData);
+        $change->setToken($this->generateToken());
+        $this->userChangeRepo->persist($change)->flush();
+        return $change;
     }
 }

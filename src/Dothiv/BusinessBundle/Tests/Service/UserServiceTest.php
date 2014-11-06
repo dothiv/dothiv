@@ -5,6 +5,7 @@ namespace Dothiv\BusinessBundle\Tests\Service;
 use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Event\UserEvent;
+use Dothiv\BusinessBundle\Repository\UserProfileChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use Dothiv\BusinessBundle\Service\UserService;
@@ -24,6 +25,11 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      * @var UserRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     private $mockUserRepo;
+
+    /**
+     * @var UserProfileChangeRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockUserProfileChangeRepo;
 
     /**
      * @var UserTokenRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -89,6 +95,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
             $this->mockUserTokenRepo,
             $this->getClock(),
             $this->mockEventDispatcher,
+            $this->mockUserProfileChangeRepo,
             'loginlink.event',
             'charitydomain.hiv',
             1800
@@ -110,8 +117,9 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->mockEventDispatcher = $this->getMock('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $this->mockUserRepo        = $this->getMock('\Dothiv\BusinessBundle\Repository\UserRepositoryInterface');
-        $this->mockUserTokenRepo   = $this->getMock('\Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface');
+        $this->mockEventDispatcher       = $this->getMock('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $this->mockUserRepo              = $this->getMock('\Dothiv\BusinessBundle\Repository\UserRepositoryInterface');
+        $this->mockUserProfileChangeRepo = $this->getMock('\Dothiv\BusinessBundle\Repository\UserProfileChangeRepositoryInterface');
+        $this->mockUserTokenRepo         = $this->getMock('\Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface');
     }
 }

@@ -30,6 +30,15 @@ interface UserRepositoryInterface extends ObjectRepository
     public function persist(User $user);
 
     /**
+     * Refresh the entity.
+     *
+     * @param User $user
+     *
+     * @return self
+     */
+    public function refresh(User $user);
+
+    /**
      * Flush the entity manager.
      *
      * @return self

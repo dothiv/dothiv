@@ -36,6 +36,7 @@ services:
         - @dothiv.repository.user_token
         - @clock
         - @dothiv.business.event_dispatcher
+        - @dothiv.repository.user_profile_change
         - 'dothiv.business.user.loginlink.requested'
         - "%charitydomain%"
         - %dothiv_business.link_request_wait%

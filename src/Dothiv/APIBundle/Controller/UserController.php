@@ -2,13 +2,18 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
+use Dothiv\APIBundle\Exception\BadRequestHttpException;
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
+use Dothiv\BusinessBundle\Service\UserServiceInterface;
 use Dothiv\ValueObject\ClockValue;
 use JMS\Serializer\Serializer;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -47,13 +52,19 @@ class UserController
      */
     private $serializer;
 
+    /**
+     * @var UserServiceInterface
+     */
+    private $userService;
+
     public function __construct(
         SecurityContext $securityContext,
         DomainRepositoryInterface $domainRepo,
         UserRepositoryInterface $userRepo,
         UserTokenRepositoryInterface $userTokenRepo,
         Serializer $serializer,
-        ClockValue $clock
+        ClockValue $clock,
+        UserServiceInterface $userService
     )
     {
         $this->domainRepo      = $domainRepo;
@@ -62,6 +73,7 @@ class UserController
         $this->securityContext = $securityContext;
         $this->serializer      = $serializer;
         $this->clock           = $clock;
+        $this->userService     = $userService;
     }
 
     /**
@@ -124,5 +136,28 @@ class UserController
         $token->revoke($this->clock->getNow());
         $this->userTokenRepo->persist($token)->flush();
         return $this->createResponse();
+    }
+
+    /**
+     * Updates a user profile
+     *
+     * @param Request $request
+     * @param string  $handle
+     *
+     * @return Response
+     *
+     * @throws BadRequestHttpException
+     */
+    public function updateProfileAction(Request $request, $handle)
+    {
+        $user = $this->verifyUserHandle($handle);
+        $data = json_decode($request->getContent());
+        if (property_exists($data, 'email') && strtolower(trim($data->email)) !== $user->getEmail()) {
+            // User wants to change his email address, this needs confirmation
+            $user->setEmail($data->email);
+            $this->userService->updateUser($user);
+            return $this->createNoContentResponse();
+        }
+        throw new BadRequestHttpException();
     }
 }

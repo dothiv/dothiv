@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 class UserRepository extends DoctrineEntityRepository implements UserRepositoryInterface
 {
     use ValidatorTrait;
-    
+
     /**
      * @param string $email
      *
@@ -43,4 +43,14 @@ class UserRepository extends DoctrineEntityRepository implements UserRepositoryI
         $this->getEntityManager()->flush();
         return $this;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function refresh(User $user)
+    {
+        $this->getEntityManager()->refresh($user);
+        return $this;
+    }
+
 }

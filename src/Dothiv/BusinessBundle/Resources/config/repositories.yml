@@ -26,6 +26,8 @@ parameters:
     dothiv.repository.user_notification.repository.class: Dothiv\BusinessBundle\Repository\UserNotificationRepository
     dothiv.repository.entity_change.entity: 'DothivBusinessBundle:EntityChange'
     dothiv.repository.entity_change.repository.class: Dothiv\BusinessBundle\Repository\EntityChangeRepository
+    dothiv.repository.user_profile_change.entity: 'DothivBusinessBundle:UserProfileChange'
+    dothiv.repository.user_profile_change.repository.class: Dothiv\BusinessBundle\Repository\UserProfileChange
 
 services:
     dothiv.repository.banner:
@@ -140,3 +142,11 @@ services:
         calls:
         - [setValidator, ["@validator"]]
         - [setEventDispatcher, ["@dothiv.business.event_dispatcher"]]
+
+    dothiv.repository.user_profile_change:
+        class: %dothiv.repository.user_profile_change.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.user_profile_change.entity% ]
+        calls:
+        - [setValidator, ["@validator"]]
