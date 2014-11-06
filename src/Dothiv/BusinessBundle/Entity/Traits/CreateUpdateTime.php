@@ -13,7 +13,7 @@ trait CreateUpdateTime
      * @var \DateTime $updated
      *
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated;
 
@@ -33,4 +33,4 @@ trait CreateUpdateTime
         return $this->updated;
     }
 
-} 
+}
