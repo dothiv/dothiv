@@ -13,9 +13,8 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  *
  * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\UserNotificationRepository")
  * @ORM\Table(
- *  name="UserNotification",
  *  indexes={
- *      @ORM\Index(name="charity_user_notification__user_idx", columns={"user_id"})
+ *      @ORM\Index(name="user_notification__user_idx", columns={"user_id"})
  *  }
  * )
  * @Serializer\ExclusionPolicy("all")

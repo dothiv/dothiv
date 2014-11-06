@@ -40,6 +40,13 @@ dothiv_api_user_profile:
         _format: json
     methods: [GET]
 
+dothiv_api_user_profile_update:
+    path: /user/{handle}
+    defaults:
+        _controller: dothiv.api.controller.user:updateProfileAction
+        _format: json
+    methods: [PATCH]
+
 dothiv_api_user_token:
     pattern:  /user/{handle}/token
     defaults:
