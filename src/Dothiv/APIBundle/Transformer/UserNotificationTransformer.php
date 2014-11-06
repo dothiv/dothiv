@@ -30,6 +30,7 @@ class UserNotificationTransformer extends AbstractTransformer implements EntityT
             )
         ));
         $model->setProperties($entity->getProperties());
+        $model->setDismissed($entity->getDismissed());
         return $model;
     }
 }

@@ -39,6 +39,7 @@ class UserNotificationTransformerTest extends \PHPUnit_Framework_TestCase
         $user = new User();
         $user->setHandle('userhandle');
         $userNotification->setUser($user);
+        $userNotification->dismiss();
         ObjectManipulator::setProtectedProperty($userNotification, 'id', 17);
 
         $this->mockRouter->expects($this->once())->method('generate')
@@ -52,6 +53,7 @@ class UserNotificationTransformerTest extends \PHPUnit_Framework_TestCase
         $model = $this->createTestObject()->transform($userNotification);
         $this->assertInstanceOf('\Dothiv\APIBundle\Model\UserNotificationModel', $model);
         $this->assertEquals(array('some' => 'value'), $model->getProperties());
+        $this->assertTrue($model->getDismissed());
     }
 
     /**
