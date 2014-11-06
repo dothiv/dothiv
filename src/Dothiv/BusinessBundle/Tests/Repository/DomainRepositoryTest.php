@@ -7,6 +7,7 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\Registrar;
 use Dothiv\BusinessBundle\Repository\DomainRepository;
 use Dothiv\BusinessBundle\Tests\Traits\RepositoryTestTrait;
+use Dothiv\ValueObject\EmailValue;
 
 class DomainRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -79,6 +80,29 @@ class DomainRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @group   Entity
+     * @group   BusinessBundle
+     * @group   Domain
+     * @group   Integration
+     * @depends itShouldPersist
+     */
+    public function itShouldFindByEmail()
+    {
+        $domain = new Domain();
+        $domain->setOwnerEmail('john.doe@example.com');
+        $domain->setOwnerName('John Doe');
+        $domain->setName('example.hiv');
+        $domain->setRegistrar($this->createRegistrar());
+        $repo = $this->getTestObject();
+        $repo->persist($domain);
+        $repo->flush();
+
+        $this->assertEquals(0, count($repo->findByOwnerEmail(new EmailValue('jane.doe@example.com'))));
+        $this->assertEquals(1, count($repo->findByOwnerEmail(new EmailValue('john.doe@example.com'))));
+    }
+
+    /**
      * @return DomainRepository
      */
     protected function getTestObject()
@@ -99,4 +123,4 @@ class DomainRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->getTestEntityManager()->persist($registrar);
         return $registrar;
     }
-} 
+}
