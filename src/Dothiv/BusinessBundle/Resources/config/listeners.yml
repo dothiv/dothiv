@@ -2,6 +2,7 @@ parameters:
   dothiv_business.listener.create_registration.class: Dothiv\BusinessBundle\Listener\CreateRegistrationListener
   dothiv_business.listener.notify_podio_registration.class: Dothiv\BusinessBundle\Listener\NotifyPodioRegistrationListener
   dothiv_business.listener.domain_transaction.class: Dothiv\BusinessBundle\Listener\DomainTransactionListener
+  dothiv_business.listener.create_user_notification_email_change.class: Dothiv\BusinessBundle\Listener\CreateUserNotificationEmailChangeListener
 
 services:
   dothiv_business.listener.create_registration:
@@ -29,3 +30,11 @@ services:
     tags:
       - { name: dothiv.business.event_listener, event: dothiv_afilias_importer.domain_deleted, method: onDomainDeleted }
       - { name: dothiv.business.event_listener, event: dothiv_afilias_importer.domain_transferred, method: onDomainTransferred }
+
+  dothiv_business.listener.create_user_notification_email_change:
+    class: %dothiv_business.listener.create_user_notification_email_change.class%
+    arguments:
+      - @dothiv.repository.domain
+      - @dothiv.repository.user_notification
+    tags:
+      - { name: dothiv.business.event_listener, event: dothiv.business.user.created, method: onUserCreated }

@@ -8,6 +8,7 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\Traits;
+use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\URLValue;
 use PhpOption\Option;
 
@@ -45,6 +46,19 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
                 ->andWhere('d.token IS NOT NULL')
                 ->getQuery()
                 ->getOneOrNullResult()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByOwnerEmail(EmailValue $email)
+    {
+        return new ArrayCollection(
+            $this->createQueryBuilder('d')
+                ->andWhere('d.ownerEmail = :email')->setParameter('email', $email->toScalar())
+                ->getQuery()
+                ->getResult()
         );
     }
 
