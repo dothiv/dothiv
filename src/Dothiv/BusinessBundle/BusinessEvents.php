@@ -16,5 +16,9 @@ final class BusinessEvents
 
     const CLICKCOUNTER_CONFIGURATION = 'dothiv.basewebsite.clickcounter.configuration';
 
-    const USER_CREATED = 'dothiv.business.user.created';
+    const USER_EMAIL_CHANGED = 'dothiv.business.user.email.changed';
+
+    const ENTITY_CHANGED = 'dothiv.business.entity.changed';
+
+    const ENTITY_CREATED = 'dothiv.business.entity.created';
 }

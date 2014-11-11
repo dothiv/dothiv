@@ -3,13 +3,16 @@
 namespace Dothiv\BusinessBundle\Service;
 
 use Dothiv\BusinessBundle\BusinessEvents;
+use Dothiv\BusinessBundle\Entity\EntityChange;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Entity\UserToken;
-use Dothiv\BusinessBundle\Event\UserEvent;
+use Dothiv\BusinessBundle\Event\EntityChangeEvent;
+use Dothiv\BusinessBundle\Event\EntityEvent;
 use Dothiv\BusinessBundle\Event\UserTokenEvent;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
+use Dothiv\BusinessBundle\Model\EntityPropertyChange;
 use Dothiv\BusinessBundle\Repository\UserProfileChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
@@ -269,7 +272,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
             $user->setSurname($surname);
             $user->setFirstname($firstname);
             $userRepo->persist($user)->flush();
-            $eventDispatcher->dispatch(BusinessEvents::USER_CREATED, new UserEvent($user));
+            $eventDispatcher->dispatch(BusinessEvents::ENTITY_CREATED, new EntityEvent($user));
             return $user;
         });
     }

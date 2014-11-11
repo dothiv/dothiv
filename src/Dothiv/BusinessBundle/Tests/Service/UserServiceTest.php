@@ -3,13 +3,19 @@
 namespace Dothiv\BusinessBundle\Tests\Service;
 
 use Dothiv\BusinessBundle\BusinessEvents;
+use Dothiv\BusinessBundle\Entity\EntityChange;
 use Dothiv\BusinessBundle\Entity\User;
-use Dothiv\BusinessBundle\Event\UserEvent;
+use Dothiv\BusinessBundle\Entity\UserProfileChange;
+use Dothiv\BusinessBundle\Event\EntityChangeEvent;
+use Dothiv\BusinessBundle\Event\EntityEvent;
+use Dothiv\BusinessBundle\Model\EntityPropertyChange;
 use Dothiv\BusinessBundle\Repository\UserProfileChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use Dothiv\BusinessBundle\Service\UserService;
 use Dothiv\ValueObject\ClockValue;
+use Dothiv\ValueObject\EmailValue;
+use Dothiv\ValueObject\IdentValue;
 use PhpOption\None;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -73,11 +79,11 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->mockEventDispatcher->expects($this->once())->method('dispatch')
             ->with(
-                BusinessEvents::USER_CREATED,
-                $this->callback(function (UserEvent $e) {
-                    $this->assertEquals($e->getUser()->getEmail(), 'john.doe@example.com');
-                    $this->assertEquals($e->getUser()->getFirstname(), 'John');
-                    $this->assertEquals($e->getUser()->getSurname(), 'Doe');
+                BusinessEvents::ENTITY_CREATED,
+                $this->callback(function (EntityEvent $e) {
+                    $this->assertEquals($e->getEntity()->getEmail(), 'john.doe@example.com');
+                    $this->assertEquals($e->getEntity()->getFirstname(), 'John');
+                    $this->assertEquals($e->getEntity()->getSurname(), 'Doe');
                     return true;
                 })
             );
