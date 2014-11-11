@@ -10,9 +10,11 @@ use Dothiv\APIBundle\Manipulator\EntityManipulatorInterface;
 use Dothiv\APIBundle\Transformer\EntityTransformerInterface;
 use Dothiv\APIBundle\Transformer\PaginatedListTransformer;
 use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
+use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\EntityChange;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Event\EntityChangeEvent;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\CRUDRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\EntityChangeRepositoryInterface;
@@ -22,6 +24,7 @@ use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\IdentValue;
 use JMS\Serializer\SerializerInterface;
 use PhpOption\Option;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -61,6 +64,11 @@ class CRUDController
     protected $entityManipulator;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    protected $eventDispatcher;
+
+    /**
      * @var bool
      */
     protected $storeHistory = true;
@@ -73,6 +81,7 @@ class CRUDController
      * @param EntityChangeRepositoryInterface $entityChangeRepo
      * @param SecurityContextInterface        $securityContext
      * @param EntityManipulatorInterface      $entityManipulator
+     * @param EventDispatcherInterface        $eventDispatcher
      */
     public function __construct(
         CRUDRepositoryInterface $itemRepo,
@@ -81,7 +90,8 @@ class CRUDController
         SerializerInterface $serializer,
         EntityChangeRepositoryInterface $entityChangeRepo,
         SecurityContextInterface $securityContext,
-        EntityManipulatorInterface $entityManipulator
+        EntityManipulatorInterface $entityManipulator,
+        EventDispatcherInterface $eventDispatcher
     )
     {
         $this->itemRepo                 = $itemRepo;
@@ -91,6 +101,7 @@ class CRUDController
         $this->entityChangeRepo         = $entityChangeRepo;
         $this->securityContext          = $securityContext;
         $this->entityManipulator        = $entityManipulator;
+        $this->eventDispatcher          = $eventDispatcher;
     }
 
     /**
@@ -217,8 +228,9 @@ class CRUDController
 
         try {
             $newPropertyValues = json_decode($request->getContent());
-            $this->updateItem($item, (array)$newPropertyValues);
+            $change            = $this->updateItem($item, (array)$newPropertyValues);
             $this->itemRepo->persistItem($item)->flush();
+            $this->eventDispatcher->dispatch(BusinessEvents::ENTITY_CHANGED, new EntityChangeEvent($change, $item));
             return $this->createNoContentResponse();
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
@@ -228,18 +240,24 @@ class CRUDController
     /**
      * @param EntityInterface $item
      * @param array           $newPropertyValues
+     *
+     * @return EntityChange
      */
     protected function updateItem(EntityInterface $item, array $newPropertyValues)
     {
         $changes = $this->entityManipulator->manipulate($item, $newPropertyValues);
+        if (!$changes) {
+            throw new InvalidArgumentException('Entity unchanged.');
+        }
+        $change = new EntityChange();
+        $change->setAuthor(new EmailValue($this->securityContext->getToken()->getUser()->getEmail()));
+        $change->setEntity($this->itemRepo->getItemEntityName($item));
+        $change->setIdentifier(new IdentValue($item->getPublicId()));
+        $change->setChanges($changes);
         if ($this->storeHistory) {
-            $change = new EntityChange();
-            $change->setAuthor(new EmailValue($this->securityContext->getToken()->getUser()->getEmail()));
-            $change->setEntity($this->itemRepo->getItemEntityName($item));
-            $change->setIdentifier(new IdentValue($item->getPublicId()));
-            $change->setChanges($changes);
             $this->entityChangeRepo->persist($change)->flush();
         }
+        return $change;
     }
 
     /**
