@@ -29,7 +29,7 @@ class UserProfileChangeTransformer extends AbstractTransformer implements Entity
                 RouterInterface::ABSOLUTE_URL
             )
         ));
-        $model->setProperties($entity->getProperties());
+        $model->setProperties($entity->getProperties()->toArray());
         return $model;
     }
 }

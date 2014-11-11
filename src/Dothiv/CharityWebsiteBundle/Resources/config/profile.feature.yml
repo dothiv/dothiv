@@ -2,6 +2,7 @@ parameters:
     dothiv.charity.service.mailer.domain_registered.class: Dothiv\CharityWebsiteBundle\Service\Mailer\DomainRegisteredMailer
     dothiv.charity.service.mailer.login.class: Dothiv\BaseWebsiteBundle\Service\Mailer\LoginLinkMailer
     dothiv.charity.service.mailer.content.class: Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailer
+    dothiv.charity.service.mailer.user_profile_change.class: Dothiv\CharityWebsiteBundle\Listener\SendProfileChangeConfirmationListener
 
 services:
     dothiv.charity.service.mailer.content:
@@ -36,3 +37,10 @@ services:
         - @dothiv.businessbundle.service.user
         tags:
             - { name: dothiv.business.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }
+
+    dothiv.charity.service.mailer.user_profile_change:
+        class: %dothiv.charity.service.mailer.user_profile_change.class%
+        arguments:
+        - @dothiv.charity.service.mailer.content
+        tags:
+            - { name: dothiv.business.event_listener, event: dothiv.business.entity.created, method: onEntityCreated }

@@ -2,6 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Dothiv\APIBundle\Exception\InvalidArgumentException;
 use Dothiv\BusinessBundle\Entity\Traits;
@@ -72,15 +73,6 @@ class UserProfileChange extends Entity implements EntityInterface
     protected $confirmed = false;
 
     /**
-     * Notification has been sent to the user
-     *
-     * @var bool
-     * @ORM\Column(type="boolean", nullable=false)
-     * @Assert\Type("boolean")
-     */
-    protected $sent = false;
-
-    /**
      * @return boolean
      */
     public function getConfirmed()
@@ -100,11 +92,11 @@ class UserProfileChange extends Entity implements EntityInterface
     }
 
     /**
-     * @return array
+     * @return ArrayCollection
      */
     public function getProperties()
     {
-        return $this->properties;
+        return new ArrayCollection($this->properties);
     }
 
     /**
@@ -173,25 +165,6 @@ class UserProfileChange extends Entity implements EntityInterface
     public function setUserUpdate(\DateTime $userUpdate = null)
     {
         $this->userUpdate = $userUpdate;
-        return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getSent()
-    {
-        return $this->sent;
-    }
-
-    /**
-     * @param boolean $sent
-     *
-     * @return self
-     */
-    public function setSent($sent)
-    {
-        $this->sent = (boolean)$sent;
         return $this;
     }
 

@@ -7,6 +7,7 @@ use Symfony\Component\EventDispatcher\Event;
 
 class EntityEvent extends Event
 {
+    use Traits\RequestTrait;
 
     /**
      * @var EntityInterface

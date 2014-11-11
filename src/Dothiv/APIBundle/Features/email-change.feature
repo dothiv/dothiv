@@ -26,6 +26,7 @@ Feature: Change email address
       | name      | test.hiv    |
       | owner     | {userA}      |
     And I add "Accept" header equal to "application/json"
+    And I add "Accept-Language" header equal to "de;q=0.9,en-US,en;q=0.8"
     And I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
 
   Scenario: Request a profile change

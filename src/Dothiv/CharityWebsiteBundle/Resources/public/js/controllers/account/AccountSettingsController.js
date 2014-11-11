@@ -11,7 +11,7 @@ angular.module('dotHIVApp.controllers').controller('AccountSettingsController', 
             var data = {email: $scope.new_email};
             $scope.loading = true;
             $scope.error = null;
-            $http({method: 'PATCH', url: '/api/user/' + User.getHandle(), data: angular.toJson(data)})
+            $http({method: 'PATCH', url: '/api/user/' + User.getHandle(), data: angular.toJson(data), headers: {'Accept-Language': $scope.locale}})
                 .success(function(data, status, headers, config) {
                     $scope.loading = false;
                     $scope.step = nextStep;
