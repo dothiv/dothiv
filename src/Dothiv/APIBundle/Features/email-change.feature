@@ -8,12 +8,12 @@ Feature: Change email address
       | email     | someone@example.com |
       | firstname | John                |
       | surname   | Doe                 |
-    Given the "DothivBusinessBundle:User" entity exists in "userB" with values:
+    And the "DothivBusinessBundle:User" entity exists in "userB" with values:
       | handle    | userBhandle          |
       | email     | Jane.Doe@example.com |
       | firstname | Jane                 |
       | surname   | Doe                  |
-    Given the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
+    And the "DothivBusinessBundle:UserToken" entity exists in "userToken" with values:
       | user     | {userA}                                      |
       | token    | usert0k3n                                    |
       | scope    | {\Dothiv\ValueObject\IdentValue@domainclaim} |
@@ -28,6 +28,7 @@ Feature: Change email address
     And I add "Accept" header equal to "application/json"
     And I add "Accept-Language" header equal to "de;q=0.9,en-US,en;q=0.8"
     And I add Bearer token equal to "3fa0271a5730ff49539aed903ec981eb1868a735"
+    And the fixture "\Dothiv\APIBundle\Features\Fixtures\EmailChangeFeatureFixture" is loaded
 
   Scenario: Request a profile change
     Given I send a PATCH request to "http://click4life.hiv.dev/api/user/userAhandle" with JSON values:
