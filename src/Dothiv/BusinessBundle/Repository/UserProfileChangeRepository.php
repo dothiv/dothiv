@@ -69,18 +69,4 @@ class UserProfileChangeRepository extends DoctrineEntityRepository implements Us
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function findUnsent()
-    {
-        return new ArrayCollection(
-            $this->createQueryBuilder('c')
-                ->andWhere('c.sent = false')
-                ->andWhere('c.confirmed = false')
-                ->getQuery()
-                ->getResult()
-        );
-    }
-
 }

@@ -54,21 +54,6 @@ class UserProfileChangeRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @test
-     * @group   Entity
-     * @group   BusinessBundle
-     * @group   UserProfileChange
-     * @group   Integration
-     * @depends itShouldPersist
-     */
-    public function itShouldFindUninstalled()
-    {
-        $this->itShouldPersist();
-        $repo = $this->createTestObject();
-        $this->assertEquals(1, count($repo->findUnsent()));
-    }
-
-    /**
      * @return UserProfileChangeRepository
      */
     protected function createTestObject()
