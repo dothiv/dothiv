@@ -25,11 +25,4 @@ interface UserProfileChangeRepositoryInterface extends CRUDRepositoryInterface
      * @return self
      */
     public function flush();
-
-    /**
-     * Returns a list of unsent changes which need confirmation.
-     *
-     * @return UserProfileChange[]|ArrayCollection
-     */
-    public function findUnsent();
 }
