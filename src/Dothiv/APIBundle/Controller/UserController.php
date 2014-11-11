@@ -171,7 +171,7 @@ class UserController
                 }
                 // this needs confirmation
                 $user->setEmail($data->email);
-                $change   = $this->userService->updateUser($user);
+                $change   = $this->userService->updateUser($user, $request);
                 $response = $this->createNoContentResponse();
                 $response->setStatusCode(201);
                 $changeModel = $this->userProfileChangeTransformer->transform($change);

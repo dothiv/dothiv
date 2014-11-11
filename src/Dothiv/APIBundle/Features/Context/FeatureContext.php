@@ -225,6 +225,7 @@ class FeatureContext extends BehatContext
         if (substr($url, 0, 1) === '{') {
             $url = $this->getValue($url);
         }
+        // FIXME: Hardcoded headers
         $client->request(
             $method,
             $this->getSubcontext('rest')->locatePath($url),

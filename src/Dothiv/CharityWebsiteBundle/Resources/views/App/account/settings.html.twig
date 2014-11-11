@@ -3,7 +3,7 @@
 
 {% set settings = content('Block', 'account.settings') %}
 
-<div class="container">
+<div class="container" data-ng-init="locale = '{{ locale }}'">
 
     <div class="row">
         <div class="span12">

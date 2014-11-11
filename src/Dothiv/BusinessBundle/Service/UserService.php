@@ -18,7 +18,9 @@ use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use Dothiv\ValueObject\ClockValue;
 use Dothiv\ValueObject\IdentValue;
+use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -289,7 +291,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function updateUser(User $user)
+    public function updateUser(User $user, Request $request = null)
     {
         $changedData = array(
             'email' => $user->getEmail()
@@ -306,7 +308,11 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $change->setProperties($changedData);
         $change->setToken(new IdentValue($this->generateToken(4)));
         $this->userChangeRepo->persist($change)->flush();
-        $this->dispatcher->dispatch(BusinessEvents::ENTITY_CREATED, new EntityEvent($change));
+        $event = new EntityEvent($change);
+        Option::fromValue($request)->map(function (Request $request) use ($event) {
+            $event->setRequest($request);
+        });
+        $this->dispatcher->dispatch(BusinessEvents::ENTITY_CREATED, $event);
         return $change;
     }
 
@@ -331,7 +337,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
         }
         $emailChanged = false;
         $oldEmail     = $user->getEmail();
-        foreach ($userProfileChange->getProperties() as $k => $v) {
+        foreach ($userProfileChange->getProperties()->toArray() as $k => $v) {
             switch ($k) {
                 case 'email':
                     if ($user->getEmail() !== $v) {
