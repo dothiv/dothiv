@@ -3,10 +3,11 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 
-interface UserProfileChangeRepositoryInterface
+interface UserProfileChangeRepositoryInterface extends CRUDRepositoryInterface
 {
     /**
      * Persist the entity.
@@ -24,4 +25,11 @@ interface UserProfileChangeRepositoryInterface
      * @return self
      */
     public function flush();
+
+    /**
+     * Returns a list of unsent changes which need confirmation.
+     *
+     * @return UserProfileChange[]|ArrayCollection
+     */
+    public function findUnsent();
 }

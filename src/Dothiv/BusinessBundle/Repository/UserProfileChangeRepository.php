@@ -2,6 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Model\FilterQuery;
@@ -14,6 +15,7 @@ class UserProfileChangeRepository extends DoctrineEntityRepository implements Us
 {
     use Traits\PaginatedQueryTrait;
     use Traits\ValidatorTrait;
+    use Traits\GetItemEntityName;
 
     /**
      * {@inheritdoc}
@@ -32,4 +34,53 @@ class UserProfileChangeRepository extends DoctrineEntityRepository implements Us
         $this->getEntityManager()->flush();
         return $this;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function persistItem(EntityInterface $item)
+    {
+        $this->persist($item);
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
+    {
+        $qb = $this->createQueryBuilder('i');
+        $filterQuery->getUser()->map(function (User $user) use ($qb) {
+            $qb->andWhere('i.user = :user')->setParameter('user', $user);
+        });
+        return $this->buildPaginatedResult($qb, $options);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getItemByIdentifier($identifier)
+    {
+        return Option::fromValue(
+            $this->createQueryBuilder('c')
+                ->andWhere('c.id = :id')->setParameter('id', $identifier)
+                ->getQuery()
+                ->getOneOrNullResult()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findUnsent()
+    {
+        return new ArrayCollection(
+            $this->createQueryBuilder('c')
+                ->andWhere('c.sent = false')
+                ->andWhere('c.confirmed = false')
+                ->getQuery()
+                ->getResult()
+        );
+    }
+
 }

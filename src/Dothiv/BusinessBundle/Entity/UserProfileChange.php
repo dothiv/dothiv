@@ -3,7 +3,9 @@
 namespace Dothiv\BusinessBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dothiv\APIBundle\Exception\InvalidArgumentException;
 use Dothiv\BusinessBundle\Entity\Traits;
+use Dothiv\ValueObject\IdentValue;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -24,7 +26,7 @@ class UserProfileChange extends Entity implements EntityInterface
     use Traits\CreateUpdateTime;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Dothiv\BusinessBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Dothiv\BusinessBundle\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      * @Assert\Type("Dothiv\BusinessBundle\Entity\User")
      * @Assert\NotBlank()
@@ -33,7 +35,7 @@ class UserProfileChange extends Entity implements EntityInterface
     protected $user;
 
     /**
-     * @var string
+     * @var IdentValue
      *
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
@@ -117,21 +119,21 @@ class UserProfileChange extends Entity implements EntityInterface
     }
 
     /**
-     * @return string
+     * @return IdentValue
      */
     public function getToken()
     {
-        return $this->token;
+        return new IdentValue($this->token);
     }
 
     /**
-     * @param string $token
+     * @param IdentValue $token
      *
      * @return self
      */
-    public function setToken($token)
+    public function setToken(IdentValue $token)
     {
-        $this->token = $token;
+        $this->token = $token->toScalar();
         return $this;
     }
 
@@ -164,11 +166,11 @@ class UserProfileChange extends Entity implements EntityInterface
     }
 
     /**
-     * @param \DateTime $userUpdate
+     * @param \DateTime|null $userUpdate
      *
      * @return self
      */
-    public function setUserUpdate(\DateTime $userUpdate)
+    public function setUserUpdate(\DateTime $userUpdate = null)
     {
         $this->userUpdate = $userUpdate;
         return $this;
@@ -191,5 +193,20 @@ class UserProfileChange extends Entity implements EntityInterface
     {
         $this->sent = (boolean)$sent;
         return $this;
+    }
+
+    /**
+     * Marks the change as confirmed
+     *
+     * @param IdentValue $token
+     *
+     * @throws InvalidArgumentException
+     */
+    public function confirm(IdentValue $token)
+    {
+        if (!$this->getToken()->equals($token)) {
+            throw new InvalidArgumentException(sprintf('Invalid token: "%s"!', $token));
+        }
+        $this->confirmed = true;
     }
 }

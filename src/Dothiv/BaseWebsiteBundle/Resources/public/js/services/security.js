@@ -2,7 +2,8 @@
 
 angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserResource', 'User', '$cookies', '$q', function ($http, dothivUserResource, User, $cookies, $q) {
     // variable to keep user information and login status
-    var _user = $q.defer();
+    var _user = {};
+    var _userPromise = $q.defer();
 
     function _isAuthenticated() {
         return ('email' in _user);
@@ -44,8 +45,9 @@ angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserRe
                 (callback || angular.noop)(false, data);
             }
         );
-        _user = $q.defer();
-        _user.resolve({});
+        _user = {};
+        _userPromise = $q.defer();
+        _userPromise.resolve(_user);
         _clearCredentials();
     }
 
@@ -66,6 +68,9 @@ angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserRe
     }
 
     function _updateUserInfo(callback) {
+        if (_updating) {
+            _schedule(callback);
+        }
         _onUpdateStarting();
         _loadCookieCredentials();
         dothivUserResource.get(
@@ -80,6 +85,7 @@ angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserRe
                 _user.$resolved = true;
                 _onUpdateFinished();
                 (callback || angular.noop)(value, headers);
+                _userPromise.resolve(_user);
             },
             // on error
             function (data, status, headers, config) {
@@ -116,6 +122,7 @@ angular.module('dotHIVApp.services').factory('security', ['$http', 'dothivUserRe
         updateUserInfo: _updateUserInfo,
         storeCredentials: _storeCredentials,
         isAuthenticated: _isAuthenticated,
-        user: _user
+        user: _user,
+        userPromise: _userPromise.promise
     };
 }]);

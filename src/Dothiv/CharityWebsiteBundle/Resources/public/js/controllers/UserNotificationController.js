@@ -4,8 +4,7 @@ angular.module('dotHIVApp.controllers').controller('UserNotificationController',
     function ($scope, $http, security, User) {
         $scope.notifications = null;
 
-        security.updateUserInfo();
-        security.schedule(function () {
+        security.userPromise.then(function() {
             $http.get('/api/user/' + User.getHandle() + '/notification').then(function (response) {
                 $scope.notifications = response.data.items;
             });

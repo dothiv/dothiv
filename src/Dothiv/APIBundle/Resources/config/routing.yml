@@ -110,3 +110,18 @@ dothiv_api_user_notification_update:
         _controller: dothiv.api.controller.user_notification:updateItemAction
         _format: json
     methods: [PATCH]
+
+## User profile change
+dothiv_api_user_profile_change:
+    pattern:  /user/{handle}/profile_change/{identifier}
+    defaults:
+        _controller: dothiv.api.controller.user_profile_change:getItemAction
+        _format: json
+    methods: [GET]
+
+dothiv_api_user_profile_change_update:
+    pattern:  /user/{handle}/profile_change/{identifier}
+    defaults:
+        _controller: dothiv.api.controller.user_profile_change:updateItemAction
+        _format: json
+    methods: [PATCH]

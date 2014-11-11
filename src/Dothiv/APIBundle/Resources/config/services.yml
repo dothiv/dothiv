@@ -1,5 +1,6 @@
 parameters:
     dothiv.api.transformer.user_notification.class: Dothiv\APIBundle\Transformer\UserNotificationTransformer
+    dothiv.api.transformer.user_profile_change.class: Dothiv\APIBundle\Transformer\UserProfileChangeTransformer
     dothiv.api.manipulator.generic.class: Dothiv\APIBundle\Manipulator\GenericEntityManipulator
 
 services:
@@ -11,3 +12,9 @@ services:
         arguments:
         - @router
         - "dothiv_api_user_notification"
+
+    dothiv.api.transformer.user_profile_change:
+        class: %dothiv.api.transformer.user_profile_change.class%
+        arguments:
+        - @router
+        - "dothiv_api_user_profile_change"

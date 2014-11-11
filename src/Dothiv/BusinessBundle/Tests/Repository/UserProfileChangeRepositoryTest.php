@@ -7,6 +7,7 @@ use Dothiv\BusinessBundle\Repository\DomainRepository;
 use Dothiv\BusinessBundle\Tests\Traits\RepositoryTestTrait;
 use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Repository\UserProfileChangeRepository;
+use Dothiv\ValueObject\IdentValue;
 
 class UserProfileChangeRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -43,13 +44,28 @@ class UserProfileChangeRepositoryTest extends \PHPUnit_Framework_TestCase
         $change = new UserProfileChange();
         $change->setUser($user);
         $change->setProperties(array('email' => 'jane.doe@example.com'));
-        $change->setToken('sometoken');
+        $change->setToken(new IdentValue('sometoken'));
         $repo = $this->createTestObject();
         $repo->persist($change);
         $repo->flush();
         $changes = $repo->findAll();
         $this->assertEquals(1, count($changes));
         $this->assertFalse($changes[0]->getConfirmed());
+    }
+
+    /**
+     * @test
+     * @group   Entity
+     * @group   BusinessBundle
+     * @group   UserProfileChange
+     * @group   Integration
+     * @depends itShouldPersist
+     */
+    public function itShouldFindUninstalled()
+    {
+        $this->itShouldPersist();
+        $repo = $this->createTestObject();
+        $this->assertEquals(1, count($repo->findUnsent()));
     }
 
     /**
