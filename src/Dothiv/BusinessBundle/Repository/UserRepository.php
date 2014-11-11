@@ -3,6 +3,7 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Repository\Traits\GetItemEntityName;
 use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
 use PhpOption\Option;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
@@ -10,6 +11,7 @@ use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 class UserRepository extends DoctrineEntityRepository implements UserRepositoryInterface
 {
     use ValidatorTrait;
+    use GetItemEntityName;
 
     /**
      * @param string $email

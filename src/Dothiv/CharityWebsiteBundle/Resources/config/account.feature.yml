@@ -1,6 +1,5 @@
 parameters:
     dothiv.charity.service.mailer.domain_registered.class: Dothiv\CharityWebsiteBundle\Service\Mailer\DomainRegisteredMailer
-    dothiv.charity.service.mailer.login.class: Dothiv\CharityWebsiteBundle\Service\Mailer\LoginLinkMailer
 
 services:
     dothiv.charity.web.controller.app:
@@ -20,15 +19,3 @@ services:
         - %email_from_name%
         tags:
             - { name: dothiv.business.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
-
-    dothiv.charity.service.mailer.login:
-        class: %dothiv.charity.service.mailer.login.class%
-        arguments:
-        - @mailer
-        - @router
-        - @dothiv.businessbundle.service.user
-        - @dothiv.charity.contentful.charity_content
-        - %email_from_address%
-        - %email_from_name%
-        tags:
-            - { name: dothiv.business.event_dispatcher, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }

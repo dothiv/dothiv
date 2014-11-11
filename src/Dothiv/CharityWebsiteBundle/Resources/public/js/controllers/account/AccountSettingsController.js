@@ -5,6 +5,7 @@ angular.module('dotHIVApp.controllers').controller('AccountSettingsController', 
         $scope.user = security.user;
         $scope.error = null;
         $scope.loading = false;
+        var profileChange = null;
 
         var changeEmail = function (nextStep) {
             var data = {email: $scope.new_email};
@@ -14,6 +15,25 @@ angular.module('dotHIVApp.controllers').controller('AccountSettingsController', 
                 .success(function(data, status, headers, config) {
                     $scope.loading = false;
                     $scope.step = nextStep;
+                    profileChange = headers('location');
+                })
+                .error(function(data, status, headers, config) {
+                    $scope.loading = false;
+                    $scope.error = status;
+                })
+            ;
+        };
+
+        var confirmChange = function(nextStep) {
+            var data = {confirmed: $scope.verification_code};
+            $scope.loading = true;
+            $scope.error = null;
+            $http({method: 'PATCH', url: profileChange, data: angular.toJson(data)})
+                .success(function(data, status, headers, config) {
+                    $scope.loading = false;
+                    $scope.step = nextStep;
+                    $scope.user.email = $scope.new_email;
+                    $scope.new_email = $scope.new_email2 = null;
                 })
                 .error(function(data, status, headers, config) {
                     $scope.loading = false;
@@ -26,6 +46,9 @@ angular.module('dotHIVApp.controllers').controller('AccountSettingsController', 
             switch ($scope.step) {
                 case 'form':
                     changeEmail(nextStep);
+                    break;
+                case 'confirm':
+                    confirmChange(nextStep);
                     break;
                 default:
                     $scope.step = nextStep;

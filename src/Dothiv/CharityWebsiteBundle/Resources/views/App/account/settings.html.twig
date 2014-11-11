@@ -35,7 +35,7 @@
                             </div>
                         </fieldset>
                         <nav>
-                            <button type="submit" class="btn btn-primary pull-right" data-ng-disabled="loading || emailChangeForm.$invalid || new_email != new_email2" data-ng-click="submit('confirm');">
+                            <button type="submit" class="btn btn-primary pull-right" data-ng-disabled="loading || emailChangeForm.$invalid || new_email != new_email2 || new_email == user.email" data-ng-click="submit('confirm');">
                                 continue
                             </button>
                         </nav>

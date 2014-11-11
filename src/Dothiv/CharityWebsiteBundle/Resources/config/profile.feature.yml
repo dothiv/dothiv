@@ -35,4 +35,4 @@ services:
         - %charitydomain%
         - @dothiv.businessbundle.service.user
         tags:
-            - { name: dothiv.business.event_dispatcher, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }
+            - { name: dothiv.business.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }

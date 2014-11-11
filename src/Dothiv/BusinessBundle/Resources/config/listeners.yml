@@ -3,6 +3,7 @@ parameters:
   dothiv_business.listener.notify_podio_registration.class: Dothiv\BusinessBundle\Listener\NotifyPodioRegistrationListener
   dothiv_business.listener.domain_transaction.class: Dothiv\BusinessBundle\Listener\DomainTransactionListener
   dothiv_business.listener.create_user_notification_email_change.class: Dothiv\BusinessBundle\Listener\CreateUserNotificationEmailChangeListener
+  dothiv_business.listener.update_domain_owner_on_user_email_change.class: Dothiv\BusinessBundle\Listener\UpdateDomainOwnerOnUserEmailChangeListener
 
 services:
   dothiv_business.listener.create_registration:
@@ -37,4 +38,12 @@ services:
       - @dothiv.repository.domain
       - @dothiv.repository.user_notification
     tags:
-      - { name: dothiv.business.event_listener, event: dothiv.business.user.created, method: onUserCreated }
+      - { name: dothiv.business.event_listener, event: dothiv.business.entity.created, method: onEntityCreated }
+
+  dothiv_business.listener.update_domain_owner_on_user_email_change:
+    class: %dothiv_business.listener.update_domain_owner_on_user_email_change.class%
+    arguments:
+      - @dothiv.repository.domain
+      - @dothiv.repository.entity_change
+    tags:
+      - { name: dothiv.business.event_listener, event: dothiv.business.entity.changed, method: onEntityChanged }

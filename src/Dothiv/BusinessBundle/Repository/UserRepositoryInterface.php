@@ -4,6 +4,7 @@ namespace Dothiv\BusinessBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use PhpOption\Option;
@@ -44,4 +45,13 @@ interface UserRepositoryInterface extends ObjectRepository
      * @return self
      */
     public function flush();
+
+    /**
+     * Returns the entity name for the $item.
+     *
+     * @param EntityInterface $entity
+     *
+     * @return string
+     */
+    public function getItemEntityName(EntityInterface $entity);
 }

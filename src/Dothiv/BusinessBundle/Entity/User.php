@@ -19,7 +19,7 @@ use Dothiv\BusinessBundle\Entity\Traits;
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="email",columns={"email"}),@ORM\UniqueConstraint(name="handle",columns={"handle"})})
  * @ORM\HasLifecycleCallbacks
  */
-class User implements UserInterface
+class User implements UserInterface, EntityInterface
 {
     use Traits\CreateUpdateTime;
 
@@ -228,5 +228,21 @@ class User implements UserInterface
     public function getHandle()
     {
         return $this->handle;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublicId()
+    {
+        return $this->getHandle();
     }
 }

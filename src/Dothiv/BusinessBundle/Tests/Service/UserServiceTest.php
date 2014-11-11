@@ -92,6 +92,51 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @group   Service
+     * @group   BusinessBundle
+     * @group   UserService
+     * @depends itShouldBeInstantiable
+     */
+    public function itShouldActOnChangedUserProfiles()
+    {
+        $user = new User();
+        $user->setEmail('old@email.de');
+        $user->setHandle('somehandle');
+        $userProfileChange = new UserProfileChange();
+        $userProfileChange->setUser($user);
+        $userProfileChange->setProperties(array('email' => 'new@email.de'));
+        $userProfileChange->setConfirmed(true);
+        $change = new EntityChange();
+        $change->addChange(new IdentValue('email'), 'old@email.de', 'new@email.de');
+        $change->setEntity(get_class($userProfileChange));
+        $change->setIdentifier(new IdentValue(17));
+        $change->setAuthor(new EmailValue('old@email.de'));
+        $event = new EntityChangeEvent($change, $userProfileChange);
+
+        $this->mockUserRepo->expects($this->once())->method('persist')
+            ->with($this->callback(function (User $user) {
+                $this->assertEquals('new@email.de', $user->getEmail());
+                return true;
+            }))
+            ->willReturnSelf();
+        $this->mockUserRepo->expects($this->once())->method('flush')->willReturnSelf();
+
+        $this->mockEventDispatcher->expects($this->once())->method('dispatch')
+            ->with(
+                BusinessEvents::ENTITY_CHANGED,
+                $this->callback(function (EntityChangeEvent $event) use ($user) {
+                    $this->assertEquals($user, $event->getEntity());
+                    $this->assertEquals(new EntityPropertyChange(new IdentValue('email'), 'old@email.de', 'new@email.de'), $event->getChange()->getChanges()->get('email'));
+                    return true;
+                })
+            );
+
+        $service = $this->createTestObject();
+        $service->onEntityChanged($event);
+    }
+
+    /**
      * @return UserService
      */
     protected function createTestObject()

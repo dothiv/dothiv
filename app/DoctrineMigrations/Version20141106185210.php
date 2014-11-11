@@ -12,7 +12,6 @@ class Version20141106185210 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
-        $this->addSql('ALTER TABLE UserProfileChange ADD CONSTRAINT FK_7D5DEFFCA76ED395 FOREIGN KEY (user_id) REFERENCES User (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE NonProfitRegistration CHANGE updated updated DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE Registrar CHANGE updated updated DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE PremiumBid CHANGE updated updated DATETIME DEFAULT NULL');
