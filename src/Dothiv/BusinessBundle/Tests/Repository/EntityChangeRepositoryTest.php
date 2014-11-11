@@ -46,7 +46,7 @@ class EntityChangeRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->mockEventDispatcher->expects($this->once())->method('dispatch')
             ->with(
                 AdminEvents::ADMIN_ENTITY_CHANGE,
-                $this->isInstanceOf('\Dothiv\AdminBundle\Event\EntityChangeEvent')
+                $this->isInstanceOf('\Dothiv\BusinessBundle\Event\EntityChangeEvent')
             )
             ->willReturnArgument(1);
 

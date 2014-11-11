@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserNotification;
-use Dothiv\BusinessBundle\Event\UserEvent;
+use Dothiv\BusinessBundle\Event\EntityEvent;
 use Dothiv\BusinessBundle\Listener\CreateUserNotificationEmailChangeListener;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserNotificationRepositoryInterface;
@@ -62,8 +62,8 @@ class CreateUserNotificationEmailChangeListenerTest extends \PHPUnit_Framework_T
         $this->mockuserNotificationRepo->expects($this->once())->method('flush')
             ->willReturnSelf();
 
-        $event = new UserEvent($user);
-        $this->getTestObject()->onUserCreated($event);
+        $event = new EntityEvent($user);
+        $this->getTestObject()->onEntityCreated($event);
     }
 
     /**

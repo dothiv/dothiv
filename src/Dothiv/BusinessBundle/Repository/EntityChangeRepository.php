@@ -5,7 +5,7 @@ namespace Dothiv\BusinessBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Dothiv\AdminBundle\AdminEvents;
 use Dothiv\BusinessBundle\Entity\EntityChange;
-use Dothiv\AdminBundle\Event\EntityChangeEvent;
+use Dothiv\BusinessBundle\Event\EntityChangeEvent;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\Traits;
@@ -41,7 +41,7 @@ class EntityChangeRepository extends EntityRepository implements EntityChangeRep
     {
         $this->getEntityManager()->flush();
         foreach ($this->entities as $entity) {
-            $this->eventDispatcher->dispatch(AdminEvents::ADMIN_ENTITY_CHANGE, new EntityChangeEvent($entity));
+            $this->eventDispatcher->dispatch(AdminEvents::ADMIN_ENTITY_CHANGE, new EntityChangeEvent($entity, $entity));
         }
         $this->entities = array();
         return $this;

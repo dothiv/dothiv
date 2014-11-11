@@ -3,8 +3,9 @@
 namespace Dothiv\BusinessBundle\Listener;
 
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Entity\UserNotification;
-use Dothiv\BusinessBundle\Event\UserEvent;
+use Dothiv\BusinessBundle\Event\EntityEvent;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserNotificationRepositoryInterface;
 use Dothiv\ValueObject\EmailValue;
@@ -37,12 +38,17 @@ class CreateUserNotificationEmailChangeListener
     }
 
     /**
-     * @param UserEvent $event
+     * @param EntityEvent $event
      */
-    public function onUserCreated(UserEvent $event)
+    public function onEntityCreated(EntityEvent $event)
     {
+        if (!($event->getEntity() instanceof User)) {
+            return;
+        }
+        /** @var User $user */
+        $user = $event->getEntity();
         // Are there unclaimed domains for this user?
-        $domains = $this->domainRepo->findByOwnerEmail(new EmailValue($event->getUser()->getEmail()))->filter(function (Domain $d) {
+        $domains = $this->domainRepo->findByOwnerEmail(new EmailValue($user->getEmail()))->filter(function (Domain $d) {
             return $d->getOwner() === null;
         });
 
@@ -51,7 +57,7 @@ class CreateUserNotificationEmailChangeListener
         }
 
         $notification = new UserNotification();
-        $notification->setUser($event->getUser());
+        $notification->setUser($user);
         $notification->setProperties(array('role' => 'charity.change_email'));
         $this->userNotificationRepo->persist($notification)->flush();
     }
