@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
+use Dothiv\BusinessBundle\Entity\Traits;
 
 /**
  * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\UserRepository")
@@ -18,8 +19,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="email",columns={"email"}),@ORM\UniqueConstraint(name="handle",columns={"handle"})})
  * @ORM\HasLifecycleCallbacks
  */
-class User implements UserInterface
+class User implements UserInterface, EntityInterface
 {
+    use Traits\CreateUpdateTime;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -225,5 +228,21 @@ class User implements UserInterface
     public function getHandle()
     {
         return $this->handle;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublicId()
+    {
+        return $this->getHandle();
     }
 }

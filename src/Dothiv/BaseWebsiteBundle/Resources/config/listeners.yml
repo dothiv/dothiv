@@ -7,7 +7,7 @@ services:
     dothiv.base.web.contentul.video_block_listener:
         class: %dothiv.base.web.contentul.video_block_listener.class%
         tags:
-            - { name: kernel.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
+            - { name: dothiv.business.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
 
     dothiv.base.web.contentul.image_listener:
         class: %dothiv.base.web.contentul.image_listener.class%
@@ -16,7 +16,7 @@ services:
             - 'Block'
             - 'image'
         tags:
-            - { name: kernel.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
+            - { name: dothiv.business.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
 
     dothiv.base.web.min_last_modified_listener:
         class: %dothiv.base.web.min_last_modified_listener.class%

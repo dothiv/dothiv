@@ -2,6 +2,7 @@ parameters:
     dothiv.api.controller.attachment.class: Dothiv\APIBundle\Controller\AttachmentController
     dothiv.api.controller.account.class: Dothiv\APIBundle\Controller\AccountController
     dothiv.api.controller.user.class: Dothiv\APIBundle\Controller\UserController
+    dothiv.api.controller.crud.class: Dothiv\APIBundle\Controller\CRUDController
 
 services:
     dothiv.api.controller.domain:
@@ -11,7 +12,7 @@ services:
          - @dothiv.repository.domain
          - @dothiv.repository.domainclaim
          - @serializer
-         - @event_dispatcher
+         - @dothiv.business.event_dispatcher
          - @clock
 
     dothiv.api.controller.banner:
@@ -32,6 +33,8 @@ services:
          - @dothiv.repository.user_token
          - @serializer
          - @clock
+         - @dothiv.businessbundle.service.user
+         - @dothiv.api.transformer.user_profile_change
 
     dothiv.api.controller.account:
         class: %dothiv.api.controller.account.class%
@@ -55,3 +58,31 @@ services:
          - @dothiv.repository.attachment
          - @security.context
          - @serializer
+
+    dothiv.api.controller.user_notification:
+        class: %dothiv.api.controller.crud.class%
+        arguments:
+        - @dothiv.repository.user_notification
+        - @dothiv.api.transformer.user_notification
+        - @dothiv.admin.transformer.paginatedlist
+        - @serializer
+        - @dothiv.repository.entity_change
+        - @security.context
+        - @dothiv.api.manipulator.generic
+        - @dothiv.business.event_dispatcher
+        calls:
+        - [disableHistory]
+
+    dothiv.api.controller.user_profile_change:
+        class: %dothiv.api.controller.crud.class%
+        arguments:
+        - @dothiv.repository.user_profile_change
+        - @dothiv.api.transformer.user_profile_change
+        - @dothiv.admin.transformer.paginatedlist
+        - @serializer
+        - @dothiv.repository.entity_change
+        - @security.context
+        - @dothiv.api.manipulator.generic
+        - @dothiv.business.event_dispatcher
+        calls:
+        - [disableHistory]

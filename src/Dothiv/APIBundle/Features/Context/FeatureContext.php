@@ -150,6 +150,14 @@ class FeatureContext extends BehatContext
     }
 
     /**
+     * @Then /^"(?P<storageName>[^"]*)" should contain "(?P<expected>[^"]*)"$/
+     */
+    public function shouldContain($storageName, $expected)
+    {
+        \PHPUnit_Framework_Assert::assertEquals($expected, $this->getValue($storageName));
+    }
+
+    /**
      * Returns a value with replaced placeholders for storage objects.
      *
      * @param $value
@@ -162,7 +170,26 @@ class FeatureContext extends BehatContext
         foreach ($matches as $match) {
             if (preg_match('/^(\\\\[\\\\A-Za-z]+)+@(.+)/', $match[1], $classMatch)) {
                 $class = $classMatch[1];
-                return new $class($classMatch[2]);
+                switch ($class) {
+                    case '\array':
+                        return array(json_decode($classMatch[2]));
+                        break;
+                    default:
+                        return new $class($classMatch[2]);
+                }
+            } elseif (preg_match('/^([^\.]+)\.(.+)$/', $match[1], $parameterMatch)) { // storageName.parameterName
+                $value = $this->storage->get($parameterMatch[1]);
+                if (is_array($value)) {
+                    return $value[$parameterMatch[2]];
+                } else {
+                    $getter = 'get' . ucfirst($parameterMatch[2]);
+                    if (method_exists($value, $getter)) {
+                        return $value->$getter();
+                    } elseif (property_exists($value, $parameterMatch[2])) {
+                        return $value->{$parameterMatch[2]};
+                    }
+                }
+
             }
             return $this->storage->get($match[1]);
         }
@@ -195,6 +222,10 @@ class FeatureContext extends BehatContext
     {
         $client     = $this->getSubcontext('mink')->getSession()->getDriver()->getClient();
         $parameters = $table->getRowsHash();
+        if (substr($url, 0, 1) === '{') {
+            $url = $this->getValue($url);
+        }
+        // FIXME: Hardcoded headers
         $client->request(
             $method,
             $this->getSubcontext('rest')->locatePath($url),
@@ -314,7 +345,13 @@ class FeatureContext extends BehatContext
     public function theHeaderIsStoredIn($header, $store)
     {
         $val = $this->theHeaderShouldExist($header);
-        $this->store($store, join("\n", $val));
+        if (isset($val[1]) && is_array($val[1])) {
+            // URL header
+            $this->store($store, $val[0]);
+        } else {
+            $this->store($store, join("\n", $val));
+        }
+
     }
 
     /**
@@ -348,7 +385,7 @@ class FeatureContext extends BehatContext
     /**
      * @Given /^the JSON node "(?P<node>[^"]*)" should contain \{(?P<storageName>[^\}]*)\}$/
      */
-    public function theJsonNodeShouldBeEqualToExtrasvisualurl($node, $storageName)
+    public function theJsonNodeShouldBeEqualToStorageValue($node, $storageName)
     {
         $val = $this->getValue('{' . $storageName . '}');
         $this->getSubcontext('json')->theJsonNodeShouldBeEqualTo($node, (string)$val);

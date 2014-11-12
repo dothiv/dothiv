@@ -40,6 +40,13 @@ dothiv_api_user_profile:
         _format: json
     methods: [GET]
 
+dothiv_api_user_profile_update:
+    path: /user/{handle}
+    defaults:
+        _controller: dothiv.api.controller.user:updateProfileAction
+        _format: json
+    methods: [PATCH]
+
 dothiv_api_user_token:
     pattern:  /user/{handle}/token
     defaults:
@@ -81,3 +88,40 @@ dothiv_api_account_loginlink:
         _controller: dothiv.api.controller.account:loginLinkAction
         _format: json
     methods: [POST]
+
+## User notifications
+dothiv_api_user_notification:
+    pattern:  /user/{handle}/notification/{identifier}
+    defaults:
+        _controller: dothiv.api.controller.user_notification:getItemAction
+        _format: json
+    methods: [GET]
+
+dothiv_api_user_notification_list:
+    pattern:  /user/{handle}/notification
+    defaults:
+        _controller: dothiv.api.controller.user_notification:listItemsAction
+        _format: json
+    methods: [GET]
+
+dothiv_api_user_notification_update:
+    path: /user/{handle}/notification/{identifier}
+    defaults:
+        _controller: dothiv.api.controller.user_notification:updateItemAction
+        _format: json
+    methods: [PATCH]
+
+## User profile change
+dothiv_api_user_profile_change:
+    pattern:  /user/{handle}/profile_change/{identifier}
+    defaults:
+        _controller: dothiv.api.controller.user_profile_change:getItemAction
+        _format: json
+    methods: [GET]
+
+dothiv_api_user_profile_change_update:
+    pattern:  /user/{handle}/profile_change/{identifier}
+    defaults:
+        _controller: dothiv.api.controller.user_profile_change:updateItemAction
+        _format: json
+    methods: [PATCH]

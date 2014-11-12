@@ -2,7 +2,7 @@
 
 namespace Dothiv\BaseWebsiteBundle\Listener;
 
-use Dothiv\AdminBundle\Event\EntityChangeEvent;
+use Dothiv\BusinessBundle\Event\EntityChangeEvent;
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
 use Dothiv\ValueObject\ClockValue;
 use Dothiv\ValueObject\IdentValue;
@@ -81,4 +81,4 @@ class MinLastModifiedListener
         $config->setValue($this->clock->getNow()->format(DATE_W3C));
         $this->configRepo->persist($config)->flush();
     }
-} 
+}

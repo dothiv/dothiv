@@ -2,6 +2,7 @@ parameters:
     dothiv.charity.service.mailer.domain_registered.class: Dothiv\CharityWebsiteBundle\Service\Mailer\DomainRegisteredMailer
     dothiv.charity.service.mailer.login.class: Dothiv\BaseWebsiteBundle\Service\Mailer\LoginLinkMailer
     dothiv.charity.service.mailer.content.class: Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailer
+    dothiv.charity.service.mailer.user_profile_change.class: Dothiv\CharityWebsiteBundle\Listener\SendProfileChangeConfirmationListener
 
 services:
     dothiv.charity.service.mailer.content:
@@ -23,8 +24,8 @@ services:
         - @dothiv.repository.domain
         - @clock
         tags:
-            - { name: kernel.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
-            - { name: kernel.event_listener, event: dothiv.business.domain.claim_token_requested, method: onDomainRegistered }
+            - { name: dothiv.business.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
+            - { name: dothiv.business.event_listener, event: dothiv.business.domain.claim_token_requested, method: onDomainRegistered }
 
     dothiv.charity.service.mailer.login:
         class: %dothiv.charity.service.mailer.login.class%
@@ -35,4 +36,11 @@ services:
         - %charitydomain%
         - @dothiv.businessbundle.service.user
         tags:
-            - { name: kernel.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }
+            - { name: dothiv.business.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }
+
+    dothiv.charity.service.mailer.user_profile_change:
+        class: %dothiv.charity.service.mailer.user_profile_change.class%
+        arguments:
+        - @dothiv.charity.service.mailer.content
+        tags:
+            - { name: dothiv.business.event_listener, event: dothiv.business.entity.created, method: onEntityCreated }

@@ -12,7 +12,7 @@ services:
             arguments:
                 - 'en'
                 - @dothiv_contentful.content
-                - @event_dispatcher
+                - @dothiv.business.event_dispatcher
 
     dothiv.websitebase.contentful.image_scaler:
         class: %dothiv.websitebase.contentful.image_scaler.class%
@@ -37,7 +37,7 @@ services:
          - @doctrine_cache.providers.dothiv_base_website_cache
          - @dothiv.repository.config
         tags:
-         - { name: kernel.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
+         - { name: dothiv.business.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
          - { name: kernel.event_listener, event: contentful.entry.sync, method: onEntryUpdate }
         calls:
          - [ setLogger, [@logger] ]

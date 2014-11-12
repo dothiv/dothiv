@@ -161,10 +161,10 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase
      * @test
      * @group   BaseWebsiteBundle
      * @group   Controller
-     * @depends itShouldHonourAssetsDate
      */
     public function itShouldSendExpiresHeader()
     {
+        $this->expectMinLastModifiedDate(null);
         // Get uncached response
         $controller = $this->getTestObject();
         $request    = new Request();

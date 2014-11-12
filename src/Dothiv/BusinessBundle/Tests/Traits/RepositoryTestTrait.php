@@ -2,6 +2,9 @@
 
 namespace Dothiv\BusinessBundle\Tests\Traits;
 
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -77,4 +80,11 @@ trait RepositoryTestTrait
             $this->testKernel->shutdown();
         }
     }
-} 
+
+    protected function loadFixture(FixtureInterface $fixture)
+    {
+        $em       = $this->getTestEntityManager();
+        $executor = new ORMExecutor($em, new ORMPurger());
+        $executor->execute(array($fixture), true);
+    }
+}

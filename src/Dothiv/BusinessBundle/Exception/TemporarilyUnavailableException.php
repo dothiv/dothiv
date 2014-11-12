@@ -2,9 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Exception;
 
-use Dothiv\BusinessBundle\Exception;
-
-class TemporarilyUnavailableException extends \RuntimeException implements Exception
+class TemporarilyUnavailableException extends \RuntimeException implements ExceptionInterface
 {
     /**
      * @var \DateTime
