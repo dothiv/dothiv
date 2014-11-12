@@ -15,28 +15,28 @@
                 </div>
 
             <div class="well clearfix" data-ng-init="step = 'form'">
-                <h3>Change email address</h3>
+                <h3>{% trans %}settings.changeemail.title{% endtrans %}</h3>
 
                 <div data-ng-show="step == 'form'">
-                    <p>Use this form to change your email address.</p>
+                    <p>{% trans %}settings.changeemail.intro{% endtrans %}</p>
 
                     <form role="form" name="emailChangeForm">
                         <fieldset class="row-fluid">
                             <div class="input-group span3">
-                                <label>Current email</label> <span data-ng-bind="user.email"></span>
+                                <label>{% trans %}settings.changeemail.currentemail.label{% endtrans %}</label> <span data-ng-bind="user.email"></span>
                             </div>
                             <div class="input-group span3">
-                                <label for="profile_email">New email address</label>
+                                <label for="profile_email">{% trans %}settings.changeemail.newemail.label{% endtrans %}</label>
                                 <input type="email" maxlength="255" id="profile_email" name="email" data-ng-model="new_email" required>
                             </div>
                             <div class="input-group span3">
-                                <label for="profile_email2">Repeat new email address</label>
+                                <label for="profile_email2">{% trans %}settings.changeemail.newemail2.label{% endtrans %}</label>
                                 <input type="email" maxlength="255" id="profile_email2" name="email" data-ng-model="new_email2" required>
                             </div>
                         </fieldset>
                         <nav>
                             <button type="submit" class="btn btn-primary pull-right" data-ng-disabled="loading || emailChangeForm.$invalid || new_email != new_email2 || new_email == user.email" data-ng-click="submit('confirm');">
-                                continue
+                                {% trans %}button.generic.continue{% endtrans %}
                             </button>
                         </nav>
                     </form>
@@ -45,7 +45,7 @@
                     <form role="form" name="emailChangeConfirmForm">
                         <fieldset>
                             <div class="input-group">
-                                <label for="verification_code">Ok. Please enter the verification code we've just sent you via email to {{ '{{new_email}}' }}:</label>
+                                <label for="verification_code">{% trans %}settings.changeemail.confirm{% endtrans %}</label>
                                 <input type="text" maxlength="255" id="verification_code" name="verification_code" data-ng-model="verification_code" required>
                             </div>
                         </fieldset>
@@ -54,16 +54,16 @@
                                 {% trans %}generic.button.back{% endtrans %}
                             </button>
                             <button type="submit" class="btn btn-primary pull-right" data-ng-disabled="loading || emailChangeConfirmForm.$invalid" data-ng-click="submit('done');">
-                                finish
+                                {% trans %}button.generic.continue{% endtrans %}
                             </button>
                         </nav>
                     </form>
                 </div>
                 <div data-ng-show="step == 'done'">
-                    <p>Ok. We've changed your email address.</p>
+                    <p>{% trans %}settings.changeemail.changed{% endtrans %}</p>
                     <nav>
                         <button type="submit" class="btn btn-primary pull-right" data-ng-click="step = 'form'">
-                            awesome
+                            {% trans %}button.generic.finish{% endtrans %}
                         </button>
                     </nav>
                 </div>
