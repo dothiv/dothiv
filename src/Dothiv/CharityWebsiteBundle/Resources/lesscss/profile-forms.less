@@ -29,12 +29,12 @@
     font-weight: bold;
     .border-radius(0);
     color: white;
-    background-color: #1786BE;
+    background-color: @btnBlue;
     margin: 0;
     border: none;
     .box-shadow(inset 0px -5px 2px -2px rgba(0, 0, 0, 0.2));
     &:hover {
-        background-color: #1786BE;
+        background-color: @btnBlue;
     }
     &:before, &:after {
         left: 100%;
@@ -55,7 +55,7 @@
     }
     &:after {
         border-color: rgba(23, 133, 190, 0);
-        border-left-color: #1786BE;
+        border-left-color: @btnBlue;
         border-width: 22px;
         top: 50%;
         margin-top: -22px;
@@ -150,12 +150,12 @@
         margin-right: 20px;
 
         &:hover {
-            background-color: #1786BE;
+            background-color: @btnBlue;
         }
 
       &.next {
         .pull-right;
-        background: #1786BE url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 90% 50%;
+        background: @btnBlue url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 90% 50%;
         padding-right: 30px;
         color: white;
         margin-right: 0;
