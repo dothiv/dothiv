@@ -49,6 +49,22 @@ article.content {
       .cf-text-center {
         text-align: center;
       }
+      &.cf-text-buttonlinks {
+        a {
+          &:extend(.btn all);
+          &:extend(.btn-default all);
+          &:extend(.pull-left);
+          margin-top: 1em;
+        }
+      }
+      &.cf-text-buttonlinks-primary {
+        a {
+          &:extend(.btn all);
+          &:extend(.btn-primary all);
+          &:extend(.pull-right);
+          margin-top: 1em;
+        }
+      }
     }
     ul {
       margin-left: 35px;
