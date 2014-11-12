@@ -19,7 +19,7 @@ services:
     registration:
         class: %registration.class%
         arguments:
-        - @event_dispatcher
+        - @dothiv.business.event_dispatcher
         - @dothiv.repository.domain
         - @dothiv.repository.registrar
 
@@ -27,7 +27,7 @@ services:
         class: %dothiv.businessbundle.service.clock.class%
         arguments:
         - %dothiv_business.clock_expr%
-        - @event_dispatcher
+        - @dothiv.business.event_dispatcher
 
     dothiv.businessbundle.service.user:
         class: %dothiv.businessbundle.service.user.class%
@@ -35,10 +35,13 @@ services:
         - @dothiv.repository.user
         - @dothiv.repository.user_token
         - @clock
-        - @event_dispatcher
+        - @dothiv.business.event_dispatcher
+        - @dothiv.repository.user_profile_change
         - 'dothiv.business.user.loginlink.requested'
         - "%charitydomain%"
         - %dothiv_business.link_request_wait%
+        tags:
+        - { name: dothiv.business.event_listener, event: dothiv.business.entity.changed, method: onEntityChanged }
 
     dothiv.businessbundle.service.attachment:
         class: %dothiv.businessbundle.service.attachment.class%

@@ -6,4 +6,4 @@ services:
             - 'Project'
             - 'images'
         tags:
-            - { name: kernel.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
+            - { name: dothiv.business.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }

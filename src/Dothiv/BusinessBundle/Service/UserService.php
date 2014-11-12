@@ -2,17 +2,25 @@
 
 namespace Dothiv\BusinessBundle\Service;
 
+use Dothiv\BusinessBundle\BusinessEvents;
+use Dothiv\BusinessBundle\Entity\EntityChange;
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Entity\UserToken;
+use Dothiv\BusinessBundle\Event\EntityChangeEvent;
+use Dothiv\BusinessBundle\Event\EntityEvent;
 use Dothiv\BusinessBundle\Event\UserTokenEvent;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
+use Dothiv\BusinessBundle\Model\EntityPropertyChange;
+use Dothiv\BusinessBundle\Repository\UserProfileChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use Dothiv\ValueObject\ClockValue;
-use PhpOption\Option;
 use Dothiv\ValueObject\IdentValue;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use PhpOption\Option;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -38,7 +46,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     protected $clock;
 
     /**
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      */
     protected $dispatcher;
 
@@ -53,6 +61,11 @@ class UserService implements UserProviderInterface, UserServiceInterface
     protected $adminUserDomain;
 
     /**
+     * @var UserProfileChangeRepositoryInterface
+     */
+    protected $userChangeRepo;
+
+    /**
      * @var int Time in seconds to wait between sending a new login link
      */
     private $linkRequestWait;
@@ -61,7 +74,8 @@ class UserService implements UserProviderInterface, UserServiceInterface
         UserRepositoryInterface $userRepository,
         UserTokenRepositoryInterface $userTokenRepository,
         ClockValue $clock,
-        EventDispatcher $dispatcher,
+        EventDispatcherInterface $dispatcher,
+        UserProfileChangeRepositoryInterface $userChangeRepo,
         $loginLinkEventName,
         $adminUserDomain,
         $linkRequestWait
@@ -76,8 +90,8 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $this->userRepo           = $userRepository;
         $this->userTokenRepo      = $userTokenRepository;
         $this->clock              = $clock;
-        $this->dispatcher         = $dispatcher;
         $this->linkRequestWait    = (int)$linkRequestWait;
+        $this->userChangeRepo     = $userChangeRepo;
     }
 
     /**
@@ -189,12 +203,10 @@ class UserService implements UserProviderInterface, UserServiceInterface
             return !$token->isRevoked();
         });
         if (!$tokens->isEmpty()) {
-            $maxAge      = null;
-            $maxAgeToken = null;
+            $maxAge = null;
             foreach ($tokens as $token) {
                 if ($token->getCreated() > $maxAge) {
-                    $maxAge      = $token->getCreated();
-                    $maxAgeToken = $token;
+                    $maxAge = $token->getCreated();
                 }
             }
             $diff = $this->clock->getNow()->getTimestamp() - $maxAge->getTimestamp();
@@ -252,23 +264,101 @@ class UserService implements UserProviderInterface, UserServiceInterface
     {
         $userRepo = $this->userRepo;
         /* @var User $user */
-        return $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $firstname, $surname, $userRepo) {
+        $eventDispatcher = $this->dispatcher;
+        return $userRepo->getUserByEmail($email)->getOrCall(function () use ($email, $firstname, $surname, $userRepo, $eventDispatcher) {
             $user = new User();
             $user->setHandle($this->generateToken());
             $user->setEmail($email);
             $user->setSurname($surname);
             $user->setFirstname($firstname);
             $userRepo->persist($user)->flush();
+            $eventDispatcher->dispatch(BusinessEvents::ENTITY_CREATED, new EntityEvent($user));
             return $user;
         });
     }
 
     /**
+     * @param int $length Length in bytes.
+     *
      * @return string
      */
-    protected function generateToken()
+    protected function generateToken($length = 16)
     {
         $sr = new SecureRandom();
-        return bin2hex($sr->nextBytes(16));
+        return bin2hex($sr->nextBytes($length));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateUser(User $user, Request $request = null)
+    {
+        $changedData = array(
+            'email' => $user->getEmail()
+        );
+        $this->userRepo->refresh($user);
+
+        if ($changedData['email'] == $user->getEmail()) {
+            unset($changedData['email']);
+        }
+
+        $change = new UserProfileChange();
+        $change->setUser($user);
+        $change->setUserUpdate($user->getUpdated());
+        $change->setProperties($changedData);
+        $change->setToken(new IdentValue($this->generateToken(4)));
+        $this->userChangeRepo->persist($change)->flush();
+        $event = new EntityEvent($change);
+        Option::fromValue($request)->map(function (Request $request) use ($event) {
+            $event->setRequest($request);
+        });
+        $this->dispatcher->dispatch(BusinessEvents::ENTITY_CREATED, $event);
+        return $change;
+    }
+
+    /**
+     * Updates a user's email address once the respective entity has been confirmed
+     *
+     * @param EntityChangeEvent $event
+     */
+    public function onEntityChanged(EntityChangeEvent $event)
+    {
+        /** @var UserProfileChange $userProfileChange */
+        $userProfileChange = $event->getEntity();
+        if (!($userProfileChange instanceof UserProfileChange)) {
+            return;
+        }
+        $user    = $userProfileChange->getUser();
+        $tsValue = function (\DateTime $ts = null) {
+            return !$ts ? null : $ts->getTimestamp();
+        };
+        if ($tsValue($userProfileChange->getUserUpdate()) !== $tsValue($user->getUpdated())) {
+            return;
+        }
+        $emailChanged = false;
+        $oldEmail     = $user->getEmail();
+        foreach ($userProfileChange->getProperties()->toArray() as $k => $v) {
+            switch ($k) {
+                case 'email':
+                    if ($user->getEmail() !== $v) {
+                        $user->setEmail($v);
+                        $emailChanged = true;
+
+                    }
+                    break;
+            }
+        }
+        $this->userRepo->persist($user)->flush();
+        if ($emailChanged) {
+            $userChange = new EntityChange();
+            $userChange->setAuthor($event->getChange()->getAuthor());
+            $userChange->setEntity($this->userRepo->getItemEntityName($user));
+            $userChange->setIdentifier(new IdentValue($user->getPublicId()));
+            $changes = array(
+                new EntityPropertyChange(new IdentValue('email'), $oldEmail, $user->getEmail())
+            );
+            $userChange->setChanges($changes);
+            $this->dispatcher->dispatch(BusinessEvents::ENTITY_CHANGED, new EntityChangeEvent($userChange, $user));
+        }
     }
 }

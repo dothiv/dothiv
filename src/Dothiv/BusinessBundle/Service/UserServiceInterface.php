@@ -3,10 +3,12 @@
 namespace Dothiv\BusinessBundle\Service;
 
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
 use Dothiv\ValueObject\IdentValue;
+use Symfony\Component\HttpFoundation\Request;
 
 interface UserServiceInterface
 {
@@ -49,4 +51,14 @@ interface UserServiceInterface
      * @return UserToken
      */
     public function createUserToken(User $user, IdentValue $scope, $lifetimeInSeconds = 1800);
+
+    /**
+     * Updates a property of user $user which requires confirmation
+     *
+     * @param User         $user
+     * @param Request|null $request
+     *
+     * @return UserProfileChange
+     */
+    public function updateUser(User $user, Request $request = null);
 }

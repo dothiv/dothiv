@@ -154,7 +154,7 @@ angular.module('dotHIVApp.controllers').controller('OrderController', ['$rootSco
         updateTweetText();
         updateFbText();
     }
-    
+
     $scope.updateSharingText = updateSharingText;
     $scope.updateFbText = updateFbText;
     $scope.updateTweetText = updateTweetText;

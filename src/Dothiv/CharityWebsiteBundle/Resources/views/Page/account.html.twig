@@ -11,10 +11,22 @@
                         <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}#!/profile/dashboard" data-ng-class="{ active: state.includes('profile.dashboard') }">
                             {% trans %}profile.navigation.dashboard{% endtrans %}
                         </a>
+                        <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}#!/profile/settings" data-ng-class="{ active: state.includes('profile.settings') }">
+                            {% trans %}profile.navigation.settings{% endtrans %}
+                        </a>
                         <a data-ng-click="logout()">
                             {% trans %}profile.navigation.logout{% endtrans %}
                         </a>
                     </nav>
+                </div>
+            </div>
+            <div data-ng-controller="UserNotificationController">
+                <div class="row" data-ng-show="notifications" data-ng-repeat="notification in notifications">
+                    <div class="alert alert-info alert-dismissible" role="alert" data-ng-show="notification.properties.role == 'charity.change_email'">
+                        <button type="button" class="close" data-dismiss="alert" data-ng-click="dismiss(notification)"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        {% set notification = content('Block', 'notification.changeemail') %}
+                        {{ notification.text|trans({'{{link}}': path('dothiv_charity_account_index', {'locale': locale}) ~ "#!/profile/settings" })|markdown }}
+                    </div>
                 </div>
             </div>
         </div>

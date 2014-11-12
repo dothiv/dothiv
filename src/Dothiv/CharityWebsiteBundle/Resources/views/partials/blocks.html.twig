@@ -160,8 +160,13 @@
 {% block cf_imageBlock %}
     {% set src = image_asset.file.url %}
     {% set class = "cfblock-image" %}
-    {% set src = image_asset.file.thumbnails[thumbnail_size|default('small')] %}
-    {% set class = class ~ " cfblock-thumbnail-" ~ thumbnail_size|default('small') %}
+    {% set thumbnail_size = thumbnail_size|default('small') %}
+    {% if thumbnail_size == "original" %}
+        {% set src = image_asset.file.url %}
+    {% else %}
+        {% set src = image_asset.file.thumbnails[thumbnail_size] %}
+    {% endif %}
+    {% set class = class ~ " cfblock-thumbnail-" ~ thumbnail_size %}
     {% if image_link|default(false) %}<a href="{{ image_link }}">{% endif %}
     <img src="{{ src }}" alt="{{ image_asset.title }}" title="{{ image_asset.description|default(image_asset.title) }}" class="{{ class }}">
     {% if image_link|default(false) %}</a>{% endif %}

@@ -863,4 +863,4 @@ class Order extends Entity
         $this->charge = $charge->id;
         return $this;
     }
-} 
+}

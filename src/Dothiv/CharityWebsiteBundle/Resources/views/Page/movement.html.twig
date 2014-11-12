@@ -1,0 +1,16 @@
+{% trans_default_domain "charity" %}
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivCharityWebsiteBundle:Page:cfpage.html.twig" %}
+{% block content %}
+    <article class="content container">
+
+        <div class="row">
+            <div class="span12">
+                <section>
+                    {{ parent() }}
+                </section>
+            </div>
+        </div>
+
+    </article>
+{% endblock %}

@@ -28,7 +28,7 @@ services:
         - %registrydomain%
         - @dothiv.businessbundle.service.user
         tags:
-            - { name: kernel.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }
+            - { name: dothiv.business.event_listener, event: dothiv.business.user.loginlink.requested, method: onLoginLinkRequested }
 
     dothiv.registry.service.mailer.content:
         class: %dothiv.registry.service.mailer.content.class%

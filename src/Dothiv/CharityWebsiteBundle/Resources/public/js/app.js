@@ -40,7 +40,13 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
                 url: '/edit/:name',
                 templateUrl: '/' + locale + '/app/account/domain-basicedit.html',
                 controller: 'AccountDomainBasicEditController'
-            });
+            })
+            .state('profile.settings', {
+                url: '/settings',
+                templateUrl: '/' + locale + '/app/account/settings.html',
+                controller: 'AccountSettingsController'
+            })
+        ;
     }])
     .run(['$rootScope', 'security', '$state', '$window', 'strings', function ($rootScope, security, $state, $window, strings) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -62,7 +68,7 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
                 });
             }
         });
-        
+
         // Open external links in new windows.
         $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
             $window.setTimeout(function () {

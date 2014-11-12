@@ -2,8 +2,8 @@
 
 namespace Dothiv\BaseWebsiteBundle\Tests\Listener;
 
-use Dothiv\AdminBundle\Entity\EntityChange;
-use Dothiv\AdminBundle\Event\EntityChangeEvent;
+use Dothiv\BusinessBundle\Entity\EntityChange;
+use Dothiv\BusinessBundle\Event\EntityChangeEvent;
 use Dothiv\BaseWebsiteBundle\Cache\RequestLastModifiedCache;
 use Dothiv\BaseWebsiteBundle\Listener\MinLastModifiedListener;
 use Dothiv\BusinessBundle\Entity\Config;
@@ -43,7 +43,7 @@ class MinLastModifiedListenerTest extends \PHPUnit_Framework_TestCase
         $change = new EntityChange();
         $change->setEntity('Dothiv\BusinessBundle\Entity\Config');
         $change->setIdentifier(new IdentValue('eur_to_usd'));
-        $event = new EntityChangeEvent($change);
+        $event = new EntityChangeEvent($change, $config);
 
         $this->mockConfigRepo->expects($this->once())->method('get')
             ->with(RequestLastModifiedCache::CONFIG_NAME)
@@ -94,4 +94,4 @@ class MinLastModifiedListenerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
     }
-} 
+}

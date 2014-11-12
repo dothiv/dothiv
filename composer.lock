@@ -285,16 +285,16 @@
         },
         {
             "name": "cocur/slugify",
-            "version": "v0.10.2",
+            "version": "v0.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cocur/slugify.git",
-                "reference": "b9518567cefdb9ca1e8f9b6bfb81fc5b023bd24e"
+                "reference": "4baf7430d52e846847d41f37604860b3427997ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/b9518567cefdb9ca1e8f9b6bfb81fc5b023bd24e",
-                "reference": "b9518567cefdb9ca1e8f9b6bfb81fc5b023bd24e",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/4baf7430d52e846847d41f37604860b3427997ce",
+                "reference": "4baf7430d52e846847d41f37604860b3427997ce",
                 "shasum": ""
             },
             "require": {
@@ -338,7 +338,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2014-10-18 17:20:59"
+            "time": "2014-11-08 14:30:06"
         },
         {
             "name": "component/angular-ui-router",
@@ -1844,16 +1844,16 @@
         },
         {
             "name": "dothiv/dothiv-valueobject-bundle",
-            "version": "v1.1.2",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dothiv/DothivValueObjectBundle.git",
-                "reference": "40dbe7ce1936fe28ec9f1eff5c1055ce51c28781"
+                "reference": "b6917924ab6c7f6c149b04c4383e611915641a8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dothiv/DothivValueObjectBundle/zipball/40dbe7ce1936fe28ec9f1eff5c1055ce51c28781",
-                "reference": "40dbe7ce1936fe28ec9f1eff5c1055ce51c28781",
+                "url": "https://api.github.com/repos/dothiv/DothivValueObjectBundle/zipball/b6917924ab6c7f6c149b04c4383e611915641a8f",
+                "reference": "b6917924ab6c7f6c149b04c4383e611915641a8f",
                 "shasum": ""
             },
             "require": {
@@ -1893,7 +1893,7 @@
                 "ValueObject",
                 "bundle"
             ],
-            "time": "2014-11-03 13:00:27"
+            "time": "2014-11-10 11:54:21"
         },
         {
             "name": "erusev/parsedown",
@@ -3816,16 +3816,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v1.17.2",
+            "version": "v1.17.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "548ed675dc3b1dd6fa4d20b40867cb756e952d2a"
+                "reference": "d07ee46fe6862a36ca5cd30107493e1e335b35d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/548ed675dc3b1dd6fa4d20b40867cb756e952d2a",
-                "reference": "548ed675dc3b1dd6fa4d20b40867cb756e952d2a",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/d07ee46fe6862a36ca5cd30107493e1e335b35d5",
+                "reference": "d07ee46fe6862a36ca5cd30107493e1e335b35d5",
                 "shasum": ""
             },
             "require": {
@@ -3860,7 +3860,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2014-09-23 22:42:10"
+            "time": "2014-11-07 04:41:03"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4815,28 +4815,6 @@
             "time": "2014-02-03 22:28:56"
         },
         {
-            "name": "component/rmm5t-jquery-timeago",
-            "version": "1.4.1",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/rmm5t/jquery-timeago/archive/v1.4.1.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "components/jquery": "*",
-                "robloach/component-installer": "*"
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "scripts": [
-                        "jquery.timeago.js"
-                    ]
-                }
-            }
-        },
-        {
             "name": "covex-nn/phpcb",
             "version": "1.0.4.1",
             "source": {
@@ -5571,12 +5549,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "198692e8e15cb4bde41f31742209f4bf61486af3"
+                "reference": "8d303cfac5d65917a4194a9248c74c9b179464f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/198692e8e15cb4bde41f31742209f4bf61486af3",
-                "reference": "198692e8e15cb4bde41f31742209f4bf61486af3",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/8d303cfac5d65917a4194a9248c74c9b179464f9",
+                "reference": "8d303cfac5d65917a4194a9248c74c9b179464f9",
                 "shasum": ""
             },
             "require": {
@@ -5636,7 +5614,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2014-11-04 00:15:26"
+            "time": "2014-11-10 04:40:58"
         },
         {
             "name": "theseer/fdomdocument",

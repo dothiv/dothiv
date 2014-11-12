@@ -116,8 +116,10 @@ class PageController
 
         // Store last modified.
         $lastModifiedDate = $lmc->getLastModifiedContent();
-        $response->setLastModified($lastModifiedDate);
-        $lmc->setLastModified($request, $lastModifiedDate);
+        if (Option::fromValue($lastModifiedDate)->isDefined()) {
+            $response->setLastModified($lastModifiedDate);
+            $lmc->setLastModified($request, $lastModifiedDate);
+        }
 
         return $response;
     }
