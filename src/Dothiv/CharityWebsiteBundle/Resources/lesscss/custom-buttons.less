@@ -33,9 +33,25 @@ a.btn {
   color: #ffffff;
 }
 
+.btn-default {
+  background: @btnBackground url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 90% 50%;
+  padding-right: 40px;
+  &.disabled,
+  &[disabled] {
+    background: @btnBackground url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 90% 50%;
+  }
+  &:hover {
+    background: #000000 url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 90% 50%;
+    &.disabled,
+    &[disabled] {
+      background: @btnBackground url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 90% 50%;
+    }
+  }
+}
+
 .btn-primary {
   background: #1786be url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 90% 50%;
-  padding-right: 30px;
+  padding-right: 40px;
   &.disabled,
   &[disabled] {
     background: @btnBackground url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 90% 50%;
