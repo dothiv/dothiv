@@ -1,5 +1,6 @@
 {% trans_default_domain "charity" %}
 {% set title %}{{ page.title }}{% endset %}
+{% set description %}{{ page.description|default("") }}{% endset %}
 {% extends "DothivCharityWebsiteBundle:Page:cfpage.html.twig" %}
 {% block content %}
     <article class="content container">
