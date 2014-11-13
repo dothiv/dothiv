@@ -1,6 +1,7 @@
 {% trans_default_domain "charity" %}
 {% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
 {% set title %}{{ page.title }}{% endset %}
+{% set description %}{{ page.description|default("") }}{% endset %}
 {% extends "DothivCharityWebsiteBundle::page.html.twig" %}
 {% block content %}
 
