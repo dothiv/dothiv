@@ -43,18 +43,19 @@
     <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
     {% endjavascripts %}
     <!-- Social Media Sharing -->
+    {% set description = description|default('home.who.text'|trans) %}
     <!-- Twitter cards support -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="dotHIV">
     <meta name="twitter:title" content="{{ title }}">
-    <meta name="twitter:description" content="{% trans %}home.who.text{% endtrans %}">
+    <meta name="twitter:description" content="{{ description }}">
     <meta name="twitter:creator" content="dotHIV">
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
     <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
     {% endimage %}
     <!-- Facebook open graph support -->
     <meta property="og:title" content="{{ title }}">
-    <meta property="og:description" content="{% trans %}home.who.text{% endtrans %}">
+    <meta property="og:description" content="{{ description }}">
     <meta property="og:site_name" content="{% trans %}dothiv.fullname{% endtrans %}">
     {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
     <meta property="og:image" content="{{ app.request.uriForPath(asset_url) }}">
