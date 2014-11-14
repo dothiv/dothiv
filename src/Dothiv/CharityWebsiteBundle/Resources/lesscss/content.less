@@ -79,6 +79,21 @@ article.content {
         }
       }
     }
+    .download-title, .download-size {
+      & [class*="span"] {
+        min-height: 0;
+      }
+      p {
+        margin: 0 5px;
+      }
+    }
+    .download-title {
+      background-color: @gray-bg-translucent;
+      margin-top: 0.5em;
+    }
+    .download-size {
+      margin-bottom: 0.5em;
+    }
   }
 
   p {
