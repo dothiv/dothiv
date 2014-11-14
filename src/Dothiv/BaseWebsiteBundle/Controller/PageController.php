@@ -87,11 +87,9 @@ class PageController
 
         // Check if page is not modified.
         $uriLastModified = $lmc->getLastModified($request);
-        if ($uriLastModified->isDefined()) {
-            $response->setLastModified($uriLastModified->get());
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        $response->setLastModified($uriLastModified);
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         // Fetch page.
@@ -116,10 +114,8 @@ class PageController
 
         // Store last modified.
         $lastModifiedDate = $lmc->getLastModifiedContent();
-        if (Option::fromValue($lastModifiedDate)->isDefined()) {
-            $response->setLastModified($lastModifiedDate);
-            $lmc->setLastModified($request, $lastModifiedDate);
-        }
+        $response->setLastModified($lastModifiedDate);
+        $lmc->setLastModified($request, $lastModifiedDate);
 
         return $response;
     }
@@ -194,11 +190,9 @@ class PageController
 
         // Check if page is not modified.
         $uriLastModified = $lmc->getLastModified($request);
-        if ($uriLastModified->isDefined()) {
-            $response->setLastModified($uriLastModified->get());
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        $response->setLastModified($uriLastModified);
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         // Fetch entries

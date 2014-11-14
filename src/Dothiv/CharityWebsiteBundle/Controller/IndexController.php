@@ -3,6 +3,7 @@
 namespace Dothiv\CharityWebsiteBundle\Controller;
 
 use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
+use PhpOption\Option;
 use Symfony\Component\HttpFoundation\Request;
 
 class IndexController extends PageController
@@ -15,11 +16,9 @@ class IndexController extends PageController
 
         // Check if page is not modified.
         $uriLastModified = $lmc->getLastModified($request);
-        if ($uriLastModified->isDefined()) {
-            $response->setLastModified($uriLastModified->get());
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        $response->setLastModified($uriLastModified);
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         try {
