@@ -86,3 +86,17 @@ services:
         - @dothiv.business.event_dispatcher
         calls:
         - [disableHistory]
+
+    dothiv.api.controller.domain_collaborator:
+        class: %dothiv.api.controller.crud.class%
+        arguments:
+        - @dothiv.repository.domain_collaborator
+        - @dothiv.api.transformer.domain_collaborator
+        - @dothiv.admin.transformer.paginatedlist
+        - @serializer
+        - @dothiv.repository.entity_change
+        - @security.context
+        - @dothiv.api.manipulator.generic
+        - @dothiv.business.event_dispatcher
+        calls:
+        - [disableHistory]
