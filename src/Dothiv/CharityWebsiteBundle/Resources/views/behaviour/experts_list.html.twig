@@ -1,7 +1,10 @@
 {% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
 
 
-<div class="experts span12">
+<div class="experts span12"
+    id="{{ block.code|default(block.cfMeta.itemId)|slugify }}"
+    data-cf-url="{{ block.cfMeta.url }}"
+    >
     {% set width = 12 %}
     {{ block('cf_titleBlock') }}
     {{ block('cf_textContentBlock') }}
