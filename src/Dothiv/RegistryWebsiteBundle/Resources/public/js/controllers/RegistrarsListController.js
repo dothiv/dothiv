@@ -48,6 +48,8 @@ angular.module('dotHIVApp.controllers').controller('RegistrarsListController', [
                     {
                         name: data[k].name,
                         image: data[k].image,
+                        preferredDeal: $sce.trustAsHtml(data[k].preferredDeal),
+                        isPreferredDeal: typeof data[k].preferredDeal != "undefined",
                         country: data[k].country,
                         priceUSDLabel: priceUSD[0],
                         priceUSD: priceUSD[1],
@@ -55,7 +57,8 @@ angular.module('dotHIVApp.controllers').controller('RegistrarsListController', [
                         priceEUR: priceEUR[1],
                         url: data[k].url,
                         promotion: $sce.trustAsHtml(data[k].promotion),
-                        privateRegistrar: data[k].privateRegistrar == true
+                        privateRegistrar: data[k].privateRegistrar == true,
+                        isPriceLeader: data[k].priceLeader == true
                     }
                 );
             }
@@ -75,6 +78,6 @@ angular.module('dotHIVApp.controllers').controller('RegistrarsListController', [
 
         $http({
             method: 'GET',
-            url: '/' + config.locale + '/content/Registrar?markdown=promotion:inline'
+            url: '/' + config.locale + '/content/Registrar?markdown=promotion:inline,preferredDeal:inline'
         }).success(success);
     }]);
