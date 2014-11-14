@@ -223,10 +223,8 @@ class UserService implements UserProviderInterface, UserServiceInterface
 
     /**
      * {@inheritdoc}
-     *
-     * FIXME: Change default $lifetimeInSeconds to 1800, after https://trello.com/c/3pr0Swch has been implemented
      */
-    public function createUserToken(User $user, IdentValue $scope, $lifetimeInSeconds = 1209600)
+    public function createUserToken(User $user, IdentValue $scope, $lifetimeInSeconds = 1800)
     {
         $token = new UserToken();
         $token->setUser($user);
