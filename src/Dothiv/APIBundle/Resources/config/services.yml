@@ -1,6 +1,9 @@
 parameters:
     dothiv.api.transformer.user_notification.class: Dothiv\APIBundle\Transformer\UserNotificationTransformer
     dothiv.api.transformer.user_profile_change.class: Dothiv\APIBundle\Transformer\UserProfileChangeTransformer
+    dothiv.api.transformer.domain_collaborator.class: Dothiv\APIBundle\Transformer\DomainCollaboratorTransformer
+    dothiv.api.transformer.domain.class: Dothiv\APIBundle\Transformer\DomainTransformer
+    dothiv.api.transformer.user.class: Dothiv\APIBundle\Transformer\UserTransformer
     dothiv.api.manipulator.generic.class: Dothiv\APIBundle\Manipulator\GenericEntityManipulator
 
 services:
@@ -18,3 +21,24 @@ services:
         arguments:
         - @router
         - "dothiv_api_user_profile_change"
+
+    dothiv.api.transformer.domain:
+        class: %dothiv.api.transformer.domain.class%
+        arguments:
+        - @router
+        - "dothiv_api_domain"
+
+    dothiv.api.transformer.user:
+        class: %dothiv.api.transformer.user.class%
+        arguments:
+        - @router
+        - "dothiv_api_user_profile"
+
+    dothiv.api.transformer.domain_collaborator:
+        class: %dothiv.api.transformer.domain_collaborator.class%
+        arguments:
+        - @router
+        - "dothiv_api_domain_collaborator"
+        calls:
+        - [setUserTransformer, [@dothiv.api.transformer.user]]
+        - [setDomainTransformer, [@dothiv.api.transformer.domain]]

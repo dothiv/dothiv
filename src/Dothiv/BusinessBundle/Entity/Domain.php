@@ -41,7 +41,8 @@ class Domain extends Entity
      * The owning user of the domain
      *
      * @ORM\ManyToOne(targetEntity="User",inversedBy="domains")
-     * @var User
+     * @ORM\JoinColumn(nullable=true)
+     * @var User|null
      */
     protected $owner;
 
@@ -163,7 +164,7 @@ class Domain extends Entity
     /**
      * Returns the owning user of the domain
      *
-     * @return User the owning user
+     * @return User|null the owning user
      */
     public function getOwner()
     {

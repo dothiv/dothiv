@@ -1,3 +1,10 @@
+dothiv_api_domain:
+    pattern:  /domain/{name}
+    defaults:
+        _controller: dothiv.api.controller.domain:itemAction
+        _format: json
+    methods: [GET]
+
 dothiv_api_domain_claim:
     pattern:  /domain/claim
     defaults:
@@ -89,6 +96,8 @@ dothiv_api_account_loginlink:
         _format: json
     methods: [POST]
 
+
+
 ## User notifications
 dothiv_api_user_notification:
     pattern:  /user/{handle}/notification/{identifier}
@@ -125,3 +134,25 @@ dothiv_api_user_profile_change_update:
         _controller: dothiv.api.controller.user_profile_change:updateItemAction
         _format: json
     methods: [PATCH]
+
+## Domain collaborator
+dothiv_api_domain_collaborator:
+    pattern:  /domain/{name}/collaborator/{identifier}
+    defaults:
+        _controller: dothiv.api.controller.domain_collaborator:getItemAction
+        _format: json
+    methods: [GET]
+
+dothiv_api_domain_collaborator_create:
+    pattern:  /domain/{name}/collaborator
+    defaults:
+        _controller: dothiv.api.controller.domain_collaborator:createItemAction
+        _format: json
+    methods: [POST]
+
+dothiv_api_domain_collaborator_delete:
+    pattern:  /domain/{name}/collaborator/{identifier}
+    defaults:
+        _controller: dothiv.api.controller.domain_collaborator:deleteItemAction
+        _format: json
+    methods: [DELETE]
