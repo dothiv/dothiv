@@ -7,14 +7,14 @@
     <div class="row" id="logorow">
         <div class="span2 pull-right"></div>
         <nav class="usermenu">
-            {% if features.profile %}
-                <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}">{% trans %}header.menu.myprofile{% endtrans %}</a><br><br>
-            {% endif %}
             {% if app.request.locale|slice(0,2) != 'en' %}
                 <a href="{{ link.en }}">English</a>
             {% endif %}
             {% if app.request.locale|slice(0,2) != 'de' %}
                 <a href="{{ link.de }}">Deutsch</a>
+            {% endif %}
+            {% if features.profile %}
+                <br><br><a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}">{% trans %}header.menu.myprofile{% endtrans %}</a>
             {% endif %}
         </nav>
     </div>
