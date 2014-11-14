@@ -67,11 +67,9 @@ class LoginLinkMailer
 
         $link = $this->router->generate(
             Option::fromValue($route)->getOrElse($this->route),
-            array('locale' => $locale),
+            array('locale' => $locale, 'identifier' => $user->getHandle(), 'token' => $userToken),
             UrlGeneratorInterface::ABSOLUTE_URL
         );
-        $link .= sprintf('#!/auth/%s/%s', $user->getHandle(), $userToken);
-        $link = preg_replace('%^http://%', 'https://', $link);
 
         $data = array(
             'loginLink' => $link,

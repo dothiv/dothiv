@@ -24,7 +24,7 @@ services:
         arguments:
         - @dothiv.registry.service.mailer.content
         - @router
-        - 'dothiv_register_nonprofit_form'
+        - 'dothiv_register_nonprofit_login'
         - %registrydomain%
         - @dothiv.businessbundle.service.user
         tags:
