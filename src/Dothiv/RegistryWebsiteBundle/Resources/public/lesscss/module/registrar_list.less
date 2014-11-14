@@ -1,3 +1,64 @@
+.highlight-deal {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0,0,0,0.35);
+  margin-bottom: 2em;
+  margin-top: 1em;
+  .ribbon {
+    position: absolute;
+    top: 18px;
+    left: -55px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.35);
+    transform: rotate(-45deg);
+    h3 {
+      text-transform: uppercase;
+      font-size: @font-size-small;
+      font-weight: @font-weight-bold;
+      text-align: center;
+      margin: 0.25em 4em;
+      text-shadow: 0 0 5px rgba(0,0,0,0.25);
+    }
+  }
+  .logo {
+    width: 40%;
+    .pull-left;
+    text-align: center;
+    img {
+      width: 80%;
+      margin-top: @grid-gutter-width;
+    }
+  }
+
+  .info {
+    width: 30%;
+    .pull-left;
+    margin-top: @grid-gutter-width;
+    a.name {
+      font-weight: @font-weight-bold;
+      color: @color-pink;
+    }
+    p {
+      font-size: @font-size-small;
+    }
+  }
+  .buy {
+    width: 30%;
+    .pull-left;
+    text-align: right;
+    margin-bottom: @grid-gutter-width / 2;
+    .price {
+      font-size: @font-size-h3 * 2;
+      font-weight: @font-weight-bold;
+      margin-right: @grid-gutter-width / 2;
+    }
+    .button {
+      &:extend(.btn all);
+      &:extend(.btn-primary all);
+      margin-right: @grid-gutter-width / 2;
+    }
+  }
+}
+
 .registrar-list-module {
   margin-top: 2em;
 
@@ -73,4 +134,41 @@
       }
     }
   }
+
+  .priceleader-deal {
+    &:extend(.highlight-deal all);
+    border: 2px solid @brand-primary;
+    .ribbon {
+      background-color: @brand-primary;
+      h3 {
+        color: @brand-primary-foreground;
+      }
+    }
+    .logo {
+      width: 70%;
+      img {
+        width: 42%;
+        .pull-right;
+      }
+    }
+    .info {
+      display: none;
+    }
+  }
+  .preferred-deal {
+    &:extend(.highlight-deal all);
+    border: 2px solid @color-pink;
+    .ribbon {
+      background-color: @color-pink;
+      h3 {
+        color: @color-pink-foreground;
+      }
+    }
+    .buy {
+      .button {
+        &:extend(.btn-pink all);
+      }
+    }
+  }
 }
+

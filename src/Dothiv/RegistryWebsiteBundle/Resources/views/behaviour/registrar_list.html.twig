@@ -1,5 +1,40 @@
 {% trans_default_domain "registry" %}
 <div class="registrar-list-module" data-ng-controller="RegistrarsListController" data-ng-cloak>
+
+    {% set highlight_title = "Preferred<br>Deal" %}
+    {% set highlight_class = "preferred" %}
+    {% set highlight_filter = "isPreferredDeal" %}
+    {% block highlight %}
+    <div class="{{ highlight_class }}-deal" data-ng-repeat="r in registrars | filter:{{ '{' ~ highlight_filter ~ ':true}' }}">
+        <div class="ribbon">
+            <h3>{{ highlight_title|raw }}</h3>
+        </div>
+        <div class="logo">
+            <a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}">
+                <img alt="{% verbatim %}{{ r.name }}{% endverbatim %}" data-ng-src="{% verbatim %}{{ r.image.file.thumbnails.small }}{% endverbatim %}">
+            </a>
+        </div>
+
+        <div class="info">
+            <a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}" data-ng-bind="r.name" class="name"></a><br>
+            <p data-ng-bind-html="r.preferredDeal"></p>
+        </div>
+
+        <div class="buy">
+            <div class="price">
+                <span data-ng-bind="r.priceUSDLabel" data-ng-show="currency == 'USD'"></span>
+                <span data-ng-bind="r.priceEURLabel" data-ng-show="currency == 'EUR'"></span>
+            </div>
+            <a class="button" data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}">{% trans %}
+                module.registrar-list.register{% endtrans %}</a>
+        </div>
+    </div>
+    {% endblock highlight %}
+    {% set highlight_title = "Price<br>Leader" %}
+    {% set highlight_class= "priceleader" %}
+    {% set highlight_filter = "isPriceLeader" %}
+    {{ block('highlight') }}
+
     <table>
         <thead>
         <tr>

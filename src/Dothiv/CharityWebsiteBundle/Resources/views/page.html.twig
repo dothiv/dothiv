@@ -38,7 +38,7 @@
     {% javascripts
     '@angular_js'
     '@DothivAngularJsBundle/Resources/public/extra/angular-ui.github.io/ui-bootstrap/2/angular-ui-bootstrap-tpls.js'
-    filter='?ngmin,?closureecma5'
+    filter='?uglifyjs2'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
     {% endjavascripts %}
@@ -146,7 +146,7 @@
 '@DothivCharityWebsiteBundle/Resources/public/js/contentApp.js'
 '@DothivBaseWebsiteBundle/Resources/public/js/filters/*.js'
 '@DothivCharityWebsiteBundle/Resources/public/js/controllers/*.js'
-filter='?ngmin,?closureecma5'
+filter='?uglifyjs2'
 output='js/*.min.js'
 %}
 <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
