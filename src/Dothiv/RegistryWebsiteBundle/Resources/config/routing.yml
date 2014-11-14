@@ -20,6 +20,15 @@ dothiv_register_nonprofit_form:
     requirements:
         locale:  en|ky
 
+dothiv_register_nonprofit_login:
+    path: /{locale}/register-non-profit-form/auth/{identifier}/{token}
+    defaults:
+        _controller: dothiv.registry.web.controller.login:loginLinkAction
+        app_route: dothiv_register_nonprofit_form
+    schemes:  [https]
+    requirements:
+        locale:  en
+
 dothiv_registry_content_api:
     pattern:  /{locale}/content/{type}
     defaults:
