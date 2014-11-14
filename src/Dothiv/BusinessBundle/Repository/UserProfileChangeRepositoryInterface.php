@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 
-interface UserProfileChangeRepositoryInterface extends CRUDRepositoryInterface
+interface UserProfileChangeRepositoryInterface extends PaginatedCRUDRepositoryInterface
 {
     /**
      * Persist the entity.

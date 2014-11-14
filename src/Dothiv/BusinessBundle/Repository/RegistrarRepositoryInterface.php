@@ -8,7 +8,7 @@ use Dothiv\BusinessBundle\Entity\Registrar;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
 
-interface RegistrarRepositoryInterface extends CRUDRepositoryInterface
+interface RegistrarRepositoryInterface extends PaginatedCRUDRepositoryInterface
 {
     /**
      * Persist the entity.

@@ -4,7 +4,7 @@ namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\Config;
 
-interface ConfigRepositoryInterface extends CRUDRepositoryInterface
+interface ConfigRepositoryInterface extends PaginatedCRUDRepositoryInterface
 {
     /**
      * Persist the entity.
