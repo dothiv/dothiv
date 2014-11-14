@@ -11,7 +11,7 @@ use Dothiv\BusinessBundle\Entity\EntityChange;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Event\EntityChangeEvent;
 use Dothiv\BusinessBundle\Model\EntityPropertyChange;
-use Dothiv\BusinessBundle\Repository\CRUDRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\PaginatedCRUDRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\EntityChangeRepositoryInterface;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\IdentValue;
@@ -25,7 +25,7 @@ class CRUDControllerTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var CRUDRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var PaginatedCRUDRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $mockEntityRepo;
 
@@ -218,7 +218,7 @@ class CRUDControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->mockEntityRepo               = $this->getMock('\Dothiv\BusinessBundle\Repository\CRUDRepositoryInterface');
+        $this->mockEntityRepo               = $this->getMock('\Dothiv\BusinessBundle\Repository\PaginatedCRUDRepositoryInterface');
         $this->mockEntityTransformer        = $this->getMock('\Dothiv\APIBundle\Transformer\EntityTransformerInterface');
         $this->mockPaginatedListTransformer = $this->getMockBuilder('\Dothiv\APIBundle\Transformer\PaginatedListTransformer')->disableOriginalConstructor()->getMock();
         $this->mockSerializer               = $this->getMock('\JMS\Serializer\SerializerInterface');

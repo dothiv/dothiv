@@ -6,7 +6,7 @@ namespace Dothiv\BusinessBundle\Repository;
 use Dothiv\BusinessBundle\Entity\UserNotification;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 
-interface UserNotificationRepositoryInterface extends CRUDRepositoryInterface
+interface UserNotificationRepositoryInterface extends PaginatedCRUDRepositoryInterface
 {
     /**
      * Persist the entity.

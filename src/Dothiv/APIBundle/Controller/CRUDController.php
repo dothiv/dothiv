@@ -17,6 +17,7 @@ use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Event\EntityChangeEvent;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\CRUDRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\PaginatedCRUDRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\EntityChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Service\FilterQueryParser;
@@ -110,9 +111,13 @@ class CRUDController
      * @param Request $request
      *
      * @return Response
+     * @throws NotFoundHttpException
      */
     public function listItemsAction(Request $request)
     {
+        if (!($this->itemRepo instanceof PaginatedCRUDRepositoryInterface)) {
+            throw new NotFoundHttpException();
+        }
         $options = new PaginatedQueryOptions();
         Option::fromValue($request->query->get('sortField'))->map(function ($sortField) use ($options) {
             $options->setSortField($sortField);
@@ -143,17 +148,17 @@ class CRUDController
     }
 
     /**
-     * @param CRUDRepositoryInterface    $repo
-     * @param PaginatedListTransformer   $listTransformer
-     * @param EntityTransformerInterface $itemTransformer
-     * @param PaginatedQueryOptions      $options
-     * @param FilterQuery                $filterQuery
-     * @param string                     $route
+     * @param PaginatedCRUDRepositoryInterface $repo
+     * @param PaginatedListTransformer         $listTransformer
+     * @param EntityTransformerInterface       $itemTransformer
+     * @param PaginatedQueryOptions            $options
+     * @param FilterQuery                      $filterQuery
+     * @param string                           $route
      *
      * @return \Dothiv\APIBundle\Model\PaginatedList
      */
     protected function createListing(
-        CRUDRepositoryInterface $repo,
+        PaginatedCRUDRepositoryInterface $repo,
         PaginatedListTransformer $listTransformer,
         EntityTransformerInterface $itemTransformer,
         PaginatedQueryOptions $options,
