@@ -177,7 +177,8 @@
                             </p>
                             <nav>
                                 <a data-ng-click="edit(domain)">{% trans %}
-                                    account.profile.domains.edit{% endtrans %}</a>
+                                    account.profile.domains.edit{% endtrans %}</a><br>
+                                <a data-ng-href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}#!/profile/collaborators/{{ '{{domain.name}}' }}">{% trans %}account.profile.domains.share{% endtrans %}</a>
                             </nav>
                         </li>
                         <li data-ng-hide="(pageLength >= domains.length) || searchText.name">
