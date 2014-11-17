@@ -54,7 +54,7 @@ class DomainCollaboratorTransformerTest extends \PHPUnit_Framework_TestCase
         $this->mockRouter->expects($this->once())->method('generate')
             ->with(
                 'some_route',
-                array('identifier' => 17, 'name' => $domain->getName()),
+                array('identifier' => 17, 'domain' => $domain->getName()),
                 RouterInterface::ABSOLUTE_URL
             )
             ->willReturn('http://example.com/');

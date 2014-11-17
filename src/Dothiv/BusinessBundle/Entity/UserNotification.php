@@ -20,7 +20,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @Serializer\ExclusionPolicy("all")
  * @Assert\Callback(methods={"isValid"})
  */
-class UserNotification implements EntityInterface
+class UserNotification implements EntityInterface, CRUD\OwnerEntityInterface
 {
     use Traits\CreateUpdateTime;
 
@@ -154,4 +154,21 @@ class UserNotification implements EntityInterface
             $context->addViolationAt('properties', 'UserNotification has no properties!');
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOwner()
+    {
+        return $this->getUser();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOwner(User $owner)
+    {
+        $this->setUser($owner);
+    }
+
 }

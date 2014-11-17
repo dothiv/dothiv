@@ -3,6 +3,8 @@
 namespace Dothiv\APIBundle\Manipulator\Tests;
 
 use Dothiv\APIBundle\Manipulator\UserProfileChangeEntityManipulator;
+use Dothiv\APIBundle\Request\DefaultUpdateRequest;
+use Dothiv\APIBundle\Request\UserProfileChangeConfirmRequest;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Model\EntityPropertyChange;
@@ -32,10 +34,9 @@ class UserProfileChangeEntityManipulatorTest extends \PHPUnit_Framework_TestCase
     {
         $entity = new UserProfileChange();
         $entity->setToken(new IdentValue('some-token'));
-        $properties = array(
-            'confirmed' => 'some-token'
-        );
-        $changes    = $this->createTestObject()->manipulate($entity, $properties);
+        $data            = new UserProfileChangeConfirmRequest();
+        $data->confirmed = 'some-token';
+        $changes         = $this->createTestObject()->manipulate($entity, $data);
         $this->assertTrue($entity->getConfirmed());
         $this->assertEquals(1, count($changes));
         $this->assertInstanceOf('Dothiv\BusinessBundle\Model\EntityPropertyChange', $changes[0]);
@@ -53,15 +54,29 @@ class UserProfileChangeEntityManipulatorTest extends \PHPUnit_Framework_TestCase
      * @group                    Manipulator
      * @depends                  itShouldManipulateAnEntity
      * @expectedException \Dothiv\APIBundle\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Unknown property "invalid"!
+     * @expectedExceptionMessage Expected $data to be a UserProfileChangeConfirmRequest, got "Dothiv\APIBundle\Request\DefaultUpdateRequest"!
      */
-    public function itShouldThrowAnExceptionOnInvalidProperty()
+    public function itShouldThrowAnExceptionOnInvalidData()
     {
-        $domain     = new Domain();
-        $properties = array(
-            'invalid' => 'value'
-        );
-        $this->createTestObject()->manipulate($domain, $properties);
+        $entity = new UserProfileChange();
+        $data   = new DefaultUpdateRequest();
+        $this->createTestObject()->manipulate($entity, $data);
+    }
+
+    /**
+     * @test
+     * @group                    Entity
+     * @group                    AdminBundle
+     * @group                    Manipulator
+     * @depends                  itShouldManipulateAnEntity
+     * @expectedException \Dothiv\APIBundle\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Expected $entity to be a UserProfileChange, got "Dothiv\BusinessBundle\Entity\Domain"!
+     */
+    public function itShouldThrowAnExceptionOnInvalidEntity()
+    {
+        $entity = new Domain();
+        $data   = new UserProfileChangeConfirmRequest();
+        $this->createTestObject()->manipulate($entity, $data);
     }
 
     /**

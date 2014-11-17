@@ -4,7 +4,7 @@ namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\EntityChange;
 use Dothiv\BusinessBundle\Model\FilterQuery;
-use Dothiv\BusinessBundle\Repository\PaginatedQueryOptions;
+use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\PaginatedResult;
 use Dothiv\ValueObject\IdentValue;
 
@@ -27,10 +27,10 @@ interface EntityChangeRepositoryInterface
      *
      * @param                       $entity
      * @param IdentValue            $identifier
-     * @param PaginatedQueryOptions $options
+     * @param CRUD\PaginatedQueryOptions $options
      * @param FilterQuery           $filterQuery
      *
      * @return PaginatedResult
      */
-    public function getPaginated($entity, IdentValue $identifier, PaginatedQueryOptions $options, FilterQuery $filterQuery);
+    public function getPaginated($entity, IdentValue $identifier, CRUD\PaginatedQueryOptions $options, FilterQuery $filterQuery);
 }

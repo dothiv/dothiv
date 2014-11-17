@@ -2,24 +2,27 @@
 
 namespace Dothiv\APIBundle\Controller;
 
+use Doctrine\Common\Util\Debug;
+use Dothiv\APIBundle\Annotation\ApiRequest;
 use Dothiv\APIBundle\Exception\AccessDeniedHttpException;
 use Dothiv\APIBundle\Exception\BadRequestHttpException;
 use Dothiv\APIBundle\Exception\InvalidArgumentException;
 use Dothiv\APIBundle\Exception\NotFoundHttpException;
 use Dothiv\APIBundle\Manipulator\EntityManipulatorInterface;
+use Dothiv\APIBundle\Request\DataModelInterface;
 use Dothiv\APIBundle\Transformer\EntityTransformerInterface;
 use Dothiv\APIBundle\Transformer\PaginatedListTransformer;
 use Dothiv\APIBundle\Controller\Traits\CreateJsonResponseTrait;
 use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\EntityChange;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
+use Dothiv\BusinessBundle\Entity\CRUD\OwnerEntityInterface;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Event\EntityChangeEvent;
+use Dothiv\BusinessBundle\Event\EntityEvent;
 use Dothiv\BusinessBundle\Model\FilterQuery;
-use Dothiv\BusinessBundle\Repository\CRUDRepositoryInterface;
-use Dothiv\BusinessBundle\Repository\PaginatedCRUDRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\CRUD;
 use Dothiv\BusinessBundle\Repository\EntityChangeRepositoryInterface;
-use Dothiv\BusinessBundle\Repository\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Service\FilterQueryParser;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\IdentValue;
@@ -35,7 +38,7 @@ class CRUDController
     use CreateJsonResponseTrait;
 
     /**
-     * @var CRUDRepositoryInterface
+     * @var CRUD\EntityRepositoryInterface
      */
     protected $itemRepo;
 
@@ -75,7 +78,7 @@ class CRUDController
     protected $storeHistory = true;
 
     /**
-     * @param CRUDRepositoryInterface         $itemRepo
+     * @param CRUD\EntityRepositoryInterface  $itemRepo
      * @param EntityTransformerInterface      $itemTransformer
      * @param PaginatedListTransformer        $paginatedListTransformer
      * @param SerializerInterface             $serializer
@@ -85,7 +88,7 @@ class CRUDController
      * @param EventDispatcherInterface        $eventDispatcher
      */
     public function __construct(
-        CRUDRepositoryInterface $itemRepo,
+        CRUD\EntityRepositoryInterface $itemRepo,
         EntityTransformerInterface $itemTransformer,
         PaginatedListTransformer $paginatedListTransformer,
         SerializerInterface $serializer,
@@ -111,14 +114,15 @@ class CRUDController
      * @param Request $request
      *
      * @return Response
+     * @throws BadRequestHttpException
      * @throws NotFoundHttpException
      */
     public function listItemsAction(Request $request)
     {
-        if (!($this->itemRepo instanceof PaginatedCRUDRepositoryInterface)) {
-            throw new NotFoundHttpException();
+        if (!($this->itemRepo instanceof CRUD\PaginatedReadEntityRepositoryInterface)) {
+            throw new BadRequestHttpException(sprintf('"%s" items must not be listed!', get_class($this->itemRepo)));
         }
-        $options = new PaginatedQueryOptions();
+        $options = new CRUD\PaginatedQueryOptions();
         Option::fromValue($request->query->get('sortField'))->map(function ($sortField) use ($options) {
             $options->setSortField($sortField);
         });
@@ -148,20 +152,20 @@ class CRUDController
     }
 
     /**
-     * @param PaginatedCRUDRepositoryInterface $repo
-     * @param PaginatedListTransformer         $listTransformer
-     * @param EntityTransformerInterface       $itemTransformer
-     * @param PaginatedQueryOptions            $options
-     * @param FilterQuery                      $filterQuery
-     * @param string                           $route
+     * @param CRUD\PaginatedReadEntityRepositoryInterface $repo
+     * @param PaginatedListTransformer                    $listTransformer
+     * @param EntityTransformerInterface                  $itemTransformer
+     * @param CRUD\PaginatedQueryOptions                  $options
+     * @param FilterQuery                                 $filterQuery
+     * @param string                                      $route
      *
      * @return \Dothiv\APIBundle\Model\PaginatedList
      */
     protected function createListing(
-        PaginatedCRUDRepositoryInterface $repo,
+        CRUD\PaginatedReadEntityRepositoryInterface $repo,
         PaginatedListTransformer $listTransformer,
         EntityTransformerInterface $itemTransformer,
-        PaginatedQueryOptions $options,
+        CRUD\PaginatedQueryOptions $options,
         FilterQuery $filterQuery,
         $route
     )
@@ -191,7 +195,7 @@ class CRUDController
             );
         });
 
-        $this->checkPermission($identifier, $item);
+        $this->checkReadPermission($item);
 
         $response = $this->createResponse();
         $response->setContent($this->serializer->serialize($this->itemTransformer->transform($item), 'json'));
@@ -221,20 +225,28 @@ class CRUDController
      * @param string  $identifier
      *
      * @return Response
+     * @throws BadRequestHttpException
+     * @throws BadRequestHttpException
+     * @throws NotFoundHttpException
+     * @ApiRequest("Dothiv\APIBundle\Request\DefaultUpdateRequest")
      */
     public function updateItemAction(Request $request, $identifier)
     {
+        if (!($this->itemRepo instanceof CRUD\UpdateEntityRepositoryInterface)) {
+            throw new BadRequestHttpException(sprintf('"%s" items must not be updated!', get_class($this->itemRepo)));
+        }
+        /** @var CRUD\UpdateEntityRepositoryInterface $repo */
+        $repo = $this->itemRepo;
         /** @var EntityInterface $item */
-        $item = $this->itemRepo->getItemByIdentifier($identifier)->getOrCall(function () use ($identifier) {
+        $item = $repo->getItemByIdentifier($identifier)->getOrCall(function () use ($identifier) {
             throw new NotFoundHttpException(
                 sprintf('No item with identifier "%s" found!', $identifier)
             );
         });
 
         try {
-            $newPropertyValues = json_decode($request->getContent());
-            $change            = $this->updateItem($item, (array)$newPropertyValues);
-            $this->itemRepo->persistItem($item)->flush();
+            $change = $this->updateItem($item, $request->attributes->get('model'));
+            $repo->persistItem($item)->flush();
             $this->eventDispatcher->dispatch(BusinessEvents::ENTITY_CHANGED, new EntityChangeEvent($change, $item));
             return $this->createNoContentResponse();
         } catch (InvalidArgumentException $e) {
@@ -243,14 +255,14 @@ class CRUDController
     }
 
     /**
-     * @param EntityInterface $item
-     * @param array           $newPropertyValues
+     * @param EntityInterface           $item
+     * @param DataModelInterface $data
      *
      * @return EntityChange
      */
-    protected function updateItem(EntityInterface $item, array $newPropertyValues)
+    protected function updateItem(EntityInterface $item, DataModelInterface $data)
     {
-        $changes = $this->entityManipulator->manipulate($item, $newPropertyValues);
+        $changes = $this->entityManipulator->manipulate($item, $data);
         if (!$changes) {
             throw new InvalidArgumentException('Entity unchanged.');
         }
@@ -266,20 +278,66 @@ class CRUDController
     }
 
     /**
-     * @param string          $identifier
+     * Creates a new item.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws AccessDeniedHttpException
+     * @ApiRequest("Dothiv\APIBundle\Request\DefaultCreateRequest")
+     */
+    public function createItemAction(Request $request)
+    {
+        if (!($this->itemRepo instanceof CRUD\CreateEntityRepositoryInterface)) {
+            throw new BadRequestHttpException();
+        }
+        /** @var CRUD\CreateEntityRepositoryInterface $repo */
+        $repo = $this->itemRepo;
+        $item = $this->itemRepo->createItem();
+        if (!$this->isAdmin()) {
+            if (!($item instanceof OwnerEntityInterface)) {
+                throw new AccessDeniedHttpException(sprintf('"%s" items have no owner!', get_class($this->itemRepo)));
+            }
+            $item->setOwner($this->getUser());
+        }
+
+        try {
+            $this->entityManipulator->manipulate($item, $request->attributes->get('model'));
+            // Verify owner
+            $this->checkReadPermission($item);
+            $repo->persistItem($item)->flush();
+            $this->eventDispatcher->dispatch(BusinessEvents::ENTITY_CREATED, new EntityEvent($item));
+            $model    = $this->itemTransformer->transform($item, null, false);
+            $response = $this->createResponse();
+            $response->setStatusCode(201);
+            $response->headers->set('Location', $model->getJsonLdId());
+            $response->setContent($this->serializer->serialize($model, 'json'));
+            return $response;
+        } catch (InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+    }
+
+    /**
      * @param EntityInterface $item
      *
      * @throws AccessDeniedHttpException
      */
-    protected function checkPermission($identifier, EntityInterface $item)
+    protected function checkReadPermission(EntityInterface $item)
     {
         if (!$this->isAdmin()) {
-            if (!method_exists($item, 'getUser')) {
-                throw new AccessDeniedHttpException(sprintf('Item "%s" has no user!', $this->itemRepo->getItemEntityName($item)));
+            if (!($item instanceof OwnerEntityInterface)) {
+                throw new AccessDeniedHttpException(sprintf('"%s" items have no owner!', $this->itemRepo->getItemEntityName($item)));
             }
-            if ($item->getUser() !== $this->getUser()) {
+            if ($item->getOwner() !== $this->getUser()) {
                 throw new AccessDeniedHttpException(
-                    sprintf('Item "%s" with id "%s" does not belong to user!', $this->itemRepo->getItemEntityName($item), $identifier)
+                    sprintf(
+                        'Item "%s" with id "%s" does not belong to user "%s"!',
+                        $this->itemRepo->getItemEntityName($item),
+                        $item->getPublicId(),
+                        $this->getUser()->getHandle()
+                    )
                 );
             }
         }

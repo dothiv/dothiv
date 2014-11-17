@@ -1,13 +1,11 @@
 <?php
 
 
-namespace Dothiv\BusinessBundle\Repository;
+namespace Dothiv\BusinessBundle\Repository\CRUD;
 
-use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Model\FilterQuery;
-use PhpOption\Option;
 
-interface PaginatedCRUDRepositoryInterface extends CRUDRepositoryInterface
+interface PaginatedReadEntityRepositoryInterface extends ReadEntityRepositoryInterface
 {
     /**
      * Returns a list of items
@@ -18,4 +16,4 @@ interface PaginatedCRUDRepositoryInterface extends CRUDRepositoryInterface
      * @return PaginatedResult
      */
     public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery);
-} 
+}

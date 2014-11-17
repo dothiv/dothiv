@@ -5,14 +5,16 @@ namespace Dothiv\APIBundle\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Model for a claim request
+ * Model for confirming a user profile change
  */
-class ClaimRequest extends AbstractDataModel implements DataModelInterface
+class UserProfileChangeConfirmRequest extends AbstractDataModel implements DataModelInterface
 {
+
     /**
      * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
      */
-    public $token;
+    public $confirmed;
+
 }

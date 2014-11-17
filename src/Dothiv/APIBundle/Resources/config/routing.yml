@@ -118,6 +118,7 @@ dothiv_api_user_notification_update:
     defaults:
         _controller: dothiv.api.controller.user_notification:updateItemAction
         _format: json
+        _dothiv.ApiRequest: \Dothiv\APIBundle\Request\UserNotificationDismissRequest
     methods: [PATCH]
 
 ## User profile change
@@ -133,26 +134,35 @@ dothiv_api_user_profile_change_update:
     defaults:
         _controller: dothiv.api.controller.user_profile_change:updateItemAction
         _format: json
+        _dothiv.ApiRequest: \Dothiv\APIBundle\Request\UserProfileChangeConfirmRequest
     methods: [PATCH]
 
 ## Domain collaborator
 dothiv_api_domain_collaborator:
-    pattern:  /domain/{name}/collaborator/{identifier}
+    pattern:  /domain/{domain}/collaborator/{identifier}
     defaults:
         _controller: dothiv.api.controller.domain_collaborator:getItemAction
         _format: json
     methods: [GET]
 
 dothiv_api_domain_collaborator_create:
-    pattern:  /domain/{name}/collaborator
+    pattern:  /domain/{domain}/collaborator
     defaults:
         _controller: dothiv.api.controller.domain_collaborator:createItemAction
         _format: json
+        _dothiv.ApiRequest: \Dothiv\APIBundle\Request\DomainCollaboratorCreateRequest
     methods: [POST]
 
 dothiv_api_domain_collaborator_delete:
-    pattern:  /domain/{name}/collaborator/{identifier}
+    pattern:  /domain/{domain}/collaborator/{identifier}
     defaults:
         _controller: dothiv.api.controller.domain_collaborator:deleteItemAction
         _format: json
     methods: [DELETE]
+
+dothiv_api_domain_collaborator_list:
+    pattern:  /domain/{domain}/collaborator
+    defaults:
+        _controller: dothiv.api.controller.domain_collaborator:listItemsAction
+        _format: json
+    methods: [GET]

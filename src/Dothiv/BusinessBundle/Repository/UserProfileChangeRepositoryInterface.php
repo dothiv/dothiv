@@ -3,11 +3,10 @@
 
 namespace Dothiv\BusinessBundle\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 
-interface UserProfileChangeRepositoryInterface extends PaginatedCRUDRepositoryInterface
+interface UserProfileChangeRepositoryInterface extends CRUD\CRUDEntityRepositoryInterface
 {
     /**
      * Persist the entity.
