@@ -100,6 +100,7 @@ class CRUDControllerTest extends \PHPUnit_Framework_TestCase
         $user->setHandle('someuser');
         $this->mockToken->expects($this->any())->method('getUser')
             ->willReturn($user);
+        $mockEntity->expects($this->atLeastOnce())->method('getOwner')->willReturn($user);
 
         $this->mockEntityRepo->expects($this->once())->method('getItemByIdentifier')
             ->with('someident')
@@ -150,6 +151,7 @@ class CRUDControllerTest extends \PHPUnit_Framework_TestCase
         $user->setHandle('someuser');
         $this->mockToken->expects($this->any())->method('getUser')
             ->willReturn($user);
+        $mockEntity->expects($this->atLeastOnce())->method('getOwner')->willReturn($user);
 
         $this->mockEntityRepo->expects($this->once())->method('getItemByIdentifier')
             ->with('someident')
@@ -279,6 +281,53 @@ class CRUDControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('application/json', $response->headers->get('content-type'));
         $this->assertEquals($mockData, $response->getContent());
         $this->assertEquals('http://example.com/api/entity/1', $response->headers->get('Location'));
+    }
+
+    /**
+     * @test
+     * @group   DothivAPIBundle
+     * @group   Controller
+     * @depends itShouldBeInstantiable
+     */
+    public function itShouldDeleteItem()
+    {
+        // It should check the current user
+        $user = new User();
+        $user->setEmail('john.doe@example.com');
+        $user->setHandle('someuser');
+        $this->mockToken->expects($this->any())->method('getUser')
+            ->willReturn($user);
+
+        // It should remove the item
+        $mockEntity = $this->getMock('\Dothiv\BusinessBundle\Entity\CRUD\OwnerEntityInterface');
+        $mockEntity->expects($this->any())->method('getPublicId')->willReturn('someident');
+        $mockEntity->expects($this->atLeastOnce())->method('getOwner')->willReturn($user);
+        $this->mockEntityRepo->expects($this->once())->method('getItemByIdentifier')
+            ->with('someident')
+            ->willReturn(Option::fromValue($mockEntity));
+        $this->mockEntityRepo->expects($this->once())->method('deleteItem')
+            ->with($mockEntity)
+            ->willReturnSelf();
+        $this->mockEntityRepo->expects($this->once())->method('flush')->willReturnSelf();
+
+        // It should dispatch an event
+        $this->mockEventDispatcher->expects($this->once())->method('dispatch')
+            ->with(
+                BusinessEvents::ENTITY_DELETED,
+                $this->callback(function (EntityEvent $e) use ($mockEntity) {
+                    $this->assertEquals($mockEntity, $e->getEntity());
+                    return true;
+                })
+            );
+
+        // Run.
+        $controller = $this->createTestObject();
+        $response   = $controller->deleteItemAction($this->getMock('\Symfony\Component\HttpFoundation\Request'), 'someident');
+
+        // It should return an empty response
+        $this->assertInstanceOf('\Symfony\Component\HttpFoundation\Response', $response);
+        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertEquals("", $response->getContent());
     }
 
     /**

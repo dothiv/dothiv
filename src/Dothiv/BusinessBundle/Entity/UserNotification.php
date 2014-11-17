@@ -169,6 +169,7 @@ class UserNotification implements EntityInterface, CRUD\OwnerEntityInterface
     public function setOwner(User $owner)
     {
         $this->setUser($owner);
+        return $this;
     }
 
 }

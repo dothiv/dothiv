@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @Serializer\ExclusionPolicy("all")
  */
-class UserProfileChange extends Entity implements EntityInterface
+class UserProfileChange extends Entity implements EntityInterface, CRUD\OwnerEntityInterface
 {
     use Traits\CreateUpdateTime;
 
@@ -182,4 +182,22 @@ class UserProfileChange extends Entity implements EntityInterface
         }
         $this->confirmed = true;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOwner()
+    {
+        return $this->getUser();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOwner(User $owner)
+    {
+        $this->setUser($owner);
+        return $this;
+    }
+
 }

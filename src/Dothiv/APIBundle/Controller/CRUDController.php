@@ -2,7 +2,6 @@
 
 namespace Dothiv\APIBundle\Controller;
 
-use Doctrine\Common\Util\Debug;
 use Dothiv\APIBundle\Annotation\ApiRequest;
 use Dothiv\APIBundle\Exception\AccessDeniedHttpException;
 use Dothiv\APIBundle\Exception\BadRequestHttpException;
@@ -195,7 +194,7 @@ class CRUDController
             );
         });
 
-        $this->checkReadPermission($item);
+        $this->checkPermission($item);
 
         $response = $this->createResponse();
         $response->setContent($this->serializer->serialize($this->itemTransformer->transform($item), 'json'));
@@ -244,18 +243,21 @@ class CRUDController
             );
         });
 
+        $this->checkPermission($item);
+
         try {
             $change = $this->updateItem($item, $request->attributes->get('model'));
-            $repo->persistItem($item)->flush();
-            $this->eventDispatcher->dispatch(BusinessEvents::ENTITY_CHANGED, new EntityChangeEvent($change, $item));
-            return $this->createNoContentResponse();
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
+
+        $repo->persistItem($item)->flush();
+        $this->eventDispatcher->dispatch(BusinessEvents::ENTITY_CHANGED, new EntityChangeEvent($change, $item));
+        return $this->createNoContentResponse();
     }
 
     /**
-     * @param EntityInterface           $item
+     * @param EntityInterface    $item
      * @param DataModelInterface $data
      *
      * @return EntityChange
@@ -304,19 +306,53 @@ class CRUDController
 
         try {
             $this->entityManipulator->manipulate($item, $request->attributes->get('model'));
-            // Verify owner
-            $this->checkReadPermission($item);
-            $repo->persistItem($item)->flush();
-            $this->eventDispatcher->dispatch(BusinessEvents::ENTITY_CREATED, new EntityEvent($item));
-            $model    = $this->itemTransformer->transform($item, null, false);
-            $response = $this->createResponse();
-            $response->setStatusCode(201);
-            $response->headers->set('Location', $model->getJsonLdId());
-            $response->setContent($this->serializer->serialize($model, 'json'));
-            return $response;
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
+
+        // Verify owner
+        $this->checkPermission($item);
+        $repo->persistItem($item)->flush();
+        $this->eventDispatcher->dispatch(BusinessEvents::ENTITY_CREATED, new EntityEvent($item));
+        $model    = $this->itemTransformer->transform($item, null, false);
+        $response = $this->createResponse();
+        $response->setStatusCode(201);
+        $response->headers->set('Location', $model->getJsonLdId());
+        $response->setContent($this->serializer->serialize($model, 'json'));
+        return $response;
+    }
+
+    /**
+     * Deletes item with the identifier $identifier
+     *
+     * @param Request $request
+     * @param string  $identifier
+     *
+     * @return Response
+     * @throws BadRequestHttpException
+     * @throws BadRequestHttpException
+     * @throws NotFoundHttpException
+     * @ApiRequest("Dothiv\APIBundle\Request\DefaultUpdateRequest")
+     */
+    public function deleteItemAction(Request $request, $identifier)
+    {
+        if (!($this->itemRepo instanceof CRUD\DeleteEntityRepositoryInterface)) {
+            throw new BadRequestHttpException(sprintf('"%s" items must not be deleted!', get_class($this->itemRepo)));
+        }
+        /** @var CRUD\DeleteEntityRepositoryInterface $repo */
+        $repo = $this->itemRepo;
+        /** @var EntityInterface $item */
+        $item = $repo->getItemByIdentifier($identifier)->getOrCall(function () use ($identifier) {
+            throw new NotFoundHttpException(
+                sprintf('No item with identifier "%s" found!', $identifier)
+            );
+        });
+
+        $this->checkPermission($item);
+
+        $repo->deleteItem($item)->flush();
+        $this->eventDispatcher->dispatch(BusinessEvents::ENTITY_DELETED, new EntityEvent($item));
+        return $this->createNoContentResponse();
     }
 
     /**
@@ -324,7 +360,7 @@ class CRUDController
      *
      * @throws AccessDeniedHttpException
      */
-    protected function checkReadPermission(EntityInterface $item)
+    protected function checkPermission(EntityInterface $item)
     {
         if (!$this->isAdmin()) {
             if (!($item instanceof OwnerEntityInterface)) {

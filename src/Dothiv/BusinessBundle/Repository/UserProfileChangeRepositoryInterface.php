@@ -6,7 +6,7 @@ namespace Dothiv\BusinessBundle\Repository;
 use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 
-interface UserProfileChangeRepositoryInterface extends CRUD\CRUDEntityRepositoryInterface
+interface UserProfileChangeRepositoryInterface extends CRUD\PaginatedReadEntityRepositoryInterface, CRUD\CreateEntityRepositoryInterface
 {
     /**
      * Persist the entity.

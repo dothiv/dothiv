@@ -111,5 +111,6 @@ class DomainCollaborator extends Entity implements CRUD\OwnerEntityInterface
     public function setOwner(User $owner)
     {
         // Not supported.
+        return $this;
     }
 }

@@ -20,7 +20,7 @@ interface OwnerEntityInterface extends EntityInterface
      *
      * @param User $owner
      *
-     * @return User
+     * @return self
      */
     public function setOwner(User $owner);
 }
