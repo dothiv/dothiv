@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Dothiv\BusinessBundle\Entity\DomainCollaborator;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 
-interface DomainCollaboratorRepositoryInterface extends ObjectRepository, CRUD\CreateEntityRepositoryInterface, CRUD\PaginatedReadEntityRepositoryInterface
+interface DomainCollaboratorRepositoryInterface extends ObjectRepository, CRUD\CreateEntityRepositoryInterface, CRUD\PaginatedReadEntityRepositoryInterface, CRUD\DeleteEntityRepositoryInterface
 {
     /**
      * Persist the entity.

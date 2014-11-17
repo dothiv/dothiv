@@ -40,8 +40,7 @@ Feature: Share domain
     And the JSON node "items[0].user.email" should be equal to "jane.doe@example.com"
     And the JSON node "items[0].user.firstname" should be equal to "Jane"
     And the JSON node "items[0].user.surname" should be equal to "Doe"
-    # FIXME: Implement
-    #Given I send a DELETE request to {collaboratorUrl}
-    #Then the response status code should be 204
-    #Given I send a GET request to "http://click4life.hiv.dev/api/domain/test.hiv/collaborator"
-    #And the JSON node "items" should contain 0 elements
+    Given I send a DELETE request to {collaboratorUrl}
+    Then the response status code should be 204
+    Given I send a GET request to "http://click4life.hiv.dev/api/domain/test.hiv/collaborator"
+    And the JSON node "items" should not exist

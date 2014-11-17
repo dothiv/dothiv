@@ -5,6 +5,7 @@ namespace Dothiv\BusinessBundle\Repository;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Model\FilterQuery;
+use Dothiv\BusinessBundle\Repository\CRUD\DeleteEntityRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\Traits;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\BusinessBundle\Entity\DomainCollaborator;
@@ -76,4 +77,14 @@ class DomainCollaboratorRepository extends DoctrineEntityRepository implements D
         });
         return $this->buildPaginatedResult($qb, $options);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteItem(EntityInterface $item)
+    {
+        $this->getEntityManager()->remove($item);
+        return $this;
+    }
+
 }
