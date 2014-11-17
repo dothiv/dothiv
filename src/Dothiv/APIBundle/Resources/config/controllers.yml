@@ -82,7 +82,7 @@ services:
         - @serializer
         - @dothiv.repository.entity_change
         - @security.context
-        - @dothiv.api.manipulator.generic
+        - @dothiv.api.manipulator.user_profile_change
         - @dothiv.business.event_dispatcher
         calls:
         - [disableHistory]
@@ -96,7 +96,7 @@ services:
         - @serializer
         - @dothiv.repository.entity_change
         - @security.context
-        - @dothiv.api.manipulator.generic
+        - @dothiv.api.manipulator.domain_collaborator
         - @dothiv.business.event_dispatcher
         calls:
         - [disableHistory]

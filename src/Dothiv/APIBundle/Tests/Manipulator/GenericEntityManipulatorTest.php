@@ -2,6 +2,7 @@
 
 namespace Dothiv\APIBundle\Manipulator\Tests;
 
+use Dothiv\APIBundle\Request\DefaultUpdateRequest;
 use Dothiv\BusinessBundle\Model\EntityPropertyChange;
 use Dothiv\APIBundle\Manipulator\GenericEntityManipulator;
 use Dothiv\BusinessBundle\Entity\Domain;
@@ -31,10 +32,9 @@ class GenericEntityManipulatorTest extends \PHPUnit_Framework_TestCase
     {
         $domain = new Domain();
         $domain->setName('other.hiv');
-        $properties = array(
-            'name' => 'example.hiv'
-        );
-        $changes    = $this->createTestObject()->manipulate($domain, $properties);
+        $data       = new DefaultUpdateRequest();
+        $data->name = 'example.hiv';
+        $changes    = $this->createTestObject()->manipulate($domain, $data);
         $this->assertEquals('example.hiv', $domain->getName());
         $this->assertEquals(1, count($changes));
         $this->assertInstanceOf('Dothiv\BusinessBundle\Model\EntityPropertyChange', $changes[0]);
@@ -51,16 +51,15 @@ class GenericEntityManipulatorTest extends \PHPUnit_Framework_TestCase
      * @group                    AdminBundle
      * @group                    Manipulator
      * @depends                  itShouldManipulateAnEntity
-     * @expectedException \Dothiv\APIBundle\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Unknown property "invalid"!
      */
-    public function itShouldThrowAnExceptionOnInvalidProperty()
+    public function itShouldDiscardInvalidProperty()
     {
-        $domain     = new Domain();
-        $properties = array(
-            'invalid' => 'value'
-        );
-        $this->createTestObject()->manipulate($domain, $properties);
+        $domain = new Domain();
+        $domain->setName('other.hiv');
+        $data          = new DefaultUpdateRequest();
+        $data->invalid = 'value';
+        $this->createTestObject()->manipulate($domain, $data);
+        $this->assertObjectNotHasAttribute('invalid', $domain);
     }
 
     /**

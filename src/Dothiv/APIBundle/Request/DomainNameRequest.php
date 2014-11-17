@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Model for a request with a domain name
  */
-class DomainNameRequest
+class DomainNameRequest extends AbstractDataModel implements DataModelInterface
 {
     /**
      * Domain name

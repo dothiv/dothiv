@@ -3,6 +3,7 @@
 
 namespace Dothiv\APIBundle\Transformer;
 
+use Doctrine\Common\Util\Debug;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Entity\DomainCollaborator;
 use Dothiv\APIBundle\Model\DomainCollaboratorModel;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class DomainCollaboratorTransformer extends AbstractTransformer implements EntityTransformerInterface
 {
+
     /**
      * @var UserTransformer
      */
@@ -33,14 +35,14 @@ class DomainCollaboratorTransformer extends AbstractTransformer implements Entit
             $this->router->generate(
                 Option::fromValue($route)->getOrElse($this->route),
                 array(
-                    'name'       => $entity->getDomain()->getName(),
+                    'domain'     => $entity->getDomain()->getName(),
                     'identifier' => $entity->getPublicId(),
                 ),
                 RouterInterface::ABSOLUTE_URL
             )
         ));
-        $model->setUser($this->userTransformer->transform($entity->getUser()));
-        $model->setDomain($this->domainTransformer->transform($entity->getDomain()));
+        $model->setUser($this->userTransformer->transform($entity->getUser(), null, true));
+        $model->setDomain($this->domainTransformer->transform($entity->getDomain(), null, true));
         return $model;
     }
 

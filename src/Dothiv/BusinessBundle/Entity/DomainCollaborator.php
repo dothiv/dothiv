@@ -18,7 +18,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @Serializer\ExclusionPolicy("all")
  * @Assert\Callback(methods={"isValid"})
  */
-class DomainCollaborator extends Entity
+class DomainCollaborator extends Entity implements CRUD\OwnerEntityInterface
 {
     use Traits\CreateUpdateTime;
 
@@ -92,5 +92,24 @@ class DomainCollaborator extends Entity
                 '%domain%' => $this->getDomain()->getName()
             ), null);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOwner()
+    {
+        $user = Option::fromValue($this->getDomain())->map(function (Domain $domain) {
+            return $domain->getOwner();
+        })->getOrElse(null);
+        return $user;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOwner(User $owner)
+    {
+        // Not supported.
     }
 }

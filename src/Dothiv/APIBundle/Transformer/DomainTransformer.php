@@ -25,7 +25,7 @@ class DomainTransformer extends AbstractTransformer implements EntityTransformer
         $model->setJsonLdId(new URLValue(
             $this->router->generate(
                 Option::fromValue($route)->getOrElse($this->route),
-                array('identifier' => $entity->getName()),
+                array('name' => $entity->getName()),
                 RouterInterface::ABSOLUTE_URL
             )
         ));

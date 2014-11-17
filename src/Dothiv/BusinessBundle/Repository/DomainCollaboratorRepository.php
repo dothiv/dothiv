@@ -3,6 +3,8 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\EntityInterface;
+use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\Traits;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\BusinessBundle\Entity\DomainCollaborator;
@@ -10,6 +12,7 @@ use PhpOption\Option;
 
 class DomainCollaboratorRepository extends DoctrineEntityRepository implements DomainCollaboratorRepositoryInterface
 {
+    use Traits\PaginatedQueryTrait;
     use Traits\ValidatorTrait;
     use Traits\GetItemEntityName;
 
@@ -51,5 +54,26 @@ class DomainCollaboratorRepository extends DoctrineEntityRepository implements D
                 ->getQuery()
                 ->getOneOrNullResult()
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createItem()
+    {
+        return new DomainCollaborator();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPaginated(CRUD\PaginatedQueryOptions $options, FilterQuery $filterQuery)
+    {
+        $qb = $this->createQueryBuilder('i');
+        $filterQuery->getUser()->map(function (User $user) use ($qb) {
+            $qb->leftJoin('i.domain', 'd');
+            $qb->andWhere('d.owner = :user')->setParameter('user', $user);
+        });
+        return $this->buildPaginatedResult($qb, $options);
     }
 }

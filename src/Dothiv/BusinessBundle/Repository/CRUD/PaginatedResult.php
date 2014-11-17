@@ -1,6 +1,6 @@
 <?php
 
-namespace Dothiv\BusinessBundle\Repository;
+namespace Dothiv\BusinessBundle\Repository\CRUD;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpOption\Option;

@@ -16,6 +16,7 @@ use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Tools\SchemaTool;
+use Dothiv\ValueObject\ValueObjectInterface;
 use Sanpi\Behatch\Context\BehatchContext;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -177,19 +178,32 @@ class FeatureContext extends BehatContext
                     default:
                         return new $class($classMatch[2]);
                 }
-            } elseif (preg_match('/^([^\.]+)\.(.+)$/', $match[1], $parameterMatch)) { // storageName.parameterName
+            } elseif (preg_match('/^([^\.\[]+)(\[([0-9])\])*\.(.+)$/', $match[1], $parameterMatch)) { // storageName[0].parameterName
                 $value = $this->storage->get($parameterMatch[1]);
                 if (is_array($value)) {
-                    return $value[$parameterMatch[2]];
+                    if ($parameterMatch[2]) {
+                        $v = $value[$parameterMatch[3]];
+                        if (is_array($v)) {
+                            return $v[$parameterMatch[4]];
+                        } else {
+                            $getter = 'get' . ucfirst($parameterMatch[4]);
+                            if (method_exists($v, $getter)) {
+                                return $v->$getter();
+                            } elseif (property_exists($v, $parameterMatch[4])) {
+                                return $v->{$parameterMatch[4]};
+                            }
+                        }
+                    } else {
+                        return $value[$parameterMatch[4]];
+                    }
                 } else {
-                    $getter = 'get' . ucfirst($parameterMatch[2]);
+                    $getter = 'get' . ucfirst($parameterMatch[4]);
                     if (method_exists($value, $getter)) {
                         return $value->$getter();
-                    } elseif (property_exists($value, $parameterMatch[2])) {
-                        return $value->{$parameterMatch[2]};
+                    } elseif (property_exists($value, $parameterMatch[4])) {
+                        return $value->{$parameterMatch[4]};
                     }
                 }
-
             }
             return $this->storage->get($match[1]);
         }
@@ -222,6 +236,16 @@ class FeatureContext extends BehatContext
     {
         $client     = $this->getSubcontext('mink')->getSession()->getDriver()->getClient();
         $parameters = $table->getRowsHash();
+        foreach ($parameters as $k => $v) {
+            if (substr($v, 0, 1) === '{') {
+                $v = $this->getValue($v);
+                if ($v instanceof ValueObjectInterface) {
+                    $parameters[$k] = $v->toScalar();
+                } else {
+                    $parameters[$k] = $v;
+                }
+            }
+        }
         if (substr($url, 0, 1) === '{') {
             $url = $this->getValue($url);
         }
