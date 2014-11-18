@@ -3,6 +3,7 @@
 namespace Dothiv\BusinessBundle\Listener;
 
 use Dothiv\APIBundle\Manipulator\GenericEntityManipulator;
+use Dothiv\APIBundle\Request\DefaultUpdateRequest;
 use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\EntityChange;
 use Dothiv\BusinessBundle\Entity\User;
@@ -57,10 +58,10 @@ class UpdateDomainOwnerOnUserEmailChangeListener
         $manipulator    = new GenericEntityManipulator();
         $domainChanges  = array();
         foreach ($this->domainRepo->findByOwnerEmail(new EmailValue($propertyChange->getOldValue())) as $domain) {
-            $changes      = $manipulator->manipulate($domain, array(
-                'ownerEmail' => $user->getEmail()
-            ));
-            $entityChange = new EntityChange();
+            $data             = new DefaultUpdateRequest();
+            $data->ownerEmail = $user->getEmail();
+            $changes          = $manipulator->manipulate($domain, $data);
+            $entityChange     = new EntityChange();
             $entityChange->setAuthor(new EmailValue($user->getEmail()));
             $entityChange->setChanges($changes);
             $entityChange->setEntity($this->domainRepo->getItemEntityName($domain));

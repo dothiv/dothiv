@@ -76,7 +76,7 @@ class RegistrarRepository extends DoctrineEntityRepository implements RegistrarR
     /**
      * {@inheritdoc}
      */
-    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
+    public function getPaginated(CRUD\PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
         return $this->buildPaginatedResult($this->createQueryBuilder('i'), $options);
     }

@@ -59,7 +59,7 @@ class ConfigRepository extends DoctrineEntityRepository implements ConfigReposit
     /**
      * {@inheritdoc}
      */
-    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
+    public function getPaginated(CRUD\PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
         if ($options->getSortField()->isEmpty()) {
             $options->setSortField('updated');

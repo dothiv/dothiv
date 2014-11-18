@@ -47,7 +47,7 @@ class UserProfileChangeRepository extends DoctrineEntityRepository implements Us
     /**
      * {@inheritdoc}
      */
-    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
+    public function getPaginated(CRUD\PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
         $qb = $this->createQueryBuilder('i');
         $filterQuery->getUser()->map(function (User $user) use ($qb) {
@@ -69,4 +69,13 @@ class UserProfileChangeRepository extends DoctrineEntityRepository implements Us
         );
     }
 
+    /**
+     * Creates a new entity.
+     *
+     * @return EntityInterface
+     */
+    public function createItem()
+    {
+        return new UserProfileChange();
+    }
 }

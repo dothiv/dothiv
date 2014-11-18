@@ -8,7 +8,7 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\ValueObject\EmailValue;
 use PhpOption\Option;
 
-interface DomainRepositoryInterface extends ObjectRepository, CRUDRepositoryInterface
+interface DomainRepositoryInterface extends ObjectRepository, CRUD\PaginatedReadEntityRepositoryInterface, CRUD\UpdateEntityRepositoryInterface
 {
     /**
      * @param string $name

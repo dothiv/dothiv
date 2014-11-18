@@ -2,12 +2,14 @@
 
 namespace Dothiv\PayitforwardBundle\Request;
 
+use Dothiv\APIBundle\Request\AbstractDataModel;
+use Dothiv\APIBundle\Request\DataModelInterface;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\TwitterHandleValue;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class OrderPutRequest
+class OrderPutRequest extends AbstractDataModel implements DataModelInterface
 {
 
     /**

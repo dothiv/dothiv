@@ -5,21 +5,19 @@ namespace Dothiv\BusinessBundle\Repository\Traits;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
-use Dothiv\BusinessBundle\Model\FilterQuery;
-use Dothiv\BusinessBundle\Repository\PaginatedQueryOptions;
-use Dothiv\BusinessBundle\Repository\PaginatedResult;
+use Dothiv\BusinessBundle\Repository\CRUD;
 
 trait PaginatedQueryTrait
 {
     /**
      * Builds a paginated result.
      *
-     * @param QueryBuilder          $qb
-     * @param PaginatedQueryOptions $options
+     * @param QueryBuilder               $qb
+     * @param CRUD\PaginatedQueryOptions $options
      *
-     * @return PaginatedResult
+     * @return CRUD\PaginatedResult
      */
-    protected function buildPaginatedResult(QueryBuilder $qb, PaginatedQueryOptions $options)
+    protected function buildPaginatedResult(QueryBuilder $qb, CRUD\PaginatedQueryOptions $options)
     {
         $sortField = $options->getSortField()->getOrElse('id');
         if (strpos($sortField, '.') === false) {
@@ -29,7 +27,7 @@ trait PaginatedQueryTrait
         list(, $total, $minKey, $maxKey)
             = $statsQb->select(sprintf('COUNT(i), MAX(%s), MIN(%s)', $sortField, $sortField))
             ->getQuery()->getScalarResult()[0];
-        $paginatedResult = new PaginatedResult(10, $total);
+        $paginatedResult = new CRUD\PaginatedResult(10, $total);
         $sortDir         = $options->getSortDir()->getOrElse('desc');
         if (strtolower($sortDir) == 'desc') {
             $qb->orderBy(sprintf('%s', $sortField), 'DESC');
@@ -68,4 +66,4 @@ trait PaginatedQueryTrait
 
         return $paginatedResult;
     }
-} 
+}
