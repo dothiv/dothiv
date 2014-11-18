@@ -24,7 +24,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Gregwar\FormBundle\GregwarFormBundle(),
             new Dothiv\BusinessBundle\DothivBusinessBundle(),
             new Dothiv\APIBundle\DothivAPIBundle(),
             new Dothiv\CharityWebsiteBundle\DothivCharityWebsiteBundle(),
