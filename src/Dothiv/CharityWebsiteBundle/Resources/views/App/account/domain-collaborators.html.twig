@@ -3,6 +3,7 @@
 
 {% set block = content('Block', 'collaborators') %}
 
+{% if features.domain_collaborator %}
 <div class="container">
     <div class="row">
         <div class="span12 profile-heading">
@@ -61,3 +62,4 @@
         </div>
     </div>
 </div>
+{% endif %}

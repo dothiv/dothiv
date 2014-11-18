@@ -1,6 +1,3 @@
-parameters:
-    dothiv.charity.web.domain_collaborator_listener.class: Dothiv\CharityWebsiteBundle\Listener\SendLoginLinkToDomainCollaboratorListener
-
 services:
     dothiv.charity.web.contentful.project_image_listener:
         class: %dothiv.base.web.contentul.image_listener.class%
@@ -10,9 +7,3 @@ services:
             - 'images'
         tags:
             - { name: dothiv.business.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
-
-    dothiv.charity.web.domain_collaborator_listener:
-        class: %dothiv.charity.web.domain_collaborator_listener.class%
-        tags:
-            - { name: dothiv.business.event_listener, event: dothiv.business.entity.created, method: onEntityCreated }
-

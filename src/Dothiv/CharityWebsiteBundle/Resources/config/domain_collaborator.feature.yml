@@ -1,0 +1,39 @@
+parameters:
+    dothiv.charity.web.domain_collaborator_listener.class: Dothiv\CharityWebsiteBundle\Listener\SendLoginLinkToDomainCollaboratorListener
+    dothiv.api.transformer.domain_collaborator.class: Dothiv\APIBundle\Transformer\DomainCollaboratorTransformer
+    dothiv.api.manipulator.domain_collaborator.class: Dothiv\APIBundle\Manipulator\DomainCollaboratorEntityManipulator
+
+services:
+    dothiv.charity.web.domain_collaborator_listener:
+        class: %dothiv.charity.web.domain_collaborator_listener.class%
+        tags:
+            - { name: dothiv.business.event_listener, event: dothiv.business.entity.created, method: onEntityCreated }
+
+    dothiv.api.manipulator.domain_collaborator:
+        class: %dothiv.api.manipulator.domain_collaborator.class%
+        arguments:
+        - @dothiv.businessbundle.service.user
+        - @dothiv.repository.domain
+
+    dothiv.api.transformer.domain_collaborator:
+        class: %dothiv.api.transformer.domain_collaborator.class%
+        arguments:
+        - @router
+        - "dothiv_api_domain_collaborator"
+        calls:
+        - [setUserTransformer, [@dothiv.api.transformer.user]]
+        - [setDomainTransformer, [@dothiv.api.transformer.domain]]
+
+    dothiv.api.controller.domain_collaborator:
+        class: %dothiv.api.controller.crud.class%
+        arguments:
+        - @dothiv.repository.domain_collaborator
+        - @dothiv.api.transformer.domain_collaborator
+        - @dothiv.admin.transformer.paginatedlist
+        - @serializer
+        - @dothiv.repository.entity_change
+        - @security.context
+        - @dothiv.api.manipulator.domain_collaborator
+        - @dothiv.business.event_dispatcher
+        calls:
+        - [disableHistory]
