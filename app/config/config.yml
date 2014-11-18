@@ -98,9 +98,6 @@ jms_serializer:
             options: 64
 
 dothiv_business:
-    allowed_tlds:
-      # - hiv
-      ~
     attachments_location: '%kernel.root_dir%/attachments'
     clickcounter:
         secret: '%clickcounter_auth_secret%'
