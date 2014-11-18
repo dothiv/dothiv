@@ -1,0 +1,230 @@
+{% trans_default_domain "charity" %}<!DOCTYPE html><!--
+
+
+            _|_|          _|_|
+            _|_|          _|_|
+            _|_|
+            _|_|
+            _|_|_|_|      _|_|  _|_|    _|_|
+            _|_|_|_|_|    _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+      _|_|  _|_|    _|_|  _|_|    _|_|_|_|
+      _|_|  _|_|    _|_|  _|_|      _|_|
+
+      .hiv domains – The digital Red Ribbon
+
+                  click4life.hiv
+
+-->
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="utf-8">
+    {% set title %}{% spaceless %}
+        {% if title|default("")|length > 0 %}{{ title }} |{% endif %}
+        {% trans %}dothiv.fullname{% endtrans %}
+    {% endspaceless %}{% endset %}
+    <title>
+        {{ title }}
+    </title>
+    {% stylesheets '@DothivCharityWebsiteBundle/Resources/public/lesscss/index/styles.less' filter='cssrewrite,?uglifycss' %}
+    <link rel="stylesheet" href="{{ asset(asset_url) }}">
+    {% endstylesheets %}
+    <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}">
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
+    {% javascripts
+    '@angular_js'
+    filter='?uglifyjs2'
+    output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
+    {% endjavascripts %}
+    <!-- Social Media Sharing -->
+    {% set description = description|default('home.who.text'|trans) %}
+    <!-- Twitter cards support -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="dotHIV">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{{ description }}">
+    <meta name="twitter:creator" content="dotHIV">
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
+    <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
+    {% endimage %}
+    <!-- Facebook open graph support -->
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:site_name" content="{% trans %}dothiv.fullname{% endtrans %}">
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
+    <meta property="og:image" content="{{ app.request.uriForPath(asset_url) }}">
+    {% endimage %}
+    <meta property="og:type" content="website">
+    <meta property="fb:app_id" content="{{ facebook_app_id }}">
+    <base href="/">
+</head>
+<body data-ng-app="dotHIVApp">
+<header>
+    <div>
+        <nav class="logo">
+            <h1>
+                <a href="/" rel="index">
+                    {% image '@DothivCharityWebsiteBundle/Resources/public/images/logo.svg' %}
+                    <img class="logo" src="{{ asset(asset_url) }}" alt="{% trans %}dothiv.fullname{% endtrans %}">
+                    {% endimage %}
+                    <small>{% trans %}dothiv.claim{% endtrans %}</small>
+                </a>
+            </h1>
+        </nav>
+
+        <nav class="main">
+            <a href="{{ path('dothiv_charity_about_index', {'locale': app.request.locale}) }}">
+                {% trans %}header.home.aboutHIV{% endtrans %}<br>
+                <small>{% trans %}header.home.aboutHIV.subtitle{% endtrans %}</small>
+            </a>
+            <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'register'}) }}" class="button">{% trans %}
+                header.bar.registerurl{% endtrans %}</a>
+        </nav>
+
+        <nav class="meta">
+            {% if app.request.locale|slice(0,2) != 'en' %}
+                <a href="{{ '/en' ~ app.request.pathInfo|slice(3) }}">English</a>
+            {% endif %}
+            {% if app.request.locale|slice(0,2) != 'de' %}
+                <a href="{{ '/de' ~ app.request.pathInfo|slice(3) }}">Deutsch</a>
+            {% endif %}
+            {% if features.profile %}
+                <a href="{{ path('dothiv_charity_account_index', {'locale': app.request.locale}) }}">{% trans %}
+                header.menu.myprofile{% endtrans %}</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+<main>
+
+</main>
+<footer>
+    <div>
+        <article>
+            <header>
+                {% set footer = content('Block', 'footer.dotHIV') %}
+
+                <h1>
+                    <a href="/" rel="index">
+                        {% image '@DothivCharityWebsiteBundle/Resources/public/images/logo.svg' %}
+                        <img class="logo" src="{{ asset(asset_url) }}" alt="{% trans %}dothiv.fullname{% endtrans %}">
+                        {% endimage %}
+                        <small>{% trans %}dothiv.claim{% endtrans %}</small>
+                    </a>
+                </h1>
+            </header>
+            <section>
+                {{ footer.text|markdown }}
+            </section>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{{ path('dothiv_charity_content', {'page': 'contact', 'locale': app.request.locale}) }}">{% trans %}
+                            footer.navi.contact{% endtrans %}</a></li>
+                    <li>
+                        <a href="{{ path('dothiv_charity_content', {'page': 'imprint', 'locale': app.request.locale}) }}">{% trans %}
+                            footer.navi.imprint{% endtrans %}</a></li>
+                    <li>
+                        <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'report'}) }}">
+                            {% trans %}footer.navi.report{% endtrans %}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    <li>
+                        <a class="social-link" href="https://www.facebook.com/dothiv" rel="me">
+                            {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-fb.png' %}
+                            <img class="social" src="{{ asset(asset_url) }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
+                            {% endimage %}
+                            {% trans %}footer.social.facebook{% endtrans %}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="social-link" href="https://twitter.com/dotHIV" rel="me">
+                            {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-tw.png' %}
+                            <img class="social" src="{{ asset(asset_url) }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
+                            {% endimage %}
+                            {% trans %}footer.social.twitter{% endtrans %}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            {% image '@DothivCharityWebsiteBundle/Resources/public/images/partners.png' %}
+            <img class="couple" src="{{ asset(asset_url) }}" alt="">
+            {% endimage %}
+        </article>
+    </div>
+</footer>
+{% block angular_app %}
+    {% javascripts
+    '@jquery'
+    '@DothivCharityWebsiteBundle/Resources/public/js/contentApp.js'
+    '@DothivBaseWebsiteBundle/Resources/public/js/filters/*.js'
+    '@DothivCharityWebsiteBundle/Resources/public/js/controllers/*.js'
+    filter='?uglifyjs2'
+    output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
+    {% endjavascripts %}
+{% endblock angular_app %}
+{% block angular_config %}
+    <script type="text/javascript">
+        'use strict';
+        angular.module('dotHIVApp.services').factory('config', function () {
+            var config = {
+                locale: '{{ app.request.locale }}'
+            };
+            return config;
+        });
+    </script>
+{% endblock angular_config %}
+
+{# Click-Counter #}
+<script src="//dothiv-registry.appspot.com/static/clickcounter.min.js" type="text/javascript"></script>
+
+{# Twitter #}
+<script>!function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = p + '://platform.twitter.com/widgets.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    }(document, 'script', 'twitter-wjs');</script>
+
+{# Facebook #}
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/{{ app.request.locale }}/sdk.js#xfbml=1&appId={{ facebook_app_id }}&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+{# Google #}
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', '{{ googleanalytics_charity }}', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+// Grid
+body > header {
+  position: relative;
+  &:extend(.container all);
+  & > div {
+    &:extend(.row all);
+  }
+  nav {
+    .make-xs-column(12);
+    a {
+      display: block;
+      line-height: 1em;
+      margin-bottom: 0.5em;
+      margin-top: 0.5em;
+    }
+  }
+  nav.logo {
+    .make-sm-column(5);
+  }
+  nav.main {
+    .make-sm-column(7);
+    a.button {
+      &:extend(.btn all);
+      &:extend(.btn-primary all);
+    }
+    @media (min-width: @screen-sm-min) {
+      text-align: right;
+      margin-top: 60px;
+      a {
+        display: inline-block;
+        margin: 0 0 0 @grid-gutter-width;
+      }
+      a.button {
+        margin-bottom: 1em;
+      }
+    }
+  }
+  nav.meta {
+    @media (min-width: @screen-sm-min) {
+      text-align: right;
+      position: absolute;
+      top: @grid-gutter-width / 4;
+      right: 0;
+      font-size: @font-size-small;
+      a {
+        display: inline-block;
+        border-left: 1px solid @gray-light;
+        padding: 0 @grid-gutter-width / 4;
+        margin: 0;
+        &:first-child {
+          padding-left: 0;
+          border: 0;
+        }
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}
+
+// Design
+body > header {
+  h1 {
+    position: relative;
+    margin-top: 45px;
+    img {
+      width: 60px;
+    }
+    small {
+      font-size: 0.4em;
+      position: absolute;
+      left: 60px + (@grid-gutter-width / 4);
+      bottom: -2px;
+    }
+    @media (min-width: @screen-md-min) {
+      margin-top: 0;
+      img {
+        width: 120px;
+      }
+
+      small {
+        left: 120px + (@grid-gutter-width / 2);
+        bottom: -4px;
+      }
+    }
+  }
+}
+
