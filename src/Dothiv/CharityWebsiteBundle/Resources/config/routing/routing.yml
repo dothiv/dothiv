@@ -13,6 +13,14 @@ dothiv_charity_index:
     requirements:
         locale:  en|de|ky
 
+dothiv_charity_home:
+    path:  /{_locale}/home
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'DothivCharityWebsiteBundle::home.html.twig'
+    requirements:
+        locale:  en|de|ky
+
 dothiv_charity_app_template:
     pattern:  /{locale}/app/{section}/{page}.{_format}
     defaults:
