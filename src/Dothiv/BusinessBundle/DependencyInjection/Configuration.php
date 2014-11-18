@@ -21,9 +21,6 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('dothiv_business');
         $rootNode
             ->children()
-                ->arrayNode('allowed_tlds')
-                    ->prototype('scalar')->end()
-                ->end()
                 ->scalarNode('clock_expr')->defaultValue('now')->end()
             ->scalarNode('attachments_location')->isRequired()->end()
             ->scalarNode('link_request_wait')->defaultValue(3600)->end()

@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
-use Dothiv\BusinessBundle\Validator\Constraints\ValidDomain;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -18,7 +17,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @AssertORM\UniqueEntity("name")
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="domain__name",columns={"name"})})
  * @Serializer\ExclusionPolicy("all")
- * @ValidDomain()
  *
  * @author Nils Wisiol <mail@nils-wisiol.de>
  * @author Markus Tacker <m@dotHIV.org>
