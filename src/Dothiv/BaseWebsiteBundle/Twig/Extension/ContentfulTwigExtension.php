@@ -63,7 +63,7 @@ class ContentfulTwigExtension extends \Twig_Extension
         $requestLocale = isset($ctx['app']) ? Option::fromValue($ctx['app']->getRequest())->map(function (Request $request) {
             return $request->getLocale();
         }) : None::create();
-        $locale        = Option::fromValue($locale)->getOrElse($ctxLocale->getOrElse($requestLocale->get()));
+        $locale        = Option::fromValue($locale)->getOrElse($ctxLocale)->getOrElse($requestLocale);
         if ($name === null) {
             return $this->content->buildEntries($type, $locale);
         }
