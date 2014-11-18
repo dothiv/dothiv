@@ -79,9 +79,6 @@ swiftmailer:
     auth_mode:  %mailer_auth_mode%
     spool:     { type: memory }
 
-# Gregwar's form
-gregwar_form: ~
-
 nelmio_cors:
     defaults:
         allow_credentials: true
