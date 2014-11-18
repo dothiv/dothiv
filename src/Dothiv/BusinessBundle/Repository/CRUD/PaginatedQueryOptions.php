@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dothiv\BusinessBundle\Repository;
+namespace Dothiv\BusinessBundle\Repository\CRUD;
 
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use PhpOption\Option;
@@ -88,4 +88,4 @@ class PaginatedQueryOptions
         return $this;
     }
 
-} 
+}

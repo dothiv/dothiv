@@ -4,7 +4,7 @@ namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\Config;
 
-interface ConfigRepositoryInterface extends CRUDRepositoryInterface
+interface ConfigRepositoryInterface extends CRUD\PaginatedReadEntityRepositoryInterface, CRUD\UpdateEntityRepositoryInterface
 {
     /**
      * Persist the entity.
@@ -30,4 +30,4 @@ interface ConfigRepositoryInterface extends CRUDRepositoryInterface
      * @return Config
      */
     function get($key);
-} 
+}

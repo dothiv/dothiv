@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Model for a claim request
  */
-class ClaimRequest
+class ClaimRequest extends AbstractDataModel implements DataModelInterface
 {
     /**
      * @var string

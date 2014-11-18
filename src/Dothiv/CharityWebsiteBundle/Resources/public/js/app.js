@@ -41,6 +41,11 @@ angular.module('dotHIVApp', ['ngRoute', 'dotHIVApp.services', 'dotHIVApp.filters
                 templateUrl: '/' + locale + '/app/account/domain-basicedit.html',
                 controller: 'AccountDomainBasicEditController'
             })
+            .state('profile.collaborators', {
+                url: '/collaborators/:name',
+                templateUrl: '/' + locale + '/app/account/domain-collaborators.html',
+                controller: 'AccountDomainCollaboratorsController'
+            })
             .state('profile.settings', {
                 url: '/settings',
                 templateUrl: '/' + locale + '/app/account/settings.html',

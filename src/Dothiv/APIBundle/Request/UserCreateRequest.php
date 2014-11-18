@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Model for a user creation request
  */
-class UserCreateRequest extends LoginLinkRequest
+class UserCreateRequest extends LoginLinkRequest implements DataModelInterface
 {
     /**
      * @var string

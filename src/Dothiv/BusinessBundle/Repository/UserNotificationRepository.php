@@ -46,7 +46,7 @@ class UserNotificationRepository extends DoctrineEntityRepository implements Use
     /**
      * {@inheritdoc}
      */
-    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
+    public function getPaginated(CRUD\PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
         $qb = $this->createQueryBuilder('i');
         $filterQuery->getUser()->map(function (User $user) use ($qb) {

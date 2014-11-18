@@ -41,7 +41,8 @@ class Domain extends Entity
      * The owning user of the domain
      *
      * @ORM\ManyToOne(targetEntity="User",inversedBy="domains")
-     * @var User
+     * @ORM\JoinColumn(nullable=true)
+     * @var User|null
      */
     protected $owner;
 
@@ -163,7 +164,7 @@ class Domain extends Entity
     /**
      * Returns the owning user of the domain
      *
-     * @return User the owning user
+     * @return User|null the owning user
      */
     public function getOwner()
     {
@@ -412,5 +413,32 @@ class Domain extends Entity
     {
         $this->nonprofit = $nonprofit;
         return $this;
+    }
+
+    /**
+     * Compares two instance of this class
+     *
+     * @param Domain $domain
+     *
+     * @return bool
+     */
+    public function equals(Domain $domain = null)
+    {
+        if (!($domain instanceof Domain)) {
+            return false;
+        }
+        if ($this->getName() === $domain->getName()
+            && $this->getNonprofit() === $domain->getName()
+            && $this->getOwner()->equals($domain->getOwner())
+            && $this->getOwnerEmail() === $domain->getOwnerEmail()
+            && $this->getOwnerName() === $domain->getOwnerName()
+            && $this->getTransfer() === $domain->getTransfer()
+            && $this->getTokenSent() === $domain->getTokenSent()
+            && $this->getToken() === $domain->getToken()
+            && $this->getRegistrar()->equals($domain->getRegistrar())
+        ) {
+            return true;
+        }
+        return false;
     }
 }
