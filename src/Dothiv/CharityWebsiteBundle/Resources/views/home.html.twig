@@ -63,9 +63,10 @@
     <base href="/">
 </head>
 <body data-ng-app="dotHIVApp">
-<header>
+<header data-ng-controller="HeaderController" data-ng-class="{expanded: expanded}">
     <div>
-        <nav class="logo">
+        <div class="close-target" data-ng-click="close()"></div>
+        <div class="logo">
             <h1>
                 <a href="/" rel="index">
                     {% image '@DothivCharityWebsiteBundle/Resources/public/images/logo.svg' %}
@@ -74,33 +75,110 @@
                     <small>{% trans %}dothiv.claim{% endtrans %}</small>
                 </a>
             </h1>
-        </nav>
+        </div>
 
-        <nav class="main">
-            <a href="{{ path('dothiv_charity_about_index', {'locale': app.request.locale}) }}">
-                {% trans %}header.home.aboutHIV{% endtrans %}<br>
-                <small>{% trans %}header.home.aboutHIV.subtitle{% endtrans %}</small>
-            </a>
-            <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'register'}) }}" class="button">{% trans %}
-                header.bar.registerurl{% endtrans %}</a>
-        </nav>
+        <div class="navigation">
 
-        <nav class="meta">
-            {% if app.request.locale|slice(0,2) != 'en' %}
-                <a href="{{ '/en' ~ app.request.pathInfo|slice(3) }}">English</a>
-            {% endif %}
-            {% if app.request.locale|slice(0,2) != 'de' %}
-                <a href="{{ '/de' ~ app.request.pathInfo|slice(3) }}">Deutsch</a>
-            {% endif %}
-            {% if features.profile %}
-                <a href="{{ path('dothiv_charity_account_index', {'locale': app.request.locale}) }}">{% trans %}
-                header.menu.myprofile{% endtrans %}</a>
-            {% endif %}
-        </nav>
+            <nav class="meta">
+                {% if app.request.locale|slice(0,2) != 'en' %}
+                    <a href="{{ '/en' ~ app.request.pathInfo|slice(3) }}">English</a>
+                {% endif %}
+                {% if app.request.locale|slice(0,2) != 'de' %}
+                    <a href="{{ '/de' ~ app.request.pathInfo|slice(3) }}">Deutsch</a>
+                {% endif %}
+                {% if features.profile %}
+                    <a href="{{ path('dothiv_charity_account_index', {'locale': app.request.locale}) }}">{% trans %}
+                        header.menu.myprofile{% endtrans %}</a>
+                {% endif %}
+            </nav>
+
+            <nav class="main">
+                <a href="{{ path('dothiv_charity_about_index', {'locale': app.request.locale}) }}">
+                    {% trans %}header.home.aboutHIV{% endtrans %}<br>
+                    <small>{% trans %}header.home.aboutHIV.subtitle{% endtrans %}</small>
+                </a>
+                <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'register'}) }}" class="button">{% trans %}
+                    header.bar.registerurl{% endtrans %}</a>
+            </nav>
+
+            {% block footernav %}
+                <nav>
+                    <a href="{{ path('dothiv_charity_content', {'page': 'contact', 'locale': app.request.locale}) }}">{% trans %}
+                        footer.navi.contact{% endtrans %}</a></li>
+                    <a href="{{ path('dothiv_charity_content', {'page': 'imprint', 'locale': app.request.locale}) }}">{% trans %}
+                        footer.navi.imprint{% endtrans %}</a></li>
+                    <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'report'}) }}">
+                        {% trans %}footer.navi.report{% endtrans %}
+                    </a>
+                </nav>
+                <nav>
+                    <a class="social-link" href="https://www.facebook.com/dothiv" rel="me">
+                        {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-fb.png' %}
+                        <img class="social" src="{{ asset(asset_url) }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
+                        {% endimage %}
+                        {% trans %}footer.social.facebook{% endtrans %}
+                    </a> <a class="social-link" href="https://twitter.com/dotHIV" rel="me">
+                        {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-tw.png' %}
+                        <img class="social" src="{{ asset(asset_url) }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
+                        {% endimage %}
+                        {% trans %}footer.social.twitter{% endtrans %}
+                    </a>
+                </nav>
+            {% endblock %}
+
+        </div>
+
+        <button class="toggle" type="button" data-ng-click="toggle()">
+            <span>
+                <span class="sr-only">{% trans %}toggle.nav{% endtrans %}</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </span>
+        </button>
     </div>
 </header>
 <main>
+    <article>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+            dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+            suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in
+            vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et
+            iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla
+            facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+            ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+            ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in
+            hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et
+            accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait
+            nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod
+            mazim placerat facer possim assum.</p>
 
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+            dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+            suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in
+            vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et
+            iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla
+            facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+            ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+            ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in
+            hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et
+            accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait
+            nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod
+            mazim placerat facer possim assum.</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+            dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+            suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in
+            vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et
+            iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla
+            facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+            ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+            ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in
+            hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et
+            accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait
+            nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod
+            mazim placerat facer possim assum.</p>
+    </article>
 </main>
 <footer>
     <div>
@@ -120,41 +198,7 @@
             <section>
                 {{ footer.text|markdown }}
             </section>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="{{ path('dothiv_charity_content', {'page': 'contact', 'locale': app.request.locale}) }}">{% trans %}
-                            footer.navi.contact{% endtrans %}</a></li>
-                    <li>
-                        <a href="{{ path('dothiv_charity_content', {'page': 'imprint', 'locale': app.request.locale}) }}">{% trans %}
-                            footer.navi.imprint{% endtrans %}</a></li>
-                    <li>
-                        <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'report'}) }}">
-                            {% trans %}footer.navi.report{% endtrans %}
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <nav>
-                <ul>
-                    <li>
-                        <a class="social-link" href="https://www.facebook.com/dothiv" rel="me">
-                            {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-fb.png' %}
-                            <img class="social" src="{{ asset(asset_url) }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
-                            {% endimage %}
-                            {% trans %}footer.social.facebook{% endtrans %}
-                        </a>
-                    </li>
-                    <li>
-                        <a class="social-link" href="https://twitter.com/dotHIV" rel="me">
-                            {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-tw.png' %}
-                            <img class="social" src="{{ asset(asset_url) }}" alt="{% trans %}footer.social.facebook{% endtrans %}">
-                            {% endimage %}
-                            {% trans %}footer.social.twitter{% endtrans %}
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            {{ block('footernav') }}
             {% image '@DothivCharityWebsiteBundle/Resources/public/images/partners.png' %}
             <img class="couple" src="{{ asset(asset_url) }}" alt="">
             {% endimage %}
@@ -164,6 +208,7 @@
 {% block angular_app %}
     {% javascripts
     '@jquery'
+    '@angular_ui_bootstrap'
     '@DothivCharityWebsiteBundle/Resources/public/js/contentApp.js'
     '@DothivBaseWebsiteBundle/Resources/public/js/filters/*.js'
     '@DothivCharityWebsiteBundle/Resources/public/js/controllers/*.js'
@@ -183,7 +228,6 @@
         });
     </script>
 {% endblock angular_config %}
-
 {# Click-Counter #}
 <script src="//dothiv-registry.appspot.com/static/clickcounter.min.js" type="text/javascript"></script>
 
