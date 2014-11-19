@@ -1,0 +1,73 @@
+// Grid
+#pinkbar {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.10);
+  @media (max-width: @screen-xs-max) {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 2000;
+  }
+  @media (min-width: @screen-sm-min) {
+    position: relative;
+    margin-bottom: 3px;
+  }
+  .pinkbar-label {
+    &:extend(.container all);
+    div {
+      &:extend(.row all);
+      p {
+        .make-xs-column(12);
+      }
+    }
+  }
+}
+
+// Design
+#pinkbar {
+  background-color: @hivpink-light;
+  .pinkbar-progress {
+    background-color: @hivpink;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .pinkbar-label {
+    div {
+      p {
+        text-shadow: 1px 1px 0 fadeout(@hivpink-light, 15%), -1px 1px 0 fadeout(@hivpink-light, 15%), 1px -1px 0 fadeout(@hivpink-light, 15%), -1px -1px 0 fadeout(@hivpink-light, 15%), 1px 1px 1px fadeout(@hivpink-light, 15%), -1px 1px 1px fadeout(@hivpink-light, 15%), 1px -1px 1px fadeout(@hivpink-light, 15%), -1px -1px 1px fadeout(@hivpink-light, 15%);
+      }
+    }
+  }
+
+  @media (max-width: @screen-xs-max) {
+    height: @pinkbar-height / 2;
+    .pinkbar-label {
+      div {
+        p {
+          margin: 0;
+          line-height: @pinkbar-height / 2;
+        }
+      }
+    }
+    .pinkbar-progress {
+      height: @pinkbar-height / 2;
+    }
+  }
+  @media (min-width: @screen-sm-min) {
+    height: @pinkbar-height;
+    .pinkbar-label {
+      div {
+        p {
+          line-height: @pinkbar-height;
+          margin: 0 0 0 10px;
+          font-size: 22px;
+        }
+      }
+    }
+    .pinkbar-progress {
+      height: @pinkbar-height;
+    }
+  }
+}
