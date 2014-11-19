@@ -63,76 +63,81 @@
     <base href="/">
 </head>
 <body data-ng-app="dotHIVApp">
-<header data-ng-controller="HeaderController" data-ng-class="{expanded: expanded}">
-    <div>
-        <div class="close-target" data-ng-click="close()"></div>
-        <div class="logo">
-            <h1>
-                <a href="/" rel="index">
-                    {% image '@DothivCharityWebsiteBundle/Resources/public/images/logo.svg' %}
-                    <img class="logo" src="{{ asset(asset_url) }}" alt="{% trans %}dothiv.fullname{% endtrans %}">
-                    {% endimage %}
-                    <small>{% trans %}dothiv.claim{% endtrans %}</small>
-                </a>
-            </h1>
-        </div>
-
-        <div class="navigation">
-
-            <nav class="meta">
-                {% if app.request.locale|slice(0,2) != 'en' %}
-                    <a href="{{ '/en' ~ app.request.pathInfo|slice(3) }}">English</a>
-                {% endif %}
-                {% if app.request.locale|slice(0,2) != 'de' %}
-                    <a href="{{ '/de' ~ app.request.pathInfo|slice(3) }}">Deutsch</a>
-                {% endif %}
-                {% if features.profile %}
-                    <a href="{{ path('dothiv_charity_account_index', {'locale': app.request.locale}) }}">{% trans %}
-                        header.menu.myprofile{% endtrans %}</a>
-                {% endif %}
-            </nav>
-
-            <nav class="main">
-                <a href="{{ path('dothiv_charity_about_index', {'locale': app.request.locale}) }}" class="twoline">
-                    {% trans %}header.home.aboutHIV{% endtrans %}<br>
-                    <small>{% trans %}header.home.aboutHIV.subtitle{% endtrans %}</small>
-                </a>
-                <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'register'}) }}" class="button">{% trans %}
-                    header.bar.registerurl{% endtrans %}</a>
-            </nav>
-
-            {% block footernav %}
-                <nav class="footer">
-                    <a href="{{ path('dothiv_charity_content', {'page': 'contact', 'locale': app.request.locale}) }}">{% trans %}
-                        footer.navi.contact{% endtrans %}</a>
-                    <a href="{{ path('dothiv_charity_content', {'page': 'imprint', 'locale': app.request.locale}) }}">{% trans %}
-                        footer.navi.imprint{% endtrans %}</a>
-                    <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'report'}) }}">
-                        {% trans %}footer.navi.report{% endtrans %}
+<header>
+    <div class="header" data-ng-controller="HeaderController" data-ng-class="{expanded: expanded}">
+        <div>
+            <div class="close-target" data-ng-click="close()"></div>
+            <div class="logo">
+                <h1>
+                    <a href="/" rel="index">
+                        {% image '@DothivCharityWebsiteBundle/Resources/public/images/logo.svg' %}
+                        <img class="logo" src="{{ asset(asset_url) }}" alt="{% trans %}dothiv.fullname{% endtrans %}">
+                        {% endimage %}
+                        <small>{% trans %}dothiv.claim{% endtrans %}</small>
                     </a>
+                </h1>
+            </div>
+
+            <div class="navigation">
+
+                <nav class="meta">
+                    {% if app.request.locale|slice(0,2) != 'en' %}
+                        <a href="{{ '/en' ~ app.request.pathInfo|slice(3) }}">English</a>
+                    {% endif %}
+                    {% if app.request.locale|slice(0,2) != 'de' %}
+                        <a href="{{ '/de' ~ app.request.pathInfo|slice(3) }}">Deutsch</a>
+                    {% endif %}
+                    {% if features.profile %}
+                        <a href="{{ path('dothiv_charity_account_index', {'locale': app.request.locale}) }}">{% trans %}
+                            header.menu.myprofile{% endtrans %}</a>
+                    {% endif %}
                 </nav>
-                <nav class="footer">
-                    <a class="social-link" href="https://www.facebook.com/dothiv" rel="me">
-                        <i class="social charity-icon-facebook"></i>
-                        {% trans %}footer.social.facebook{% endtrans %}
-                    </a> <a class="social-link" href="https://twitter.com/dotHIV" rel="me">
-                        <i class="social charity-icon-twitter"></i>
-                        {% trans %}footer.social.twitter{% endtrans %}
+
+                <nav class="main">
+                    <a href="{{ path('dothiv_charity_about_index', {'locale': app.request.locale}) }}" class="twoline">
+                        {% trans %}header.home.aboutHIV{% endtrans %}<br>
+                        <small>{% trans %}header.home.aboutHIV.subtitle{% endtrans %}</small>
                     </a>
+                    <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'register'}) }}" class="button">{% trans %}
+                        header.bar.registerurl{% endtrans %}</a>
                 </nav>
-            {% endblock %}
 
-        </div>
+                {% block footernav %}
+                    <nav class="footer">
+                        <a href="{{ path('dothiv_charity_content', {'page': 'contact', 'locale': app.request.locale}) }}">{% trans %}
+                            footer.navi.contact{% endtrans %}</a>
+                        <a href="{{ path('dothiv_charity_content', {'page': 'imprint', 'locale': app.request.locale}) }}">{% trans %}
+                            footer.navi.imprint{% endtrans %}</a>
+                        <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'report'}) }}">
+                            {% trans %}footer.navi.report{% endtrans %}
+                        </a>
+                    </nav>
+                    <nav class="footer">
+                        <a class="social-link" href="https://www.facebook.com/dothiv" rel="me">
+                            <i class="social charity-icon-facebook"></i>
+                            {% trans %}footer.social.facebook{% endtrans %}
+                        </a> <a class="social-link" href="https://twitter.com/dotHIV" rel="me">
+                            <i class="social charity-icon-twitter"></i>
+                            {% trans %}footer.social.twitter{% endtrans %}
+                        </a>
+                    </nav>
+                {% endblock %}
 
-        <button class="toggle" type="button" data-ng-click="toggle()">
+            </div>
+
+            <button class="toggle" type="button" data-ng-click="toggle()">
             <span>
                 <span class="sr-only">{% trans %}toggle.nav{% endtrans %}</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </span>
-        </button>
+            </button>
+        </div>
     </div>
+    {% if features.pinkbar_clickcounter %}
+        {% include "DothivCharityWebsiteBundle:partials:pinkbar_clickcounter.html.twig" %}
+    {% endif %}
 </header>
 <main>
     <article>
