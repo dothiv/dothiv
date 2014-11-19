@@ -93,7 +93,7 @@
             </nav>
 
             <nav class="main">
-                <a href="{{ path('dothiv_charity_about_index', {'locale': app.request.locale}) }}">
+                <a href="{{ path('dothiv_charity_about_index', {'locale': app.request.locale}) }}" class="twoline">
                     {% trans %}header.home.aboutHIV{% endtrans %}<br>
                     <small>{% trans %}header.home.aboutHIV.subtitle{% endtrans %}</small>
                 </a>
@@ -102,16 +102,16 @@
             </nav>
 
             {% block footernav %}
-                <nav>
+                <nav class="footer">
                     <a href="{{ path('dothiv_charity_content', {'page': 'contact', 'locale': app.request.locale}) }}">{% trans %}
-                        footer.navi.contact{% endtrans %}</a></li>
+                        footer.navi.contact{% endtrans %}</a>
                     <a href="{{ path('dothiv_charity_content', {'page': 'imprint', 'locale': app.request.locale}) }}">{% trans %}
-                        footer.navi.imprint{% endtrans %}</a></li>
+                        footer.navi.imprint{% endtrans %}</a>
                     <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'report'}) }}">
                         {% trans %}footer.navi.report{% endtrans %}
                     </a>
                 </nav>
-                <nav>
+                <nav class="footer">
                     <a class="social-link" href="https://www.facebook.com/dothiv" rel="me">
                         {% image '@DothivCharityWebsiteBundle/Resources/public/images/social/social-fb.png' %}
                         <img class="social" src="{{ asset(asset_url) }}" alt="{% trans %}footer.social.facebook{% endtrans %}">

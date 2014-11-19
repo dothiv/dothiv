@@ -1,14 +1,16 @@
 // Grid
 body > header {
-  position: fixed;
-  background-color: @body-bg;
-  border-bottom: 1px solid @gray-lighter;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: @header-height-mobile;
   &:extend(.container all);
+  @media (max-width: @screen-xs-max) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: @header-height-mobile;
+  }
+  @media (min-width: @screen-sm-min) {
+    position: relative;
+  }
   & > div {
     &:extend(.row all);
   }
@@ -17,63 +19,44 @@ body > header {
     a.button {
       &:extend(.btn all);
       &:extend(.btn-primary all);
+      &:extend(.btn-lg all);
+      &:after {
+        .charity-icon;
+        content: "a";
+        font-size: 11px;
+        margin-left: 5px;
+      }
+    }
+    &.main {
+      .make-sm-column(7);
+      .make-md-column(6);
+    }
+    &.meta {
+      @media (min-width: @screen-sm-min) {
+        position: absolute;
+        top: @grid-gutter-width / 4;
+        right: 0;
+      }
     }
   }
   div.logo {
     .make-xs-column(12);
-  }
-
-  /*
-  div.logo {
     .make-sm-column(5);
+    .make-md-column(6);
   }
-
-
-  nav.main {
-    .make-sm-column(7);
-
-    @media (min-width: @screen-sm-min) {
-      text-align: right;
-      margin-top: 60px;
-      a {
-        display: inline-block;
-        margin: 0 0 0 @grid-gutter-width;
-      }
-
-      a.button {
-        margin-bottom: 1em;
-      }
-    }
-  }
-  */
-  /*
-  nav.meta {
-    @media (min-width: @screen-sm-min) {
-      text-align: right;
-      position: absolute;
-      top: @grid-gutter-width / 4;
-      right: 0;
-      font-size: @font-size-small;
-      a {
-        display: inline-block;
-        border-left: 1px solid @gray-light;
-        padding: 0 @grid-gutter-width / 4;
-        margin: 0;
-        &:first-child {
-          padding-left: 0;
-          border: 0;
-        }
-        &:last-child {
-          padding-right: 0;
-        }
-      }
-    }
-  }
-  */
 }
 
 // Design
 body > header {
+  @media (max-width: @screen-xs-max) {
+    background-color: @body-bg;
+    border-bottom: 1px solid @gray-lighter;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  }
+  @media (min-width: @screen-sm-min) {
+    padding-top: (@grid-gutter-width / 2);
+    padding-bottom: @grid-gutter-width;
+  }
   h1 {
     margin: 0;
     position: relative;
@@ -86,9 +69,11 @@ body > header {
       left: 60px + (@grid-gutter-width / 4);
       bottom: -2px;
     }
-    /*
+    @media (min-width: @screen-sm-min) {
+      margin-top: (@grid-gutter-width / 2);
+    }
     @media (min-width: @screen-md-min) {
-      margin-top: 0;
+      margin-top: (@grid-gutter-width / 2);
       img {
         width: 120px;
       }
@@ -98,7 +83,6 @@ body > header {
         bottom: -4px;
       }
     }
-    */
   }
   button.toggle {
     &:extend(.btn all);
@@ -114,11 +98,75 @@ body > header {
       background-color: @btn-primary-color;
       margin: 4px 0;
     }
+    @media (min-width: @screen-sm-min) {
+      display: none;
+    }
   }
-  // Expanded mobile navigation
   div.navigation {
     display: none;
+    @media (min-width: @screen-sm-min) {
+      display: block;
+      nav.meta {
+        text-align: right;
+        font-size: @font-size-small;
+        a {
+          display: inline-block;
+          border-left: 1px solid @gray-light;
+          padding: 0 @grid-gutter-width / 4;
+          margin: 0;
+          color: @text-color;
+          &:hover {
+            color: @text-color;
+            text-decoration: none;
+          }
+          &:first-child {
+            padding-left: 0;
+            border: 0;
+          }
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+      nav.main {
+        margin-top: @grid-gutter-width;
+        a.twoline {
+          .pull-left;
+          line-height: 80%;
+          display: block;
+          color: @text-color;
+          &:hover {
+            color: @text-color;
+            text-decoration: none;
+          }
+          font-size: 150%;
+          small {
+            font-size: 60%;
+            padding-left: 22px;
+          }
+          &:before {
+            .charity-icon;
+            content: "a";
+            font-size: 11px;
+            margin-left: 5px;
+            color: @brand-primary;
+          }
+        }
+        a.button {
+          .pull-right;
+        }
+      }
+      nav.footer {
+        display: none;
+      }
+    }
+    @media (min-width: @screen-md-min) {
+      nav.main {
+        margin-top: @grid-gutter-width * 1.75;
+      }
+    }
   }
+  // Expanded mobile navigation
   &.expanded {
     position: fixed;
     top: 0;

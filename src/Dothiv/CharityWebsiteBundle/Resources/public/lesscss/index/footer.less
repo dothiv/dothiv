@@ -76,6 +76,14 @@ body > footer {
 
   nav a {
     margin-bottom: 0.5em;
+    @media (min-width: @screen-sm-min) {
+      display: block;
+      color: @text-color;
+      &:hover {
+        color: @text-color;
+        text-decoration: none;
+      }
+    }
   }
 
   .couple {

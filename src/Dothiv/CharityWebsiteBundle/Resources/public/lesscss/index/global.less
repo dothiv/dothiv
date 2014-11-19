@@ -1,9 +1,15 @@
 body {
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-weight: @text-font-weight;
-  padding-top: @header-height-mobile + (@grid-gutter-width / 2);
+  @media (max-width: @screen-xs-max) {
+    padding-top: @header-height-mobile + (@grid-gutter-width / 2);
+  }
 }
 
 img.social {
   padding-right: @grid-gutter-width / 2;
+}
+
+.btn-lg {
+  .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-large; @line-height-large; @border-radius-large);
 }

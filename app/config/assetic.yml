@@ -80,6 +80,22 @@ assetic:
             inputs:
             - %kernel.root_dir%/../src/Dothiv/RegistryWebsiteBundle/Resources/public/fonts/registryicons.eot
             output: css/fonts/registryicons.eot
+        charityicons_svg:
+            inputs:
+            - %kernel.root_dir%/../src/Dothiv/CharityWebsiteBundle/Resources/public/fonts/charityicons.svg
+            output: css/fonts/charityicons.svg
+        charityicons_woff:
+            inputs:
+            - %kernel.root_dir%/../src/Dothiv/CharityWebsiteBundle/Resources/public/fonts/charityicons.woff
+            output: css/fonts/charityicons.woff
+        charityicons_ttf:
+            inputs:
+            - %kernel.root_dir%/../src/Dothiv/CharityWebsiteBundle/Resources/public/fonts/charityicons.ttf
+            output: css/fonts/charityicons.ttf
+        charityicons_eot:
+            inputs:
+            - %kernel.root_dir%/../src/Dothiv/CharityWebsiteBundle/Resources/public/fonts/charityicons.eot
+            output: css/fonts/charityicons.eot
         jquery:
             inputs:
             - %kernel.root_dir%/../vendor/components/jquery/jquery.js
