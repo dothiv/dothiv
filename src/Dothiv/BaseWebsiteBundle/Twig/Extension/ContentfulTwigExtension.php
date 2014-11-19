@@ -4,6 +4,7 @@ namespace Dothiv\BaseWebsiteBundle\Twig\Extension;
 
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
+use PhpOption\LazyOption;
 use PhpOption\None;
 use PhpOption\Option;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,11 +60,15 @@ class ContentfulTwigExtension extends \Twig_Extension
 
     public function buildItem(array $ctx, $type, $name = null, $locale = null)
     {
-        $ctxLocale     = isset($ctx['locale']) ? Option::fromValue($ctx['locale']) : None::create();
-        $requestLocale = isset($ctx['app']) ? Option::fromValue($ctx['app']->getRequest())->map(function (Request $request) {
-            return $request->getLocale();
-        }) : None::create();
-        $locale        = Option::fromValue($locale)->getOrElse($ctxLocale)->getOrElse($requestLocale);
+        $ctxLocale     = new LazyOption(function () use ($ctx) {
+            return isset($ctx['locale']) ? Option::fromValue($ctx['locale']) : None::create();
+        });
+        $requestLocale = new LazyOption(function () use ($ctx) {
+            return isset($ctx['app']) ? Option::fromValue($ctx['app']->getRequest())->map(function (Request $request) {
+                return $request->getLocale();
+            }) : None::create();
+        });
+        $locale        = Option::fromValue($locale)->orElse($ctxLocale)->orElse($requestLocale)->get();
         if ($name === null) {
             return $this->content->buildEntries($type, $locale);
         }
