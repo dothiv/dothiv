@@ -3,6 +3,7 @@ parameters:
     dothiv.websitebase.contentful.view_builder.class: Dothiv\BaseWebsiteBundle\Contentful\ViewBuilder
     dothiv.websitebase.contentful.image_scaler.class: Dothiv\BaseWebsiteBundle\Contentful\ImageAssetScaler
     dothiv.websitebase.service.money_format.class: Dothiv\BaseWebsiteBundle\Service\MoneyFormatService
+    dothiv.websitebase.service.number_format.class: Dothiv\BaseWebsiteBundle\Service\NumberFormatService
     dothiv.websitebase.imagine.class: Imagine\Gmagick\Imagine
     dothiv.websitebase.service.image_scaler.class: Dothiv\BaseWebsiteBundle\Service\ImagineImageScaler
 
@@ -42,5 +43,10 @@ services:
         calls:
          - [ setLogger, [@logger] ]
 
+    dothiv.websitebase.number_format:
+        class: %dothiv.websitebase.service.number_format.class%
+
     dothiv.websitebase.money_format:
         class: %dothiv.websitebase.service.money_format.class%
+        arguments:
+        - @dothiv.websitebase.number_format

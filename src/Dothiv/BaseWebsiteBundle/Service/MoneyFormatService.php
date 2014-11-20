@@ -2,13 +2,22 @@
 
 namespace Dothiv\BaseWebsiteBundle\Service;
 
-/**
- * {@inheritdoc}
- *
- * @author Markus Tacker <m@dotHIV.org>
- */
 class MoneyFormatService implements MoneyFormatServiceInterface
 {
+
+    /**
+     * @var NumberFormatServiceInterface
+     */
+    private $numberFormat;
+
+    /**
+     * @param NumberFormatServiceInterface $numberFormatService
+     */
+    public function __construct(NumberFormatServiceInterface $numberFormatService)
+    {
+        $this->numberFormat = $numberFormatService;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -16,9 +25,9 @@ class MoneyFormatService implements MoneyFormatServiceInterface
     {
         switch ($locale) {
             case 'de':
-                return sprintf('%s €', number_format($value, 0, ',', '.'));
+                return sprintf('%s €', $this->numberFormat->decimalFormat($value, $locale));
             default:
-                return sprintf('€%s', number_format($value, 0, '.', ','));
+                return sprintf('€%s', $this->numberFormat->decimalFormat($value, $locale));
         }
     }
 
@@ -30,14 +39,14 @@ class MoneyFormatService implements MoneyFormatServiceInterface
         switch ($locale) {
             case 'de':
                 if (floatval($value) < 0.01) {
-                    return sprintf('%s ct', number_format($value * 100, 1, ',', '.'));
+                    return sprintf('%s ct', $this->numberFormat->format($value, $locale));
                 }
-                return sprintf('%s €', number_format($value, 2, ',', '.'));
+                return sprintf('%s €', $this->numberFormat->format($value, $locale));
             default:
                 if (floatval($value) < 0.01) {
-                    return sprintf('€%s¢', number_format($value * 100, 1, '.', ','));
+                    return sprintf('€%s¢', $this->numberFormat->format($value, $locale));
                 }
-                return sprintf('€%s', number_format($value, 2, '.', ','));
+                return sprintf('€%s', $this->numberFormat->format($value, $locale));
         }
     }
-} 
+}
