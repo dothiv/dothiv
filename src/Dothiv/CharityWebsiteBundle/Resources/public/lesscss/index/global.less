@@ -2,7 +2,7 @@ body {
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-weight: @text-font-weight;
   @media (max-width: @screen-xs-max) {
-    padding-top: @header-height-mobile + (@grid-gutter-width / 2);
+    padding-top: @header-height-mobile;
   }
 }
 
@@ -14,4 +14,10 @@ body {
 
 .btn-lg {
   .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-large; @line-height-large; @border-radius-large);
+}
+
+button {
+  &:focus {
+    outline: none;
+  }
 }

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('PinkbarControllerClicks', ['$scope', '$http', 'config',
-    function ($scope, $http, config) {
+angular.module('dotHIVApp.controllers').controller('PinkbarControllerClicks', ['$scope', '$rootScope', '$http', 'config',
+    function ($scope, $rootScope, $http, config) {
 
         $scope.bar = null;
 
@@ -21,6 +21,7 @@ angular.module('dotHIVApp.controllers').controller('PinkbarControllerClicks', ['
 
         $http({method: 'GET', url: '/' + config.locale + '/pinkbar'}).success(function (data) {
             $scope.bar = data;
+            $rootScope.$broadcast('pinkbar.data', data);
             animate();
         });
     }

@@ -3,6 +3,7 @@ services:
         class: Dothiv\CharityWebsiteBundle\Controller\PinkbarController
         arguments:
           - @translator
+          - @dothiv.websitebase.number_format
           - @dothiv.websitebase.money_format
           - @dothiv.repository.config
           - @serializer

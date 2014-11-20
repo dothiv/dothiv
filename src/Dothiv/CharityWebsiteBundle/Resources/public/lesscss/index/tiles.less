@@ -1,0 +1,155 @@
+// Grid
+div.tiles {
+  & > article {
+    .container;
+  }
+  section {
+    @media (min-width: @screen-sm-min) {
+      width: 33.333%;
+      float: left;
+      height: 200px;
+    }
+    @media (max-width: @screen-xs-max) {
+      height: 250px;
+    }
+    div {
+      height: 100%;
+    }
+  }
+}
+
+// Design
+div.tiles {
+  background-color: @hivpink;
+  text-align: center;
+  color: #fff;
+  padding: 2em 0;
+  h1, h2 {
+    font-weight: @text-font-weight;
+  }
+  h1 {
+    font-size: @font-size-h3;
+    margin: 0;
+  }
+  h2 {
+    margin: 0;
+    font-size: @font-size-base;
+    strong {
+      font-weight: @text-font-weight;
+      font-size: @font-size-h1;
+    }
+  }
+  p {
+    @media (max-width: @screen-xs-max) {
+      font-size: @font-size-large;
+    }
+  }
+  section.tile {
+    position: relative;
+
+    @media (max-width: @screen-xs-max) {
+      border-bottom: 1px solid fadeout(#fff, 50);
+    }
+    div.backside {
+      background-color: #fff;
+      color: @hivpink;
+      padding: @grid-gutter-width / 2;
+      text-align: left;
+      a {
+        text-decoration: underline;
+      }
+    }
+    div.frontside {
+      &:before {
+        .charity-icon;
+        font-size: 150px;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.10);
+        @media (min-width: @screen-sm-min) {
+          font-size: 100px;
+        }
+      }
+    }
+    &.money {
+      @media (max-width: @screen-xs-max) {
+        border-top: 1px solid fadeout(#fff, 50);
+      }
+      @media (min-width: @screen-sm-min) {
+        border-right: 1px solid fadeout(#fff, 50);
+        border-bottom: 1px solid fadeout(#fff, 50);
+      }
+      div.frontside {
+        &:before {
+          content: "e";
+        }
+      }
+    }
+    &.goal {
+      @media (min-width: @screen-sm-min) {
+        border-right: 1px solid fadeout(#fff, 50);
+        border-bottom: 1px solid fadeout(#fff, 50);
+      }
+      div.frontside {
+        &:before {
+          content: "h";
+        }
+      }
+    }
+    &.project {
+      @media (min-width: @screen-sm-min) {
+        border-bottom: 1px solid fadeout(#fff, 50);
+      }
+      div.frontside {
+        &:before {
+          content: "i";
+        }
+      }
+    }
+    &.increment {
+      @media (min-width: @screen-sm-min) {
+        border-right: 1px solid fadeout(#fff, 50);
+      }
+      div.frontside {
+        &:before {
+          content: "j";
+        }
+      }
+    }
+    &.clicks {
+      @media (min-width: @screen-sm-min) {
+        border-right: 1px solid fadeout(#fff, 50);
+      }
+      div.frontside {
+        &:before {
+          content: "d";
+        }
+      }
+    }
+    &.price {
+      div.frontside {
+        &:before {
+          content: "g";
+        }
+      }
+    }
+    button {
+      background-color: transparent;
+      border: 0;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-size: 20px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.10);
+      &.opentile {
+        &:before {
+          &:extend(.charity-icon-tile-open:before);
+        }
+      }
+      &.closetile {
+        &:before {
+          &:extend(.charity-icon-tile-open:before);
+          color: @hivpink;
+        }
+      }
+    }
+  }
+}
