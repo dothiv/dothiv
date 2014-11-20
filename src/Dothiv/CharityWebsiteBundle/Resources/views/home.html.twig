@@ -139,6 +139,28 @@
         {% include "DothivCharityWebsiteBundle:partials:pinkbar_clickcounter.html.twig" %}
     {% endif %}
 </header>
+{% set tiles = content('Block', 'tiles') %}
+<div class="tiles" data-ng-controller="TilesController">
+    <article>
+        <header>
+            <h1>{{ tiles.title }}</h1>
+            {{ tiles.text|markdown }}
+        </header>
+        {% for tile in tiles.children|default([]) %}
+            <section class="tile {{ tile.code|replace({'tiles.': ''}) }}" data-ng-controller="TileController">
+                <div class="frontside" data-ng-show="!opened"  data-ng-click="open()">
+                    <h2>{{ tile.title|markdown|striptags('<a><em><strong>')|raw }}</h2>
+                    {{ tile.text|markdown }}
+                    <button class="opentile" data-ng-click="open()"></button>
+                </div>
+                <div class="backside" data-ng-show="opened">
+                    {{ tile.textMore|markdown }}
+                    <button class="closetile" data-ng-click="close()"></button>
+                </div>
+            </section>
+        {% endfor %}
+    </article>
+</div>
 <main>
     <article>
         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
