@@ -49,7 +49,7 @@ class NonProfitRegistrationReporter implements ReporterInterface
         $approved->setResolution(Report::RESOLUTION_TOTAL);
         $reports->set('approved', $approved);
         $registered = new Report();
-        $registered->setTitle('Approved');
+        $registered->setTitle('Registered');
         $registered->setResolution(Report::RESOLUTION_TOTAL);
         $reports->set('registered', $registered);
         return $reports;
