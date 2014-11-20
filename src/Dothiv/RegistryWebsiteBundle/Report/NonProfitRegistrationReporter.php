@@ -12,6 +12,7 @@ use Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepositoryInterface;
 
 class NonProfitRegistrationReporter implements ReporterInterface
 {
+
     /**
      * @var NonProfitRegistrationRepositoryInterface
      */
@@ -30,7 +31,7 @@ class NonProfitRegistrationReporter implements ReporterInterface
      */
     public function getTitle()
     {
-        return 'Non-Profit Registrations';
+        return 'Non-Profit Applications';
     }
 
     /**
@@ -43,6 +44,14 @@ class NonProfitRegistrationReporter implements ReporterInterface
         $r->setTitle('Total');
         $r->setResolution(Report::RESOLUTION_TOTAL);
         $reports->set('total', $r);
+        $approved = new Report();
+        $approved->setTitle('Approved');
+        $approved->setResolution(Report::RESOLUTION_TOTAL);
+        $reports->set('approved', $approved);
+        $registered = new Report();
+        $registered->setTitle('Approved');
+        $registered->setResolution(Report::RESOLUTION_TOTAL);
+        $reports->set('registered', $registered);
         return $reports;
     }
 
@@ -55,25 +64,38 @@ class NonProfitRegistrationReporter implements ReporterInterface
     {
         switch ($reportId) {
             case 'total':
-            default:
-                return $this->getTotals();
+                return $this->getCountRegistrations(function () {
+                        return true;
+                    });
+            case 'approved':
+                return $this->getCountRegistrations(function (NonProfitRegistration $r) {
+                        return $r->getApproved();
+                    });
+            case 'registered':
+                return $this->getCountRegistrations(function (NonProfitRegistration $r) {
+                        return $r->getRegistered();
+                    });
         }
     }
 
     /**
+     * @param callable $filter
+     *
      * @return ReportEvent[]|ArrayCollection
      */
-    protected function getTotals()
+    protected function getCountRegistrations($filter)
     {
         $date  = null;
         $count = 0;
         foreach ($this->nonProfitRegistrationRepo->findAll() as $registration) {
+            if (!$filter($registration)) {
+                continue;
+            }
             /** @var NonProfitRegistration $registration */
             if ($date < $registration->getCreated()) {
                 $date = $registration->getCreated();
             }
             $count += 1;
-
         }
         $events = new ArrayCollection();
         $events->add(new ReportEvent($date, $count));
