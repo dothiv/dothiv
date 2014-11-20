@@ -1,5 +1,6 @@
 parameters:
     dothiv.business.report.domain.class: Dothiv\BusinessBundle\Report\DomainReporter
+    dothiv.business.report.clicks.class: Dothiv\BusinessBundle\Report\ClicksReporter
 
 services:
     dothiv.business.report.domain:
@@ -8,3 +9,11 @@ services:
         - @dothiv.repository.domain
         tags:
         - { name: dothiv_admin.stats.reporter, id: "domains" }
+
+    dothiv.business.report.clicks:
+        class: %dothiv.business.report.clicks.class%
+        arguments:
+        - @dothiv.repository.config
+        - @dothiv.repository.domain
+        tags:
+        - { name: dothiv_admin.stats.reporter, id: "clicks" }
