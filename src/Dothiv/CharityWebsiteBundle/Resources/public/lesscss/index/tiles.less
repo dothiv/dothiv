@@ -7,7 +7,7 @@ div.tiles {
     @media (min-width: @screen-sm-min) {
       width: 33.333%;
       float: left;
-      height: 200px;
+      min-height: 200px;
     }
     @media (max-width: @screen-xs-max) {
       height: 250px;
@@ -23,10 +23,7 @@ div.tiles {
   background-color: @hivpink;
   text-align: center;
   color: #fff;
-  padding: 2em 0;
-  h1, h2 {
-    font-weight: @text-font-weight;
-  }
+  padding: 2em 0 5em 0;
   h1 {
     font-size: @font-size-h3;
     margin: 0;

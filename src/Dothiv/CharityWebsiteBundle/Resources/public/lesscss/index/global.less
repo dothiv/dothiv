@@ -21,3 +21,14 @@ button {
     outline: none;
   }
 }
+
+iframe {
+  border: 0;
+  &.video {
+    width: 100%;
+    height: 250px;
+    @media (min-width: @screen-sm-min) {
+      height: 347px;
+    }
+  }
+}

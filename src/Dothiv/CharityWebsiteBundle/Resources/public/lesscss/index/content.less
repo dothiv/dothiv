@@ -1,0 +1,76 @@
+// Everything in main is content
+
+// Grid
+main {
+  &:extend(.container all);
+  article {
+    &:extend(.row all);
+    section, header, footer {
+      .make-xs-column(12);
+      &.cols3 {
+        @media (min-width: @screen-sm-min) {
+          &:extend(.row-fluid);
+          div {
+            .make-sm-column(4);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Design
+main {
+
+}
+
+// Custom styles
+// Full-width video
+main {
+  article.video-fullwidth {
+    section, header, footer {
+      .make-sm-column(8);
+      .make-sm-column-offset(2);
+      iframe.video {
+        margin-bottom: 1em;
+      }
+    }
+
+  }
+}
+
+// Down arrow
+hr.arrow {
+  border: 0;
+  color: #fa0;
+  font-size: 150px;
+  position: relative;
+  margin-left: 50%;
+  height: 25px;
+  &:before {
+    &:extend(.charity-icon);
+    content: "c";
+    color: #fff;
+    position: absolute;
+    top: -100px;
+    left: -75px;
+  }
+  &:after {
+    &:extend(.charity-icon);
+    content: "b";
+    color: @hivpink;
+    position: absolute;
+    top: -100px;
+    left: -75px;
+  }
+}
+
+article + hr.arrow {
+  margin-top: 100px;
+  &:before {
+    color: @hivpink;
+  }
+  &:after {
+    color: #fff;
+  }
+}
