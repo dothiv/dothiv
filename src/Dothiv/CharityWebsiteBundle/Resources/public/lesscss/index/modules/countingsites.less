@@ -1,0 +1,51 @@
+article.countingsites {
+  text-align: center;
+  padding-bottom: 4em;
+  @media (min-width: @screen-md-min) {
+    padding-top: 4em;
+    padding-bottom: 8em;
+  }
+  .site {
+    text-align: center;
+    color: @hivpink;
+    line-height: 2 * @font-size-h1;
+    @media (min-width: @screen-sm-min) {
+      font-size: @font-size-h1 * 1.5;
+      &.long {
+        font-size: (@font-size-h1 * 1.5) * 0.75;
+      }
+    }
+    @media (min-width: @screen-lg-min) {
+      font-size: @font-size-h1 * 2;
+      &.long {
+        font-size: (@font-size-h1 * 2) * 0.75;
+      }
+    }
+  }
+  button.prev, button.next {
+    position: absolute;
+    top: (@font-size-h1 * 2) - (@font-size-h3 * 2);
+    border: 0;
+    background: 0;
+    font-size: @font-size-h3 * 2;
+    line-height: 2 * @font-size-h1;
+    color: fadeout(@text-color, 50);
+  }
+  button.prev {
+    &:extend(.charity-icon-arrow-thin-down all);
+    transform: rotate(90deg);
+    left: 0;
+  }
+  button.next {
+    &:extend(.charity-icon-arrow-thin-down all);
+    transform: rotate(-90deg);
+    right: 0;
+  }
+  a.link {
+    &:extend(.btn all);
+    &:extend(.btn-primary all);
+    &:extend(.btn-lg all);
+    &:extend(.btn-arrow all);
+    margin-top: 1em;
+  }
+}
