@@ -7,3 +7,12 @@ services:
             - 'images'
         tags:
             - { name: dothiv.business.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
+
+    dothiv.charity.web.contentful.asset_image_listener:
+        class: %dothiv.base.web.contentul.image_listener.class%
+        arguments:
+            - @dothiv.websitebase.contentful.image_scaler
+            - 'PressQuote'
+            - 'logo'
+        tags:
+            - { name: dothiv.business.event_listener, event: dothiv.basewebsite.contentful.view.create, method: onViewCreate }
