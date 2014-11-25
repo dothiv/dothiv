@@ -228,9 +228,9 @@
         {% set numchildren = owndomain.children|length + owndomain.downloads|length %}
         <section class="howitworks cols{{ numchildren }}">
             {% for child in owndomain.children %}
-            <div>
-                {{ child.text|default("")|markdown }}
-            </div>
+                <div>
+                    {{ child.text|default("")|markdown }}
+                </div>
             {% endfor %}
             {% for download in owndomain.downloads %}
                 <div>
@@ -241,6 +241,31 @@
             {% endfor %}
         </section>
     </article>
+    {% set pressquotes = page.blocks[4] %}
+    <div data-ng-cloak data-ng-controller="ContentController" data-ng-show="loaded" data-ng-init="fetch('PressQuote')">
+        <hr>
+        <article class="pressquotes">
+            <header>
+                <h2>{{ pressquotes.title }}</h2>
+                {{ pressquotes.text|default("")|markdown }}
+            </header>
+            <section class="cols{{ '{{items.length}}' }}">
+                <div data-ng-repeat="item in items">
+                    <div class="logo">
+                        <a data-ng-href="{{ '{{item.url}}' }}">
+                            <img data-ng-src="{{ '{{item.logo.file.thumbnails.small}}' }}" class="logo" title="{{ '{{item.logo.title}} {{item.logo.description}}' }}">
+                        </a>
+                    </div>
+                    <blockquote>
+                        <p data-ng-bind="item.quote"></p>
+                        <p>
+                            <small><a data-ng-href="{{ '{{item.url}}' }}" data-ng-bind="item.logo.title"></a></small>
+                        </p>
+                    </blockquote>
+                </div>
+            </section>
+        </article>
+    </div>
 </main>
 <footer>
     <div>
