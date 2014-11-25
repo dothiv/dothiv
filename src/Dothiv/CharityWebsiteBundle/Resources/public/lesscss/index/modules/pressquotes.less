@@ -1,20 +1,31 @@
 article.pressquotes {
-  text-align: center;
   blockquote {
     padding: 0 12.5%;
     margin: 0;
     border: 0;
     text-align: left;
+    position: relative;
+    &:before {
+      &:extend(.charity-icon-quote:before);
+      font-size: @font-size-h1;
+      color: fadeout(@text-color, 85);
+      position: absolute;
+      top: 0;
+      left: -10px;
+    }
   }
-  div.logo {
-    width: 100%;
+  a.logo {
+    padding: 0 12.5%;
     min-height: 200px;
     position: relative;
+    display: block;
+    width: 100%;
     img.logo {
       width: 75%;
       position: absolute;
       bottom: 0;
       left: 12.5%;
+      margin: auto;
     }
     margin-bottom: 1em;
   }

@@ -249,17 +249,17 @@
                 <h2>{{ pressquotes.title }}</h2>
                 {{ pressquotes.text|default("")|markdown }}
             </header>
-            <section class="cols{{ '{{items.length}}' }}">
-                <div data-ng-repeat="item in items">
-                    <div class="logo">
-                        <a data-ng-href="{{ '{{item.url}}' }}">
-                            <img data-ng-src="{{ '{{item.logo.file.thumbnails.small}}' }}" class="logo" title="{{ '{{item.logo.title}} {{item.logo.description}}' }}">
-                        </a>
-                    </div>
+            <section class="cols{{ '{{filtered = (items|filter:{show:true}|limitTo:3); filtered.length;}}' }}">
+                <div data-ng-repeat="item in filtered">
+                    <a data-ng-href="{{ '{{item.url}}' }}" class="logo" target="_blank">
+                        <img data-ng-src="{{ '{{item.logo.file.thumbnails.medium}}' }}" class="logo"
+                             title="{{ '{{item.logo.title}} — {{item.logo.description}}' }}">
+                    </a>
                     <blockquote>
                         <p data-ng-bind="item.quote"></p>
+
                         <p>
-                            <small><a data-ng-href="{{ '{{item.url}}' }}" data-ng-bind="item.logo.title"></a></small>
+                            <small><a data-ng-href="{{ '{{item.url}}' }}" data-ng-bind="item.logo.title" target="_blank" title="{{ '{{item.logo.title}} — {{item.logo.description}}' }}"></a></small>
                         </p>
                     </blockquote>
                 </div>
