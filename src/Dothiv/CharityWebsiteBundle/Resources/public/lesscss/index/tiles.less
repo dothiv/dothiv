@@ -4,13 +4,13 @@ div.tiles {
     .container;
   }
   section {
+    @media (max-width: @screen-xs-max) {
+      min-height: 250px;
+    }
     @media (min-width: @screen-sm-min) {
       width: 33.333%;
       float: left;
-      min-height: 200px;
-    }
-    @media (max-width: @screen-xs-max) {
-      height: 250px;
+      height: 200px;
     }
     div {
       height: 100%;
