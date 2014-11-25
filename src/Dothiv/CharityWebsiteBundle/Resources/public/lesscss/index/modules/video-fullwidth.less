@@ -1,0 +1,17 @@
+// Full-width video
+main {
+  article.video-fullwidth {
+    section, header, footer {
+      iframe.video {
+        margin-bottom: 1em;
+        @media (min-width: @screen-sm-min) {
+          height: 435px;
+        }
+        @media (min-width: @screen-md-min) {
+          height: 529px;
+        }
+      }
+    }
+
+  }
+}

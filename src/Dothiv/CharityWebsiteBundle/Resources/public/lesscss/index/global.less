@@ -22,6 +22,15 @@ button {
   }
 }
 
+.btn-arrow {
+  &:after {
+    .charity-icon;
+    content: "a";
+    font-size: 11px;
+    margin-left: 5px;
+  }
+}
+
 iframe {
   border: 0;
   &.video {
@@ -30,5 +39,11 @@ iframe {
     @media (min-width: @screen-sm-min) {
       height: 347px;
     }
+  }
+}
+
+a {
+  &:hover, &:active, &:focus {
+    text-decoration: none;
   }
 }
