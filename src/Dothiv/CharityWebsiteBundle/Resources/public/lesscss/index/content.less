@@ -7,19 +7,40 @@ main {
     &:extend(.row all);
     section, header, footer {
       .make-xs-column(12);
-      &.cols3 {
-        @media (min-width: @screen-sm-min) {
-          &:extend(.row-fluid);
-          div {
-            .make-sm-column(4);
-          }
-        }
+      &.cols2 {
+        .child-columns(2);
       }
+      &.cols3 {
+        .child-columns(3);
+      }
+      &.cols4 {
+        .child-columns(4);
+      }
+      &.cols5 {
+        .child-columns(5);
+      }
+      &.cols6 {
+        .child-columns(6);
+      }
+    }
+  }
+}
+
+// Child columns
+.child-columns(@num-children) {
+  @media (min-width: @screen-sm-min) {
+    &:extend(.row-fluid);
+    div {
+      float: left;
+      width: 100% / @num-children;
+      position: relative;
     }
   }
 }
 
 // Design
 main {
-
+  a.download {
+    &:extend(.charity-icon-download all);
+  }
 }
