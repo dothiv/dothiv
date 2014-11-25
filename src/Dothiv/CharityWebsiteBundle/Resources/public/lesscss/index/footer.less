@@ -76,16 +76,15 @@ body > footer {
 
   nav a {
     margin-bottom: 0.5em;
+    text-decoration: none;
     &.social-link {
       margin-bottom: 0;
     }
-    @media (min-width: @screen-sm-min) {
-      display: block;
+    display: block;
+    color: @text-color;
+    &:hover {
       color: @text-color;
-      &:hover {
-        color: @text-color;
-        text-decoration: none;
-      }
+      text-decoration: none;
     }
   }
 
