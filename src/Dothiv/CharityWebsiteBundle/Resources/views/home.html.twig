@@ -98,8 +98,7 @@
                         {% trans %}header.home.aboutHIV{% endtrans %}<br>
                         <small>{% trans %}header.home.aboutHIV.subtitle{% endtrans %}</small>
                     </a>
-                    <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'register'}) }}"
-                       class="button">{% trans %}
+                    <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'register'}) }}" class="button">{% trans %}
                         header.bar.registerurl{% endtrans %}</a>
                 </nav>
 
@@ -182,12 +181,11 @@
             </div>
             <nav>
                 <div>
-                    <a href="https://twitter.com/share?url={{ video.video.url|url_encode }}&amp;text={{ video.title|url_encode }}"
-                       class="twitter-share-button">{% trans %}share.twitter.button{% endtrans %}</a>
+                    <a href="https://twitter.com/share?url={{ video.video.url|url_encode }}&amp;text={{ video.title|url_encode }}" class="twitter-share-button">{% trans %}
+                        share.twitter.button{% endtrans %}</a>
                 </div>
                 <div>
-                    <div class="fb-like" data-href="{{ video.video.url }}" data-layout="button_count" data-action="like"
-                         data-show-faces="false" data-share="true"></div>
+                    <div class="fb-like" data-href="{{ video.video.url }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
                 </div>
             </nav>
         </footer>
@@ -202,10 +200,8 @@
             </header>
             <section>
                 <a data-ng-href="{{ '{{domain.link}}' }}" rel="friend" target="_blank">
-                    <h3 data-ng-bind="domain.name" class="site"
-                        data-ng-class="{long: domain.name.length > 25}"></h3>
-                </a>
-                <a data-ng-href="{{ '{{domain.link}}' }}" rel="friend" target="_blank" class="link">Visit site</a>
+                    <h3 data-ng-bind="domain.name" class="site" data-ng-class="{long: domain.name.length > 25}"></h3>
+                </a> <a data-ng-href="{{ '{{domain.link}}' }}" rel="friend" target="_blank" class="link">Visit site</a>
                 <nav>
                     <button data-ng-click="prev()" class="prev"></button>
                     <button data-ng-click="next()" class="next"></button>
@@ -251,15 +247,17 @@
             </header>
             <section class="cols{{ '{{filtered = (items|filter:{show:true}|limitTo:3); filtered.length;}}' }}">
                 <div data-ng-repeat="item in filtered">
-                    <a data-ng-href="{{ '{{item.url}}' }}" class="logo" target="_blank">
-                        <img data-ng-src="{{ '{{item.logo.file.thumbnails.medium}}' }}" class="logo"
-                             title="{{ '{{item.logo.title}} — {{item.logo.description}}' }}">
-                    </a>
                     <blockquote>
+                        <a data-ng-href="{{ '{{item.url}}' }}" class="logo" target="_blank">
+                            <img data-ng-src="{{ '{{item.logo.file.thumbnails.supporter}}' }}" class="logo" title="{{ '{{item.logo.title}} — {{item.logo.description}}' }}">
+                        </a>
+
                         <p data-ng-bind="item.quote"></p>
 
                         <p>
-                            <small><a data-ng-href="{{ '{{item.url}}' }}" data-ng-bind="item.logo.title" target="_blank" title="{{ '{{item.logo.title}} — {{item.logo.description}}' }}"></a></small>
+                            <small>
+                                <a data-ng-href="{{ '{{item.url}}' }}" data-ng-bind="item.logo.title" target="_blank" title="{{ '{{item.logo.title}} — {{item.logo.description}}' }}"></a>
+                            </small>
                         </p>
                     </blockquote>
                 </div>
