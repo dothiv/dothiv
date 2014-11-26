@@ -4,7 +4,9 @@ article.owndomain {
     padding-top: 4em;
     padding-bottom: 8em;
   }
-  section.more {
+  section.text {
+    .make-sm-column(8);
+    .make-sm-column-offset(2);
     a {
       &:extend(.btn all);
       &:extend(.btn-primary all);
@@ -14,11 +16,6 @@ article.owndomain {
       margin-bottom: 2em;
       text-decoration: none;
     }
-  }
-  section.text {
-    .make-sm-column(8);
-    .make-sm-column-offset(2);
-    text-align: left;
   }
   section.howitworks {
     text-align: center;

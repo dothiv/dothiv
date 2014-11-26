@@ -218,9 +218,6 @@
         <section class="text">
             {{ owndomain.text|default("")|markdown }}
         </section>
-        <section class="more">
-            {{ owndomain.textMore|default("")|markdown }}
-        </section>
         {% set numchildren = owndomain.children|length + owndomain.downloads|length %}
         <section class="howitworks cols{{ numchildren }}">
             {% for child in owndomain.children %}
@@ -230,9 +227,11 @@
             {% endfor %}
             {% for download in owndomain.downloads %}
                 <div>
-                    <a href="{{ download.file.url }}" class="download">
-                        {{ download.title|default("") }}
-                    </a>
+                    <p>
+                        <a href="{{ download.file.url }}" class="download">
+                            {{ download.title|default("") }}
+                        </a>
+                    </p>
                 </div>
             {% endfor %}
         </section>
