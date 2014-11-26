@@ -1,0 +1,134 @@
+{% trans_default_domain "charity" %}
+{% set page = content('Page', 'home') %}
+{% set title %}{{ page.title }}{% endset %}
+{% set description %}{{ page.description|default("") }}{% endset %}
+{% extends "DothivCharityWebsiteBundle::3/page.html.twig" %}
+{% block main %}
+    {% set tiles = page.blocks[0] %}
+    <div data-ng-cloak data-ng-controller="TilesController" data-ng-show="money">
+        <div class="tiles">
+            <article>
+                <header>
+                    <h1>{{ tiles.title }}</h1>
+                    {{ tiles.text|markdown }}
+                </header>
+                {% for tile in tiles.children|default([]) %}
+                    <section class="tile {{ tile.code|replace({'tiles.': ''}) }}" data-ng-controller="TileController">
+                        <div class="frontside" data-ng-show="!opened" data-ng-click="open()">
+                            <h2>{{ tile.title|markdown|striptags('<a><em><strong>')|raw }}</h2>
+                            {{ tile.text|markdown }}
+                            <button class="opentile" data-ng-click="open()"></button>
+                        </div>
+                        <div class="backside" data-ng-show="opened">
+                            {{ tile.textMore|markdown }}
+                            <button class="closetile" data-ng-click="close()"></button>
+                        </div>
+                    </section>
+                {% endfor %}
+            </article>
+        </div>
+        <hr class="arrow">
+    </div>
+    <main>
+        {% set video = page.blocks[1] %}
+        <article class="video-fullwidth">
+            <header>
+                <h2>{{ video.title }}</h2>
+                {{ video.text|default("")|markdown }}
+            </header>
+            <section>
+                <iframe width="569" height="320" src="{{ video.video.embed_url }}" allowfullscreen class="video"></iframe>
+            </section>
+            <footer class="cols3">
+                <div>
+                    {{ video.textMore|default("")|markdown }}
+                </div>
+                <nav>
+                    <div>
+                        <a href="https://twitter.com/share?url={{ video.video.url|url_encode }}&amp;text={{ video.title|url_encode }}" class="twitter-share-button">{% trans %}
+                            share.twitter.button{% endtrans %}</a>
+                    </div>
+                    <div>
+                        <div class="fb-like" data-href="{{ video.video.url }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                    </div>
+                </nav>
+            </footer>
+        </article>
+        <hr class="arrow">
+        {% set visitdomains = page.blocks[2] %}
+        <div data-ng-cloak data-ng-controller="CharityHivDomainListController" data-ng-show="domain">
+            <article class="countingsites">
+                <header>
+                    <h2>{{ visitdomains.title }}</h2>
+                    {{ visitdomains.text|default("")|markdown }}
+                </header>
+                <section>
+                    <a data-ng-href="{{ '{{domain.link}}' }}" rel="friend" target="_blank">
+                        <h3 data-ng-bind="domain.name" class="site" data-ng-class="{long: domain.name.length > 25}"></h3>
+                    </a> <a data-ng-href="{{ '{{domain.link}}' }}" rel="friend" target="_blank" class="link">Visit
+                        site</a>
+                    <nav>
+                        <button data-ng-click="prev()" class="prev"></button>
+                        <button data-ng-click="next()" class="next"></button>
+                    </nav>
+                </section>
+            </article>
+            <hr class="arrow">
+        </div>
+        {% set owndomain = page.blocks[3] %}
+        <div data-ng-cloak data-ng-controller="TilesController" data-ng-show="money">
+            <article class="owndomain">
+                <header>
+                    <h2>{{ owndomain.title }}</h2>
+                </header>
+                <section class="text">
+                    {{ owndomain.text|default("")|markdown }}
+                </section>
+                {% set numchildren = owndomain.children|length + owndomain.downloads|length %}
+                <section class="howitworks cols{{ numchildren }}">
+                    {% for child in owndomain.children %}
+                        <div>
+                            {{ child.text|default("")|markdown }}
+                        </div>
+                    {% endfor %}
+                    {% for download in owndomain.downloads %}
+                        <div>
+                            <p>
+                                <a href="{{ download.file.url }}" class="download">
+                                    {{ download.title|default("") }}
+                                </a>
+                            </p>
+                        </div>
+                    {% endfor %}
+                </section>
+            </article>
+        </div>
+        {% set pressquotes = page.blocks[4] %}
+        <div data-ng-cloak data-ng-controller="ContentController" data-ng-show="loaded" data-ng-init="fetch('PressQuote')">
+            <hr>
+            <article class="pressquotes">
+                <header>
+                    <h2>{{ pressquotes.title }}</h2>
+                    {{ pressquotes.text|default("")|markdown }}
+                </header>
+                <section class="cols{{ '{{filtered = (items|filter:{show:true}|limitTo:3); filtered.length;}}' }}">
+                    <div data-ng-repeat="item in filtered">
+                        <blockquote>
+                            <a data-ng-href="{{ '{{item.url}}' }}" class="logo" target="_blank">
+                                <img data-ng-src="{{ '{{item.logo.file.thumbnails.supporter}}' }}" class="logo" title="{{ '{{item.logo.title}} — {{item.logo.description}}' }}">
+                            </a>
+
+                            <p data-ng-bind="item.quote"></p>
+
+                            <p>
+                                <small>
+                                    <a data-ng-href="{{ '{{item.url}}' }}" data-ng-bind="item.logo.title" target="_blank" title="{{ '{{item.logo.title}} — {{item.logo.description}}' }}"></a>
+                                </small>
+                            </p>
+                        </blockquote>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+{% endblock %}

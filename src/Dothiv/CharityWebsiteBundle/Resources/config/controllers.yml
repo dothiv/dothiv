@@ -1,14 +1,4 @@
 services:
-    dothiv.charity.web.controller.index:
-        class: Dothiv\CharityWebsiteBundle\Controller\IndexController
-        arguments:
-          - @dothiv.websitebase.cache.request_lastmodified
-          - @templating
-          - @dothiv.charity.contentful.charity_content
-          - "DothivCharityWebsiteBundle"
-          - @clock
-          - %page_lifetime%
-
     dothiv.charity.web.controller.projects:
         class: Dothiv\CharityWebsiteBundle\Controller\ProjectsController
         arguments:

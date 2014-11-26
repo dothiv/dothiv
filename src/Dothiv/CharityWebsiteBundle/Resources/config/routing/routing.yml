@@ -6,18 +6,11 @@ dothiv_charity_index_nolang:
         path: /en
         permanent: true
 
-dothiv_charity_index:
+dothiv_charity_home:
     pattern:  /{locale}
     defaults:
-        _controller: dothiv.charity.web.controller.index:indexAction
-    requirements:
-        locale:  en|de|ky
-
-dothiv_charity_home:
-    path:  /{_locale}/home
-    defaults:
-        _controller: FrameworkBundle:Template:template
-        template: 'DothivCharityWebsiteBundle::home.html.twig'
+        _controller: dothiv.charity.web.controller.page:pageAction
+        page: home
     requirements:
         locale:  en|de|ky
 
