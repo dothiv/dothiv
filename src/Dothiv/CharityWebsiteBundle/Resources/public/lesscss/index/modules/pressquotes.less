@@ -1,6 +1,11 @@
 article.pressquotes {
   blockquote {
-    padding: 0 12.5%;
+    padding: 2em 0 0 0;
+    font-size: @font-size-base;
+    @media (min-width: @screen-sm-min) {
+      padding: 0 20% 0 0;
+      margin-top: 2em;
+    }
     margin: 0;
     border: 0;
     text-align: left;
@@ -10,23 +15,21 @@ article.pressquotes {
       font-size: @font-size-h1;
       color: fadeout(@text-color, 85);
       position: absolute;
-      top: 0;
-      left: -10px;
+      top: 15px;
+      left: -25px;
+      @media (min-width: @screen-sm-min) {
+        top: -10px;
+        left: -45px;
+      }
     }
   }
   a.logo {
-    padding: 0 12.5%;
-    min-height: 200px;
-    position: relative;
-    display: block;
-    width: 100%;
     img.logo {
-      width: 75%;
-      position: absolute;
-      bottom: 0;
-      left: 12.5%;
-      margin: auto;
+      display: none;
+      width: 50%;
+      @media (min-width: @screen-sm-min) {
+        display: inline-block;
+      }
     }
-    margin-bottom: 1em;
   }
 }
