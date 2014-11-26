@@ -1,15 +1,19 @@
 // Full-width video
-main {
-  article.video-fullwidth {
-    section, header, footer {
-      iframe.video {
-        margin-bottom: 1em;
-        @media (min-width: @screen-sm-min) {
-          height: 435px;
-        }
-        @media (min-width: @screen-md-min) {
-          height: 529px;
-        }
+article.video-fullwidth {
+  text-align: center;
+  @media (min-width: @screen-lg-min) {
+    padding-top: 4em;
+    padding-bottom: 8em;
+  }
+  section, header, footer {
+    iframe.video {
+      margin-bottom: 1em;
+      @media (min-width: @screen-sm-min) {
+        height: 435px;
+        margin-top: 1em;
+      }
+      @media (min-width: @screen-md-min) {
+        height: 529px;
       }
     }
   }
