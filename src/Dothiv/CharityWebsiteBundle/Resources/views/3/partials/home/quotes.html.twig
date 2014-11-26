@@ -1,0 +1,26 @@
+<div data-ng-cloak data-ng-controller="ContentController" data-ng-show="loaded" data-ng-init="fetch('Quote', ['quote'])">
+    <hr>
+    <article class="quotes">
+        <header>
+            <h2>{{ block.title }}</h2>
+            {{ block.text|default("")|markdown }}
+        </header>
+        {# Quotes with photo #}
+        <section class="cols{{ '{{filtered = (items|filter:{hero:true}|propertyPresent:{photo:true}|limitTo:3); filtered.length;}}' }}">
+            <div data-ng-repeat="item in filtered">
+                <blockquote>
+                    <img data-ng-src="{{ '{{item.photo.file.thumbnails.medium}}' }}" class="picture" alt="{{ '{{item.person}}' }}" title="{{ '{{item.person}}' }}">
+
+                    <div data-ng-bind-html="item.quote"></div>
+
+                    <p>
+                        <small data-ng-bind="item.person"></small>
+                    </p>
+                </blockquote>
+            </div>
+        </section>
+        <footer>
+            {{ block.textMore|default("")|markdown }}
+        </footer>
+    </article>
+</div>
