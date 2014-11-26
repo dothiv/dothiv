@@ -6,7 +6,6 @@ article.countingsites {
   }
   @media (min-width: @screen-lg-min) {
     padding-top: 4em;
-    padding-bottom: 8em;
   }
   .site {
     text-align: center;
@@ -50,11 +49,26 @@ article.countingsites {
   a {
     text-decoration: none;
   }
-  a.link {
-    &:extend(.btn all);
-    &:extend(.btn-primary all);
-    &:extend(.btn-lg all);
-    &:extend(.btn-arrow all);
-    margin-top: 1em;
+}
+
+article.herodomains {
+  padding-top: 1em;
+  padding-bottom: 2em;
+  @media (min-width: @screen-lg-min) {
+    padding-bottom: 8em;
+  }
+  section.heroes {
+    text-align: center;
+    a {
+      text-decoration: none;
+    }
+    img {
+      width: 25%;
+      margin: 0.25em;
+      @media (min-width: @screen-md-min) {
+        width: 15%;
+        margin: 1em;
+      }
+    }
   }
 }
