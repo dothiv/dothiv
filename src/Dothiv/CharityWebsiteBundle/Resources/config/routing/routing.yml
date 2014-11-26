@@ -6,7 +6,7 @@ dothiv_charity_index_nolang:
         path: /en
         permanent: true
 
-dothiv_charity_home:
+dothiv_charity_index:
     pattern:  /{locale}
     defaults:
         _controller: dothiv.charity.web.controller.page:pageAction
