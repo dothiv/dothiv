@@ -111,21 +111,30 @@
                     <h2>{{ pressquotes.title }}</h2>
                     {{ pressquotes.text|default("")|markdown }}
                 </header>
-                <section class="cols{{ '{{filtered = (items|filter:{show:true}|limitTo:3); filtered.length;}}' }}">
+                {# Quotes with logo and text #}
+                <section class="cols{{ '{{filtered = (items|pressquote:{quote: true}|limitTo:3); filtered.length;}}' }}">
                     <div data-ng-repeat="item in filtered">
                         <blockquote>
-                            <a data-ng-href="{{ '{{item.url}}' }}" class="logo" target="_blank">
-                                <img data-ng-src="{{ '{{item.logo.file.thumbnails.supporter}}' }}" class="logo" title="{{ '{{item.logo.title}} — {{item.logo.description}}' }}">
+                            <a data-ng-href="{{ '{{item.url}}' }}" class="logo" target="_blank" data-ng-show="item.logo">
+                                <img data-ng-src="{{ '{{item.logo.file.thumbnails.supporter}}' }}" class="logo" title="{{ '{{item.name}}' }}">
                             </a>
 
                             <p data-ng-bind="item.quote"></p>
 
                             <p>
                                 <small>
-                                    <a data-ng-href="{{ '{{item.url}}' }}" data-ng-bind="item.logo.title" target="_blank" title="{{ '{{item.logo.title}} — {{item.logo.description}}' }}"></a>
+                                    <a data-ng-href="{{ '{{item.url}}' }}" data-ng-bind="item.name" target="_blank" title="{{ '{{item.name}}' }}"></a>
                                 </small>
                             </p>
                         </blockquote>
+                    </div>
+                </section>
+                {# Quotes with logo only #}
+                <section class="logosonly cols{{ '{{filtered = (items|pressquote:{logo: true, quote: false}); filtered.length;}}' }}">
+                    <div data-ng-repeat="item in filtered">
+                        <a data-ng-href="{{ '{{item.url}}' }}" class="logo" target="_blank">
+                            <img data-ng-src="{{ '{{item.logo.file.thumbnails.supporter}}' }}" class="logo" title="{{ '{{item.name}}' }}">
+                        </a>
                     </div>
                 </section>
             </article>
