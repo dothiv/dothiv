@@ -6,6 +6,16 @@ div.tiles {
   section {
     @media (max-width: @screen-xs-max) {
       min-height: 250px;
+      div.backside {
+        min-height: 249px;
+      }
+    }
+    &.money {
+      @media (max-width: @screen-xs-max) {
+        div.backside {
+          min-height: 248px;
+        }
+      }
     }
     @media (min-width: @screen-sm-min) {
       width: 33.333%;
