@@ -211,31 +211,33 @@
         <hr class="arrow">
     </div>
     {% set owndomain = page.blocks[3] %}
-    <article class="owndomain">
-        <header>
-            <h2>{{ owndomain.title }}</h2>
-        </header>
-        <section class="text">
-            {{ owndomain.text|default("")|markdown }}
-        </section>
-        {% set numchildren = owndomain.children|length + owndomain.downloads|length %}
-        <section class="howitworks cols{{ numchildren }}">
-            {% for child in owndomain.children %}
-                <div>
-                    {{ child.text|default("")|markdown }}
-                </div>
-            {% endfor %}
-            {% for download in owndomain.downloads %}
-                <div>
-                    <p>
-                        <a href="{{ download.file.url }}" class="download">
-                            {{ download.title|default("") }}
-                        </a>
-                    </p>
-                </div>
-            {% endfor %}
-        </section>
-    </article>
+    <div data-ng-cloak data-ng-controller="TilesController" data-ng-show="money">
+        <article class="owndomain">
+            <header>
+                <h2>{{ owndomain.title }}</h2>
+            </header>
+            <section class="text">
+                {{ owndomain.text|default("")|markdown }}
+            </section>
+            {% set numchildren = owndomain.children|length + owndomain.downloads|length %}
+            <section class="howitworks cols{{ numchildren }}">
+                {% for child in owndomain.children %}
+                    <div>
+                        {{ child.text|default("")|markdown }}
+                    </div>
+                {% endfor %}
+                {% for download in owndomain.downloads %}
+                    <div>
+                        <p>
+                            <a href="{{ download.file.url }}" class="download">
+                                {{ download.title|default("") }}
+                            </a>
+                        </p>
+                    </div>
+                {% endfor %}
+            </section>
+        </article>
+    </div>
     {% set pressquotes = page.blocks[4] %}
     <div data-ng-cloak data-ng-controller="ContentController" data-ng-show="loaded" data-ng-init="fetch('PressQuote')">
         <hr>
