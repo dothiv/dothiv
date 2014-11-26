@@ -85,7 +85,7 @@ class ContentfulContentType
     {
         $displayField = $this->getDisplayField();
         $values       = array_values((array)$entry->{$displayField});
-        $entry->setName($values[0]);
+        $entry->setName(isset($values[0]) ? $values[0] : 'Untitled');
     }
 
     /**
