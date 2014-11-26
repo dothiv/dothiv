@@ -1,0 +1,58 @@
+{% trans_default_domain "charity" %}
+<header>
+    <div class="header" data-ng-controller="HeaderController" data-ng-class="{expanded: expanded}">
+        <div>
+            <div class="close-target" data-ng-click="close()"></div>
+            <div class="logo">
+                <h1>
+                    <a href="/" rel="index">
+                        {% image '@DothivCharityWebsiteBundle/Resources/public/images/logo.svg' %}
+                        <img class="logo" src="{{ asset(asset_url) }}" alt="{% trans %}dothiv.fullname{% endtrans %}">
+                        {% endimage %}
+                        <small>{% trans %}dothiv.claim{% endtrans %}</small>
+                    </a>
+                </h1>
+            </div>
+
+            <div class="navigation">
+
+                <nav class="meta">
+                    {% if locale != 'en' %}
+                        <a href="{{ '/en' ~ app.request.pathInfo|slice(3) }}">English</a>
+                    {% endif %}
+                    {% if locale != 'de' %}
+                        <a href="{{ '/de' ~ app.request.pathInfo|slice(3) }}">Deutsch</a>
+                    {% endif %}
+                    {% if features.profile %}
+                        <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}">{% trans %}
+                            header.menu.myprofile{% endtrans %}</a>
+                    {% endif %}
+                </nav>
+
+                <nav class="main">
+                    <a href="{{ path('dothiv_charity_about_index', {'locale': locale}) }}" class="twoline">
+                        {% trans %}header.home.aboutHIV{% endtrans %}<br>
+                        <small>{% trans %}header.home.aboutHIV.subtitle{% endtrans %}</small>
+                    </a>
+                    <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'register'}) }}" class="button">{% trans %}
+                        header.bar.registerurl{% endtrans %}</a>
+                </nav>
+
+                {% include "DothivCharityWebsiteBundle:3:partials/footernav.html.twig" %}
+
+            </div>
+
+            <button class="toggle" type="button" data-ng-click="toggle()">
+            <span>
+                <span class="sr-only">{% trans %}toggle.nav{% endtrans %}</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </span>
+            </button>
+        </div>
+    </div>
+    {% if features.pinkbar_clickcounter %}
+        {% include "DothivCharityWebsiteBundle:partials:pinkbar_clickcounter.html.twig" %}
+    {% endif %}
+</header>
