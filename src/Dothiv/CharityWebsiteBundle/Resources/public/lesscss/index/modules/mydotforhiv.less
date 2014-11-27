@@ -1,0 +1,118 @@
+@mydotforhiv-width: 300px;
+
+#mydotforhiv {
+  position: fixed;
+  top: @header-height-mobile + @grid-gutter-width;
+  right: @grid-gutter-width;
+  @media (min-width: @screen-sm-min) {
+    top: 100px;
+    right: 100px;
+  }
+  width: @mydotforhiv-width;
+  height: @mydotforhiv-width;
+  color: #fff;
+  text-align: center;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
+  -ms-transform: perspective(1000px);
+  -moz-transform: perspective(1000px);
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+
+  button {
+    border: 0;
+    background: 0;
+    &:extend(.charity-icon-close all);
+    color: fadeout(@text-color, 50);
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: @font-size-h3;
+  }
+
+  .front, .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: @mydotforhiv-width;
+    height: @mydotforhiv-width;
+    canvas.dot {
+      width: @mydotforhiv-width;
+      height: @mydotforhiv-width;
+      -webkit-transform-style: preserve-3d;
+    }
+    h2 {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      top: @mydotforhiv-width * 0.3;
+      color: #fff;
+      font-size: @font-size-h1;
+      text-transform: uppercase;
+      line-height: 0.85;
+      font-style: normal;
+    }
+    strong {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      top: @mydotforhiv-width * 0.6;
+      font-size: @font-size-h3;
+    }
+    div {
+      position: absolute;
+      left: 15%;
+      width: 70%;
+      top: @mydotforhiv-width * 0.15;
+      font-size: @font-size-h4;
+      line-height: 0.95;
+    }
+    a {
+      color: #fff;
+    }
+    nav.share {
+      a {
+        text-decoration: none;
+        i {
+          padding: 0 1em;
+          &:before {
+            color: #fff;
+            font-size: @font-size-h1 * 1.25;
+          }
+        }
+      }
+    }
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    -webkit-transition: 0.6s;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transform: rotateY(0deg);
+
+    -moz-transition: 0.6s;
+    -moz-transform-style: preserve-3d;
+    -moz-transform: rotateY(0deg);
+
+    -o-transition: 0.6s;
+    -o-transform-style: preserve-3d;
+    -o-transform: rotateY(0deg);
+
+    -ms-transition: 0.6s;
+    -ms-transform-style: preserve-3d;
+    -ms-transform: rotateY(0deg);
+
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+  }
+  .flipped {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+  }
+}
