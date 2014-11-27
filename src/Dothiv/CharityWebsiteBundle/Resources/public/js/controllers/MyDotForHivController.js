@@ -22,10 +22,10 @@ angular.module('dotHIVApp.controllers').controller('MyDotForHivController', ['$s
 
         $(function () {
             var dot = $("#mydotforhiv .dot").each(function (index, dot) {
-                ellipse(dot.getContext('2d'), 151, 151, 143, 143, 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)');
-                ellipse(dot.getContext('2d'), 152, 152, 143, 143, 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)');
-                ellipse(dot.getContext('2d'), 153, 153, 143, 143, 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)');
-                ellipse(dot.getContext('2d'), 154, 154, 143, 143, 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)');
+                ellipse(dot.getContext('2d'), 150, 151, 143, 143, 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)');
+                ellipse(dot.getContext('2d'), 150, 152, 143, 143, 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)');
+                ellipse(dot.getContext('2d'), 150, 153, 143, 143, 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)');
+                ellipse(dot.getContext('2d'), 150, 154, 143, 143, 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)');
                 ellipse(dot.getContext('2d'), 150, 150, 143, 143, 'white', '#e00073');
             });
         });
