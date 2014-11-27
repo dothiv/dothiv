@@ -1,0 +1,20 @@
+{% set block = content('Block', 'mydotforhiv') %}
+<div id="mydotforhiv" data-ng-controller="MyDotForHivController" data-ng-show="!hidden">
+    <div class="back" data-ng-class="{flipped: !flipped}">
+        <canvas class="dot" width="300" height="300"></canvas>
+        <div>
+            {{ block.children[0].text|default("")|markdown }}
+            <nav class="share">
+                <a href="https://www.facebook.com/"> <i class="charity-icon-facebook"></i> </a>
+                <a href="https://twitter.com/intent/tweet?text=."> <i class="charity-icon-twitter"></i> </a>
+            </nav>
+            {{ block.children[0].textMore|default("")|markdown }}
+        </div>
+    </div>
+    <div class="front" data-ng-click="flip()" data-ng-class="{flipped: flipped}">
+        <canvas class="dot" width="300" height="300"></canvas>
+        <h2>{{ block.title|default("") }}</h2>
+        <strong>{{ block.text|default("") }}</strong>
+    </div>
+    <button data-ng-click="hidden = true" title="{{ block.textMore|default("") }}"></button>
+</div>
