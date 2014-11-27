@@ -18,8 +18,6 @@
   perspective: 1000;
   -ms-transform: perspective(1000px);
   -moz-transform: perspective(1000px);
-  -moz-transform-style: preserve-3d;
-  -ms-transform-style: preserve-3d;
 
   button {
     border: 0;
@@ -27,9 +25,10 @@
     &:extend(.charity-icon-close all);
     color: fadeout(@text-color, 50);
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 10px;
+    top: 10px;
     font-size: @font-size-h3;
+    z-index: 101;
   }
 
   .front, .back {
@@ -38,11 +37,6 @@
     left: 0;
     width: @mydotforhiv-width;
     height: @mydotforhiv-width;
-    canvas.dot {
-      width: @mydotforhiv-width;
-      height: @mydotforhiv-width;
-      -webkit-transform-style: preserve-3d;
-    }
     h2 {
       position: absolute;
       left: 0;
@@ -63,8 +57,8 @@
     }
     div {
       position: absolute;
-      left: 15%;
-      width: 70%;
+      padding: 0 15%;
+      width: 100%;
       top: @mydotforhiv-width * 0.15;
       font-size: @font-size-h4;
       line-height: 0.95;
@@ -108,11 +102,50 @@
     transition: 0.6s;
     transform-style: preserve-3d;
     transform: rotateY(0deg);
+    z-index: 100;
+
+    &.flipped {
+      -webkit-transform: rotateY(180deg);
+      -moz-transform: rotateY(180deg);
+      -o-transform: rotateY(180deg);
+      transform: rotateY(180deg);
+      z-index: 99;
+    }
   }
-  .flipped {
-    -webkit-transform: rotateY(180deg);
-    -moz-transform: rotateY(180deg);
-    -o-transform: rotateY(180deg);
-    transform: rotateY(180deg);
+
+  canvas.dot {
+    width: @mydotforhiv-width;
+    height: @mydotforhiv-width;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transform: rotateY(0deg);
+    -moz-transform-style: preserve-3d;
+    -moz-transform: rotateY(0deg);
+    -o-transform-style: preserve-3d;
+    -o-transform: rotateY(0deg);
+    -ms-transform-style: preserve-3d;
+    -ms-transform: rotateY(0deg);
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    -webkit-transition: 0.6s;
+    -moz-transition: 0.6s;
+    -o-transition: 0.6s;
+    -ms-transition: 0.6s;
+    transition: 0.6s;
+    &.flipped {
+      -webkit-transition: 0.6s;
+      -webkit-transform: rotateY(180deg);
+
+      -moz-transition: 0.6s;
+      -moz-transform: rotateY(180deg);
+
+      -o-transition: 0.6s;
+      -o-transform: rotateY(180deg);
+
+      -ms-transition: 0.6s;
+      -ms-transform: rotateY(180deg);
+
+      transition: 0.6s;
+      transform: rotateY(180deg);
+    }
   }
 }
