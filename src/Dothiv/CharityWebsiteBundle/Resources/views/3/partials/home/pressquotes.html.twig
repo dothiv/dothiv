@@ -1,0 +1,38 @@
+<div data-ng-cloak data-ng-controller="ContentController" data-ng-show="loaded" data-ng-init="fetch('PressQuote')">
+    <hr>
+    <article class="pressquotes">
+        <header>
+            <h2>{{ block.title }}</h2>
+            {{ block.text|default("")|markdown }}
+        </header>
+        {# Quotes with logo and text #}
+        <section class="cols{{ '{{filtered = (items|filter:{show:true}|propertyPresent:{quote: true}|limitTo:3); filtered.length;}}' }}">
+            <div data-ng-repeat="item in filtered">
+                <blockquote>
+                    <a data-ng-href="{{ '{{item.url}}' }}" class="picture" target="_blank" data-ng-show="item.logo">
+                        <img data-ng-src="{{ '{{item.logo.file.thumbnails.supporter}}' }}" class="picture" title="{{ '{{item.name}}' }}">
+                    </a>
+
+                    <p data-ng-bind="item.quote"></p>
+
+                    <p>
+                        <small>
+                            <a data-ng-href="{{ '{{item.url}}' }}" data-ng-bind="item.name" target="_blank" title="{{ '{{item.name}}' }}"></a>
+                        </small>
+                    </p>
+                </blockquote>
+            </div>
+        </section>
+        {# Quotes with logo only #}
+        <section class="logosonly cols{{ '{{filtered = (items|filter:{show:true}|propertyPresent:{logo: true, quote: false}); filtered.length;}}' }}">
+            <div data-ng-repeat="item in filtered">
+                <a data-ng-href="{{ '{{item.url}}' }}" class="picture" target="_blank">
+                    <img data-ng-src="{{ '{{item.logo.file.thumbnails.supporter}}' }}" class="picture" title="{{ '{{item.name}}' }}">
+                </a>
+            </div>
+        </section>
+        <footer>
+            {{ block.textMore|default("")|markdown }}
+        </footer>
+    </article>
+</div>

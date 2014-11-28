@@ -15,20 +15,22 @@ describe('RegistrarsListController', function () {
         ctrl = $controller('RegistrarsListController', {'$scope': scope, 'config': config});
 
         $httpBackend = $injector.get('$httpBackend');
-        $httpBackend.when('GET', '/en/content/Registrar?markdown=promotion:inline').respond([
+        $httpBackend.when('GET', '/en/content/Registrar?markdown=promotion:inline,preferredDeal:inline').respond([
             {
                 name: 'Example US Registrar',
                 image: 'http://image.com/example',
                 country: 'USA',
                 pricePerYearUsd: 200,
-                url: 'http://example.com/'
+                url: 'http://example.com/',
+                priceLeader: true
             },
             {
                 name: 'Example EU Registrar',
                 image: 'http://image.eu/example',
                 country: 'Germany',
                 pricePerYearEur: 100,
-                url: 'http://example.de/'
+                url: 'http://example.de/',
+                preferredDeal: "Has a nice deal!"
             }
         ]);
     }));
@@ -46,7 +48,7 @@ describe('RegistrarsListController', function () {
     }));
 
     it('loads registrars via API', inject(function () {
-        $httpBackend.expectGET('/en/content/Registrar?markdown=promotion:inline');
+        $httpBackend.expectGET('/en/content/Registrar?markdown=promotion:inline,preferredDeal:inline');
         $httpBackend.flush();
         describe('money conversion', function () {
             it('calculates an EUR price for an USD price', function () {
@@ -63,6 +65,24 @@ describe('RegistrarsListController', function () {
                 expect(scope.registrars[1].priceEURLabel[0]).not.toBe("*");
                 expect(scope.registrars[1].priceUSD).toBe(200);
                 expect(scope.registrars[1].priceUSDLabel[0]).toBe("*");
+            });
+        });
+        describe('price leader', function() {
+            it('marks a registrar as a price leader', function() {
+                expect(scope.registrars[0].name).toBe("Example US Registrar");
+                expect(scope.registrars[0].isPriceLeader).toBe(true);
+                expect(scope.registrars[1].name).toBe("Example EU Registrar");
+                expect(scope.registrars[1].isPriceLeader).toBe(false);
+            });
+        });
+        describe('preferred deal', function() {
+            it('marks a registrar as a preferred deal', function() {
+                expect(scope.registrars[1].name).toBe("Example EU Registrar");
+                expect(scope.registrars[1].isPreferredDeal).toBe(true);
+                expect(scope.registrars[1].preferredDeal.$$unwrapTrustedValue()).toBe("Has a nice deal!");
+                expect(scope.registrars[0].name).toBe("Example US Registrar");
+                expect(scope.registrars[0].isPreferredDeal).toBe(false);
+                expect(scope.registrars[0].preferredDeal).toBeUndefined();
             });
         });
     }));

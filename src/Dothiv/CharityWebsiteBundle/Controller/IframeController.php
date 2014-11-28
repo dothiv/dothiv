@@ -80,11 +80,9 @@ class IframeController
 
         // Check if page is not modified.
         $uriLastModified = $lmc->getLastModified($request);
-        if ($uriLastModified->isDefined()) {
-            $response->setLastModified($uriLastModified->get());
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        $response->setLastModified($uriLastModified);
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         /** @var Domain $domain */

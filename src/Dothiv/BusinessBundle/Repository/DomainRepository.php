@@ -101,7 +101,7 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
     /**
      * {@inheritdoc}
      */
-    public function getPaginated(PaginatedQueryOptions $options, FilterQuery $filterQuery)
+    public function getPaginated(CRUD\PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
         $qb = $this->createQueryBuilder('i');
         if ($filterQuery->getTerm()->isDefined()) {

@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 class RequestLastModifiedCache
 {
     use LoggerAwareTrait;
-    
+
     const CONFIG_NAME = 'last_modified_content.min_last_modified';
 
     /**
@@ -90,21 +90,16 @@ class RequestLastModifiedCache
      *
      * @param Request $request
      *
-     * @return Option
+     * @return \DateTime
      */
     public function getLastModified(Request $request)
     {
-        $optionalMinModified  = $this->getLastMinModifiedDate();
+        $minModified          = $this->getLastMinModifiedDate();
         $optionalLastModified = Option::fromValue($this->cache->fetch($this->getCacheKeyRequest(sha1($request->getUri()), 'lastmodified')), false);
-        if ($optionalMinModified->orElse($optionalLastModified)->isEmpty()) {
-            return None::create();
-        }
         if ($optionalLastModified->isEmpty()) {
-            return $optionalMinModified;
-        } else if ($optionalMinModified->isEmpty()) {
-            return Option::fromValue(new \DateTime($optionalLastModified->get()));
+            return $minModified;
         }
-        return Option::fromValue(max($optionalMinModified->get(), new \DateTime($optionalLastModified->get())));
+        return max($minModified, new \DateTime($optionalLastModified->get()));
     }
 
     /**
@@ -153,15 +148,14 @@ class RequestLastModifiedCache
     }
 
     /**
+     * Returns the last modified for the content that has been loaded in the current scope.
+     *
      * @return \DateTime
      */
     public function getLastModifiedContent()
     {
-        $lastMinModifiedDateOptional = $this->getLastMinModifiedDate();
-        if ($lastMinModifiedDateOptional->isDefined()) {
-            return max($this->lastModifiedContent, $lastMinModifiedDateOptional->get());
-        }
-        return $this->lastModifiedContent;
+        $lastMinModifiedDate = $this->getLastMinModifiedDate();
+        return max($this->lastModifiedContent, $lastMinModifiedDate);
     }
 
     /**
@@ -205,17 +199,14 @@ class RequestLastModifiedCache
     }
 
     /**
-     * @return Option of \DateTime
+     * @return \DateTime
      */
     protected function getLastMinModifiedDate()
     {
         if ($this->lastMinModified === null) {
-            $this->lastMinModified = $this->configRepo->get(static::CONFIG_NAME);
-            $v = $this->lastMinModified->getValue();
-            if ($v) {
-                $this->lastMinModifiedDate = new \DateTime($v);
-            }
+            $this->lastMinModified     = $this->configRepo->get(static::CONFIG_NAME);
+            $this->lastMinModifiedDate = new \DateTime($this->lastMinModified->getValue());
         }
-        return Option::fromValue($this->lastMinModifiedDate);
+        return $this->lastMinModifiedDate;
     }
 } 

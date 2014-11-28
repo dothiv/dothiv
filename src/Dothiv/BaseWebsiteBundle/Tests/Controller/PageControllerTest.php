@@ -16,7 +16,6 @@ use Dothiv\ContentfulBundle\ContentfulEvents;
 use Dothiv\ContentfulBundle\Event\ContentfulEntryEvent;
 use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
 use Dothiv\ContentfulBundle\Item\ContentfulEntry;
-use PhpOption\Option;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;

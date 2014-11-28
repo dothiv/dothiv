@@ -32,7 +32,7 @@ class RequestLastModifiedCacheTest extends \PHPUnit_Framework_TestCase
     public function testDataProvider()
     {
         return array(
-            array(new \DateTime('2013-12-31T12:34:56Z'), new \DateTime('2013-12-31T12:34:56Z')),
+            array(new \DateTime('2013-12-31T12:34:56Z'), new \DateTime('2013-12-31T12:34:56Z'), new \DateTime('2012-01-02T12:34:56Z')),
             array(new \DateTime('2013-12-31T12:34:56Z'), new \DateTime('2014-01-02T12:34:56Z'), new \DateTime('2014-01-02T12:34:56Z'))
         );
     }
@@ -51,16 +51,14 @@ class RequestLastModifiedCacheTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider testDataProvider
      */
-    public function itShouldReturnLastModifiedContent(\DateTime $contentModified, \DateTime $expectedModified, \DateTime $minLastModifiedDate = null)
+    public function itShouldReturnLastModifiedContent(\DateTime $contentModified, \DateTime $expectedModified, \DateTime $minLastModifiedDate)
     {
         $this->mockConfigRepo->expects($this->once())->method('get')
             ->with(RequestLastModifiedCache::CONFIG_NAME)
             ->willReturnCallback(function () use ($minLastModifiedDate) {
                 $config = new Config();
                 $config->setName(RequestLastModifiedCache::CONFIG_NAME);
-                if ($minLastModifiedDate !== null) {
-                    $config->setValue($minLastModifiedDate->format(DATE_W3C));
-                }
+                $config->setValue($minLastModifiedDate->format(DATE_W3C));
                 return $config;
             });
 

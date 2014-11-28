@@ -2,6 +2,7 @@
 
 namespace Dothiv\BaseWebsiteBundle\Controller;
 
+use PhpOption\Option;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,11 +24,9 @@ class AppController extends PageController
 
         // Check if page is not modified.
         $uriLastModified = $lmc->getLastModified($request);
-        if ($uriLastModified->isDefined()) {
-            $response->setLastModified($uriLastModified->get());
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        $response->setLastModified($uriLastModified);
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         // Render page.

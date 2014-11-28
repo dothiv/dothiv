@@ -1,0 +1,27 @@
+<div data-ng-cloak data-ng-controller="TilesController" data-ng-show="money">
+    <article class="owndomain">
+        <header>
+            <h2>{{ block.title }}</h2>
+        </header>
+        <section class="text">
+            {{ block.text|default("")|markdown }}
+        </section>
+        {% set numchildren = block.children|length + block.downloads|length %}
+        <section class="howitworks cols{{ numchildren }}">
+            {% for child in block.children %}
+                <div>
+                    {{ child.text|default("")|markdown }}
+                </div>
+            {% endfor %}
+            {% for download in block.downloads %}
+                <div>
+                    <p>
+                        <a href="{{ download.file.url }}" class="download">
+                            {{ download.title|default("") }}
+                        </a>
+                    </p>
+                </div>
+            {% endfor %}
+        </section>
+    </article>
+</div>

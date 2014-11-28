@@ -1,0 +1,47 @@
+body {
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-weight: @text-font-weight;
+  @media (max-width: @screen-xs-max) {
+    padding-top: @header-height-mobile;
+  }
+}
+
+.social {
+  padding-right: @grid-gutter-width / 2;
+  font-size: 200%;
+  vertical-align: middle;
+}
+
+.btn-lg {
+  .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-large; @line-height-large; @border-radius-large);
+}
+
+button {
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn-arrow {
+  &:after {
+    .charity-icon;
+    content: "a";
+    font-size: 11px;
+    margin-left: 5px;
+  }
+}
+
+iframe {
+  border: 0;
+  &.video {
+    width: 100%;
+    height: 250px;
+    @media (min-width: @screen-sm-min) {
+      height: 347px;
+    }
+  }
+}
+
+a {
+  text-decoration: underline;
+}

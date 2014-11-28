@@ -21,4 +21,6 @@ final class BusinessEvents
     const ENTITY_CHANGED = 'dothiv.business.entity.changed';
 
     const ENTITY_CREATED = 'dothiv.business.entity.created';
+
+    const ENTITY_DELETED = 'dothiv.business.entity.deleted';
 }

@@ -1,0 +1,23 @@
+article.owndomain {
+  text-align: center;
+  @media (min-width: @screen-lg-min) {
+    padding-top: 4em;
+    padding-bottom: 8em;
+  }
+  section.text {
+    .make-sm-column(8);
+    .make-sm-column-offset(2);
+    a {
+      &:extend(.btn all);
+      &:extend(.btn-primary all);
+      &:extend(.btn-lg all);
+      &:extend(.btn-arrow all);
+      margin-top: 1em;
+      margin-bottom: 2em;
+      text-decoration: none;
+    }
+  }
+  section.howitworks {
+    text-align: center;
+  }
+}

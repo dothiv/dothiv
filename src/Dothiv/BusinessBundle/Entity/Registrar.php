@@ -5,6 +5,7 @@ namespace Dothiv\BusinessBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Dothiv\BusinessBundle\Repository\RegistrarRepositoryInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
@@ -143,5 +144,25 @@ class Registrar extends Entity
             $this->getRegistrationNotification(),
             array(self::REGISTRATION_NOFITICATION_REGULAR, self::REGISTRATION_NOFITICATION_COBRANDED)
         );
+    }
+
+    /**
+     * Compares two instance of this class
+     *
+     * @param Registrar $registrar
+     *
+     * @return bool
+     */
+    public function equals(Registrar $registrar = null)
+    {
+        if (!($registrar instanceof Registrar)) {
+            return false;
+        }
+        if ($this->getName() === $registrar->getName()
+            && $this->getExtId() === $registrar->getExtId()
+        ) {
+            return true;
+        }
+        return false;
     }
 }

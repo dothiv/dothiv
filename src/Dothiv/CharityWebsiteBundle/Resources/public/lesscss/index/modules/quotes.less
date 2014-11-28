@@ -1,0 +1,75 @@
+article.quotes {
+  section {
+    blockquote {
+      padding: 2em 0 0 0;
+      font-size: @font-size-base;
+      @media (min-width: @screen-sm-min) {
+        padding: 0 20% 0 0;
+        margin-top: 2em;
+      }
+      margin: 0;
+      border: 0;
+      text-align: left;
+      position: relative;
+      &:before {
+        &:extend(.charity-icon-quote:before);
+        font-size: @font-size-h1;
+        color: fadeout(@text-color, 85);
+        position: absolute;
+        top: 5px;
+        left: -25px;
+        @media (min-width: @screen-sm-min) {
+          top: -10px;
+          left: -45px;
+        }
+      }
+      div {
+        width: 100%;
+      }
+    }
+  }
+
+  img.picture {
+    width: 25%;
+    display: none;
+    @media (min-width: @screen-sm-min) {
+      width: 100%;
+      display: inline-block;
+    }
+  }
+
+  footer {
+    margin-top: 1em;
+  }
+
+}
+
+article.pressquotes {
+  &:extend(article.quotes all);
+
+  img.picture {
+    @media (min-width: @screen-sm-min) {
+      width: 50%;
+      max-width: 125px;
+    }
+  }
+
+  section.logosonly {
+    margin-top: 2em;
+  }
+
+  @media (max-width: @screen-xs-max) {
+    section.logosonly {
+      text-align: center;
+      div {
+        display: inline-block;
+        margin-right: @grid-gutter-width / 2;
+        width: 25%;
+      }
+      img.picture {
+        display: inline-block;
+        width: 100%;
+      }
+    }
+  }
+}

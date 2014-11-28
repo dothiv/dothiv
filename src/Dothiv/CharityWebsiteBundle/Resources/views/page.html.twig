@@ -15,7 +15,7 @@
       _|_|  _|_|    _|_|  _|_|    _|_|_|_|
       _|_|  _|_|    _|_|  _|_|      _|_|
 
- .hiv domains – The Red Ribbon of the digital age
+      .hiv domains – The digital Red Ribbon
 
                   click4life.hiv
 
@@ -65,15 +65,8 @@
     <base href="/">
 </head>
 <body data-ng-app="dotHIVApp">
-<div id="header">
-    {% include "DothivCharityWebsiteBundle:partials:headnav.html.twig" %}
-    {% if features.pinkbar_clickcounter %}
-    {% include "DothivCharityWebsiteBundle:partials:pinkbar_clickcounter.html.twig" %}
-    {% endif %}
-    {% block header %}
-        <hr class="bottom-shadow">
-    {% endblock header %}
-</div>
+{% include "DothivCharityWebsiteBundle:3:partials/header.html.twig" %}
+{% block header %}{% endblock header %}
 <div style="clear: both;"></div>
 
 <div class="content">
