@@ -11,4 +11,4 @@ services:
           - %already_donated%
           - %eur_increment%
           - @clock
-          - %page_lifetime%
+          - 600
