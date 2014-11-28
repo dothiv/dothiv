@@ -6,6 +6,15 @@ dothiv_payitforward_checkout:
     requirements:
         locale: ^(en|de|ky)$
 
+dothiv_payitforward_checkout_login:
+    path: /{locale}/payitforward/checkout/auth/{identifier}/{token}
+    defaults:
+        _controller: dothiv.payitforward.web.controller.login:loginLinkAction
+        app_route: dothiv_payitforward_checkout
+    schemes:  [https]
+    requirements:
+        locale:  ^(en|de)$
+
 dothiv_payitforward_app_template:
     pattern:  /{locale}/payitforward/app/{page}.{_format}
     defaults:
