@@ -1,7 +1,16 @@
 dothiv_charity_account_index:
-    pattern: /{locale}/account
+    path: /{locale}/account
     defaults:
         _controller: dothiv.charity.web.controller.page:pageAction
         page: account/index
     requirements:
         locale:  en|de|ky
+
+dothiv_charity_account_login:
+    path: /{locale}/account/auth/{identifier}/{token}
+    defaults:
+        _controller: dothiv.charity.web.controller.login:loginLinkAction
+        app_route: dothiv_charity_account_index
+    schemes:  [https]
+    requirements:
+        locale:  en|de

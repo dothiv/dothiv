@@ -1,3 +1,10 @@
+dothiv_api_domain:
+    pattern:  /domain/{name}
+    defaults:
+        _controller: dothiv.api.controller.domain:itemAction
+        _format: json
+    methods: [GET]
+
 dothiv_api_domain_claim:
     pattern:  /domain/claim
     defaults:
@@ -89,6 +96,8 @@ dothiv_api_account_loginlink:
         _format: json
     methods: [POST]
 
+
+
 ## User notifications
 dothiv_api_user_notification:
     pattern:  /user/{handle}/notification/{identifier}
@@ -109,6 +118,7 @@ dothiv_api_user_notification_update:
     defaults:
         _controller: dothiv.api.controller.user_notification:updateItemAction
         _format: json
+        _dothiv.ApiRequest: \Dothiv\APIBundle\Request\UserNotificationDismissRequest
     methods: [PATCH]
 
 ## User profile change
@@ -124,4 +134,5 @@ dothiv_api_user_profile_change_update:
     defaults:
         _controller: dothiv.api.controller.user_profile_change:updateItemAction
         _format: json
+        _dothiv.ApiRequest: \Dothiv\APIBundle\Request\UserProfileChangeConfirmRequest
     methods: [PATCH]

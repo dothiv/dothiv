@@ -2,7 +2,7 @@
 
 namespace Dothiv\APIBundle\Manipulator;
 
-use Dothiv\APIBundle\Exception\InvalidArgumentException;
+use Dothiv\APIBundle\Request\DataModelInterface;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Model\EntityPropertyChange;
 use Dothiv\ValueObject\IdentValue;
@@ -13,15 +13,16 @@ class GenericEntityManipulator implements EntityManipulatorInterface
     /**
      * {@inheritdoc}
      */
-    public function manipulate(EntityInterface $entity, array $properties)
+    public function manipulate(EntityInterface $entity, DataModelInterface $data)
     {
         $changes = array();
 
-        foreach ($properties as $property => $content) {
+        foreach (get_object_vars($data) as $property => $content) {
             $oldValue = $this->getValue($entity, $property);
-            $this->setValue($entity, $property, $content);
-            $newValue  = $this->getValue($entity, $property);
-            $changes[] = new EntityPropertyChange(new IdentValue($property), $oldValue, $newValue);
+            if ($this->setValue($entity, $property, $content)) {
+                $newValue  = $this->getValue($entity, $property);
+                $changes[] = new EntityPropertyChange(new IdentValue($property), $oldValue, $newValue);
+            }
         }
         return $changes;
     }
@@ -32,14 +33,17 @@ class GenericEntityManipulator implements EntityManipulatorInterface
      * @param EntityInterface $entity
      * @param string          $property
      * @param mixed           $value
+     *
+     * @return bool Whether the value has been set
      */
     protected function setValue(EntityInterface $entity, $property, $value)
     {
         $setter = 'set' . ucfirst($property);
         if (!method_exists($entity, $setter)) {
-            throw new InvalidArgumentException(sprintf('Unknown property "%s"!', $property));
+            return false;
         }
         $entity->$setter($value);
+        return true;
     }
 
     /**

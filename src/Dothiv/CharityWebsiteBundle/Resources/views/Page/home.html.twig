@@ -1,0 +1,19 @@
+{% trans_default_domain "charity" %}
+{% set page = content('Page', 'home') %}
+{% set title %}{{ page.title }}{% endset %}
+{% set description %}{{ page.description|default("") }}{% endset %}
+{% extends "DothivCharityWebsiteBundle::3/page.html.twig" %}
+{% block main %}
+    {% for block in page.blocks %}
+        {% if block.code in ["tiles"] %}
+            {% include "DothivCharityWebsiteBundle::3/partials/home/" ~ block.code ~ ".html.twig" %}
+        {% endif %}
+    {% endfor %}
+    <main>
+        {% for block in page.blocks %}
+            {% if block.code in ["idea","visitdomains","owndomain","pressquotes","quotes"] %}
+                {% include "DothivCharityWebsiteBundle::3/partials/home/" ~ block.code ~ ".html.twig" %}
+            {% endif %}
+        {% endfor %}
+    </main>
+{% endblock %}

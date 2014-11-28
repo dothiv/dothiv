@@ -1,7 +1,0 @@
-services:
-    dothiv.validator.domain:
-        class: Dothiv\BusinessBundle\Validator\Constraints\ValidDomainValidator
-        tags:
-            - { name: validator.constraint_validator, alias: domain_validator }
-        calls:
-             - [setAllowedTLDs, ["%dothiv_business.allowed_tlds%"]]

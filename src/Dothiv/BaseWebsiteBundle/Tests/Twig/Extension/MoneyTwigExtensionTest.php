@@ -4,6 +4,7 @@
 namespace Dothiv\BaseWebsiteBundle\Tests\Twig\Extension;
 
 use Dothiv\BaseWebsiteBundle\Service\MoneyFormatService;
+use Dothiv\BaseWebsiteBundle\Service\NumberFormatService;
 use Dothiv\BaseWebsiteBundle\Twig\Extension\MoneyTwigExtension;
 
 /**
@@ -53,6 +54,6 @@ class MoneyTwigExtensionTest extends \PHPUnit_Framework_TestCase
      */
     protected function getTestObject()
     {
-        return new MoneyTwigExtension(new MoneyFormatService());
+        return new MoneyTwigExtension(new MoneyFormatService(new NumberFormatService()));
     }
 }

@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
-use Dothiv\BusinessBundle\Validator\Constraints\ValidDomain;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -18,7 +17,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @AssertORM\UniqueEntity("name")
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="domain__name",columns={"name"})})
  * @Serializer\ExclusionPolicy("all")
- * @ValidDomain()
  *
  * @author Nils Wisiol <mail@nils-wisiol.de>
  * @author Markus Tacker <m@dotHIV.org>
@@ -41,7 +39,8 @@ class Domain extends Entity
      * The owning user of the domain
      *
      * @ORM\ManyToOne(targetEntity="User",inversedBy="domains")
-     * @var User
+     * @ORM\JoinColumn(nullable=true)
+     * @var User|null
      */
     protected $owner;
 
@@ -163,7 +162,7 @@ class Domain extends Entity
     /**
      * Returns the owning user of the domain
      *
-     * @return User the owning user
+     * @return User|null the owning user
      */
     public function getOwner()
     {
@@ -412,5 +411,32 @@ class Domain extends Entity
     {
         $this->nonprofit = $nonprofit;
         return $this;
+    }
+
+    /**
+     * Compares two instance of this class
+     *
+     * @param Domain $domain
+     *
+     * @return bool
+     */
+    public function equals(Domain $domain = null)
+    {
+        if (!($domain instanceof Domain)) {
+            return false;
+        }
+        if ($this->getName() === $domain->getName()
+            && $this->getNonprofit() === $domain->getName()
+            && $this->getOwner()->equals($domain->getOwner())
+            && $this->getOwnerEmail() === $domain->getOwnerEmail()
+            && $this->getOwnerName() === $domain->getOwnerName()
+            && $this->getTransfer() === $domain->getTransfer()
+            && $this->getTokenSent() === $domain->getTokenSent()
+            && $this->getToken() === $domain->getToken()
+            && $this->getRegistrar()->equals($domain->getRegistrar())
+        ) {
+            return true;
+        }
+        return false;
     }
 }

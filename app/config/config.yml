@@ -79,9 +79,6 @@ swiftmailer:
     auth_mode:  %mailer_auth_mode%
     spool:     { type: memory }
 
-# Gregwar's form
-gregwar_form: ~
-
 nelmio_cors:
     defaults:
         allow_credentials: true
@@ -101,9 +98,6 @@ jms_serializer:
             options: 64
 
 dothiv_business:
-    allowed_tlds:
-      # - hiv
-      ~
     attachments_location: '%kernel.root_dir%/attachments'
     clickcounter:
         secret: '%clickcounter_auth_secret%'
@@ -131,6 +125,7 @@ dothiv_charity_website:
         - { name: projects, enabled: true, routing: true }
         - { name: profile, enabled: true, routing: true, config: true }
         - { name: pinkbar_clickcounter, enabled: true, routing: true, config: true }
+        - { name: domain_collaborator, enabled: true, routing: true, config: true }
 
 dothiv_contentful:
     webhook:

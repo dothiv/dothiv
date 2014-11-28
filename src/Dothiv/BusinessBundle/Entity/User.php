@@ -245,4 +245,26 @@ class User implements UserInterface, EntityInterface
     {
         return $this->getHandle();
     }
+
+    /**
+     * Compares two instance of this class
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function equals(User $user = null)
+    {
+        if (!($user instanceof User)) {
+            return false;
+        }
+        if ($this->getHandle() === $user->getHandle()
+            && $this->getEmail() === $user->getEmail()
+            && $this->getFirstname() === $user->getFirstname()
+            && $this->getSurname() === $user->getSurname()
+        ) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -3,6 +3,7 @@
 namespace Dothiv\BaseWebsiteBundle\Tests\Service;
 
 use Dothiv\BaseWebsiteBundle\Service\MoneyFormatService;
+use Dothiv\BaseWebsiteBundle\Service\NumberFormatService;
 
 /**
  * Test for the MoneyFormatService
@@ -87,6 +88,6 @@ class MoneyFormatServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function getTestObject()
     {
-        return new MoneyFormatService();
+        return new MoneyFormatService(new NumberFormatService());
     }
-} 
+}

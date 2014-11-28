@@ -1,0 +1,111 @@
+// Grid
+body > footer {
+  & > div {
+    &:extend(.container all);
+    @media (min-width: @screen-sm-min) {
+      margin-top: 8em;
+    }
+  }
+  margin-top: 1em;
+
+  @media (max-width: @screen-xs-max) {
+    padding-bottom: 2em;
+  }
+
+  article {
+    &:extend(.row all);
+  }
+
+  header {
+    .make-xs-column(12);
+  }
+
+  section, nav {
+    .make-xs-column(12);
+    .make-sm-column(4);
+  }
+  @media (min-width: @screen-sm-min) {
+    header {
+      margin: 2em 0 1em 0;
+    }
+
+    section, nav {
+      margin: 1em 0 2em 0;
+    }
+  }
+  @media (min-width: @screen-lg-min) {
+    header {
+      margin: 4em 0 2em 0;
+    }
+
+    section, nav {
+      margin: 2em 0 4em 0;
+    }
+  }
+}
+
+// Design
+body > footer {
+  background-color: @gray-lighter;
+  color: @gray;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+
+  article {
+    position: relative;
+  }
+
+  h1 {
+    position: relative;
+    img {
+      width: 60px;
+    }
+    small {
+      font-size: 0.4em;
+      position: absolute;
+      left: 60px + (@grid-gutter-width / 4);
+      bottom: -2px;
+    }
+    @media (min-width: @screen-lg-min) {
+      img {
+        width: 120px;
+      }
+
+      small {
+        left: 120px + (@grid-gutter-width / 2);
+        bottom: -4px;
+      }
+    }
+
+  }
+
+  nav a {
+    margin-bottom: 0.5em;
+    text-decoration: none;
+    &.social-link {
+      margin-bottom: 0;
+    }
+    display: block;
+    color: @text-color;
+    &:hover {
+      color: @text-color;
+      text-decoration: none;
+    }
+  }
+
+  .couple {
+    display: none;
+    @media (min-width: @screen-sm-min) {
+      display: inline-block;
+      position: absolute;
+      top: -96px;
+      left: @container-sm - 120px;
+    }
+    @media (min-width: @screen-md-min) {
+      left: @container-md - 120px;
+    }
+    @media (min-width: @screen-lg-min) {
+      left: @container-lg - 120px;
+    }
+  }
+}
+

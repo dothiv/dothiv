@@ -22,7 +22,6 @@
         "symfony/console": "2.3.*",
         "jms/serializer-bundle": "0.12.*@dev",
         "gedmo/doctrine-extensions": "dev-master@dev",
-        "gregwar/form-bundle": "*@dev",
         "doctrine/doctrine-cache-bundle": "1.0.x",
         "dothiv/dothiv-parsedown-bundle": "dev-master",
         "cocur/slugify": "@stable",

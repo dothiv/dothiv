@@ -1,15 +1,9 @@
 <?php
 
-/**
- * Controller for the pinkbar api.
- *
- * @author    Markus Tacker <m@dotHIV.org>
- * @copyright 2014 TLD dotHIV Registry GmbH | http://dothiv-registry.net/
- */
-
 namespace Dothiv\CharityWebsiteBundle\Controller;
 
 use Dothiv\BaseWebsiteBundle\Service\MoneyFormatServiceInterface;
+use Dothiv\BaseWebsiteBundle\Service\NumberFormatServiceInterface;
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
 use Dothiv\ValueObject\ClockValue;
 use JMS\Serializer\SerializerInterface;
@@ -42,6 +36,11 @@ class PinkbarController
     private $translator;
 
     /**
+     * @var NumberFormatServiceInterface
+     */
+    private $numberFormatService;
+
+    /**
      * @var MoneyFormatServiceInterface
      */
     private $moneyFormatService;
@@ -67,18 +66,20 @@ class PinkbarController
     private $pageLifetime;
 
     /**
-     * @param TranslatorInterface         $translator
-     * @param MoneyFormatServiceInterface $moneyFormatService
-     * @param ConfigRepositoryInterface   $configRepo
-     * @param SerializerInterface         $serializer
-     * @param float                       $eurGoal
-     * @param float                       $alreadyDonated
-     * @param float                       $eurIncrement
-     * @param ClockValue                  $clock
-     * @param int                         $pageLifetime In seconds
+     * @param TranslatorInterface          $translator
+     * @param NumberFormatServiceInterface $numberFormatService
+     * @param MoneyFormatServiceInterface  $moneyFormatService
+     * @param ConfigRepositoryInterface    $configRepo
+     * @param SerializerInterface          $serializer
+     * @param float                        $eurGoal
+     * @param float                        $alreadyDonated
+     * @param float                        $eurIncrement
+     * @param ClockValue                   $clock
+     * @param int                          $pageLifetime In seconds
      */
     public function __construct(
         TranslatorInterface $translator,
+        NumberFormatServiceInterface $numberFormatService,
         MoneyFormatServiceInterface $moneyFormatService,
         ConfigRepositoryInterface $configRepo,
         SerializerInterface $serializer,
@@ -88,15 +89,16 @@ class PinkbarController
         ClockValue $clock,
         $pageLifetime)
     {
-        $this->translator         = $translator;
-        $this->moneyFormatService = $moneyFormatService;
-        $this->configRepo         = $configRepo;
-        $this->serializer         = $serializer;
-        $this->eurGoal            = floatval($eurGoal);
-        $this->alreadyDonated     = floatval($alreadyDonated);
-        $this->eurIncrement       = floatval($eurIncrement);
-        $this->clock              = $clock;
-        $this->pageLifetime       = (int)$pageLifetime;
+        $this->translator          = $translator;
+        $this->numberFormatService = $numberFormatService;
+        $this->moneyFormatService  = $moneyFormatService;
+        $this->configRepo          = $configRepo;
+        $this->serializer          = $serializer;
+        $this->eurGoal             = floatval($eurGoal);
+        $this->alreadyDonated      = floatval($alreadyDonated);
+        $this->eurIncrement        = floatval($eurIncrement);
+        $this->clock               = $clock;
+        $this->pageLifetime        = (int)$pageLifetime;
     }
 
     /**
@@ -132,9 +134,13 @@ class PinkbarController
         $data['goal_label']      = $this->moneyFormatService->decimalFormat($this->eurGoal, $locale);
         $data['percent']         = $this->eurGoal > 0 ? round($unlocked / $this->eurGoal, 3) : 0;
         $data['clicks']          = $clicks;
-        $data['clicks_label']    = $this->translator->trans('pinkbar.clicks', array($clicks));
+        $data['clicks_label']    = $this->numberFormatService->decimalFormat($clicks, $locale);
         $data['increment']       = $this->eurIncrement;
         $data['increment_label'] = $this->moneyFormatService->format($data['increment'], $locale);
+        // for tiles
+        $minPrice            = floatval($this->configRepo->get('hivdomain.min_price')->getValue());
+        $data['price']       = $minPrice / 12;
+        $data['price_label'] = $this->moneyFormatService->format($data['price'], $locale);
 
         $response->headers->set('Content-Type', 'application/json');
         $response->setContent($this->serializer->serialize($data, 'json'));

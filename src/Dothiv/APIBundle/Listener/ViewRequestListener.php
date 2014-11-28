@@ -4,6 +4,7 @@ namespace Dothiv\APIBundle\Listener;
 
 use Doctrine\Common\Annotations\Reader;
 use Dothiv\APIBundle\Annotation\ApiRequest;
+use Dothiv\APIBundle\Request\DataModelInterface;
 use Dothiv\ContentfulBundle\Logger\LoggerAwareTrait;
 use PhpOption\Option;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,7 +86,7 @@ class ViewRequestListener
         );
     }
 
-    protected function setModelData(Request $request, $model)
+    protected function setModelData(Request $request, DataModelInterface $model)
     {
         $ctype = $request->headers->get('content-type');
         if (stristr($ctype, 'application/json') !== false) {
@@ -99,29 +100,29 @@ class ViewRequestListener
         }
     }
 
-    protected function setModelDataFromJson(Request $request, $model)
+    protected function setModelDataFromJson(Request $request, DataModelInterface $model)
     {
         $this->setModelDataFromArray(json_decode($request->getContent()), $model);
     }
 
-    protected function setModelDataFromForm(Request $request, $model)
+    protected function setModelDataFromForm(Request $request, DataModelInterface $model)
     {
         $this->setModelDataFromArray($request->request->all(), $model);
     }
 
-    protected function setModelDataFromQuery(Request $request, $model)
+    protected function setModelDataFromQuery(Request $request, DataModelInterface $model)
     {
         $this->setModelDataFromArray($request->query->all(), $model);
     }
 
-    protected function setModelDataFromArray($data, $model)
+    protected function setModelDataFromArray($data, DataModelInterface $model)
     {
         foreach ($data as $k => $v) {
             $v      = is_string($v) ? trim($v) : $v;
             $setter = $this->toSetter($k);
             if (method_exists($model, $setter)) {
                 $model->$setter($v);
-            } elseif (property_exists($model, $k)) {
+            } elseif (property_exists($model, $k) || $model->setNonExistingProperties()) {
                 $model->$k = $v;
             }
         }
@@ -151,7 +152,7 @@ class ViewRequestListener
      * @param $request
      * @param $model
      */
-    protected function setModelDataFromRouteParams($request, $model)
+    protected function setModelDataFromRouteParams($request, DataModelInterface $model)
     {
         $routeParams = array();
         foreach ($request->attributes->get('_route_params') as $k => $v) {

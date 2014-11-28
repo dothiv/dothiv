@@ -1,0 +1,26 @@
+<div data-ng-cloak data-ng-controller="CharityHivDomainListController" data-ng-show="domain">
+    <article class="countingsites">
+        <header>
+            <h2>{{ block.title }}</h2>
+            {{ block.text|default("")|markdown }}
+        </header>
+        <section>
+            <a data-ng-href="{{ '{{domain.link}}' }}" rel="friend" target="_blank">
+                <h3 data-ng-bind="domain.name" class="site" data-ng-class="{long: domain.name.length > 25}"></h3>
+            </a>
+            <nav>
+                <button data-ng-click="prev()" class="prev"></button>
+                <button data-ng-click="next()" class="next"></button>
+            </nav>
+        </section>
+    </article>
+    <article class="herodomains" data-ng-controller="ContentController" data-ng-show="loaded" data-ng-init="fetch('hivDomain')">
+        {# show hero domains with logo #}
+        <section class="heroes">
+            <a class="logo" target="_blank" rel="friend" data-ng-repeat="item in items|filter:{hero:true}" data-ng-href="{{ 'http://{{item.name}}.hiv/' }}">
+                <img data-ng-src="{{ '{{item.logo.file.thumbnails.partner}}' }}" class="logo" title="{{ '{{item.name}}' }}">
+            </a>
+        </section>
+    </article>
+    <div class="arrow"></div>
+</div>

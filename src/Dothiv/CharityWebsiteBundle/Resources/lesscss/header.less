@@ -1,67 +1,111 @@
-.header {
+// Grid
+body > header div.header {
+  &:extend(.container all);
   position: relative;
-
-  h1 {
-    margin: 0;
-    padding: 0;
+  & > div {
+    &:extend(.row all);
+    margin-bottom: 0;
   }
-  .span1 { margin-left: 0px; }
+  nav {
+    a.button {
+      &:extend(.btn all);
+      &:extend(.btn-large all);
+      &:extend(.btn-pink all);
+      font-weight: normal;
+    }
+    &.main {
+      width: 50%;
+      float: left;
+    }
+    &.meta {
+      position: absolute;
+      top: 30px / 4;
+      right: 0;
+    }
+  }
+  div.logo {
+    width: 50%;
+    float: left;
+  }
+}
 
-  .row { margin-bottom: 0px; }
-  margin-bottom: 40px;
-  .menubar {
-    a, a:visited {
-      &:extend(.headingLight);
-      display: inline-block;
-      font-size: 24px;
-      margin: 20px 10px 0 10px;
-      padding-left: 20px;
-      background: url('/bundles/dothivcharitywebsite/images/small-tick-right-e00073.png') no-repeat 2px center;
-      &.button {
-        padding: 0.5em 1em 0.5em 0.5em;
-        color: white;
-        text-decoration: none;
-        background: @darkpink url('/bundles/dothivcharitywebsite/images/small-tick-right-ffffff.png') no-repeat 95% center;
+// Design
+body > header div.header {
+  padding-top: (30px / 2);
+  padding-bottom: 30px;
+  h1 {
+    margin: (30px / 2) 0 0 20px;
+    position: relative;
+    small {
+      font-size: 0.4em;
+      position: absolute;
+      left: 120px + (30px / 2);
+      bottom: -4px;
+    }
+    img {
+      width: 120px;
+    }
+  }
+  button.toggle {
+    display: none;
+  }
+  div.navigation {
+    nav.meta {
+      text-align: right;
+      font-size: 14px;
+      a {
+        text-decoration: underline;
+        display: inline-block;
+        border-left: 1px solid #eee;
+        padding: 0 30px / 4;
+        margin: 0;
+        color: #000;
         &:hover {
-          color: white;
-          background-color: lighten(@darkpink, 20%);
+          color: #000;
+          text-decoration: none;
+        }
+        &:first-child {
+          padding-left: 0;
+          border: 0;
+        }
+        &:last-child {
+          padding-right: 0;
         }
       }
     }
-    a:hover, a.active {
-      color: @darkpink;
-    }
-    margin-top: 20px;
 
-    .barmenu {
-      float: left;
-      margin-left: 50px;
-      font-size: 20px;
-      font-weight: bold;
-      .cursor-hand;
-      height: 40px;
-      white-space: nowrap;
+    nav.main {
+      margin-top: 30px * 1.75;
+      a.twoline {
+        .pull-left;
+        text-decoration: none;
+        line-height: 80%;
+        display: block;
+        color: #000;
+        &:hover {
+          color: #000;
+          text-decoration: none;
+        }
+        font-size: 150%;
+        small {
+          font-size: 60%;
+          padding-left: 22px;
+        }
+        &:before {
+          .charity-icon;
+          content: "a";
+          font-size: 14px;
+          margin-left: 5px;
+          color: @darkpink;
+        }
+      }
+      a.button {
+        .pull-right;
+        text-decoration: none;
+      }
     }
-  }
-  .usermenu {
-    ul {
-      margin-bottom: 0px;
-      margin-left: 5px;
-    }
-    margin-left: 0px;
-    a, a:visited {
-      color: @colordark;
-    }
-    a:hover, a.active {
-      color: @darkpink;
-    }
-  }
-  #logorow {
-    min-height: 150px;
-    .usermenu {
-      position: absolute;
-      right: 0;
-      bottom: 0;
+    nav.footer {
+      display: none;
     }
   }
 }

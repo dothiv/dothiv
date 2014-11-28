@@ -1,22 +1,28 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('PinkbarControllerClicks', ['$scope', '$rootScope', '$http', 'config', '$q',
-    function ($scope, $rootScope, $http, config, $q) {
+angular.module('dotHIVApp.controllers').controller('PinkbarControllerClicks', ['$scope', '$rootScope', '$http', 'config',
+    function ($scope, $rootScope, $http, config) {
 
         $scope.bar = null;
 
-        $scope.showfunding = false;
-
-        function _toggle() {
-            $scope.showfunding = !$scope.showfunding;
+        /**
+         * Animates the pink bar.
+         * Makes it at least 5% of the screen wide to make it visible.
+         */
+        function animate() {
+            var windowWidth = $(window).width();
+            var minWidth = windowWidth * 0.05;
+            var targetWidth = Math.max(minWidth, windowWidth * $scope.bar.percent);
+            var bar = $('#pinkbar .pinkbar-progress');
+            if (bar) {
+                bar.animate({width: targetWidth}, 500);
+            }
         }
 
-        $rootScope.$on('pinkbar.toggle', _toggle);
-
-        function success(data) {
+        $http({method: 'GET', url: '/' + config.locale + '/pinkbar'}).success(function (data) {
             $scope.bar = data;
-        }
-
-        $http({method: 'GET', url: '/' + config.locale + '/pinkbar'}).success(success);
+            $rootScope.$broadcast('pinkbar.data', data);
+            animate();
+        });
     }
 ]);

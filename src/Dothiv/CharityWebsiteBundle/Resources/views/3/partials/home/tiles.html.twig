@@ -1,0 +1,24 @@
+<div data-ng-cloak data-ng-controller="TilesController" data-ng-show="money">
+    <div class="tiles">
+        <article>
+            <header>
+                <h1>{{ block.title }}</h1>
+                {{ block.text|markdown }}
+            </header>
+            {% for tile in block.children|default([]) %}
+                <section class="tile {{ tile.code|replace({'tiles.': ''}) }}" data-ng-controller="TileController">
+                    <div class="frontside" data-ng-show="!opened" data-ng-click="open()">
+                        <h2>{{ tile.title|markdown|striptags('<a><em><strong>')|raw }}</h2>
+                        {{ tile.text|markdown }}
+                        <button class="opentile" data-ng-click="open()"></button>
+                    </div>
+                    <div class="backside" data-ng-show="opened">
+                        {{ tile.textMore|markdown }}
+                        <button class="closetile" data-ng-click="close()"></button>
+                    </div>
+                </section>
+            {% endfor %}
+        </article>
+    </div>
+    <div class="arrow"></div>
+</div>

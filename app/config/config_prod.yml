@@ -27,3 +27,7 @@ monolog:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
+
+dothiv_charity_website:
+    features:
+        - { name: domain_collaborator, enabled: false, routing: true, config: true }

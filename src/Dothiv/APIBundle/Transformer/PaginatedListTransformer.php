@@ -3,19 +3,19 @@
 namespace Dothiv\APIBundle\Transformer;
 
 use Dothiv\APIBundle\Model\PaginatedList;
-use Dothiv\BusinessBundle\Repository\PaginatedResult;
+use Dothiv\BusinessBundle\Repository\CRUD;
 use Dothiv\ValueObject\URLValue;
 use Symfony\Component\Routing\RouterInterface;
 
 class PaginatedListTransformer extends AbstractTransformer
 {
     /**
-     * @param PaginatedResult $result
-     * @param string          $route
+     * @param CRUD\PaginatedResult $result
+     * @param string               $route
      *
      * @return PaginatedList
      */
-    public function transform(PaginatedResult $result, $route)
+    public function transform(CRUD\PaginatedResult $result, $route)
     {
         $paginatedList = new PaginatedList();
         $paginatedList->setItemsPerPage($result->getItemsPerPage());

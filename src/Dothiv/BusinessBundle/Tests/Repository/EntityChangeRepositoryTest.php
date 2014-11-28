@@ -4,10 +4,10 @@ namespace Dothiv\AdminBundle\Repository\Tests;
 
 use Dothiv\AdminBundle\AdminEvents;
 use Dothiv\BusinessBundle\Entity\EntityChange;
-use Dothiv\AdminBundle\Model\EntityPropertyChange;
+use Dothiv\BusinessBundle\Model\EntityPropertyChange;
+use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\EntityChangeRepository;
 use Dothiv\BusinessBundle\Model\FilterQuery;
-use Dothiv\BusinessBundle\Repository\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Tests\Traits;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\IdentValue;

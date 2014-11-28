@@ -1,0 +1,19 @@
+{% trans_default_domain "charity" %}
+<nav class="footer">
+    <a href="{{ path('dothiv_charity_content', {'page': 'contact', 'locale': locale}) }}">{% trans %}
+        footer.navi.contact{% endtrans %}</a>
+    <a href="{{ path('dothiv_charity_content', {'page': 'imprint', 'locale': locale}) }}">{% trans %}
+        footer.navi.imprint{% endtrans %}</a>
+    <a href="{{ path('dothiv_registry_content', {'locale': 'en', 'page': 'report'}) }}">
+        {% trans %}footer.navi.report{% endtrans %}
+    </a>
+</nav>
+<nav class="footer">
+    <a class="social-link" href="https://www.facebook.com/dothiv" rel="me">
+        <i class="social charity-icon-facebook"></i>
+        {% trans %}footer.social.facebook{% endtrans %}
+    </a> <a class="social-link" href="https://twitter.com/dotHIV" rel="me">
+        <i class="social charity-icon-twitter"></i>
+        {% trans %}footer.social.twitter{% endtrans %}
+    </a>
+</nav>

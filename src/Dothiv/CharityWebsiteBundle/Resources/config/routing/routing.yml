@@ -9,7 +9,8 @@ dothiv_charity_index_nolang:
 dothiv_charity_index:
     pattern:  /{locale}
     defaults:
-        _controller: dothiv.charity.web.controller.index:indexAction
+        _controller: dothiv.charity.web.controller.page:pageAction
+        page: home
     requirements:
         locale:  en|de|ky
 
@@ -27,7 +28,8 @@ dothiv_charity_content_api:
         _controller: dothiv.charity.web.controller.page:contentAction
     requirements:
         locale:  en|de
-        type: Quote|hivDomain
+        _format: json
+        type: Quote|hivDomain|PressQuote
 
 dothiv_charity_about_index:
     pattern:  /{locale}/p/about/mission

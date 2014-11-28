@@ -1,0 +1,65 @@
+{% trans_default_domain "charity" %}
+{% use "DothivCharityWebsiteBundle:partials:blocks.html.twig" %}
+
+{% set block = content('Block', 'collaborators') %}
+
+{% if features.domain_collaborator %}
+<div class="container">
+    <div class="row">
+        <div class="span12 profile-heading">
+            <h2>{{ block.title }}</h2>
+            {{ block.text|default("")|markdown }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <h3>{{ block.children[0].title }}</h3>
+            <div class="well clearfix">
+                {{ block.children[0].text|default("")|markdown }}
+                <form role="form" novalidate name="collaboratorForm">
+                    <fieldset class="row-fluid">
+                        <div class="input-group span3">
+                            <label for="collaborator_email">{{ block.children[0].children[0].title }}</label>
+                            <input type="email" maxlength="255" id="collaborator_email" name="collaborator_email" data-ng-model="collaborator_email" required>
+                        </div>
+                        <div class="input-group span3">
+                            <label for="collaborator_firstname">{{ block.children[0].children[1].title }}</label>
+                            <input type="text" maxlength="255" id="collaborator_firstname" name="collaborator_firstname" data-ng-model="collaborator_firstname" required>
+                        </div>
+                        <div class="input-group span3">
+                            <label for="collaborator_lastname">{{ block.children[0].children[2].title }}</label>
+                            <input type="text" maxlength="255" id="collaborator_lastname" name="collaborator_lastname" data-ng-model="collaborator_lastname" required>
+                        </div>
+                    </fieldset>
+                    <nav>
+                        <button type="submit" class="btn btn-primary pull-right" data-ng-disabled="collaboratorForm.$invalid" data-ng-click="addCollaborator();">
+                            {% trans %}button.generic.continue{% endtrans %}
+                        </button>
+                    </nav>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-ng-show="collaborators.length > 0">
+        <div class="span12">
+            <h3>{{ block.children[1].title }}</h3>
+
+            <div class="row-fluid">
+                <div data-ng-repeat="collaborator in collaborators" class="span4 well">
+                    <h4>
+                        <span data-ng-bind="collaborator.user.firstname"></span>
+                        <span data-ng-bind="collaborator.user.surname"></span>
+                    </h4>
+
+                    <p>
+                        <a data-ng-href="mailto:{{ '{{collaborator.user.email}}' }}" data-ng-bind="collaborator.user.email"></a><br>
+                        <button class="btn btn-danger pull-right" type="submit" data-ng-click="remove(collaborator)">
+                            <i class="icon-remove"></i>
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

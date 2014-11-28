@@ -28,3 +28,8 @@ services:
         class: Dothiv\RegistryWebsiteBundle\Controller\PremiumBidController
         arguments:
         - @dothiv.repository.premiumbid
+
+    dothiv.registry.web.controller.login:
+        class: Dothiv\BaseWebsiteBundle\Controller\LoginLinkController
+        arguments:
+          - @router
