@@ -9,7 +9,7 @@ angular.module('dotHIVApp.controllers').controller('LoginController', ['$scope',
     function _submit() {
         $scope.loading = true;
         $scope.errorMessage = null;
-        $scope.loginForm.route = 'dothiv_payitforward_checkout';
+        $scope.loginForm.route = 'dothiv_payitforward_checkout_login';
         dothivAccountResource.requestLoginLink(
             $scope.loginForm,
             function () { // success
