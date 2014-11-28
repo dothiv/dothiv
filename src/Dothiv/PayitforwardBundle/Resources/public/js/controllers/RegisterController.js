@@ -9,7 +9,7 @@ angular.module('dotHIVApp.controllers').controller('RegisterController', ['$scop
     function _submit() {
         $scope.loading = true;
         $scope.errorMessage = null;
-        $scope.registrationForm.route = 'dothiv_payitforward_checkout';
+        $scope.registrationForm.route = 'dothiv_payitforward_checkout_login';
         dothivAccountResource.create(
             $scope.registrationForm,
             function () { // success
