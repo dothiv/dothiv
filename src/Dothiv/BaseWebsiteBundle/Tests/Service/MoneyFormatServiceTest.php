@@ -83,6 +83,9 @@ class MoneyFormatServiceTest extends \PHPUnit_Framework_TestCase
             array(0.001, 'de', '0,1 ct'),
             array(0.001, 'en', '€0.1¢'),
             array(0.001, null, '€0.1¢'),
+            array(0.01, 'de', '1 ct'),
+            array(0.01, 'en', '€1¢'),
+            array(0.01, null, '€1¢'),
         );
     }
 
