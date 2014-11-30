@@ -31,6 +31,11 @@ class PinkbarController
     private $alreadyDonated = 0.0;
 
     /**
+     * @var int
+     */
+    private $alreadyClicked = 0;
+
+    /**
      * @var TranslatorInterface
      */
     private $translator;
@@ -73,6 +78,7 @@ class PinkbarController
      * @param SerializerInterface          $serializer
      * @param float                        $eurGoal
      * @param float                        $alreadyDonated
+     * @param int                          $alreadyClicked
      * @param float                        $eurIncrement
      * @param ClockValue                   $clock
      * @param int                          $pageLifetime In seconds
@@ -85,6 +91,7 @@ class PinkbarController
         SerializerInterface $serializer,
         $eurGoal,
         $alreadyDonated,
+        $alreadyClicked,
         $eurIncrement,
         ClockValue $clock,
         $pageLifetime)
@@ -96,6 +103,7 @@ class PinkbarController
         $this->serializer          = $serializer;
         $this->eurGoal             = floatval($eurGoal);
         $this->alreadyDonated      = floatval($alreadyDonated);
+        $this->alreadyClicked      = intval($alreadyClicked);
         $this->eurIncrement        = floatval($eurIncrement);
         $this->clock               = $clock;
         $this->pageLifetime        = (int)$pageLifetime;
@@ -123,18 +131,19 @@ class PinkbarController
             return $response;
         }
 
-        $clicks                  = (int)$config->getValue();
+        $clicksTotal             = (int)$config->getValue();
+        $clicks                  = $clicksTotal - $this->alreadyClicked;
         $data                    = array();
         $data['donated']         = $this->alreadyDonated;
         $data['donated_label']   = $this->moneyFormatService->decimalFormat($data['donated'], $locale);
-        $unlocked                = $clicks * $this->eurIncrement;
+        $unlocked                = $this->alreadyDonated + $clicks * $this->eurIncrement;
         $data['unlocked']        = $unlocked;
         $data['unlocked_label']  = $this->moneyFormatService->decimalFormat($data['unlocked'], $locale);
         $data['goal']            = $this->eurGoal;
         $data['goal_label']      = $this->moneyFormatService->decimalFormat($this->eurGoal, $locale);
         $data['percent']         = $this->eurGoal > 0 ? round($unlocked / $this->eurGoal, 3) : 0;
-        $data['clicks']          = $clicks;
-        $data['clicks_label']    = $this->numberFormatService->decimalFormat($clicks, $locale);
+        $data['clicks']          = $clicksTotal;
+        $data['clicks_label']    = $this->numberFormatService->decimalFormat($clicksTotal, $locale);
         $data['increment']       = $this->eurIncrement;
         $data['increment_label'] = $this->moneyFormatService->format($data['increment'], $locale);
         // for tiles
