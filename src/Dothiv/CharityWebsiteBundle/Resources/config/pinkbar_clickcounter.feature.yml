@@ -9,6 +9,7 @@ services:
           - @serializer
           - %eur_goal%
           - %already_donated%
+          - %already_clicked%
           - %eur_increment%
           - @clock
           - 600
