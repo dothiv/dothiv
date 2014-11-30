@@ -40,11 +40,15 @@ class MoneyFormatService implements MoneyFormatServiceInterface
             case 'de':
                 if (floatval($value) < 0.01) {
                     return sprintf('%s ct', $this->numberFormat->format($value, $locale));
+                } elseif (floatval($value) < 1.0) {
+                    return sprintf('%d ct', $this->numberFormat->decimalFormat($value * 100, $locale));
                 }
                 return sprintf('%s €', $this->numberFormat->format($value, $locale));
             default:
                 if (floatval($value) < 0.01) {
                     return sprintf('€%s¢', $this->numberFormat->format($value, $locale));
+                } elseif (floatval($value) < 1.0) {
+                    return sprintf('€%d¢', $this->numberFormat->decimalFormat($value * 100, $locale));
                 }
                 return sprintf('€%s', $this->numberFormat->format($value, $locale));
         }
