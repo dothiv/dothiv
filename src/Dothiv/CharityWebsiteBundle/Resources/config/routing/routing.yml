@@ -31,6 +31,15 @@ dothiv_charity_content_api:
         _format: json
         type: Quote|hivDomain|PressQuote
 
+dothiv_charity_clickstart:
+    pattern:  /{locale}/clickstart/{page}
+    defaults:
+        _controller: dothiv.charity.web.controller.page:pageAction
+        type: Block
+        template: :Page/clickstart
+    requirements:
+        locale: en|de|ky
+
 dothiv_charity_about_index:
     pattern:  /{locale}/p/about/mission
     defaults:
