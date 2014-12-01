@@ -16,6 +16,11 @@ dothiv_registry_web:
     resource: "@DothivRegistryWebsiteBundle/Resources/config/routing.yml"
     prefix:   /
 
+# .hiv Domain gifts
+dothiv_domain_gift:
+    resource: "@DothivDomainGiftBundle/Resources/config/routing.yml"
+    prefix: /
+
 # QLP landingpages
 dothiv_qlp_partner:
     host: "{partner}.friends.%charitydomain%"

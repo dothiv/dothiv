@@ -11,6 +11,7 @@ assetic:
       - 'DothivPremiumConfiguratorBundle'
       - 'DothivAdminBundle'
       - 'DothivPayitforwardBundle'
+      - 'DothivDomainGiftBundle'
     #java: /usr/bin/java
     filters:
         less:
