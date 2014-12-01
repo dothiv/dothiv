@@ -101,6 +101,12 @@ dothiv_business:
     attachments_location: '%kernel.root_dir%/attachments'
     clickcounter:
         secret: '%clickcounter_auth_secret%'
+        locales:
+        - en
+        - de
+        - fr
+        - es
+        - pl
     podio:
         appId: '%dothiv_business.podio.appId%'
         appToken: '%dothiv_business.podio.appToken%'
