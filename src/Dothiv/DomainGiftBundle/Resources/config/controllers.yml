@@ -1,0 +1,10 @@
+services:
+    dothiv.domaingift.controller:
+        class: Dothiv\DomainGiftBundle\Controller\PageController
+        arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
+          - @templating
+          - @dothiv.registry.contentful.registry_content
+          - "DothivDomainGiftBundle"
+          - @clock
+          - %page_lifetime%

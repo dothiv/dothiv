@@ -1,0 +1,142 @@
+{% trans_default_domain "charity" %}{% set locale = locale|default(app.request.locale|slice(0,2)) %}<!DOCTYPE html><!--
+
+
+            _|_|          _|_|
+            _|_|          _|_|
+            _|_|
+            _|_|
+            _|_|_|_|      _|_|  _|_|    _|_|
+            _|_|_|_|_|    _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+      _|_|  _|_|    _|_|  _|_|    _|_|_|_|
+      _|_|  _|_|    _|_|  _|_|      _|_|
+
+      .hiv domains – The digital Red Ribbon
+
+                  click4life.hiv
+
+-->
+<html lang="{{ locale }}">
+<head>
+    <meta charset="utf-8">
+    <title>{{ domaingift.headline }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% stylesheets '@DothivDomainGiftBundle/Resources/public/lesscss/styles.less' filter='cssrewrite,?uglifycss' %}
+    <link rel="stylesheet" href="{{ asset(asset_url) }}">
+    {% endstylesheets %}
+    <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}">
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
+    <!-- Social Media Sharing -->
+    {% set description = domaingift.text|markdown|striptags %}
+    <!-- Twitter cards support -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="dotHIV">
+    <meta name="twitter:title" content="{{ domaingift.headline }}">
+    <meta name="twitter:description" content="{{ description }}">
+    <meta name="twitter:creator" content="dotHIV">
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
+    <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
+    {% endimage %}
+    <!-- Facebook open graph support -->
+    <meta property="og:title" content="{{ domaingift.headline }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:site_name" content="{% trans %}dothiv.fullname{% endtrans %}">
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/dotHiv-logo.png' %}
+    <meta property="og:image" content="{{ app.request.uriForPath(asset_url) }}">
+    {% endimage %}
+    <meta property="og:type" content="website">
+    <meta property="fb:app_id" content="{{ facebook_app_id }}">
+    <base href="/">
+</head>
+<body>
+<main>
+    <article>
+        <section class="intro">
+            <h1>{{ domaingift.headline }}</h1>
+            {{ domaingift.text|markdown }}
+        </section>
+        <section class="dots">
+            <div class="dot">
+                <div class="learnmore">
+                    {% image '@DothivDomainGiftBundle/Resources/public/svg/pinkdot.svg' %}
+                    <img class="pinkdot" src="{{ asset(asset_url) }}" alt="">
+                    {% endimage %}
+                    <div class="text">
+                        <a href="{{ path('dothiv_charity_index', {'locale': locale}) }}" rel="friend" target="_blank">
+                            {{ domaingift.learnMoreButton }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="dot">
+                <div class="share">
+                    {% image '@DothivDomainGiftBundle/Resources/public/svg/pinkdot.svg' %}
+                    <img class="pinkdot" src="{{ asset(asset_url) }}" alt="">
+                    {% endimage %}
+                    <div class="text">
+                        {% set url = 'http://www.' ~ domaingift.hivDomain ~ '.hiv'|url_encode %}
+                        {{ domaingift.shareButton }}
+                        <nav>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ url }}" target="_blank">
+                                <i class="charity-icon-facebook"></i> </a>
+                            <a href="https://twitter.com/intent/tweet?text={{ domaingift.twitterShareText|url_encode }}" target="_blank">
+                                <i class="charity-icon-twitter"></i> </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="dot">
+                <div class="register">
+                    {% image '@DothivDomainGiftBundle/Resources/public/svg/pinkdot.svg' %}
+                    <img class="pinkdot" src="{{ asset(asset_url) }}" alt="">
+                    {% endimage %}
+                    <div class="text">
+                        <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': 'register'}) }}" rel="friend" target="_blank">
+                            {{ domaingift.registerButton }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+</main>
+<footer>
+    <div class="logo">
+        <a href="https://click4life.hiv/" rel="friend" target="_blank">
+            {% image '@DothivCharityWebsiteBundle/Resources/public/images/logo.svg' %}
+            <img class="logo" src="{{ asset(asset_url) }}" alt="{% trans %}dothiv.fullname{% endtrans %}">
+            {% endimage %}
+            <small>{% trans %}dothiv.claim{% endtrans %}</small>
+        </a>
+        <nav>
+            <a href="{{ path('dothiv_charity_content', {'page': 'imprint', 'locale': locale}) }}" target="_blank">{% trans %}
+                footer.navi.imprint{% endtrans %}</a>
+        </nav>
+    </div>
+</footer>
+
+{# Click-Counter #}
+<script src="//dothiv-registry.appspot.com/static/clickcounter.min.js" type="text/javascript"></script>
+
+{# Google Analytics #}
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', '{{ domaingift.googleAnalytics }}', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+</body>
+</html>
