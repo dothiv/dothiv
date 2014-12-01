@@ -1,0 +1,18 @@
+<hr>
+<article class="clickstart" id="clickstartwinners">
+    <header>
+        <h2>{{ block.title }}</h2>
+        {{ block.text|default("")|markdown }}
+    </header>
+    <section>
+    {% for winner in block.children %}
+        <a href="{{ path('dothiv_charity_clickstart', {'locale': locale, 'page': winner.code|replace({'.':'/'})}) }}" class="winner" title="{{ winner.text|default("")|markdown|striptags }}">
+            {% if winner.image is defined %}<img class="winner" src="{{ winner.image.file.thumbnails.partner }}" alt="{{ winner.title }}"><br>{% endif %}
+            {{ winner.title }}
+        </a>
+    {% endfor %}
+    </section>
+    <footer>
+        {{ block.textMore|default("")|markdown }}
+    </footer>
+</article>
