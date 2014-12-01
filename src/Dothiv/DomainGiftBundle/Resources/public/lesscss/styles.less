@@ -2,11 +2,11 @@
 @import "variables";
 @import "../../../../../../web/bundles/dothivcharitywebsite/lesscss/include/charity-icons.less";
 
-
 body {
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-weight: @text-font-weight;
   text-align: center;
+  background: #fff url('/bundles/dothivdomaingift/svg/bg-pattern.svg');
 }
 
 main {
@@ -35,14 +35,42 @@ main {
           }
           div.learnmore {
             &:extend(.innerdot all);
-            div.text {
-              padding-top: 4em;
+            .perspective(1000);
+            .transform(scale(1, 1), 0.2s);
+            &:hover {
+              .transform(scale(1.15, 1.15), 0.2s);
             }
           }
           div.share {
             &:extend(.innerdot all);
-            div.text {
-              padding-top: 1.5em;
+            .front, .back {
+              .transform-style(preserve-3d);
+              .backface-visibility(hidden);
+              .perspective(1000);
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              padding-top: 3.5em;
+            }
+            .pinkdot {
+              .perspective(1000);
+              .transform-style(preserve-3d);
+              .transform(rotateY(0deg) scale(1, 1), 0.6s);
+            }
+            .front {
+              .transform(rotateY(0deg) scale(1, 1), 0.6s);
+            }
+            .back {
+              .transform(rotateY(-180deg) scale(1, 1), 0.6s);
+            }
+            &:hover {
+              .pinkdot, .front {
+                .transform(rotateY(180deg) scale(1.15, 1.15), 0.6s);
+              }
+              .back {
+                .transform(rotateY(0deg) scale(1.15, 1.15), 0.6s);
+              }
             }
             nav {
               display: block;
@@ -50,15 +78,17 @@ main {
               i {
                 &:before {
                   color: #fff;
-                  font-size: @font-size-h1 * 1.5;
+                  font-size: @font-size-h1 * 1.75;
                 }
               }
             }
           }
           div.register {
             &:extend(.innerdot all);
-            div.text {
-              padding-top: 3.25em;
+            .perspective(1000);
+            .transform(scale(1, 1), 0.2s);
+            &:hover {
+              .transform(scale(1.15, 1.15), 0.2s);
             }
           }
         }
@@ -67,16 +97,55 @@ main {
   }
 }
 
+.transform(@effect, @transition) {
+  -webkit-transform: @effect;
+  -moz-transform: @effect;
+  -o-transform: @effect;
+  -ms-transform: @effect;
+  transform: @effect;
+  -webkit-transition: @transition;
+  -moz-transition: @transition;
+  -o-transition: @transition;
+  -ms-transition: @transition;
+  transition: @transition;
+}
+
+.transform-style(@style) {
+  -webkit-transform-style: @style;
+  -moz-transform-style: @style;
+  -o-transform-style: @style;
+  -ms-transform-style: @style;
+  transform-style: @style;
+}
+
+.backface-visibility(@visibility) {
+  -webkit-backface-visibility: @visibility;
+  -moz-backface-visibility: @visibility;
+  -ms-backface-visibility: @visibility;
+  backface-visibility: @visibility;
+}
+
+.perspective(@perspective) {
+  -webkit-perspective: @perspective;
+  -moz-perspective: @perspective;
+  -ms-perspective: @perspective;
+  perspective: @perspective;
+  -ms-transform: perspective("{@perspective}px");
+  -moz-transform: perspective("{@perspective}px");
+}
+
 .innerdot {
-  margin-top: 2em;
+  margin-top: 3em;
   position: relative;
-  width: 300px;
+  width: 250px;
   margin-left: auto;
   margin-right: auto;
   div.text {
-    font-size: @font-size-base * 2;
+    font-size: @font-size-base * 1.5;
+    line-height: 150%;
     padding-left: 0.75em;
     padding-right: 0.75em;
+    padding-top: 3.75em;
     color: #fff;
     position: absolute;
     top: 0;
@@ -88,6 +157,11 @@ main {
         color: #fff;
         text-decoration: none;
       }
+    }
+    strong {
+      text-transform: uppercase;
+      display: block;
+      font-size: 200%;
     }
   }
   img.pinkdot {
@@ -109,11 +183,11 @@ footer {
     position: relative;
     img {
       width: 120px;
-      margin-left: 150px;
+      @media (min-width: @screen-md-min) {
+        margin-left: 150px;
+      }
       margin-right: 10px;
       margin-top: -55px;
-    }
-    small {
     }
     nav {
       @media (max-width: @screen-md-max) {
