@@ -1,0 +1,36 @@
+{% trans_default_domain "charity" %}
+{% set title %}{{ block.title }}{% endset %}
+{% set description %}{{ block.text|default("") }}{% endset %}
+{% extends "DothivCharityWebsiteBundle::3/page.html.twig" %}
+{% block stylesheet %}
+    {% stylesheets '@DothivCharityWebsiteBundle/Resources/public/lesscss/clickstart/styles.less' filter='cssrewrite,?uglifycss' %}
+    <link rel="stylesheet" href="{{ asset(asset_url) }}">
+    {% endstylesheets %}
+{% endblock %}
+{% block main %}
+    <main>
+        <article class="clickstart">
+            <header>
+                <h1>
+                    <small>{% trans %}clickstart.contest.winner{% endtrans %}</small>
+                    <br>
+                    {{ block.title }}<br>
+                </h1>
+                <p class="subtitle">
+                    {{ block.text|default("")|markdown|striptags('<a><em><strong>') }}
+                </p>
+                {% if block.image is defined %}
+                    <img class="winner" src="{{ block.image.file.thumbnails.wide }}" alt="{{ block.title }}">{% endif %}
+            </header>
+            <section>
+                {{ block.textMore|default("")|markdown }}
+            </section>
+            <footer>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-text="{{ block.title }}">{% trans %}
+                    share.twitter.button{% endtrans %}</a>
+
+                <div class="fb-like" data-href="{{ app.request.uri }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+            </footer>
+        </article>
+    </main>
+{% endblock %}
