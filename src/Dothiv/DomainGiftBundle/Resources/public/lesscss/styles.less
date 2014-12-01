@@ -1,0 +1,133 @@
+@import "../../../../../../vendor/twitter/bootstrap/less/bootstrap";
+@import "variables";
+@import "../../../../../../web/bundles/dothivcharitywebsite/lesscss/include/charity-icons.less";
+
+
+body {
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-weight: @text-font-weight;
+  text-align: center;
+}
+
+main {
+  h1 {
+    @media (min-width: @screen-lg-min) {
+      font-size: @font-size-h1 * 2;
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+  }
+
+  article {
+    section {
+      &.intro {
+        @media (min-width: @screen-lg-min) {
+          font-size: @font-size-base * 2;
+        }
+        padding: 0 0.5em;
+      }
+      &.dots {
+        .clearfix;
+        .dot {
+          @media (min-width: @screen-lg-min) {
+            width: 100% / 3;
+            float: left;
+          }
+          div.learnmore {
+            &:extend(.innerdot all);
+            div.text {
+              padding-top: 4em;
+            }
+          }
+          div.share {
+            &:extend(.innerdot all);
+            div.text {
+              padding-top: 1.5em;
+            }
+            nav {
+              display: block;
+              margin-top: 0.5em;
+              i {
+                &:before {
+                  color: #fff;
+                  font-size: @font-size-h1 * 1.5;
+                }
+              }
+            }
+          }
+          div.register {
+            &:extend(.innerdot all);
+            div.text {
+              padding-top: 3.25em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.innerdot {
+  margin-top: 2em;
+  position: relative;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  div.text {
+    font-size: @font-size-base * 2;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    a {
+      color: #fff;
+      &:hover, &:active, &:focus {
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+  }
+  img.pinkdot {
+    width: 100%;
+  }
+}
+
+footer {
+  .clearfix;
+  margin-bottom: 2em;
+  a {
+    color: @text-color;
+    &:hover, &:active, &:focus {
+      text-decoration: none;
+    }
+  }
+  div.logo {
+    margin-top: 200px;
+    position: relative;
+    img {
+      width: 120px;
+      margin-left: 150px;
+      margin-right: 10px;
+      margin-top: -55px;
+    }
+    small {
+    }
+    nav {
+      @media (max-width: @screen-md-max) {
+        margin-top: 1em;
+
+      }
+      @media (min-width: @screen-lg-min) {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin-right: 1em;
+        font-size: @font-size-small;
+        margin-top: 6em;
+      }
+    }
+  }
+}
