@@ -1,0 +1,55 @@
+dothiv_domaingift_zalando:
+    host: "www.zalando.hiv"
+    path:     /
+    defaults:
+        _controller: dothiv.domaingift.controller:domainGiftAction
+        domain: zalando.hiv
+
+dothiv_domaingift_bahn:
+    host: "www.bahn.hiv"
+    path:     /
+    defaults:
+        _controller: dothiv.domaingift.controller:domainGiftAction
+        domain: bahn.hiv
+
+dothiv_domaingift_volkswagen:
+    host: "www.volkswagen.hiv"
+    path:     /
+    defaults:
+        _controller: dothiv.domaingift.controller:domainGiftAction
+        domain: volkswagen.hiv
+
+dothiv_domaingift_cricket:
+    host: "www.cricket.hiv"
+    path:     /
+    defaults:
+        _controller: dothiv.domaingift.controller:domainGiftAction
+        domain: cricket.hiv
+
+dothiv_domaingift_football:
+    host: "www.football.hiv"
+    path:     /
+    defaults:
+        _controller: dothiv.domaingift.controller:domainGiftAction
+        domain: football.hiv
+
+dothiv_domaingift_baseball:
+    host: "www.baseball.hiv"
+    path:     /
+    defaults:
+        _controller: dothiv.domaingift.controller:domainGiftAction
+        domain: baseball.hiv
+
+dothiv_domaingift_rugby:
+    host: "www.rugby.hiv"
+    path:     /
+    defaults:
+        _controller: dothiv.domaingift.controller:domainGiftAction
+        domain: rugby.hiv
+
+dothiv_domaingift_basketball:
+    host: "www.basketball.hiv"
+    path:     /
+    defaults:
+        _controller: dothiv.domaingift.controller:domainGiftAction
+        domain: basketball.hiv
