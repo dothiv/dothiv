@@ -46,7 +46,8 @@
         "component/besite-jquery-mmenu": "4.x",
         "component/buberdds-angular-bootstrap-colorpicker": "3.x",
         "zeroclipboard/zeroclipboard": "2.x",
-        "component/urish-angular-moment": "0.x"
+        "component/urish-angular-moment": "0.x",
+        "abraham/twitteroauth": "dev-master"
     },
     "require-dev": {
         "phploc/phploc": "*",
