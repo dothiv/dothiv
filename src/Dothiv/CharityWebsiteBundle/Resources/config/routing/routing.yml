@@ -79,3 +79,10 @@ dothiv_charity_strings:
     pattern:  /contentful/strings
     defaults:
         _controller: dothiv.charity.web.controller.contentful:stringsAction
+
+# Twitter stream for connect page
+dothiv_socialboard_api:
+    path: /api/socialboard/twitter
+    defaults:
+        _controller: dothiv.charity.web.controller.social_board:twitterAction
+        _format: json

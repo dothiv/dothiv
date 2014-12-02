@@ -42,3 +42,13 @@ services:
           - @templating
           - @clock
           - %page_lifetime%
+
+    dothiv.charity.web.controller.social_board:
+        class: Dothiv\CharityWebsiteBundle\Controller\SocialBoardController
+        arguments:
+          - %twitter_consumer_key%
+          - %twitter_consumer_secret%
+          - %twitter_oauth_access_token%
+          - %twitter_oauth_access_token_secret%
+          - @clock
+          - 600

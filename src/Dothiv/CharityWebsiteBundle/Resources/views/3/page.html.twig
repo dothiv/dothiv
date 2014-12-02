@@ -33,10 +33,10 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block stylesheet %}
-    {% stylesheets '@DothivCharityWebsiteBundle/Resources/public/lesscss/index/styles.less' filter='cssrewrite,?uglifycss' %}
+    {% stylesheets '@DothivCharityWebsiteBundle/Resources/public/lesscss/content/styles.less' filter='cssrewrite,?uglifycss' %}
     <link rel="stylesheet" href="{{ asset(asset_url) }}">
     {% endstylesheets %}
-    {% endblock stylesheet %}
+    {% endblock %}
     <link rel="shortcut icon" href="{{ asset("bundles/dothivcharitywebsite/images/favicon.png") }}">
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts
@@ -120,6 +120,10 @@
         });
     </script>
 {% endblock angular_config %}
+
+{# Extra JS block for pages #}
+{% block javascript %}{% endblock javascript %}
+
 {# Click-Counter #}
 <script src="//dothiv-registry.appspot.com/static/clickcounter.min.js" type="text/javascript"></script>
 
