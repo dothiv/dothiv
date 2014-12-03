@@ -49,6 +49,7 @@ class UserNotificationRepository extends DoctrineEntityRepository implements Use
     public function getPaginated(CRUD\PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
         $qb = $this->createQueryBuilder('i');
+        $qb->andWhere('i.dismissed = 0');
         $filterQuery->getUser()->map(function (User $user) use ($qb) {
             $qb->andWhere('i.user = :user')->setParameter('user', $user);
         });

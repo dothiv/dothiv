@@ -40,10 +40,13 @@ Feature: See user notifications
     # The notification should be updated
     When I send a GET request to "http://click4life.hiv.dev/api/user/userAhandle/notification/1"
     Then the JSON node "dismissed" should contain "1"
+    # Should not show up
+    When I send a GET request to "http://click4life.hiv.dev/api/user/userAhandle/notification"
+    Then the JSON node "items" should not exist
     # Unmark
     Given I send a PATCH request to "http://click4life.hiv.dev/api/user/userAhandle/notification/1" with JSON values:
       | dismissed | 0 |
     Then the response status code should be 204
     # The notification should be updated
     When I send a GET request to "http://click4life.hiv.dev/api/user/userAhandle/notification/1"
-    And the JSON node "dismissed" should contain "0"
+    Then the JSON node "dismissed" should contain "0"
