@@ -142,7 +142,8 @@ class CRUDController
             $this->itemTransformer,
             $options,
             $filterQuery,
-            $request->attributes->get('_route')
+            $request->attributes->get('_route'),
+            $request->attributes->get('_route_params')
         );
 
         $response = $this->createResponse();
@@ -157,6 +158,7 @@ class CRUDController
      * @param CRUD\PaginatedQueryOptions                  $options
      * @param FilterQuery                                 $filterQuery
      * @param string                                      $route
+     * @param array                                       $routeParams
      *
      * @return \Dothiv\APIBundle\Model\PaginatedList
      */
@@ -166,11 +168,12 @@ class CRUDController
         EntityTransformerInterface $itemTransformer,
         CRUD\PaginatedQueryOptions $options,
         FilterQuery $filterQuery,
-        $route
+        $route,
+        array $routeParams
     )
     {
         $paginatedResult = $repo->getPaginated($options, $filterQuery);
-        $paginatedList   = $listTransformer->transform($paginatedResult, $route);
+        $paginatedList   = $listTransformer->transform($paginatedResult, $route, $routeParams);
         foreach ($paginatedResult->getResult() as $reg) {
             $paginatedList->addItem($itemTransformer->transform($reg, null, true));
         }

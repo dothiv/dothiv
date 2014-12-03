@@ -23,7 +23,6 @@ class UserNotificationTransformer extends AbstractTransformer implements EntityT
             $this->router->generate(
                 Option::fromValue($route)->getOrElse($this->route),
                 array(
-                    'handle'     => $entity->getUser()->getHandle(),
                     'identifier' => $entity->getPublicId(),
                 ),
                 RouterInterface::ABSOLUTE_URL
