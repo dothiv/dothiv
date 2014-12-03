@@ -96,25 +96,23 @@ dothiv_api_account_loginlink:
         _format: json
     methods: [POST]
 
-
-
 ## User notifications
 dothiv_api_user_notification:
-    pattern:  /user/{handle}/notification/{identifier}
+    path:  /notification/{identifier}
     defaults:
         _controller: dothiv.api.controller.user_notification:getItemAction
         _format: json
     methods: [GET]
 
 dothiv_api_user_notification_list:
-    pattern:  /user/{handle}/notification
+    pattern:  /user/{identifier}/notification
     defaults:
         _controller: dothiv.api.controller.user_notification:listItemsAction
         _format: json
     methods: [GET]
 
 dothiv_api_user_notification_update:
-    path: /user/{handle}/notification/{identifier}
+    path:  /notification/{identifier}
     defaults:
         _controller: dothiv.api.controller.user_notification:updateItemAction
         _format: json
