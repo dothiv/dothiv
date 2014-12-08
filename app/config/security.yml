@@ -24,7 +24,7 @@ security:
             security: false
 
         user:
-            pattern:    ^/api/(user|domain|attachment|nonprofit|premium-configurator|payitforward)
+            pattern:    ^/api/(user|domain|attachment|nonprofit|premium-configurator|payitforward|notification)
             stateless:  true
             provider:   user
             oauth2:     true
@@ -42,6 +42,6 @@ security:
               realm: "Contentful Webhook Area"
 
     access_control:
-      - { path: ^/api/(user|domain|attachment|nonprofit|premium-configurator|payitforward), roles: ROLE_USER }
+      - { path: ^/api/(user|domain|attachment|nonprofit|premium-configurator|payitforward|notification), roles: ROLE_USER }
       - { path: ^/admin/api, roles: ROLE_ADMIN }
       - { path: ^/contentful/webhook, roles: ROLE_CONTENTFUL_WEBHOOK }

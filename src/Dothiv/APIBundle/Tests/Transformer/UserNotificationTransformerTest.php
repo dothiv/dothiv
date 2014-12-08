@@ -45,7 +45,7 @@ class UserNotificationTransformerTest extends \PHPUnit_Framework_TestCase
         $this->mockRouter->expects($this->once())->method('generate')
             ->with(
                 'some_route',
-                array('identifier' => 17, 'handle' => $user->getHandle()),
+                array('identifier' => 17),
                 RouterInterface::ABSOLUTE_URL
             )
             ->willReturn('http://example.com/');

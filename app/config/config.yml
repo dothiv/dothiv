@@ -29,6 +29,7 @@ twig:
     strict_variables: %kernel.debug%
     globals:
       facebook_app_id: %facebook_app_id%
+      facebook_page_id: %facebook_page_id%
       twitter_widget_id: %twitter_widget_id%
       general_availability: 2014-08-26T14:00:00Z
       sunrise: 2014-07-21T14:00:00Z

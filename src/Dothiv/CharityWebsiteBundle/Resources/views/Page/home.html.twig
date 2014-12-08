@@ -3,6 +3,11 @@
 {% set title %}{{ page.title }}{% endset %}
 {% set description %}{{ page.description|default("") }}{% endset %}
 {% extends "DothivCharityWebsiteBundle::3/page.html.twig" %}
+{% block stylesheet %}
+    {% stylesheets '@DothivCharityWebsiteBundle/Resources/public/lesscss/index/styles.less' filter='cssrewrite,?uglifycss' %}
+    <link rel="stylesheet" href="{{ asset(asset_url) }}">
+    {% endstylesheets %}
+{% endblock %}
 {% block main %}
     {% for block in page.blocks %}
         {% if block.code in ["tiles"] %}
