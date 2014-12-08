@@ -38,17 +38,15 @@
     <table>
         <thead>
         <tr>
-            <th colspan="2" class="name">
-                <a data-ng-click="flipPredicate('name')">
+            <th class="name">
+                <a data-ng-click="flipPredicate('name')" class="sort">
                     {% trans %}module.registrar-list.heading.name{% endtrans %}
                     <span class="order-icons">
                         <i class="order-down" data-ng-class="{active: predicate == '+name'}"></i>
                         <i class="order-up" data-ng-class="{active: predicate == '-name'}"></i>
                     </span>
-                </a>
-            </th>
-            <th class="promition">
-                <a data-ng-click="flipPredicate('promotion')">
+                </a><br>
+                <a data-ng-click="flipPredicate('promotion')" class="sort promotion">
                     {% trans %}module.registrar-list.heading.promotion{% endtrans %}
                     <span class="order-icons">
                         <i class="order-down" data-ng-class="{active: predicate == '+promotion'}"></i>
@@ -57,7 +55,7 @@
                 </a>
             </th>
             <th class="price">
-                <a data-ng-click="flipPredicate('price' + currency)">
+                <a data-ng-click="flipPredicate('price' + currency)" class="sort">
                     {% trans %}module.registrar-list.heading.price{% endtrans %}
                     <span class="order-icons">
                         <i class="order-down" data-ng-class="{active: predicate == '+price' + currency}"></i>
@@ -65,7 +63,7 @@
                     </span>
                 </a>
             </th>
-            <th>
+            <th class="button">
                 <select data-ng-model="currency" name="currency" data-ng-change="predicate = '+price' + currency;">
                     <option value="USD">$</option>
                     <option value="EUR">€</option>
@@ -75,27 +73,27 @@
         </thead>
         <tfoot>
         <tr>
-            <td colspan="5">
+            <td colspan="3">
                 <small>{% trans %}module.registrar-list.footer.conversion{% endtrans %}</small>
             </td>
         </tr>
         </tfoot>
         <tbody>
         <tr data-ng-repeat="r in registrars | filter:{privateRegistrar:false} | orderBy:predicate ">
-
-            <td><a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}"><img
-                            alt="{% verbatim %}{{ r.name }}{% endverbatim %}"
-                            data-ng-src="{% verbatim %}{{ r.image.file.thumbnails.supporter }}{% endverbatim %}">
-                </a></td>
             <td>
-                <a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}" data-ng-bind="r.name"></a>
+                <a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}">
+                    <img
+                            alt="{% verbatim %}{{ r.name }}{% endverbatim %}"
+                            data-ng-src="{% verbatim %}{{ r.image.file.thumbnails.supporter }}{% endverbatim %}" class="logo">
+                </a>
+                <a data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}" data-ng-bind="r.name" class="name"></a>
+                <p class="promotion" data-ng-bind-html="r.promotion"></p>
             </td>
-            <td data-ng-bind-html="r.promotion"></td>
             <td class="price">
                 <span data-ng-bind="r.priceUSDLabel" data-ng-show="currency == 'USD'"></span>
                 <span data-ng-bind="r.priceEURLabel" data-ng-show="currency == 'EUR'"></span>
             </td>
-            <td>
+            <td class="button">
                 <a class="button" data-ng-href="{% verbatim %}{{ r.url }}{% endverbatim %}">{% trans %}module.registrar-list.register{% endtrans %}</a>
             </td>
         </tr>

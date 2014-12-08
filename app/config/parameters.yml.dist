@@ -26,8 +26,13 @@ parameters:
 
     facebook_app_id:   486753724803417
     facebook_app_secret: yourfacebooksecret
+    facebook_page_id: 158464207529828
 
     twitter_widget_id: 474872109810733056
+    twitter_consumer_key: notasecret
+    twitter_consumer_secret: notasecret
+    twitter_oauth_access_token: notasecret
+    twitter_oauth_access_token_secret: notasecret
 
     clickcounter_auth_secret: some_password
 

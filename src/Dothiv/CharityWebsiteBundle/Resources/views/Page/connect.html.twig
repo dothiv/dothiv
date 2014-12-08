@@ -1,0 +1,64 @@
+{% trans_default_domain "charity" %}
+{% set title %}{{ page.title }}{% endset %}
+{% set description %}{{ page.text|default("") }}{% endset %}
+{% extends "DothivCharityWebsiteBundle::3/page.html.twig" %}
+{% block stylesheet %}
+    {% stylesheets
+    '@DothivCharityWebsiteBundle/Resources/public/lesscss/content/styles.less'
+    '@DothivCharityWebsiteBundle/Resources/public/jquery-social-stream/css/dcsns_wall.css'
+    filter='cssrewrite,?uglifycss' %}
+    <link rel="stylesheet" href="{{ asset(asset_url) }}">
+    {% endstylesheets %}
+    <style type="text/css">
+        #social-stream {
+            margin: 1em;
+        }
+    </style>
+{% endblock %}
+{% block javascript %}
+    {% javascripts
+    '@DothivCharityWebsiteBundle/Resources/public/jquery-social-stream/js/jquery.social.stream.wall.1.5.js'
+    '@DothivCharityWebsiteBundle/Resources/public/jquery-social-stream/js/jquery.social.stream.1.5.7.js'
+    filter='?uglifyjs2'
+    output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        $(function ($) {
+            $('#social-stream').dcSocialStream({
+                feeds: {
+                    twitter: {
+                        id: 'dotHIV',
+                        retweets: '1',
+                        images: 'thumb',
+                        url: '/api/socialboard/twitter'
+                    },
+                    facebook: {
+                        id: '{{ facebook_page_id }}',
+                        out: 'intro,thumb,text,user,share',
+                        thumb: true
+                    },
+                    youtube: {
+                        id: 'dothiv',
+                        thumb: '0'
+                    }
+                },
+                rotate: {
+                    delay: 0
+                },
+                twitterId: 'dotHIV',
+                control: false,
+                filter: true,
+                wall: true,
+                cache: false,
+                max: 'limit',
+                limit: 10,
+                iconPath: '/bundles/dothivcharitywebsite/jquery-social-stream/images/dcsns-dark/',
+                imagePath: '/bundles/dothivcharitywebsite/jquery-social-stream/images/dcsns-dark/'
+            });
+        });
+    </script>
+{% endblock %}
+{% block main %}
+    <div id="social-stream"></div>
+{% endblock %}
