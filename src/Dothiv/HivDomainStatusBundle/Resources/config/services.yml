@@ -11,4 +11,4 @@ services:
         arguments:
         - @dothiv_hiv_domain_status.service.client
         - @dothiv.business.event_dispatcher
-        - %dothiv_hiv_domain_status.endpoint%
+        - %dothiv_hiv_domain_status.service_url%
