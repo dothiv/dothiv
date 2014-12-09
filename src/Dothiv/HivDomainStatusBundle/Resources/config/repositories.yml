@@ -1,12 +1,12 @@
 parameters:
-    dothiv.hivdomainstatus.repository.check.entity: 'DothivHivDomainStatus:HivDomainCheck'
-    dothiv.hivdomainstatus.repository.check.repository.class: Dothiv\HivDomainStatus\Repository\HivDomainCheckRepository
+    dothiv_hiv_domain_status.repository.check.entity.class: 'DothivHivDomainStatusBundle:HivDomainCheck'
+    dothiv_hiv_domain_status.repository.check.repository.class: Dothiv\HivDomainStatus\Repository\HivDomainCheckRepository
 
 services:
-    dothiv.hivdomainstatus.repository.check:
-        class: %dothiv.hivdomainstatus.repository.check.repository.class%
+    dothiv_hiv_domain_status.repository.check:
+        class: %dothiv_hiv_domain_status.repository.check.repository.class%
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        arguments: [ %dothiv.repository.repository.check.entity% ]
+        arguments: [ %dothiv_hiv_domain_status.repository.check.entity.class% ]
         calls:
         - [setValidator, ["@validator"]]

@@ -65,4 +65,6 @@ class DomainCheckModel implements JsonLd\JsonLdEntityInterface
      */
     public $created;
 
+
+
 }
