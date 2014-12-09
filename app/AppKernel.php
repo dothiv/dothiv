@@ -43,6 +43,7 @@ class AppKernel extends Kernel
             new Dothiv\AdminBundle\DothivAdminBundle(),
             new Dothiv\PayitforwardBundle\DothivPayitforwardBundle(),
             new Dothiv\DomainGiftBundle\DothivDomainGiftBundle(),
+            new Dothiv\HivDomainStatusBundle\DothivHivDomainStatusBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

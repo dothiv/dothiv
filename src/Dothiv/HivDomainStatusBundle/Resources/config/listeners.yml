@@ -1,0 +1,11 @@
+parameters:
+    dothiv_hiv_domain_status.listener.domain.class: Dothiv\HivDomainStatusBundle\Listener\Domain
+
+services:
+    dothiv_hiv_domain_status.listener.domain:
+        class: %dothiv_hiv_domain_status.listener.domain.class%
+        arguments:
+        - @dothiv_hiv_domain_status.service
+        tags:
+        - { name: dothiv.business.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
+        - { name: dothiv.business.event_listener, event: dothiv.business.domain.deleted, method: onDomainDeleted }

@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+Link: <http://localhost:8889/domain?offsetKey=2>; rel="next"
+Date: Tue, 09 Dec 2014 11:03:06 GMT
+Content-Length: 1164
+
+{"@context":"http://jsonld.click4life.hiv/List","@id":"http://localhost:8889","@type":"http://jsonld.click4life.hiv/Domain","items":[{"@context":"http://jsonld.click4life.hiv/Domain","@id":"http://localhost:8889/domain/1","name":"example.hiv","valid":false,"check":{"@context":"http://jsonld.click4life.hiv/DomainCheck","@id":"http://localhost:8889/check/2","domain":"example.hiv","dns_ok":false,"addresses":null,"url":"http://www.example.hiv/","status_code":0,"script_present":false,"iframe_present":false,"iframe_target":"","iframe_target_ok":false,"valid":false,"created":"2014-12-09T13:34:58.603248Z"},"created":"2014-12-09T13:34:27.465782Z"},{"@context":"http://jsonld.click4life.hiv/Domain","@id":"http://localhost:8889/domain/2","name":"acme.hiv","valid":false,"check":{"@context":"http://jsonld.click4life.hiv/DomainCheck","@id":"http://localhost:8889/check/3","domain":"acme.hiv","dns_ok":false,"addresses":null,"url":"http://www.acme.hiv/","status_code":0,"script_present":false,"iframe_present":false,"iframe_target":"","iframe_target_ok":false,"valid":false,"created":"2014-12-09T13:35:02.958708Z"},"created":"2014-12-09T13:35:02.953956Z"}],"total":2}

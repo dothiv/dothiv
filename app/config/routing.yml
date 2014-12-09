@@ -61,3 +61,7 @@ dothiv_payitforward:
     host: %registrydomain%
     resource: "@DothivPayitforwardBundle/Resources/config/routing.yml"
     prefix:   /
+
+DothivHivDomainStatusBundle:
+    resource: "@DothivHivDomainStatusBundle/Resources/config/routing.yml"
+    prefix:   /
