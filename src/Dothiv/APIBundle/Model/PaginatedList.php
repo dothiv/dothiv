@@ -48,6 +48,9 @@ class PaginatedList implements JsonLdEntityInterface
      */
     public function addItem($item)
     {
+        if ($this->items === null) {
+            $this->items = array();
+        }
         $this->items[] = $item;
         return $this;
     }
@@ -136,5 +139,13 @@ class PaginatedList implements JsonLdEntityInterface
     public function getTotal()
     {
         return $this->total;
+    }
+
+    /**
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 }
