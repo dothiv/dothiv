@@ -1,0 +1,7 @@
+## Domain Check Status
+hivdomainstatus_domain_check_item:
+    pattern:  /admin/api/hivdomainstatus/{identifier}
+    defaults:
+        _controller: dothiv_hiv_domain_status.api.controller.domain_check:getItemAction
+        _format: json
+    methods: [GET]
