@@ -2,13 +2,15 @@
 
 namespace Dothiv\HivDomainStatusBundle\Tests\Entity\Command;
 
-use Dothiv\HivDomainStatusBundle\Command\FetchDomainsCommand;
+use Dothiv\BusinessBundle\Entity\Config;
+use Dothiv\HivDomainStatusBundle\Command\FetchHivDomainStatusCommand;
 use Dothiv\HivDomainStatusBundle\Service\HivDomainStatusServiceInterface;
+use Dothiv\ValueObject\URLValue;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class FetchDomainsCommandTest extends \PHPUnit_Framework_TestCase
+class FetchHivDomainStatusCommandTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -32,13 +34,18 @@ class FetchDomainsCommandTest extends \PHPUnit_Framework_TestCase
     private $mockService;
 
     /**
+     * @var \Doctrine\ORM\EntityRepository|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockConfigRepo;
+
+    /**
      * @test
      * @group HivDomainStatusBundle
      * @group Command
      */
     public function itShouldBeInstantiateable()
     {
-        $this->assertInstanceOf('Dothiv\HivDomainStatusBundle\Command\FetchDomainsCommand', $this->getTestObject());
+        $this->assertInstanceOf('Dothiv\HivDomainStatusBundle\Command\FetchHivDomainStatusCommand', $this->getTestObject());
     }
 
     /**
@@ -47,24 +54,41 @@ class FetchDomainsCommandTest extends \PHPUnit_Framework_TestCase
      * @group   Command
      * @depends itShouldBeInstantiateable
      */
-    public function itShouldFetchRegistrations()
+    public function itShouldFetchChecks()
     {
         $containerMap = array(
             array('dothiv_hiv_domain_status.service', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockService),
+            array('dothiv.repository.config', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockConfigRepo),
         );
         $this->mockContainer->expects($this->any())->method('get')
             ->will($this->returnValueMap($containerMap));
 
-        $this->mockService->expects($this->once())->method('fetchDomains');
+        $config = new Config();
+        $config->setName('dothiv_hiv_domain_status.check.next_url');
+        $this->mockConfigRepo->expects($this->once())->method('get')
+            ->with('dothiv_hiv_domain_status.check.next_url')
+            ->will($this->returnValue($config));
+
+        $this->mockConfigRepo->expects($this->once())->method('persist')
+            ->with($this->callback(function (Config $config) {
+                $this->assertEquals('http://localhost:8889/check?offsetKey=2', $config->getValue());
+                return true;
+            }))
+            ->will($this->returnSelf());
+        $this->mockConfigRepo->expects($this->once())->method('flush');
+
+        $this->mockService->expects($this->once())->method('fetchChecks')
+            ->with(null)
+            ->will($this->returnValue('http://localhost:8889/check?offsetKey=2'));
         $this->assertEquals(0, $this->getTestObject()->run($this->mockInput, $this->mockOutput));
     }
 
     /**
-     * @return FetchDomainsCommand
+     * @return FetchHivDomainStatusCommand
      */
     protected function getTestObject()
     {
-        $command = new FetchDomainsCommand();
+        $command = new FetchHivDomainStatusCommand();
         $command->setContainer($this->mockContainer);
         return $command;
     }
@@ -89,6 +113,10 @@ class FetchDomainsCommandTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->mockService = $this->getMockBuilder('\Dothiv\HivDomainStatusBundle\Service\HivDomainStatusServiceInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->mockConfigRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface')
             ->disableOriginalConstructor()
             ->getMock();
     }

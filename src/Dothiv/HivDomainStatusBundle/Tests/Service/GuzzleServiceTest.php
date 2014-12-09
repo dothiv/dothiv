@@ -4,11 +4,12 @@
 namespace Dothiv\HivDomainStatusBundle\Test\Service;
 
 use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\HivDomainStatusBundle\Event\HivDomainStatusEvent;
+use Dothiv\HivDomainStatusBundle\Event\DomainCheckEvent;
 use Dothiv\HivDomainStatusBundle\HivDomainStatusEvents;
 use Dothiv\HivDomainStatusBundle\Model\DomainModel;
 use Dothiv\HivDomainStatusBundle\Service\GuzzleService;
 use Dothiv\HivDomainStatusBundle\Service\HivDomainStatusServiceInterface;
+use Dothiv\ValueObject\URLValue;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequestInterface;
 use Guzzle\Plugin\History\HistoryPlugin;
@@ -108,29 +109,30 @@ class GuzzleServiceTest extends \PHPUnit_Framework_TestCase
         // Mock response
         $plugin = new MockPlugin();
         $plugin->addResponse(__DIR__ . '/../data/entrypoint.data');
-        $plugin->addResponse(__DIR__ . '/../data/domain-list.data');
-        $plugin->addResponse(__DIR__ . '/../data/domain-list-page2.data');
+        $plugin->addResponse(__DIR__ . '/../data/check-list.data');
+        $plugin->addResponse(__DIR__ . '/../data/check-list-page2.data');
         $this->client->addSubscriber($plugin);
 
         $this->mockEventDispatcher->expects($this->at(0))->method('dispatch')
             ->with(
-                HivDomainStatusEvents::DOMAIN_FETCHED,
-                $this->callback(function (HivDomainStatusEvent $event) {
-                    $this->assertEquals("example.hiv", $event->getDomain()->name);
+                HivDomainStatusEvents::DOMAIN_CHECK,
+                $this->callback(function (DomainCheckEvent $event) {
+                    $this->assertEquals("example.hiv", $event->getCheck()->domain);
                     return true;
                 })
             );
 
         $this->mockEventDispatcher->expects($this->at(1))->method('dispatch')
             ->with(
-                HivDomainStatusEvents::DOMAIN_FETCHED,
-                $this->callback(function (HivDomainStatusEvent $event) {
-                    $this->assertEquals("acme.hiv", $event->getDomain()->name);
+                HivDomainStatusEvents::DOMAIN_CHECK,
+                $this->callback(function (DomainCheckEvent $event) {
+                    $this->assertEquals("acme.hiv", $event->getCheck()->domain);
                     return true;
                 })
             );
 
-        $this->createTestObject()->fetchDomains();
+        $nextUrl = $this->createTestObject()->fetchChecks();
+        $this->assertEquals('http://localhost:8889/check?offsetKey=2', (string)$nextUrl);
     }
 
     /**

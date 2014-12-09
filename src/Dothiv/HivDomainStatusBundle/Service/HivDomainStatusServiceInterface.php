@@ -2,7 +2,9 @@
 
 namespace Dothiv\HivDomainStatusBundle\Service;
 
+use Dothiv\HivDomainStatusBundle\Exception\ServiceException;
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\ValueObject\URLValue;
 
 /**
  * Interface for the HIV domain status service API
@@ -24,7 +26,13 @@ interface HivDomainStatusServiceInterface
     public function unregisterDomain(Domain $domain);
 
     /**
-     * Emits an event for every fetched domain.
+     * Fetches (new) check results and emits an event for every result
+     *
+     * @param URLValue|null $url
+     *
+     * @return URLValue Next Url
+     *
+     * @throws ServiceException
      */
-    public function fetchDomains();
+    public function fetchChecks(URLValue $url = null);
 }

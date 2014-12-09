@@ -4,5 +4,5 @@ namespace Dothiv\HivDomainStatusBundle;
 
 class HivDomainStatusEvents
 {
-    const DOMAIN_FETCHED = 'hiv_domain_status.domain_fetched';
+    const DOMAIN_CHECK = 'hiv_domain_status.domain_check';
 }
