@@ -1,3 +1,4 @@
+# NOTE: Not loaded in test env
 parameters:
     dothiv_hiv_domain_status.listener.domain.class: Dothiv\HivDomainStatusBundle\Listener\DomainListener
     dothiv_hiv_domain_status.listener.domain_check.class: Dothiv\HivDomainStatusBundle\Listener\DomainCheckListener
