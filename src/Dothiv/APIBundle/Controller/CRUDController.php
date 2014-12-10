@@ -77,6 +77,11 @@ class CRUDController
     protected $storeHistory = true;
 
     /**
+     * @var bool
+     */
+    protected $isAdminController = false;
+
+    /**
      * @param CRUD\EntityRepositoryInterface  $itemRepo
      * @param EntityTransformerInterface      $itemTransformer
      * @param PaginatedListTransformer        $paginatedListTransformer
@@ -133,7 +138,7 @@ class CRUDController
         });
         $filterQueryParser = new FilterQueryParser();
         $filterQuery       = $filterQueryParser->parse($request->query->get('q'));
-        if (!$this->isAdmin()) {
+        if ($this->isUserController()) {
             $filterQuery->setUser($this->getUser());
         }
         $paginatedList = $this->createListing(
@@ -300,7 +305,7 @@ class CRUDController
         /** @var CRUD\CreateEntityRepositoryInterface $repo */
         $repo = $this->itemRepo;
         $item = $this->itemRepo->createItem();
-        if (!$this->isAdmin()) {
+        if ($this->isUserController()) {
             if (!($item instanceof OwnerEntityInterface)) {
                 throw new AccessDeniedHttpException(sprintf('"%s" items have no owner!', get_class($this->itemRepo)));
             }
@@ -365,7 +370,7 @@ class CRUDController
      */
     protected function checkPermission(EntityInterface $item)
     {
-        if (!$this->isAdmin()) {
+        if ($this->isUserController() || !$this->isAdmin()) {
             if (!($item instanceof OwnerEntityInterface)) {
                 throw new AccessDeniedHttpException(sprintf('"%s" items have no owner!', $this->itemRepo->getItemEntityName($item)));
             }
@@ -391,5 +396,29 @@ class CRUDController
     {
         $this->storeHistory = false;
         return $this;
+    }
+
+    /**
+     * This controller is used in an admin context.
+     */
+    public function makeAdminController()
+    {
+        $this->isAdminController = true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdminController()
+    {
+        return $this->isAdminController;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUserController()
+    {
+        return !$this->isAdminController();
     }
 }
