@@ -43,8 +43,10 @@ class AfiliasImporterService implements AfiliasImporterServiceInterface
     {
         $list = $this->client->getListResponse($url, '\Dothiv\AfiliasImporterBundle\Event\DomainRegisteredEvent');
 
-        foreach ($list->getItems() as $event) {
-            $this->eventDispatcher->dispatch(AfiliasImporterBundleEvents::DOMAIN_REGISTERED, $event);
+        if ($list->count() > 0) {
+            foreach ($list->getItems() as $event) {
+                $this->eventDispatcher->dispatch(AfiliasImporterBundleEvents::DOMAIN_REGISTERED, $event);
+            }
         }
 
         return $list->getNextPageUrl();
