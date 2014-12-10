@@ -59,47 +59,49 @@ class AfiliasImporterService implements AfiliasImporterServiceInterface
     {
         $list = $this->client->getListResponse($url, '\Dothiv\AfiliasImporterBundle\Event\DomainTransactionEvent');
 
-        foreach ($list->getItems() as $event) {
-            /** @var DomainTransactionEvent $event */
-            switch ($event->ObjectType) {
-                case 'DOMAIN':
-                    continue; // pass
-                case 'NAMESERVER':
-                    continue 2; // not interesting
-                default:
-                    throw new ServiceException(
-                        sprintf(
-                            'Unexpected ObjectType for DomainTransactionEvent: "%s"!',
-                            $event->ObjectType
-                        )
-                    );
+        if ($list->count() > 0) {
+            foreach ($list->getItems() as $event) {
+                /** @var DomainTransactionEvent $event */
+                switch ($event->ObjectType) {
+                    case 'DOMAIN':
+                        continue; // pass
+                    case 'NAMESERVER':
+                        continue 2; // not interesting
+                    default:
+                        throw new ServiceException(
+                            sprintf(
+                                'Unexpected ObjectType for DomainTransactionEvent: "%s"!',
+                                $event->ObjectType
+                            )
+                        );
+                }
+                $type = null;
+                switch ($event->Command) {
+                    case 'CREATE':
+                        $type = AfiliasImporterBundleEvents::DOMAIN_CREATED;
+                        break;
+                    case 'UPDATE':
+                        $type = AfiliasImporterBundleEvents::DOMAIN_UPDATED;
+                        break;
+                    case 'DELETE':
+                        $type = AfiliasImporterBundleEvents::DOMAIN_DELETED;
+                        break;
+                    case 'TRANSFER':
+                        $type = AfiliasImporterBundleEvents::DOMAIN_TRANSFERRED;
+                        break;
+                    case 'RENEW':
+                        $type = AfiliasImporterBundleEvents::DOMAIN_RENEWED;
+                        break;
+                    default:
+                        throw new ServiceException(
+                            sprintf(
+                                'Unexpected Command for DomainTransactionEvent: "%s"!',
+                                $event->Command
+                            )
+                        );
+                }
+                $this->eventDispatcher->dispatch($type, $event);
             }
-            $type = null;
-            switch ($event->Command) {
-                case 'CREATE':
-                    $type = AfiliasImporterBundleEvents::DOMAIN_CREATED;
-                    break;
-                case 'UPDATE':
-                    $type = AfiliasImporterBundleEvents::DOMAIN_UPDATED;
-                    break;
-                case 'DELETE':
-                    $type = AfiliasImporterBundleEvents::DOMAIN_DELETED;
-                    break;
-                case 'TRANSFER':
-                    $type = AfiliasImporterBundleEvents::DOMAIN_TRANSFERRED;
-                    break;
-                case 'RENEW':
-                    $type = AfiliasImporterBundleEvents::DOMAIN_RENEWED;
-                    break;
-                default:
-                    throw new ServiceException(
-                        sprintf(
-                            'Unexpected Command for DomainTransactionEvent: "%s"!',
-                            $event->Command
-                        )
-                    );
-            }
-            $this->eventDispatcher->dispatch($type, $event);
         }
 
         return $list->getNextPageUrl();
