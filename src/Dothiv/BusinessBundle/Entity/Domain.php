@@ -131,6 +131,17 @@ class Domain extends Entity
     private $nonprofit = false;
 
     /**
+     * The domain is set up correctly
+     *
+     * This property is set according to the result of the last .hiv domain status check.
+     *
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $live = false;
+
+    /**
      * The constructor
      */
     public function __construct()
@@ -414,6 +425,25 @@ class Domain extends Entity
     }
 
     /**
+     * @return boolean
+     */
+    public function getLive()
+    {
+        return $this->live;
+    }
+
+    /**
+     * @param boolean $live
+     *
+     * @return self
+     */
+    public function setLive($live)
+    {
+        $this->live = (boolean)$live;
+        return $this;
+    }
+
+    /**
      * Compares two instance of this class
      *
      * @param Domain $domain
@@ -431,6 +461,8 @@ class Domain extends Entity
             && $this->getOwnerEmail() === $domain->getOwnerEmail()
             && $this->getOwnerName() === $domain->getOwnerName()
             && $this->getTransfer() === $domain->getTransfer()
+            && $this->getNonprofit() === $domain->getNonprofit()
+            && $this->getLive() === $domain->getLive()
             && $this->getTokenSent() === $domain->getTokenSent()
             && $this->getToken() === $domain->getToken()
             && $this->getRegistrar()->equals($domain->getRegistrar())
@@ -439,4 +471,5 @@ class Domain extends Entity
         }
         return false;
     }
+
 }

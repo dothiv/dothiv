@@ -13,10 +13,14 @@ class DothivHivDomainStatusExtension extends Extension
     {
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('dothiv_hiv_domain_status.endpoint', $config['endpoint']);
+        $container->setParameter('dothiv_hiv_domain_status.service_url', $config['endpoint']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-        $loader->load('listeners.yml');
+        if ($container->getParameter("kernel.environment") != 'test') {
+            $loader->load('listeners.yml');
+        }
+        $loader->load('repositories.yml');
+        $loader->load('controller.yml');
     }
 }

@@ -81,15 +81,18 @@ class SocialBoardController
      */
     public function twitterAction(Request $request)
     {
-        // DO NOT EDIT BELOW THIS LINE
         switch ($request->get('url')) {
             case 'timeline':
                 $rest   = 'statuses/user_timeline';
                 $params = Array('count' => $request->get('count'), 'include_rts' => $request->get('include_rts'), 'exclude_replies' => $request->get('exclude_replies'), 'screen_name' => $request->get('screen_name'));
                 break;
             case 'search':
-                $rest   = "search/tweets";
-                $params = Array('q' => $request->get('q'), 'count' => $request->get('count'), 'include_rts' => $request->get('include_rts'));
+                $rest = "search/tweets";
+                $q    = $request->get('q');
+                if ($q == 'dotHIV') {
+                    $q = '%40dotHIV%20OR%20%23dotHIV';
+                }
+                $params = Array('q' => $q, 'count' => $request->get('count'), 'include_rts' => $request->get('include_rts'));
                 break;
             case 'list':
                 $rest   = "lists/statuses";

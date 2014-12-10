@@ -56,6 +56,10 @@ class ClicksReporter implements ReporterInterface
         $clickCountersReport->setTitle('Counting Domains');
         $clickCountersReport->setResolution(Report::RESOLUTION_TOTAL);
         $reports->set('clickcounters', $clickCountersReport);
+        $liveDomainsReport = new Report();
+        $liveDomainsReport->setTitle('Live Domains');
+        $liveDomainsReport->setResolution(Report::RESOLUTION_TOTAL);
+        $reports->set('live', $liveDomainsReport);
         return $reports;
     }
 
@@ -71,6 +75,8 @@ class ClicksReporter implements ReporterInterface
                 return $this->getClicks();
             case 'clickcounters':
                 return $this->getClickCounters();
+            case 'live':
+                return $this->getLiveDomains();
         }
     }
 
@@ -94,6 +100,27 @@ class ClicksReporter implements ReporterInterface
         foreach ($this->domainRepo->findAll() as $domain) {
             /** @var Domain $domain */
             if (Option::fromValue($domain->getActiveBanner())->isDefined() && $domain->getClickcount() > 0) {
+                $count += 1;
+                if ($domain->getCreated() > $date) {
+                    $date = $domain->getCreated();
+                }
+            }
+        }
+        $events = new ArrayCollection();
+        $events->add(new ReportEvent($date, $count));
+        return $events;
+    }
+
+    /**
+     * @return ReportEvent[]|ArrayCollection
+     */
+    protected function getLiveDomains()
+    {
+        $date  = null;
+        $count = 0;
+        foreach ($this->domainRepo->findAll() as $domain) {
+            /** @var Domain $domain */
+            if ($domain->getLive()) {
                 $count += 1;
                 if ($domain->getCreated() > $date) {
                     $date = $domain->getCreated();

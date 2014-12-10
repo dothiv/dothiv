@@ -1,6 +1,7 @@
 parameters:
     dothiv_hiv_domain_status.service.class: Dothiv\HivDomainStatusBundle\Service\GuzzleService
     dothiv_hiv_domain_status.service.client.class: Guzzle\Http\Client
+    dothiv_hiv_domain_status.api.transformer.domain_check.class: Dothiv\HivDomainStatusBundle\Transformer\DomainCheckTransformer
 
 services:
     dothiv_hiv_domain_status.service.client:
@@ -11,4 +12,12 @@ services:
         arguments:
         - @dothiv_hiv_domain_status.service.client
         - @dothiv.business.event_dispatcher
-        - %dothiv_hiv_domain_status.endpoint%
+        - %dothiv_hiv_domain_status.service_url%
+
+    dothiv_hiv_domain_status.api.transformer.domain_check:
+        class: %dothiv_hiv_domain_status.api.transformer.domain_check.class%
+        arguments:
+        - @router
+        - "hivdomainstatus_domain_check_item"
+        calls:
+        - [setDomainTransformer, [@dothiv.api.transformer.domain]]
