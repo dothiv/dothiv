@@ -17,7 +17,9 @@ class DothivHivDomainStatusExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-        $loader->load('listeners.yml');
+        if ($container->getParameter("kernel.environment") != 'test') {
+            $loader->load('listeners.yml');
+        }
         $loader->load('repositories.yml');
         $loader->load('controller.yml');
     }
