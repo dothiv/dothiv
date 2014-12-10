@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+Link: <http://localhost:8889/check?offsetKey=2>; rel="next"
+Date: Tue, 09 Dec 2014 11:03:06 GMT
+Content-Length: 839
+
+{"@context":"http://jsonld.click4life.hiv/List","@id":"http://localhost:8889","@type":"http://jsonld.click4life.hiv/DomainCheck","items":[{"@context":"http://jsonld.click4life.hiv/DomainCheck","@id":"http://localhost:8889/check/1","domain":"example.hiv","dnsOk":true,"addresses":["127.0.0.1","::1"],"url":"http://example.hiv","statusCode":200,"scriptPresent":true,"iframePresent":false,"iframeTarget":"http://example.com/","iframeTargetOk":true,"valid":true,"created":"2014-12-09T15:57:00.771447Z"},{"@context":"http://jsonld.click4life.hiv/DomainCheck","@id":"http://localhost:8889/check/2","domain":"acme.hiv","dnsOk":false,"addresses":null,"url":"http://www.acme.hiv/","statusCode":0,"scriptPresent":false,"iframePresent":false,"iframeTarget":"","iframeTargetOk":false,"valid":false,"created":"2014-12-09T16:01:17.973086Z"}],"total":2}

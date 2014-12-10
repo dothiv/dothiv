@@ -51,8 +51,8 @@ parameters:
 
     # Pinkbar
     eur_goal: 61801
-    already_donated: 34.82
-    already_clicked: 34820
+    already_donated: 461.61
+    already_clicked: 77500
     eur_increment: 0.001
 
     # Podio

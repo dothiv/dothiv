@@ -113,6 +113,9 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         if ($filterQuery->getProperty('nonprofit')->isDefined()) {
             $qb->andWhere('i.nonprofit = :nonprofit')->setParameter('nonprofit', (int)$filterQuery->getProperty('nonprofit')->get());
         }
+        if ($filterQuery->getProperty('live')->isDefined()) {
+            $qb->andWhere('i.live = :live')->setParameter('live', (int)$filterQuery->getProperty('live')->get());
+        }
         if ($filterQuery->getProperty('clickcount')->isDefined()) {
             if ((int)$filterQuery->getProperty('clickcount')->get()) {
                 $qb->andWhere('i.clickcount > 0');

@@ -6,7 +6,7 @@ namespace Dothiv\HivDomainStatusBundle\Service;
 use Dothiv\APIBundle\JsonLd\Client\JsonLdGuzzleClient;
 use Dothiv\APIBundle\JsonLd\JsonLdTypedEntityInterface;
 use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\HivDomainStatusBundle\Event\HivDomainStatusEvent;
+use Dothiv\HivDomainStatusBundle\Event\DomainCheckEvent;
 use Dothiv\HivDomainStatusBundle\Exception\ServiceException;
 use Dothiv\HivDomainStatusBundle\HivDomainStatusEvents;
 use Dothiv\HivDomainStatusBundle\Model\DomainModel;
@@ -51,7 +51,7 @@ class GuzzleService implements HivDomainStatusServiceInterface
      */
     public function registerDomain(Domain $domain)
     {
-        $domainListLink = $this->findDomainListLink();
+        $domainListLink = $this->findListLink(new URLValue('http://jsonld.click4life.hiv/Domain'));
         $this->client->post($domainListLink->getJsonLdId(), array('name' => $domain->getName()));
     }
 
@@ -60,7 +60,7 @@ class GuzzleService implements HivDomainStatusServiceInterface
      */
     public function unregisterDomain(Domain $domain)
     {
-        $domainListLink = $this->findDomainListLink();
+        $domainListLink = $this->findListLink(new URLValue('http://jsonld.click4life.hiv/Domain'));
         $domainFound    = false;
         $url            = Option::fromValue($domainListLink->getJsonLdId());
         do {
@@ -79,36 +79,34 @@ class GuzzleService implements HivDomainStatusServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function fetchDomains()
+    public function fetchChecks(URLValue $url = null)
     {
-        $domainListLink = $this->findDomainListLink();
-        $url            = Option::fromValue($domainListLink->getJsonLdId());
-        do {
-            $list    = $this->client->getListResponse($url->get(), '\Dothiv\HivDomainStatusBundle\Model\DomainModel');
-            $nextUrl = Option::fromValue($list->getNextPageUrl());
-            if ($nextUrl->isDefined() && !$nextUrl->get()->equals($url->get())) {
-                $url = $nextUrl;
-            } else {
-                $url = None::create();
+        if ($url === null) {
+            $checkListLink = $this->findListLink(new URLValue('http://jsonld.click4life.hiv/DomainCheck'));
+            $url           = $checkListLink->getJsonLdId();
+        }
+        $list    = $this->client->getListResponse($url, '\Dothiv\HivDomainStatusBundle\Model\DomainCheckModel');
+        $nextUrl = $list->getNextPageUrl();
+        // Fetch check
+        if ($list->count() > 0) {
+            foreach ($list->getItems() as $item) {
+                /** @var DomainModel $item */
+                $this->dispatcher->dispatch(HivDomainStatusEvents::DOMAIN_CHECK, new DomainCheckEvent($item));
             }
-            // Fetch check
-            if ($list->count() > 0) {
-                foreach ($list->getItems() as $item) {
-                    /** @var DomainModel $item */
-                    $this->dispatcher->dispatch(HivDomainStatusEvents::DOMAIN_FETCHED, new HivDomainStatusEvent($item));
-                }
-            }
-        } while ($url->isDefined());
+        }
+        return $nextUrl;
     }
 
     /**
+     * @param URLValue $type
+     *
      * @return JsonLdTypedEntityInterface
      */
-    protected function findDomainListLink()
+    protected function findListLink(URLValue $type)
     {
         $entryPoint = $this->client->getEntryPointResponse($this->endpoint);
         // Find Domain list
-        $domainListLinkOptional = $entryPoint->getLink(new URLValue('http://jsonld.click4life.hiv/List'), new URLValue('http://jsonld.click4life.hiv/Domain'));
+        $domainListLinkOptional = $entryPoint->getLink(new URLValue('http://jsonld.click4life.hiv/List'), $type);
         if ($domainListLinkOptional->isEmpty()) {
             throw new ServiceException(sprintf('Endpoint has no Domain list link: %s', $this->endpoint));
         }

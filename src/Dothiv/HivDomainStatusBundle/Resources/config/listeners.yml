@@ -1,5 +1,7 @@
+# NOTE: Not loaded in test env
 parameters:
-    dothiv_hiv_domain_status.listener.domain.class: Dothiv\HivDomainStatusBundle\Listener\Domain
+    dothiv_hiv_domain_status.listener.domain.class: Dothiv\HivDomainStatusBundle\Listener\DomainListener
+    dothiv_hiv_domain_status.listener.domain_check.class: Dothiv\HivDomainStatusBundle\Listener\DomainCheckListener
 
 services:
     dothiv_hiv_domain_status.listener.domain:
@@ -9,3 +11,11 @@ services:
         tags:
         - { name: dothiv.business.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
         - { name: dothiv.business.event_listener, event: dothiv.business.domain.deleted, method: onDomainDeleted }
+
+    dothiv_hiv_domain_status.listener.domain_check:
+        class: %dothiv_hiv_domain_status.listener.domain_check.class%
+        arguments:
+        - @dothiv.repository.domain
+        - @dothiv_hiv_domain_status.repository.check
+        tags:
+        - { name: dothiv.business.event_listener, event: hiv_domain_status.domain_check, method: onDomainCheck }

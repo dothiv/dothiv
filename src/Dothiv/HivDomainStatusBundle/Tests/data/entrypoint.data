@@ -1,7 +1,6 @@
 HTTP/1.1 200 OK
 Content-Type: application/json
 Date: Tue, 09 Dec 2014 09:29:23 GMT
-Content-Length: 176
+Content-Length: 300
 
-{"@context":"http://jsonld.click4life.hiv/EntryPoint","domains":{"@context":"http://jsonld.click4life.hiv/List","@id":"/domain","@type":"http://jsonld.click4life.hiv/Domain"}}
-
+{"@context":"http://jsonld.click4life.hiv/EntryPoint","domains":{"@context":"http://jsonld.click4life.hiv/List","@id":"/domain","@type":"http://jsonld.click4life.hiv/Domain"},"checks":{"@context":"http://jsonld.click4life.hiv/List","@id":"/check","@type":"http://jsonld.click4life.hiv/DomainCheck"}}

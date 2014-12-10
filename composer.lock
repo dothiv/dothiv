@@ -4,49 +4,18 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "80c82c45631d8cad6157aee7ed78f8e7",
+    "hash": "f43e293064c537efe5d66f6eaa4c3af8",
     "packages": [
         {
             "name": "abraham/twitteroauth",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:tomohikosato/twitteroauth.git",
-                "reference": "98356f90107672c4c38fa2cd810d862e711a4ced"
-            },
+            "version": "0.2.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tomohikosato/twitteroauth/zipball/98356f90107672c4c38fa2cd810d862e711a4ced",
-                "reference": "98356f90107672c4c38fa2cd810d862e711a4ced",
-                "shasum": ""
+                "url": "https://github.com/abraham/twitteroauth/archive/0.2.0-beta3.zip",
+                "reference": null,
+                "shasum": null
             },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "type": "package",
-            "autoload": {
-                "files": [
-                    "twitteroauth/OAuth.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Abraham Williams",
-                    "email": "abraham@abrah.am",
-                    "homepage": "http://abrah.am",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Twitter oauth",
-            "keywords": [
-                "Twitter API",
-                "Twitter oAuth"
-            ],
-            "time": "2012-11-14 03:45:45"
+            "type": "package"
         },
         {
             "name": "angular-ui/bootstrap",
@@ -5777,7 +5746,6 @@
         "doctrine/migrations": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "angular-ui/bootstrap": 20,
-        "abraham/twitteroauth": 20,
         "squizlabs/php_codesniffer": 20,
         "behat/symfony2-extension": 20,
         "sanpi/behatch-contexts": 20,
