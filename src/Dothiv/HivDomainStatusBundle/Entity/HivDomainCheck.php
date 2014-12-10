@@ -277,7 +277,7 @@ class HivDomainCheck extends Entity
     /**
      * @return boolean
      */
-    public function isValid()
+    public function getValid()
     {
         return $this->valid;
     }
@@ -291,5 +291,27 @@ class HivDomainCheck extends Entity
     {
         $this->valid = (boolean)$valid;
         return $this;
+    }
+
+    /**
+     * @param HivDomainCheck $other
+     *
+     * @return bool
+     */
+    public function equals(HivDomainCheck $other)
+    {
+        if ($this->getDnsOk() != $other->getDnsOk()
+            || $this->getIframePresent() != $other->getIframePresent()
+            || $this->getIframeTarget() != $other->getIframeTarget()
+            || $this->getIframeTargetOk() != $other->getIframeTargetOk()
+            || $this->getScriptPresent() != $other->getScriptPresent()
+            || $this->getStatusCode() != $other->getStatusCode()
+            || $this->getUrl() != $other->getUrl()
+            || $this->getValid() != $other->getValid()
+            || !$this->getDomain()->equals($other->getDomain())
+            || json_encode($this->getAddresses()) != json_encode($other->getAddresses())
+        ) {
+            return false;
+        }
     }
 }
