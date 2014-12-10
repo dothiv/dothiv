@@ -4,6 +4,7 @@ parameters:
   dothiv_business.listener.domain_transaction.class: Dothiv\BusinessBundle\Listener\DomainTransactionListener
   dothiv_business.listener.create_user_notification_email_change.class: Dothiv\BusinessBundle\Listener\CreateUserNotificationEmailChangeListener
   dothiv_business.listener.update_domain_owner_on_user_email_change.class: Dothiv\BusinessBundle\Listener\UpdateDomainOwnerOnUserEmailChangeListener
+  dothiv_business.listener.hiv_domain_check.class: Dothiv\BusinessBundle\Listener\HivDomainStatusDomainCheckListener
 
 services:
   dothiv_business.listener.create_registration:
@@ -47,3 +48,11 @@ services:
       - @dothiv.repository.entity_change
     tags:
       - { name: dothiv.business.event_listener, event: dothiv.business.entity.changed, method: onEntityChanged }
+
+  dothiv_business.listener.hiv_domain_check:
+    class: %dothiv_business.listener.hiv_domain_check.class%
+    arguments:
+      - @dothiv.repository.domain
+      - @dothiv.repository.entity_change
+    tags:
+      - { name: dothiv.business.event_listener, event: hiv_domain_status.domain_check, method: onDomainCheck }
