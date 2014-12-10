@@ -47,7 +47,7 @@ class DomainCheckTransformer extends AbstractTransformer implements EntityTransf
         $model->scriptPresent  = $entity->getScriptPresent();
         $model->statusCode     = $entity->getStatusCode();
         $model->url            = $entity->getUrl();
-        $model->valid          = $entity->isValid();
+        $model->valid          = $entity->getValid();
         return $model;
     }
 
