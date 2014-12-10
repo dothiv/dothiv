@@ -331,6 +331,22 @@ class CRUDControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @group   DothivAPIBundle
+     * @group   Controller
+     * @depends itShouldBeInstantiable
+     */
+    public function itShouldSetAdminFlag()
+    {
+        $controller = $this->createTestObject();
+        $this->assertFalse($controller->isAdminController());
+        $this->assertTrue($controller->isUserController());
+        $controller->makeAdminController();
+        $this->assertTrue($controller->isAdminController());
+        $this->assertFalse($controller->isUserController());
+    }
+
+    /**
      * @return CRUDController
      */
     protected function createTestObject()
