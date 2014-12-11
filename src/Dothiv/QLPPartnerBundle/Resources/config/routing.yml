@@ -1,4 +1,0 @@
-dothiv_qlp_landingpage:
-    path:     /
-    defaults:
-        _controller: dothiv.qlp.controller.landingpage:partnerAction

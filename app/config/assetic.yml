@@ -7,7 +7,6 @@ assetic:
       - 'DothivRegistryWebsiteBundle'
       - 'DothivAPIBundle'
       - 'DothivAngularJsBundle'
-      - 'DothivQLPPartnerBundle'
       - 'DothivPremiumConfiguratorBundle'
       - 'DothivAdminBundle'
       - 'DothivPayitforwardBundle'

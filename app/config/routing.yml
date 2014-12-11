@@ -21,12 +21,6 @@ dothiv_domain_gift:
     resource: "@DothivDomainGiftBundle/Resources/config/routing.yml"
     prefix: /
 
-# QLP landingpages
-dothiv_qlp_partner:
-    host: "{partner}.friends.%charitydomain%"
-    resource: "@DothivQLPPartnerBundle/Resources/config/routing.yml"
-    prefix:   /
-
 # Contentful Bundle
 dothiv_contentful:
     resource: "@DothivContentfulBundle/Resources/config/routing.yml"
