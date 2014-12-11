@@ -5,6 +5,7 @@ parameters:
   dothiv_business.listener.create_user_notification_email_change.class: Dothiv\BusinessBundle\Listener\CreateUserNotificationEmailChangeListener
   dothiv_business.listener.update_domain_owner_on_user_email_change.class: Dothiv\BusinessBundle\Listener\UpdateDomainOwnerOnUserEmailChangeListener
   dothiv_business.listener.hiv_domain_check.class: Dothiv\BusinessBundle\Listener\HivDomainStatusDomainCheckListener
+  dothiv_business.listener.clickcounter_iframe_config_listener.class: Dothiv\BusinessBundle\Listener\ClickCounterIframeConfigListener
 
 services:
   dothiv_business.listener.create_registration:
@@ -56,3 +57,13 @@ services:
       - @dothiv.repository.entity_change
     tags:
       - { name: dothiv.business.event_listener, event: hiv_domain_status.domain_check, method: onDomainCheck }
+
+  dothiv_business.listener.clickcounter_iframe_config_listener:
+    class: %dothiv_business.listener.clickcounter_iframe_config_listener.class%
+    arguments:
+      - @dothiv.http_client
+      - %clickcounter_iframe_service_url%
+      - %clickcounter_iframe_service_username%
+      - %clickcounter_iframe_service_password%
+    tags:
+      - { name: dothiv.business.event_listener, event: dothiv.basewebsite.clickcounter.configuration, method: onClickCounterConfiguration }
