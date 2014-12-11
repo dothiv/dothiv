@@ -34,15 +34,6 @@ services:
         arguments:
           - @dothiv.charity.contentful.charity_content
 
-    dothiv.charity.web.controller.iframe:
-        class: Dothiv\CharityWebsiteBundle\Controller\IframeController
-        arguments:
-          - @dothiv.repository.domain
-          - @dothiv.websitebase.cache.request_lastmodified
-          - @templating
-          - @clock
-          - %page_lifetime%
-
     dothiv.charity.web.controller.social_board:
         class: Dothiv\CharityWebsiteBundle\Controller\SocialBoardController
         arguments:
