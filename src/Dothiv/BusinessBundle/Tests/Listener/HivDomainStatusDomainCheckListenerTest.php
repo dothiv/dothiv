@@ -48,7 +48,6 @@ class HivDomainStatusDomainCheckListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldUpdateTheDomainStatus($oldValue, $newValue)
     {
-        // FIXME: Implement
         $domain = new Domain();
         $domain->setName('example.hiv');
         $domain->setLive($oldValue);
