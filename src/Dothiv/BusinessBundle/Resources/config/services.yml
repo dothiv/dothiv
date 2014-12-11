@@ -7,6 +7,7 @@ parameters:
     registration.class: Dothiv\BusinessBundle\Service\Registration
     dothiv.business.service.nonprofitregistration.class: Dothiv\BusinessBundle\Service\NonprofitRegistrationService
     dothiv.business.service.whois.class: Dothiv\BusinessBundle\Service\WhoisSocketService
+    dothiv.http_client.class: Guzzle\Http\Client
 
 services:
     clickcounter:
@@ -74,3 +75,6 @@ services:
 
     whois:
         class: %dothiv.business.service.whois.class%
+
+    dothiv.http_client:
+        class: %dothiv.http_client.class%
