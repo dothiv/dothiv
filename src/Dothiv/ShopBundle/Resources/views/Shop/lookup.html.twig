@@ -1,0 +1,34 @@
+{# Based on https://www.iana.org/domains/idn-tables/tables/berlin_latn_1.txt #}
+{% set allowed_chars_no_dash = "0-9a-z\\u00DF\\u00E0-\\u00FF\\u0101\\u0103\\u0105\\u0107\\u0109\\u010B\\u010D\\u010F\\u0111\\u0113\\u0115\\u0117\\u0119\\u011B\\u011D\\u011F\\u0121\\u0123\\u0125\\u0127\\u0129\\u012B\\u012D\\u012F\\u0131\\u0135\\u0137\\u0138\\u013A\\u013C\\u013E\\u0142\\u0144\\u0146\\u0148\\u014B\\u014D\\u014F\\u0151\\u0153\\u0155\\u0157\\u0159\\u015B\\u015D\\u015F\\u0161\\u0163\\u0165\\u0167\\u0169\\u016B\\u016D\\u016F\\u0171\\u0173\\u0175\\u0177\\u017A\\u017C\\u017E" %}
+<fieldset>
+    <div class="field">
+        <input type="text" name="domain" id="domain"
+                required
+                data-ng-pattern="/^[{{ allowed_chars_no_dash }}][-{{ allowed_chars_no_dash }}]{1,61}[{{ allowed_chars_no_dash }}]$/"
+                data-ng-model="order.domain">
+        <span>.hiv</span>
+    </div>
+</fieldset>
+
+<nav>
+    {% if block.buttons is defined %}
+    {% for button in block.buttons %}
+        <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="lookupForm.$invalid" data-ng-click="lookup = 'registerable';">
+            {{ button.value }}
+        </button>
+    {% endfor %}
+    {% endif %}
+</nav>
+
+{% for child in block.children %}
+    <div class="block" data-ng-show="lookup == '{{ child.code|replace({"shop.lookup.": ""}) }}'">
+        <h3>{{ child.title|markdown }}</h3>
+        {% if child.buttons is defined %}
+            {% for button in child.buttons %}
+                <button class="{% if loop.first %}primary{% endif %}" data-ng-click="step = '{{ button.code|replace({"button.shop.": ""}) }}'">
+                    {{ button.value }}
+                </button>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endfor %}
