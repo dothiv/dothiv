@@ -1,0 +1,29 @@
+{% for child in block.children %}
+    <fieldset>
+        <div class="field">
+            <h3>{{ child.title }}</h3>
+            {{ child.text|default("")|markdown }}
+            {% if child.code == "shop.configure.engagement" %}
+                {% for option in child.children %}
+                    <label>
+                        <input type="radio" name="clickcounter" value="{%  if loop.first %}1{% else %}0{% endif %}" data-ng-model="order.clickcounter" required>
+                        {{ option.title }}
+                    </label>
+                    {{ option.text|default("")|markdown }}
+                {% endfor %}
+            {% elseif child.code == "shop.configure.redirect" %}
+                <input type="url" name="redirect" data-ng-model="order.redirect" required>
+            {% endif %}
+        </div>
+    </fieldset>
+{% endfor %}
+
+<nav>
+    {% if block.buttons is defined %}
+        {% for button in block.buttons %}
+            <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="configureForm.$invalid" data-ng-click="state = 'details';">
+                {{ button.value }}
+            </button>
+        {% endfor %}
+    {% endif %}
+</nav>

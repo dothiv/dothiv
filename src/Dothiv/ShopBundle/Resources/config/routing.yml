@@ -1,0 +1,7 @@
+dothiv_shop_index:
+    path:     /{locale}/shop
+    defaults:
+        _controller: dothiv.shop.controller.page:pageAction
+        page: shop
+    requirements:
+        locale:  en|de
