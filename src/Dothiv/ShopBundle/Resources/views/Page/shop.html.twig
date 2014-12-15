@@ -2,16 +2,24 @@
 {% trans_default_domain "registry" %}
 {% set title %}{{ page.title }}{% endset %}
 {% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
+{% block styles %}
+    {% stylesheets
+    'bundles/dothivshop/lesscss/styles.less'
+    '@jquery_mmenu_css'
+    filter='cssrewrite,?uglifycss' %}
+    <link rel="stylesheet" href="{{ asset(asset_url) }}">
+    {% endstylesheets %}
+{% endblock styles %}
 {% block content %}
-    <article data-ng-controller="ShopController" data-ng-init="step = 'lookup'">
+    <article data-ng-controller="ShopController" data-ng-init="step = 'contact'" class="shop">
         {% for block in page.blocks|default([]) %}
             {% set code = block.code|replace({"shop.": ""}) %}
-            {% if code in ["lookup", "configure"] %}
+            {% if code in ["lookup", "configure", "contact", "done"] %}
                 <section class="{{ code }}" data-ng-show="step == '{{ code }}'">
                     <div class="block">
                         <h2>{{ block.title }}</h2>
                         {{ block.text|default("")|markdown }}
-                        <form method="post" action="" novalidate name="{{ code }}Form">
+                        <form method="post" action="" novalidate name="{{ code }}Form" class="{{ code }}">
                             {% include "DothivShopBundle::Shop/" ~ code ~ ".html.twig" %}
                         </form>
                     </div>
@@ -30,6 +38,7 @@
     '@angular_js_route'
     '@angular_js_cookies'
     '@angular_ui_router'
+    '@angular_ui_bootstrap_tpls'
     '@DothivRegistryWebsiteBundle/Resources/public/js/menu.js'
     '@DothivShopBundle/Resources/public/js/app.js'
     '@DothivBaseWebsiteBundle/Resources/public/js/services/*.js'
@@ -54,6 +63,9 @@
                         eur: {{ config('shop.price.eur', 'float') }},
                         usd: {{ config('shop.price.usd', 'float') }}
                     }
+                },
+                vat: {
+                    de: {{ devat }}
                 }
             };
             return config;
