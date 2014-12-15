@@ -1,0 +1,123 @@
+@import "../../../../vendor/twitter/bootstrap/less/bootstrap";
+@import "../../dothivregistrywebsite/lesscss/styles";
+
+article.shop {
+  form {
+    input[type=text], input[type=email], input[type=tel], input[type=url], input[type=password], select {
+      .form-control;
+    }
+    label {
+      em {
+        font-weight: @font-weight-regular;
+        font-size: @font-size-small;
+        font-style: normal;
+      }
+    }
+    .disabled {
+      label, code {
+        color: lighten(@text-color, 50%);
+      }
+    }
+    &.lookup {
+      div.lookupDomain {
+        .clearfix;
+        nav {
+          .pull-left;
+          button {
+            &:extend(.btn all);
+            &:extend(.btn-primary all);
+            &:extend(.btn-lg all);
+          }
+        }
+      }
+      fieldset {
+        .pull-left;
+        width: 50%;
+        input {
+          &:extend(.input-lg all);
+          width: 70%;
+          .pull-left;
+          text-align: right;
+          font-weight: @font-weight-bold;
+        }
+        span {
+          .pull-left;
+          display: inline-block;
+          height: @input-height-large;
+          line-height: @input-height-large;
+          font-size: @font-size-h1;
+          padding-left: 0.25em;
+        }
+      }
+      div.lookupResult {
+        margin-top: 2em;
+        &.premium {
+          nav {
+            a {
+              .pull-right;
+              &:extend(.btn all);
+              &:extend(.btn-primary all);
+              &:extend(.btn-lg all);
+            }
+          }
+        }
+        &.available {
+          div.text {
+            .pull-left;
+            width: 50%;
+          }
+          nav {
+            .pull-left;
+            button {
+              &:extend(.btn all);
+              &:extend(.btn-primary all);
+              &:extend(.btn-lg all);
+            }
+          }
+        }
+        &.registered {
+          table {
+            margin-top: 1em;
+            font-size: @font-size-h3;
+            button {
+              .pull-right;
+              &:extend(.btn all);
+              &:extend(.btn-primary all);
+            }
+          }
+        }
+      }
+    }
+    &.configure {
+      nav {
+        margin-top: 2em;
+        button {
+          .pull-right;
+          &:extend(.btn all);
+          &:extend(.btn-primary all);
+          &:extend(.btn-lg all);
+        }
+      }
+    }
+    &.contact {
+      .container-fluid;
+      padding: 0;
+      margin: 0;
+      table.summary {
+        td, th {
+          &.price {
+            text-align: right;
+          }
+        }
+      }
+      fieldset {
+        .row;
+        margin-top: 1em;
+        div.field {
+          .make-sm-column(6);
+          margin-top: 0.5em;
+        }
+      }
+    }
+  }
+}

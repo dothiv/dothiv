@@ -1,0 +1,126 @@
+{% import _self as contact %}
+
+{% macro renderField(block, code, options) %}
+    {% set required = options.required|default(false) %}
+    {% set ngRequired = options.ngRequired|default(false) %}
+    {% set pattern = options.pattern|default(false) %}
+    {% set typeahead = options.typeahead|default(false) %}
+    {% set typeaheadOnSelect = options.typeaheadOnSelect|default(false) %}
+    {% set type = options.type|default("text") %}
+    {% set disabled = options.disabled|default(0) %}
+    {% set autocomplete = options.autocomplete|default(true) %}
+    {% set minlength = options.minlength|default(false) %}
+    {% for field in block.strings|default([]) %}
+        {% if field.code ends with code %}
+            <div class="field" data-ng-class="{disabled: {{ disabled }}}">
+                <label for="contact-details-{{ code }}">
+                    {{ field.value|markdown|striptags('<a><em><strong><code>')|raw }}
+                </label>
+                <input type="{{ type }}" name="{{ code }}" id="contact-details-{{ code }}" maxlength="255" data-ng-model="contact.{{ code }}" {% if required %}required{% endif %}
+                        data-ng-trim="true"
+                        {% if pattern %}data-ng-pattern="/{{ pattern }}/"{% endif %}
+                        {% if disabled %}data-ng-disabled="{{ disabled }}"{% endif %}
+                        {% if typeahead %}data-typeahead="{{ typeahead }}"{% endif %}
+                        {% if typeaheadOnSelect %}data-typeahead-on-select="{{ typeaheadOnSelect }}"{% endif %}
+                        {% if not autocomplete %}autocomplete="off"{% endif %}
+                        {% if minlength %}data-ng-minlength="{{ minlength }}"{% endif %}
+                        {% if ngRequired %}data-ng-required="{{ ngRequired }}"{% endif %}
+                        >
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% for child in block.children %}
+    <h3>{{ child.title|markdown }}</h3>
+    {{ child.text|default("")|markdown }}
+    {% if child.code ends with "duration" %}
+        {% for duration in child.strings|default([]) %}
+            {% if loop.first %}
+                <fieldset>
+                <div class="field">
+            {% endif %}
+            <label>
+                <input type="radio" name="duration" data-ng-model="order.duration" value="{{ duration.value|number_format }}">
+                {{ duration.value }}
+            </label>
+            {% if loop.last %}
+                </div>
+                </fieldset>
+            {% endif %}
+        {% endfor %}
+    {% elseif child.code ends with "summary" %}
+        {% for summaryChild in child.children|default([]) %}
+            {% if loop.first %}
+                <table class="summary">
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td class="price">%%total%%</td>
+                </tr>
+                </tfoot>
+                <tbody>
+            {% endif %}
+            <tr>
+                <td>
+                    <strong>{{ summaryChild.title }}</strong>
+                    {{ summaryChild.text|default("")|markdown }}
+                </td>
+                <td class="price">
+                    {% if summaryChild.code ends with "item" %}
+                        %%itemTotal%%
+                    {% elseif summaryChild.code ends with "vat" %}
+                        %%vatTotal%%
+                    {% endif %}
+                </td>
+            </tr>
+            {% if loop.last %}
+                </tbody>
+                </table>
+            {% endif %}
+        {% endfor %}
+    {% elseif child.code ends with "details" %}
+        {% for detailChild in child.children|default([]) %}
+            {% if detailChild.code ends with "edit" %}
+                {% set form = detailChild.children[0] %}
+                <fieldset>
+                    {{ contact.renderField(form, "firstname", {"required": true}) }}
+                    {{ contact.renderField(form, "lastname", {"required": true}) }}
+                </fieldset>
+                <fieldset>
+                    {{ contact.renderField(form, "email", {"required": true, "type": "email"}) }}
+                </fieldset>
+                <fieldset>
+                    {{ contact.renderField(form, "phone", {"required": true, "type": "tel"}) }}
+                    {{ contact.renderField(form, "fax", {"type": "tel"}) }}
+                </fieldset>
+                <fieldset>
+                    {{ contact.renderField(form, "locality", {"required": true}) }}
+                    {{ contact.renderField(form, "locality2") }}
+                    {{ contact.renderField(form, "city", {"required": true}) }}
+                    {{ contact.renderField(form, "country", {"required": true, "typeahead": "country.name for country in countries | filter:$viewValue | limitTo:3", "typeaheadOnSelect": "selectCountry($item);", "autocomplete": "0"}) }}
+                </fieldset>
+                <fieldset>
+                    {{ contact.renderField(form, "organization") }}
+                    {{ contact.renderField(form, "vat", {"pattern": "^[A-Z0-9]{2}[0-9]{8,12}$", "disabled": "!vatIncluded()", "ngRequired": "vatIncluded()"}) }}
+                </fieldset>
+                {% for button in detailChild.strings|default([]) %}
+                    {% if loop.first %}<nav>{% endif %}
+                    <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="contactForm.$invalid" data-ng-click="state = 'details';">
+                        {{ button.value }}
+                    </button>
+                    {% if loop.last %}</nav>{% endif %}
+                {% endfor %}
+            {% elseif detailChild.code ends with "review" %}
+                {{ detailChild.text|default("")|markdown }}
+                {% for button in detailChild.strings|default([]) %}
+                    {% if loop.first %}<nav>{% endif %}
+                    <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="contactForm.$invalid" data-ng-click="state = 'details';">
+                        {{ button.value }}
+                    </button>
+                    {% if loop.last %}</nav>{% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
