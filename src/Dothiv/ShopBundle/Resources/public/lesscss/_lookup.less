@@ -1,0 +1,68 @@
+article.shop {
+  section.lookup {
+    div.lookupResult {
+      h3 {
+        margin: 0;
+        line-height: @input-height-large;
+      }
+      &.premium {
+        .make-xs-column(12);
+        nav {
+          a  {
+            .pull-right;
+          }
+          a + a {
+            margin-right: 0.5em;
+            margin-left: 0.5em;
+          }
+        }
+      }
+      &.available {
+        div.text {
+          .make-xs-column(6);
+        }
+        nav {
+          .make-xs-column(6);
+        }
+      }
+      &.registered {
+        .make-xs-column(12);
+        table {
+          margin-top: 1em;
+          font-size: @font-size-h3;
+          a {
+            .pull-right;
+          }
+        }
+        nav {
+          a {
+            .pull-right;
+          }
+        }
+      }
+    }
+  }
+  form.lookup {
+    fieldset.lookupDomain {
+      div.field {
+        .make-xs-column(6);
+        input {
+          width: 70%;
+          .pull-left;
+          text-align: right;
+        }
+        span {
+          .pull-left;
+          display: inline-block;
+          height: @input-height-large;
+          line-height: @input-height-large;
+          font-size: @font-size-h1;
+          padding-left: 0.25em;
+        }
+      }
+      nav {
+        .make-xs-column(6);
+      }
+    }
+  }
+}

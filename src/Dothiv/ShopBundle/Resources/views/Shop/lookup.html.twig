@@ -1,56 +1,100 @@
-{# Based on https://www.iana.org/domains/idn-tables/tables/berlin_latn_1.txt #}
-{% set allowed_chars_no_dash = "0-9a-z\\u00DF\\u00E0-\\u00FF\\u0101\\u0103\\u0105\\u0107\\u0109\\u010B\\u010D\\u010F\\u0111\\u0113\\u0115\\u0117\\u0119\\u011B\\u011D\\u011F\\u0121\\u0123\\u0125\\u0127\\u0129\\u012B\\u012D\\u012F\\u0131\\u0135\\u0137\\u0138\\u013A\\u013C\\u013E\\u0142\\u0144\\u0146\\u0148\\u014B\\u014D\\u014F\\u0151\\u0153\\u0155\\u0157\\u0159\\u015B\\u015D\\u015F\\u0161\\u0163\\u0165\\u0167\\u0169\\u016B\\u016D\\u016F\\u0171\\u0173\\u0175\\u0177\\u017A\\u017C\\u017E" %}
-<div class="lookupDomain">
-    <fieldset>
-        <div class="lookup">
-            <input type="text" name="secondLevelName" id="secondLevelName" required data-ng-pattern="/^[{{ allowed_chars_no_dash }}][-{{ allowed_chars_no_dash }}]{1,61}[{{ allowed_chars_no_dash }}]$/" data-ng-model="secondLevelName" data-ng-change="lookup = ''">
-            <span>.hiv</span>
-        </div>
-    </fieldset>
+{# See https://github.com/dothiv/idn-table #}
+{% set allowed_chars_no_dash = "0-9a-z\\u00E1\\u00E4\\u00E5\\u00E6\\u00E9\\u00ED\\u00F0\\u00F1\\u00F3\\u00F6\\u00F8\\u00FA\\u00FC\\u00FD\\u00FE\\u0101\\u0105\\u0107\\u010D\\u0113\\u0117\\u0119\\u0123\\u012B\\u012F\\u0137\\u013C\\u0142\\u0144\\u0146\\u014D\\u0151\\u0157\\u015B\\u0161\\u016B\\u0171\\u0173\\u017A\\u017C\\u017E" %}
 
-    {% for button in block.strings|default([]) %}
-        {% if loop.first %}<nav>{% endif %}
-        <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="lookupForm.$invalid" data-ng-click="lookupDomain()">
-            {{ button.value }}
-        </button>
-        {% if loop.last %}</nav>{% endif %}
-    {% endfor %}
-</div>
-
-{% for child in block.children %}
-    {% set class = child.code|replace({"shop.lookup.": ""}) %}
-    <div data-ng-show="lookup == '{{ class }}'" class="lookupResult {{ class }}">
-        <div class="text">
-            <h3>{{ child.title|markdown }}</h3>
-            {{ child.text|default("")|markdown }}
+<script type="text/ng-template" id="/template/shop/{{ code }}.html">
+    <section class="{{ code }}">
+        <div class="block">
+            <h2>{{ block.title }}</h2>
+            {{ block.text|default("")|markdown }}
         </div>
-        {% if child.code ends with "registered" %}
-            <table>
-                <tbody>
-                <tr data-ng-repeat="alternative in alternatives">
-                    <td><span data-ng-bind="alternative"></span>.hiv</td>
-                    <td>
-                        <button data-ng-click="$parent.secondLevelName = alternative; $parent.step = 'configure';">{{ child.strings[0].value }}</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        {% elseif child.code ends with "premium" %}
-            {% for button in child.strings|default([]) %}
+    </section>
+    <form method="post" action="" novalidate name="{{ code }}Form" class="{{ code }}">
+        <fieldset class="lookupDomain" data-ng-hide="lookup == 'available';">
+            <div class="field">
+                <input type="text" name="secondLevelName" id="secondLevelName" required data-ng-pattern="/^[{{ allowed_chars_no_dash }}][-{{ allowed_chars_no_dash }}]{1,61}[{{ allowed_chars_no_dash }}]$/" data-ng-model="secondLevelName" data-ng-change="lookup = ''">
+                <span>.hiv</span>
+            </div>
+            {% for button in block.strings|default([]) %}
                 {% if loop.first %}<nav>{% endif %}
-                <a target="_blank" data-ng-href="mailto:support@tld.hiv?subject=I+want+to+register+%%domain%%">
-                    {{ button.value }}
-                </a>
-                {% if loop.last %}</nav>{% endif %}
-            {% endfor %}
-        {% else %}{# if child.code ends with "available" #}
-            {% for button in child.strings|default([]) %}
-                {% if loop.first %}<nav>{% endif %}
-                <button class="{% if loop.first %}primary{% endif %}" data-ng-click="step = '{{ button.code|replace({"button.shop.": ""}) }}';">
+                <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="lookupForm.$invalid" data-ng-click="lookupDomain()">
                     {{ button.value }}
                 </button>
                 {% if loop.last %}</nav>{% endif %}
             {% endfor %}
-        {% endif %}
-    </div>
-{% endfor %}
+        </fieldset>
+    </form>
+    <section class="{{ code }}">
+        <div class="block">
+            <h3>Testing</h3>
+            <dl>
+                <dt>Available domain</dt>
+                <dd><a data-ng-click="domain = 'caro.hiv'; lookupDomain();">caro.hiv</a></dd>
+                <dt>Available promo domain</dt>
+                <dd><a data-ng-click="domain = 'caro4life.hiv'; lookupDomain();">caro4life.hiv</a></dd>
+                <dt>Registered domain</dt>
+                <dd><a data-ng-click="domain = 'cto.hiv'; lookupDomain();">cto.hiv</a></dd>
+                <dt>Premium domain</dt>
+                <dd><a data-ng-click="domain = 'click.hiv'; lookupDomain();">click.hiv</a></dd>
+            </dl>
+        </div>
+    </section>
+</script>
+
+<script type="text/ng-template" id="/template/shop/{{ code }}-result.html">
+    <section class="{{ code }}">
+        <div class="block">
+            <h2>{{ block.title }}</h2>
+            {{ block.text|default("")|markdown }}
+        </div>
+        {% for child in block.children %}
+            {% set class = child.code|replace({"shop.lookup.": ""}) %}
+            <div data-ng-show="lookup == '{{ class }}'" class="lookupResult {{ class }}">
+                <div class="text">
+                    <h3>{{ child.title|markdown|striptags('<a><em><strong><code>')|raw }}</h3>
+                    {{ child.text|default("")|markdown }}
+                </div>
+                {% if child.code ends with "registered" %}
+                    <table>
+                        <tbody>
+                        <tr data-ng-repeat="alternative in alternatives">
+                            <td><span data-ng-bind="alternative"></span></td>
+                            <td>
+                                <nav>
+                                    <a class="primary" data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/lookup/%%alternative%%">{{ child.strings[0].value }}</a>
+                                </nav>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <nav>
+                        <a data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}">{{ child.strings[1].value }}</a>
+                    </nav>
+                {% elseif child.code ends with "premium" %}
+                    {% for button in child.strings|default([]) %}
+                        {% if loop.first %}<nav>{% endif %}
+                        {% if button.code ends with "sendrequest" %}
+                        <a target="_blank" class="primary" data-ng-href="mailto:support@tld.hiv?subject=I+want+to+register+%%domain%%">
+                            {{ button.value }}
+                        </a>
+                        {% endif %}
+                        {% if button.code ends with "reset" %}
+                            <a href="{{ path('dothiv_shop_index', {'locale': locale}) }}">{{ button.value }}</a>
+                        {% endif %}
+                        {% if loop.last %}</nav>{% endif %}
+                    {% endfor %}
+                {% else %}{# if child.code ends with "available" #}
+                    {% for button in child.strings|default([]) %}
+                        {% if loop.first %}<nav>{% endif %}
+                        {% if button.code ends with "configure" %}
+                            <a class="primary" data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/configure/%%domain%%">{{ button.value }}</a>
+                        {% endif %}
+                        {% if button.code ends with "reset" %}
+                            <a href="{{ path('dothiv_shop_index', {'locale': locale}) }}">{{ button.value }}</a>
+                        {% endif %}
+                        {% if loop.last %}</nav>{% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </section>
+</script>

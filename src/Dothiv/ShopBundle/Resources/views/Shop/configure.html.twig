@@ -1,30 +1,50 @@
-{% for child in block.children %}
-    <fieldset>
-        <div class="field">
-            <h3>{{ child.title }}</h3>
-            {{ child.text|default("")|markdown }}
-            {% if child.code ends with "engagement" %}
-                {% for option in child.children %}
-                    <label>
-                        <input type="radio" name="clickcounter" value="{%  if loop.first %}1{% else %}0{% endif %}" data-ng-model="order.clickcounter" required>
-                        {{ option.title }}
-                    </label>
-                    {{ option.text|default("")|markdown }}
-                {% endfor %}
-            {% elseif child.code ends with "redirect" %}
-                <label for="redirect">
-                    {{ child.strings[0].value|markdown|striptags('<a><em><strong><code>')|raw }}
-                </label>
-                <input type="url" name="redirect" id="redirect" data-ng-model="order.redirect" required>
-            {% endif %}
+<script type="text/ng-template" id="/template/shop/{{ code }}.html">
+    <section class="{{ code }}">
+        <div class="block">
+            <h2>{{ block.title }}</h2>
+            {{ block.text|default("")|markdown }}
         </div>
-    </fieldset>
-{% endfor %}
+    </section>
+    <form method="post" action="" novalidate name="{{ code }}Form" class="{{ code }}">
+        {% for child in block.children %}
+            <fieldset>
+                <legend>{{ child.title }}</legend>
+                <div class="intro">
+                    {{ child.text|default("")|markdown }}
+                </div>
+                {% if child.code ends with "engagement" %}
+                    <div class="field">
+                        {% for option in child.children %}
+                            <label>
+                                <input type="radio" name="clickcounter" value="{% if loop.first %}1{% else %}0{% endif %}" data-ng-model="order.clickcounter" required>
+                                {{ option.title }}
+                            </label>
+                            {{ option.text|default("")|markdown }}
+                        {% endfor %}
+                    </div>
+                    <div class="valid"></div>
+                {% elseif child.code ends with "redirect" %}
+                    <div class="field">
+                        <label for="redirect">
+                            {{ child.strings[0].value|markdown|striptags('<a><em><strong><code>')|raw }}
+                        </label>
 
-{% for button in block.strings|default([]) %}
-    {% if loop.first %}<nav>{% endif %}
-    <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="configureForm.$invalid" data-ng-click="step = 'contact';">
-        {{ button.value }}
-    </button>
-    {% if loop.last %}</nav>{% endif %}
-{% endfor %}
+                        <div class="input">
+                            <input type="url" name="redirect" id="redirect" data-ng-model="order.redirect" required data-ng-trim="true">
+                            <i class="valid" data-ng-show="!configureForm.redirect.$pristine && configureForm.redirect.$valid"></i>
+                            <i class="invalid" data-ng-show="!configureForm.redirect.$pristine && !configureForm.redirect.$valid"></i>
+                        </div>
+                    </div>
+                {% endif %}
+            </fieldset>
+        {% endfor %}
+
+        {% for button in block.strings|default([]) %}
+            {% if loop.first %}<nav>{% endif %}
+            <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="configureForm.$invalid" data-ng-click="submit()">
+                {{ button.value }}
+            </button>
+            {% if loop.last %}</nav>{% endif %}
+        {% endfor %}
+    </form>
+</script>

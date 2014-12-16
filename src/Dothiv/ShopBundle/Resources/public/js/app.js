@@ -2,7 +2,7 @@
 
 angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'dotHIVApp.directives', 'ngRoute', 'ui.router', 'ui.bootstrap'])
     .config(['$locationProvider', function ($locationProvider) {
-        $locationProvider.html5Mode();
+        $locationProvider.html5Mode(true);
     }])
     .config(['$interpolateProvider', function ($interpolateProvider) {
         $interpolateProvider.startSymbol('%%');
@@ -11,48 +11,42 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'dot
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.headers.common.Accept = "application/json";
     }])
-    .config(['$stateProvider', function ($stateProvider) {
-        var locale = document.location.pathname.split("/")[1];
+    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $stateProvider
-            .state('login', {
-                url: '/login',
-                templateUrl: '/' + locale + '/payitforward/app/login.html',
-                controller: 'LoginController'
+            .state('lookupform', {
+                url: '/:locale/shop/lookup',
+                templateUrl: '/template/shop/lookup.html',
+                controller: 'LookupFormController'
             })
-            .state('register', {
-                url: '/register',
-                templateUrl: '/' + locale + '/payitforward/app/register.html',
-                controller: 'RegisterController'
+            .state('lookup', {
+                url: '/:locale/shop/lookup/:domain',
+                templateUrl: '/template/shop/lookup-result.html',
+                controller: 'LookupResultController'
             })
-            .state('auth', {
-                url: '/auth/:handle/:auth_token',
-                templateUrl: '/' + locale + '/payitforward/app/auth.html',
-                controller: 'AuthController'
+            .state('configure', {
+                url: '/:locale/shop/configure/:domain',
+                templateUrl: '/template/shop/configure.html',
+                controller: 'ConfigureController'
             })
-            .state('=', {
-                abstract: true,
-                url: '/cart',
-                template: '<section data-ui-view></section>'
+            .state('checkout', {
+                url: '/:locale/shop/checkout/:domain',
+                templateUrl: '/template/shop/checkout.html',
+                controller: 'CheckoutController'
             })
-            .state('=.order', {
-                url: '/order',
-                templateUrl: '/' + locale + '/payitforward/app/order.html',
-                controller: 'OrderController'
+            .state('done', {
+                url: '/:locale/shop/success/:domain',
+                templateUrl: '/template/shop/done.html',
+                controller: 'DoneController'
             })
         ;
+        var locale = document.location.pathname.split("/")[1];
+        $urlRouterProvider.when('/' + locale + '/shop', '/' + locale + '/shop/lookup');
     }])
-    .run(['$rootScope', 'security', '$state', function ($rootScope, security, $state) {
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            if (toState.name.match('^=\.')) {
-                // Get the current user when the application starts (in case they are still logged in from a previous session)
-                security.updateUserInfo();
-                security.schedule(function () {
-                    if (!security.isAuthenticated()) {
-                        event.preventDefault();
-                        $state.transitionTo('login');
-                    }
-                });
-            }
+    .run(['$rootScope', '$window', 'ContentBehaviour', function ($rootScope, $window, ContentBehaviour) {
+        $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
+            $window.setTimeout(function () {
+                ContentBehaviour.run();
+            }, 0);
         });
     }])
 ;
