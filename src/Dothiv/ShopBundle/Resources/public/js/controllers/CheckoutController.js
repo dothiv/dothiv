@@ -11,19 +11,19 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', ['$root
     $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
     $scope.countries = [];
 
-    $scope.$watch('order.duration', function () {
+    $scope.$watch('order.duration', function (duration) {
         updateTotals();
     });
     $scope.$watch('contact.vat', function () {
         updateTotals();
     });
 
-    $scope.vatIncluded = function() {
+    $scope.vatIncluded = function () {
         return OrderModel.vatIncluded();
     };
 
     var updateTotals = function () {
-        var itemTotal = Price.getPricePerYear($scope.domain);
+        var itemTotal = Price.getPricePerYear($scope.domain) * OrderModel.duration;
         var vatTotal = OrderModel.vatIncluded() ? Price.calculateVat(itemTotal) : 0;
         var total = itemTotal + vatTotal;
         $scope.vatTotal = Price.format(vatTotal / 100);

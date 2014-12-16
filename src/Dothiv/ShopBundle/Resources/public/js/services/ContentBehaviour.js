@@ -24,7 +24,8 @@ angular.module('dotHIVApp.services').factory('ContentBehaviour', ['config', '$wi
                     code.click(function (ev) {
                         var input = $($('#' + $(label).attr("for")));
                         input.val(code.text());
-                        input.keyup();
+                        var $e = angular.element(input);
+                        $e.triggerHandler('input');
                     });
                 });
             }
