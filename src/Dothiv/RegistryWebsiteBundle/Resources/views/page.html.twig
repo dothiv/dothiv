@@ -30,12 +30,14 @@
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block styles %}
     {% stylesheets
         'bundles/dothivregistrywebsite/lesscss/styles.less'
         '@jquery_mmenu_css'
         filter='cssrewrite,?uglifycss' %}
     <link rel="stylesheet" href="{{ asset(asset_url) }}">
     {% endstylesheets %}
+    {% endblock styles %}
     <link rel="shortcut icon" href="{{ asset("bundles/dothivregistrywebsite/images/favicon.png") }}">
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
     {% javascripts

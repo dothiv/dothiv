@@ -19,7 +19,11 @@ angular.module('dotHIVApp.controllers').controller('OrderController', ['$rootSco
 
     $scope.countries = [];
     $http.get('/bundles/dothivbasewebsite/data/countries.json').success(function (data) {
-        $scope.countries = data;
+        var countries = [];
+        for(var i = 0; i < data.length; i++) {
+            countries.push(data[i][0]);
+        }
+        $scope.countries = countries;
     });
 
     // Review

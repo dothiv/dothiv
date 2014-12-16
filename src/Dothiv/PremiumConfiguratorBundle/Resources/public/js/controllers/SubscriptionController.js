@@ -19,7 +19,11 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
         };
         $scope.countries = [];
         $http.get('/bundles/dothivbasewebsite/data/countries.json').success(function (data) {
-            $scope.countries = data;
+            var countries = [];
+            for(var i = 0; i < data.length; i++) {
+                countries.push(data[i][0]);
+            }
+            $scope.countries = countries;
         });
 
         dothivPremiumSubscription.get(
@@ -120,6 +124,7 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
             }
         }
 
+        // TODO: Update to new countries.json
         var country_de = 'Germany';
         var eu_countries_without_de = [
             'Belgium',
