@@ -11,22 +11,13 @@
     {% endstylesheets %}
 {% endblock styles %}
 {% block content %}
-    <article data-ng-controller="ShopController" data-ng-init="step = 'contact'" class="shop">
-        {% for block in page.blocks|default([]) %}
-            {% set code = block.code|replace({"shop.": ""}) %}
-            {% if code in ["lookup", "configure", "contact", "done"] %}
-                <section class="{{ code }}" data-ng-show="step == '{{ code }}'">
-                    <div class="block">
-                        <h2>{{ block.title }}</h2>
-                        {{ block.text|default("")|markdown }}
-                        <form method="post" action="" novalidate name="{{ code }}Form" class="{{ code }}">
-                            {% include "DothivShopBundle::Shop/" ~ code ~ ".html.twig" %}
-                        </form>
-                    </div>
-                </section>
-            {% endif %}
-        {% endfor %}
-    </article>
+    <article data-ui-view class="shop"></article>
+    {% for block in page.blocks|default([]) %}
+        {% set code = block.code|replace({"shop.": ""}) %}
+        {% if code in ["lookup", "configure", "checkout", "done"] %}
+            {% include "DothivShopBundle::Shop/" ~ code ~ ".html.twig" %}
+        {% endif %}
+    {% endfor %}
 {% endblock %}
 
 {% block angular_app %}
@@ -45,7 +36,8 @@
     '@DothivBaseWebsiteBundle/Resources/public/js/services/models/*.js'
     '@DothivBaseWebsiteBundle/Resources/public/js/filters/*.js'
     '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/MainNavController.js'
-    '@DothivShopBundle/Resources/public/js/controllers/ShopController.js'
+    '@DothivShopBundle/Resources/public/js/services/*.js'
+    '@DothivShopBundle/Resources/public/js/controllers/*.js'
     filter='?uglifyjs2'
     output='js/*.min.js' %}
     <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
@@ -60,15 +52,29 @@
                 eur_to_usd: {{ config('eur_to_usd', 'float') }},
                 shop: {
                     price: {
-                        eur: {{ config('shop.price.eur', 'float') }},
-                        usd: {{ config('shop.price.usd', 'float') }}
+                        eur: {{ config('shop.price.eur', 'int') }},
+                        usd: {{ config('shop.price.usd', 'int') }}
+                    },
+                    promo: {
+                        name4life: {
+                            eur: {{ config('shop.promo.name4life.eur.mod', 'int') }},
+                            usd: {{ config('shop.promo.name4life.usd.mod', 'int') }}
+                        }
                     }
                 },
                 vat: {
                     de: {{ devat }}
+                },
+                stripe: {
+                    publishableKey: '{{ stripe_publishable_key }}',
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}
+                    logo: '{{ asset(asset_url) }}',
+                    {% endimage %}
+                    testMode: {{ stripe_testmode }},
                 }
             };
             return config;
         });
     </script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
 {% endblock angular_config %}
