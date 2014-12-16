@@ -1,0 +1,74 @@
+article.shop {
+  form {
+    .clearfix;
+    margin: 0 0 2em 0;
+    fieldset {
+      .row;
+      input[type=text], input[type=email], input[type=tel], input[type=url], input[type=password], select {
+        .form-control;
+        .input-lg;
+        font-weight: @font-weight-bold;
+      }
+      div.intro {
+        .make-sm-column(12);
+      }
+      div.field {
+        .make-sm-column(12);
+        div.input {
+          position: relative;
+        }
+        i.valid, i.invalid, i.required{
+          .icon;
+          .glyphicon-refresh;
+          font-size: @font-size-large * 2;
+          position: absolute;
+          top: (@input-height-large - (@font-size-large * 2)) / 2;
+          right: (@input-height-large - (@font-size-large * 2));
+        }
+        i.valid {
+          .glyphicon-ok;
+          color: @brand-success;
+        }
+        i.invalid {
+          .glyphicon-exclamation-sign;
+          color: @brand-danger;
+        }
+        i.required {
+          .glyphicon-asterisk;
+          color: fadeout(@brand-warning, 25%);
+        }
+      }
+    }
+    label {
+      font-size: @font-size-large;
+      em {
+        display: block;
+        font-weight: @font-weight-regular;
+        font-size: @font-size-small;
+        font-style: normal;
+      }
+    }
+    legend {
+      margin-left: @grid-gutter-width / 2;
+      margin-right: @grid-gutter-width / 2;
+    }
+    .disabled {
+      label, code {
+        color: lighten(@text-color, 50%);
+      }
+    }
+  }
+  nav {
+    button, a {
+      &:extend(.btn all);
+      &:extend(.btn-lg all);
+      &:extend(.btn-default all);
+      &.primary {
+        &:extend(.btn-primary all);
+      }
+    }
+    button + button, a + a {
+      margin-left: 0.5em;
+    }
+  }
+}

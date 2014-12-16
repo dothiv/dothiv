@@ -11,6 +11,11 @@ dothiv_charity_web:
     prefix:   /
 
 # routing for company website
+DothivShopBundle:
+    resource: "@DothivShopBundle/Resources/config/routing.yml"
+    prefix:   /
+    host: %registrydomain%
+
 dothiv_registry_web:
     host: %registrydomain%
     resource: "@DothivRegistryWebsiteBundle/Resources/config/routing.yml"

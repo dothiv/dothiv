@@ -1,0 +1,9 @@
+dothiv_shop_index:
+    pattern:     /{locale}/shop/{appstate}
+    defaults:
+        _controller: dothiv.shop.controller.page:pageAction
+        page: shop
+        appstate: ~
+    requirements:
+        locale:  en|de
+        appstate: .+
