@@ -33,6 +33,7 @@
                             <input type="url" name="redirect" id="redirect" data-ng-model="order.redirect" required data-ng-trim="true">
                             <i class="valid" data-ng-show="!configureForm.redirect.$pristine && configureForm.redirect.$valid"></i>
                             <i class="invalid" data-ng-show="!configureForm.redirect.$pristine && !configureForm.redirect.$valid"></i>
+                            <i class="required" data-ng-show="configureForm.$pristine"></i>
                         </div>
                     </div>
                 {% endif %}
