@@ -127,14 +127,14 @@
                         </fieldset>
                         {% for button in detailChild.strings|default([]) %}
                             {% if loop.first %}<nav>{% endif %}
-                            <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="{{ code }}ContactForm.$invalid" data-ng-click="step = 'review';">
+                            <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="{{ code }}ContactForm.$invalid" data-ng-click="review();">
                                 {{ button.value }}
                             </button>
                             {% if loop.last %}</nav>{% endif %}
                         {% endfor %}
                     </form>
                 {% elseif detailChild.code ends with "review" %}
-                    <section class="{{ code }}" data-ng-show="step == 'review';">
+                    <section class="{{ code }}" data-ng-show="step == 'review';" id="review">
                         <div class="block">
                             <h3>{{ child.title|markdown }}</h3>
                             {{ detailChild.text|default("")|markdown }}
