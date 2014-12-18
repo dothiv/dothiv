@@ -2,6 +2,7 @@
 
 namespace Dothiv\ShopBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\ShopBundle\Entity\Order;
@@ -78,4 +79,14 @@ class OrderRepository extends EntityRepository implements OrderRepositoryInterfa
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    function findNew()
+    {
+        return new ArrayCollection($this->createQueryBuilder('o')
+            ->andWhere('o.stripeCharge IS NULL')
+            ->getQuery()
+            ->getResult());
+    }
 }
