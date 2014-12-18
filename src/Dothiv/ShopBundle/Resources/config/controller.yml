@@ -20,6 +20,7 @@ services:
     dothiv.shop.controller.api.order:
         class: Dothiv\ShopBundle\Controller\OrderController
         arguments:
+        - @dothiv.repository.domain_info
         - @dothiv.repository.shop_order
         - @dothiv.shop.manipulator.order
         - @dothiv.business.event_dispatcher
