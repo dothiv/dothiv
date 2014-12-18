@@ -8,3 +8,12 @@ services:
           - "DothivShopBundle"
           - @clock
           - %page_lifetime%
+
+
+    dothiv.shop.controller.api:
+        class: Dothiv\ShopBundle\Controller\ApiController
+        arguments:
+        - @dothiv.repository.domain_info
+        - @dothiv.repository.config
+        - @dothiv.shop.transformer.domain_info
+        - @serializer
