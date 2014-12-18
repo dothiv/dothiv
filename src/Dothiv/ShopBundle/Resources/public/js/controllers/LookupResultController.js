@@ -1,29 +1,45 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('LookupResultController', ['$scope', '$state', '$stateParams', 'Price', function ($scope, $state, $stateParams, Price) {
-    $scope.lookup = null;
-    $scope.domain = $stateParams.domain;
-    $scope.price = Price.getFormattedPricePerYear($scope.domain);
-    $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
+angular.module('dotHIVApp.controllers').controller('LookupResultController', [
+    '$scope', '$state', '$stateParams', 'Price', '$http', 'idn',
+    function ($scope, $state, $stateParams, Price, $http, idn) {
+        $scope.loading = false;
+        $scope.lookup = null;
+        $scope.domain = $stateParams.domain;
+        $scope.price = Price.getFormattedPricePerYear($scope.domain);
+        $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
 
-    // Fixme: Implement
-    var lookupDomain = function (domain) {
-        if (domain == "click.hiv") {
-            $scope.lookup = "premium";
-        } else if (domain == "cto.hiv") {
-            $scope.lookup = "registered";
-            $scope.alternatives = [
-                'cto4life.hiv',
-                'ctosupports.hiv',
-                'ctofightsaids.hiv',
-                'ctofights.hiv',
-                'clickcto.hiv'
-            ];
-        } else {
-            $scope.lookup = "available";
-        }
-    };
+        var lookupDomain = function (domain) {
+            $scope.loading = true;
+            $http.get('/api/shop/lookup?q=' + idn.toASCII(domain))
+                .success(function (data) {
+                    if (data.available) {
+                        $scope.lookup = "available";
+                    } else if (data.premium) {
+                        $scope.lookup = "premium";
+                        // } else if (data.trademark) {
+                    } else { // if(data.registered) {
+                        $scope.lookup = "registered";
+                        var secondLevel = domain.split('.hiv').join('');
+                        var alternatives = [
+                            secondLevel + '4life.hiv',
+                            secondLevel + 'supports.hiv',
+                            secondLevel + 'fightsaids.hiv',
+                            secondLevel + 'fights.hiv',
+                            'click' + secondLevel + '.hiv'
+                        ];
+                        if ($stateParams.locale == 'de') {
+                            alternatives.push(secondLevel + 'unterstützt.hiv');
+                        }
+                        $scope.alternatives = alternatives;
+                    }
+                })
+                .error(function (response, code, headers, request) {
+                    $scope.loading = false;
+                })
+            ;
+        };
 
-    // Init
-    lookupDomain($stateParams.domain);
-}]);
+        // Init
+        lookupDomain($stateParams.domain);
+    }]);
