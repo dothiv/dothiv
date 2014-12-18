@@ -1,8 +1,17 @@
 parameters:
     dothiv.shop.listener.http_exception.class: Dothiv\ShopBundle\Listener\HttpExceptionListener
+    dothiv.shop.listener.domain.class: Dothiv\ShopBundle\Listener\HttpExceptionListener
 
 services:
     dothiv.shop.listener.http_exception:
         class: %dothiv.shop.listener.http_exception.class%
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+    dothiv.shop.listener.domain:
+        class: %dothiv.shop.listener.domain.class%
+        arguments:
+        - @dothiv.repository.domain_info
+        tags:
+        - { name: dothiv.business.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
+        - { name: dothiv.business.event_listener, event: dothiv.business.domain.deleted, method: onDomainDeleted }
