@@ -1,0 +1,9 @@
+parameters:
+    dothiv.shop.transformer.domain_info.class: Dothiv\ShopBundle\Transformer\DomainInfoTransformer
+
+services:
+    dothiv.shop.transformer.domain_info:
+        class: %dothiv.shop.transformer.domain_info.class%
+        arguments:
+        - @router
+        - "dothiv_shop_api_info"

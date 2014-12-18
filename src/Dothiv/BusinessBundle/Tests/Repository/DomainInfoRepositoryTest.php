@@ -39,6 +39,8 @@ class DomainInfoRepositoryTest extends \PHPUnit_Framework_TestCase
         $domainInfo->setName(new HivDomainValue('caro.hiv'));
         $domainInfo->setRegistered(true);
         $domainInfo->setPremium(true);
+        $domainInfo->setBlocked(true);
+        $domainInfo->setTrademark(true);
         $repo = $this->getTestObject();
         $repo->persist($domainInfo);
         $repo->flush();
@@ -49,6 +51,8 @@ class DomainInfoRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('caro.hiv', (string)$all[0]->getName());
         $this->assertTrue($all[0]->getRegistered());
         $this->assertTrue($all[0]->getPremium());
+        $this->assertTrue($all[0]->getBlocked());
+        $this->assertTrue($all[0]->getTrademark());
         $this->assertFalse($all[0]->getAvailable());
     }
 
