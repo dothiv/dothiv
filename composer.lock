@@ -1857,16 +1857,16 @@
         },
         {
             "name": "dothiv/dothiv-valueobject-bundle",
-            "version": "v1.2.3",
+            "version": "v1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dothiv/DothivValueObjectBundle.git",
-                "reference": "eed94c9133559a766e63c3dc04bb4c2476fa5639"
+                "reference": "30ee441cf39da1e7e77e35cc560641df7bb0801f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dothiv/DothivValueObjectBundle/zipball/eed94c9133559a766e63c3dc04bb4c2476fa5639",
-                "reference": "eed94c9133559a766e63c3dc04bb4c2476fa5639",
+                "url": "https://api.github.com/repos/dothiv/DothivValueObjectBundle/zipball/30ee441cf39da1e7e77e35cc560641df7bb0801f",
+                "reference": "30ee441cf39da1e7e77e35cc560641df7bb0801f",
                 "shasum": ""
             },
             "require": {
@@ -1906,7 +1906,7 @@
                 "ValueObject",
                 "bundle"
             ],
-            "time": "2014-12-18 13:12:58"
+            "time": "2014-12-18 16:36:10"
         },
         {
             "name": "erusev/parsedown",
