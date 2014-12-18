@@ -2,6 +2,7 @@
 
 namespace Dothiv\ShopBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\BusinessBundle\Repository\CRUD;
 use Dothiv\ValueObject\HivDomainValue;
@@ -31,4 +32,11 @@ interface OrderRepositoryInterface extends CRUD\CreateEntityRepositoryInterface
      * @return Option of Order
      */
     public function findByDomain(HivDomainValue $domain);
+
+    /**
+     * Returns orders which have not been processed.
+     *
+     * @return ArrayCollection|Order[]
+     */
+    function findNew();
 }
