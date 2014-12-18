@@ -3,10 +3,11 @@
 namespace Dothiv\ShopBundle\Repository;
 
 use Dothiv\ShopBundle\Entity\Order;
+use Dothiv\BusinessBundle\Repository\CRUD;
 use Dothiv\ValueObject\HivDomainValue;
 use PhpOption\Option;
 
-interface OrderRepositoryInterface
+interface OrderRepositoryInterface extends CRUD\CreateEntityRepositoryInterface
 {
     /**
      * Persist the entity.
@@ -30,5 +31,4 @@ interface OrderRepositoryInterface
      * @return Option of Order
      */
     public function findByDomain(HivDomainValue $domain);
-
-} 
+}
