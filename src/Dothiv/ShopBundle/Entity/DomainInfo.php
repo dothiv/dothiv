@@ -1,9 +1,11 @@
 <?php
 
-namespace Dothiv\BusinessBundle\Entity;
+namespace Dothiv\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\ValueObject\HivDomainValue;
+use Dothiv\BusinessBundle\Entity\Traits;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
@@ -20,7 +22,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * The list can be managed via the admin dashboard.
  *
- * @ORM\Entity(repositoryClass="Dothiv\BusinessBundle\Repository\DomainInfoRepository")
+ * @ORM\Entity(repositoryClass="Dothiv\ShopBundle\Repository\DomainInfoRepository")
  * @Serializer\ExclusionPolicy("all")
  */
 class DomainInfo implements EntityInterface

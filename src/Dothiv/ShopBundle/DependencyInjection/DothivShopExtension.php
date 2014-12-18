@@ -18,5 +18,6 @@ class DothivShopExtension extends Extension
         $loader->load('controller.yml');
         $loader->load('services.yml');
         $loader->load('listeners.yml');
+        $loader->load('repositories.yml');
     }
 }

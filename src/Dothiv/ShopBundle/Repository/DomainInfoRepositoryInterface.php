@@ -1,8 +1,8 @@
 <?php
 
-namespace Dothiv\BusinessBundle\Repository;
+namespace Dothiv\ShopBundle\Repository;
 
-use Dothiv\BusinessBundle\Entity\DomainInfo;
+use Dothiv\ShopBundle\Entity\DomainInfo;
 use Dothiv\ValueObject\HivDomainValue;
 
 interface DomainInfoRepositoryInterface

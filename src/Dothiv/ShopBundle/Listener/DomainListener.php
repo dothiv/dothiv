@@ -3,7 +3,7 @@
 namespace Dothiv\ShopBundle\Listener;
 
 use Dothiv\BusinessBundle\Event\DomainEvent;
-use Dothiv\BusinessBundle\Repository\DomainInfoRepositoryInterface;
+use Dothiv\ShopBundle\Repository\DomainInfoRepositoryInterface;
 use Dothiv\ValueObject\HivDomainValue;
 
 /**

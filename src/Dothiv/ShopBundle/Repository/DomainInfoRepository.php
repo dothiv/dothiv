@@ -1,13 +1,11 @@
 <?php
 
-namespace Dothiv\BusinessBundle\Repository;
+namespace Dothiv\ShopBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Dothiv\AdminBundle\AdminEvents;
-use Dothiv\BusinessBundle\Entity\DomainInfo;
+use Dothiv\ShopBundle\Entity\DomainInfo;
 use Dothiv\BusinessBundle\Repository\Traits;
 use Dothiv\ValueObject\HivDomainValue;
-use Dothiv\ValueObject\IdentValue;
 use PhpOption\Option;
 
 class DomainInfoRepository extends EntityRepository implements DomainInfoRepositoryInterface
