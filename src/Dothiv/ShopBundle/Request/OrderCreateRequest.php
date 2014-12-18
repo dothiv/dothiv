@@ -1,36 +1,20 @@
 <?php
 
-namespace Dothiv\ShopBundle\Entity;
+namespace Dothiv\ShopBundle\Request;
 
-use Doctrine\ORM\Mapping as ORM;
-use Dothiv\BusinessBundle\Entity\Entity;
-use Dothiv\BusinessBundle\Entity\Traits;
+use Dothiv\APIBundle\Request\AbstractDataModel;
+use Dothiv\APIBundle\Request\DataModelInterface;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
 use Dothiv\ValueObject\URLValue;
-use PhpOption\None;
 use PhpOption\Option;
 use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation as Serializer;
-use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * Represents an order.
- *
- * @ORM\Entity(repositoryClass="Dothiv\ShopBundle\Repository\OrderRepository")
- * @ORM\Table(name="ShopOrder")
- * @Serializer\ExclusionPolicy("all")
- */
-class Order extends Entity
+class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
 {
-    use Traits\CreateUpdateTime;
-
     /**
-     * @var string
-     * @ORM\Column(type="string", nullable=false)
-     * @Assert\Regex("/^([a-z0-9]|xn--)(?:[a-z0-9]|-(?!-)){1,62}[a-z0-9]\.hiv$/")
+     * @var HivDomainValue
      * @Assert\NotBlank
      */
     private $domain;
@@ -39,32 +23,26 @@ class Order extends Entity
      * The click-counter should be shown.
      *
      * @var boolean
-     *
-     * @ORM\Column(type="boolean", nullable=false)
      */
     private $clickCounter = false;
 
     /**
      * The url to redirect to
      *
-     * @ORM\Column(type="string",nullable=false)
-     * @Assert\Regex("/^(https*:)*\/\/.+/")
-     * @var string
+     * @var URLValue
      */
     private $redirect;
 
     /**
      * The duration (in years) of the registration
      *
-     * @var int
+     * @var boolean
      *
-     * @ORM\Column(type="integer", nullable=false)
      * @Assert\Range(min=1,max=10)
      */
     private $duration = 1;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
      * @var string
      * @Assert\NotBlank
      * @Assert\Length(max=255)
@@ -72,7 +50,6 @@ class Order extends Entity
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
      * @var string
      * @Assert\NotBlank
      * @Assert\Length(max=255)
@@ -80,9 +57,8 @@ class Order extends Entity
     private $lastname;
 
     /**
-     * @var string
+     * @var EmailValue
      *
-     * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank()
      * @Assert\Length(max=255)
      */
@@ -91,7 +67,6 @@ class Order extends Entity
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank()
      * @Assert\Length(max=255)
      * @Assert\Regex("/^\+[1-9][-0-9]{5,}$/")
@@ -101,14 +76,12 @@ class Order extends Entity
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
      * @Assert\Length(max=255)
      * @Assert\Regex("/^\+[1-9][-0-9]{5,}$/")
      */
     private $fax;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
      * @var string
      * @Assert\NotBlank
      * @Assert\Length(max=255)
@@ -116,14 +89,12 @@ class Order extends Entity
     private $locality;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
      * @Assert\Length(max=255)
      * @var string
      */
     private $locality2;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
      * @Assert\Length(max=255)
      * @var string
      * @Assert\NotBlank
@@ -131,7 +102,6 @@ class Order extends Entity
     private $city;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
      * @var string
      * @Assert\NotBlank
      * @Assert\Length(max=255)
@@ -139,14 +109,12 @@ class Order extends Entity
     private $country;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
      * @Assert\Length(max=255)
      * @var string
      */
     private $organization;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
      * @Assert\Length(max=255)
      * @var string
      * @Assert\Regex("/^[A-Z0-9]{2}[0-9]{8,12}$/")
@@ -156,28 +124,18 @@ class Order extends Entity
     /**
      * The stripe card returned by the checkout.
      *
-     * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank
-     * @var string
+     * @var IdentValue
      */
     private $stripeCard;
 
     /**
      * The stripe token returned by the checkout.
      *
-     * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank
-     * @var string
+     * @var IdentValue
      */
     private $stripeToken;
-
-    /**
-     * The stripe charge id for this order.
-     *
-     * @ORM\Column(type="string", nullable=true)
-     * @var string
-     */
-    private $stripeCharge;
 
     /**
      * @return string
@@ -232,15 +190,15 @@ class Order extends Entity
      */
     public function getDomain()
     {
-        return new HivDomainValue($this->domain);
+        return $this->domain;
     }
 
     /**
-     * @param HivDomainValue $domain
+     * @param string $domain
      */
-    public function setDomain(HivDomainValue $domain)
+    public function setDomain($domain)
     {
-        $this->domain = $domain->toScalar();
+        $this->domain = new HivDomainValue($domain);
     }
 
     /**
@@ -260,11 +218,11 @@ class Order extends Entity
     }
 
     /**
-     * @return Option of string
+     * @return string
      */
     public function getFax()
     {
-        return Option::fromValue($this->fax);
+        return $this->fax;
     }
 
     /**
@@ -297,15 +255,15 @@ class Order extends Entity
      */
     public function getEmail()
     {
-        return new EmailValue($this->email);
+        return $this->email;
     }
 
     /**
      * @param EmailValue $email
      */
-    public function setEmail(EmailValue $email)
+    public function setEmail($email)
     {
-        $this->email = $email->toScalar();
+        $this->email = new EmailValue($email);
     }
 
     /**
@@ -357,11 +315,11 @@ class Order extends Entity
     }
 
     /**
-     * @return Option of string
+     * @return string
      */
     public function getLocality2()
     {
-        return Option::fromValue($this->locality2);
+        return $this->locality2;
     }
 
     /**
@@ -373,11 +331,11 @@ class Order extends Entity
     }
 
     /**
-     * @return Option of string
+     * @return string
      */
     public function getOrganization()
     {
-        return Option::fromValue($this->organization);
+        return $this->organization;
     }
 
     /**
@@ -393,15 +351,15 @@ class Order extends Entity
      */
     public function getRedirect()
     {
-        return new URLValue($this->redirect);
+        return $this->redirect;
     }
 
     /**
-     * @param URLValue $redirect
+     * @param string $redirect
      */
-    public function setRedirect(URLValue $redirect)
+    public function setRedirect($redirect)
     {
-        $this->redirect = $redirect->toScalar();
+        $this->redirect = new URLValue($redirect);
     }
 
     /**
@@ -409,31 +367,15 @@ class Order extends Entity
      */
     public function getStripeCard()
     {
-        return new IdentValue($this->stripeCard);
+        return $this->stripeCard;
     }
 
     /**
-     * @param IdentValue $stripeCard
+     * @param string $stripeCard
      */
-    public function setStripeCard(IdentValue $stripeCard)
+    public function setStripeCard($stripeCard)
     {
-        $this->stripeCard = $stripeCard->toScalar();
-    }
-
-    /**
-     * @return Option of IdentValue
-     */
-    public function getStripeCharge()
-    {
-        return $this->stripeCharge == null ? None::create() : Option::fromValue(new IdentValue($this->stripeCharge));
-    }
-
-    /**
-     * @param IdentValue $stripeCharge
-     */
-    public function setStripeCharge(IdentValue $stripeCharge)
-    {
-        $this->stripeCharge = $stripeCharge->toScalar();
+        $this->stripeCard = new IdentValue($stripeCard);
     }
 
     /**
@@ -441,23 +383,23 @@ class Order extends Entity
      */
     public function getStripeToken()
     {
-        return new IdentValue($this->stripeToken);
+        return $this->stripeToken;
     }
 
     /**
-     * @param IdentValue $stripeToken
+     * @param string $stripeToken
      */
-    public function setStripeToken(IdentValue $stripeToken)
+    public function setStripeToken($stripeToken)
     {
-        $this->stripeToken = $stripeToken->toScalar();
+        $this->stripeToken = new IdentValue($stripeToken);
     }
 
     /**
-     * @return Option of string
+     * @return string
      */
     public function getVatNo()
     {
-        return Option::fromValue($this->vatNo);
+        return $this->vatNo;
     }
 
     /**

@@ -1,6 +1,7 @@
+# NOTE: Not loaded in test env
 parameters:
     dothiv.shop.listener.http_exception.class: Dothiv\ShopBundle\Listener\HttpExceptionListener
-    dothiv.shop.listener.domain.class: Dothiv\ShopBundle\Listener\HttpExceptionListener
+    dothiv.shop.listener.domain.class: Dothiv\ShopBundle\Listener\DomainListener
 
 services:
     dothiv.shop.listener.http_exception:
