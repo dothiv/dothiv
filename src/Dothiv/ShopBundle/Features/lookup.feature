@@ -4,16 +4,16 @@ Feature: Lookup domain name
   I should be able to lookup domain names I am interested in registering
 
   Background:
-    Given the "DothivBusinessBundle:DomainInfo" entity exists in "registeredDomain" with values:
+    Given the "DothivShopBundle:DomainInfo" entity exists in "registeredDomain" with values:
       | name       | {\Dothiv\ValueObject\HivDomainValue@cto.hiv} |
       | registered | 1                                            |
-    Given the "DothivBusinessBundle:DomainInfo" entity exists in "premiumDomain" with values:
+    Given the "DothivShopBundle:DomainInfo" entity exists in "premiumDomain" with values:
       | name    | {\Dothiv\ValueObject\HivDomainValue@click.hiv} |
       | premium | 1                                              |
-    Given the "DothivBusinessBundle:DomainInfo" entity exists in "blockedDomain" with values:
+    Given the "DothivShopBundle:DomainInfo" entity exists in "blockedDomain" with values:
       | name    | {\Dothiv\ValueObject\HivDomainValue@google.hiv} |
       | blocked | 1                                               |
-    Given the "DothivBusinessBundle:DomainInfo" entity exists in "trademarkDomain" with values:
+    Given the "DothivShopBundle:DomainInfo" entity exists in "trademarkDomain" with values:
       | name      | {\Dothiv\ValueObject\HivDomainValue@facebook.hiv} |
       | trademark | 1                                                 |
     Given the "DothivBusinessBundle:Config" entity exists in "usdPrice" with values:

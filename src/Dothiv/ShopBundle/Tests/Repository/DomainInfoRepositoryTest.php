@@ -1,10 +1,9 @@
 <?php
 
-namespace Dothiv\BusinessBundle\Repository\Tests;
+namespace Dothiv\ShopBundle\Repository\Tests;
 
-use Dothiv\BusinessBundle\AdminEvents;
-use Dothiv\BusinessBundle\Entity\DomainInfo;
-use Dothiv\BusinessBundle\Repository\DomainInfoRepository;
+use Dothiv\ShopBundle\Entity\DomainInfo;
+use Dothiv\ShopBundle\Repository\DomainInfoRepository;
 use Dothiv\BusinessBundle\Tests\Traits;
 use Dothiv\ValueObject\HivDomainValue;
 
@@ -15,19 +14,19 @@ class DomainInfoRepositoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @group Entity
-     * @group BusinessBundle
+     * @group ShopBundle
      * @group DomainInfo
      * @group Shop
      */
     public function itShouldBeInstantiateable()
     {
-        $this->assertInstanceOf('\Dothiv\BusinessBundle\Repository\DomainInfoRepository', $this->getTestObject());
+        $this->assertInstanceOf('\Dothiv\ShopBundle\Repository\DomainInfoRepository', $this->getTestObject());
     }
 
     /**
      * @test
      * @group   Entity
-     * @group   BusinessBundle
+     * @group   ShopBundle
      * @group   DomainInfo
      * @group   Integration
      * @group   Shop
@@ -62,7 +61,7 @@ class DomainInfoRepositoryTest extends \PHPUnit_Framework_TestCase
     protected function getTestObject()
     {
         /** @var DomainInfoRepository $repo */
-        $repo = $this->getTestEntityManager()->getRepository('DothivBusinessBundle:DomainInfo');
+        $repo = $this->getTestEntityManager()->getRepository('DothivShopBundle:DomainInfo');
         $repo->setValidator($this->testValidator);
         return $repo;
     }

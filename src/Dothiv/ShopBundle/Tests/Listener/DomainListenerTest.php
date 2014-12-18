@@ -4,9 +4,9 @@
 namespace Dothiv\ShopBundle\Test\Listener;
 
 use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\BusinessBundle\Entity\DomainInfo;
+use Dothiv\ShopBundle\Entity\DomainInfo;
 use Dothiv\BusinessBundle\Event\DomainEvent;
-use Dothiv\BusinessBundle\Repository\DomainInfoRepositoryInterface;
+use Dothiv\ShopBundle\Repository\DomainInfoRepositoryInterface;
 use Dothiv\ShopBundle\Listener\DomainListener;
 use Dothiv\ValueObject\HivDomainValue;
 
@@ -106,6 +106,6 @@ class DomainListenerTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockDomainInfoRepo = $this->getMock('\Dothiv\BusinessBundle\Repository\DomainInfoRepositoryInterface');
+        $this->mockDomainInfoRepo = $this->getMock('\Dothiv\ShopBundle\Repository\DomainInfoRepositoryInterface');
     }
 }

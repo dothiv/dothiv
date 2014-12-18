@@ -1,28 +1,27 @@
 <?php
 
-namespace Dothiv\BusinessBundle\Entity\Tests;
+namespace Dothiv\ShopBundle\Entity\Tests;
 
-use Dothiv\BusinessBundle\Entity\DomainInfo;
-use Dothiv\BusinessBundle\Tests\ObjectManipulator;
+use Dothiv\ShopBundle\Entity\DomainInfo;
 
 class DomainInfoTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
      * @group Entity
-     * @group BusinessBundle
+     * @group ShopBundle
      * @group DomainInfo
      * @group Shop
      */
     public function itShouldBeInstantiateable()
     {
-        $this->assertInstanceOf('\Dothiv\BusinessBundle\Entity\DomainInfo', $this->getTestObject());
+        $this->assertInstanceOf('\Dothiv\ShopBundle\Entity\DomainInfo', $this->getTestObject());
     }
 
     /**
      * @test
      * @group        Entity
-     * @group        BusinessBundle
+     * @group        ShopBundle
      * @group        DomainInfo
      * @group        Shop
      * @depends      itShouldBeInstantiateable

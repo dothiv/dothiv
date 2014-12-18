@@ -3,7 +3,7 @@
 namespace Dothiv\ShopBundle\Controller;
 
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
-use Dothiv\BusinessBundle\Repository\DomainInfoRepositoryInterface;
+use Dothiv\ShopBundle\Repository\DomainInfoRepositoryInterface;
 use Dothiv\APIBundle\Controller\Traits;
 use Dothiv\BusinessBundle\Service\FilterQueryParser;
 use Dothiv\ShopBundle\Exception\BadRequestHttpException;

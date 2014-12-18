@@ -2,9 +2,8 @@
 
 namespace Dothiv\ShopBundle\Tests\Transformer;
 
-use Dothiv\BusinessBundle\Entity\DomainInfo;
+use Dothiv\ShopBundle\Entity\DomainInfo;
 use Dothiv\ShopBundle\Transformer\DomainInfoTransformer;
-use Dothiv\BusinessBundle\Tests\ObjectManipulator;
 use Dothiv\ValueObject\HivDomainValue;
 use Symfony\Component\Routing\RouterInterface;
 
