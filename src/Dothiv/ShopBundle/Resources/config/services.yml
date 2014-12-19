@@ -1,6 +1,7 @@
 parameters:
     dothiv.shop.transformer.domain_info.class: Dothiv\ShopBundle\Transformer\DomainInfoTransformer
     dothiv.shop.manipulator.order.class: Dothiv\ShopBundle\Manipulator\OrderManipulator
+    dothiv.shop.domain_price.class: Dothiv\ShopBundle\Service\DomainPriceService
 
 services:
     dothiv.shop.transformer.domain_info:
@@ -11,3 +12,8 @@ services:
 
     dothiv.shop.manipulator.order:
         class: %dothiv.shop.manipulator.order.class%
+
+    dothiv.shop.domain_price:
+        class: %dothiv.shop.domain_price.class%
+        arguments:
+        - @dothiv.repository.config
