@@ -120,6 +120,7 @@
             {% endfor %}
         {% if loop.last %}
                 <li><a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': 'register'}) }}" class="button">{{ 'menu.register'|trans }}</a></li>
+                {% block mainmenuend %}{% endblock %}
             </ul>
             </div>
             <button class="toggle-chevron" type="button" data-ng-click="toggle()">

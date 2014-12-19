@@ -19,10 +19,10 @@ article.shop {
       }
       &.available {
         div.text {
-          .make-xs-column(6);
+          .make-sm-column(6);
         }
         nav {
-          .make-xs-column(6);
+          .make-sm-column(6);
         }
       }
       &.registered {
@@ -45,7 +45,7 @@ article.shop {
   form.lookup {
     fieldset.lookupDomain {
       div.field {
-        .make-xs-column(6);
+        .make-sm-column(6);
         input {
           width: 70%;
           .pull-left;
@@ -61,15 +61,21 @@ article.shop {
         }
       }
       nav {
-        .make-xs-column(6);
+        @media (max-width: @screen-xs-max) {
+          .pull-right;
+          margin-top: 1em;
+        }
+        .make-sm-column(6);
       }
     }
   }
   div.promo4life {
+    .make-xs-column(12);
     .make-sm-column(6);
     padding: 0 1em 1em 1em;
     border: 2px solid @color-pink;
     margin-top: 2em;
+    margin-bottom: 2em;
     a.button {
       &:extend(.btn all);
       &:extend(.btn-lg all);
