@@ -69,3 +69,6 @@ Feature: Order domain
       | stripeToken  | tok_24kvt242KFPpMZB00CUopZjt |
       | stripeCard   | crd_24kvt242KFPpMZB00CUopZjt |
     Then the response status code should be 409
+    And the header "content-type" should contain "application/json+problem"
+    And the JSON node "@context" should contain "http://ietf.org/appsawg/http-problem"
+    And the JSON node "title" should be equal to "Domain is already registered: "xn--brger-kva.hiv""
