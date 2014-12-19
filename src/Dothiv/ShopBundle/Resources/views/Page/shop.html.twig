@@ -10,6 +10,24 @@
     <link rel="stylesheet" href="{{ asset(asset_url) }}">
     {% endstylesheets %}
 {% endblock styles %}
+{% block headerstart %}
+    <nav class="meta">
+        {% if locale == "de" %}
+            <a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self">English</a>
+        {% endif %}
+        {% if locale == "en" %}
+            <a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self">Deutsch</a>
+        {% endif %}
+    </nav>
+{% endblock headerstart %}
+{% block mainmenuend %}
+    {% if locale == "de" %}
+        <li><a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self">English</a></li>
+    {% endif %}
+    {% if locale == "en" %}
+        <li><a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self">Deutsch</a></li>
+    {% endif %}
+{% endblock %}
 {% block content %}
     <article data-ui-view class="shop"></article>
     {% for block in page.blocks|default([]) %}
@@ -19,7 +37,6 @@
         {% endif %}
     {% endfor %}
 {% endblock %}
-
 {% block angular_app %}
     {% javascripts
     '@jquery'

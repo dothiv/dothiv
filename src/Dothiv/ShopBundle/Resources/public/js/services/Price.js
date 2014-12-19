@@ -24,11 +24,11 @@ angular.module('dotHIVApp.services').factory('Price', ['config', 'MoneyFormatter
     };
 
     Price.prototype.getFormattedPricePerYear = function (domain) {
-        return this.mf.format(Math.round(this.getPricePerYear(domain) / 100), this.symbol);
+        return this.mf.format(this.getPricePerYear(domain) / 100, this.symbol);
     };
 
     Price.prototype.getFormattedPricePerMonth = function (domain) {
-        return this.mf.format(Math.round(this.getPricePerMonth(domain) / 100), this.symbol);
+        return this.mf.format(this.getPricePerMonth(domain) / 100, this.symbol);
     };
 
     Price.prototype.calculateVat = function (price) {

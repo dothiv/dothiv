@@ -1,3 +1,6 @@
+parameters:
+    dothiv.shop.listener.http_exception.class: Dothiv\ShopBundle\Listener\HttpExceptionListener
+
 services:
     dothiv.shop.controller.page:
         class: Dothiv\BaseWebsiteBundle\Controller\PageController
@@ -8,3 +11,24 @@ services:
           - "DothivShopBundle"
           - @clock
           - %page_lifetime%
+
+    dothiv.shop.controller.api.lookup:
+        class: Dothiv\ShopBundle\Controller\ApiController
+        arguments:
+        - @dothiv.repository.domain_info
+        - @dothiv.shop.transformer.domain_info
+        - @dothiv.shop.domain_price
+        - @serializer
+
+    dothiv.shop.controller.api.order:
+        class: Dothiv\ShopBundle\Controller\OrderController
+        arguments:
+        - @dothiv.repository.domain_info
+        - @dothiv.repository.shop_order
+        - @dothiv.shop.manipulator.order
+        - @dothiv.business.event_dispatcher
+
+    dothiv.shop.listener.http_exception:
+        class: %dothiv.shop.listener.http_exception.class%
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
