@@ -418,7 +418,7 @@ class Order extends Entity
     }
 
     /**
-     * @return string
+     * @return IdentValue
      */
     public function getCurrency()
     {
