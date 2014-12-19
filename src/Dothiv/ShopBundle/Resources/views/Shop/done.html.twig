@@ -1,0 +1,8 @@
+<script type="text/ng-template" id="/template/shop/{{ code }}.html">
+    <section class="{{ code }}" id="done">
+        <div class="block">
+            <h2>{{ block.title }}</h2>
+            {{ block.text|default("")|markdown }}
+        </div>
+    </section>
+</script>

@@ -1,0 +1,30 @@
+dothiv_shop_api_order:
+    pattern:     /api/shop/order/{domain}
+    defaults:
+        _controller: dothiv.shop.controller.api.order:createAction
+        _format: json
+    methods: [PUT]
+
+dothiv_shop_api_info:
+    pattern:     /api/shop/info/{identifier}
+    defaults:
+        _controller: dothiv.shop.controller.api.lookup:infoAction
+        _format: json
+    methods: [GET]
+
+dothiv_shop_api_lookup:
+    path:     /api/shop/lookup
+    defaults:
+        _controller: dothiv.shop.controller.api.lookup:lookupAction
+        _format: json
+    methods: [GET]
+
+dothiv_shop_index:
+    pattern:     /{locale}/shop/{appstate}
+    defaults:
+        _controller: dothiv.shop.controller.page:pageAction
+        page: shop
+        appstate: ~
+    requirements:
+        locale:  en|de
+        appstate: .+

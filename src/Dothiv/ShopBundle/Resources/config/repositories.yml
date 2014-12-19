@@ -1,0 +1,22 @@
+parameters:
+    dothiv.repository.domain_info.entity: 'DothivShopBundle:DomainInfo'
+    dothiv.repository.domain_info.repository.class: Dothiv\ShopBundle\Repository\DomainInfoRepository
+    dothiv.repository.order.entity: 'DothivShopBundle:Order'
+    dothiv.repository.order.repository.class: Dothiv\ShopBundle\Repository\OrderRepository
+
+services:
+    dothiv.repository.domain_info:
+        class: %dothiv.repository.domain_info.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.domain_info.entity% ]
+        calls:
+        - [setValidator, ["@validator"]]
+
+    dothiv.repository.shop_order:
+        class: %dothiv.repository.order.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.order.entity% ]
+        calls:
+        - [setValidator, ["@validator"]]

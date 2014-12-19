@@ -17,6 +17,7 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Dothiv\ValueObject\ValueObjectInterface;
+use PhpOption\Option;
 use Sanpi\Behatch\Context\BehatchContext;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -155,7 +156,23 @@ class FeatureContext extends BehatContext
      */
     public function shouldContain($storageName, $expected)
     {
-        \PHPUnit_Framework_Assert::assertEquals($expected, $this->getValue($storageName));
+        $v = $this->getValue($storageName);
+        if ($v instanceof Option) {
+            // Unwrap
+            $v = $v->get();
+        }
+        if ($v instanceof ValueObjectInterface) {
+            $v = $v->toScalar();
+        }
+        \PHPUnit_Framework_Assert::assertEquals($expected, $v);
+    }
+
+    /**
+     * @Then /^"(?P<storageName>[^"]*)" should be equal to (?P<bool>true|false)$/
+     */
+    public function shouldBeBool($storageName, $bool)
+    {
+        \PHPUnit_Framework_Assert::assertEquals($bool == 'true' ? true : false, $this->getValue($storageName));
     }
 
     /**

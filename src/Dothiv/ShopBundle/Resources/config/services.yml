@@ -1,0 +1,27 @@
+parameters:
+    dothiv.shop.transformer.domain_info.class: Dothiv\ShopBundle\Transformer\DomainInfoTransformer
+    dothiv.shop.manipulator.order.class: Dothiv\ShopBundle\Manipulator\OrderManipulator
+    dothiv.shop.domain_price.class: Dothiv\ShopBundle\Service\DomainPriceService
+    dothiv.shop.invoice.class: Dothiv\ShopBundle\Service\InvoiceService
+
+services:
+    dothiv.shop.transformer.domain_info:
+        class: %dothiv.shop.transformer.domain_info.class%
+        arguments:
+        - @router
+        - "dothiv_shop_api_info"
+
+    dothiv.shop.manipulator.order:
+        class: %dothiv.shop.manipulator.order.class%
+
+    dothiv.shop.domain_price:
+        class: %dothiv.shop.domain_price.class%
+        arguments:
+        - @dothiv.repository.config
+
+    dothiv.shop.invoice:
+        class: %dothiv.shop.invoice.class%
+        arguments:
+        - @dothiv.repository.invoice
+        - @dothiv.shop.domain_price
+        - %devat%
