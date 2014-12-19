@@ -1,0 +1,12 @@
+# NOTE: Not loaded in test env
+parameters:
+    dothiv.shop.listener.domain.class: Dothiv\ShopBundle\Listener\DomainListener
+
+services:
+    dothiv.shop.listener.domain:
+        class: %dothiv.shop.listener.domain.class%
+        arguments:
+        - @dothiv.repository.domain_info
+        tags:
+        - { name: dothiv.business.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
+        - { name: dothiv.business.event_listener, event: dothiv.business.domain.deleted, method: onDomainDeleted }

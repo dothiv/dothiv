@@ -1,0 +1,97 @@
+{% set locale = locale|default(app.request.locale|slice(0,2)) %}
+{% trans_default_domain "registry" %}
+{% set title %}{{ page.title }}{% endset %}
+{% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
+{% block styles %}
+    {% stylesheets
+    'bundles/dothivshop/lesscss/styles.less'
+    '@jquery_mmenu_css'
+    filter='cssrewrite,?uglifycss' %}
+    <link rel="stylesheet" href="{{ asset(asset_url) }}">
+    {% endstylesheets %}
+{% endblock styles %}
+{% block headerstart %}
+    <nav class="meta">
+        {% if locale == "de" %}
+            <a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self">English</a>
+        {% endif %}
+        {% if locale == "en" %}
+            <a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self">Deutsch</a>
+        {% endif %}
+    </nav>
+{% endblock headerstart %}
+{% block mainmenuend %}
+    {% if locale == "de" %}
+        <li><a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self">English</a></li>
+    {% endif %}
+    {% if locale == "en" %}
+        <li><a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self">Deutsch</a></li>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <article data-ui-view class="shop"></article>
+    {% for block in page.blocks|default([]) %}
+        {% set code = block.code|replace({"shop.": ""}) %}
+        {% if code in ["lookup", "configure", "checkout", "done"] %}
+            {% include "DothivShopBundle::Shop/" ~ code ~ ".html.twig" %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+{% block angular_app %}
+    {% javascripts
+    '@jquery'
+    '@jquery_mmenu_js'
+    '@punycode_js'
+    '@angular_js_resource'
+    '@angular_js_route'
+    '@angular_js_cookies'
+    '@angular_ui_router'
+    '@angular_ui_bootstrap_tpls'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/menu.js'
+    '@DothivShopBundle/Resources/public/js/app.js'
+    '@DothivBaseWebsiteBundle/Resources/public/js/services/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/js/services/models/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/js/filters/*.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/MainNavController.js'
+    '@DothivShopBundle/Resources/public/js/services/*.js'
+    '@DothivShopBundle/Resources/public/js/controllers/*.js'
+    filter='?uglifyjs2'
+    output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
+    {% endjavascripts %}
+{% endblock angular_app %}
+{% block angular_config %}
+    <script type="text/javascript">
+        'use strict';
+        angular.module('dotHIVApp.services').factory('config', function () {
+            var config = {
+                locale: '{{ locale }}',
+                eur_to_usd: {{ config('eur_to_usd', 'float') }},
+                shop: {
+                    price: {
+                        eur: {{ config('shop.price.eur', 'int') }},
+                        usd: {{ config('shop.price.usd', 'int') }}
+                    },
+                    promo: {
+                        name4life: {
+                            eur: {{ config('shop.promo.name4life.eur.mod', 'int') }},
+                            usd: {{ config('shop.promo.name4life.usd.mod', 'int') }}
+                        }
+                    }
+                },
+                vat: {
+                    de: {{ devat }}
+                },
+                stripe: {
+                    publishableKey: '{{ stripe_publishable_key }}',
+                    {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}
+                    logo: '{{ asset(asset_url) }}',
+                    {% endimage %}
+                    testMode: {{ stripe_testmode }},
+                }
+            };
+            return config;
+        });
+    </script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+{% endblock angular_config %}

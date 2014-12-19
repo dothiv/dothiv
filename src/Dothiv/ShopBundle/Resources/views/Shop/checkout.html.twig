@@ -1,0 +1,201 @@
+{% import _self as checkout %}
+
+{% macro renderField(model, form, block, name, options) %}
+    {% set required = options.required|default(false) %}
+    {% set ngRequired = options.ngRequired|default(false) %}
+    {% set pattern = options.pattern|default(false) %}
+    {% set typeahead = options.typeahead|default(false) %}
+    {% set typeaheadOnSelect = options.typeaheadOnSelect|default(false) %}
+    {% set type = options.type|default("text") %}
+    {% set disabled = options.disabled|default(0) %}
+    {% set autocomplete = options.autocomplete|default(true) %}
+    {% set minlength = options.minlength|default(false) %}
+    {% set blur = options.blur|default(false) %}
+    {% for field in block.strings|default([]) %}
+        {% if field.code ends with name %}
+            <div class="field" data-ng-class="{disabled: {{ disabled }}}">
+                <label for="checkout-details-{{ name }}">
+                    {{ field.value|markdown|striptags('<a><em><strong><code>')|raw }}
+                </label>
+
+                <div class="input">
+                    <input type="{{ type }}" name="{{ name }}" id="checkout-details-{{ name }}" maxlength="255" data-ng-model="{{ model }}.{{ name }}" {% if required %}required{% endif %}
+                            data-ng-trim="true"
+                            {% if pattern %}data-ng-pattern="/{{ pattern }}/"{% endif %}
+                            {% if disabled %}data-ng-disabled="{{ disabled }}"{% endif %}
+                            {% if typeahead %}data-typeahead="{{ typeahead }}"{% endif %}
+                            {% if typeaheadOnSelect %}data-typeahead-on-select="{{ typeaheadOnSelect }}"{% endif %}
+                            {% if not autocomplete %}autocomplete="off"{% endif %}
+                            {% if minlength %}data-ng-minlength="{{ minlength }}"{% endif %}
+                            {% if ngRequired %}data-ng-required="{{ ngRequired }}"{% endif %}
+                            {% if blur %}data-ng-blur="{{ blur }}"{% endif %}
+                            >
+                    <i class="valid" data-ng-show="!{{ form }}.{{ name }}.$pristine && {{ form }}.{{ name }}.$valid"></i>
+                    <i class="invalid" data-ng-show="!{{ form }}.{{ name }}.$pristine && !{{ form }}.{{ name }}.$valid"></i>
+                    {% if ngRequired %}
+                    <i class="required" data-ng-show="{{ ngRequired }} && {{ form }}.{{ name }}.$pristine"></i>{% endif %}
+                    {% if required %}<i class="required" data-ng-show="{{ form }}.{{ name }}.$pristine"></i>{% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+<script type="text/ng-template" id="/template/shop/{{ code }}.html">
+    <section class="{{ code }}">
+        <div class="block">
+            <h2>{{ block.title }}</h2>
+            {{ block.text|default("")|markdown }}
+        </div>
+    </section>
+
+    {% for child in block.children %}
+        {% if child.code ends with "duration" %}
+            {% for duration in child.strings|default([]) %}
+                {% if loop.first %}
+                    <form method="post" action="" novalidate name="{{ code }}DurationForm" class="{{ code }}">
+                    <fieldset class="duration">
+                    <legend>{{ child.title|markdown }}</legend>
+                    <div class="intro">{{ child.text|default("")|markdown }}</div>
+                    <div class="field">
+                {% endif %}
+                <label class="duration">
+                    <input type="radio" name="duration" data-ng-model="order.duration" value="{{ duration.value|number_format }}">
+                    {{ duration.value }}
+                </label>
+                {% if loop.last %}
+                    </div>
+                    </fieldset>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        {% elseif child.code ends with "summary" %}
+            {% for summaryChild in child.children|default([]) %}
+                {% if loop.first %}
+                    <section class="{{ code }}">
+                    <div class="block">
+                    <h3>{{ child.title|markdown }}</h3>
+                    {{ child.text|default("")|markdown }}
+                    <table class="summary">
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td class="price">%%total%%</td>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                {% endif %}
+                <tr>
+                    <td>
+                        <strong>{{ summaryChild.title }}</strong>
+                        {{ summaryChild.text|default("")|markdown }}
+                    </td>
+                    <td class="price">
+                        {% if summaryChild.code ends with "item" %}
+                            %%itemTotal%%
+                        {% elseif summaryChild.code ends with "vat" %}
+                            %%vatTotal%%
+                        {% endif %}
+                    </td>
+                </tr>
+                {% if loop.last %}
+                    </tbody>
+                    </table>
+                    </div>
+                    </section>
+                {% endif %}
+            {% endfor %}
+        {% elseif child.code ends with "details" %}
+            {% for detailChild in child.children|default([]) %}
+                {% if detailChild.code ends with "edit" %}
+                    {% set form = detailChild.children[0] %}
+                    <form method="post" action="" novalidate name="{{ code }}ContactForm" class="{{ code }}" data-ng-init="step = 'edit';" data-ng-show="step == 'edit';">
+                        <fieldset>
+                            <legend>{{ child.title|markdown }}</legend>
+                            <div class="intro">{{ child.text|default("")|markdown }}</div>
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "firstname", {"required": true}) }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "lastname", {"required": true}) }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "email", {"required": true, "type": "email"}) }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "phone", {"required": true, "type": "tel", "pattern": "^\\+[1-9][-0-9]{5,}$"}) }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "fax", {"type": "tel", "pattern": "^\\+[1-9][-0-9]{5,}$"}) }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "locality", {"required": true}) }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "locality2") }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "city", {"required": true}) }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "country", {"required": true, "typeahead": "country.name for country in countries | filter:$viewValue | limitTo:3", "typeaheadOnSelect": "selectCountry($item);", "autocomplete": "0", "blur": "blurCountry()"}) }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "organization") }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "vat", {"pattern": "^[A-Z0-9]{2}[0-9]{8,12}$", "disabled": "!vatIncluded()", "ngRequired": "vatIncluded()"}) }}
+                        </fieldset>
+                        {% for button in detailChild.strings|default([]) %}
+                            {% if loop.first %}<nav>{% endif %}
+                            <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="{{ code }}ContactForm.$invalid" data-ng-click="review();">
+                                {{ button.value }}
+                            </button>
+                            {% if loop.last %}</nav>{% endif %}
+                        {% endfor %}
+                    </form>
+                {% elseif detailChild.code ends with "review" %}
+                    <section class="{{ code }}" data-ng-show="step == 'review';" id="review">
+                        <div class="block">
+                            <h3>{{ child.title|markdown }}</h3>
+                            {{ detailChild.text|default("")|markdown }}
+                            {% for button in detailChild.strings|default([]) %}
+                                {% if loop.first %}<nav>{% endif %}
+                                {% if button.code ends with "reset" %}
+                                    <button data-ng-click="step = 'edit';">{{ button.value }}</button>
+                                {% endif %}
+                                {% if loop.last %}</nav>{% endif %}
+                            {% endfor %}
+                        </div>
+                    </section>
+                    {% for detailChildChildren in detailChild.children|default([]) %}
+                        {% if detailChildChildren.code ends with "checkboxes" %}
+                            {% for checkbox in detailChildChildren.strings|default([]) %}
+                                {% if loop.first %}
+                                    <form method="post" action="" novalidate name="{{ code }}ConfirmForm" class="{{ code }}" data-ng-show="step == 'review';">
+                                    <fieldset class="links-external">
+                                    <legend>{{ detailChildChildren.title|markdown }}</legend>
+                                    <div class="intro">
+                                        {{ detailChildChildren.text|default("")|markdown }}
+                                    </div>
+                                {% endif %}
+                                <div class="field" data-ng-init="confirm.checkbox{{ loop.index }} = false">
+                                    <label> <input type="checkbox" name="checkbox{{ loop.index }}" data-ng-model="confirm.checkbox{{ loop.index }}">
+                                        {{ checkbox.value|markdown|striptags('<a><em><strong><code>')|raw }}
+                                    </label>
+                                </div>
+                                {% if loop.last %}
+                                    </fieldset>
+                                    {% for button in detailChild.strings|default([]) %}
+                                        {% if loop.first %}<nav>{% endif %}
+                                        {% if button.code ends with "submit" %}
+                                            <button class="primary" data-ng-disabled="!allChecked('confirm')" data-ng-click="submit()">{{ button.value }}</button>
+                                        {% endif %}
+                                        {% if loop.last %}</nav>{% endif %}
+                                    {% endfor %}
+                                    </form>
+                                    {% if stripe_testmode %}
+                                        <h2>Test mode</h2>
+                                        <p>Use this test card data:</p>
+                                        <dl>
+                                            <dt>card number</dt>
+                                            <dd><code>4242424242424242</code></dd>
+                                            <dt>expiry date</dt>
+                                            <dd><code>{{ 'now'|date('m/y') }}</code></dd>
+                                            <dt>CV</dt>
+                                            <dd><code>123</code></dd>
+                                        </dl>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% elseif child.code ends with "stripe" %}
+            {% for stripeString in child.strings|default([]) %}
+                {% set code = stripeString.code|replace({"shop.stripe.": ""}) %}
+                <span data-ng-init="stripe.{{ code }} = '{{ stripeString.value }}';"></span>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</script>
