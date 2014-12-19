@@ -7,6 +7,7 @@ use Dothiv\ShopBundle\Repository\DomainInfoRepositoryInterface;
 use Dothiv\APIBundle\Controller\Traits;
 use Dothiv\BusinessBundle\Service\FilterQueryParser;
 use Dothiv\ShopBundle\Exception\BadRequestHttpException;
+use Dothiv\ShopBundle\Service\DomainPriceServiceInterface;
 use Dothiv\ShopBundle\Transformer\DomainInfoTransformer;
 use Dothiv\ValueObject\Exception\InvalidArgumentException;
 use Dothiv\ValueObject\HivDomainValue;
@@ -24,14 +25,14 @@ class ApiController
     private $domainInfoRepo;
 
     /**
-     * @var ConfigRepositoryInterface
-     */
-    private $configRepo;
-
-    /**
      * @var SerializerInterface
      */
     private $serializer;
+
+    /**
+     * @var DomainPriceServiceInterface
+     */
+    private $domainPrice;
 
     /**
      * @var DomainInfoTransformer
@@ -40,14 +41,14 @@ class ApiController
 
     public function __construct(
         DomainInfoRepositoryInterface $domainInfoRepo,
-        ConfigRepositoryInterface $configRepo,
         DomainInfoTransformer $transformer,
+        DomainPriceServiceInterface $domainPrice,
         SerializerInterface $serializer
     )
     {
         $this->domainInfoRepo = $domainInfoRepo;
-        $this->configRepo     = $configRepo;
         $this->serializer     = $serializer;
+        $this->domainPrice    = $domainPrice;
         $this->transformer    = $transformer;
     }
 
@@ -57,9 +58,6 @@ class ApiController
      * @return Response
      *
      * @throws BadRequestHttpException
-     *
-     *
-     * TODO: implement campaigns dynamically
      */
     public function lookupAction(Request $request)
     {
@@ -76,13 +74,9 @@ class ApiController
 
         // Set prices
         if ($domainInfo->getAvailable()) {
-            $model->setNetPriceUSD($this->configRepo->get('shop.price.usd')->getValue());
-            $model->setNetPriceEUR($this->configRepo->get('shop.price.eur')->getValue());
-            // 4life.hiv campaign
-            if (preg_match('/.+4life\.hiv$/', $model->getName()->toUTF8())) {
-                $model->setNetPriceUSD($model->getNetPriceUSD() + (int)$this->configRepo->get('shop.promo.name4life.usd.mod')->getValue());
-                $model->setNetPriceEUR($model->getNetPriceEUR() + (int)$this->configRepo->get('shop.promo.name4life.eur.mod')->getValue());
-            }
+            $price = $this->domainPrice->getPrice($domain);
+            $model->setNetPriceUSD($price->getNetPriceUSD());
+            $model->setNetPriceEUR($price->getNetPriceEUR());
         }
 
         $response = $this->createResponse();

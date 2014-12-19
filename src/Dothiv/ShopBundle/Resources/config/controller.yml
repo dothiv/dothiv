@@ -13,8 +13,8 @@ services:
         class: Dothiv\ShopBundle\Controller\ApiController
         arguments:
         - @dothiv.repository.domain_info
-        - @dothiv.repository.config
         - @dothiv.shop.transformer.domain_info
+        - @dothiv.shop.domain_price
         - @serializer
 
     dothiv.shop.controller.api.order:
