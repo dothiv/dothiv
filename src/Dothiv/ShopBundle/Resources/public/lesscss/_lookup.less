@@ -65,4 +65,24 @@ article.shop {
       }
     }
   }
+  div.promo4life {
+    .make-sm-column(6);
+    padding: 0 1em 1em 1em;
+    border: 2px solid @color-pink;
+    margin-top: 2em;
+    a.button {
+      &:extend(.btn all);
+      &:extend(.btn-lg all);
+      &:extend(.btn-pink all);
+      .pull-right;
+    }
+    .buy {
+      .price {
+        strong {
+          font-size: @font-size-h2;
+        }
+        .pull-left;
+      }
+    }
+  }
 }
