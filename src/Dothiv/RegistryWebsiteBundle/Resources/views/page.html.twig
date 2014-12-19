@@ -71,7 +71,7 @@
     <header class="page">
         {% block headerstart %}{% endblock %}
         <section class="logo">
-            <a href="/" rel="index">
+            <a href="/" rel="index" target="_self">
                 <h1>
                     {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.svg' %}
                     <img src="{{ asset(asset_url) }}" alt="{% trans %}gmbh.fullname{% endtrans %}" width="120" height="69">
@@ -111,7 +111,7 @@
                         <ul>
                             {% for item in section.items %}
                                 {% if item.cfMeta.contentType == "Page" %}
-                                    <li><a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': item.code|replace('.', '/')}) }}">{{ item.title }}</a></li>
+                                    <li><a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': item.code|replace('.', '/')}) }}" target="_self">{{ item.title }}</a></li>
                                 {% endif %}
                             {% endfor %}
                         </ul>
@@ -119,7 +119,7 @@
                 {% endif %}
             {% endfor %}
         {% if loop.last %}
-                <li><a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': 'register'}) }}" class="button">{{ 'menu.register'|trans }}</a></li>
+                <li><a href="{{ path('dothiv_shop_index', {'locale': 'en'}) }}" class="button" target="_self">{{ 'menu.register'|trans }}</a></li>
                 {% block mainmenuend %}{% endblock %}
             </ul>
             </div>
@@ -170,7 +170,7 @@
                     {% if loop.first %}
                         <nav>
                     {% endif %}
-                    <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': page.code|replace('.', '/')}) }}">{{ page.title }}</a>
+                    <a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': page.code|replace('.', '/')}) }}" target="_self">{{ page.title }}</a>
                     {% if loop.last %}
                         </nav>
                     {% endif %}
