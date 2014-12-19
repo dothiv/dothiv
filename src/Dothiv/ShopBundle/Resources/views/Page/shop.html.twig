@@ -22,10 +22,10 @@
 {% endblock headerstart %}
 {% block mainmenuend %}
     {% if locale == "de" %}
-        <li><a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self">English</a></li>
+        <li class="meta"><a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self">English</a></li>
     {% endif %}
     {% if locale == "en" %}
-        <li><a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self">Deutsch</a></li>
+        <li class="meta"><a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self">Deutsch</a></li>
     {% endif %}
 {% endblock %}
 {% block content %}
