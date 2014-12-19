@@ -6,6 +6,7 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
         if (OrderModel.isDone() || !OrderModel.isConfigured()) {
             $state.transitionTo('lookupform', {"locale": $stateParams.locale});
         }
+        OrderModel.currency = Price.currency.toUpperCase();
         $scope.order = OrderModel;
         $scope.contact = OrderModel.contact;
         $scope.domain = $stateParams.domain;
@@ -128,7 +129,7 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
                 name: $scope.domain,
                 description: $scope.stripe.description,
                 amount: updateTotals(),
-                currency: Price.currency.toUpperCase(),
+                currency: OrderModel.currency,
                 email: OrderModel.contact.email,
                 panelLabel: $scope.stripe.button
             });

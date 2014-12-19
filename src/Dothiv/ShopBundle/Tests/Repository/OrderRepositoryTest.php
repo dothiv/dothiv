@@ -51,6 +51,7 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $order->setCountry("Germany (Deutschland)");
         $order->setOrganization("Bürger GmbH");
         $order->setVatNo("DE123456789");
+        $order->setCurrency(new IdentValue(Order::CURRENCY_EUR));
         $order->setStripeToken(new IdentValue("tok_14kvt242KFPpMZB00CUopZjt"));
         $order->setStripeCard(new IdentValue("crd_14kvt242KFPpMZB00CUopZjt"));
         $order->setStripeCharge(new IdentValue("crg_14kvt242KFPpMZB00CUopZjt"));

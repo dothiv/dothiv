@@ -53,6 +53,7 @@ class OrderManipulatorTest extends \PHPUnit_Framework_TestCase
         $model->setCountry("Germany (Deutschland)");
         $model->setOrganization("Bürger GmbH");
         $model->setVatNo("DE123456789");
+        $model->setCurrency(Order::CURRENCY_EUR);
         $model->setStripeToken("tok_14kvt242KFPpMZB00CUopZjt");
         $model->setStripeCard("crd_14kvt242KFPpMZB00CUopZjt");
 

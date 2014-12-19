@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('dotHIVApp.controllers').controller('LookupResultController', [
-    '$scope', '$state', '$stateParams', 'Price', '$http', 'idn',
-    function ($scope, $state, $stateParams, Price, $http, idn) {
+    '$scope', '$state', '$stateParams', 'Price', '$http', 'idn', 'OrderModel',
+    function ($scope, $state, $stateParams, Price, $http, idn, OrderModel) {
         $scope.loading = false;
         $scope.lookup = null;
         $scope.domain = $stateParams.domain;
@@ -13,8 +13,10 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
             $scope.loading = true;
             $http.get('/api/shop/lookup?q=' + idn.toASCII(domain))
                 .success(function (data) {
+                    OrderModel.available = false;
                     if (data.available) {
                         $scope.lookup = "available";
+                        OrderModel.available = true;
                     } else if (data.premium) {
                         $scope.lookup = "premium";
                         // } else if (data.trademark) {

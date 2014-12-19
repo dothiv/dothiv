@@ -15,6 +15,8 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             card: ""
         };
         this.countryModel = null;
+        this.currency = null;
+        this.available = false;
     };
 
     OrderModel.prototype.isDone = function () {
@@ -25,6 +27,10 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             return false;
         }
         return true;
+    };
+
+    OrderModel.prototype.isAvailable = function () {
+        return this.available;
     };
 
     OrderModel.prototype.isConfigured = function () {
@@ -63,6 +69,7 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             "country": this.contact.country, // Germany (Deutschland)
             "organization": this.contact.organization, // Bürger GmbH
             "vatNo": this.contact.vat, // DE123456789
+            "currency": this.currency, // EUR
             "stripeToken": this.stripe.token, // tok_14kvt242KFPpMZB00CUopZjt
             "stripeCard": this.stripe.card // crd_14kvt242KFPpMZB00CUopZjt
         };
