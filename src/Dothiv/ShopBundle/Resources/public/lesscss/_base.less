@@ -72,3 +72,18 @@ article.shop {
     }
   }
 }
+
+header.page {
+  position: relative;
+
+  nav.meta {
+    display: none;
+    @media (min-width: @screen-sm-min) {
+      display: block;
+      position: absolute;
+      right: @grid-gutter-width / 2;
+      top: @grid-gutter-width / 2;
+      z-index: 100;
+    }
+  }
+}

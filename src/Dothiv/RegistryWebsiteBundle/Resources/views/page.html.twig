@@ -69,6 +69,7 @@
 <body data-ng-app="dotHIVApp">
 <div class="outer">
     <header class="page">
+        {% block headerstart %}{% endblock %}
         <section class="logo">
             <a href="/" rel="index">
                 <h1>
@@ -119,6 +120,7 @@
             {% endfor %}
         {% if loop.last %}
                 <li><a href="{{ path('dothiv_registry_content', {'locale': locale, 'page': 'register'}) }}" class="button">{{ 'menu.register'|trans }}</a></li>
+                {% block mainmenuend %}{% endblock %}
             </ul>
             </div>
             <button class="toggle-chevron" type="button" data-ng-click="toggle()">

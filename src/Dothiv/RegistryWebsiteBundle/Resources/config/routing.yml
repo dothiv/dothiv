@@ -18,7 +18,7 @@ dothiv_register_nonprofit_form:
         _controller: dothiv.registry.web.controller.page:pageAction
         page: register-non-profit-form
     requirements:
-        locale:  en|ky
+        locale:  en|de|ky
 
 dothiv_register_nonprofit_login:
     path: /{locale}/register-non-profit-form/auth/{identifier}/{token}
@@ -27,14 +27,14 @@ dothiv_register_nonprofit_login:
         app_route: dothiv_register_nonprofit_form
     schemes:  [https]
     requirements:
-        locale:  en
+        locale:  en|de
 
 dothiv_registry_content_api:
     pattern:  /{locale}/content/{type}
     defaults:
         _controller: dothiv.registry.web.controller.page:contentAction
     requirements:
-        locale:  en
+        locale:  en|de
         type: Registrar|hivDomain
 
 dothiv_registry_app_template:
@@ -50,7 +50,7 @@ dothiv_registry_content:
     defaults:
         _controller: dothiv.registry.web.controller.page:contentPageAction
     requirements:
-        locale:  en|ky
+        locale:  en|ky|de
         page: ^([a-zA-Z][a-zA-Z0-9]*[/-])*[a-zA-Z][a-zA-Z0-9]*$
 
 dothiv_registry_page:
@@ -59,7 +59,7 @@ dothiv_registry_page:
         _controller: dothiv.registry.web.controller.page:pageAction
         page: index
     requirements:
-        locale:  en|ky
+        locale:  en|ky|de
 
 dothiv_registry_report:
     pattern:  /{locale}/report
@@ -67,7 +67,7 @@ dothiv_registry_report:
         _controller: dothiv.registry.web.controller.page:pageAction
         page: report
     requirements:
-        locale:  en|ky
+        locale:  en|ky|de
 
 dothiv_registry_sedo:
     path: /api/premiumbid
