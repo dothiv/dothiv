@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$scope', 'OrderModel', '$state', '$stateParams', function ($scope, OrderModel, $state, $stateParams) {
-    if (OrderModel.isDone()) {
+    if (OrderModel.isDone() || !OrderModel.isAvailable()) {
         $state.transitionTo('lookupform', {"locale": $stateParams.locale});
     }
     $scope.order = OrderModel;

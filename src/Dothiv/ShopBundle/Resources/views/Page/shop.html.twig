@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="{{ asset(asset_url) }}">
     {% endstylesheets %}
 {% endblock styles %}
+{% block headerstart %}
+    <nav class="meta">
+        <a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self">English</a> |
+        <a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self">Deutsch</a>
+    </nav>
+{% endblock headerstart %}
 {% block content %}
     <article data-ui-view class="shop"></article>
     {% for block in page.blocks|default([]) %}
@@ -19,7 +25,6 @@
         {% endif %}
     {% endfor %}
 {% endblock %}
-
 {% block angular_app %}
     {% javascripts
     '@jquery'

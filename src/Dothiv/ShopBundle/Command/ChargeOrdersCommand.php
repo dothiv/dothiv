@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ProcessOrderCommand extends ContainerAwareCommand
+class ChargeOrdersCommand extends ContainerAwareCommand
 {
     protected function configure()
     {

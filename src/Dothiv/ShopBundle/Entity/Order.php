@@ -5,6 +5,7 @@ namespace Dothiv\ShopBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Dothiv\BusinessBundle\Entity\Entity;
 use Dothiv\BusinessBundle\Entity\Traits;
+use Dothiv\ShopBundle\Exception\InvalidArgumentException;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
@@ -26,6 +27,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Order extends Entity
 {
     use Traits\CreateUpdateTime;
+
+    const CURRENCY_EUR = "EUR";
+    const CURRENCY_USD = "USD";
 
     /**
      * @var string
@@ -152,6 +156,15 @@ class Order extends Entity
      * @Assert\Regex("/^[A-Z0-9]{2}[0-9]{8,12}$/")
      */
     private $vatNo;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     * @Assert\Length(max=255)
+     * @Assert\NotBlank
+     * @var string
+     * @Assert\Choice({"EUR", "USD"})
+     */
+    private $currency;
 
     /**
      * The stripe card returned by the checkout.
@@ -402,6 +415,29 @@ class Order extends Entity
     public function setRedirect(URLValue $redirect)
     {
         $this->redirect = $redirect->toScalar();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return new IdentValue($this->currency);
+    }
+
+    /**
+     * @param IdentValue $currency
+     */
+    public function setCurrency(IdentValue $currency)
+    {
+        $c          = $currency->toScalar();
+        $currencies = array(static::CURRENCY_EUR, static::CURRENCY_USD);
+        if (!in_array($c, $currencies)) {
+            throw new InvalidArgumentException(
+                sprintf('Currency must be one of "%s". "%s" given.', join(',', $currencies), $c)
+            );
+        }
+        $this->currency = $c;
     }
 
     /**

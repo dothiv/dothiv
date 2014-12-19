@@ -22,6 +22,7 @@ Feature: Order domain
       | country      | Germany (Deutschland)        |
       | organization | Bürger GmbH                  |
       | vatNo        | DE123456789                  |
+      | currency     | EUR                          |
       | stripeToken  | tok_14kvt242KFPpMZB00CUopZjt |
       | stripeCard   | crd_14kvt242KFPpMZB00CUopZjt |
     Then the response status code should be 201
@@ -45,6 +46,7 @@ Feature: Order domain
     And "{order.Country}" should contain "Germany (Deutschland)"
     And "{order.Organization}" should contain "Bürger GmbH"
     And "{order.VatNo}" should contain "DE123456789"
+    And "{order.Currency}" should contain "EUR"
     And "{order.StripeToken}" should contain "tok_14kvt242KFPpMZB00CUopZjt"
     And "{order.StripeCard}" should contain "crd_14kvt242KFPpMZB00CUopZjt"
     # Ordering twice must not be possible
@@ -63,6 +65,7 @@ Feature: Order domain
       | country      | Germany (Deutschland)        |
       | organization | Bürger GmbH                  |
       | vatNo        | DE123456789                  |
+      | currency     | EUR                          |
       | stripeToken  | tok_24kvt242KFPpMZB00CUopZjt |
       | stripeCard   | crd_24kvt242KFPpMZB00CUopZjt |
     Then the response status code should be 409

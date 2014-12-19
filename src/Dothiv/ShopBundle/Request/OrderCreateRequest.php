@@ -4,6 +4,8 @@ namespace Dothiv\ShopBundle\Request;
 
 use Dothiv\APIBundle\Request\AbstractDataModel;
 use Dothiv\APIBundle\Request\DataModelInterface;
+use Dothiv\ShopBundle\Entity\Order;
+use Dothiv\ShopBundle\Exception\InvalidArgumentException;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
@@ -120,6 +122,13 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
      * @Assert\Regex("/^[A-Z0-9]{2}[0-9]{8,12}$/")
      */
     private $vatNo;
+
+    /**
+     * @Assert\Length(max=255)
+     * @var string
+     * @Assert\Choice({"EUR", "USD"})
+     */
+    private $currency;
 
     /**
      * The stripe card returned by the checkout.
@@ -360,6 +369,31 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
     public function setRedirect($redirect)
     {
         $this->redirect = new URLValue($redirect);
+    }
+
+
+    /**
+     * @return IdentValue
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     *
+     * @throws InvalidArgumentException
+     */
+    public function setCurrency($currency)
+    {
+        $currencies = array(Order::CURRENCY_EUR, Order::CURRENCY_USD);
+        if (!in_array($currency, $currencies)) {
+            throw new InvalidArgumentException(
+                sprintf('Currency must be one of "%s". "%s" given.', join(',', $currencies), $c)
+            );
+        }
+        $this->currency = new IdentValue($currency);
     }
 
     /**

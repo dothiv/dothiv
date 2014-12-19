@@ -41,6 +41,7 @@ class OrderManipulator implements EntityManipulatorInterface
         $entity->setCountry($data->getCountry());
         $entity->setOrganization($data->getOrganization());
         $entity->setVatNo($data->getVatNo());
+        $entity->setCurrency($data->getCurrency());
         $entity->setStripeToken($data->getStripeToken());
         $entity->setStripeCard($data->getStripeCard());
     }
