@@ -44,6 +44,7 @@ Feature: Lookup domain name
     And the JSON node "netPriceUSD" should contain "18000"
     And the JSON node "netPriceEUR" should contain "14500"
 
+  @InvaliDomainLookup
   Scenario: Lookup invalid domain
     And I send a GET request to "https://tld.hiv.dev/api/shop/lookup" with query:
       | q | t.hiv |
@@ -53,6 +54,7 @@ Feature: Lookup domain name
     And the JSON node "title" should be equal to "Invalid hiv domain provided: "t.hiv"!"
 
   # xn--mgb9awbf6b.hiv // عُمان (oman)
+  @InvaliDomainLookup
   Scenario: Lookup invalid domain
     And I send a GET request to "https://tld.hiv.dev/api/shop/lookup" with query:
       | q | xn--mgb9awbf6b.hiv |
