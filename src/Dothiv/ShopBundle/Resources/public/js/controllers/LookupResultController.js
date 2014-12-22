@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('dotHIVApp.controllers').controller('LookupResultController', [
-    '$scope', '$state', '$stateParams', 'Price', '$http', 'idn', 'OrderModel',
-    function ($scope, $state, $stateParams, Price, $http, idn, OrderModel) {
+    '$scope', '$state', '$stateParams', 'Price', '$http', 'idn', 'OrderModel', 'config',
+    function ($scope, $state, $stateParams, Price, $http, idn, OrderModel, config) {
         $scope.loading = false;
         $scope.lookup = null;
         $scope.domain = $stateParams.domain;
@@ -59,7 +59,7 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
 
         // Init
         lookupDomain($stateParams.domain);
-        if ($stateParams.domain.indexOf("4life.hiv") < 0) {
+        if ($stateParams.domain.indexOf("4life.hiv") < 0 && config.shop.promo.name4life) {
             lookupPromoDomain($scope.promoDomain);
         }
     }]);

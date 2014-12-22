@@ -72,12 +72,7 @@
                         eur: {{ config('shop.price.eur', 'int') }},
                         usd: {{ config('shop.price.usd', 'int') }}
                     },
-                    promo: {
-                        name4life: {
-                            eur: {{ config('shop.promo.name4life.eur.mod', 'int') }},
-                            usd: {{ config('shop.promo.name4life.usd.mod', 'int') }}
-                        }
-                    }
+                    promo: {}
                 },
                 vat: {
                     de: {{ devat }}
@@ -87,9 +82,15 @@
                     {% image '@DothivPremiumConfiguratorBundle/Resources/public/images/stripe-logo.png' %}
                     logo: '{{ asset(asset_url) }}',
                     {% endimage %}
-                    testMode: {{ stripe_testmode }},
+                    testMode: {{ stripe_testmode }}
                 }
             };
+            if ({{ config('shop.promo.name4life.enable', 'bool') }}) {
+                config.shop.promo.name4life = {
+                    eur: {{ config('shop.promo.name4life.eur.mod', 'int') }},
+                    usd: {{ config('shop.promo.name4life.usd.mod', 'int') }}
+                };
+            }
             return config;
         });
     </script>
