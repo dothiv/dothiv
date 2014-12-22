@@ -4,13 +4,14 @@
 namespace Dothiv\BusinessBundle\Repository\CRUD;
 
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
+use Dothiv\ValueObject\IdentValue;
 use PhpOption\Option;
 
 class PaginatedQueryOptions
 {
 
     /**
-     * @var string
+     * @var IdentValue
      */
     private $sortField = null;
 
@@ -39,6 +40,13 @@ class PaginatedQueryOptions
      */
     public function setOffsetKey($offsetKey)
     {
+        if (!is_scalar($offsetKey)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Offset key is not a string, but %s', gettype($offsetKey)
+                )
+            );
+        }
         $this->offsetKey = $offsetKey;
         return $this;
     }
@@ -70,7 +78,7 @@ class PaginatedQueryOptions
     }
 
     /**
-     * @return Option of string
+     * @return Option of IdentValue
      */
     public function getSortField()
     {
@@ -78,11 +86,11 @@ class PaginatedQueryOptions
     }
 
     /**
-     * @param string $sortField
+     * @param IdentValue $sortField
      *
      * @return self
      */
-    public function setSortField($sortField)
+    public function setSortField(IdentValue $sortField)
     {
         $this->sortField = $sortField;
         return $this;

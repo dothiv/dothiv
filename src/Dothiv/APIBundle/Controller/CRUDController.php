@@ -127,15 +127,20 @@ class CRUDController
             throw new BadRequestHttpException(sprintf('"%s" items must not be listed!', get_class($this->itemRepo)));
         }
         $options = new CRUD\PaginatedQueryOptions();
-        Option::fromValue($request->query->get('sortField'))->map(function ($sortField) use ($options) {
-            $options->setSortField($sortField);
-        });
-        Option::fromValue($request->query->get('sortDir'))->map(function ($sortDir) use ($options) {
-            $options->setSortDir($sortDir);
-        });
-        Option::fromValue($request->query->get('offsetKey'))->map(function ($offsetKey) use ($options) {
-            $options->setOffsetKey($offsetKey);
-        });
+        try {
+            Option::fromValue($request->query->get('sortField'))->map(function ($sortField) use ($options) {
+                $options->setSortField(new IdentValue($sortField));
+            });
+            Option::fromValue($request->query->get('sortDir'))->map(function ($sortDir) use ($options) {
+                $options->setSortDir($sortDir);
+            });
+            Option::fromValue($request->query->get('offsetKey'))->map(function ($offsetKey) use ($options) {
+                $options->setOffsetKey($offsetKey);
+            });
+        } catch (\Dothiv\BusinessBundle\Exception\InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
         $filterQueryParser = new FilterQueryParser();
         $filterQuery       = $filterQueryParser->parse($request->query->get('q'));
         if ($this->isUserController()) {
