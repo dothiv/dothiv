@@ -89,7 +89,7 @@
         {% endfor %}
         {% for child in block.children %}
             {# 4life promo box #}
-            {% if child.code ends with "forlife.promo" %}
+            {% if config('shop.promo.name4life.enable', 'bool') and child.code ends with "forlife.promo" %}
                 <div class="block">
                     <div class="promo4life" data-ng-show="promoAvailable">
                         <div class="ribbon">

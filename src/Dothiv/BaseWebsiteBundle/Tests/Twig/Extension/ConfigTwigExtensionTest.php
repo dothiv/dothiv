@@ -33,6 +33,9 @@ class ConfigTwigExtensionTest extends \PHPUnit_Framework_TestCase
             array('1.25', 'int', 1),
             array('1.25', 'integer', 1),
             array('1.25', 'd', 1),
+            array('1.25', 'b', 'true'),
+            array('', 'bool', 'false'),
+            array('0', 'bool', 'false'),
         );
     }
 
