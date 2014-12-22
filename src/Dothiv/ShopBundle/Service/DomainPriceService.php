@@ -2,7 +2,6 @@
 
 namespace Dothiv\ShopBundle\Service;
 
-
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ShopBundle\Model\DomainPriceModel;
@@ -13,6 +12,7 @@ use Dothiv\ValueObject\HivDomainValue;
  */
 class DomainPriceService implements DomainPriceServiceInterface
 {
+
     /**
      * @var ConfigRepositoryInterface
      */
@@ -34,10 +34,10 @@ class DomainPriceService implements DomainPriceServiceInterface
         $price->setNetPriceEUR($this->configRepo->get('shop.price.eur')->getValue());
         $price->setNetPriceUSD($this->configRepo->get('shop.price.usd')->getValue());
         // 4life.hiv campaign
-        if (preg_match('/.+4life\.hiv$/', $domain->toUTF8())) {
+        if ($this->configRepo->get('shop.promo.name4life.enable')->getValue() && preg_match('/.+4life\.hiv$/', $domain->toUTF8())) {
             $price->setNetPriceEUR($price->getNetPriceEUR() + (int)$this->configRepo->get('shop.promo.name4life.eur.mod')->getValue());
             $price->setNetPriceUSD($price->getNetPriceUSD() + (int)$this->configRepo->get('shop.promo.name4life.usd.mod')->getValue());
         }
         return $price;
     }
-} 
+}
