@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Model\FilterQuery;
+use Dothiv\ValueObject\IdentValue;
 use PhpOption\Option;
 
 class ConfigRepository extends DoctrineEntityRepository implements ConfigRepositoryInterface
@@ -62,7 +63,8 @@ class ConfigRepository extends DoctrineEntityRepository implements ConfigReposit
     public function getPaginated(CRUD\PaginatedQueryOptions $options, FilterQuery $filterQuery)
     {
         if ($options->getSortField()->isEmpty()) {
-            $options->setSortField('updated');
+            $options->setSortField(new IdentValue('name'));
+            $options->setSortDir('asc');
         }
         return $this->buildPaginatedResult($this->createQueryBuilder('i'), $options);
     }
