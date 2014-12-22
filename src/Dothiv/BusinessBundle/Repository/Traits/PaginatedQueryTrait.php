@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Repository\CRUD;
+use Dothiv\ValueObject\IdentValue;
+use Dothiv\ValueObject\ValueObjectInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 trait PaginatedQueryTrait
 {
@@ -19,7 +22,7 @@ trait PaginatedQueryTrait
      */
     protected function buildPaginatedResult(QueryBuilder $qb, CRUD\PaginatedQueryOptions $options)
     {
-        $sortField = $options->getSortField()->getOrElse('id');
+        $sortField = $options->getSortField()->getOrElse(new IdentValue('id'))->toScalar();
         if (strpos($sortField, '.') === false) {
             $sortField = 'i.' . $sortField;
         }
@@ -50,16 +53,25 @@ trait PaginatedQueryTrait
             return $paginatedResult;
         }
         $paginatedResult->setResult($result);
-        $offsetGetter = 'get' . ucfirst($options->getSortField()->getOrElse('id'));
+        $offsetGetter = 'get' . ucfirst($options->getSortField()->getOrElse(new IdentValue('id'))->toScalar());
+        $toScalar = function($offsetKey) {
+            if ($offsetKey instanceof ValueObjectInterface) {
+                return $offsetKey->toScalar();
+            }
+            if ($offsetKey instanceof \DateTime) {
+                return $offsetKey->format('Y-m-d H:i:s');
+            }
+            return $offsetKey;
+        };
         if ($result->count() == $paginatedResult->getItemsPerPage()) {
-            $paginatedResult->setNextPageKey(function (EntityInterface $item) use ($maxKey, $offsetGetter) {
-                $offsetValue = $item->$offsetGetter();
+            $paginatedResult->setNextPageKey(function (EntityInterface $item) use ($maxKey, $offsetGetter, $toScalar) {
+                $offsetValue = $toScalar($item->$offsetGetter());
                 return $offsetValue != $maxKey ? $offsetValue : null;
             });
         }
         if ($options->getOffsetKey()->isDefined()) {
-            $paginatedResult->setPrevPageKey(function (EntityInterface $item) use ($minKey, $offsetGetter) {
-                $offsetValue = $item->$offsetGetter();
+            $paginatedResult->setPrevPageKey(function (EntityInterface $item) use ($minKey, $offsetGetter, $toScalar) {
+                $offsetValue = $toScalar($item->$offsetGetter());
                 return $offsetValue != $minKey ? $offsetValue : null;
             });
         }
