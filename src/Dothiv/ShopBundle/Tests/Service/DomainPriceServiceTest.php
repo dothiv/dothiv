@@ -55,16 +55,19 @@ class DomainPriceServiceTest extends \PHPUnit_Framework_TestCase
         /** @var Config $priceUsd */
         /** @var Config $modEur */
         /** @var Config $modUsd */
+        /** @var Config $enable */
         $priceEur = $newConfig('shop.price.eur', 14500);
         $priceUsd = $newConfig('shop.price.usd', 18000);
         $modEur   = $newConfig('shop.promo.name4life.eur.mod', -13000);
         $modUsd   = $newConfig('shop.promo.name4life.usd.mod', -16100);
+        $enable   = $newConfig('shop.promo.name4life.enable', 1);
 
         $configMap = array(
             array($priceEur->getName(), $priceEur),
             array($priceUsd->getName(), $priceUsd),
             array($modEur->getName(), $modEur),
             array($modUsd->getName(), $modUsd),
+            array($enable->getName(), $enable),
         );
         $this->mockConfigRepo->expects($this->any())->method('get')
             ->will($this->returnValueMap($configMap));

@@ -6,14 +6,16 @@ angular.module('dotHIVApp.services').factory('Price', ['config', 'MoneyFormatter
         this.currency = config.locale == 'en' ? 'usd' : 'eur';
         this.symbol = config.locale == 'en' ? '$' : '€';
         this.regularPrice = config.shop.price[this.currency];
-        this.promoModPrice = config.shop.promo.name4life[this.currency];
-        this.promoMatch = /.+4life\.hiv$/;
+        if (config.shop.promo.name4life) {
+            this.promoModPrice = config.shop.promo.name4life[this.currency];
+            this.promoMatch = /.+4life\.hiv$/;
+        }
         this.vat = config.vat.de;
     };
 
     Price.prototype.getPricePerYear = function (domain) {
         var pricePerYear = this.regularPrice;
-        if (domain.match(this.promoMatch)) {
+        if (config.shop.promo.name4life && domain.match(this.promoMatch)) {
             pricePerYear += this.promoModPrice;
         }
         return pricePerYear;
