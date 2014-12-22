@@ -49,9 +49,13 @@ class ConfigTwigExtension extends \Twig_Extension
             case 'float':
             case 'f':
                 return floatval($value->getValue());
+            case 'b':
+            case 'bool':
+            case 'boolean':
+                return (bool)$value->getValue() ? 'true' : 'false';
             default:
                 return $value->getValue();
         }
     }
 
-} 
+}
