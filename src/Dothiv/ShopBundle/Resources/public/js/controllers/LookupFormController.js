@@ -21,4 +21,6 @@ angular.module('dotHIVApp.controllers').controller('LookupFormController', ['$sc
     $scope.lookupDomain = function () {
         $state.transitionTo('lookup', {"locale": $stateParams.locale, "domain": $scope.domain});
     };
+
+    $('#secondLevelName').focus();
 }]);
