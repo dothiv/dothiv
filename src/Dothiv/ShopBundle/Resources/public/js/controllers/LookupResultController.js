@@ -24,7 +24,6 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
                     } else { // if(data.registered) {
                         $scope.lookup = "registered";
                         var alternatives = [
-                            $scope.secondLevel + '4life.hiv',
                             $scope.secondLevel + 'supports.hiv',
                             $scope.secondLevel + 'fightsaids.hiv',
                             $scope.secondLevel + 'fights.hiv',
