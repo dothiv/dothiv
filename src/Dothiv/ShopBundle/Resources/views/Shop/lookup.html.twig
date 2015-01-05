@@ -11,21 +11,31 @@
     <form method="post" action="" novalidate name="{{ code }}Form" class="{{ code }}">
         <fieldset class="lookupDomain" data-ng-hide="lookup == 'available';">
             <div class="field">
-                <input type="text" name="secondLevelName" id="secondLevelName" required
-                       data-ng-pattern="/^[{{ allowed_chars_no_dash }}][-{{ allowed_chars_no_dash }}]{1,61}[{{ allowed_chars_no_dash }}]$/"
-                       data-ng-model="secondLevelName" data-ng-change="lookup = ''">
+                <input type="text" name="secondLevelName" id="secondLevelName" required data-ng-pattern="/^[{{ allowed_chars_no_dash }}][-{{ allowed_chars_no_dash }}]{1,61}[{{ allowed_chars_no_dash }}]$/" data-ng-model="secondLevelName" data-ng-change="lookup = ''">
                 <span>.hiv</span>
             </div>
             {% for button in block.strings|default([]) %}
                 {% if loop.first %}<nav>{% endif %}
-                <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="lookupForm.$invalid"
-                        data-ng-click="lookupDomain()">
+                <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="lookupForm.$invalid" data-ng-click="lookupDomain()">
                     {{ button.value }}
                 </button>
                 {% if loop.last %}</nav>{% endif %}
             {% endfor %}
         </fieldset>
     </form>
+    {% for block in block.children|default([]) %}
+        {% if "shop.lookup.extra." in block.code %}
+            {% set extraCode = block.code|replace({"shop.lookup.extra.": ""}) %}
+            <section class="{{ code }}-{{ extraCode }}">
+                <div class="block">
+                    {% if block.title is defined %}
+                        <h3>{{ block.title }}</h3>
+                    {% endif %}
+                    {{ block.text|default("")|markdown }}
+                </div>
+            </section>
+        {% endif %}
+    {% endfor %}
 </script>
 
 <script type="text/ng-template" id="/template/shop/{{ code }}-result.html">
@@ -38,7 +48,7 @@
             {% set class = child.code|replace({"shop.lookup.": ""}) %}
             <div data-ng-show="lookup == '{{ class }}'" class="lookupResult {{ class }}">
                 <div class="text">
-                    <h3>{{ child.title|markdown|striptags('<a><em><strong><code>')|raw }}</h3>
+                    <h3>{{ child.title|default("")|markdown|striptags('<a><em><strong><code>')|raw }}</h3>
                     {{ child.text|default("")|markdown }}
                 </div>
                 {% if child.code ends with "registered" %}
@@ -48,8 +58,7 @@
                             <td><span data-ng-bind="alternative"></span></td>
                             <td>
                                 <nav>
-                                    <a class="primary"
-                                       data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/lookup/%%alternative%%">{{ child.strings[0].value }}</a>
+                                    <a class="primary" data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/lookup/%%alternative%%">{{ child.strings[0].value }}</a>
                                 </nav>
                             </td>
                         </tr>
@@ -62,8 +71,7 @@
                     {% for button in child.strings|default([]) %}
                         {% if loop.first %}<nav>{% endif %}
                         {% if button.code ends with "sendrequest" %}
-                            <a target="_blank" class="primary"
-                               data-ng-href="mailto:support@tld.hiv?subject=I+want+to+register+%%domain%%">
+                            <a target="_blank" class="primary" data-ng-href="mailto:support@tld.hiv?subject=I+want+to+register+%%domain%%">
                                 {{ button.value }}
                             </a>
                         {% endif %}
@@ -76,8 +84,7 @@
                     {% for button in child.strings|default([]) %}
                         {% if loop.first %}<nav>{% endif %}
                         {% if button.code ends with "configure" %}
-                            <a class="primary"
-                               data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/configure/%%domain%%">{{ button.value }}</a>
+                            <a class="primary" data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/configure/%%domain%%">{{ button.value }}</a>
                         {% endif %}
                         {% if button.code ends with "reset" %}
                             <a href="{{ path('dothiv_shop_index', {'locale': locale}) }}">{{ button.value }}</a>
@@ -93,19 +100,23 @@
                 <div class="block">
                     <div class="promo4life" data-ng-show="promoAvailable">
                         <div class="ribbon">
-                            <h3>{{ child.title|markdown|striptags('<a><em><strong><code>')|raw }}</h3>
+                            <h3>{{ child.strings[0].value|markdown|striptags('<a><em><strong><code>')|raw }}</h3>
+                        </div>
+
+                        <div class="header">
+                            <h4>{{ child.title|markdown|striptags('<a><em><strong><code>')|raw }}</h4>
+                            <p>{{ child.text|markdown|striptags('<a><em><strong><code>')|raw }}</p>
                         </div>
 
                         <div class="info">
-                            {{ child.text|markdown }}
+                            {{ child.children[0].text|markdown }}
                         </div>
 
                         <div class="buy">
                             <div class="price">
-                                {{ child.strings[0].value|markdown|striptags('<a><em><strong><code>')|raw }}
+                                {{ child.strings[1].value|markdown|striptags('<a><em><strong><code>')|raw }}
                             </div>
-                            <a class="button"
-                               data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/lookup/%%promoDomain%%">{{ child.strings[1].value }}</a>
+                            <a class="button" data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/lookup/%%promoDomain%%">{{ child.strings[2].value }}</a>
                         </div>
                     </div>
                 </div>

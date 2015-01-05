@@ -8,7 +8,7 @@ article.shop {
       &.premium {
         .make-xs-column(12);
         nav {
-          a  {
+          a {
             .pull-right;
           }
           a + a {
@@ -71,23 +71,75 @@ article.shop {
   }
   div.promo4life {
     .make-xs-column(12);
-    .make-sm-column(6);
+    .make-sm-column(10);
+    .make-md-column(8);
     padding: 0 1em 1em 1em;
     border: 2px solid @color-pink;
     margin-top: 2em;
     margin-bottom: 2em;
-    a.button {
-      &:extend(.btn all);
-      &:extend(.btn-lg all);
-      &:extend(.btn-pink all);
-      .pull-right;
+    overflow: hidden;
+    .ribbon {
+      position: absolute;
+      top: 28px;
+      left: -63px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
+      transform: rotate(-45deg);
+      background-color: @color-pink;
+      h3 {
+        text-transform: uppercase;
+        font-size: @font-size-small;
+        font-weight: @font-weight-bold;
+        text-align: center;
+        margin: 0.25em 4em;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+        color: @color-pink-foreground;
+      }
+    }
+    .header {
+      h4 {
+        font-size: @font-size-h3;
+        text-align: center;
+        margin: 0.5em 1.75em 0 1.75em;
+        @media (min-width: @screen-md-min) {
+          margin: 0.5em 1.5em 0 1.5em;
+        }
+        padding: 0;
+      }
+      p {
+        margin: 0 0 0.5em 0;
+        font-size: @font-size-h3;
+        text-align: center;
+      }
+    }
+    .info {
+      margin-top: 0.5em;
+      margin-bottom: @input-height-large + @grid-gutter-width / 2;
+      font-size: @font-size-small;
+      p {
+        margin: 0;
+      }
+      @media (min-width: @screen-sm-min) {
+        .pull-left;
+        width: 50%;
+        margin-bottom: 0;
+      }
     }
     .buy {
+      position: absolute;
+      bottom: @grid-gutter-width / 2;
+      right: @grid-gutter-width / 2;
       .price {
+        .pull-left;
         strong {
           font-size: @font-size-h2;
         }
+      }
+      a.button {
+        &:extend(.btn all);
+        &:extend(.btn-lg all);
+        &:extend(.btn-pink all);
         .pull-left;
+        margin-left: 0.5em;
       }
     }
   }
