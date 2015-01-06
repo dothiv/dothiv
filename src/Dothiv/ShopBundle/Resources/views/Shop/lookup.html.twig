@@ -22,8 +22,7 @@
                 {% if loop.last %}</nav>{% endif %}
             {% endfor %}
         </fieldset>
-    </form>
-    {% for block in block.children|default([]) %}
+    </form>{% for block in block.children|default([]) %}
         {% if "shop.lookup.extra." in block.code %}
             {% set extraCode = block.code|replace({"shop.lookup.extra.": ""}) %}
             <section class="{{ code }}-{{ extraCode }}">
@@ -84,7 +83,8 @@
                     {% for button in child.strings|default([]) %}
                         {% if loop.first %}<nav>{% endif %}
                         {% if button.code ends with "configure" %}
-                            <a class="primary" data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/configure/%%domain%%">{{ button.value }}</a>
+                            <a class="primary" data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/configure/%%domain%%" data-ng-show="domain.search('4life.hiv') < 0">{{ button.value }}</a>
+                            <a class="primary" data-ng-href="{{ path('dothiv_shop_index', {'locale': locale}) }}/configure4life/%%domain%%" data-ng-show="domain.search('4life.hiv') > 0">{{ button.value }}</a>
                         {% endif %}
                         {% if button.code ends with "reset" %}
                             <a href="{{ path('dothiv_shop_index', {'locale': locale}) }}">{{ button.value }}</a>
@@ -105,6 +105,7 @@
 
                         <div class="header">
                             <h4>{{ child.title|markdown|striptags('<a><em><strong><code>')|raw }}</h4>
+
                             <p>{{ child.text|markdown|striptags('<a><em><strong><code>')|raw }}</p>
                         </div>
 

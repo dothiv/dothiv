@@ -69,42 +69,48 @@
                     </form>
                 {% endif %}
             {% endfor %}
-        {% elseif child.code ends with "summary" %}
-            {% for summaryChild in child.children|default([]) %}
-                {% if loop.first %}
-                    <section class="{{ code }}">
-                    <div class="block">
-                    <h3>{{ child.title|markdown }}</h3>
-                    {{ child.text|default("")|markdown }}
-                    <table class="summary">
-                    <tfoot>
+        {% elseif child.code ends with "summary4life" %}
+            {% set show = "order.is4lifeDomain()" %}
+            {% block summary %}
+                {% for summaryChild in child.children|default([]) %}
+                    {% if loop.first %}
+                        <section class="{{ code }}" data-ng-show="{{ show }}">
+                        <div class="block">
+                        <h3>{{ child.title|markdown }}</h3>
+                        {{ child.text|default("")|markdown }}
+                        <table class="summary">
+                        <tfoot>
+                        <tr>
+                            <td></td>
+                            <td class="price">%%total%%</td>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                    {% endif %}
                     <tr>
-                        <td></td>
-                        <td class="price">%%total%%</td>
+                        <td>
+                            <strong>{{ summaryChild.title }}</strong>
+                            {{ summaryChild.text|default("")|markdown }}
+                        </td>
+                        <td class="price">
+                            {% if summaryChild.code ends with "item" %}
+                                %%itemTotal%%
+                            {% elseif summaryChild.code ends with "vat" %}
+                                %%vatTotal%%
+                            {% endif %}
+                        </td>
                     </tr>
-                    </tfoot>
-                    <tbody>
-                {% endif %}
-                <tr>
-                    <td>
-                        <strong>{{ summaryChild.title }}</strong>
-                        {{ summaryChild.text|default("")|markdown }}
-                    </td>
-                    <td class="price">
-                        {% if summaryChild.code ends with "item" %}
-                            %%itemTotal%%
-                        {% elseif summaryChild.code ends with "vat" %}
-                            %%vatTotal%%
-                        {% endif %}
-                    </td>
-                </tr>
-                {% if loop.last %}
-                    </tbody>
-                    </table>
-                    </div>
-                    </section>
-                {% endif %}
-            {% endfor %}
+                    {% if loop.last %}
+                        </tbody>
+                        </table>
+                        </div>
+                        </section>
+                    {% endif %}
+                {% endfor %}
+            {% endblock %}
+        {% elseif child.code ends with "summary" %}
+            {% set show = "!order.is4lifeDomain()" %}
+            {{ block("summary") }}
         {% elseif child.code ends with "details" %}
             {% for detailChild in child.children|default([]) %}
                 {% if detailChild.code ends with "edit" %}
