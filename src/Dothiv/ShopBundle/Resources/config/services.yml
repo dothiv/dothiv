@@ -3,6 +3,7 @@ parameters:
     dothiv.shop.manipulator.order.class: Dothiv\ShopBundle\Manipulator\OrderManipulator
     dothiv.shop.domain_price.class: Dothiv\ShopBundle\Service\DomainPriceService
     dothiv.shop.invoice.class: Dothiv\ShopBundle\Service\InvoiceService
+    dothiv.shop.mailer.order.class: Dothiv\ShopBundle\Service\OrderMailer
 
 services:
     dothiv.shop.transformer.domain_info:
@@ -25,3 +26,9 @@ services:
         - @dothiv.repository.invoice
         - @dothiv.shop.domain_price
         - %devat%
+
+    dothiv.shop.mailer.order:
+        class: %dothiv.shop.mailer.order.class%
+        arguments:
+        - @dothiv.registry.service.mailer.content
+        - @dothiv.websitebase.money_format
