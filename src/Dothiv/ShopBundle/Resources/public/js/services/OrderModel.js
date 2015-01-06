@@ -2,6 +2,7 @@
 
 angular.module('dotHIVApp.services').factory('OrderModel', [function () {
     var OrderModel = function () {
+        this.domain = "";
         this.clickcounter = true;
         this.redirect = "";
         this.duration = 1;
@@ -17,6 +18,13 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
         this.countryModel = null;
         this.currency = null;
         this.available = false;
+        this.language = 'en';
+        this.gift = false;
+        this.presentee = {
+            firstname: "",
+            lastname: "",
+            email: ""
+        };
     };
 
     OrderModel.prototype.isDone = function () {
@@ -33,9 +41,27 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
         return this.available;
     };
 
+    OrderModel.prototype.is4lifeDomain = function () {
+        return this.domain.match(/4life.hiv$/) != null;
+    };
+
     OrderModel.prototype.isConfigured = function () {
-        if (!this.redirect.length) {
-            return false;
+        if (this.is4lifeDomain()) {
+            if (this.gift) {
+                if (!this.presentee.firstname.length) {
+                    return false;
+                }
+                if (!this.lastname.firstname.length) {
+                    return false;
+                }
+                if (!this.email.firstname.length) {
+                    return false;
+                }
+            }
+        } else {
+            if (!this.redirect.length) {
+                return false;
+            }
         }
         return true;
     };
@@ -71,7 +97,12 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             "vatNo": this.contact.vat, // DE123456789
             "currency": this.currency, // EUR
             "stripeToken": this.stripe.token, // tok_14kvt242KFPpMZB00CUopZjt
-            "stripeCard": this.stripe.card // crd_14kvt242KFPpMZB00CUopZjt
+            "stripeCard": this.stripe.card, // crd_14kvt242KFPpMZB00CUopZjt
+            "gift": this.gift, // 1
+            "presenteeFirstname": this.presentee.firstname, // Jane
+            "presenteeLastname": this.presentee.lastname, // Doe
+            "presenteeEmail": this.presentee.email, // jane.doe@example.de
+            "language": this.language // en
         };
     };
 

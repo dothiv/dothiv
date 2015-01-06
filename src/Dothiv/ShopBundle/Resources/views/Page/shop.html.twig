@@ -32,7 +32,7 @@
     <article data-ui-view class="shop"></article>
     {% for block in page.blocks|default([]) %}
         {% set code = block.code|replace({"shop.": ""}) %}
-        {% if code in ["lookup", "configure", "checkout", "done"] %}
+        {% if code in ["lookup", "configure", "configure4life", "checkout", "done"] %}
             {% include "DothivShopBundle::Shop/" ~ code ~ ".html.twig" %}
         {% endif %}
     {% endfor %}
