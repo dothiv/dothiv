@@ -28,7 +28,22 @@ class OrderManipulator implements EntityManipulatorInterface
         }
         $entity->setDomain($data->getDomain());
         $entity->setClickCounter($data->getClickCounter());
-        $entity->setRedirect($data->getRedirect());
+        if ($data->getRedirect()->isDefined()) {
+            $entity->setRedirect($data->getRedirect()->get());
+        }
+        $entity->setGift($data->getGift());
+        if ($data->getGift()) {
+            if ($data->getPresenteeFirstname()->isDefined()) {
+                $entity->setPresenteeFirstname($data->getPresenteeFirstname()->get());
+            }
+            if ($data->getPresenteeLastname()->isDefined()) {
+                $entity->setPresenteeLastname($data->getPresenteeLastname()->get());
+            }
+            if ($data->getPresenteeEmail()->isDefined()) {
+                $entity->setPresenteeEmail($data->getPresenteeEmail()->get());
+            }
+        }
+        $entity->setLanguage($data->getLanguage());
         $entity->setDuration($data->getDuration());
         $entity->setFirstname($data->getFirstname());
         $entity->setLastname($data->getLastname());

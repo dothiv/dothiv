@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Represents an order.
@@ -45,14 +46,63 @@ class Order extends Entity
      * @var boolean
      *
      * @ORM\Column(type="boolean", nullable=false)
+     * @Assert\Type("boolean")
      */
-    private $clickCounter = false;
+    private $clickCounter = true;
+
+    /**
+     * Domain is a gift.
+     *
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     * @Assert\Type("boolean")
+     */
+    private $gift = false;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string|null
+     * @Assert\NotBlank(groups="4lifeGiftDomain")
+     * @Assert\Length(max=255)
+     */
+    private $presenteeFirstname;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string|null
+     * @Assert\NotBlank(groups="4lifeGiftDomain")
+     * @Assert\Length(max=255)
+     */
+    private $presenteeLastname;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\NotBlank(groups="4lifeGiftDomain")
+     * @Assert\Length(max=255)
+     */
+    private $presenteeEmail;
+
+    /**
+     * Domain language
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=false)
+     * @Assert\Type("string")
+     * @Assert\Choice({"en", "de", "fr", "es"})
+     * @Assert\NotBlank()
+     */
+    private $language = 'en';
 
     /**
      * The url to redirect to
      *
-     * @ORM\Column(type="string",nullable=false)
+     * @ORM\Column(type="string",nullable=true)
      * @Assert\Regex("/^(https*:)*\/\/.+/")
+     * @Assert\NotBlank(groups={"Default"})
      * @var string
      */
     private $redirect;
@@ -304,9 +354,8 @@ class Order extends Entity
         $this->phone = $phone;
     }
 
-
     /**
-     * @return string
+     * @return EmailValue
      */
     public function getEmail()
     {
@@ -402,19 +451,19 @@ class Order extends Entity
     }
 
     /**
-     * @return URLValue
+     * @return Option of URLValue
      */
     public function getRedirect()
     {
-        return new URLValue($this->redirect);
+        return $this->redirect == null ? None::create() : Option::fromValue(new URLValue($this->redirect));
     }
 
     /**
-     * @param URLValue $redirect
+     * @param URLValue|null $redirect
      */
-    public function setRedirect(URLValue $redirect)
+    public function setRedirect(URLValue $redirect = null)
     {
-        $this->redirect = $redirect->toScalar();
+        $this->redirect = $redirect == null ? null : $redirect->toScalar();
     }
 
     /**
@@ -502,5 +551,98 @@ class Order extends Entity
     public function setVatNo($vatNo)
     {
         $this->vatNo = $vatNo;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getGift()
+    {
+        return $this->gift;
+    }
+
+    /**
+     * @param boolean $gift
+     *
+     * @return self
+     */
+    public function setGift($gift)
+    {
+        $this->gift = (bool)$gift;
+        return $this;
+    }
+
+    /**
+     * @return Option of EmailValue
+     */
+    public function getPresenteeEmail()
+    {
+        return $this->presenteeEmail == null ? None::create() : Option::fromValue(new EmailValue($this->presenteeEmail));
+    }
+
+    /**
+     * @param EmailValue $email
+     */
+    public function setPresenteeEmail(EmailValue $email = null)
+    {
+        $this->presenteeEmail = $email == null ? null : $email->toScalar();
+    }
+
+    /**
+     * @return Option of string
+     */
+    public function getPresenteeFirstname()
+    {
+        return Option::fromValue($this->presenteeFirstname);
+    }
+
+    /**
+     * @param string $firstname
+     */
+    public function setPresenteeFirstname($firstname = null)
+    {
+        $this->presenteeFirstname = $firstname;
+    }
+
+    /**
+     * @return Option of string
+     */
+    public function getPresenteeLastname()
+    {
+        return Option::fromValue($this->presenteeLastname);
+    }
+
+    /**
+     * @param string $lastname
+     */
+    public function setPresenteeLastname($lastname = null)
+    {
+        $this->presenteeLastname = $lastname;
+    }
+
+    /**
+     * @return IdentValue
+     */
+    public function getLanguage()
+    {
+        return new IdentValue($this->language);
+    }
+
+    /**
+     * @param IdentValue $language
+     *
+     * @return self
+     */
+    public function setLanguage(IdentValue $language)
+    {
+        if (!in_array($language->toScalar(), ['en', 'de', 'fr', 'es'])) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Invalid language provided: "%s"', $language->toScalar()
+                )
+            );
+        }
+        $this->language = $language->toScalar();
+        return $this;
     }
 }
