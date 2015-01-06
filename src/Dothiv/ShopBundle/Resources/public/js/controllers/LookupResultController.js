@@ -6,7 +6,7 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
         $scope.loading = false;
         $scope.lookup = null;
         $scope.domain = $stateParams.domain;
-        OrderModel.domain = $stateParams.domain;
+        OrderModel.setDomain($stateParams.domain);
         $scope.secondLevel = $stateParams.domain.split('.hiv').join('');
         $scope.price = Price.getFormattedPricePerYear($scope.domain);
         $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);

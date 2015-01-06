@@ -16,16 +16,19 @@ Feature: Lookup domain name
     Given the "DothivShopBundle:DomainInfo" entity exists in "trademarkDomain" with values:
       | name      | {\Dothiv\ValueObject\HivDomainValue@facebook.hiv} |
       | trademark | 1                                                 |
-    Given the "DothivBusinessBundle:Config" entity exists in "usdPrice" with values:
+    Given the "DothivBusinessBundle:Config" entity exists with values:
       | name  | shop.price.usd |
       | value | 18000          |
-    Given the "DothivBusinessBundle:Config" entity exists in "eurPrice" with values:
+    Given the "DothivBusinessBundle:Config" entity exists with values:
       | name  | shop.price.eur |
       | value | 14500          |
-    Given the "DothivBusinessBundle:Config" entity exists in "eurPriceMod" with values:
+    Given the "DothivBusinessBundle:Config" entity exists with values:
+      | name  | shop.promo.name4life.enable |
+      | value | 1                           |
+    Given the "DothivBusinessBundle:Config" entity exists with values:
       | name  | shop.promo.name4life.eur.mod |
       | value | -13000                       |
-    Given the "DothivBusinessBundle:Config" entity exists in "usdPriceMod" with values:
+    Given the "DothivBusinessBundle:Config" entity exists with values:
       | name  | shop.promo.name4life.usd.mod |
       | value | -16100                       |
     And I add "Accept" header equal to "application/json"

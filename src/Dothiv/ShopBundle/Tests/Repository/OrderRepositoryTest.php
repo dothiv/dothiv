@@ -66,7 +66,8 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $storedOrder = $all[0];
         $this->assertEquals($storedOrder->getDomain(), new HivDomainValue("xn--brger-kva.hiv"));
         $this->assertEquals($storedOrder->getClickCounter(), true);
-        $this->assertEquals($storedOrder->getRedirect(), new URLValue("http://jana.com/"));
+        $this->assertEquals($storedOrder->getRedirect()->get(), new URLValue("http://jana.com/"));
+        $this->assertFalse($storedOrder->getGift());
         $this->assertEquals($storedOrder->getDuration(), 3);
         $this->assertEquals($storedOrder->getFirstname(), "Jana");
         $this->assertEquals($storedOrder->getLastname(), "Bürger");
@@ -82,6 +83,54 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($storedOrder->getStripeToken(), new IdentValue("tok_14kvt242KFPpMZB00CUopZjt"));
         $this->assertEquals($storedOrder->getStripeCard(), new IdentValue("crd_14kvt242KFPpMZB00CUopZjt"));
         $this->assertEquals($storedOrder->getStripeCharge()->get(), new IdentValue("crg_14kvt242KFPpMZB00CUopZjt"));
+    }
+
+    /**
+     * @test
+     * @group   Entity
+     * @group   ShopBundle
+     * @group   Order
+     * @group   Integration
+     * @depends itShouldBeInstantiateable
+     */
+    public function itShouldPersistA4lifeDomain()
+    {
+        $order = new Order();
+        $order->setDomain(HivDomainValue::createFromUTF8("bürger4life.hiv"));
+        $order->setDuration(3);
+        $order->setGift(true);
+        $order->setPresenteeFirstname("Martin");
+        $order->setPresenteeLastname("Müller");
+        $order->setPresenteeEmail(new EmailValue('martin.müller@bürger.de'));
+        $order->setFirstname("Jana");
+        $order->setLastname("Bürger");
+        $order->setEmail(new EmailValue('jana.müller@bürger.de'));
+        $order->setPhone("+49301234567");
+        $order->setFax("+4930123456777");
+        $order->setLocality("Waldweg 1");
+        $order->setLocality2("Hinterhaus");
+        $order->setCity("12345 Neustadt");
+        $order->setCountry("Germany (Deutschland)");
+        $order->setOrganization("Bürger GmbH");
+        $order->setVatNo("DE123456789");
+        $order->setCurrency(new IdentValue(Order::CURRENCY_EUR));
+        $order->setStripeToken(new IdentValue("tok_14kvt242KFPpMZB00CUopZjt"));
+        $order->setStripeCard(new IdentValue("crd_14kvt242KFPpMZB00CUopZjt"));
+        $order->setStripeCharge(new IdentValue("crg_14kvt242KFPpMZB00CUopZjt"));
+        $repo = $this->getTestObject();
+        $repo->persist($order);
+        $repo->flush();
+
+        /** @var Order[] $all */
+        $all = $repo->findAll();
+        $this->assertEquals(1, count($all));
+        /** @var Order $storedOrder */
+        $storedOrder = $all[0];
+        $this->assertTrue($storedOrder->getGift());
+        $this->assertEquals($storedOrder->getPresenteeFirstname()->get(), "Martin");
+        $this->assertEquals($storedOrder->getPresenteeLastname()->get(), "Müller");
+        $this->assertEquals($storedOrder->getPresenteeEmail()->get(), new EmailValue('martin.müller@bürger.de'));
+
     }
 
     /**

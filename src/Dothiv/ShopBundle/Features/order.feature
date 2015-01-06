@@ -6,7 +6,7 @@ Feature: Order domain
   Background:
     Given I add "Accept" header equal to "application/json"
 
-  Scenario: Order domain
+  Scenario: Order a regular domain
     And I send a PUT request to "https://tld.hiv.dev/api/shop/order/xn--brger-kva.hiv" with JSON values:
       | clickcounter | 1                            |
       | redirect     | http://jana.com/             |
@@ -71,4 +71,37 @@ Feature: Order domain
     Then the response status code should be 409
     And the header "content-type" should contain "application/json+problem"
     And the JSON node "@context" should contain "http://ietf.org/appsawg/http-problem"
-    And the JSON node "title" should be equal to "Domain is already registered: "xn--brger-kva.hiv""
+    And the JSON node "title" should contain "Domain is already registered: "xn--brger-kva.hiv""
+
+  Scenario: Order a 4life domain
+    And I send a PUT request to "https://tld.hiv.dev/api/shop/order/xn--brger4life-9db.hiv" with JSON values:
+      | language           | de                           |
+      | gift               | 1                            |
+      | presenteeFirstname | Mike                         |
+      | presenteeLastname  | Müller                       |
+      | presenteeEmail     | mike.müller@bürger.de        |
+      | duration           | 3                            |
+      | firstname          | Jana                         |
+      | lastname           | Bürger                       |
+      | email              | jana.müller@bürger.de        |
+      | phone              | +49301234567                 |
+      | fax                | +4930123456777               |
+      | locality           | Waldweg 1                    |
+      | locality2          | Hinterhaus                   |
+      | city               | 12345 Neustadt               |
+      | country            | Germany (Deutschland)        |
+      | organization       | Bürger GmbH                  |
+      | vatNo              | DE123456789                  |
+      | currency           | EUR                          |
+      | stripeToken        | tok_14kvt242KFPpMZB00CUopZjt |
+      | stripeCard         | crd_14kvt242KFPpMZB00CUopZjt |
+    Then the response status code should be 201
+    And the header "content-type" should contain "application/json"
+  # The order should be created
+    Given "order" contains the result of calling "findOneByDomain" on the "dothiv.repository.shop_order" service with values:
+      | xn--brger4life-9db.hiv |
+    And "{order.Gift}" should be equal to true
+    And "{order.PresenteeFirstname}" should contain "Mike"
+    And "{order.PresenteeLastname}" should contain "Müller"
+    And "{order.PresenteeEmail}" should contain "mike.müller@bürger.de"
+    And "{order.Language}" should contain "de"

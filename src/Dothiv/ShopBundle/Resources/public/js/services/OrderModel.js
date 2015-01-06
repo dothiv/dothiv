@@ -2,6 +2,10 @@
 
 angular.module('dotHIVApp.services').factory('OrderModel', [function () {
     var OrderModel = function () {
+        this.init();
+    };
+
+    OrderModel.prototype.init = function () {
         this.domain = "";
         this.clickcounter = true;
         this.redirect = "";
@@ -25,6 +29,13 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             lastname: "",
             email: ""
         };
+    };
+
+    OrderModel.prototype.setDomain = function (domain) {
+        if (this.domain !== domain) {
+            this.init();
+            this.domain = domain;
+        }
     };
 
     OrderModel.prototype.isDone = function () {
@@ -51,10 +62,10 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
                 if (!this.presentee.firstname.length) {
                     return false;
                 }
-                if (!this.lastname.firstname.length) {
+                if (!this.presentee.lastname.length) {
                     return false;
                 }
-                if (!this.email.firstname.length) {
+                if (!this.presentee.email.length) {
                     return false;
                 }
             }
@@ -80,9 +91,8 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
     };
 
     OrderModel.prototype.flatten = function () {
-        return {
+        var flat = {
             "clickcounter": this.clickcounter, // 1
-            "redirect": this.redirect, // http://jana.com/
             "duration": this.duration, // 3
             "firstname": this.contact.firstname, // Jana
             "lastname": this.contact.lastname, // Bürger
@@ -99,11 +109,17 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             "stripeToken": this.stripe.token, // tok_14kvt242KFPpMZB00CUopZjt
             "stripeCard": this.stripe.card, // crd_14kvt242KFPpMZB00CUopZjt
             "gift": this.gift, // 1
-            "presenteeFirstname": this.presentee.firstname, // Jane
-            "presenteeLastname": this.presentee.lastname, // Doe
-            "presenteeEmail": this.presentee.email, // jane.doe@example.de
             "language": this.language // en
         };
+        if (this.redirect.length) {
+            flat.redirect = this.redirect; // http://jana.com/
+        }
+        if (this.gift) {
+            flat.presenteeFirstname = this.presentee.firstname; // Jane
+            flat.presenteeLastname = this.presentee.lastname; // Doe
+            flat.presenteeEmail = this.presentee.email; // jane.doe@example.de
+        }
+        return flat;
     };
 
     return new OrderModel();

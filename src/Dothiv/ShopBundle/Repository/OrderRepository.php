@@ -16,13 +16,20 @@ class OrderRepository extends EntityRepository implements OrderRepositoryInterfa
     use Traits\GetItemEntityName;
 
     /**
-     * @param Order $Order
+     * @param Order $order
      *
      * @return self
      */
-    public function persist(Order $Order)
+    public function persist(Order $order)
     {
-        $this->getEntityManager()->persist($this->validate($Order));
+        $groups = [];
+        if (preg_match('/.+4life\.hiv$/', $order->getDomain()->toUTF8())) {
+            $groups[] = '4lifeDomain';
+            if ($order->getGift()) {
+                $groups[] = '4lifeGiftDomain';
+            }
+        }
+        $this->getEntityManager()->persist($this->validate($order, $groups));
         return $this;
     }
 

@@ -2,7 +2,6 @@
 
 namespace Dothiv\ShopBundle\Tests\Manipulator;
 
-
 use Dothiv\APIBundle\Request\DefaultUpdateRequest;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\ShopBundle\Entity\Order;
@@ -56,12 +55,17 @@ class OrderManipulatorTest extends \PHPUnit_Framework_TestCase
         $model->setCurrency(Order::CURRENCY_EUR);
         $model->setStripeToken("tok_14kvt242KFPpMZB00CUopZjt");
         $model->setStripeCard("crd_14kvt242KFPpMZB00CUopZjt");
+        $model->setGift(true);
+        $model->setLanguage('fr');
+        $model->setPresenteeFirstname('Mike');
+        $model->setPresenteeLastname('Müller');
+        $model->setPresenteeEmail('mike.müller@müller.de');
 
         $this->createTestObject()->manipulate($order, $model);
 
         $this->assertEquals($order->getDomain(), new HivDomainValue("xn--brger-kva.hiv"));
         $this->assertEquals($order->getClickCounter(), true);
-        $this->assertEquals($order->getRedirect(), new URLValue("http://jana.com/"));
+        $this->assertEquals($order->getRedirect()->get(), new URLValue("http://jana.com/"));
         $this->assertEquals($order->getDuration(), 3);
         $this->assertEquals($order->getFirstname(), "Jana");
         $this->assertEquals($order->getLastname(), "Bürger");
@@ -76,6 +80,11 @@ class OrderManipulatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($order->getVatNo()->get(), "DE123456789");
         $this->assertEquals($order->getStripeToken(), new IdentValue("tok_14kvt242KFPpMZB00CUopZjt"));
         $this->assertEquals($order->getStripeCard(), new IdentValue("crd_14kvt242KFPpMZB00CUopZjt"));
+        $this->assertTrue($order->getGift());
+        $this->assertEquals(new IdentValue('fr'), $order->getLanguage());
+        $this->assertEquals($order->getPresenteeFirstname()->get(), 'Mike');
+        $this->assertEquals($order->getPresenteeLastname()->get(), 'Müller');
+        $this->assertEquals($order->getPresenteeEmail()->get(), new EmailValue('mike.müller@müller.de'));
     }
 
     /**
