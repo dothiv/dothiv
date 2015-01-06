@@ -54,7 +54,7 @@ class SendOrderCommand extends ContainerAwareCommand
                 $order->activate($charge);
                 $orderRepo->persist($order)->flush();
                 $mailer->send($order, $invoice, $vouchers);
-                foreach($this->getContainer()->getParameter('invoice_copy') as $extraRecipient) {
+                foreach($this->getContainer()->getParameter('dothiv_business.invoice_copy') as $extraRecipient) {
                     $mailer->send($order, $invoice, $vouchers, new EmailValue($extraRecipient['email']), $extraRecipient['name']);
                 }
                 $output->writeln(

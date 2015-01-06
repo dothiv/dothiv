@@ -2,10 +2,18 @@
 
 namespace Dothiv\ShopBundle\Command;
 
+use Dothiv\BusinessBundle\Entity\Banner;
+use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\Invoice;
+use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\RegistrarRepositoryInterface;
+use Dothiv\BusinessBundle\Service\UserServiceInterface;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ShopBundle\Repository\OrderRepositoryInterface;
 use Dothiv\ShopBundle\Service\InvoiceServiceInterface;
+use Dothiv\ShopBundle\Service\OrderMailerInterface;
+use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\IdentValue;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\TableHelper;
@@ -25,8 +33,18 @@ class ChargeOrdersCommand extends ContainerAwareCommand
     {
         /** @var OrderRepositoryInterface $orderRepo */
         $orderRepo = $this->getContainer()->get('dothiv.repository.shop_order');
+        /** @var RegistrarRepositoryInterface $registrarRepo */
+        $registrarRepo = $this->getContainer()->get('dothiv.repository.registrar');
+        /** @var BannerRepositoryInterface $bannerRepo */
+        $bannerRepo = $this->getContainer()->get('dothiv.repository.banner');
+        /** @var DomainRepositoryInterface $domainRepo */
+        $domainRepo = $this->getContainer()->get('dothiv.repository.domain');
         /** @var InvoiceServiceInterface $invoiceService */
         $invoiceService = $this->getContainer()->get('dothiv.shop.invoice');
+        /** @var OrderMailerInterface $mailer */
+        $mailer = $this->getContainer()->get('dothiv.shop.mailer.order');
+        /** @var UserServiceInterface $userService */
+        $userService = $this->getContainer()->get('dothiv.businessbundle.service.user');
 
         \Stripe::setApiKey($this->getContainer()->getParameter('stripe_secret_key'));
 
@@ -40,9 +58,34 @@ class ChargeOrdersCommand extends ContainerAwareCommand
                 'description' => $invoice->getItemDescription()
             ));
             $order->setStripeCharge(new IdentValue($charge->id));
+            $order->setInvoice($invoice);
             $orderRepo->persist($order)->flush();
+            $mailer->send($order, $invoice);
+            foreach ($this->getContainer()->getParameter('dothiv_business.invoice_copy') as $extraRecipient) {
+                $mailer->send($order, $invoice, new EmailValue($extraRecipient['email']), $extraRecipient['name']);
+            }
+            // Create domain
+            $user = $userService->getOrCreateUser($order->getEmail()->toScalar(), $order->getFirstname(), $order->getLastname());
+
+            $domain = new Domain();
+            $domain->setName($order->getDomain()->toScalar());
+            $domain->setOwner($user);
+            $domain->setRegistrar($registrarRepo->getByExtId('1508-KS'));
+            $domainRepo->persist($domain)->flush();
+
+            $banner = new Banner();
+            if ($order->getRedirect()->isDefined()) {
+                $banner->setRedirectUrl($order->getRedirect()->get());
+            }
+            $domain->setActiveBanner($banner);
+            $banner->setLanguage($order->getLanguage());
+            $banner->setPosition('top');
+            $banner->setPositionAlternative('top');
+            $bannerRepo->persist($banner)->flush();
+            $domainRepo->persist($domain)->flush();
+
             $output->writeln(
-                sprintf('Processed order for %s by %s.', $order->getDomain(), $order->getEmail())
+                sprintf('Processed order for %s by %s.', $order->getDomain()->toUTF8(), $order->getEmail())
             );
             $this->showOrder($output, $order, $invoice);
         }
@@ -56,7 +99,7 @@ class ChargeOrdersCommand extends ContainerAwareCommand
     {
         $table = new TableHelper();
         $table->setHeaders(array('Name', 'Value'));
-        $table->addRow(array('Domain', $order->getDomain()->toScalar()));
+        $table->addRow(array('Domain', $order->getDomain()->toUTF8()));
         $table->addRow(array('Price', ($invoice->getTotalPrice() / 100) . ' ' . ($order->getCurrency() == Order::CURRENCY_EUR ? '€' : '$')));
         $table->addRow(array('Name', $order->getFirstname() . ' ' . $order->getLastname()));
         $table->addRow(array('Email', $order->getEmail()));

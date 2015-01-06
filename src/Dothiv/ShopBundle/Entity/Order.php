@@ -4,6 +4,7 @@ namespace Dothiv\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Dothiv\BusinessBundle\Entity\Entity;
+use Dothiv\BusinessBundle\Entity\Invoice;
 use Dothiv\BusinessBundle\Entity\Traits;
 use Dothiv\ShopBundle\Exception\InvalidArgumentException;
 use Dothiv\ValueObject\EmailValue;
@@ -241,6 +242,15 @@ class Order extends Entity
      * @var string
      */
     private $stripeCharge;
+
+    /**
+     * The invoice for this order.
+     *
+     * @ORM\ManyToOne(targetEntity="Dothiv\BusinessBundle\Entity\Invoice")
+     * @ORM\JoinColumn(nullable=true)
+     * @var Invoice|null
+     */
+    protected $invoice;
 
     /**
      * @return string
@@ -643,6 +653,25 @@ class Order extends Entity
             );
         }
         $this->language = $language->toScalar();
+        return $this;
+    }
+
+    /**
+     * @return Option of Invoice
+     */
+    public function getInvoice()
+    {
+        return Option::fromValue($this->invoice);
+    }
+
+    /**
+     * @param Invoice $invoice
+     *
+     * @return self
+     */
+    public function setInvoice(Invoice $invoice)
+    {
+        $this->invoice = $invoice;
         return $this;
     }
 }
