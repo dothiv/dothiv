@@ -196,7 +196,7 @@
                                             <input type="checkbox"
                                                     data-ng-model="confirm.checkbox{{ loop.index }}"
                                                     >
-                                            {{ checkbox.text|markdown|striptags('<a><em><strong>')|raw }}
+                                            {{ checkbox.text|markdown|striptags('<a><em><strong><code>')|raw }}
                                         </label>
                                     </div>
                                 {% endfor %}

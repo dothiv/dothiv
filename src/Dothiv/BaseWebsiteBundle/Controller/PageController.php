@@ -206,7 +206,7 @@ class PageController
                     if (property_exists($view[$k], $field)) {
                         $m = $parsedown->text($view[$k]->$field);
                         if ($flag == 'inline') {
-                            $m = strip_tags($m, '<strong><em><a>');
+                            $m = strip_tags($m, '<a><em><strong><code>');
                         }
                         $view[$k]->$field = $m;
                     }
