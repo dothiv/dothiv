@@ -70,7 +70,7 @@ class ClickCounterConfig implements ClickCounterConfigInterface
         $domain = $banner->getDomain();
         // render config
         $config = $this->buildBannerConfig($banner);
-        
+
         $config = $this->dispatcher->dispatch(
             BusinessEvents::CLICKCOUNTER_CONFIGURATION, new ClickCounterConfigurationEvent($domain, $config)
         )->getConfig();

@@ -56,10 +56,13 @@ class OrderRepository extends EntityRepository implements OrderRepositoryInterfa
      *
      * @return Option of Order
      */
-    public function findByDomain(HivDomainValue $domain)
+    public function findLatestByDomain(HivDomainValue $domain)
     {
         $qb = $this->createQueryBuilder('o');
         $qb->andWhere('o.domain = :domain')->setParameter('domain', $domain->toScalar());
+        $qb->andWhere('o.stripeCharge IS NOT NULL');
+        $qb->orderBy('o.created', 'DESC');
+        $qb->setMaxResults(1);
         return Option::fromValue($qb->getQuery()->getOneOrNullResult());
     }
 

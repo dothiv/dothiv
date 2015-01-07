@@ -114,7 +114,7 @@ class PremiumConfiguratorPreviewController
                 $redirectUrlOptional = None::create();
             }
         }
-        
+
         $data     = array(
             'domain'    => $banner->getDomain(),
             'banner'    => $banner,

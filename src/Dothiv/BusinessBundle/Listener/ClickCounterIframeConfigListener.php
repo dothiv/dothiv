@@ -2,6 +2,7 @@
 
 namespace Dothiv\BusinessBundle\Listener;
 
+use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Event\ClickCounterConfigurationEvent;
 use Dothiv\ValueObject\URLValue;
 use Guzzle\Http\Client;
@@ -54,24 +55,22 @@ class ClickCounterIframeConfigListener
         $domain = $event->getDomain();
         $config = $event->getConfig();
 
-        if (!isset($config['redirect_url'])) {
-            $this->client->delete(
-                $this->serviceUrl->toScalar() . 'domain/' . $domain->getName(),
-                null,
-                null,
-                array(
-                    'auth' => array($this->username, $this->password)
-                )
-            )->send();
-        } else {
-            $this->client->put(
-                $this->serviceUrl->toScalar() . 'domain/' . $domain->getName(),
-                array('Content-Type' => 'application/json'),
-                json_encode(array('redirect' => $config['redirect_url']), JSON_UNESCAPED_SLASHES),
-                array(
-                    'auth' => array($this->username, $this->password)
-                )
-            )->send();
+        $iframeConfig = [];
+        if (isset($config['redirect_url'])) {
+            $iframeConfig['redirect'] = $config['redirect_url'];
         }
+
+        $iframeConfig = $event->getDispatcher()->dispatch(
+            BusinessEvents::CLICKCOUNTER_IFRAME_CONFIGURATION, new ClickCounterConfigurationEvent($domain, $iframeConfig)
+        )->getConfig();
+
+        $this->client->put(
+            $this->serviceUrl->toScalar() . 'domain/' . $domain->getName(),
+            array('Content-Type' => 'application/json'),
+            json_encode($iframeConfig, JSON_UNESCAPED_SLASHES),
+            array(
+                'auth' => array($this->username, $this->password)
+            )
+        )->send();
     }
 }

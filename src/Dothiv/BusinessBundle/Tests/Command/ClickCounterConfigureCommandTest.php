@@ -6,8 +6,13 @@ use Dothiv\BusinessBundle\Command\ClickCounterConfigureCommand;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Config;
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
 use Dothiv\ValueObject\ClockValue;
+use Dothiv\ValueObject\HivDomainValue;
+use PhpOption\Option;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -39,12 +44,17 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
     private $mockClickCounterConfig;
 
     /**
-     * @var \Doctrine\ORM\EntityRepository|\PHPUnit_Framework_MockObject_MockObject
+     * @var BannerRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     private $mockBannerRepo;
 
     /**
-     * @var \Doctrine\ORM\EntityRepository|\PHPUnit_Framework_MockObject_MockObject
+     * @var DomainRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockDomainRepo;
+
+    /**
+     * @var ConfigRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     private $mockConfigRepo;
 
@@ -103,6 +113,40 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @group   DothivBusinessBundle
+     * @group   Command
+     * @depends itShouldConfigureBanners
+     */
+    public function itShouldConfigureSingleBanner()
+    {
+        $domain = new Domain();
+        $domain->setName('stop.hiv');
+        $banner = new Banner();
+        $domain->setActiveBanner($banner);
+
+        $containerMap = array(
+            array('clickcounter', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockClickCounterConfig),
+            array('dothiv.repository.domain', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->mockDomainRepo),
+        );
+        $this->mockContainer->expects($this->any())->method('get')
+            ->will($this->returnValueMap($containerMap));
+
+        $this->mockInput->expects($this->atLeastOnce())->method('getArgument')
+            ->with('domain')
+            ->willReturn('stop.hiv');
+
+        $this->mockDomainRepo->expects($this->once())->method('getDomainByName')
+            ->with(new HivDomainValue('stop.hiv'))
+            ->will($this->returnValue(Option::fromValue($domain)));
+
+        $this->mockClickCounterConfig->expects($this->once())->method('setup')
+            ->with($banner);
+
+        $this->assertEquals(0, $this->getTestObject()->run($this->mockInput, $this->mockOutput));
+    }
+
+    /**
      * @return ClickCounterConfigureCommand
      */
     protected function getTestObject()
@@ -148,8 +192,12 @@ class ClickCounterConfigureCommandTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->mockDomainRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\DomainRepositoryInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->mockConfigRepo = $this->getMockBuilder('\Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface')
             ->disableOriginalConstructor()
             ->getMock();
     }
-} 
+}

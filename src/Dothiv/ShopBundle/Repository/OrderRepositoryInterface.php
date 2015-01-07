@@ -31,7 +31,7 @@ interface OrderRepositoryInterface extends CRUD\CreateEntityRepositoryInterface
      *
      * @return Option of Order
      */
-    public function findByDomain(HivDomainValue $domain);
+    public function findLatestByDomain(HivDomainValue $domain);
 
     /**
      * Returns orders which have not been processed.
