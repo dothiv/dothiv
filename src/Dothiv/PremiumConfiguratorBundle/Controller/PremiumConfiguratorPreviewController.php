@@ -158,7 +158,7 @@ class PremiumConfiguratorPreviewController
     protected function getString($code, $locale)
     {
         $v = $this->content->buildEntry('String', $code, $locale)->value;
-        return strip_tags($this->parsedown->text($v), '<strong><em><a>');
+        return strip_tags($this->parsedown->text($v), '<a><em><strong><code>');
     }
 
     /**
