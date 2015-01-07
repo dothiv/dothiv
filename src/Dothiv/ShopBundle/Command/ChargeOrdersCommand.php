@@ -8,6 +8,7 @@ use Dothiv\BusinessBundle\Entity\Invoice;
 use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\RegistrarRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ShopBundle\Repository\OrderRepositoryInterface;
@@ -39,6 +40,8 @@ class ChargeOrdersCommand extends ContainerAwareCommand
         $bannerRepo = $this->getContainer()->get('dothiv.repository.banner');
         /** @var DomainRepositoryInterface $domainRepo */
         $domainRepo = $this->getContainer()->get('dothiv.repository.domain');
+        /** @var UserRepositoryInterface $userRepo */
+        $userRepo = $this->getContainer()->get('dothiv.repository.user');
         /** @var InvoiceServiceInterface $invoiceService */
         $invoiceService = $this->getContainer()->get('dothiv.shop.invoice');
         /** @var OrderMailerInterface $mailer */
@@ -71,7 +74,10 @@ class ChargeOrdersCommand extends ContainerAwareCommand
             $domain->setName($order->getDomain()->toScalar());
             $domain->setOwner($user);
             $domain->setRegistrar($registrarRepo->getByExtId('1508-KS'));
+            $userRepo->persist($user);
             $domainRepo->persist($domain)->flush();
+            $userRepo->flush();
+            $domainRepo->flush();
 
             $banner = new Banner();
             if ($order->getRedirect()->isDefined()) {
