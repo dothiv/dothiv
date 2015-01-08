@@ -1,0 +1,10 @@
+.btn-pink {
+  .button-variant(@color-pink-foreground; @color-pink; @color-pink-foreground);
+  border-radius: 0;
+  &.disabled,
+  &[disabled] {
+    background-color: darken(@brand-primary-foreground, 25%);
+  }
+}
+
+

@@ -1,12 +1,31 @@
 article.shop {
   section.lookup {
+    text-align: center;
     div.lookupResult {
+      text-align: left;
       h3 {
         margin: 0;
         line-height: @input-height-large;
+        strong {
+          font-weight: @font-weight-regular;
+          color: @color-pink;
+        }
+        img {
+          float:left;
+          width: auto;
+          margin-right: 0.5em;
+        }
       }
       &.premium {
         .make-xs-column(12);
+        div.text {
+          h3 {
+            margin-bottom: 1em;
+          }
+          h4 {
+            font-size: @font-size-h3;
+          }
+        }
         nav {
           a {
             .pull-right;
@@ -18,38 +37,54 @@ article.shop {
         }
       }
       &.available {
-        div.text {
-          .make-sm-column(6);
-        }
+        text-align: left;
         nav {
-          .make-sm-column(6);
+          .pull-right;
         }
       }
       &.registered {
         .make-xs-column(12);
-        table {
-          margin-top: 1em;
-          font-size: @font-size-h3;
-          a {
-            .pull-right;
+        div.text {
+          h3 {
+            margin-bottom: 1em;
           }
         }
-        nav {
+        p {
+          font-size: @font-size-h3;
+          strong {
+            font-weight: @font-weight-regular;
+            color: @color-pink;
+          }
           a {
             .pull-right;
+            color: @text-color;
+            text-decoration: underline;
           }
         }
       }
     }
   }
+  section.lookup-pristine {
+    text-align: center;
+  }
   form.lookup {
     fieldset.lookupDomain {
-      div.field {
-        .make-sm-column(6);
+      div.field.hivdomain {
+        .make-sm-column(8);
         input {
-          width: 70%;
+          width: 80%;
           .pull-left;
           text-align: right;
+          border: 0;
+          &:focus {
+            box-shadow: none;
+          }
+          font-size: @font-size-h1;
+          font-weight: @font-weight-regular;
+          height: auto;
+          padding: 0;
+          margin: 0;
+          box-shadow: none;
         }
         span {
           .pull-left;
@@ -57,26 +92,35 @@ article.shop {
           height: @input-height-large;
           line-height: @input-height-large;
           font-size: @font-size-h1;
-          padding-left: 0.25em;
+          padding: 0;
+          color: @color-pink;
+        }
+        div.border {
+          .clearfix;
+          border: 2px solid fadeout(@text-color, 30%);
         }
       }
       nav {
+        .make-sm-column(4);
         @media (max-width: @screen-xs-max) {
           .pull-right;
           margin-top: 1em;
         }
-        .make-sm-column(6);
+        button {
+          width: 100%;
+          height: @input-height-large + 8px;
+          font-size: @font-size-h4;
+        }
       }
     }
   }
   div.promo4life {
     .make-xs-column(12);
-    .make-sm-column(10);
-    .make-md-column(8);
+    text-align: left;
     padding: 0 1em 1em 1em;
     border: 2px solid @color-pink;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
-    margin-top: 2em;
+    margin-top: 4em;
     margin-bottom: 2em;
     overflow: hidden;
     .ribbon {

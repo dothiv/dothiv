@@ -58,12 +58,20 @@
                         <div class="intro">
                             {{ child.text|default("")|markdown }}
                         </div>
-                        <div class="field">
-                            {% for lang in child.strings|default([]) %}
-                                <label>
-                                    <input type="radio" name="language" value="{{ lang.code }}" data-ng-model="order.language" required>
-                                    {{ lang.value }}
-                                </label><br>
+                        <div class="field radio-field">
+                            {% for lang in child.strings %}
+                                <div class="radio-option">
+                                    {% image '@DothivShopBundle/Resources/public/images/checkbox-unchecked.svg' %}
+                                    <img src="{{ asset(asset_url) }}" alt="" width="25" height="25" class="radio" data-ng-show="order.language != '{{ lang.code }}'" data-ng-click="order.language = '{{ lang.code }}'">
+                                    {% endimage %}
+                                    {% image '@DothivShopBundle/Resources/public/images/checkbox-checked.svg' %}
+                                    <img src="{{ asset(asset_url) }}" alt="" width="25" height="25" class="radio" data-ng-show="order.language == '{{ lang.code }}'">
+                                    {% endimage %}
+                                    <label>
+                                        <input type="radio" name="language" value="{{ lang.code }}" data-ng-model="order.language" required>
+                                        {{ lang.value }}
+                                    </label>
+                                </div>
                             {% endfor %}
                         </div>
                     {% else %}
