@@ -10,6 +10,8 @@ use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\RegistrarRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
+use Dothiv\CharityWebsiteBundle\Entity\DomainConfigurationNotification;
+use Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepositoryInterface;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ShopBundle\Repository\OrderRepositoryInterface;
 use Dothiv\ShopBundle\Service\InvoiceServiceInterface;
@@ -44,6 +46,8 @@ class ChargeOrdersCommand extends ContainerAwareCommand
         $userRepo = $this->getContainer()->get('dothiv.repository.user');
         /** @var InvoiceServiceInterface $invoiceService */
         $invoiceService = $this->getContainer()->get('dothiv.shop.invoice');
+        /** @var DomainConfigurationNotificationRepositoryInterface $domainConfigNotificationRepo */
+        $domainConfigNotificationRepo = $this->getContainer()->get('dothiv.repository.domain_configuration_notification');
         /** @var OrderMailerInterface $mailer */
         $mailer = $this->getContainer()->get('dothiv.shop.mailer.order');
         /** @var UserServiceInterface $userService */
@@ -89,6 +93,11 @@ class ChargeOrdersCommand extends ContainerAwareCommand
             $banner->setPositionAlternative('top');
             $bannerRepo->persist($banner)->flush();
             $domainRepo->persist($domain)->flush();
+
+            // Do not notify about configuration
+            $domainConfigNotification = new DomainConfigurationNotification();
+            $domainConfigNotification->setDomain($domain);
+            $domainConfigNotificationRepo->persist($domainConfigNotification)->flush();
 
             $output->writeln(
                 sprintf('Processed order for %s by %s.', $order->getDomain()->toUTF8(), $order->getEmail())
