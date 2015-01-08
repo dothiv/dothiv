@@ -115,6 +115,7 @@ class ChargeOrdersCommand extends ContainerAwareCommand
         $table = new TableHelper();
         $table->setHeaders(array('Name', 'Value'));
         $table->addRow(array('Domain', $order->getDomain()->toUTF8()));
+        $table->addRow(array('Duration', $order->getDuration()));
         $table->addRow(array('Price', ($invoice->getTotalPrice() / 100) . ' ' . ($order->getCurrency() == Order::CURRENCY_EUR ? '€' : '$')));
         $table->addRow(array('Name', $order->getFirstname() . ' ' . $order->getLastname()));
         $table->addRow(array('Email', $order->getEmail()));
