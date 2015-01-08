@@ -2,6 +2,8 @@
 
 namespace Dothiv\BaseWebsiteBundle\Service;
 
+use PhpOption\Option;
+
 class MoneyFormatService implements MoneyFormatServiceInterface
 {
 
@@ -21,21 +23,23 @@ class MoneyFormatService implements MoneyFormatServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function decimalFormat($value, $locale = null)
+    public function decimalFormat($value, $locale = null, $symbol = null)
     {
+        $symbol = Option::fromValue($symbol)->getOrElse('€');
         switch ($locale) {
             case 'de':
-                return sprintf('%s €', $this->numberFormat->decimalFormat($value, $locale));
+                return sprintf('%s %s', $this->numberFormat->decimalFormat($value, $locale), $symbol);
             default:
-                return sprintf('€%s', $this->numberFormat->decimalFormat($value, $locale));
+                return sprintf('%s%s', $symbol, $this->numberFormat->decimalFormat($value, $locale));
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function format($value, $locale = null)
+    public function format($value, $locale = null, $symbol = null)
     {
+        $symbol = Option::fromValue($symbol)->getOrElse('€');
         switch ($locale) {
             case 'de':
                 if (floatval($value) < 0.01) {
@@ -43,14 +47,14 @@ class MoneyFormatService implements MoneyFormatServiceInterface
                 } elseif (floatval($value) < 1.0) {
                     return sprintf('%d ct', $this->numberFormat->decimalFormat($value * 100, $locale));
                 }
-                return sprintf('%s €', $this->numberFormat->format($value, $locale));
+                return sprintf('%s %s', $this->numberFormat->format($value, $locale), $symbol);
             default:
                 if (floatval($value) < 0.01) {
-                    return sprintf('€%s¢', $this->numberFormat->format($value, $locale));
+                    return sprintf('%s%s¢', $symbol, $this->numberFormat->format($value, $locale));
                 } elseif (floatval($value) < 1.0) {
-                    return sprintf('€%d¢', $this->numberFormat->decimalFormat($value * 100, $locale));
+                    return sprintf('%s%d¢', $symbol, $this->numberFormat->decimalFormat($value * 100, $locale));
                 }
-                return sprintf('€%s', $this->numberFormat->format($value, $locale));
+                return sprintf('%s%s', $symbol, $this->numberFormat->format($value, $locale));
         }
     }
 }
