@@ -16,13 +16,20 @@ class OrderRepository extends EntityRepository implements OrderRepositoryInterfa
     use Traits\GetItemEntityName;
 
     /**
-     * @param Order $Order
+     * @param Order $order
      *
      * @return self
      */
-    public function persist(Order $Order)
+    public function persist(Order $order)
     {
-        $this->getEntityManager()->persist($this->validate($Order));
+        $groups = [];
+        if (preg_match('/.+4life\.hiv$/', $order->getDomain()->toUTF8())) {
+            $groups[] = '4lifeDomain';
+            if ($order->getGift()) {
+                $groups[] = '4lifeGiftDomain';
+            }
+        }
+        $this->getEntityManager()->persist($this->validate($order, $groups));
         return $this;
     }
 
@@ -49,10 +56,13 @@ class OrderRepository extends EntityRepository implements OrderRepositoryInterfa
      *
      * @return Option of Order
      */
-    public function findByDomain(HivDomainValue $domain)
+    public function findLatestByDomain(HivDomainValue $domain)
     {
         $qb = $this->createQueryBuilder('o');
         $qb->andWhere('o.domain = :domain')->setParameter('domain', $domain->toScalar());
+        $qb->andWhere('o.stripeCharge IS NOT NULL');
+        $qb->orderBy('o.created', 'DESC');
+        $qb->setMaxResults(1);
         return Option::fromValue($qb->getQuery()->getOneOrNullResult());
     }
 

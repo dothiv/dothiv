@@ -3,6 +3,8 @@
 namespace Dothiv\BusinessBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
+use Dothiv\ValueObject\IdentValue;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
@@ -21,6 +23,9 @@ use Symfony\Component\Validator\ExecutionContextInterface;
 class Invoice extends Entity
 {
     use Traits\CreateUpdateTime;
+
+    const CURRENCY_EUR = "EUR";
+    const CURRENCY_USD = "USD";
 
     /**
      * @ORM\Column(type="string",nullable=false)
@@ -111,6 +116,20 @@ class Invoice extends Entity
      * @Serializer\Expose
      */
     protected $totalPrice = 0;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     * @Assert\Length(max=255)
+     * @Assert\NotBlank
+     * @var string
+     * @Assert\Choice({"EUR", "USD"})
+     */
+    private $currency;
+
+    public function __construct()
+    {
+        $this->currency = static::CURRENCY_EUR;
+    }
 
     /**
      * @return string
@@ -345,5 +364,28 @@ class Invoice extends Entity
                 '%actual%'   => $actual
             ), null);
         }
+    }
+
+    /**
+     * @return IdentValue
+     */
+    public function getCurrency()
+    {
+        return new IdentValue($this->currency);
+    }
+
+    /**
+     * @param IdentValue $currency
+     */
+    public function setCurrency(IdentValue $currency)
+    {
+        $c          = $currency->toScalar();
+        $currencies = array(static::CURRENCY_EUR, static::CURRENCY_USD);
+        if (!in_array($c, $currencies)) {
+            throw new InvalidArgumentException(
+                sprintf('Currency must be one of "%s". "%s" given.', join(',', $currencies), $c)
+            );
+        }
+        $this->currency = $c;
     }
 }

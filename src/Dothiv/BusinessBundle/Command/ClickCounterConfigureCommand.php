@@ -8,8 +8,10 @@ use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
 use Dothiv\BusinessBundle\Service\ClickCounterConfigInterface;
 use Dothiv\ValueObject\ClockValue;
+use Dothiv\ValueObject\HivDomainValue;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,10 +28,30 @@ class ClickCounterConfigureCommand extends ContainerAwareCommand
         $this
             ->setName('dothiv:clickcounter:configure')
             ->setDescription('Update the configuration of a clickcounter.')
+            ->addArgument('domain', InputArgument::OPTIONAL, 'Update the configuration of the given domain')
             ->addOption('force', 'f', InputOption::VALUE_NONE, 'Force update');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $domain = $input->getArgument('domain');
+        if (!$domain) {
+            $this->updateAll($input, $output);
+        } else {
+            $this->updateDomain($input, $output, new HivDomainValue($domain));
+        }
+    }
+
+    protected function updateDomain(InputInterface $input, OutputInterface $output, HivDomainValue $domain)
+    {
+        $banner = $this->findByDomain($domain);
+        /* @var $cc ClickCounterConfigInterface */
+        $cc = $this->getContainer()->get('clickcounter');
+        $output->writeln(sprintf('Updating %s ...', $banner->getDomain()->getName()));
+        $cc->setup($banner);
+    }
+
+    protected function updateAll(InputInterface $input, OutputInterface $output)
     {
         $config = $this->getConfig();
         /* @var $cc ClickCounterConfigInterface */
@@ -71,6 +93,15 @@ class ClickCounterConfigureCommand extends ContainerAwareCommand
     {
         $bannerRepo = $this->getContainer()->get('dothiv.repository.banner');
         return $bannerRepo->findAll();
+    }
+
+    /**
+     * @return Banner
+     */
+    protected function findByDomain(HivDomainValue $domain)
+    {
+        $domainRepo = $this->getContainer()->get('dothiv.repository.domain');
+        return $domainRepo->getDomainByName($domain->toScalar())->get()->getActiveBanner();
     }
 
     /**

@@ -1,6 +1,7 @@
 # NOTE: Not loaded in test env
 parameters:
     dothiv.shop.listener.domain.class: Dothiv\ShopBundle\Listener\DomainListener
+    dothiv.shop.listener.iframe_config.class: Dothiv\ShopBundle\Listener\IframeConfigListener
 
 services:
     dothiv.shop.listener.domain:
@@ -10,3 +11,12 @@ services:
         tags:
         - { name: dothiv.business.event_listener, event: dothiv.business.domain.registered, method: onDomainRegistered }
         - { name: dothiv.business.event_listener, event: dothiv.business.domain.deleted, method: onDomainDeleted }
+
+    dothiv.shop.listener.iframe_config:
+        class: %dothiv.shop.listener.iframe_config.class%
+        arguments:
+        - @dothiv.repository.shop_order
+        - @dothiv.shop.name4life_landingpage_content
+        - %dothiv_business.clickcounter%
+        tags:
+        - { name: dothiv.business.event_listener, event: dothiv.basewebsite.clickcounter.iframe.configuration, method: onClickCounterConfiguration }

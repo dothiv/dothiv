@@ -49,7 +49,7 @@ class CreateSubscriptionsCommand extends ContainerAwareCommand
                 $subscriptionRepo->persist($subscription)->flush();
 
                 $mailer->sendSubscriptionCreatedMail($subscription, $invoice);
-                foreach ($this->getContainer()->getParameter('invoice_copy') as $extraRecipient) {
+                foreach ($this->getContainer()->getParameter('dothiv_business.invoice_copy') as $extraRecipient) {
                     $mailer->sendSubscriptionCreatedMail($subscription, $invoice, new EmailValue($extraRecipient['email']), $extraRecipient['name']);
                 }
             } catch (\Stripe_CardError $e) {

@@ -112,7 +112,17 @@ class FeatureContext extends BehatContext
         }
         $em->persist($entity);
         $em->flush();
-        $this->store($storageName, $entity);
+        if ($storageName) {
+            $this->store($storageName, $entity);
+        }
+    }
+
+    /**
+     * @Given /^the "(?P<entityName>[^"]*)" entity exists with values:$/
+     */
+    public function theEntityExistsWithValues($entityName, TableNode $table)
+    {
+        $this->theEntityExistsInWithValues($entityName, false, $table);
     }
 
     /**

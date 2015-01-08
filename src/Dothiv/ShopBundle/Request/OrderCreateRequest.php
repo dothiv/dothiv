@@ -10,11 +10,13 @@ use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
 use Dothiv\ValueObject\URLValue;
+use PhpOption\None;
 use PhpOption\Option;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
 {
+
     /**
      * @var HivDomainValue
      * @Assert\NotBlank
@@ -31,7 +33,7 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
     /**
      * The url to redirect to
      *
-     * @var URLValue
+     * @var URLValue|null
      */
     private $redirect;
 
@@ -147,6 +149,45 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
     private $stripeToken;
 
     /**
+     * The domain is a gift.
+     *
+     * @var boolean
+     */
+    private $gift = false;
+
+    /**
+     * @var string|null
+     * @Assert\NotBlank(groups={"4lifeGiftDomain"})
+     * @Assert\Length(max=255)
+     */
+    private $presenteeFirstname;
+
+    /**
+     * @var string|null
+     * @Assert\NotBlank(groups={"4lifeGiftDomain"})
+     * @Assert\Length(max=255)
+     */
+    private $presenteeLastname;
+
+    /**
+     * @var EmailValue|null
+     *
+     * @Assert\NotBlank(groups={"4lifeGiftDomain"})
+     */
+    private $presenteeEmail;
+
+    /**
+     * Domain language
+     *
+     * @var string
+     *
+     * @Assert\NotBlank()
+     * @Assert\Choice({"en", "de", "fr", "es"})
+     * @Assert\Type("string")
+     */
+    private $language = 'en';
+
+    /**
      * @return string
      */
     public function getCity()
@@ -258,9 +299,8 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
         $this->phone = $phone;
     }
 
-
     /**
-     * @return string
+     * @return EmailValue
      */
     public function getEmail()
     {
@@ -356,21 +396,20 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
     }
 
     /**
-     * @return URLValue
+     * @return Option of URLValue
      */
     public function getRedirect()
     {
-        return $this->redirect;
+        return Option::fromValue($this->redirect);
     }
 
     /**
-     * @param string $redirect
+     * @param string|null $redirect
      */
-    public function setRedirect($redirect)
+    public function setRedirect($redirect = null)
     {
-        $this->redirect = new URLValue($redirect);
+        $this->redirect = $redirect == null ? null : new URLValue($redirect);
     }
-
 
     /**
      * @return IdentValue
@@ -442,5 +481,107 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
     public function setVatNo($vatNo)
     {
         $this->vatNo = $vatNo;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getGift()
+    {
+        return $this->gift;
+    }
+
+    /**
+     * @param boolean $gift
+     *
+     * @return self
+     */
+    public function setGift($gift)
+    {
+        $this->gift = (bool)$gift;
+        return $this;
+    }
+
+    /**
+     * @return Option of EmailValue
+     */
+    public function getPresenteeEmail()
+    {
+        return Option::fromValue($this->presenteeEmail);
+    }
+
+    /**
+     * @param string $presenteeEmail
+     *
+     * @return self
+     */
+    public function setPresenteeEmail($presenteeEmail)
+    {
+        $this->presenteeEmail = new EmailValue($presenteeEmail);
+        return $this;
+    }
+
+    /**
+     * @return Option of string
+     */
+    public function getPresenteeFirstname()
+    {
+        return Option::fromValue($this->presenteeFirstname);
+    }
+
+    /**
+     * @param string $presenteeFirstname
+     *
+     * @return self
+     */
+    public function setPresenteeFirstname($presenteeFirstname)
+    {
+        $this->presenteeFirstname = $presenteeFirstname;
+        return $this;
+    }
+
+    /**
+     * @return Option of string
+     */
+    public function getPresenteeLastname()
+    {
+        return Option::fromValue($this->presenteeLastname);
+    }
+
+    /**
+     * @param string $presenteeLastname
+     *
+     * @return self
+     */
+    public function setPresenteeLastname($presenteeLastname)
+    {
+        $this->presenteeLastname = $presenteeLastname;
+        return $this;
+    }
+
+    /**
+     * @return IdentValue
+     */
+    public function getLanguage()
+    {
+        return new IdentValue($this->language);
+    }
+
+    /**
+     * @param string $language
+     *
+     * @return self
+     */
+    public function setLanguage($language)
+    {
+        if (!in_array($language, ['en', 'de', 'fr', 'es'])) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Invalid language provided: "%s"', $language
+                )
+            );
+        }
+        $this->language = $language;
+        return $this;
     }
 }

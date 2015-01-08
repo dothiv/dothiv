@@ -42,7 +42,7 @@
 {% endmacro %}
 
 <script type="text/ng-template" id="/template/shop/{{ code }}.html">
-    <section class="{{ code }}">
+    <section class="{{ code }}" id="content">
         <div class="block">
             <h2>{{ block.title }}</h2>
             {{ block.text|default("")|markdown }}
@@ -53,63 +53,79 @@
         {% if child.code ends with "duration" %}
             {% for duration in child.strings|default([]) %}
                 {% if loop.first %}
-                    <form method="post" action="" novalidate name="{{ code }}DurationForm" class="{{ code }}">
+                    <form method="post" action="" novalidate name="{{ code }}DurationForm" class="{{ code }}" data-ng-init="duration = '{{ duration.value }}'">
                     <fieldset class="duration">
                     <legend>{{ child.title|markdown }}</legend>
                     <div class="intro">{{ child.text|default("")|markdown }}</div>
-                    <div class="field">
+                    <div class="field radio-field">
                 {% endif %}
-                <label class="duration">
-                    <input type="radio" name="duration" data-ng-model="order.duration" value="{{ duration.value|number_format }}">
-                    {{ duration.value }}
-                </label>
+                <div class="radio-option">
+                    {% image '@DothivShopBundle/Resources/public/images/checkbox-unchecked.svg' %}
+                    <img src="{{ asset(asset_url) }}" alt="" width="25" height="25" class="radio" data-ng-show="order.duration != '{{ duration.value|number_format }}'" data-ng-click="order.duration = '{{ duration.value|number_format }}'">
+                    {% endimage %}
+                    {% image '@DothivShopBundle/Resources/public/images/checkbox-checked.svg' %}
+                    <img src="{{ asset(asset_url) }}" alt="" width="25" height="25" class="radio" data-ng-show="order.duration == '{{ duration.value|number_format }}'">
+                    {% endimage %}
+                    <label>
+                        <input type="radio" name="language" value="{{ duration.value|number_format }}" data-ng-model="order.duration" required data-ng-change="duration = '{{ duration.value }}'">
+                        {{ duration.value }}
+                    </label>
+                </div>
                 {% if loop.last %}
                     </div>
                     </fieldset>
                     </form>
                 {% endif %}
             {% endfor %}
-        {% elseif child.code ends with "summary" %}
-            {% for summaryChild in child.children|default([]) %}
-                {% if loop.first %}
-                    <section class="{{ code }}">
-                    <div class="block">
-                    <h3>{{ child.title|markdown }}</h3>
-                    {{ child.text|default("")|markdown }}
-                    <table class="summary">
-                    <tfoot>
+        {% elseif child.code ends with "summary4life" %}
+            {% set show = "order.is4lifeDomain()" %}
+            {% block summary %}
+                {% for summaryChild in child.children|default([]) %}
+                    {% if loop.first %}
+                        <section class="{{ code }}" data-ng-show="{{ show }}">
+                        <div class="block">
+                        <h3>{{ child.title|markdown }}</h3>
+                        {{ child.text|default("")|markdown }}
+                        <div class="summary">
+                        <table class="summary">
+                        <tfoot>
+                        <tr>
+                            <td></td>
+                            <td class="price">%%total%%</td>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                    {% endif %}
                     <tr>
-                        <td></td>
-                        <td class="price">%%total%%</td>
+                        <td>
+                            <strong>{{ summaryChild.title }}</strong>
+                            {{ summaryChild.text|default("")|markdown }}
+                        </td>
+                        <td class="price">
+                            {% if summaryChild.code ends with "duration" %}
+                                %%itemTotal%%
+                            {% elseif summaryChild.code ends with "vat" %}
+                                %%vatTotal%%
+                            {% endif %}
+                        </td>
                     </tr>
-                    </tfoot>
-                    <tbody>
-                {% endif %}
-                <tr>
-                    <td>
-                        <strong>{{ summaryChild.title }}</strong>
-                        {{ summaryChild.text|default("")|markdown }}
-                    </td>
-                    <td class="price">
-                        {% if summaryChild.code ends with "item" %}
-                            %%itemTotal%%
-                        {% elseif summaryChild.code ends with "vat" %}
-                            %%vatTotal%%
-                        {% endif %}
-                    </td>
-                </tr>
-                {% if loop.last %}
-                    </tbody>
-                    </table>
-                    </div>
-                    </section>
-                {% endif %}
-            {% endfor %}
+                    {% if loop.last %}
+                        </tbody>
+                        </table>
+                        </div>
+                        </div>
+                        </section>
+                    {% endif %}
+                {% endfor %}
+            {% endblock %}
+        {% elseif child.code ends with "summary" %}
+            {% set show = "!order.is4lifeDomain()" %}
+            {{ block("summary") }}
         {% elseif child.code ends with "details" %}
             {% for detailChild in child.children|default([]) %}
                 {% if detailChild.code ends with "edit" %}
                     {% set form = detailChild.children[0] %}
-                    <form method="post" action="" novalidate name="{{ code }}ContactForm" class="{{ code }}" data-ng-init="step = 'edit';" data-ng-show="step == 'edit';">
+                    <form method="post" action="" novalidate name="{{ code }}ContactForm" class="{{ code }}" data-ng-init="step = 'edit';" data-ng-show="step == 'edit';" id="edit">
                         <fieldset>
                             <legend>{{ child.title|markdown }}</legend>
                             <div class="intro">{{ child.text|default("")|markdown }}</div>
@@ -141,7 +157,7 @@
                             {% for button in detailChild.strings|default([]) %}
                                 {% if loop.first %}<nav>{% endif %}
                                 {% if button.code ends with "reset" %}
-                                    <button data-ng-click="step = 'edit';">{{ button.value }}</button>
+                                    <a data-ng-click="edit();">{{ button.value }}</a>
                                 {% endif %}
                                 {% if loop.last %}</nav>{% endif %}
                             {% endfor %}

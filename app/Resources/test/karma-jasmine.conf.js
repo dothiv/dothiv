@@ -29,8 +29,8 @@ module.exports = function (config) {
         exclude: [],
         reporters: ['dots'],
         logLevel: config.LOG_WARN,
-        autoWatch: true,
-        browsers: ['Chrome', 'Firefox'],
+        browsers: ['Chrome'],
+        autoWatch: false,
         captureTimeout: 3000
     });
 };

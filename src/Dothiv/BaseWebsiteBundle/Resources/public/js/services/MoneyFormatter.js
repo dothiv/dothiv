@@ -30,14 +30,23 @@ angular.module('dotHIVApp.services').factory('MoneyFormatter', [function () {
         }
     };
 
+    /**
+     * Formats a float money value.
+     * Strips tailing decimal separator followed by zeros
+     */
     MoneyFormatter.prototype.format = function (value, currencySymbol) {
         var f = Math.round((value - Math.floor(value)) * 100);
+        var add = 0;
+        if (f === 100) {
+            f = 0;
+            add = 1;
+        }
         var frac = f < 10 ? "0" + f : "" + f;
         switch (this.locale) {
             case 'de':
-                return this.formatDecimalNumber(value, '.') + ',' + frac + ' ' + currencySymbol;
+                return this.formatDecimalNumber(parseInt(value, 10) + add, '.') + (frac != '00' ? ',' + frac : '') + ' ' + currencySymbol;
             default:
-                return currencySymbol + this.formatDecimalNumber(value, ',') + '.' + frac;
+                return currencySymbol + this.formatDecimalNumber(parseInt(value, 10) + add, ',') + (frac != '00' ? '.' + frac : '');
         }
     };
 
