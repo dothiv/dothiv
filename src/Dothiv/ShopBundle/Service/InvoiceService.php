@@ -43,8 +43,6 @@ class InvoiceService implements InvoiceServiceInterface
      * @param Order $order
      *
      * @return Invoice
-     *
-     * FIXME: Persist Invoice (and add Currency to Invoice before that)
      */
     public function createInvoice(Order $order)
     {
@@ -52,18 +50,19 @@ class InvoiceService implements InvoiceServiceInterface
         $invoice = new Invoice();
         $invoice->setFullname($order->getFirstname() . ' ' . $order->getLastname());
         $invoice->setAddress1($order->getLocality());
-        $invoice->setAddress2($order->getLocality2());
+        $invoice->setAddress2($order->getLocality2()->getOrElse(null));
         $invoice->setCountry($order->getCountry());
         $invoice->setVatNo($order->getVatNo()->getOrElse(null));
         $invoice->setItemPrice(
             $order->getDuration() *
             ($order->getCurrency() == Order::CURRENCY_EUR ? $price->getNetPriceEUR() : $price->getNetPriceUSD())
         );
+        $invoice->setCurrency($order->getCurrency());
         $invoice->setItemDescription(
             sprintf(
                 '%d year(s) domain registration fees for %s',
                 $order->getDuration(),
-                $order->getDomain()
+                $order->getDomain()->toUTF8()
             )
         );
 
@@ -81,7 +80,7 @@ class InvoiceService implements InvoiceServiceInterface
         $invoice->setVatPrice((int)round($invoice->getItemPrice() * $invoice->getVatPercent() / 100, 0));
         $invoice->setTotalPrice($invoice->getVatPrice() + $invoice->getItemPrice());
 
-        // $this->repo->persist($invoice)->flush();
+        $this->repo->persist($invoice)->flush();
 
         return $invoice;
     }
@@ -99,4 +98,4 @@ class InvoiceService implements InvoiceServiceInterface
         }
         return $this->countries;
     }
-} 
+}

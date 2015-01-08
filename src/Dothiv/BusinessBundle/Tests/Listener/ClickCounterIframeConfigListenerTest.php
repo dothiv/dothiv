@@ -3,6 +3,7 @@
 
 namespace Dothiv\BusinessBundle\Test\Listener;
 
+use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Event\ClickCounterConfigurationEvent;
@@ -11,6 +12,7 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequestInterface;
 use Guzzle\Plugin\History\HistoryPlugin;
 use Guzzle\Plugin\Mock\MockPlugin;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ClickCounterIframeConfigListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,6 +21,11 @@ class ClickCounterIframeConfigListenerTest extends \PHPUnit_Framework_TestCase
      * @var Client|\PHPUnit_Framework_MockObject_MockObject
      */
     private $client;
+
+    /**
+     * @var EventDispatcherInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockEventDispatcher;
 
     /**
      * @test
@@ -52,7 +59,15 @@ class ClickCounterIframeConfigListenerTest extends \PHPUnit_Framework_TestCase
         $history = new HistoryPlugin();
         $this->client->addSubscriber($history);
 
-        $event = new ClickCounterConfigurationEvent($domain, array('redirect_url' => $banner->getRedirectUrl()));
+        $event = new ClickCounterConfigurationEvent($domain, ['redirect_url' => $banner->getRedirectUrl()]);
+        $event->setDispatcher($this->mockEventDispatcher);
+
+        $this->mockEventDispatcher->expects($this->once())->method('dispatch')
+            ->with(BusinessEvents::CLICKCOUNTER_IFRAME_CONFIGURATION, $this->callback(function (ClickCounterConfigurationEvent $event) {
+                return true;
+            }))
+            ->willReturnArgument(1);
+
         $this->createTestObject()->onClickCounterConfiguration($event);
 
         /** @var EntityEnclosingRequestInterface $request */
@@ -79,6 +94,7 @@ class ClickCounterIframeConfigListenerTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->client = new Client();
+        $this->client              = new Client();
+        $this->mockEventDispatcher = $this->getMock('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
     }
 }

@@ -70,7 +70,7 @@ class ClickCounterConfig implements ClickCounterConfigInterface
         $domain = $banner->getDomain();
         // render config
         $config = $this->buildBannerConfig($banner);
-        
+
         $config = $this->dispatcher->dispatch(
             BusinessEvents::CLICKCOUNTER_CONFIGURATION, new ClickCounterConfigurationEvent($domain, $config)
         )->getConfig();
@@ -136,7 +136,7 @@ class ClickCounterConfig implements ClickCounterConfigInterface
     protected function getString($code, $locale)
     {
         $v = $this->content->buildEntry('String', $code, $locale)->value;
-        return strip_tags($this->parsedown->text($v), '<strong><em><a>');
+        return strip_tags($this->parsedown->text($v), '<a><em><strong><code>');
     }
 
     /**

@@ -28,6 +28,11 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'dot
                 templateUrl: '/template/shop/configure.html',
                 controller: 'ConfigureController'
             })
+            .state('configure4life', {
+                url: '/:locale/shop/configure4life/:domain',
+                templateUrl: '/template/shop/configure4life.html',
+                controller: 'Configure4lifeController'
+            })
             .state('checkout', {
                 url: '/:locale/shop/checkout/:domain',
                 templateUrl: '/template/shop/checkout.html',

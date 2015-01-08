@@ -1,9 +1,47 @@
 article.shop {
   section.checkout {
+    h3 {
+      font-size: @font-size-h2;
+    }
+    div.summary {
+      background-color: fadeout(@text-color, 95%);
+      padding: 0.5em 1em;
+    }
     table.summary {
+      margin: 0;
+      border: 0;
+      color: @color-pink;
+      font-size: @font-size-h2;
+      strong {
+        font-weight: @font-weight-regular;
+      }
+      p, ul {
+        font-size: @font-size-base;
+        color: @text-color;
+      }
+      ul {
+        padding: 0;
+      }
+      li {
+        background: url(../images/list-tick.svg) no-repeat left 5px;
+        list-style: none;
+        padding: 0.25em 0 0.25em 30px;
+      }
+      tr {
+        background-color: transparent;
+      }
       td, th {
+        border: 0;
+        background-color: transparent;
         &.price {
           text-align: right;
+          white-space: nowrap;
+        }
+      }
+      tfoot {
+        tr {
+          border-top: 1px solid @color-pink;
+          font-weight: @font-weight-bold;
         }
       }
     }
@@ -17,20 +55,25 @@ article.shop {
         div.field {
           .make-sm-column(12);
         }
-        label {
-          .make-xs-column(4);
+        .radio-option {
+          @media (min-width: @screen-md-min) {
+            .make-xs-column(4);
+          }
         }
       }
     }
   }
   form.checkout, section.checkout {
     nav {
-      margin-top: 2em;
+      margin-top: 1em;
       button {
         .pull-right;
       }
       button + button {
         margin-right: 0.5em;
+      }
+      a {
+        cursor: pointer;
       }
     }
   }

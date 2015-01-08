@@ -6,12 +6,15 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
         $scope.loading = false;
         $scope.lookup = null;
         $scope.domain = $stateParams.domain;
+        OrderModel.setDomain($stateParams.domain);
         $scope.secondLevel = $stateParams.domain.split('.hiv').join('');
         $scope.price = Price.getFormattedPricePerYear($scope.domain);
         $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
 
+
         var lookupDomain = function (domain) {
             $scope.loading = true;
+            $scope.showLookupForm = false;
             $http.get('/api/shop/lookup?q=' + idn.toASCII(domain))
                 .success(function (data) {
                     OrderModel.available = false;
@@ -23,21 +26,23 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
                         // } else if (data.trademark) {
                     } else { // if(data.registered) {
                         $scope.lookup = "registered";
-                        var alternatives = [
-                            $scope.secondLevel + '4life.hiv',
-                            $scope.secondLevel + 'supports.hiv',
-                            $scope.secondLevel + 'fightsaids.hiv',
-                            $scope.secondLevel + 'fights.hiv',
-                            'click' + $scope.secondLevel + '.hiv'
-                        ];
+                        var alternatives = [];
                         if ($stateParams.locale == 'de') {
-                            alternatives.push($scope.secondLevel + 'unterstützt.hiv');
+                            alternatives.push($scope.secondLevel + '-gegen-aids.hiv');
+                            alternatives.push($scope.secondLevel + '-sozial.hiv');
+                            alternatives.push($scope.secondLevel + '-macht-mit.hiv');
+                        } else {
+                            alternatives.push($scope.secondLevel + 'supports.hiv');
+                            alternatives.push($scope.secondLevel + 'fortheendofaids.hiv');
+                            alternatives.push($scope.secondLevel + 'forhope.hiv');
                         }
                         $scope.alternatives = alternatives;
                     }
+                    $scope.showLookupForm = true;
                 })
                 .error(function (response, code, headers, request) {
                     $scope.loading = false;
+                    $scope.showLookupForm = true;
                 })
             ;
         };
@@ -55,6 +60,10 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
                     }
                 })
             ;
+        };
+
+        $scope.lookupDomain = function (domain) {
+            $state.transitionTo('lookup', {"locale": $stateParams.locale, "domain": domain});
         };
 
         // Init

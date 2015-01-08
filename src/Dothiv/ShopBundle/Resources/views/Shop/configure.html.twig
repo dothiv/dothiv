@@ -13,16 +13,25 @@
                     {{ child.text|default("")|markdown }}
                 </div>
                 {% if child.code ends with "engagement" %}
-                    <div class="field">
+                    <div class="field radio-field">
                         {% for option in child.children %}
-                            <label>
-                                <input type="radio" name="clickcounter" value="{% if loop.first %}1{% else %}0{% endif %}" data-ng-model="order.clickcounter" required>
-                                {{ option.title }}
-                            </label>
-                            {{ option.text|default("")|markdown }}
+                            <div class="radio-option">
+                                {% image '@DothivShopBundle/Resources/public/images/checkbox-unchecked.svg' %}
+                                <img src="{{ asset(asset_url) }}" alt="" width="25" height="25" class="radio" data-ng-show="order.clickcounter == {% if loop.first %}0{% else %}1{% endif %}" data-ng-click="order.clickcounter = {% if loop.first %}1{% else %}0{% endif %}">
+                                {% endimage %}
+                                {% image '@DothivShopBundle/Resources/public/images/checkbox-checked.svg' %}
+                                <img src="{{ asset(asset_url) }}" alt="" width="25" height="25" class="radio" data-ng-show="order.clickcounter == {% if loop.first %}1{% else %}0{% endif %}">
+                                {% endimage %}
+                                <div class="infolabel">
+                                    <label>
+                                        <input type="radio" name="clickcounter" value="{% if loop.first %}1{% else %}0{% endif %}" data-ng-model="order.clickcounter" required>
+                                        {{ option.title }}
+                                    </label>
+                                    {{ option.text|default("")|markdown }}
+                                </div>
+                            </div>
                         {% endfor %}
                     </div>
-                    <div class="valid"></div>
                 {% elseif child.code ends with "redirect" %}
                     <div class="field">
                         <label for="redirect">

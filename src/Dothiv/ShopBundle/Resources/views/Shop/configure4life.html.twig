@@ -1,0 +1,105 @@
+<script type="text/ng-template" id="/template/shop/{{ code }}.html">
+    <section class="{{ code }}">
+        <div class="block">
+            <h2>{{ block.title }}</h2>
+            {{ block.text|default("")|markdown }}
+        </div>
+    </section>
+    <form method="post" action="" novalidate name="{{ code }}Form" class="{{ code }}">
+        {% for child in block.children %}
+            {% if ".extra." not in child.code %}
+                <fieldset>
+                    {% if child.title is defined %}
+                        <legend>{{ child.title }}</legend>
+                    {% endif %}
+                    {% if child.code ends with "gift" %}
+                        <div class="field">
+                            <label> <input type="checkbox" name="gift" value="1" data-ng-model="order.gift">
+                                {{ child.text|default("") }}
+                            </label>
+                        </div>
+                        <div class="field">
+                            <label for="presenteeFirstname">
+                                {{ child.children[0].title }}
+                            </label>
+
+                            <div class="input">
+                                <input type="text" name="presenteeFirstname" id="presenteeFirstname" data-ng-model="order.presentee.firstname" data-ng-required="order.gift" data-ng-disabled="!order.gift" max="255">
+                                <i class="valid" data-ng-show="!{{ code }}Form.presenteeFirstname.$pristine && {{ code }}Form.presenteeFirstname.$valid"></i>
+                                <i class="invalid" data-ng-show="!{{ code }}Form.presenteeFirstname.$pristine && !{{ code }}Form.presenteeFirstname.$valid"></i>
+                                <i class="required" data-ng-show="order.gift && {{ code }}Form.presenteeFirstname.$pristine"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="presenteeLastname">
+                                {{ child.children[1].title }}
+                            </label>
+
+                            <div class="input">
+                                <input type="text" name="presenteeLastname" id="presenteeLastname" data-ng-model="order.presentee.lastname" data-ng-required="order.gift" data-ng-disabled="!order.gift" max="255">
+                                <i class="valid" data-ng-show="!{{ code }}Form.presenteeLastname.$pristine && {{ code }}Form.presenteeLastname.$valid"></i>
+                                <i class="invalid" data-ng-show="!{{ code }}Form.presenteeLastname.$pristine && !{{ code }}Form.presenteeLastname.$valid"></i>
+                                <i class="required" data-ng-show="order.gift && {{ code }}Form.presenteeLastname.$pristine"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="presenteeEmail">
+                                {{ child.children[2].title }}
+                            </label>
+
+                            <div class="input">
+                                <input type="email" name="presenteeEmail" id="presenteeEmail" data-ng-model="order.presentee.email" data-ng-required="order.gift" data-ng-disabled="!order.gift" max="255">
+                                <i class="valid" data-ng-show="!{{ code }}Form.presenteeEmail.$pristine && {{ code }}Form.presenteeEmail.$valid"></i>
+                                <i class="invalid" data-ng-show="!{{ code }}Form.presenteeEmail.$pristine && !{{ code }}Form.presenteeEmail.$valid"></i>
+                                <i class="required" data-ng-show="order.gift && {{ code }}Form.presenteeEmail.$pristine"></i>
+                            </div>
+                        </div>
+                    {% elseif child.code ends with "language" %}
+                        <div class="intro">
+                            {{ child.text|default("")|markdown }}
+                        </div>
+                        <div class="field radio-field">
+                            {% for lang in child.strings %}
+                                <div class="radio-option">
+                                    {% image '@DothivShopBundle/Resources/public/images/checkbox-unchecked.svg' %}
+                                    <img src="{{ asset(asset_url) }}" alt="" width="25" height="25" class="radio" data-ng-show="order.language != '{{ lang.code }}'" data-ng-click="order.language = '{{ lang.code }}'">
+                                    {% endimage %}
+                                    {% image '@DothivShopBundle/Resources/public/images/checkbox-checked.svg' %}
+                                    <img src="{{ asset(asset_url) }}" alt="" width="25" height="25" class="radio" data-ng-show="order.language == '{{ lang.code }}'">
+                                    {% endimage %}
+                                    <label>
+                                        <input type="radio" name="language" value="{{ lang.code }}" data-ng-model="order.language" required>
+                                        {{ lang.value }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="intro">
+                            {{ child.text|default("")|markdown }}
+                        </div>
+                    {% endif %}
+                </fieldset>
+            {% endif %}
+        {% endfor %}
+
+        {% for button in block.strings|default([]) %}
+            {% if loop.first %}<nav>{% endif %}
+            <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="{{ code }}Form.$invalid" data-ng-click="submit()">
+                {{ button.value }}
+            </button>
+            {% if loop.last %}</nav>{% endif %}
+        {% endfor %}
+    </form>{% for child in block.children %}
+        {% if ".extra." in child.code %}
+            <section class="{{ code }}">
+                <div class="block">
+                    {% if child.title is defined %}
+                        <h3>{{ child.title }}</h3>
+                    {% endif %}
+                    {{ child.text|default("")|markdown }}
+                </div>
+            </section>
+        {% endif %}
+    {% endfor %}
+</script>

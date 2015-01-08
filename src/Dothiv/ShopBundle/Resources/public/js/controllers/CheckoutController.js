@@ -6,6 +6,7 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
         if (OrderModel.isDone() || !OrderModel.isConfigured()) {
             $state.transitionTo('lookupform', {"locale": $stateParams.locale});
         }
+        OrderModel.step = 3;
         OrderModel.currency = Price.currency.toUpperCase();
         $scope.order = OrderModel;
         $scope.contact = OrderModel.contact;
@@ -83,8 +84,15 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
             $scope.step = 'review';
             $location.hash('review');
             $anchorScroll();
+            OrderModel.step = 4;
         };
 
+        $scope.edit = function () {
+            $scope.step = 'edit';
+            $location.hash('edit');
+            $anchorScroll();
+            OrderModel.step = 3;
+        };
 
         // Checkout
         $scope.allChecked = function (model) {
