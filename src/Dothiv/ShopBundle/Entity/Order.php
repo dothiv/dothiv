@@ -325,7 +325,7 @@ class Order extends Entity
     }
 
     /**
-     * @param boolean $duration
+     * @param int $duration
      */
     public function setDuration($duration)
     {

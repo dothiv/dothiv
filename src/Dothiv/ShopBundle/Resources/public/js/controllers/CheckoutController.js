@@ -10,12 +10,19 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
         OrderModel.currency = Price.currency.toUpperCase();
         $scope.order = OrderModel;
         $scope.contact = OrderModel.contact;
+        $scope.countryModel = OrderModel.countryModel;
         $scope.domain = $stateParams.domain;
         $scope.price = Price.getFormattedPricePerYear($scope.domain);
         $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
         $scope.countries = [];
 
         $scope.$watch('order.duration', function (duration) {
+            updateTotals();
+        });
+        $scope.$watch('contact.organization', function () {
+            updateTotals();
+        });
+        $scope.$watch('contact.country', function () {
             updateTotals();
         });
         $scope.$watch('contact.vat', function () {
@@ -38,6 +45,7 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
 
         $scope.selectCountry = function (country) {
             OrderModel.countryModel = country;
+            $scope.countryModel = country;
         };
 
         $scope.blurCountry = function () {
@@ -45,9 +53,11 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
             if (country != null) {
                 $scope.contact.country = country.name;
                 OrderModel.countryModel = country;
+                $scope.countryModel = country;
             } else {
                 $scope.contact.country = null;
                 OrderModel.countryModel = null;
+                $scope.countryModel = null;
             }
         };
 

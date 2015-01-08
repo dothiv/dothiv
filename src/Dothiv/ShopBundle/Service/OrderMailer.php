@@ -7,6 +7,7 @@ use Dothiv\BaseWebsiteBundle\Service\MoneyFormatServiceInterface;
 use Dothiv\BusinessBundle\Entity\Invoice;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ValueObject\EmailValue;
+use Dothiv\ValueObject\IdentValue;
 use PhpOption\Option;
 
 class OrderMailer implements OrderMailerInterface
@@ -59,6 +60,8 @@ class OrderMailer implements OrderMailerInterface
             }
         }
 
+        $symbol = $invoice->getCurrency()->equals(new IdentValue(Invoice::CURRENCY_USD)) ? '$' : '€';
+
         $data = array(
             'firstname' => $order->getFirstname(),
             'lastname'  => $order->getLastname(),
@@ -73,10 +76,10 @@ class OrderMailer implements OrderMailerInterface
                 'country'          => $invoice->getCountry(),
                 'vatNo'            => $invoice->getVatNo(),
                 'item_description' => $invoice->getItemDescription(),
-                'item_price'       => $this->moneyFormat->format($invoice->getItemPrice() / 100, $locale),
+                'item_price'       => $this->moneyFormat->format($invoice->getItemPrice() / 100, $locale, $symbol),
                 'vat_percent'      => $invoice->getVatPercent(),
-                'vat_price'        => $this->moneyFormat->format($invoice->getVatPrice() / 100, $locale),
-                'total_price'      => $this->moneyFormat->format($invoice->getTotalPrice() / 100, $locale)
+                'vat_price'        => $this->moneyFormat->format($invoice->getVatPrice() / 100, $locale, $symbol),
+                'total_price'      => $this->moneyFormat->format($invoice->getTotalPrice() / 100, $locale, $symbol)
             )
         );
 
