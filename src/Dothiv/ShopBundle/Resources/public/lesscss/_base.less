@@ -1,16 +1,23 @@
 // Grid
 article.shop {
-  width: 70%;
-  float: left;
+  @media (min-width: @screen-md-min) {
+    width: 70%;
+    float: left;
+  }
 }
 
 nav.shop {
-  width: 30%;
-  float: left;
+  display: none;
+  @media (min-width: @screen-md-min) {
+    display: block;
+    width: 30%;
+    float: left;
+  }
 }
 
 // Style
 article.shop {
+  margin-bottom: 2em;
   a {
     color: @color-pink;
   }

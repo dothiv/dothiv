@@ -56,7 +56,9 @@ article.shop {
           .make-sm-column(12);
         }
         .radio-option {
-          .make-xs-column(4);
+          @media (min-width: @screen-md-min) {
+            .make-xs-column(4);
+          }
         }
       }
     }
