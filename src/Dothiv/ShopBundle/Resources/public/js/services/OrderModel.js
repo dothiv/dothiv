@@ -86,13 +86,29 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
         if (this.countryModel == null) {
             return false;
         }
+        if (this.countryModel.name.search('Deutschland') > 0) {
+            // Germans always pay VAT
+            return true;
+        }
         if (!this.countryModel.eu) {
+            // Out of EU
+            // private -> vat
+            if (!this.contact.organization || this.contact.organization.length == 0) {
+                return false;
+            }
+            // organization  -> no vat
             return false;
         }
+        // In eu
         if (!this.contact.organization || this.contact.organization.length == 0) {
-            return false;
+            // Private person must pay VAT
+            return true;
         }
-        return true;
+        if (!this.contact.vat || this.contact.vat.length == 0) {
+            // In EU, no VAT number provided -> must pay VAT
+            return true;
+        }
+        return false;
     };
 
     OrderModel.prototype.flatten = function () {

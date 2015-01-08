@@ -7,6 +7,7 @@ use Dothiv\BusinessBundle\Entity\Invoice;
 use Dothiv\BusinessBundle\Repository\InvoiceRepositoryInterface;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ShopBundle\Model\CountryModel;
+use Dothiv\ValueObject\IdentValue;
 use PhpOption\Option;
 
 class InvoiceService implements InvoiceServiceInterface
@@ -55,7 +56,7 @@ class InvoiceService implements InvoiceServiceInterface
         $invoice->setVatNo($order->getVatNo()->getOrElse(null));
         $invoice->setItemPrice(
             $order->getDuration() *
-            ($order->getCurrency() == Order::CURRENCY_EUR ? $price->getNetPriceEUR() : $price->getNetPriceUSD())
+            ($order->getCurrency()->equals(new IdentValue(Order::CURRENCY_EUR)) ? $price->getNetPriceEUR() : $price->getNetPriceUSD())
         );
         $invoice->setCurrency($order->getCurrency());
         $invoice->setItemDescription(
@@ -68,14 +69,37 @@ class InvoiceService implements InvoiceServiceInterface
 
         // VAT
         $invoice->setVatPercent(0);
-        if ($order->getOrganization()->isDefined()) {
-            $countries = $this->getCountries();
-            $country   = $countries->filter(function (CountryModel $c) use ($order) {
-                return $c->name == $order->getCountry();
-            })->first();
-            if (Option::fromValue($country)->isDefined()) {
+
+        $countries = $this->getCountries();
+        $country   = $countries->filter(function (CountryModel $c) use ($order) {
+            return $c->name == $order->getCountry();
+        })->first();
+        if (Option::fromValue($country, false)->isDefined()) {
+            /** @var CountryModel $country */
+            if (strpos($country->name, 'Deutschland')) {
+                // Germans always pay VAT
                 $invoice->setVatPercent($this->deVat);
+            } elseif (!$country->eu) {
+                // Out of eu
+                if ($order->getOrganization()->isEmpty()) {
+                    // No organization (= private person), needs to pay vat
+                    $invoice->setVatPercent($this->deVat);
+                } else {
+                    // Organization, no vat
+                }
+            } else { // In eu
+                if ($order->getOrganization()->isEmpty()) {
+                    // No organization (= private person), needs to pay vat
+                    $invoice->setVatPercent($this->deVat);
+                } else {
+                    // Org
+                    if ($order->getVatNo()->isEmpty()) {
+                        // no VATNo provided, needs to pay vat
+                        $invoice->setVatPercent($this->deVat);
+                    }
+                }
             }
+
         }
         $invoice->setVatPrice((int)round($invoice->getItemPrice() * $invoice->getVatPercent() / 100, 0));
         $invoice->setTotalPrice($invoice->getVatPrice() + $invoice->getItemPrice());
