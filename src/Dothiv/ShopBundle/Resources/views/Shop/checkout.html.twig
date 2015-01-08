@@ -139,7 +139,7 @@
                             {{ checkout.renderField("contact", code ~ "ContactForm", form, "city", {"required": true}) }}
                             {{ checkout.renderField("contact", code ~ "ContactForm", form, "country", {"required": true, "typeahead": "country.name for country in countries | filter:$viewValue | limitTo:3", "typeaheadOnSelect": "selectCountry($item);", "autocomplete": "0", "blur": "blurCountry()"}) }}
                             {{ checkout.renderField("contact", code ~ "ContactForm", form, "organization") }}
-                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "vat", {"pattern": "^[A-Z0-9]{2}[0-9]{8,12}$", "disabled": "!vatIncluded()", "ngRequired": "vatIncluded()"}) }}
+                            {{ checkout.renderField("contact", code ~ "ContactForm", form, "vat", {"pattern": "^[A-Z0-9]{2}[0-9]{8,12}$", "disabled": "!(countryModel.eu && contact.organization)"}) }}
                         </fieldset>
                         {% for button in detailChild.strings|default([]) %}
                             {% if loop.first %}<nav>{% endif %}
