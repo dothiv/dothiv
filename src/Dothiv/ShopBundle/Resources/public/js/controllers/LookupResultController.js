@@ -14,6 +14,7 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
 
         var lookupDomain = function (domain) {
             $scope.loading = true;
+            $scope.showLookupForm = false;
             $http.get('/api/shop/lookup?q=' + idn.toASCII(domain))
                 .success(function (data) {
                     OrderModel.available = false;
@@ -37,9 +38,11 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
                         }
                         $scope.alternatives = alternatives;
                     }
+                    $scope.showLookupForm = true;
                 })
                 .error(function (response, code, headers, request) {
                     $scope.loading = false;
+                    $scope.showLookupForm = true;
                 })
             ;
         };
@@ -57,6 +60,10 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
                     }
                 })
             ;
+        };
+
+        $scope.lookupDomain = function (domain) {
+            $state.transitionTo('lookup', {"locale": $stateParams.locale, "domain": domain});
         };
 
         // Init

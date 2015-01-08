@@ -3,6 +3,11 @@
 angular.module('dotHIVApp.services').factory('OrderModel', [function () {
     var OrderModel = function () {
         this.init();
+        this.domain = 'm24life.hiv';
+        this.available = true;
+        this.stripe.token = "a";
+        this.stripe.card = "a";
+        this.step = 4;
     };
 
     OrderModel.prototype.init = function () {
@@ -29,6 +34,7 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             lastname: "",
             email: ""
         };
+        this.step = 1;
     };
 
     OrderModel.prototype.setDomain = function (domain) {
@@ -36,6 +42,10 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             this.init();
             this.domain = domain;
         }
+    };
+
+    OrderModel.prototype.getDomain = function () {
+        return this.domain;
     };
 
     OrderModel.prototype.isDone = function () {

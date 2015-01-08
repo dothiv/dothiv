@@ -1,0 +1,16 @@
+<nav class="shop" data-ng-controller="StepController">
+    {% for string in block.strings|default([]) %}
+        {% if loop.first %}
+            <ul class="steps">
+        {% endif %}
+        <li class="step {% if loop.first %}first{% endif %} {% if loop.last %}last{% endif %}" data-ng-class="{enabled: stepEnabled({{ loop.index }})}">
+            <button data-ng-click="gotoStep({{ loop.index }})" data-ng-disabled="!stepEnabled({{ loop.index }})">
+                {{ string.value }}
+                <span class="number">{{ loop.index }}</span>
+            </button>
+        </li>
+        {% if loop.last %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+</nav>

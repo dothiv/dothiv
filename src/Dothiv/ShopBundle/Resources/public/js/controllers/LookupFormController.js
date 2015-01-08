@@ -8,7 +8,6 @@ angular.module('dotHIVApp.controllers').controller('LookupFormController', ['$sc
     $scope.promoPrice = Price.getFormattedPricePerYear('name4life.hiv');
     $scope.promoPricePerMonth = Price.getFormattedPricePerMonth('name4life.hiv');
 
-
     $scope.$watch('secondLevelName', function (domain) {
         if (typeof domain == "undefined") {
             $scope.domain = "";
@@ -18,8 +17,8 @@ angular.module('dotHIVApp.controllers').controller('LookupFormController', ['$sc
         }
     });
 
-    $scope.lookupDomain = function () {
-        $state.transitionTo('lookup', {"locale": $stateParams.locale, "domain": $scope.domain});
+    $scope.lookupDomain = function (domain) {
+        $state.transitionTo('lookup', {"locale": $stateParams.locale, "domain": domain});
     };
 
     $('#secondLevelName').focus();
