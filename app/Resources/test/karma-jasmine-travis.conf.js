@@ -24,7 +24,11 @@ module.exports = function (config) {
             'src/Dothiv/CharityWebsiteBundle/Resources/test/unit/**/*.js',
             // RegistryWebsiteBundle
             'src/Dothiv/RegistryWebsiteBundle/Resources/public/js/controllers/**/*.js',
-            'src/Dothiv/RegistryWebsiteBundle/Resources/test/unit/**/*.js'
+            'src/Dothiv/RegistryWebsiteBundle/Resources/test/unit/**/*.js',
+            // ShopBundle
+            'src/Dothiv/ShopBundle/Resources/public/js/controllers/**/*.js',
+            'src/Dothiv/ShopBundle/Resources/public/js/services/**/*.js',
+            'src/Dothiv/ShopBundle/Resources/test/unit/**/*.js'
         ],
         exclude: [],
         reporters: ['dots', 'junit'],

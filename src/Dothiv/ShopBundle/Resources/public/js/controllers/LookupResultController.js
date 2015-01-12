@@ -23,18 +23,28 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
                         OrderModel.available = true;
                     } else if (data.premium) {
                         $scope.lookup = "premium";
-                        // } else if (data.trademark) {
+                    } else if (data.trademark) {
+                        $scope.lookup = "trademark";
                     } else { // if(data.registered) {
                         $scope.lookup = "registered";
                         var alternatives = [];
-                        if ($stateParams.locale == 'de') {
-                            alternatives.push($scope.secondLevel + '-gegen-aids.hiv');
-                            alternatives.push($scope.secondLevel + '-sozial.hiv');
-                            alternatives.push($scope.secondLevel + '-macht-mit.hiv');
+                        var secondlevel = $scope.secondLevel.replace(/4life$/, '');
+                        if (secondlevel !== $scope.secondLevel) {
+                            alternatives.push(secondlevel + 'is4life.hiv');
+                            alternatives.push(secondlevel + '14life.hiv'); // Increase counter, maybe.
+                            alternatives.push(secondlevel + 'fight4life.hiv');
+                            alternatives.push(secondlevel + 'supports4life.hiv');
+                            alternatives.push(secondlevel + 'hopes4life.hiv');
                         } else {
-                            alternatives.push($scope.secondLevel + 'supports.hiv');
-                            alternatives.push($scope.secondLevel + 'fortheendofaids.hiv');
-                            alternatives.push($scope.secondLevel + 'forhope.hiv');
+                            if ($stateParams.locale == 'de') {
+                                alternatives.push(secondlevel + '-gegen-aids.hiv');
+                                alternatives.push(secondlevel + '-sozial.hiv');
+                                alternatives.push(secondlevel + '-macht-mit.hiv');
+                            } else {
+                                alternatives.push(secondlevel + 'supports.hiv');
+                                alternatives.push(secondlevel + 'fortheendofaids.hiv');
+                                alternatives.push(secondlevel + 'forhope.hiv');
+                            }
                         }
                         $scope.alternatives = alternatives;
                     }

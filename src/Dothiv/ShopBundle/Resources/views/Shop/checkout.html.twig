@@ -96,7 +96,7 @@
                         </tfoot>
                         <tbody>
                     {% endif %}
-                    <tr>
+                    <tr class="{{ summaryChild.code|replace({'shop.contact.summary.': ''}) }}">
                         <td>
                             <strong>{{ summaryChild.title }}</strong>
                             {{ summaryChild.text|default("")|markdown }}

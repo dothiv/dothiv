@@ -2,9 +2,11 @@
 
 namespace Dothiv\ShopBundle\Command;
 
+use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\Invoice;
+use Dothiv\BusinessBundle\Event\DomainEvent;
 use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\RegistrarRepositoryInterface;
@@ -22,6 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ChargeOrdersCommand extends ContainerAwareCommand
 {
@@ -52,6 +55,8 @@ class ChargeOrdersCommand extends ContainerAwareCommand
         $mailer = $this->getContainer()->get('dothiv.shop.mailer.order');
         /** @var UserServiceInterface $userService */
         $userService = $this->getContainer()->get('dothiv.businessbundle.service.user');
+        /** @var EventDispatcherInterface $eventDispatcher */
+        $eventDispatcher = $this->getContainer()->get('dothiv.business.event_dispatcher');
 
         \Stripe::setApiKey($this->getContainer()->getParameter('stripe_secret_key'));
 
@@ -99,6 +104,9 @@ class ChargeOrdersCommand extends ContainerAwareCommand
             $domainConfigNotification->setDomain($domain);
             $domainConfigNotificationRepo->persist($domainConfigNotification)->flush();
 
+            // Notify listeners
+            $eventDispatcher->dispatch(BusinessEvents::DOMAIN_REGISTERED, new DomainEvent($domain));
+
             $output->writeln(
                 sprintf('Processed order for %s by %s.', $order->getDomain()->toUTF8(), $order->getEmail())
             );
@@ -115,6 +123,7 @@ class ChargeOrdersCommand extends ContainerAwareCommand
         $table = new TableHelper();
         $table->setHeaders(array('Name', 'Value'));
         $table->addRow(array('Domain', $order->getDomain()->toUTF8()));
+        $table->addRow(array('Duration', $order->getDuration()));
         $table->addRow(array('Price', ($invoice->getTotalPrice() / 100) . ' ' . ($order->getCurrency() == Order::CURRENCY_EUR ? '€' : '$')));
         $table->addRow(array('Name', $order->getFirstname() . ' ' . $order->getLastname()));
         $table->addRow(array('Email', $order->getEmail()));
