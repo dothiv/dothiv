@@ -72,9 +72,12 @@ describe('LookupResultController', function () {
         $httpBackend.flush();
         expect(scope.lookup).toMatch("registered");
         expect(scope.alternatives).toMatch([
+            'twistyis4life.hiv',
+            'twisty14life.hiv',
+            'twistyfight4life.hiv',
             'twistysupports.hiv',
             'twistyfortheendofaids.hiv',
-            'twistyforhope.hiv',
+            'twistyforhope.hiv'
         ]);
     }));
 });
