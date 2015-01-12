@@ -93,7 +93,7 @@
     </form>{% for child in block.children %}
         {% if ".extra." in child.code %}
             <section class="{{ code }}">
-                <div class="block">
+                <div class="block links-internal">
                     {% if child.title is defined %}
                         <h3>{{ child.title }}</h3>
                     {% endif %}
