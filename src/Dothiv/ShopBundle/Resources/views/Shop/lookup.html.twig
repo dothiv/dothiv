@@ -52,13 +52,13 @@
         {% for child in block.children %}
             {% set class = child.code|replace({"shop.lookup.": ""}) %}
             <div data-ng-show="lookup == '{{ class }}'" class="lookupResult {{ class }}">
-                <div class="text">
+                <div class="text links-external">
                     <h3>
                         {% if child.code ends with "available" %}
                             {% image '@DothivShopBundle/Resources/public/images/grey-tick.svg' %}
                             <img src="{{ asset(asset_url) }}" alt="" width="50" height="50">
                             {% endimage %}
-                        {% elseif child.code ends with "registered" %}
+                        {% elseif child.code ends with "registered" or child.code ends with "trademark" %}
                             {% image '@DothivShopBundle/Resources/public/images/grey-cross.svg' %}
                             <img src="{{ asset(asset_url) }}" alt="" width="50" height="50">
                             {% endimage %}
