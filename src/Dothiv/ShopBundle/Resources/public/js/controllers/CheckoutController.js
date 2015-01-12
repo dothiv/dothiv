@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('dotHIVApp.controllers').controller('CheckoutController', [
-    '$rootScope', '$scope', 'OrderModel', 'config', 'Price', '$http', '$state', '$stateParams', 'idn', '$location', '$anchorScroll',
-    function ($rootScope, $scope, OrderModel, config, Price, $http, $state, $stateParams, idn, $location, $anchorScroll) {
+    '$rootScope', '$scope', 'OrderModel', 'config', 'Price', '$http', '$state', '$stateParams', 'idn', '$location', '$anchorScroll', '$window',
+    function ($rootScope, $scope, OrderModel, config, Price, $http, $state, $stateParams, idn, $location, $anchorScroll, $window) {
         if (OrderModel.isDone() || !OrderModel.isConfigured()) {
             $state.transitionTo('lookupform', {"locale": $stateParams.locale});
         }
@@ -16,16 +16,37 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
         $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
         $scope.countries = [];
 
-        $scope.$watch('order.duration', function (duration) {
+        var inital = true;
+
+        $scope.$watch('order.duration', function (duration, oldDuration) {
+            if (duration === oldDuration) {
+                return;
+            }
+            updateTotals();
+            var tr = $('table.summary tr.duration');
+            if (!tr.hasClass('hot')) {
+                tr.addClass('hot');
+                $window.setTimeout(function () {
+                    $('table.summary tr.duration').removeClass('hot');
+                }, 200);
+            }
+        });
+        $scope.$watch('contact.organization', function (newValue, oldValue) {
+            if (newValue === oldValue) {
+                return;
+            }
             updateTotals();
         });
-        $scope.$watch('contact.organization', function () {
+        $scope.$watch('contact.country', function (newValue, oldValue) {
+            if (newValue === oldValue) {
+                return;
+            }
             updateTotals();
         });
-        $scope.$watch('contact.country', function () {
-            updateTotals();
-        });
-        $scope.$watch('contact.vat', function () {
+        $scope.$watch('contact.vat', function (newValue, oldValue) {
+            if (newValue === oldValue) {
+                return;
+            }
             updateTotals();
         });
 

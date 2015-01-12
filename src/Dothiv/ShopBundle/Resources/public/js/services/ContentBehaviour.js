@@ -11,6 +11,15 @@ angular.module('dotHIVApp.services').factory('ContentBehaviour', ['config', '$wi
                     return href.match('^(http|\/\/)') ? true : false;
                 }).attr('target', '_blank');
 
+                // Open internal links in same window (break angular)
+                $('.links-internal a').filter(function (index, a) {
+                    var href = $(a).attr('href');
+                    if (!href) {
+                        return false;
+                    }
+                    return href.match('^(http|\/\/)') ? false : true;
+                }).attr('target', '_self');
+
                 // Open links below a .links-external in new window
                 $('.links-external a').filter(function (index, a) {
                     var href = $(a).attr('href');
