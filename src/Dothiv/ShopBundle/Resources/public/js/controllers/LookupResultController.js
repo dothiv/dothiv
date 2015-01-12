@@ -23,7 +23,8 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
                         OrderModel.available = true;
                     } else if (data.premium) {
                         $scope.lookup = "premium";
-                        // } else if (data.trademark) {
+                    } else if (data.trademark) {
+                        $scope.lookup = "trademark";
                     } else { // if(data.registered) {
                         $scope.lookup = "registered";
                         var alternatives = [];
