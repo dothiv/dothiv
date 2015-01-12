@@ -67,17 +67,17 @@ describe('LookupResultController', function () {
         expect(scope.lookup).toMatch("registered");
     }));
 
-    it('suggestions should not contain 4life', inject(function () {
+    it('suggestions should contain 4life', inject(function () {
         $httpBackend.expectGET('/api/shop/lookup?q=twisty4life.hiv');
         $httpBackend.flush();
         expect(scope.lookup).toMatch("registered");
+
         expect(scope.alternatives).toMatch([
             'twistyis4life.hiv',
             'twisty14life.hiv',
             'twistyfight4life.hiv',
-            'twistysupports.hiv',
-            'twistyfortheendofaids.hiv',
-            'twistyforhope.hiv'
+            'twistysupports4life.hiv',
+            'twistyhopes4life.hiv'
         ]);
     }));
 });
