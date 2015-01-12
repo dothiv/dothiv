@@ -27,14 +27,15 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
                     } else { // if(data.registered) {
                         $scope.lookup = "registered";
                         var alternatives = [];
+                        var secondlevel = $scope.secondLevel.replace(/4life$/, '');
                         if ($stateParams.locale == 'de') {
-                            alternatives.push($scope.secondLevel + '-gegen-aids.hiv');
-                            alternatives.push($scope.secondLevel + '-sozial.hiv');
-                            alternatives.push($scope.secondLevel + '-macht-mit.hiv');
+                            alternatives.push(secondlevel + '-gegen-aids.hiv');
+                            alternatives.push(secondlevel + '-sozial.hiv');
+                            alternatives.push(secondlevel + '-macht-mit.hiv');
                         } else {
-                            alternatives.push($scope.secondLevel + 'supports.hiv');
-                            alternatives.push($scope.secondLevel + 'fortheendofaids.hiv');
-                            alternatives.push($scope.secondLevel + 'forhope.hiv');
+                            alternatives.push(secondlevel + 'supports.hiv');
+                            alternatives.push(secondlevel + 'fortheendofaids.hiv');
+                            alternatives.push(secondlevel + 'forhope.hiv');
                         }
                         $scope.alternatives = alternatives;
                     }
