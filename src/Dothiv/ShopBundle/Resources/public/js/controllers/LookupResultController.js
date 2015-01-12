@@ -28,6 +28,11 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
                         $scope.lookup = "registered";
                         var alternatives = [];
                         var secondlevel = $scope.secondLevel.replace(/4life$/, '');
+                        if (secondlevel !== $scope.secondLevel) {
+                            alternatives.push(secondlevel + 'is4life.hiv');
+                            alternatives.push(secondlevel + '14life.hiv');
+                            alternatives.push(secondlevel + 'fight4life.hiv');
+                        }
                         if ($stateParams.locale == 'de') {
                             alternatives.push(secondlevel + '-gegen-aids.hiv');
                             alternatives.push(secondlevel + '-sozial.hiv');
