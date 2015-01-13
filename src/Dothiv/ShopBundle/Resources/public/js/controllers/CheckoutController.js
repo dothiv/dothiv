@@ -59,6 +59,7 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
             var vatTotal = OrderModel.vatIncluded() ? Price.calculateVat(itemTotal) : 0;
             var total = itemTotal + vatTotal;
             $scope.vatTotal = Price.format(vatTotal / 100);
+            $scope.vatPercent = OrderModel.vatIncluded() ? Price.getVat() + "%" : null;
             $scope.itemTotal = Price.format(itemTotal / 100);
             $scope.total = Price.format(total / 100);
             return total;

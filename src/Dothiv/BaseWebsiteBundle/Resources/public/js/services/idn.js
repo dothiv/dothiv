@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Service for converting IDN domains to ASCII.
+ * Service for converting IDN domains to ASCII (and vice versa).
  */
 angular.module('dotHIVApp.services').factory('idn', [function () {
     function _toASCII(domain) {
@@ -14,7 +14,16 @@ angular.module('dotHIVApp.services').factory('idn', [function () {
         return "xn--" + encoded + ".hiv";
     }
 
+    function _toUnicode(domain) {
+        if (domain.substr(0, 4) !== "xn--") {
+            // Not a punycode domain
+            return domain;
+        }
+        return punycode.decode(domain.substr(4).replace(/\.hiv$/, '')) + ".hiv";
+    }
+
     return {
-        toASCII: _toASCII
+        toASCII: _toASCII,
+        toUnicode: _toUnicode
     }
 }]);
