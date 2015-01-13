@@ -13,7 +13,7 @@
             <fieldset class="lookupDomain">
                 <div class="field hivdomain">
                     <div class="border">
-                        <input type="text" name="secondLevelName" id="secondLevelName" required data-ng-pattern="/^[{{ allowed_chars_no_dash }}][-{{ allowed_chars_no_dash }}]{1,61}[{{ allowed_chars_no_dash }}]$/" data-ng-model="secondLevelName">
+                        <input type="text" name="secondLevelName" id="secondLevelName" required data-ng-pattern="/^[{{ allowed_chars_no_dash }}][-{{ allowed_chars_no_dash }}]{1,61}[{{ allowed_chars_no_dash }}]$/i" data-ng-model="secondLevelName">
                         <span>.hiv</span>
                     </div>
                 </div>
