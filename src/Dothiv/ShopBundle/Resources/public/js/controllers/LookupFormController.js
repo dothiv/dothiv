@@ -8,18 +8,23 @@ angular.module('dotHIVApp.controllers').controller('LookupFormController', ['$sc
     $scope.promoPrice = Price.getFormattedPricePerYear('name4life.hiv');
     $scope.promoPricePerMonth = Price.getFormattedPricePerMonth('name4life.hiv');
 
-    $scope.$watch('secondLevelName', function (domain) {
-        if (typeof domain == "undefined") {
+    $scope.$watch('secondLevelName', function (secondLevelName, oldSecondLevelName) {
+        if (secondLevelName === oldSecondLevelName) {
+            return;
+        }
+        if (typeof secondLevelName == "undefined") {
             $scope.domain = "";
         } else {
-            $scope.domain = domain + ".hiv";
+            $scope.domain = secondLevelName.toLowerCase() + ".hiv";
             $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
         }
     });
 
     $scope.lookupDomain = function (domain) {
-        $state.transitionTo('lookup', {"locale": $stateParams.locale, "domain": domain});
+        $state.transitionTo('lookup', {"locale": $stateParams.locale, "domain": domain.toLowerCase()});
     };
 
-    $('#secondLevelName').focus();
+    if (typeof $ !== "undefined") {
+        $('#secondLevelName').focus();
+    }
 }]);

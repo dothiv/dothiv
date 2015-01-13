@@ -59,9 +59,9 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
 
         // 4lifepromo
         $scope.promoAvailable = false;
-        $scope.promoDomain = $scope.secondLevel + "4life.hiv";
+        $scope.promoDomain = $scope.secondLevel.toLowerCase() + "4life.hiv";
         var lookupPromoDomain = function (domain) {
-            $http.get('/api/shop/lookup?q=' + idn.toASCII(domain))
+            $http.get('/api/shop/lookup?q=' + idn.toASCII(domain.toLowerCase()))
                 .success(function (data) {
                     if (data.available) {
                         $scope.promoAvailable = true;
@@ -73,7 +73,7 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
         };
 
         $scope.lookupDomain = function (domain) {
-            $state.transitionTo('lookup', {"locale": $stateParams.locale, "domain": domain});
+            $state.transitionTo('lookup', {"locale": $stateParams.locale, "domain": domain.toLowerCase()});
         };
 
         // Init
