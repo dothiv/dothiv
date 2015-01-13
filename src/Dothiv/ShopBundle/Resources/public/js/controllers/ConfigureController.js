@@ -13,6 +13,14 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController', ['$sco
     $scope.order = OrderModel;
     $scope.domain = $stateParams.domain;
     $scope.redirectExample = "http://www." + $scope.domain.split(".hiv").join("") + ".com/";
+
+    $scope.updateRedirectUrl = function () {
+        var input = $scope.order.redirect;
+        if (!input.match(/^https?:/)) {
+            $scope.order.redirect = 'http://' + input;
+        }
+    };
+
     $scope.submit = function () {
         $state.transitionTo('checkout', {"locale": $stateParams.locale, "domain": $scope.domain})
         $location.hash('shop');

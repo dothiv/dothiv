@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('AccountProfileDomainController', ['$scope', '$rootScope', '$state', '$timeout', 'dothivUserResource', 'User',
-    function ($scope, $rootScope, $state, $timeout, dothivUserResource, User) {
+angular.module('dotHIVApp.controllers').controller('AccountProfileDomainController', ['$scope', '$rootScope', '$state', '$timeout', 'dothivUserResource', 'User', 'idn',
+    function ($scope, $rootScope, $state, $timeout, dothivUserResource, User, idn) {
 
         // get personal list of domains from server
         $scope.domains = null;
@@ -21,6 +21,10 @@ angular.module('dotHIVApp.controllers').controller('AccountProfileDomainControll
         // switch to editor choice page for this domain
         $scope.edit = function (domain) {
             $state.transitionTo('profile.editors', { name: domain.name });
+        };
+
+        $scope.idnToUnicode = function(name) {
+            return idn.toUnicode(name);
         };
     }
 ]);
