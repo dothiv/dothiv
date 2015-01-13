@@ -37,6 +37,10 @@ angular.module('dotHIVApp.services').factory('Price', ['config', 'MoneyFormatter
         return Math.round(price * (this.vat / 100));
     };
 
+    Price.prototype.getVat = function () {
+        return this.vat;
+    };
+
     Price.prototype.format = function (price) {
         return this.mf.format(price, this.symbol);
     };
