@@ -169,14 +169,14 @@
                     <ul>
                         <li class="item" data-ng-repeat="domain in (domains | filter:searchText | limitTo:(searchText.name ? domains.length : pageLength))">
                             <h4>
-                                <a data-ng-href="http://{% verbatim %}{{ domain.name }}{% endverbatim %}" data-ng-bind="domain.name"></a>
+                                <a data-ng-href="http://{% verbatim %}{{ domain.name }}{% endverbatim %}" data-ng-bind="idnToUnicode(domain.name)" target="_blank"></a>
                             </h4>
 
                             <p>
                                 <span class="domain-clicks">{% trans %}domains.clicks.label{% endtrans %}</span>
                             </p>
                             <nav>
-                                <a data-ng-click="edit(domain)">{% trans %}
+                                <a data-ng-click="edit(domain)" data-ng-hide="idnToUnicode(domain.name).search('4life.hiv') > 0">{% trans %}
                                     account.profile.domains.edit{% endtrans %}</a>
                                 {% if features.domain_collaborator %}
                                 <br>
