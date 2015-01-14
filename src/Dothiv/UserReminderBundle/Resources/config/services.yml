@@ -1,0 +1,13 @@
+parameters:
+    dothiv.userreminder.registry.class: Dothiv\UserReminderBundle\Service\UserReminderRegistry
+
+services:
+    dothiv.userreminder.registry:
+        class: %dothiv.userreminder.registry.class%
+        arguments:
+        - @dothiv.business.event_dispatcher
+
+    dothiv.userreminder.sendwithus_renderer:
+        class: Dothiv\UserReminderBundle\Service\SendWithUsTemplateRenderer
+        arguments:
+        - %sendwithus_apikey%

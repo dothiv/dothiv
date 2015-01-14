@@ -8,8 +8,8 @@ use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
-use Dothiv\CharityWebsiteBundle\Entity\DomainNotification;
-use Dothiv\CharityWebsiteBundle\Repository\DomainNotificationRepositoryInterface;
+use Dothiv\UserReminderBundle\Entity\UserReminder;
+use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
 use Dothiv\CharityWebsiteBundle\Service\ClickCounterConfigurationService;
 use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
@@ -25,9 +25,9 @@ class ClickCounterConfigurationServiceTest extends \PHPUnit_Framework_TestCase
     private $mockDomainRepo;
 
     /**
-     * @var DomainNotificationRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var UserReminderRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $mockDomainNotificationRepo;
+    private $mockUserReminderRepo;
 
     /**
      * @var ContentMailerInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -60,16 +60,17 @@ class ClickCounterConfigurationServiceTest extends \PHPUnit_Framework_TestCase
             ->willReturn(new ArrayCollection(array($domain1, $domain2)));
 
         // It should check if domain needs to be notified
-        $domain1Notification = new DomainNotification();
-        $domain1Notification->setType(new IdentValue('configuration'));
-        $domain1Notification->setDomain($domain1);
-        $this->mockDomainNotificationRepo->expects($this->exactly(2))->method('findByDomain')
+        $type            = new IdentValue('configuration');
+        $domain1Reminder = new UserReminder();
+        $domain1Reminder->setType($type);
+        $domain1Reminder->setIdent($domain1);
+        $this->mockUserReminderRepo->expects($this->exactly(2))->method('findByTypeAndItem')
             ->withConsecutive(
-                array($domain1),
-                array($domain2)
+                array($type, $domain1),
+                array($type, $domain2)
             )
             ->willReturnOnConsecutiveCalls(
-                new ArrayCollection(array($domain1Notification)),
+                new ArrayCollection(array($domain1Reminder)),
                 new ArrayCollection()
             );
 
@@ -94,14 +95,14 @@ class ClickCounterConfigurationServiceTest extends \PHPUnit_Framework_TestCase
             ->with('example.hiv')
             ->willReturn(Option::fromValue($domain));
 
-        $this->mockDomainNotificationRepo->expects($this->once())->method('persist')
-            ->with($this->callback(function (DomainNotification $n) use ($domain) {
-                $this->assertEquals($domain, $n->getDomain());
-                $this->assertEquals('configuration', $n->getType()->toScalar());
+        $this->mockUserReminderRepo->expects($this->once())->method('persist')
+            ->with($this->callback(function (UserReminder $r) use ($domain) {
+                $this->assertEquals($domain->getName(), $r->getIdent()->toScalar());
+                $this->assertEquals('configuration', $r->getType()->toScalar());
                 return true;
             }))
             ->willReturnSelf();
-        $this->mockDomainNotificationRepo->expects($this->once())->method('flush');
+        $this->mockUserReminderRepo->expects($this->once())->method('flush');
 
         $this->mockContentMailer->expects($this->once())->method('sendContentTemplateMail');
 
@@ -118,14 +119,14 @@ class ClickCounterConfigurationServiceTest extends \PHPUnit_Framework_TestCase
     {
         $domain = $this->createDomain();
 
-        $this->mockDomainNotificationRepo->expects($this->once())->method('persist')
-            ->with($this->callback(function (DomainNotification $n) use ($domain) {
-                $this->assertEquals($domain, $n->getDomain());
-                $this->assertEquals('configuration', $n->getType()->toScalar());
+        $this->mockUserReminderRepo->expects($this->once())->method('persist')
+            ->with($this->callback(function (UserReminder $r) use ($domain) {
+                $this->assertEquals($domain->getName(), $r->getIdent()->toScalar());
+                $this->assertEquals('configuration', $r->getType()->toScalar());
                 return true;
             }))
             ->willReturnSelf();
-        $this->mockDomainNotificationRepo->expects($this->once())->method('flush');
+        $this->mockUserReminderRepo->expects($this->once())->method('flush');
 
         $this->mockContentMailer->expects($this->once())->method('sendContentTemplateMail');
 
@@ -155,7 +156,7 @@ class ClickCounterConfigurationServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = new ClickCounterConfigurationService(
             $this->mockDomainRepo,
-            $this->mockDomainNotificationRepo,
+            $this->mockUserReminderRepo,
             $this->mockContentMailer
         );
         return $service;
@@ -165,8 +166,8 @@ class ClickCounterConfigurationServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->mockDomainRepo
             = $this->getMock('\Dothiv\BusinessBundle\Repository\DomainRepositoryInterface');
-        $this->mockDomainNotificationRepo
-            = $this->getMock('\Dothiv\CharityWebsiteBundle\Repository\DomainNotificationRepositoryInterface');
+        $this->mockUserReminderRepo
+            = $this->getMock('\Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface');
         $this->mockContentMailer
             = $this->getMock('\Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailerInterface');
     }
