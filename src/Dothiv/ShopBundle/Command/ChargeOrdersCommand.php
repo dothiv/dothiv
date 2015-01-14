@@ -50,7 +50,7 @@ class ChargeOrdersCommand extends ContainerAwareCommand
         /** @var InvoiceServiceInterface $invoiceService */
         $invoiceService = $this->getContainer()->get('dothiv.shop.invoice');
         /** @var UserReminderRepositoryInterface $domainConfigNotificationRepo */
-        $domainConfigNotificationRepo = $this->getContainer()->get('dothiv.repository.domain_notification');
+        $domainConfigNotificationRepo = $this->getContainer()->get('dothiv.repository.userreminder');
         /** @var OrderMailerInterface $mailer */
         $mailer = $this->getContainer()->get('dothiv.shop.mailer.order');
         /** @var UserServiceInterface $userService */
