@@ -41,5 +41,5 @@ services:
         class: %dothiv.charity.clickcounter_notification.class%
         arguments:
         - @dothiv.repository.domain
-        - @dothiv.repository.domain_configuration_notification
+        - @dothiv.repository.userreminder
         - @dothiv.charity.clickcounter_notification.mailer

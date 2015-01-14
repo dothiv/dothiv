@@ -1,24 +1,24 @@
 <?php
 
-namespace Dothiv\CharityWebsiteBundle\Repository;
+namespace Dothiv\UserReminderBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Repository\Traits\ValidatorTrait;
-use Dothiv\CharityWebsiteBundle\Entity\DomainNotification;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
+use Dothiv\UserReminderBundle\Entity\UserReminder;
 use Dothiv\ValueObject\IdentValue;
 
-class DomainNotificationRepository extends DoctrineEntityRepository implements DomainNotificationRepositoryInterface
+class UserReminderRepository extends DoctrineEntityRepository implements UserReminderRepositoryInterface
 {
     use ValidatorTrait;
 
     /**
      * {@inheritdoc}
      */
-    public function persist(DomainNotification $domainNotification)
+    public function persist(UserReminder $UserReminder)
     {
-        $this->getEntityManager()->persist($this->validate($domainNotification));
+        $this->getEntityManager()->persist($this->validate($UserReminder));
         return $this;
     }
 
@@ -34,11 +34,11 @@ class DomainNotificationRepository extends DoctrineEntityRepository implements D
     /**
      * {@inheritdoc}
      */
-    public function findByDomain(Domain $domain, IdentValue $type)
+    public function findByTypeAndItem(IdentValue $type, EntityInterface $item)
     {
         return new ArrayCollection(
             $this->createQueryBuilder('n')
-                ->andWhere('n.domain = :domain')->setParameter('domain', $domain)
+                ->andWhere('n.ident = :ident')->setParameter('ident', $item->getPublicId())
                 ->andWhere('n.type = :type')->setParameter('type', $type)
                 ->getQuery()
                 ->getResult()

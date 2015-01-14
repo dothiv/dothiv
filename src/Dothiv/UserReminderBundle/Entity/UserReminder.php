@@ -1,10 +1,11 @@
 <?php
 
 
-namespace Dothiv\CharityWebsiteBundle\Entity;
+namespace Dothiv\UserReminderBundle\Entity;
 
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\Entity;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Entity\Traits\CreateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Dothiv\ValueObject\IdentValue;
@@ -14,26 +15,27 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Stores notifications for domain configurations.
+ * Stores user notifications for entites.
  *
- * @ORM\Entity(repositoryClass="Dothiv\CharityWebsiteBundle\Repository\DomainNotificationRepository")
+ * @ORM\Entity(repositoryClass="Dothiv\UserReminderBundle\Repository\UserReminderRepository")
  * @ORM\Table(
- *  indexes={
- *      @ORM\Index(name="domain_notification__type_idx", columns={"type"})
- *  }
+ *      indexes={
+ *          @ORM\Index(name="userreminder__ident_idx", columns={"ident"})
+ *      }
  * )
  * @Serializer\ExclusionPolicy("all")
  */
-class DomainNotification extends Entity
+class UserReminder extends Entity
 {
     use CreateTime;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Dothiv\BusinessBundle\Entity\Domain")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     * @var Domain
+     * @ORM\Column(type="string",nullable=false)
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * @var string
      */
-    protected $domain;
+    protected $ident;
 
     /**
      * Type of the notification
@@ -46,21 +48,21 @@ class DomainNotification extends Entity
     protected $type;
 
     /**
-     * @return Domain
+     * @return IdentValue
      */
-    public function getDomain()
+    public function getIdent()
     {
-        return $this->domain;
+        return new IdentValue($this->ident);
     }
 
     /**
-     * @param Domain $domain
+     * @param EntityInterface $item
      *
      * @return self
      */
-    public function setDomain(Domain $domain)
+    public function setIdent(EntityInterface $item)
     {
-        $this->domain = $domain;
+        $this->ident = IdentValue::create($item->getPublicId())->toScalar();
         return $this;
     }
 
