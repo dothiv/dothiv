@@ -6,15 +6,15 @@ parameters:
     database_user: travis
     database_password: ~
     database_path: ~
-    mailer_transport: smtp
-    mailer_host: mailtrap.io
-    mailer_user: xxxx
-    mailer_password: xxxx
-    mailer_port: 2525
-    mailer_encryption: tls
-    mailer_auth_mode: ~
-    email_from_name: Markus from dotHIV
-    email_from_address: m@tld.hiv
+    registry_mailer_transport: smtp
+    registry_mailer_host: mailtrap.io
+    registry_mailer_user: xxxx
+    registry_mailer_password: xxxx
+    registry_mailer_port: 2525
+    registry_mailer_encryption: tls
+    registry_mailer_auth_mode: ~
+    registry_email_from_name: .hiv Domains
+    registry_email_from_address: domains@tld.hiv
     locale: de
     secret: bZ7AR7KC
     charitydomain: click4life.hiv.dev
