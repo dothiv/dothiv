@@ -4,20 +4,21 @@ namespace Dothiv\CharityWebsiteBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\CharityWebsiteBundle\Entity\DomainConfigurationNotification;
+use Dothiv\CharityWebsiteBundle\Entity\DomainNotification;
 use Dothiv\CharityWebsiteBundle\Exception\InvalidArgumentException;
+use Dothiv\ValueObject\IdentValue;
 
-interface DomainConfigurationNotificationRepositoryInterface
+interface DomainNotificationRepositoryInterface
 {
     /**
      * Persist the entity.
      *
-     * @param DomainConfigurationNotification $domainConfigurationNotification
+     * @param DomainNotification $domainNotification
      *
      * @return self
      * @throws InvalidArgumentException If entity is invalid.
      */
-    public function persist(DomainConfigurationNotification $domainConfigurationNotification);
+    public function persist(DomainNotification $domainNotification);
 
     /**
      * Flush the entity manager.
@@ -27,9 +28,10 @@ interface DomainConfigurationNotificationRepositoryInterface
     public function flush();
 
     /**
-     * @param Domain $domain
+     * @param Domain     $domain
+     * @param IdentValue $type Type of notification
      *
-     * @return DomainConfigurationNotification[]|ArrayCollection
+     * @return DomainNotification[]|ArrayCollection
      */
-    public function findByDomain(Domain $domain);
-} 
+    public function findByDomain(Domain $domain, IdentValue $type);
+}

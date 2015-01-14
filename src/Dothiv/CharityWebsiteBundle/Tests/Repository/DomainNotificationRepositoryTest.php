@@ -6,10 +6,11 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\Registrar;
 use Dothiv\BusinessBundle\Repository\DomainRepository;
 use Dothiv\BusinessBundle\Tests\Traits\RepositoryTestTrait;
-use Dothiv\CharityWebsiteBundle\Entity\DomainConfigurationNotification;
-use Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepository;
+use Dothiv\CharityWebsiteBundle\Entity\DomainNotification;
+use Dothiv\CharityWebsiteBundle\Repository\DomainNotificationRepository;
+use Dothiv\ValueObject\IdentValue;
 
-class DomainConfigurationNotificationRepositoryTest extends \PHPUnit_Framework_TestCase
+class DomainNotificationRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     use RepositoryTestTrait;
 
@@ -21,21 +22,22 @@ class DomainConfigurationNotificationRepositoryTest extends \PHPUnit_Framework_T
      */
     public function itShouldBeInstantiateable()
     {
-        $this->assertInstanceOf('\Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepository', $this->createTestObject());
+        $this->assertInstanceOf('\Dothiv\CharityWebsiteBundle\Repository\DomainNotificationRepository', $this->createTestObject());
     }
 
     /**
      * @test
      * @group   Entity
      * @group   CharityWebsiteBundle
-     * @group   DomainConfigurationNotification
+     * @group   DomainNotification
      * @group   Integration
      * @depends itShouldBeInstantiateable
      */
     public function itShouldPersist()
     {
-        $notification = new DomainConfigurationNotification();
+        $notification = new DomainNotification();
         $notification->setDomain($this->createDomain());
+        $notification->setType(new IdentValue('configuration'));
         $repo = $this->createTestObject();
         $repo->persist($notification);
         $repo->flush();
@@ -46,35 +48,39 @@ class DomainConfigurationNotificationRepositoryTest extends \PHPUnit_Framework_T
      * @test
      * @group   Entity
      * @group   CharityWebsiteBundle
-     * @group   DomainConfigurationNotification
+     * @group   DomainNotification
      * @group   Integration
      * @depends itShouldPersist
      */
     public function itShouldFindByDomain()
     {
         $domain1       = $this->createDomain('acme.hiv', '1234-AB');
-        $notification1 = new DomainConfigurationNotification();
+        $notification1 = new DomainNotification();
+        $notification1->setType(new IdentValue('configuration'));
         $notification1->setDomain($domain1);
         $repo = $this->createTestObject();
         $repo->persist($notification1);
         $domain2       = $this->createDomain('example.hiv', '5678-AB');
-        $notification2 = new DomainConfigurationNotification();
+        $notification2 = new DomainNotification();
+        $notification2->setType(new IdentValue('configuration'));
         $notification2->setDomain($domain2);
         $repo = $this->createTestObject();
         $repo->persist($notification2);
         $repo->flush();
-        $n = $repo->findByDomain($domain1);
-        $this->assertEquals(1, count($n));
-        $this->assertEquals($notification1, $n->first());
+        $configNotifications = $repo->findByDomain($domain1, new IdentValue('configuration'));
+        $this->assertEquals(1, count($configNotifications));
+        $this->assertEquals($notification1, $configNotifications->first());
+        $otherNotifications = $repo->findByDomain($domain1, new IdentValue('other'));
+        $this->assertEquals(0, count($otherNotifications));
     }
 
     /**
-     * @return DomainConfigurationNotificationRepository
+     * @return DomainNotificationRepository
      */
     protected function createTestObject()
     {
         /** @var DomainRepository $repo */
-        $repo = $this->getTestEntityManager()->getRepository('DothivCharityWebsiteBundle:DomainConfigurationNotification');
+        $repo = $this->getTestEntityManager()->getRepository('DothivCharityWebsiteBundle:DomainNotification');
         $repo->setValidator($this->testValidator);
         return $repo;
     }
@@ -98,4 +104,4 @@ class DomainConfigurationNotificationRepositoryTest extends \PHPUnit_Framework_T
         $this->getTestEntityManager()->persist($domain);
         return $domain;
     }
-} 
+}

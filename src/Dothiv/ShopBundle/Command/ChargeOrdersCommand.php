@@ -12,8 +12,8 @@ use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\RegistrarRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
-use Dothiv\CharityWebsiteBundle\Entity\DomainConfigurationNotification;
-use Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepositoryInterface;
+use Dothiv\CharityWebsiteBundle\Entity\DomainNotification;
+use Dothiv\CharityWebsiteBundle\Repository\DomainNotificationRepositoryInterface;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ShopBundle\Repository\OrderRepositoryInterface;
 use Dothiv\ShopBundle\Service\InvoiceServiceInterface;
@@ -49,7 +49,7 @@ class ChargeOrdersCommand extends ContainerAwareCommand
         $userRepo = $this->getContainer()->get('dothiv.repository.user');
         /** @var InvoiceServiceInterface $invoiceService */
         $invoiceService = $this->getContainer()->get('dothiv.shop.invoice');
-        /** @var DomainConfigurationNotificationRepositoryInterface $domainConfigNotificationRepo */
+        /** @var DomainNotificationRepositoryInterface $domainConfigNotificationRepo */
         $domainConfigNotificationRepo = $this->getContainer()->get('dothiv.repository.domain_configuration_notification');
         /** @var OrderMailerInterface $mailer */
         $mailer = $this->getContainer()->get('dothiv.shop.mailer.order');
@@ -100,8 +100,9 @@ class ChargeOrdersCommand extends ContainerAwareCommand
             $domainRepo->persist($domain)->flush();
 
             // Do not notify about configuration
-            $domainConfigNotification = new DomainConfigurationNotification();
+            $domainConfigNotification = new DomainNotification();
             $domainConfigNotification->setDomain($domain);
+            $domainConfigNotification->setType(new IdentValue('configuration'));
             $domainConfigNotificationRepo->persist($domainConfigNotification)->flush();
 
             // Notify listeners
