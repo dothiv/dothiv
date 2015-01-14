@@ -92,6 +92,9 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
                 $qb->andWhere('i.registered IS NULL');
             }
         }
+        if ($filterQuery->getProperty('older')->isDefined()) {
+            $qb->andWhere('i.created < :older')->setParameter('older', $filterQuery->getProperty('older')->get());
+        }
         return $this->buildPaginatedResult($qb, $options);
     }
 
