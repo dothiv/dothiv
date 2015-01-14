@@ -1,6 +1,6 @@
 parameters:
-    dothiv.repository.domain_configuration_notification.entity.class: 'DothivCharityWebsiteBundle:DomainConfigurationNotification'
-    dothiv.repository.domain_configuration_notification.repository.class: Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepository
+    dothiv.repository.domain_configuration_notification.entity.class: 'DothivCharityWebsiteBundle:DomainNotification'
+    dothiv.repository.domain_configuration_notification.repository.class: Dothiv\CharityWebsiteBundle\Repository\DomainNotificationRepository
 
 services:
     dothiv.repository.domain_configuration_notification:

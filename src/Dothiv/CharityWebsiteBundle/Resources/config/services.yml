@@ -26,7 +26,7 @@ services:
             - @dothiv_contentful.content
             - @dothiv.websitebase.contentful.view_builder
             - %contenful_space_charity%
-            
+
     dothiv.charity.clickcounter_notification.mailer:
         class: %dothiv.charity.clickcounter_notification.mailer.class%
         arguments:
