@@ -1,6 +1,8 @@
 article.shop {
   section.lookup {
     div.lookupResult {
+      margin-left: @grid-gutter-width / 2;
+      margin-right: @grid-gutter-width / 2;
       h3 {
         margin: 0;
         line-height: @input-height-large;
@@ -83,7 +85,10 @@ article.shop {
       div.field.hivdomain {
         .make-sm-column(8);
         input {
-          width: 80%;
+          width: 70%;
+          @media (min-width: @screen-sm-min) {
+            width: 80%;
+          }
           .pull-left;
           text-align: right;
           border: 0;
@@ -128,7 +133,12 @@ article.shop {
       fieldset.lookupDomain {
         div.field.hivdomain {
           input {
-            width: 65%;
+            width: 50%;
+            @media (min-width: @screen-sm-min) {
+              width: 65%;
+            }
+          }
+          span {
           }
         }
       }
