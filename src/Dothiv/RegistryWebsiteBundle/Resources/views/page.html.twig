@@ -53,14 +53,14 @@
     <meta name="twitter:title" content="{{ title }}">
     <meta name="twitter:description" content="{% trans %}registry.description{% endtrans %}">
     <meta name="twitter:creator" content="tldHIV">
-    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.png' %}
+    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-logo.png' %}
     <meta name="twitter:image:src" content="{{ app.request.uriForPath(asset_url) }}">
     {% endimage %}
     <!-- Facebook open graph support -->
     <meta property="og:title" content="{{ title }}">
     <meta property="og:description" content="{% trans %}registry.description{% endtrans %}">
     <meta property="og:site_name" content="{% trans %}registry.fullname{% endtrans %}">
-    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.png' %}
+    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-logo.png' %}
     <meta property="og:image" content="{{ app.request.uriForPath(asset_url) }}">
     {% endimage %}
     <meta property="og:type" content="website">
@@ -73,7 +73,7 @@
         <section class="logo">
             <a href="/" rel="index" target="_self">
                 <h1>
-                    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.svg' %}
+                    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-logo.svg' %}
                     <img src="{{ asset(asset_url) }}" alt="{% trans %}gmbh.fullname{% endtrans %}" width="120" height="69">
                     {% endimage %}
                     <small>
@@ -151,7 +151,7 @@
         <article>
             <div class="logo">
                 <h2>
-                    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-registry-logo.svg' %}
+                    {% image '@DothivRegistryWebsiteBundle/Resources/public/images/dothiv-logo.svg' %}
                     <img class="logo" src="{{ asset(asset_url) }}" alt="{% trans %}gmbh.fullname{% endtrans %}" width="60" height="35">
                     {% endimage %}
                     <small>{% trans %}gmbh.footer.slogan{% endtrans %}</small>
