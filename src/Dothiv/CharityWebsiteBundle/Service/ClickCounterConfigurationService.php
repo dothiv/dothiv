@@ -7,23 +7,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailerInterface;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
-use Dothiv\CharityWebsiteBundle\Entity\DomainConfigurationNotification;
 use Dothiv\CharityWebsiteBundle\Exception\EntityNotFoundException;
-use Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepositoryInterface;
+use Dothiv\UserReminderBundle\Entity\UserReminder;
+use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
 use Dothiv\ValueObject\HivDomainValue;
+use Dothiv\ValueObject\IdentValue;
 
 class ClickCounterConfigurationService implements SendClickCounterConfigurationServiceInterface
 {
-
     /**
      * @var DomainRepositoryInterface
      */
     private $domainRepo;
 
     /**
-     * @var DomainConfigurationNotificationRepositoryInterface
+     * @var UserReminderRepositoryInterface
      */
-    private $domainConfigNotificationRepo;
+    private $userReminderRepo;
 
     /**
      * @var ContentMailerInterface
@@ -32,13 +32,13 @@ class ClickCounterConfigurationService implements SendClickCounterConfigurationS
 
     public function __construct(
         DomainRepositoryInterface $domainRepo,
-        DomainConfigurationNotificationRepositoryInterface $domainConfigNotificationRepo,
+        UserReminderRepositoryInterface $userNotificationRepo,
         ContentMailerInterface $mailer
     )
     {
-        $this->domainRepo                   = $domainRepo;
-        $this->domainConfigNotificationRepo = $domainConfigNotificationRepo;
-        $this->mailer                       = $mailer;
+        $this->domainRepo       = $domainRepo;
+        $this->userReminderRepo = $userNotificationRepo;
+        $this->mailer           = $mailer;
     }
 
     /**
@@ -62,8 +62,8 @@ class ClickCounterConfigurationService implements SendClickCounterConfigurationS
         $uninstalled       = $this->domainRepo->findUninstalled();
         $needsNotification = new ArrayCollection();
         foreach ($uninstalled as $domain) {
-            $domainNotifications = $this->domainConfigNotificationRepo->findByDomain($domain);
-            if ($domainNotifications->isEmpty()) {
+            $userNotification = $this->userReminderRepo->findByTypeAndItem(new IdentValue('configuration'), $domain);
+            if ($userNotification->isEmpty()) {
                 $needsNotification->add($domain);
             }
         }
@@ -75,9 +75,10 @@ class ClickCounterConfigurationService implements SendClickCounterConfigurationS
      */
     public function sendConfigurationForDomain(Domain $domain)
     {
-        $notification = new DomainConfigurationNotification();
-        $notification->setDomain($domain);
-        $this->domainConfigNotificationRepo->persist($notification)->flush();
+        $notification = new UserReminder();
+        $notification->setType(new IdentValue('configuration'));
+        $notification->setIdent($domain);
+        $this->userReminderRepo->persist($notification)->flush();
 
         $hivDomain = HivDomainValue::create($domain->getName());
         $data      = array(
@@ -97,4 +98,4 @@ class ClickCounterConfigurationService implements SendClickCounterConfigurationS
         );
     }
 
-} 
+}

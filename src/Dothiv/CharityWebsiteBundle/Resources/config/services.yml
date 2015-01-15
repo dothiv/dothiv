@@ -26,7 +26,7 @@ services:
             - @dothiv_contentful.content
             - @dothiv.websitebase.contentful.view_builder
             - %contenful_space_charity%
-            
+
     dothiv.charity.clickcounter_notification.mailer:
         class: %dothiv.charity.clickcounter_notification.mailer.class%
         arguments:
@@ -34,12 +34,12 @@ services:
         - @dothiv.charity.contentful.charity_content
         - @dothiv_contentful.asset
         - @dothiv_contentful.repo.asset
-        - %email_from_address%
-        - %email_from_name%
-            
+        - %registry_email_from_address%
+        - %registry_email_from_name%
+
     dothiv.charity.clickcounter_notification:
         class: %dothiv.charity.clickcounter_notification.class%
         arguments:
         - @dothiv.repository.domain
-        - @dothiv.repository.domain_configuration_notification
+        - @dothiv.repository.userreminder
         - @dothiv.charity.clickcounter_notification.mailer

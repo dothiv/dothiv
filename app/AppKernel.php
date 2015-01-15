@@ -44,6 +44,7 @@ class AppKernel extends Kernel
             new Dothiv\DomainGiftBundle\DothivDomainGiftBundle(),
             new Dothiv\HivDomainStatusBundle\DothivHivDomainStatusBundle(),
             new Dothiv\ShopBundle\DothivShopBundle(),
+            new Dothiv\UserReminderBundle\DothivUserReminderBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
