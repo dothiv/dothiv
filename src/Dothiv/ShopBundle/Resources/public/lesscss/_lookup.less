@@ -1,8 +1,6 @@
 article.shop {
   section.lookup {
-    text-align: center;
     div.lookupResult {
-      text-align: left;
       h3 {
         margin: 0;
         line-height: @input-height-large;
@@ -37,7 +35,6 @@ article.shop {
         }
       }
       &.available {
-        text-align: left;
         nav {
           .pull-right;
         }
@@ -72,8 +69,14 @@ article.shop {
       }
     }
   }
+  div.block {
+    em {
+      font-weight: bold;
+      font-style: normal;
+      color: @color-pink;
+    }
+  }
   section.lookup-pristine {
-    text-align: center;
   }
   form.lookup {
     fieldset.lookupDomain {
@@ -121,10 +124,18 @@ article.shop {
         }
       }
     }
+    &.lookup4life {
+      fieldset.lookupDomain {
+        div.field.hivdomain {
+          input {
+            width: 65%;
+          }
+        }
+      }
+    }
   }
   div.promo4life {
     .make-xs-column(12);
-    text-align: left;
     padding: 0 1em 1em 1em;
     border: 2px solid @color-pink;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.35);

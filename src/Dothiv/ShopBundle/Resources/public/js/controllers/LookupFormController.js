@@ -2,13 +2,14 @@
 
 angular.module('dotHIVApp.controllers').controller('LookupFormController', ['$scope', '$state', '$stateParams', 'Price', function ($scope, $state, $stateParams, Price) {
     $scope.secondLevelName = "";
+    $scope.secondLevelName4life = "";
     $scope.domain = "";
     $scope.price = Price.getFormattedPricePerYear($scope.domain);
     $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
     $scope.promoPrice = Price.getFormattedPricePerYear('name4life.hiv');
     $scope.promoPricePerMonth = Price.getFormattedPricePerMonth('name4life.hiv');
 
-    $scope.$watch('secondLevelName', function (secondLevelName, oldSecondLevelName) {
+    var secondLevelNameWatcher = function (secondLevelName, oldSecondLevelName) {
         if (secondLevelName === oldSecondLevelName) {
             return;
         }
@@ -18,7 +19,12 @@ angular.module('dotHIVApp.controllers').controller('LookupFormController', ['$sc
             $scope.domain = secondLevelName.toLowerCase() + ".hiv";
             $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
         }
-    });
+    };
+
+    $scope.$watch('secondLevelName', secondLevelNameWatcher);
+    $scope.$watch('secondLevelName4life', secondLevelNameWatcher);
+
+
 
     $scope.lookupDomain = function (domain) {
         $state.transitionTo('lookup', {"locale": $stateParams.locale, "domain": domain.toLowerCase()});
