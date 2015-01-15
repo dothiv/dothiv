@@ -1,5 +1,11 @@
 {# See https://github.com/dothiv/idn-table #}
 {% set allowed_chars_no_dash = "0-9a-z\\u00E1\\u00E4\\u00E5\\u00E6\\u00E9\\u00ED\\u00F0\\u00F1\\u00F3\\u00F6\\u00F8\\u00FA\\u00FC\\u00FD\\u00FE\\u0101\\u0105\\u0107\\u010D\\u0113\\u0117\\u0119\\u0123\\u012B\\u012F\\u0137\\u013C\\u0142\\u0144\\u0146\\u014D\\u0151\\u0157\\u015B\\u0161\\u016B\\u0171\\u0173\\u017A\\u017C\\u017E" %}
+{% set hivpattern %}{% spaceless %}
+[{{ allowed_chars_no_dash }}][-{{ allowed_chars_no_dash }}]{1,61}[{{ allowed_chars_no_dash }}]
+{% endspaceless %}{% endset %}
+{% set fourlifehivpattern %}{% spaceless %}
+[{{ allowed_chars_no_dash }}][-{{ allowed_chars_no_dash }}]{0,54}
+{% endspaceless %}{% endset %}
 
 <script type="text/ng-template" id="/template/shop/{{ code }}.html">
     <section class="{{ code }}" data-ng-init="showLookupForm = true">
@@ -8,25 +14,7 @@
             {{ block.text|default("")|markdown }}
         </div>
     </section>
-    {% block lookupForm %}
-        <form method="post" action="" novalidate name="{{ code }}Form" class="{{ code }}" data-ng-show="showLookupForm && lookup != 'available'">
-            <fieldset class="lookupDomain">
-                <div class="field hivdomain">
-                    <div class="border">
-                        <input type="text" name="secondLevelName" id="secondLevelName" required data-ng-pattern="/^[{{ allowed_chars_no_dash }}][-{{ allowed_chars_no_dash }}]{1,61}[{{ allowed_chars_no_dash }}]$/i" data-ng-model="secondLevelName" data-ng-trim="true">
-                        <span>.hiv</span>
-                    </div>
-                </div>
-                {% for button in block.strings|default([]) %}
-                    {% if loop.first %}<nav>{% endif %}
-                    <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="lookupForm.$invalid" data-ng-click="lookupDomain(secondLevelName + '.hiv')">
-                        {{ button.value }}
-                    </button>
-                    {% if loop.last %}</nav>{% endif %}
-                {% endfor %}
-            </fieldset>
-        </form>
-    {% endblock %}
+
     {% for block in block.children|default([]) %}
         {% if "shop.lookup.extra." in block.code %}
             {% set extraCode = block.code|replace({"shop.lookup.extra.": ""}) %}
@@ -38,6 +26,32 @@
                     {{ block.text|default("")|markdown }}
                 </div>
             </section>
+            {% if extraCode == "regular" %}
+                {% block lookupForm %}
+                    <form method="post" action="" novalidate name="{{ code ~ sndLvlSuffix|default() }}Form" class="{{ code }} {{ code ~ sndLvlSuffix|default() }}" data-ng-show="showLookupForm && lookup != 'available'">
+                        <fieldset class="lookupDomain">
+                            <div class="field hivdomain">
+                                <div class="border">
+                                    <input type="text" name="{{ 'secondLevelName' ~ sndLvlSuffix|default() }}" id="{{ 'secondLevelName' ~ sndLvlSuffix|default() }}" required data-ng-pattern="/^{{ pattern|default(hivpattern) }}$/i" data-ng-model="{{ 'secondLevelName' ~ sndLvlSuffix|default() }}" data-ng-trim="true">
+                                    <span>{{ sndLvlSuffix|default() ~ '.hiv' }}</span>
+                                </div>
+                            </div>
+                            {% for button in block.strings|default([]) %}
+                                {% if loop.first %}<nav>{% endif %}
+                                <button class="{% if loop.first %}primary{% endif %}" data-ng-disabled="{{ code ~ sndLvlSuffix|default() }}Form.$invalid" data-ng-click="lookupDomain({{ 'secondLevelName' ~ sndLvlSuffix|default() }} + '{{ sndLvlSuffix|default() ~ '.hiv' }}')">
+                                    {{ button.value }}
+                                </button>
+                                {% if loop.last %}</nav>{% endif %}
+                            {% endfor %}
+                        </fieldset>
+                    </form>
+                {% endblock %}
+            {% endif %}
+            {% if extraCode == "pristine" %}
+                {% set sndLvlSuffix = "4life" %}
+                {% set pattern = fourlifehivpattern %}
+                {{ block('lookupForm') }}
+            {% endif %}
         {% endif %}
     {% endfor %}
 </script>
@@ -48,7 +62,16 @@
             <h2>{{ block.title }}</h2>
             {{ block.text|default("")|markdown }}
         </div>
-        {{ block('lookupForm') }}
+        <div data-ng-show="domain.search('4life.hiv') < 0">
+            {% set sndLvlSuffix = "" %}
+            {% set pattern = hivpattern %}
+            {{ block('lookupForm') }}
+        </div>
+        <div data-ng-show="domain.search('4life.hiv') > 0">
+            {% set sndLvlSuffix = "4life" %}
+            {% set pattern = fourlifehivpattern %}
+            {{ block('lookupForm') }}
+        </div>
         {% for child in block.children %}
             {% set class = child.code|replace({"shop.lookup.": ""}) %}
             <div data-ng-show="lookup == '{{ class }}'" class="lookupResult {{ class }}">
