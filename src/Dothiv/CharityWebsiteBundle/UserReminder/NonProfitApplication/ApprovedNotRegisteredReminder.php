@@ -7,46 +7,43 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
+use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepositoryInterface;
 use Dothiv\UserReminderBundle\Entity\UserReminder;
+use Dothiv\UserReminderBundle\Mailer\TemplateMailerInterface;
 use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
 use Dothiv\UserReminderBundle\SendWithUs\TemplateRenderer;
 use Dothiv\UserReminderBundle\Service\UserReminderInterface;
 use Dothiv\ValueObject\ClockValue;
+use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
 
 class ApprovedNotRegisteredReminder implements UserReminderInterface
 {
     /**
-     * @param \Swift_Mailer                            $mailer
      * @param NonProfitRegistrationRepositoryInterface $nonProfitRepo
+     * @param DomainRepositoryInterface                $domainRepo
      * @param UserReminderRepositoryInterface          $userReminderRepo
-     * @param TemplateRenderer                         $renderer
      * @param ClockValue                               $clock
+     * @param TemplateMailerInterface                  $mailer
      * @param array                                    $config
-     * @param string                                   $emailFromAddress
-     * @param string                                   $emailFromName
      */
     public function __construct(
-        \Swift_Mailer $mailer,
         NonProfitRegistrationRepositoryInterface $nonProfitRepo,
+        DomainRepositoryInterface $domainRepo,
         UserReminderRepositoryInterface $userReminderRepo,
-        TemplateRenderer $renderer,
+        TemplateMailerInterface $mailer,
         ClockValue $clock,
-        array $config,
-        $emailFromAddress,
-        $emailFromName
+        array $config
     )
     {
         $this->mailer           = $mailer;
         $this->config           = $config;
         $this->nonProfitRepo    = $nonProfitRepo;
-        $this->renderer         = $renderer;
         $this->clockValue       = $clock;
         $this->userReminderRepo = $userReminderRepo;
-        $this->emailFromAddress = $emailFromAddress;
-        $this->emailFromName    = $emailFromName;
+        $this->domainRepo       = $domainRepo;
     }
 
     /**
@@ -56,23 +53,36 @@ class ApprovedNotRegisteredReminder implements UserReminderInterface
     {
         $reminders = new ArrayCollection();
         $after     = $this->clockValue->getNow()->modify('+6 weeks');
-        $options   = new PaginatedQueryOptions();
         $filter    = new FilterQuery();
         $filter->setProperty('older', $after);
         $filter->setProperty('approved', true);
-        foreach ($this->nonProfitRepo->getPaginated($options, $filter)->getResult() as $nonProfitRegistration) {
-            /** @var NonProfitRegistration $nonProfitRegistration */
-            // Check if not already notified
-            if (!$this->userReminderRepo->findByTypeAndItem($type, $nonProfitRegistration)->isEmpty()) {
-                continue;
+        $options = new PaginatedQueryOptions();
+        $options->setSortField(new IdentValue('approved'));
+
+        do {
+            $paginatedResult = $this->nonProfitRepo->getPaginated($options, $filter);
+            if ($paginatedResult->getNextPageKey()->isDefined()) {
+                $options->setOffsetKey($paginatedResult->getNextPageKey()->get());
             }
-            $reminder = new UserReminder();
-            $reminder->setType($type);
-            $reminder->setIdent($nonProfitRegistration);
-            $this->userReminderRepo->persist($reminder);
-            $this->notify($nonProfitRegistration);
-            $reminders->add($reminder);
-        }
+            foreach ($paginatedResult->getResult() as $nonProfitRegistration) {
+                /** @var NonProfitRegistration $nonProfitRegistration */
+                // Check if domain is registered
+                $domainOptional = $this->domainRepo->getDomainByName($nonProfitRegistration->getDomain());
+                if ($domainOptional->isDefined()) {
+                    continue;
+                }
+                // Check if not already notified
+                if (!$this->userReminderRepo->findByTypeAndItem($type, $nonProfitRegistration)->isEmpty()) {
+                    continue;
+                }
+                $reminder = new UserReminder();
+                $reminder->setType($type);
+                $reminder->setIdent($nonProfitRegistration);
+                $this->notify($nonProfitRegistration);
+                $this->userReminderRepo->persist($reminder);
+                $reminders->add($reminder);
+            }
+        } while ($paginatedResult->getNextPageKey()->isDefined());
         $this->userReminderRepo->flush();
         return $reminders;
     }
@@ -97,14 +107,12 @@ class ApprovedNotRegisteredReminder implements UserReminderInterface
             'organization' => $nonProfitRegistration->getOrganization()
         ];
 
-        $message = \Swift_Message::newInstance();
-        $message
-            ->setFrom($this->emailFromAddress, $this->emailFromName)
-            ->setTo($nonProfitRegistration->getPersonEmail(), $nonProfitRegistration->getPersonFirstname() . ' ' . $nonProfitRegistration->getPersonSurname());
-
-        list($templateId, $versionId) = $this->config[$locale];
-        $this->renderer->render($message, $data, $templateId, $versionId);
-
-        $this->mailer->send($message);
+        $this->mailer->send(
+            new EmailValue($nonProfitRegistration->getPersonEmail()),
+            $nonProfitRegistration->getPersonFirstname() . ' ' . $nonProfitRegistration->getPersonSurname(),
+            $this->config[$locale],
+            $locale,
+            $data
+        );
     }
 }

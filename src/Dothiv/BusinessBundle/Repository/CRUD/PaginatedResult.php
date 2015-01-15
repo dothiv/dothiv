@@ -13,12 +13,12 @@ class PaginatedResult
     protected $result;
 
     /**
-     * @var Option
+     * @var int|string
      */
     protected $nextPageKey;
 
     /**
-     * @var Option
+     * @var int|string
      */
     protected $prevPageKey;
 
