@@ -12,6 +12,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class UserReminderRegistry implements UserReminderRegistryInterface
 {
+
     /**
      * @var UserReminderInterface[]|ArrayCollection
      */
@@ -66,7 +67,7 @@ class UserReminderRegistry implements UserReminderRegistryInterface
      * @param IdentValue            $type
      * @param UserReminderInterface $reminder
      */
-    public function addNotification(IdentValue $type, UserReminderInterface $reminder)
+    public function addReminder(IdentValue $type, UserReminderInterface $reminder)
     {
         if ($this->reminders->containsKey($type->toScalar())) {
             throw new InvalidArgumentException(
@@ -82,6 +83,6 @@ class UserReminderRegistry implements UserReminderRegistryInterface
      */
     public function registerReminder($type, $reminder)
     {
-        $this->addNotification(new IdentValue($type), $reminder);
+        $this->addReminder(new IdentValue($type), $reminder);
     }
 }

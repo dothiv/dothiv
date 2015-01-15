@@ -8,6 +8,6 @@ services:
         - @dothiv.business.event_dispatcher
 
     dothiv.userreminder.sendwithus_renderer:
-        class: Dothiv\UserReminderBundle\Service\SendWithUsTemplateRenderer
+        class: Dothiv\UserReminderBundle\SendWithUs\TemplateRenderer
         arguments:
         - %sendwithus_apikey%

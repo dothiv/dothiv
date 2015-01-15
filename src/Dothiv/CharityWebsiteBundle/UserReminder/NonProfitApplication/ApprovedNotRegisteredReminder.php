@@ -10,7 +10,7 @@ use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepositoryInterface;
 use Dothiv\UserReminderBundle\Entity\UserReminder;
 use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
-use Dothiv\UserReminderBundle\Service\SendWithUsTemplateRenderer;
+use Dothiv\UserReminderBundle\SendWithUs\TemplateRenderer;
 use Dothiv\UserReminderBundle\Service\UserReminderInterface;
 use Dothiv\ValueObject\ClockValue;
 use Dothiv\ValueObject\HivDomainValue;
@@ -22,7 +22,7 @@ class ApprovedNotRegisteredReminder implements UserReminderInterface
      * @param \Swift_Mailer                            $mailer
      * @param NonProfitRegistrationRepositoryInterface $nonProfitRepo
      * @param UserReminderRepositoryInterface          $userReminderRepo
-     * @param SendWithUsTemplateRenderer               $renderer
+     * @param TemplateRenderer                         $renderer
      * @param ClockValue                               $clock
      * @param array                                    $config
      * @param string                                   $emailFromAddress
@@ -32,7 +32,7 @@ class ApprovedNotRegisteredReminder implements UserReminderInterface
         \Swift_Mailer $mailer,
         NonProfitRegistrationRepositoryInterface $nonProfitRepo,
         UserReminderRepositoryInterface $userReminderRepo,
-        SendWithUsTemplateRenderer $renderer,
+        TemplateRenderer $renderer,
         ClockValue $clock,
         array $config,
         $emailFromAddress,
