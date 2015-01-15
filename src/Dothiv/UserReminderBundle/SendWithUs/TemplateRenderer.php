@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Dothiv\UserReminderBundle\Service;
+namespace Dothiv\UserReminderBundle\SendWithUs;
 
 use Dothiv\CharityWebsiteBundle\Exception\RuntimeException;
 use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
 
-class SendWithUsTemplateRenderer
+class TemplateRenderer
 {
 
     /**

@@ -5,8 +5,6 @@ namespace Dothiv\UserReminderBundle\Command;
 use Dothiv\UserReminderBundle\Events\UserReminderEvent;
 use Dothiv\UserReminderBundle\Service\UserReminderRegistryInterface;
 use Dothiv\UserReminderBundle\UserReminderEvents;
-use Dothiv\ValueObject\HivDomainValue;
-use Dothiv\ValueObject\IdentValue;
 use JMS\Serializer\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,7 +26,16 @@ class SendRemindersCommand extends ContainerAwareCommand
     {
         /** @var UserReminderRegistryInterface $service */
         $service = $this->getContainer()->get('dothiv.userreminder.registry');
+        $this->logEventsTo($output);
+        $service->send();
+        $this->flushMailQueue();
+    }
 
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function logEventsTo(OutputInterface $output)
+    {
         if ($output->getVerbosity() > OutputInterface::VERBOSITY_QUIET) {
             /** @var EventDispatcherInterface $dispatcher */
             $dispatcher = $this->getContainer()->get('dothiv.business.event_dispatcher');
@@ -36,8 +43,13 @@ class SendRemindersCommand extends ContainerAwareCommand
                 $output->writeln(sprintf('%s > %s', $event->getReminder()->getType(), $event->getReminder()->getIdent()));
             });
         }
+    }
 
-        $service->send();
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function flushMailQueue()
+    {
         // clear mail spool, see http://symfony.com/doc/2.0/cookbook/console/sending_emails.html
         if ($this->getContainer()->getParameter("kernel.environment") != 'test') {
             $this->getContainer()->get('mailer')->getTransport()->getSpool()->flushQueue($this->getContainer()->get('swiftmailer.transport.real'));

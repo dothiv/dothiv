@@ -10,6 +10,7 @@ class DothivUserReminderBundle extends Bundle
 {
     /**
      * {@inheritdoc}
+     * @codeCoverageIgnore
      */
     public function build(ContainerBuilder $container)
     {
