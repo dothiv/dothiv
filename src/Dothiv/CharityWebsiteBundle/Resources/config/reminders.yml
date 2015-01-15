@@ -5,11 +5,10 @@ services:
         tags:
         - { name: dothiv.userreminder, type: "nonprofit_approved_not_registered" }
         arguments:
-        - @swiftmailer.mailer.charity
         - @dothiv.repository.nonprofitregistration
+        - @dothiv.repository.domain
         - @dothiv.repository.userreminder
-        - @dothiv.userreminder.sendwithus_renderer
+        - @dothiv.userreminder.mailer
         - @clock
-        - {en: ["tem_2YUuqg7BMYyHUubMDkX4CW", "ver_nidDyCHJevjK2NcFy4eBfE"], de: ["tem_2YUuqg7BMYyHUubMDkX4CW", "ver_5txVjMsoruW69Eb8oxC5sJ"]}
-        - %charity_email_from_address%
-        - %charity_email_from_name%
+        - {en: "tem_2YUuqg7BMYyHUubMDkX4CW@ver_nidDyCHJevjK2NcFy4eBfE", de: "tem_2YUuqg7BMYyHUubMDkX4CW@ver_5txVjMsoruW69Eb8oxC5sJ"}
+
