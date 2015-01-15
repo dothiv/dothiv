@@ -73,6 +73,9 @@ class DomainRegisteredMailer
         if (!$registrar->canSendRegistrationNotification()) {
             return;
         }
+        if ($domain->getOwner() !== null || $domain->getToken() == null) {
+            return;
+        }
         $email     = $domain->getOwnerEmail();
         $firstname = null;
         $surname   = null;
