@@ -12,8 +12,8 @@ use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\RegistrarRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
-use Dothiv\CharityWebsiteBundle\Entity\DomainConfigurationNotification;
-use Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepositoryInterface;
+use Dothiv\UserReminderBundle\Entity\UserReminder;
+use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ShopBundle\Repository\OrderRepositoryInterface;
 use Dothiv\ShopBundle\Service\InvoiceServiceInterface;
@@ -49,8 +49,8 @@ class ChargeOrdersCommand extends ContainerAwareCommand
         $userRepo = $this->getContainer()->get('dothiv.repository.user');
         /** @var InvoiceServiceInterface $invoiceService */
         $invoiceService = $this->getContainer()->get('dothiv.shop.invoice');
-        /** @var DomainConfigurationNotificationRepositoryInterface $domainConfigNotificationRepo */
-        $domainConfigNotificationRepo = $this->getContainer()->get('dothiv.repository.domain_configuration_notification');
+        /** @var UserReminderRepositoryInterface $domainConfigNotificationRepo */
+        $domainConfigNotificationRepo = $this->getContainer()->get('dothiv.repository.userreminder');
         /** @var OrderMailerInterface $mailer */
         $mailer = $this->getContainer()->get('dothiv.shop.mailer.order');
         /** @var UserServiceInterface $userService */
@@ -100,9 +100,10 @@ class ChargeOrdersCommand extends ContainerAwareCommand
             $domainRepo->persist($domain)->flush();
 
             // Do not notify about configuration
-            $domainConfigNotification = new DomainConfigurationNotification();
-            $domainConfigNotification->setDomain($domain);
-            $domainConfigNotificationRepo->persist($domainConfigNotification)->flush();
+            $domainConfigReminder = new UserReminder();
+            $domainConfigReminder->setIdent($domain);
+            $domainConfigReminder->setType(new IdentValue('configuration'));
+            $domainConfigNotificationRepo->persist($domainConfigReminder)->flush();
 
             // Notify listeners
             $eventDispatcher->dispatch(BusinessEvents::DOMAIN_REGISTERED, new DomainEvent($domain));

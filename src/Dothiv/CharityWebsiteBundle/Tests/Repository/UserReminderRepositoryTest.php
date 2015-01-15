@@ -6,10 +6,11 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\Registrar;
 use Dothiv\BusinessBundle\Repository\DomainRepository;
 use Dothiv\BusinessBundle\Tests\Traits\RepositoryTestTrait;
-use Dothiv\CharityWebsiteBundle\Entity\DomainConfigurationNotification;
-use Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepository;
+use Dothiv\UserReminderBundle\Entity\UserReminder;
+use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
+use Dothiv\ValueObject\IdentValue;
 
-class DomainConfigurationNotificationRepositoryTest extends \PHPUnit_Framework_TestCase
+class UserReminderRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     use RepositoryTestTrait;
 
@@ -21,23 +22,24 @@ class DomainConfigurationNotificationRepositoryTest extends \PHPUnit_Framework_T
      */
     public function itShouldBeInstantiateable()
     {
-        $this->assertInstanceOf('\Dothiv\CharityWebsiteBundle\Repository\DomainConfigurationNotificationRepository', $this->createTestObject());
+        $this->assertInstanceOf('\Dothiv\UserReminderBundle\Repository\UserReminderRepository', $this->createTestObject());
     }
 
     /**
      * @test
      * @group   Entity
      * @group   CharityWebsiteBundle
-     * @group   DomainConfigurationNotification
+     * @group   SendClickCounterConfigurationCommand
      * @group   Integration
      * @depends itShouldBeInstantiateable
      */
     public function itShouldPersist()
     {
-        $notification = new DomainConfigurationNotification();
-        $notification->setDomain($this->createDomain());
+        $reminder = new UserReminder();
+        $reminder->setIdent($this->createDomain());
+        $reminder->setType(new IdentValue('configuration'));
         $repo = $this->createTestObject();
-        $repo->persist($notification);
+        $repo->persist($reminder);
         $repo->flush();
         $this->assertEquals(1, count($repo->findAll()));
     }
@@ -46,35 +48,39 @@ class DomainConfigurationNotificationRepositoryTest extends \PHPUnit_Framework_T
      * @test
      * @group   Entity
      * @group   CharityWebsiteBundle
-     * @group   DomainConfigurationNotification
+     * @group   SendClickCounterConfigurationCommand
      * @group   Integration
      * @depends itShouldPersist
      */
     public function itShouldFindByDomain()
     {
-        $domain1       = $this->createDomain('acme.hiv', '1234-AB');
-        $notification1 = new DomainConfigurationNotification();
-        $notification1->setDomain($domain1);
+        $domain1   = $this->createDomain('acme.hiv', '1234-AB');
+        $reminder1 = new UserReminder;
+        $reminder1->setType(new IdentValue('configuration'));
+        $reminder1->setIdent($domain1);
         $repo = $this->createTestObject();
-        $repo->persist($notification1);
-        $domain2       = $this->createDomain('example.hiv', '5678-AB');
-        $notification2 = new DomainConfigurationNotification();
-        $notification2->setDomain($domain2);
+        $repo->persist($reminder1);
+        $domain2   = $this->createDomain('example.hiv', '5678-AB');
+        $reminder2 = new UserReminder();
+        $reminder2->setType(new IdentValue('configuration'));
+        $reminder2->setIdent($domain2);
         $repo = $this->createTestObject();
-        $repo->persist($notification2);
+        $repo->persist($reminder2);
         $repo->flush();
-        $n = $repo->findByDomain($domain1);
-        $this->assertEquals(1, count($n));
-        $this->assertEquals($notification1, $n->first());
+        $configNotifications = $repo->findByTypeAndItem(new IdentValue('configuration'), $domain1);
+        $this->assertEquals(1, count($configNotifications));
+        $this->assertEquals($reminder1, $configNotifications->first());
+        $otherNotifications = $repo->findByTypeAndItem(new IdentValue('other'), $domain1);
+        $this->assertEquals(0, count($otherNotifications));
     }
 
     /**
-     * @return DomainConfigurationNotificationRepository
+     * @return UserReminderRepositoryInterface
      */
     protected function createTestObject()
     {
         /** @var DomainRepository $repo */
-        $repo = $this->getTestEntityManager()->getRepository('DothivCharityWebsiteBundle:DomainConfigurationNotification');
+        $repo = $this->getTestEntityManager()->getRepository('DothivUserReminderBundle:UserReminder');
         $repo->setValidator($this->testValidator);
         return $repo;
     }
@@ -98,4 +104,4 @@ class DomainConfigurationNotificationRepositoryTest extends \PHPUnit_Framework_T
         $this->getTestEntityManager()->persist($domain);
         return $domain;
     }
-} 
+}

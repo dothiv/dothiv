@@ -1,0 +1,15 @@
+# TODO: move the template id config to a config setting
+services:
+    dothiv.charity.userreminder.nonprofit_approved_not_registered:
+        class: Dothiv\CharityWebsiteBundle\UserReminder\NonProfitApplication\ApprovedNotRegisteredReminder
+        tags:
+        - { name: dothiv.userreminder, type: "nonprofit_approved_not_registered" }
+        arguments:
+        - @swiftmailer.mailer.charity
+        - @dothiv.repository.nonprofitregistration
+        - @dothiv.repository.userreminder
+        - @dothiv.userreminder.sendwithus_renderer
+        - @clock
+        - {en: ["tem_2YUuqg7BMYyHUubMDkX4CW", "ver_nidDyCHJevjK2NcFy4eBfE"], de: ["tem_2YUuqg7BMYyHUubMDkX4CW", "ver_5txVjMsoruW69Eb8oxC5sJ"]}
+        - %charity_email_from_address%
+        - %charity_email_from_name%

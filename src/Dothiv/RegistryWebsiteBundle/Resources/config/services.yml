@@ -37,8 +37,8 @@ services:
         - @dothiv.registry.contentful.registry_content
         - @dothiv_contentful.asset
         - @dothiv_contentful.repo.asset
-        - %email_from_address%
-        - %email_from_name%
+        - %registry_email_from_address%
+        - %registry_email_from_name%
 
     dothiv.registry.service.mailer.nonprofitregistration:
         class: %dothiv.registry.service.mailer.nonprofitregistration.class%

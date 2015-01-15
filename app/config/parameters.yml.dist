@@ -7,15 +7,25 @@ parameters:
     database_password: ~
     database_path:     ~
 
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
-    mailer_port:       25
-    mailer_encryption: ~
-    mailer_auth_mode: ~
-    email_from_name:    Markus from dotHIV
-    email_from_address: m@tld.hiv
+    registry_mailer_transport:  smtp
+    registry_mailer_host:       127.0.0.1
+    registry_mailer_user:       ~
+    registry_mailer_password:   ~
+    registry_mailer_port:       25
+    registry_mailer_encryption: ~
+    registry_mailer_auth_mode: ~
+    registry_email_from_name:    .hiv Domains
+    registry_email_from_address: domains@tld.hiv
+
+    charity_mailer_transport:  smtp
+    charity_mailer_host:       127.0.0.1
+    charity_mailer_user:       ~
+    charity_mailer_password:   ~
+    charity_mailer_port:       25
+    charity_mailer_encryption: ~
+    charity_mailer_auth_mode: ~
+    charity_email_from_name: .hiv Initiative
+    charity_email_from_address: non-profit-support@click4life.hiv
 
     locale:            en
     secret:            huhepUSpEpr2DReSwaqeTAT499r9traYEph33u3UH7ph3cr66AR4sTAfEduxekam
@@ -78,3 +88,6 @@ parameters:
     clickcounter_iframe_service_url: http://iframe.clickcounter.hiv
     clickcounter_iframe_service_username: iframe-admin
     clickcounter_iframe_service_password: changeme
+
+    # Sendwithus API
+    sendwithus_apikey: live_abcdefgh

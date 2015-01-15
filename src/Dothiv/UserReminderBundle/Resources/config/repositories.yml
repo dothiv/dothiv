@@ -1,0 +1,12 @@
+parameters:
+    dothiv.repository.userreminder.entity.class: 'DothivUserReminderBundle:UserReminder'
+    dothiv.repository.userreminder.repository.class: Dothiv\DothivUserReminderBundle\Repository\UserReminderRepository
+
+services:
+    dothiv.repository.userreminder:
+        class: %dothiv.repository.userreminder.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.userreminder.entity.class% ]
+        calls:
+        - [setValidator, ["@validator"]]
