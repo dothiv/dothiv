@@ -113,7 +113,7 @@ class InvoiceService implements InvoiceServiceInterface
     {
         if ($this->countries == null) {
             $this->countries = new ArrayCollection();
-            foreach (json_decode(file_get_contents(__DIR__ . '/../../BaseWebsiteBundle/Resources/public/data/countries.json')) as $countryData) {
+            foreach (json_decode(file_get_contents(__DIR__ . '/../../BaseWebsiteBundle/Resources/public/data/countries-en.json')) as $countryData) {
                 $country       = new CountryModel();
                 $country->name = $countryData[0];
                 $country->eu   = $countryData[1];
