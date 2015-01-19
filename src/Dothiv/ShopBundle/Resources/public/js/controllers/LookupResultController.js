@@ -7,6 +7,7 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
         $scope.lookup = null;
         $scope.domain = $stateParams.domain;
         OrderModel.setDomain($stateParams.domain);
+        OrderModel.currency = $stateParams.locale === 'de' ? 'eur' : 'usd';
         $scope.secondLevel = $stateParams.domain.split('.hiv').join('');
         $scope.price = Price.getFormattedPricePerYear($scope.domain, OrderModel.currency);
         $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain, OrderModel.currency);
