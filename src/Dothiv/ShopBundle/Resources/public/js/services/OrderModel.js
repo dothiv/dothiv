@@ -20,7 +20,8 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             card: ""
         };
         this.countryModel = null;
-        this.currency = null;
+        this.defaultCurrency = 'USD';
+        this.currency = this.defaultCurrency;
         this.available = false;
         this.language = 'en';
         this.gift = false;
