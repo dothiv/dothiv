@@ -74,6 +74,22 @@
                                 </div>
                             {% endfor %}
                         </div>
+                    {% elseif child.code ends with "landingpage" %}
+                        <div class="intro">
+                            {{ child.text|default("")|markdown }}
+                        </div>
+                        <div class="field">
+                            <label for="landingpageOwner">
+                                {{ child.children[0].title }}
+                            </label>
+
+                            <div class="input">
+                                <input type="text" name="landingpageOwner" id="landingpageOwner" data-ng-model="order.landingpage.owner" required max="255">
+                                <i class="valid" data-ng-show="!{{ code }}Form.landingpageOwner.$pristine && {{ code }}Form.landingpageOwner.$valid"></i>
+                                <i class="invalid" data-ng-show="!{{ code }}Form.landingpageOwner.$pristine && !{{ code }}Form.landingpageOwner.$valid"></i>
+                                <i class="required" data-ng-show="{{ code }}Form.landingpageOwner.$pristine"></i>
+                            </div>
+                        </div>
                     {% else %}
                         <div class="intro">
                             {{ child.text|default("")|markdown }}

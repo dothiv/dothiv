@@ -30,6 +30,9 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             lastname: "",
             email: ""
         };
+        this.landingpage = {
+            owner: ""
+        };
         this.step = 1;
     };
 
@@ -140,6 +143,9 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             flat.presenteeFirstname = this.presentee.firstname; // Jane
             flat.presenteeLastname = this.presentee.lastname; // Doe
             flat.presenteeEmail = this.presentee.email; // jane.doe@example.de
+        }
+        if (this.landingpage.owner) {
+            flat.landingpageOwner = this.landingpage.owner; // Donald Duck
         }
         return flat;
     };
