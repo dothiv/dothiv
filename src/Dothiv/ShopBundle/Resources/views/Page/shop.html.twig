@@ -1,6 +1,7 @@
 {% set locale = locale|default(app.request.locale|slice(0,2)) %}
 {% trans_default_domain "registry" %}
 {% set title %}{{ page.title }}{% endset %}
+{% set subheader_hide_shop_button = true %}
 {% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
 {% block styles %}
     {% stylesheets
@@ -10,22 +11,24 @@
     <link rel="stylesheet" href="{{ asset(asset_url) }}">
     {% endstylesheets %}
 {% endblock styles %}
-{% block headerstart %}
+{% block beforeheader %}
     <nav class="meta">
+        <section>
         {% if locale == "de" %}
-            <a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self">English</a>
+            <a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self" lang="en">English</a>
         {% endif %}
         {% if locale == "en" %}
-            <a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self">Deutsch</a>
+            <a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self" lang="de">Deutsch</a>
         {% endif %}
+        </section>
     </nav>
-{% endblock headerstart %}
+{% endblock beforeheader %}
 {% block mainmenuend %}
     {% if locale == "de" %}
-        <li class="meta"><a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self">English</a></li>
+        <li class="meta"><a href="{{ path('dothiv_shop_index', {"locale": "en"}) }}" target="_self" lang="en">English</a></li>
     {% endif %}
     {% if locale == "en" %}
-        <li class="meta"><a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self">Deutsch</a></li>
+        <li class="meta"><a href="{{ path('dothiv_shop_index', {"locale": "de"}) }}" target="_self" lang="de">Deutsch</a></li>
     {% endif %}
 {% endblock %}
 {% block content %}
@@ -53,6 +56,7 @@
     '@DothivBaseWebsiteBundle/Resources/public/js/services/models/*.js'
     '@DothivBaseWebsiteBundle/Resources/public/js/filters/*.js'
     '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/MainNavController.js'
+    '@DothivRegistryWebsiteBundle/Resources/public/js/controllers/HivDomainListController.js'
     '@DothivShopBundle/Resources/public/js/services/*.js'
     '@DothivShopBundle/Resources/public/js/controllers/*.js'
     filter='?uglifyjs2'
