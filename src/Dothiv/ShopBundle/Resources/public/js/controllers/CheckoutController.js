@@ -7,16 +7,14 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
             $state.transitionTo('lookupform', {"locale": $stateParams.locale});
         }
         OrderModel.step = 3;
-        OrderModel.currency = Price.currency.toUpperCase();
         $scope.order = OrderModel;
         $scope.contact = OrderModel.contact;
         $scope.countryModel = OrderModel.countryModel;
         $scope.domain = $stateParams.domain;
-        $scope.price = Price.getFormattedPricePerYear($scope.domain);
-        $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
+        $scope.price = Price.getFormattedPricePerYear($scope.domain, OrderModel.currency);
+        $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain, OrderModel.currency);
         $scope.countries = [];
 
-        var inital = true;
 
         $scope.$watch('order.duration', function (duration, oldDuration) {
             if (duration === oldDuration) {
@@ -55,31 +53,35 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
         };
 
         var updateTotals = function () {
-            var itemTotal = Price.getPricePerYear($scope.domain) * OrderModel.duration;
+            var itemTotal = Price.getPricePerYear($scope.domain, OrderModel.currency) * OrderModel.duration;
             var vatTotal = OrderModel.vatIncluded() ? Price.calculateVat(itemTotal) : 0;
             var total = itemTotal + vatTotal;
-            $scope.vatTotal = Price.format(vatTotal / 100);
+            $scope.vatTotal = Price.format(vatTotal / 100, OrderModel.currency);
             $scope.vatPercent = OrderModel.vatIncluded() ? Price.getVat() + "%" : null;
-            $scope.itemTotal = Price.format(itemTotal / 100);
-            $scope.total = Price.format(total / 100);
+            $scope.itemTotal = Price.format(itemTotal / 100, OrderModel.currency);
+            $scope.total = Price.format(total / 100, OrderModel.currency);
             return total;
         };
 
         $scope.selectCountry = function (country) {
             OrderModel.countryModel = country;
             $scope.countryModel = country;
+            if (country && country.eu) {
+                OrderModel.currency = 'EUR';
+            } else {
+                OrderModel.currency = OrderModel.defaultCurrency;
+            }
         };
 
         $scope.blurCountry = function () {
             var country = getCountryByPartial($scope.contact.country);
             if (country != null) {
                 $scope.contact.country = country.name;
-                OrderModel.countryModel = country;
-                $scope.countryModel = country;
+                $scope.selectCountry(country);
+
             } else {
                 $scope.contact.country = null;
-                OrderModel.countryModel = null;
-                $scope.countryModel = null;
+                $scope.selectCountry(null);
             }
         };
 
@@ -103,10 +105,10 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
         updateTotals();
 
         // Load countries
-        $http.get('/bundles/dothivbasewebsite/data/countries.json').success(function (data) {
+        $http.get('/bundles/dothivbasewebsite/data/countries-' + $stateParams.locale + '.json').success(function (data) {
             var countries = [];
             for (var i = 0; i < data.length; i++) {
-                countries.push({"name": data[i][0], "eu": data[i][1]});
+                countries.push({"iso": data[i][0], "name": data[i][1], "eu": data[i][2]});
             }
             $scope.countries = countries;
         });

@@ -3,34 +3,30 @@
 angular.module('dotHIVApp.services').factory('Price', ['config', 'MoneyFormatter', function (config, MoneyFormatter) {
     var Price = function () {
         this.mf = new MoneyFormatter(config.locale);
-        this.currency = config.locale == 'en' ? 'usd' : 'eur';
-        this.symbol = config.locale == 'en' ? '$' : '€';
-        this.regularPrice = config.shop.price[this.currency];
-        if (config.shop.promo.name4life) {
-            this.promoModPrice = config.shop.promo.name4life[this.currency];
-            this.promoMatch = /.+4life\.hiv$/;
-        }
+        this.promoMatch = /.+4life\.hiv$/;
         this.vat = config.vat.de;
+        this.symbols = {'usd': '$', 'eur': '€'};
     };
 
-    Price.prototype.getPricePerYear = function (domain) {
-        var pricePerYear = this.regularPrice;
+    Price.prototype.getPricePerYear = function (domain, currency) {
+        currency = currency.toLowerCase();
+        var pricePerYear = config.shop.price[currency];
         if (config.shop.promo.name4life && domain.match(this.promoMatch)) {
-            pricePerYear += this.promoModPrice;
+            pricePerYear += config.shop.promo.name4life[currency];
         }
         return pricePerYear;
     };
 
-    Price.prototype.getPricePerMonth = function (domain) {
-        return Math.round(this.getPricePerYear(domain) / 12);
+    Price.prototype.getPricePerMonth = function (domain, currency) {
+        return Math.round(this.getPricePerYear(domain, currency) / 12);
     };
 
-    Price.prototype.getFormattedPricePerYear = function (domain) {
-        return this.mf.format(this.getPricePerYear(domain) / 100, this.symbol);
+    Price.prototype.getFormattedPricePerYear = function (domain, currency) {
+        return this.mf.format(this.getPricePerYear(domain, currency) / 100, this.getSymbol(currency));
     };
 
-    Price.prototype.getFormattedPricePerMonth = function (domain) {
-        return this.mf.format(this.getPricePerMonth(domain) / 100, this.symbol);
+    Price.prototype.getFormattedPricePerMonth = function (domain, currency) {
+        return this.mf.format(this.getPricePerMonth(domain, currency) / 100, this.getSymbol(currency));
     };
 
     Price.prototype.calculateVat = function (price) {
@@ -41,8 +37,12 @@ angular.module('dotHIVApp.services').factory('Price', ['config', 'MoneyFormatter
         return this.vat;
     };
 
-    Price.prototype.format = function (price) {
-        return this.mf.format(price, this.symbol);
+    Price.prototype.format = function (price, currency) {
+        return this.mf.format(price, this.getSymbol(currency));
+    };
+
+    Price.prototype.getSymbol = function (currency) {
+        return this.symbols[currency.toLowerCase()];
     };
 
     return new Price();

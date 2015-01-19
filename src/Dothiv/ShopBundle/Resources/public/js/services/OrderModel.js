@@ -20,7 +20,8 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             card: ""
         };
         this.countryModel = null;
-        this.currency = null;
+        this.defaultCurrency = 'USD';
+        this.currency = this.defaultCurrency;
         this.available = false;
         this.language = 'en';
         this.gift = false;
@@ -28,6 +29,9 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             firstname: "",
             lastname: "",
             email: ""
+        };
+        this.landingpage = {
+            owner: ""
         };
         this.step = 1;
     };
@@ -86,7 +90,7 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
         if (this.countryModel == null) {
             return false;
         }
-        if (this.countryModel.name.search('Deutschland') > 0) {
+        if (this.countryModel.iso === 'DE') {
             // Germans always pay VAT
             return true;
         }
@@ -123,7 +127,7 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             "locality": this.contact.locality, // Waldweg 1
             "locality2": this.contact.locality2, // Hinterhaus
             "city": this.contact.city, // 12345 Neustadt
-            "country": this.contact.country, // Germany (Deutschland)
+            "country": this.countryModel.iso, // DE
             "organization": this.contact.organization, // Bürger GmbH
             "vatNo": this.contact.vat, // DE123456789
             "currency": this.currency, // EUR
@@ -139,6 +143,9 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             flat.presenteeFirstname = this.presentee.firstname; // Jane
             flat.presenteeLastname = this.presentee.lastname; // Doe
             flat.presenteeEmail = this.presentee.email; // jane.doe@example.de
+        }
+        if (this.landingpage.owner) {
+            flat.landingpageOwner = this.landingpage.owner; // Donald Duck
         }
         return flat;
     };

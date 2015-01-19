@@ -1,24 +1,7 @@
 {% trans_default_domain "registry" %}
+{% set page = registry_content('Page', 'shop') %}
 {% set title %}{{ page.title }}{% endset %}
-{% extends "DothivRegistryWebsiteBundle::page.html.twig" %}
-{% block content %}
-    <article>
-        <header>
-            <h2>{{ page.title }}</h2>
-        </header>
-        {% for block in page.blocks|default([]) %}
-        {% if loop.first %}
-            <section class="cols{{ loop.length }}">
-        {% endif %}
-                <div class="block">
-                    {{ block.text|default("")|markdown }}
-                </div>
-        {% if loop.last %}
-            </section>
-        {% endif %}
-        {% endfor %}
-    </article>
-{% endblock %}
+{% extends "DothivShopBundle:Page:shop.html.twig" %}
 {% block aftercontent %}
     <div class="outer">
         <aside data-ng-controller="HivDomainListController">

@@ -87,6 +87,14 @@ class Order extends Entity
     private $presenteeEmail;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     * @Assert\NotBlank(groups="4lifeDomain")
+     * @Assert\Length(max=255)
+     */
+    private $landingpageOwner;
+
+    /**
      * Domain language
      *
      * @var string
@@ -636,6 +644,22 @@ class Order extends Entity
     public function getLanguage()
     {
         return new IdentValue($this->language);
+    }
+
+    /**
+     * @return Option of string
+     */
+    public function getLandingpageOwner()
+    {
+        return Option::fromValue($this->landingpageOwner);
+    }
+
+    /**
+     * @param string $landingpageOwner
+     */
+    public function setLandingpageOwner($landingpageOwner = null)
+    {
+        $this->landingpageOwner = $landingpageOwner;
     }
 
     /**

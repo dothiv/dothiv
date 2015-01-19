@@ -67,9 +67,9 @@
     <base href="/">
 </head>
 <body data-ng-app="dotHIVApp">
+{% block beforeheader %}{% endblock %}
 <div class="outer">
     <header class="page">
-        {% block headerstart %}{% endblock %}
         <section class="logo">
             <a href="/" rel="index" target="_self">
                 <h1>
@@ -119,8 +119,10 @@
                 {% endif %}
             {% endfor %}
         {% if loop.last %}
-                <li><a href="{{ path('dothiv_shop_index', {'locale': 'en'}) }}" class="button" target="_self">{{ 'menu.register'|trans }}</a></li>
-                {% block mainmenuend %}{% endblock %}
+            {% if not subheader_hide_shop_button|default(false) %}
+                <li><a href="{{ path('dothiv_shop_index', {'locale': locale}) }}" class="button" target="_self">{{ 'menu.register'|trans }}</a></li>
+            {% endif %}
+            {% block mainmenuend %}{% endblock %}
             </ul>
             </div>
             <button class="toggle-chevron" type="button" data-ng-click="toggle()">

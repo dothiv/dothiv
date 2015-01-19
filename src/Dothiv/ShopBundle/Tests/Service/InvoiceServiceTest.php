@@ -76,13 +76,13 @@ class InvoiceServiceTest extends \PHPUnit_Framework_TestCase
     public function invoiceTestDataProvider()
     {
         return [
-            [(int)(18000 * 1.19), 'Germany (Deutschland)', null, null], // Private person, DE
-            [(int)(18000 * 1.19), 'Luxembourg', null, null], // Private person, EU
-            [(int)(18000 * 1.19), 'Liechtenstein', null, null], // Private person, Non-EU
-            [(int)(18000 * 1.19), 'Germany (Deutschland)', 'ACME Inc', 'DE12345'], // DE, org
-            [(int)(18000 * 1.19), 'Luxembourg', 'ACME Inc', null], // EU, org
-            [18000, 'Luxembourg', 'ACME Inc', 'DE12345'], // EU, org, not VAT id
-            [18000, 'Liechtenstein', 'ACME Inc', null], // Non-EU Org
+            [(int)(18000 * 1.19), 'DE', null, null], // Private person, DE
+            [(int)(18000 * 1.19), 'LU', null, null], // Private person, EU
+            [(int)(18000 * 1.19), 'LI', null, null], // Private person, Non-EU
+            [(int)(18000 * 1.19), 'DE', 'ACME Inc', 'DE12345'], // DE, org
+            [(int)(18000 * 1.19), 'LU', 'ACME Inc', null], // EU, org
+            [18000, 'LU', 'ACME Inc', 'DE12345'], // EU, org, not VAT id
+            [18000, 'LI', 'ACME Inc', null], // Non-EU Org
         ];
     }
 

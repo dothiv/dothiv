@@ -18,10 +18,10 @@ angular.module('dotHIVApp.controllers').controller('SubscriptionController', ['$
             country: null
         };
         $scope.countries = [];
-        $http.get('/bundles/dothivbasewebsite/data/countries.json').success(function (data) {
+        $http.get('/bundles/dothivbasewebsite/data/countries-en.json').success(function (data) {
             var countries = [];
             for(var i = 0; i < data.length; i++) {
-                countries.push(data[i][0]);
+                countries.push(data[i][1]);
             }
             $scope.countries = countries;
         });

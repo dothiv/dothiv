@@ -102,6 +102,7 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $order->setPresenteeFirstname("Martin");
         $order->setPresenteeLastname("Müller");
         $order->setPresenteeEmail(new EmailValue('martin.müller@bürger.de'));
+        $order->setLandingpageOwner('Donald Duck');
         $order->setFirstname("Jana");
         $order->setLastname("Bürger");
         $order->setEmail(new EmailValue('jana.müller@bürger.de'));
@@ -130,6 +131,7 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($storedOrder->getPresenteeFirstname()->get(), "Martin");
         $this->assertEquals($storedOrder->getPresenteeLastname()->get(), "Müller");
         $this->assertEquals($storedOrder->getPresenteeEmail()->get(), new EmailValue('martin.müller@bürger.de'));
+        $this->assertEquals('Donald Duck', $storedOrder->getLandingpageOwner()->get());
 
     }
 

@@ -177,6 +177,14 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
     private $presenteeEmail;
 
     /**
+     * @var string|null
+     *
+     * @Assert\NotBlank(groups={"4lifeDomain"})
+     * @Assert\Length(max=255)
+     */
+    private $landingpageOwner;
+
+    /**
      * Domain language
      *
      * @var string
@@ -556,6 +564,25 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
     public function setPresenteeLastname($presenteeLastname)
     {
         $this->presenteeLastname = $presenteeLastname;
+        return $this;
+    }
+
+    /**
+     * @return Option of string
+     */
+    public function getLandingpageOwner()
+    {
+        return Option::fromValue($this->landingpageOwner);
+    }
+
+    /**
+     * @param string $landingpageOwner
+     *
+     * @return self
+     */
+    public function setLandingpageOwner($landingpageOwner)
+    {
+        $this->landingpageOwner = $landingpageOwner;
         return $this;
     }
 
