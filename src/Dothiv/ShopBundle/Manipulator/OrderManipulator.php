@@ -43,6 +43,9 @@ class OrderManipulator implements EntityManipulatorInterface
                 $entity->setPresenteeEmail($data->getPresenteeEmail()->get());
             }
         }
+        if ($data->getLandingpageOwner()->isDefined()) {
+            $entity->setLandingpageOwner($data->getLandingpageOwner()->get());
+        }
         $entity->setLanguage($data->getLanguage());
         $entity->setDuration($data->getDuration());
         $entity->setFirstname($data->getFirstname());

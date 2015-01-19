@@ -80,6 +80,7 @@ Feature: Order domain
       | presenteeFirstname | Mike                         |
       | presenteeLastname  | Müller                       |
       | presenteeEmail     | mike.müller@bürger.de        |
+      | landingpageOwner   | Donald Duck                  |
       | duration           | 3                            |
       | firstname          | Jana                         |
       | lastname           | Bürger                       |
@@ -105,3 +106,4 @@ Feature: Order domain
     And "{order.PresenteeLastname}" should contain "Müller"
     And "{order.PresenteeEmail}" should contain "mike.müller@bürger.de"
     And "{order.Language}" should contain "de"
+    And "{order.LandingpageOwner}" should contain "Donald Duck"

@@ -60,6 +60,7 @@ class OrderManipulatorTest extends \PHPUnit_Framework_TestCase
         $model->setPresenteeFirstname('Mike');
         $model->setPresenteeLastname('Müller');
         $model->setPresenteeEmail('mike.müller@müller.de');
+        $model->setLandingpageOwner('Donald Duck');
 
         $this->createTestObject()->manipulate($order, $model);
 
@@ -85,6 +86,7 @@ class OrderManipulatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($order->getPresenteeFirstname()->get(), 'Mike');
         $this->assertEquals($order->getPresenteeLastname()->get(), 'Müller');
         $this->assertEquals($order->getPresenteeEmail()->get(), new EmailValue('mike.müller@müller.de'));
+        $this->assertEquals('Donald Duck', $order->getLandingpageOwner()->get());
     }
 
     /**

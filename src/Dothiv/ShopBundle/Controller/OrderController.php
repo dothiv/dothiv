@@ -84,7 +84,11 @@ class OrderController
 
         $domain->setRegistered(true);
         $this->domainInfoRepo->persist($domain)->flush();
-        $this->orderRepo->persistItem($item)->flush();
+        try {
+            $this->orderRepo->persistItem($item)->flush();
+        } catch (\Dothiv\BusinessBundle\Exception\InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
         $this->eventDispatcher->dispatch(BusinessEvents::ENTITY_CREATED, new EntityEvent($item));
         $response = $this->createResponse();
         $response->setStatusCode(201);
