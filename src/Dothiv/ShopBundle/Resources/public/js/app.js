@@ -13,6 +13,11 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'dot
     }])
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $stateProvider
+            .state('lookupform-index', {
+                url: '/:locale',
+                templateUrl: '/template/shop/lookup.html',
+                controller: 'LookupFormController'
+            })
             .state('lookupform', {
                 url: '/:locale/shop/lookup',
                 templateUrl: '/template/shop/lookup.html',
