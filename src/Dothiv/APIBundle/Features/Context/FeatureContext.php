@@ -15,6 +15,7 @@ use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Util\Debug;
 use Doctrine\ORM\Tools\SchemaTool;
 use Dothiv\ValueObject\ValueObjectInterface;
 use PhpOption\Option;
@@ -550,4 +551,11 @@ class FeatureContext extends BehatContext
         $client->followRedirects(true);
     }
 
+    /**
+     * @Then /^I debug "(?P<storageName>[^"]*)"$/
+     */
+    public function iDebug($storageName)
+    {
+        Debug::dump($this->getValue($storageName));
+    }
 }

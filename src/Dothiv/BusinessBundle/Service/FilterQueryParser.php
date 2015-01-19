@@ -5,6 +5,9 @@ namespace Dothiv\BusinessBundle\Service;
 
 use Dothiv\BusinessBundle\Model\FilterQuery;
 
+/**
+ * FIXME: Parse comparison operators
+ */
 class FilterQueryParser
 {
     const PROPERTY_MATCH = '/^@([^\{]+)\{([^\}]+)\}$/';
@@ -40,4 +43,4 @@ class FilterQueryParser
         }
         return $query;
     }
-} 
+}

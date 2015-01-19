@@ -14,6 +14,15 @@ services:
         - %charity_email_from_address%
         - %charity_email_from_name%
 
+    dothiv.charity.userreminder.nonprofit.click_counter_configured_but_no_clicks:
+        class: Dothiv\CharityWebsiteBundle\UserReminder\NonProfitDomain\ClickCounterConfiguredButNoClicksReminder
+        tags:
+        - { name: dothiv.userreminder, type: "nonprofit_click_counter_configured_but_no_clicks" }
+        arguments:
+        - @dothiv.repository.domain
+        - @dothiv.repository.userreminder
+        - @clock
+
     dothiv.charity.sendwithus_renderer:
         class: Dothiv\CharityWebsiteBundle\SendWithUs\TemplateRenderer
         arguments:
