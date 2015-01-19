@@ -10,7 +10,7 @@ use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepositoryInterface;
 use Dothiv\UserReminderBundle\Entity\UserReminder;
 use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
-use Dothiv\UserReminderBundle\SendWithUs\TemplateRenderer;
+use Dothiv\CharityWebsiteBundle\SendWithUs\TemplateRenderer;
 use Dothiv\UserReminderBundle\Service\UserReminderInterface;
 use Dothiv\ValueObject\ClockValue;
 use Dothiv\ValueObject\HivDomainValue;
