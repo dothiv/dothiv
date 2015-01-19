@@ -138,6 +138,8 @@ class Domain extends Entity
      * @var boolean
      *
      * @ORM\Column(type="boolean", nullable=false)
+     *
+     * FIXME: convert to timestamp
      */
     private $live = false;
 

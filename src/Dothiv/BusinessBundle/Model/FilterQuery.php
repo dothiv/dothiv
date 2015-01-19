@@ -6,6 +6,9 @@ use Dothiv\BusinessBundle\Entity\User;
 use PhpOption\None;
 use PhpOption\Option;
 
+/**
+ * FIXME: Add support for comparison operators
+ */
 class FilterQuery
 {
     /**
