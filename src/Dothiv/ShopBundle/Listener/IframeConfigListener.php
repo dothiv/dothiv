@@ -45,12 +45,9 @@ class IframeConfigListener
                 'defaultLocale' => $locale
             ];
             $replace                     = [
-                '%%firstname%%' => $domain->getOwner()->getFirstname(),
+                '%%firstname%%' => $order->getLandingpageOwner()->get(),
                 '%%domain%%'    => HivDomainValue::create($domain->getName())->toUTF8()
             ];
-            if ($order->getGift()) {
-                $replace['%%firstname%%'] = $order->getPresenteeFirstname()->get();
-            }
             foreach ($this->locales as $locale) {
                 $iframeConfig['landingPage']['strings'][$locale] = array(
                     'title'           => $this->getString('title', $locale, $replace),

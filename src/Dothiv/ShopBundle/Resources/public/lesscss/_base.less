@@ -169,17 +169,21 @@ article.shop {
   }
 }
 
-header.page {
-  position: relative;
-
-  nav.meta {
-    display: none;
+body > nav.meta {
+  display: none;
+  @media (min-width: @screen-sm-min) {
+    .container;
+    display: block;
+  }
+  section {
     @media (min-width: @screen-sm-min) {
-      display: block;
-      position: absolute;
-      right: @grid-gutter-width / 2;
-      top: @grid-gutter-width / 2;
-      z-index: 100;
+      .row;
+      .clearfix;
+    }
+    a {
+      @media (min-width: @screen-sm-min) {
+        .pull-right;
+      }
     }
   }
 }
