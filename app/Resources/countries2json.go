@@ -41,16 +41,17 @@ func writeJson(lang string, index int) (err error) {
 
 		EU := 0
 		label := ""
-		if line[index] == line[0] {
-			label = line[0]
+		if line[index] == line[1] {
+			label = line[1]
 		} else {
-			label = fmt.Sprintf("%s (%s)", line[index], line[0])
+			label = fmt.Sprintf("%s (%s)", line[index], line[1])
 		}
 
-		if line[3] == "1" {
+		if line[4] == "1" {
 			EU = 1
 		}
 		country := []interface{}{}
+		country = append(country, line[0])
 		country = append(country, label)
 		country = append(country, EU)
 		countries = append(countries, country)
@@ -74,13 +75,13 @@ func writeJson(lang string, index int) (err error) {
 
 func main() {
 
-	err := writeJson("en", 1)
+	err := writeJson("en", 2)
 	if err != nil {
 		os.Stderr.WriteString(err.Error())
 		os.Exit(1)
 	}
 
-	err = writeJson("de", 2)
+	err = writeJson("de", 3)
 	if err != nil {
 		os.Stderr.WriteString(err.Error())
 		os.Exit(1)

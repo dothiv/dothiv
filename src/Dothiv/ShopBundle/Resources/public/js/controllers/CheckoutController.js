@@ -103,10 +103,10 @@ angular.module('dotHIVApp.controllers').controller('CheckoutController', [
         updateTotals();
 
         // Load countries
-        $http.get('/bundles/dothivbasewebsite/data/countries-en.json').success(function (data) {
+        $http.get('/bundles/dothivbasewebsite/data/countries-' + $stateParams.locale + '.json').success(function (data) {
             var countries = [];
             for (var i = 0; i < data.length; i++) {
-                countries.push({"name": data[i][0], "eu": data[i][1]});
+                countries.push({"iso": data[i][0], "name": data[i][1], "eu": data[i][2]});
             }
             $scope.countries = countries;
         });
