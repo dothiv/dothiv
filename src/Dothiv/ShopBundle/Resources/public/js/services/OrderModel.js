@@ -86,7 +86,7 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
         if (this.countryModel == null) {
             return false;
         }
-        if (this.countryModel.name.search('Deutschland') > 0) {
+        if (this.countryModel.iso === 'DE') {
             // Germans always pay VAT
             return true;
         }
@@ -123,7 +123,7 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             "locality": this.contact.locality, // Waldweg 1
             "locality2": this.contact.locality2, // Hinterhaus
             "city": this.contact.city, // 12345 Neustadt
-            "country": this.contact.country, // Germany (Deutschland)
+            "country": this.countryModel.iso, // DE
             "organization": this.contact.organization, // Bürger GmbH
             "vatNo": this.contact.vat, // DE123456789
             "currency": this.currency, // EUR

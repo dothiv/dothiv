@@ -47,12 +47,18 @@ class InvoiceService implements InvoiceServiceInterface
      */
     public function createInvoice(Order $order)
     {
+        $countries = $this->getCountries();
+        /** @var CountryModel $country */
+        $country = $countries->filter(function (CountryModel $c) use ($order) {
+            return $c->iso == $order->getCountry();
+        })->first();
+
         $price   = $this->priceService->getPrice($order->getDomain());
         $invoice = new Invoice();
         $invoice->setFullname($order->getFirstname() . ' ' . $order->getLastname());
         $invoice->setAddress1($order->getLocality());
         $invoice->setAddress2($order->getLocality2()->getOrElse(null));
-        $invoice->setCountry($order->getCountry());
+        $invoice->setCountry($country->name);
         $invoice->setVatNo($order->getVatNo()->getOrElse(null));
         $invoice->setItemPrice(
             $order->getDuration() *
@@ -69,14 +75,9 @@ class InvoiceService implements InvoiceServiceInterface
 
         // VAT
         $invoice->setVatPercent(0);
-
-        $countries = $this->getCountries();
-        $country   = $countries->filter(function (CountryModel $c) use ($order) {
-            return $c->name == $order->getCountry();
-        })->first();
         if (Option::fromValue($country, false)->isDefined()) {
-            /** @var CountryModel $country */
-            if (strpos($country->name, 'Deutschland')) {
+
+            if ($country->iso === 'DE') {
                 // Germans always pay VAT
                 $invoice->setVatPercent($this->deVat);
             } elseif (!$country->eu) {
@@ -115,8 +116,9 @@ class InvoiceService implements InvoiceServiceInterface
             $this->countries = new ArrayCollection();
             foreach (json_decode(file_get_contents(__DIR__ . '/../../BaseWebsiteBundle/Resources/public/data/countries-en.json')) as $countryData) {
                 $country       = new CountryModel();
-                $country->name = $countryData[0];
-                $country->eu   = $countryData[1];
+                $country->iso  = $countryData[0];
+                $country->name = $countryData[1];
+                $country->eu   = $countryData[2];
                 $this->countries->add($country);
             }
         }
