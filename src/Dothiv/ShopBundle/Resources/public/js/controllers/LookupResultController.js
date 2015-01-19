@@ -8,8 +8,8 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
         $scope.domain = $stateParams.domain;
         OrderModel.setDomain($stateParams.domain);
         $scope.secondLevel = $stateParams.domain.split('.hiv').join('');
-        $scope.price = Price.getFormattedPricePerYear($scope.domain);
-        $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain);
+        $scope.price = Price.getFormattedPricePerYear($scope.domain, OrderModel.currency);
+        $scope.pricePerMonth = Price.getFormattedPricePerMonth($scope.domain, OrderModel.currency);
 
 
         var lookupDomain = function (domain) {
@@ -65,8 +65,8 @@ angular.module('dotHIVApp.controllers').controller('LookupResultController', [
                 .success(function (data) {
                     if (data.available) {
                         $scope.promoAvailable = true;
-                        $scope.promoPrice = Price.getFormattedPricePerYear(domain);
-                        $scope.promoPricePerMonth = Price.getFormattedPricePerMonth(domain);
+                        $scope.promoPrice = Price.getFormattedPricePerYear(domain, OrderModel.currency);
+                        $scope.promoPricePerMonth = Price.getFormattedPricePerMonth(domain, OrderModel.currency);
                     }
                 })
             ;
