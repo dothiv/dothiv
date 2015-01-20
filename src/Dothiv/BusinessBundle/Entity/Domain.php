@@ -135,13 +135,11 @@ class Domain extends Entity
      *
      * This property is set according to the result of the last .hiv domain status check.
      *
-     * @var boolean
+     * @var \DateTime
      *
-     * @ORM\Column(type="boolean", nullable=false)
-     *
-     * FIXME: convert to timestamp
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $live = false;
+    private $live;
 
     /**
      * The constructor
@@ -429,20 +427,36 @@ class Domain extends Entity
     /**
      * @return boolean
      */
-    public function getLive()
+    public function isLive()
     {
-        return $this->live;
+        return $this->live !== null;
     }
 
     /**
-     * @param boolean $live
+     * Marks the domain to be not-live
+     */
+    public function kill()
+    {
+        $this->live = null;
+    }
+
+    /**
+     * @param \DateTime $timestamp
      *
      * @return self
      */
-    public function setLive($live)
+    public function enliven(\DateTime $timestamp)
     {
-        $this->live = (boolean)$live;
+        $this->live = $timestamp;
         return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLiveSince()
+    {
+        return $this->live;
     }
 
     /**
@@ -464,7 +478,7 @@ class Domain extends Entity
             && $this->getOwnerName() === $domain->getOwnerName()
             && $this->getTransfer() === $domain->getTransfer()
             && $this->getNonprofit() === $domain->getNonprofit()
-            && $this->getLive() === $domain->getLive()
+            && $this->isLive() === $domain->isLive()
             && $this->getTokenSent() === $domain->getTokenSent()
             && $this->getToken() === $domain->getToken()
             && $this->getRegistrar()->equals($domain->getRegistrar())

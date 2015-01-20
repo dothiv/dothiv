@@ -115,9 +115,7 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         if ($filterQuery->getProperty('nonprofit')->isDefined()) {
             $qb->andWhere('i.nonprofit = :nonprofit')->setParameter('nonprofit', (int)$filterQuery->getProperty('nonprofit')->get()->getValue());
         }
-        if ($filterQuery->getProperty('live')->isDefined()) {
-            $qb->andWhere('i.live = :live')->setParameter('live', (int)$filterQuery->getProperty('live')->get()->getValue());
-        }
+        $this->mapProperty('live', $filterQuery, $qb, true, '0');
         $this->mapProperty('clickcount', $filterQuery, $qb);
         if ($filterQuery->getProperty('clickcounterconfig')->isDefined()) {
             if ((int)$filterQuery->getProperty('clickcounterconfig')->get()->getValue()) {
@@ -136,26 +134,39 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         return $this->buildPaginatedResult($qb, $options);
     }
 
-    protected function mapProperty($name, FilterQuery $filterQuery, QueryBuilder $qb)
+    protected function mapProperty($name, FilterQuery $filterQuery, QueryBuilder $qb, $nullableColumn = false, $nullValue = '0')
     {
-        $filterQuery->getProperty($name)->map(function (FilterQueryProperty $property) use ($qb, $name) {
+        $filterQuery->getProperty($name)->map(function (FilterQueryProperty $property) use ($qb, $name, $nullableColumn, $nullValue) {
+            $value = $property->getValue();
             if ($property->equals()) {
-                $qb->andWhere($qb->expr()->eq('i.' . $name, $property->getValue()));
+                if ($nullableColumn) {
+                    if ($value === $nullValue) {
+                        $qb->andWhere($qb->expr()->isNull('i.' . $name));
+                    } else {
+                        $qb->andWhere($qb->expr()->eq('i.' . $name, $value));
+                    }
+                }
             }
             if ($property->notEquals()) {
-                $qb->andWhere($qb->expr()->neq('i.' . $name, $property->getValue()));
+                if ($nullableColumn) {
+                    if ($value === $nullValue) {
+                        $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                    } else {
+                        $qb->andWhere($qb->expr()->neq('i.' . $name, $value));
+                    }
+                }
             }
             if ($property->greaterThan()) {
-                $qb->andWhere($qb->expr()->gt('i.' . $name, $property->getValue()));
+                $qb->andWhere($qb->expr()->gt('i.' . $name, $value));
             }
             if ($property->lessThan()) {
-                $qb->andWhere($qb->expr()->lt('i.' . $name, $property->getValue()));
+                $qb->andWhere($qb->expr()->lt('i.' . $name, $value));
             }
             if ($property->greaterOrEqualThan()) {
-                $qb->andWhere($qb->expr()->gte('i.' . $name, $property->getValue()));
+                $qb->andWhere($qb->expr()->gte('i.' . $name, $value));
             }
             if ($property->lessOrEqualThan()) {
-                $qb->andWhere($qb->expr()->lte('i.' . $name, $property->getValue()));
+                $qb->andWhere($qb->expr()->lte('i.' . $name, $value));
             }
         });
     }
