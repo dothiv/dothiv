@@ -189,14 +189,17 @@ class FeatureContext extends BehatContext
     /**
      * Returns a value with replaced placeholders for storage objects.
      *
-     * @param $value
+     * @param mixed  $value
+     * @param object $parent
      *
      * @return mixed
      */
-    protected function getValue($value)
+    protected function getValue($value, $parent = null)
     {
         preg_match_all('/\{([^\}]+)\}/', $value, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
+            $storageKey = $match[1];
+            $arrayIndex = false;
             if (preg_match('/^(\\\\[\\\\A-Za-z]+)+@(.+)/', $match[1], $classMatch)) {
                 $class = $classMatch[1];
                 switch ($class) {
@@ -206,34 +209,31 @@ class FeatureContext extends BehatContext
                     default:
                         return new $class($classMatch[2]);
                 }
-            } elseif (preg_match('/^([^\.\[]+)(\[([0-9])\])*\.(.+)$/', $match[1], $parameterMatch)) { // storageName[0].parameterName
-                $value = $this->storage->get($parameterMatch[1]);
-                if (is_array($value)) {
-                    if ($parameterMatch[2]) {
-                        $v = $value[$parameterMatch[3]];
-                        if (is_array($v)) {
-                            return $v[$parameterMatch[4]];
-                        } else {
-                            $getter = 'get' . ucfirst($parameterMatch[4]);
-                            if (method_exists($v, $getter)) {
-                                return $v->$getter();
-                            } elseif (property_exists($v, $parameterMatch[4])) {
-                                return $v->{$parameterMatch[4]};
-                            }
-                        }
-                    } else {
-                        return $value[$parameterMatch[4]];
-                    }
-                } else {
-                    $getter = 'get' . ucfirst($parameterMatch[4]);
-                    if (method_exists($value, $getter)) {
-                        return $value->$getter();
-                    } elseif (property_exists($value, $parameterMatch[4])) {
-                        return $value->{$parameterMatch[4]};
-                    }
-                }
+            } elseif (count(explode('.', substr($value, 1, -1), 2)) > 1) { // storageName[0].parameterName[1].something[3]
+                list($parentLocator, $childrenLocator) = explode('.', substr($value, 1, -1), 2);
+                return $this->getValue('{' . $childrenLocator . '}', $this->getValue('{' . $parentLocator . '}'));
             }
-            return $this->storage->get($match[1]);
+
+            if (preg_match('/([^\[]+)(\[[0-9]+\])$/', $match[1], $arrayIndexMatch)) {
+                $storageKey = $arrayIndexMatch[1];
+                $arrayIndex = (int)$arrayIndexMatch[2];
+            }
+
+            if ($parent) {
+                $getter = 'get' . ucfirst($storageKey);
+                if (method_exists($parent, $getter)) {
+                    $value = $parent->$getter();
+                } elseif (property_exists($parent, $storageKey)) {
+                    $value = $parent->$storageKey;
+                }
+            } else {
+                $value = $this->storage->get($storageKey);
+            }
+
+            if ($arrayIndex !== false) {
+                return $value[$arrayIndex];
+            }
+            return $value;
         }
         return $value;
     }
