@@ -79,21 +79,21 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
             $qb->andWhere('i.domain LIKE :q')->setParameter('q', '%' . $filterQuery->getTerm()->get() . '%');
         }
         if ($filterQuery->getProperty('approved')->isDefined()) {
-            if ((int)$filterQuery->getProperty('approved')->get()) {
+            if ((int)$filterQuery->getProperty('approved')->get()->getValue()) {
                 $qb->andWhere('i.approved IS NOT NULL');
             } else {
                 $qb->andWhere('i.approved IS NULL');
             }
         }
         if ($filterQuery->getProperty('registered')->isDefined()) {
-            if ((int)$filterQuery->getProperty('registered')->get()) {
+            if ((int)$filterQuery->getProperty('registered')->get()->getValue()) {
                 $qb->andWhere('i.registered IS NOT NULL');
             } else {
                 $qb->andWhere('i.registered IS NULL');
             }
         }
         if ($filterQuery->getProperty('older')->isDefined()) {
-            $qb->andWhere('i.created < :older')->setParameter('older', $filterQuery->getProperty('older')->get());
+            $qb->andWhere('i.created < :older')->setParameter('older', $filterQuery->getProperty('older')->get()->getValue());
         }
         return $this->buildPaginatedResult($qb, $options);
     }

@@ -3,21 +3,20 @@
 namespace Dothiv\BusinessBundle\Model;
 
 use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use PhpOption\None;
 use PhpOption\Option;
 
-/**
- * FIXME: Add support for comparison operators
- */
 class FilterQuery
 {
+
     /**
      * @var string
      */
     private $term = null;
 
     /**
-     * @var string[]
+     * @var FilterQueryProperty[]
      */
     private $properties = array();
 
@@ -50,7 +49,7 @@ class FilterQuery
     /**
      * @param string $name
      *
-     * @return Option of string
+     * @return Option of FilterQueryProperty
      */
     public function getProperty($name)
     {
@@ -60,10 +59,16 @@ class FilterQuery
     /**
      * @param string $name
      * @param string $value
+     * @param string $operator
      */
-    public function setProperty($name, $value)
+    public function setProperty($name, $value, $operator = null)
     {
-        $this->properties[$name] = $value;
+        if (isset($this->properties[$name])) {
+            throw new InvalidArgumentException(
+                sprintf('Property "%s" already defined.', $name)
+            );
+        }
+        $this->properties[$name] = new FilterQueryProperty($name, $value, $operator);
     }
 
     /**
