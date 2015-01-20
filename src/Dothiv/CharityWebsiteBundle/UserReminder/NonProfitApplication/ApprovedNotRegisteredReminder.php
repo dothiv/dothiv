@@ -8,45 +8,38 @@ use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepositoryInterface;
+use Dothiv\CharityWebsiteBundle\UserReminder\UserReminderMailer;
 use Dothiv\UserReminderBundle\Entity\UserReminder;
 use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
-use Dothiv\CharityWebsiteBundle\SendWithUs\TemplateRenderer;
 use Dothiv\UserReminderBundle\Service\UserReminderInterface;
 use Dothiv\ValueObject\ClockValue;
+use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
 
 class ApprovedNotRegisteredReminder implements UserReminderInterface
 {
+
     /**
-     * @param \Swift_Mailer                            $mailer
      * @param NonProfitRegistrationRepositoryInterface $nonProfitRepo
      * @param UserReminderRepositoryInterface          $userReminderRepo
-     * @param TemplateRenderer                         $renderer
      * @param ClockValue                               $clock
      * @param array                                    $config
-     * @param string                                   $emailFromAddress
-     * @param string                                   $emailFromName
+     * @param UserReminderMailer                       $mailer
      */
     public function __construct(
-        \Swift_Mailer $mailer,
         NonProfitRegistrationRepositoryInterface $nonProfitRepo,
         UserReminderRepositoryInterface $userReminderRepo,
-        TemplateRenderer $renderer,
         ClockValue $clock,
         array $config,
-        $emailFromAddress,
-        $emailFromName
+        UserReminderMailer $mailer
     )
     {
         $this->mailer           = $mailer;
         $this->config           = $config;
         $this->nonProfitRepo    = $nonProfitRepo;
-        $this->renderer         = $renderer;
         $this->clockValue       = $clock;
         $this->userReminderRepo = $userReminderRepo;
-        $this->emailFromAddress = $emailFromAddress;
-        $this->emailFromName    = $emailFromName;
     }
 
     /**
@@ -97,14 +90,12 @@ class ApprovedNotRegisteredReminder implements UserReminderInterface
             'organization' => $nonProfitRegistration->getOrganization()
         ];
 
-        $message = \Swift_Message::newInstance();
-        $message
-            ->setFrom($this->emailFromAddress, $this->emailFromName)
-            ->setTo($nonProfitRegistration->getPersonEmail(), $nonProfitRegistration->getPersonFirstname() . ' ' . $nonProfitRegistration->getPersonSurname());
-
         list($templateId, $versionId) = $this->config[$locale];
-        $this->renderer->render($message, $data, $templateId, $versionId);
-
-        $this->mailer->send($message);
+        $this->mailer->send(
+            $data,
+            new EmailValue($nonProfitRegistration->getPersonEmail()),
+            $nonProfitRegistration->getPersonFirstname() . ' ' . $nonProfitRegistration->getPersonSurname(),
+            $templateId, $versionId
+        );
     }
 }
