@@ -108,23 +108,23 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
             $qb->andWhere('i.name LIKE :q')->setParameter('q', '%' . $filterQuery->getTerm()->get() . '%');
         }
         if ($filterQuery->getProperty('transfer')->isDefined()) {
-            $qb->andWhere('i.transfer = :transfer')->setParameter('transfer', (int)$filterQuery->getProperty('transfer')->get());
+            $qb->andWhere('i.transfer = :transfer')->setParameter('transfer', (int)$filterQuery->getProperty('transfer')->get()->getValue());
         }
         if ($filterQuery->getProperty('nonprofit')->isDefined()) {
-            $qb->andWhere('i.nonprofit = :nonprofit')->setParameter('nonprofit', (int)$filterQuery->getProperty('nonprofit')->get());
+            $qb->andWhere('i.nonprofit = :nonprofit')->setParameter('nonprofit', (int)$filterQuery->getProperty('nonprofit')->get()->getValue());
         }
         if ($filterQuery->getProperty('live')->isDefined()) {
-            $qb->andWhere('i.live = :live')->setParameter('live', (int)$filterQuery->getProperty('live')->get());
+            $qb->andWhere('i.live = :live')->setParameter('live', (int)$filterQuery->getProperty('live')->get()->getValue());
         }
         if ($filterQuery->getProperty('clickcount')->isDefined()) {
-            if ((int)$filterQuery->getProperty('clickcount')->get()) {
+            if ((int)$filterQuery->getProperty('clickcount')->get()->getValue()) {
                 $qb->andWhere('i.clickcount > 0');
             } else {
                 $qb->andWhere('i.clickcount = 0');
             }
         }
         if ($filterQuery->getProperty('clickcounterconfig')->isDefined()) {
-            if ((int)$filterQuery->getProperty('clickcounterconfig')->get()) {
+            if ((int)$filterQuery->getProperty('clickcounterconfig')->get()->getValue()) {
                 $qb->andWhere('i.activeBanner IS NOT NULL');
             } else {
                 $qb->andWhere('i.activeBanner IS NULL');
@@ -132,7 +132,7 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         }
         if ($filterQuery->getProperty('registrar')->isDefined()) {
             // TODO: Implement URL to public-id for entities.
-            $url       = new URLValue($filterQuery->getProperty('registrar')->get());
+            $url       = new URLValue($filterQuery->getProperty('registrar')->get()->getValue());
             $pathParts = explode('/', $url->getPath());
             $qb->leftJoin('i.registrar', 'r');
             $qb->andWhere('r.extId = :extId')->setParameter('extId', array_pop($pathParts));
