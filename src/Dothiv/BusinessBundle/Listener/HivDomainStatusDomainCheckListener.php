@@ -46,14 +46,18 @@ class HivDomainStatusDomainCheckListener
         }
         /** @var Domain $domain */
         $domain = $domainOptional->get();
-        if ($domain->getLive() != $check->valid) {
-            $domain->setLive($check->valid);
+        if ($domain->isLive() != $check->valid) {
+            if ($check->valid) {
+                $domain->enliven(new \DateTime($check->created));
+            } else {
+                $domain->kill();
+            }
             $this->domainRepo->persist($domain)->flush();
             $change = new EntityChange();
             $change->setAuthor(new EmailValue('HivDomainStatusDomainCheckListener@business.bundle'));
             $change->setEntity($this->domainRepo->getItemEntityName($domain));
             $change->setIdentifier(new IdentValue($domain->getPublicId()));
-            $change->addChange(new IdentValue('live'), !$domain->getLive(), $domain->getLive());
+            $change->addChange(new IdentValue('live'), !$domain->isLive(), $domain->isLive());
             $this->changeRepo->persist($change)->flush();
         }
     }
