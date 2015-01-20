@@ -3,10 +3,12 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Model\FilterQuery;
+use Dothiv\BusinessBundle\Model\FilterQueryProperty;
 use Dothiv\BusinessBundle\Repository\Traits;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\URLValue;
@@ -116,13 +118,7 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         if ($filterQuery->getProperty('live')->isDefined()) {
             $qb->andWhere('i.live = :live')->setParameter('live', (int)$filterQuery->getProperty('live')->get()->getValue());
         }
-        if ($filterQuery->getProperty('clickcount')->isDefined()) {
-            if ((int)$filterQuery->getProperty('clickcount')->get()->getValue()) {
-                $qb->andWhere('i.clickcount > 0');
-            } else {
-                $qb->andWhere('i.clickcount = 0');
-            }
-        }
+        $this->mapProperty('clickcount', $filterQuery, $qb);
         if ($filterQuery->getProperty('clickcounterconfig')->isDefined()) {
             if ((int)$filterQuery->getProperty('clickcounterconfig')->get()->getValue()) {
                 $qb->andWhere('i.activeBanner IS NOT NULL');
@@ -138,6 +134,30 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
             $qb->andWhere('r.extId = :extId')->setParameter('extId', array_pop($pathParts));
         }
         return $this->buildPaginatedResult($qb, $options);
+    }
+
+    protected function mapProperty($name, FilterQuery $filterQuery, QueryBuilder $qb)
+    {
+        $filterQuery->getProperty($name)->map(function (FilterQueryProperty $property) use ($qb, $name) {
+            if ($property->equals()) {
+                $qb->andWhere($qb->expr()->eq('i.' . $name, $property->getValue()));
+            }
+            if ($property->notEquals()) {
+                $qb->andWhere($qb->expr()->neq('i.' . $name, $property->getValue()));
+            }
+            if ($property->greaterThan()) {
+                $qb->andWhere($qb->expr()->gt('i.' . $name, $property->getValue()));
+            }
+            if ($property->lessThan()) {
+                $qb->andWhere($qb->expr()->lt('i.' . $name, $property->getValue()));
+            }
+            if ($property->greaterOrEqualThan()) {
+                $qb->andWhere($qb->expr()->gte('i.' . $name, $property->getValue()));
+            }
+            if ($property->lessOrEqualThan()) {
+                $qb->andWhere($qb->expr()->lte('i.' . $name, $property->getValue()));
+            }
+        });
     }
 
     /**
