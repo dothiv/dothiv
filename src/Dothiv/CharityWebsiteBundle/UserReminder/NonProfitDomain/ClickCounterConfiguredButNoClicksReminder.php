@@ -8,10 +8,13 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\CharityWebsiteBundle\UserReminder\UserReminderMailer;
 use Dothiv\UserReminderBundle\Entity\UserReminder;
 use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
 use Dothiv\UserReminderBundle\Service\UserReminderInterface;
 use Dothiv\ValueObject\ClockValue;
+use Dothiv\ValueObject\EmailValue;
+use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
 
 /**
@@ -29,14 +32,24 @@ class ClickCounterConfiguredButNoClicksReminder implements UserReminderInterface
 
     /**
      * @param DomainRepositoryInterface       $domainRepo
-     * @param UserReminderRepositoryInterface $userReminderRepo ,
+     * @param UserReminderRepositoryInterface $userReminderRepo
      * @param ClockValue                      $clock
+     * @param array                           $config
+     * @param UserReminderMailer              $mailer
      */
-    public function __construct(DomainRepositoryInterface $domainRepo, UserReminderRepositoryInterface $userReminderRepo, ClockValue $clock)
+    public function __construct(
+        DomainRepositoryInterface $domainRepo,
+        UserReminderRepositoryInterface $userReminderRepo,
+        ClockValue $clock,
+        array $config,
+        UserReminderMailer $mailer
+    )
     {
         $this->domainRepo       = $domainRepo;
         $this->userReminderRepo = $userReminderRepo;
         $this->clock            = $clock;
+        $this->config           = $config;
+        $this->mailer           = $mailer;
     }
 
     /**
@@ -45,12 +58,10 @@ class ClickCounterConfiguredButNoClicksReminder implements UserReminderInterface
     function send(IdentValue $type)
     {
         $reminders = new ArrayCollection();
-        return $reminders;
-        // TODO: Add support for comparison operators in FilterQuery
-        // TODO: live must be a timestamp
-        $filter = new FilterQuery();
-        $filter->setProperty('live', '<' . $this->clock->getNow()->modify('-4 weeks')->getTimestamp());
-        $filter->setProperty('clickcount', '<' . $this->clickThreshold);
+        $filter    = new FilterQuery();
+        $filter->setProperty('live', $this->clock->getNow()->modify('-4 weeks'), '<');
+        $filter->setProperty('clickcount', $this->clickThreshold, '<');
+        $filter->setProperty('nonprofit', 1);
         $options = new PaginatedQueryOptions();
         foreach ($this->domainRepo->getPaginated($options, $filter)->getResult() as $domain) {
             /** @var Domain $domain */
@@ -61,11 +72,30 @@ class ClickCounterConfiguredButNoClicksReminder implements UserReminderInterface
             $reminder = new UserReminder();
             $reminder->setType($type);
             $reminder->setIdent($domain);
-            // $this->userReminderRepo->persist($reminder);
-            // $this->notify($domain);
+            $this->userReminderRepo->persist($reminder);
+            $this->notify($domain);
             $reminders->add($reminder);
         }
-        // $this->userReminderRepo->flush();
+        $this->userReminderRepo->flush();
         return $reminders;
+    }
+
+    protected function notify(Domain $domain)
+    {
+        // TODO: detect locale …
+        $locale = 'en';
+        $data   = [
+            'domain'    => HivDomainValue::create($domain->getName())->toUTF8(),
+            'firstname' => $domain->getOwner()->getFirstname(),
+            'lastname'  => $domain->getOwner()->getSurname()
+        ];
+
+        list($templateId, $versionId) = $this->config[$locale];
+        $this->mailer->send(
+            $data,
+            new EmailValue($domain->getOwner()->getEmail()),
+            $domain->getOwner()->getFirstname() . ' ' . $domain->getOwner()->getSurname(),
+            $templateId, $versionId
+        );
     }
 }

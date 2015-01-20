@@ -20,6 +20,7 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Dothiv\ValueObject\ValueObjectInterface;
 use PhpOption\Option;
 use Sanpi\Behatch\Context\BehatchContext;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -176,6 +177,18 @@ class FeatureContext extends BehatContext
             $v = $v->toScalar();
         }
         \PHPUnit_Framework_Assert::assertEquals($expected, $v);
+    }
+
+    /**
+     * @Then /^"(?P<storageName>[^"]*)" should contain (?P<num>\d+) elements*$/
+     */
+    public function shouldContainElemnts($storageName, $num)
+    {
+        $v = $this->getValue($storageName);
+        if ($v instanceof ArrayCollection) {
+            $v = $v->toArray();
+        }
+        \PHPUnit_Framework_Assert::assertCount((int)$num, $v);
     }
 
     /**
@@ -485,6 +498,11 @@ class FeatureContext extends BehatContext
             ));
         $em       = $this->getEntityManager();
         $executor = new ORMExecutor($em, new ORMPurger());
+        foreach ($loader->getFixtures() as $fixture) {
+            if ($fixture instanceof ContainerAwareInterface) {
+                $fixture->setContainer($this->kernel->getContainer());
+            }
+        }
         $executor->execute($loader->getFixtures(), true);
     }
 
