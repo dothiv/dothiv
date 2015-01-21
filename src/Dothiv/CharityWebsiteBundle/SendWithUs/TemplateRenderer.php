@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dothiv\UserReminderBundle\SendWithUs;
+namespace Dothiv\CharityWebsiteBundle\SendWithUs;
 
 use Dothiv\CharityWebsiteBundle\Exception\RuntimeException;
 use Guzzle\Http\Client;

@@ -50,7 +50,9 @@ class HivDomainStatusDomainCheckListenerTest extends \PHPUnit_Framework_TestCase
     {
         $domain = new Domain();
         $domain->setName('example.hiv');
-        $domain->setLive($oldValue);
+        if ($oldValue) {
+            $domain->enliven(new \DateTime());
+        }
 
         $this->mockDomainRepo->expects($this->once())->method('getDomainByName')
             ->with('example.hiv')
@@ -58,7 +60,7 @@ class HivDomainStatusDomainCheckListenerTest extends \PHPUnit_Framework_TestCase
         if ($oldValue !== $newValue) {
             $this->mockDomainRepo->expects($this->once())->method('persist')
                 ->with($this->callback(function (Domain $domain) use ($newValue) {
-                    $this->assertEquals($newValue, $domain->getLive());
+                    $this->assertEquals($newValue, $domain->isLive());
                     return true;
                 }))
                 ->willReturnSelf();

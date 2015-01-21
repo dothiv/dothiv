@@ -120,7 +120,7 @@ class ClicksReporter implements ReporterInterface
         $count = 0;
         foreach ($this->domainRepo->findAll() as $domain) {
             /** @var Domain $domain */
-            if ($domain->getLive()) {
+            if ($domain->isLive()) {
                 $count += 1;
                 if ($domain->getCreated() > $date) {
                     $date = $domain->getCreated();

@@ -1,22 +1,8 @@
 parameters:
     dothiv.userreminder.registry.class: Dothiv\UserReminderBundle\Service\UserReminderRegistry
-    dothiv.userreminder.mailer.class: Dothiv\UserReminderBundle\Mailer\SendWithUsTemplateSwiftMailer
 
 services:
     dothiv.userreminder.registry:
         class: %dothiv.userreminder.registry.class%
         arguments:
         - @dothiv.business.event_dispatcher
-
-    dothiv.userreminder.sendwithus_renderer:
-        class: Dothiv\UserReminderBundle\SendWithUs\TemplateRenderer
-        arguments:
-        - %sendwithus_apikey%
-
-    dothiv.userreminder.mailer:
-        class: %dothiv.userreminder.mailer.class%
-        arguments:
-        - @dothiv.userreminder.sendwithus_renderer
-        - @swiftmailer.mailer.charity
-        - %charity_email_from_address%
-        - %charity_email_from_name%

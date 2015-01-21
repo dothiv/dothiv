@@ -1,4 +1,6 @@
 default:
+  filters:
+    tags: ~@Skip
   formatter:
     name: progress
   paths:

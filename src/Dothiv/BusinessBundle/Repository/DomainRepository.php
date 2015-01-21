@@ -3,10 +3,12 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Model\FilterQuery;
+use Dothiv\BusinessBundle\Model\FilterQueryProperty;
 use Dothiv\BusinessBundle\Repository\Traits;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\URLValue;
@@ -108,23 +110,15 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
             $qb->andWhere('i.name LIKE :q')->setParameter('q', '%' . $filterQuery->getTerm()->get() . '%');
         }
         if ($filterQuery->getProperty('transfer')->isDefined()) {
-            $qb->andWhere('i.transfer = :transfer')->setParameter('transfer', (int)$filterQuery->getProperty('transfer')->get());
+            $qb->andWhere('i.transfer = :transfer')->setParameter('transfer', (int)$filterQuery->getProperty('transfer')->get()->getValue());
         }
         if ($filterQuery->getProperty('nonprofit')->isDefined()) {
-            $qb->andWhere('i.nonprofit = :nonprofit')->setParameter('nonprofit', (int)$filterQuery->getProperty('nonprofit')->get());
+            $qb->andWhere('i.nonprofit = :nonprofit')->setParameter('nonprofit', (int)$filterQuery->getProperty('nonprofit')->get()->getValue());
         }
-        if ($filterQuery->getProperty('live')->isDefined()) {
-            $qb->andWhere('i.live = :live')->setParameter('live', (int)$filterQuery->getProperty('live')->get());
-        }
-        if ($filterQuery->getProperty('clickcount')->isDefined()) {
-            if ((int)$filterQuery->getProperty('clickcount')->get()) {
-                $qb->andWhere('i.clickcount > 0');
-            } else {
-                $qb->andWhere('i.clickcount = 0');
-            }
-        }
+        $this->mapProperty('live', $filterQuery, $qb, true, '0');
+        $this->mapProperty('clickcount', $filterQuery, $qb);
         if ($filterQuery->getProperty('clickcounterconfig')->isDefined()) {
-            if ((int)$filterQuery->getProperty('clickcounterconfig')->get()) {
+            if ((int)$filterQuery->getProperty('clickcounterconfig')->get()->getValue()) {
                 $qb->andWhere('i.activeBanner IS NOT NULL');
             } else {
                 $qb->andWhere('i.activeBanner IS NULL');
@@ -132,12 +126,58 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         }
         if ($filterQuery->getProperty('registrar')->isDefined()) {
             // TODO: Implement URL to public-id for entities.
-            $url       = new URLValue($filterQuery->getProperty('registrar')->get());
+            $url       = new URLValue($filterQuery->getProperty('registrar')->get()->getValue());
             $pathParts = explode('/', $url->getPath());
             $qb->leftJoin('i.registrar', 'r');
             $qb->andWhere('r.extId = :extId')->setParameter('extId', array_pop($pathParts));
         }
         return $this->buildPaginatedResult($qb, $options);
+    }
+
+    protected function mapProperty($name, FilterQuery $filterQuery, QueryBuilder $qb, $nullableColumn = false, $nullValue = '0')
+    {
+        $filterQuery->getProperty($name)->map(function (FilterQueryProperty $property) use ($qb, $name, $nullableColumn, $nullValue) {
+            $value       = $property->getValue();
+            $placeholder = ':' . $name;
+            if ($property->equals()) {
+                if ($nullableColumn && $value === $nullValue) {
+                    $qb->andWhere($qb->expr()->isNull('i.' . $name));
+                } else {
+                    $qb->andWhere($qb->expr()->eq('i.' . $name, $placeholder))->setParameter($name, $value);
+                }
+            }
+            if ($property->notEquals()) {
+                if ($nullableColumn && $value === $nullValue) {
+                    $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                } else {
+                    $qb->andWhere($qb->expr()->neq('i.' . $name, $placeholder))->setParameter($name, $value);
+                }
+            }
+            if ($property->greaterThan()) {
+                if ($nullableColumn) {
+                    $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                }
+                $qb->andWhere($qb->expr()->gt('i.' . $name, $placeholder))->setParameter($name, $value);
+            }
+            if ($property->lessThan()) {
+                if ($nullableColumn) {
+                    $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                }
+                $qb->andWhere($qb->expr()->lt('i.' . $name, $placeholder))->setParameter($name, $value);
+            }
+            if ($property->greaterOrEqualThan()) {
+                if ($nullableColumn) {
+                    $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                }
+                $qb->andWhere($qb->expr()->gte('i.' . $name, $placeholder))->setParameter($name, $value);
+            }
+            if ($property->lessOrEqualThan()) {
+                if ($nullableColumn) {
+                    $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                }
+                $qb->andWhere($qb->expr()->lte('i.' . $name, $placeholder))->setParameter($name, $value);
+            }
+        });
     }
 
     /**
