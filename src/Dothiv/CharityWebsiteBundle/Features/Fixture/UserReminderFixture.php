@@ -102,6 +102,20 @@ class UserReminderFixture implements FixtureInterface, ContainerAwareInterface
         $nonProfitRegisteredNotOnlineCheck->setUrl('http://non-profit-registered-not-online.hiv/');
         $manager->persist($nonProfitRegisteredNotOnlineCheck);
 
+        $onlineButNotConfiguredDomain = new Domain();
+        $onlineButNotConfiguredDomain->setName('online-but-not-configured.hiv');
+        $onlineButNotConfiguredDomain->setRegistrar($registrar);
+        $onlineButNotConfiguredDomain->setOwnerName($user->getFirstname() . ' ' . $user->getSurname());
+        $onlineButNotConfiguredDomain->setOwnerEmail($user->getEmail());
+        $onlineButNotConfiguredDomain->setCreated($clock->getNow()->modify('-6 weeks'));
+        $manager->persist($onlineButNotConfiguredDomain);
+
+        $onlineButNotConfiguredDomainCheck = new HivDomainCheck();
+        $onlineButNotConfiguredDomainCheck->setDomain($onlineButNotConfiguredDomain);
+        $onlineButNotConfiguredDomainCheck->setUrl('http://online-but-not-configured.hiv/');
+        $onlineButNotConfiguredDomainCheck->setDnsOk(true);
+        $manager->persist($onlineButNotConfiguredDomainCheck);
+
         // Some wild domains (should not show up in reports)
         $nonProfitLiveManyClicksDomain = new Domain();
         $nonProfitLiveManyClicksDomain->setName('non-profit-live-many-clicks.hiv');
