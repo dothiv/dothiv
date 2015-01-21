@@ -7,7 +7,7 @@ use Dothiv\BusinessBundle\Model\FilterQuery;
 
 class FilterQueryParser
 {
-    const PROPERTY_MATCH = '/^@([^\{]+)\{([^\}]+)\}$/';
+    const PROPERTY_MATCH = '/^@([^\{]+)\{(<=|>=|=|!=|<|>)?([^\}]+)\}$/';
 
     /**
      * Parses string query $q into a new FilterQuery object
@@ -31,13 +31,13 @@ class FilterQueryParser
 
         $propertyParts = array_map(function ($part) {
             preg_match(static::PROPERTY_MATCH, $part, $matches);
-            return array($matches[1], $matches[2]);
+            return array($matches[1], $matches[3], $matches[2]);
         }, array_filter($parts, function ($part) {
             return preg_match(static::PROPERTY_MATCH, $part) === 1;
         }));
         foreach ($propertyParts as $property) {
-            $query->setProperty($property[0], $property[1]);
+            $query->setProperty($property[0], $property[1], empty($property[2]) ? null : $property[2]);
         }
         return $query;
     }
-} 
+}

@@ -95,16 +95,16 @@ class ApprovedNotRegisteredReminderTest extends \PHPUnit_Framework_TestCase
 
         $this->mockMailer->expects($this->once())->method('send')
             ->with(
-                new EmailValue('john.doe@example.com'),
-                'John Doe',
-                'a@b',
-                'en',
                 [
                     'domain'       => 'example.hiv',
                     'firstname'    => 'John',
                     'lastname'     => 'Doe',
                     'organization' => 'ACME Inc.'
-                ]
+                ],
+                new EmailValue('john.doe@example.com'),
+                'John Doe',
+                'a',
+                'b'
             );
 
         $reminders = $this->createTestObject()->send($type);
@@ -166,9 +166,9 @@ class ApprovedNotRegisteredReminderTest extends \PHPUnit_Framework_TestCase
             $this->mockNonProfitRegistrationRepo,
             $this->mockDomainRepo,
             $this->mockUserReminderRepo,
-            $this->mockMailer,
             $this->getClock(),
-            ['en' => 'a@b', 'de' => 'c@d']
+            ['en' => ['a', 'b'], 'de' => ['c', 'd']],
+            $this->mockMailer
         );
         return $service;
     }
@@ -178,7 +178,9 @@ class ApprovedNotRegisteredReminderTest extends \PHPUnit_Framework_TestCase
         $this->mockNonProfitRegistrationRepo = $this->getMock('\Dothiv\BusinessBundle\Repository\NonProfitRegistrationRepositoryInterface');
         $this->mockDomainRepo                = $this->getMock('\Dothiv\BusinessBundle\Repository\DomainRepositoryInterface');
         $this->mockUserReminderRepo          = $this->getMock('\Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface');
-        $this->mockMailer                    = $this->getMock('\Dothiv\UserReminderBundle\Mailer\TemplateMailerInterface');
+        $this->mockMailer                    = $this->getMockBuilder('\Dothiv\CharityWebsiteBundle\UserReminder\UserReminderMailer')
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     /**

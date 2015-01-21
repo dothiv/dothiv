@@ -1,3 +1,7 @@
+parameters:
+    dothiv.charity.sendwithus_renderer.class: Dothiv\CharityWebsiteBundle\SendWithUs\TemplateRenderer
+    dothiv.charity.userreminder.mailer.class: Dothiv\CharityWebsiteBundle\UserReminder\UserReminderMailer
+
 # TODO: move the template id config to a config setting
 services:
     dothiv.charity.userreminder.nonprofit_approved_not_registered:
@@ -6,9 +10,44 @@ services:
         - { name: dothiv.userreminder, type: "nonprofit_approved_not_registered" }
         arguments:
         - @dothiv.repository.nonprofitregistration
+        - @dothiv.repository.userreminder
+        - @clock
+        - {en: ["tem_2YUuqg7BMYyHUubMDkX4CW", "ver_nidDyCHJevjK2NcFy4eBfE"], de: ["tem_2YUuqg7BMYyHUubMDkX4CW", "ver_5txVjMsoruW69Eb8oxC5sJ"]}
+        - @dothiv.charity.userreminder.mailer
+
+    dothiv.charity.userreminder.nonprofit.click_counter_configured_but_no_clicks:
+        class: Dothiv\CharityWebsiteBundle\UserReminder\NonProfitDomain\ClickCounterConfiguredButNoClicksReminder
+        # tags:
+        # - { name: dothiv.userreminder, type: "nonprofit_click_counter_configured_but_no_clicks" }
+        arguments:
         - @dothiv.repository.domain
         - @dothiv.repository.userreminder
-        - @dothiv.userreminder.mailer
         - @clock
-        - {en: "tem_2YUuqg7BMYyHUubMDkX4CW@ver_nidDyCHJevjK2NcFy4eBfE", de: "tem_2YUuqg7BMYyHUubMDkX4CW@ver_5txVjMsoruW69Eb8oxC5sJ"}
+        - {en: ["xxx", "xxx"]}
+        - @dothiv.charity.userreminder.mailer
 
+    dothiv.charity.userreminder.nonprofit_registered_but_not_online:
+        class: Dothiv\CharityWebsiteBundle\UserReminder\NonProfitApplication\RegisteredButNotOnline
+        tags:
+        - { name: dothiv.userreminder, type: "registered_but_not_online" }
+        arguments:
+        - @dothiv.repository.nonprofitregistration
+        - @dothiv.repository.domain
+        - @dothiv_hiv_domain_status.repository.check
+        - @dothiv.repository.userreminder
+        - @clock
+        - {en: ["tem_dRysVqesLGMysMiNj7z4fF", "ver_i2J2ZrgYDV9U4dvYXa4cue"], de: ["tem_dRysVqesLGMysMiNj7z4fF", "ver_By97YcdCbqt2pZZNaaHW6i"]}
+        - @dothiv.charity.userreminder.mailer
+
+    dothiv.charity.sendwithus_renderer:
+        class: %dothiv.charity.sendwithus_renderer.class%
+        arguments:
+        - %sendwithus_apikey%
+
+    dothiv.charity.userreminder.mailer:
+        class: %dothiv.charity.userreminder.mailer.class%
+        arguments:
+            - @swiftmailer.mailer.charity
+            - @dothiv.charity.sendwithus_renderer
+            - %charity_email_from_address%
+            - %charity_email_from_name%
