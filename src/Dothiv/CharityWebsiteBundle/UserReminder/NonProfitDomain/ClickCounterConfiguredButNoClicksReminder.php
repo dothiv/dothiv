@@ -63,19 +63,27 @@ class ClickCounterConfiguredButNoClicksReminder implements UserReminderInterface
         $filter->setProperty('clickcount', $this->clickThreshold, '<');
         $filter->setProperty('nonprofit', 1);
         $options = new PaginatedQueryOptions();
-        foreach ($this->domainRepo->getPaginated($options, $filter)->getResult() as $domain) {
-            /** @var Domain $domain */
-            // Check if not already notified
-            if (!$this->userReminderRepo->findByTypeAndItem($type, $domain)->isEmpty()) {
-                continue;
+
+        do {
+            $paginatedResult = $this->domainRepo->getPaginated($options, $filter);
+            if ($paginatedResult->getNextPageKey()->isDefined()) {
+                $options->setOffsetKey($paginatedResult->getNextPageKey()->get());
             }
-            $reminder = new UserReminder();
-            $reminder->setType($type);
-            $reminder->setIdent($domain);
-            $this->userReminderRepo->persist($reminder);
-            $this->notify($domain);
-            $reminders->add($reminder);
-        }
+            foreach ($paginatedResult->getResult() as $domain) {
+                /** @var Domain $domain */
+                // Check if not already notified
+                if (!$this->userReminderRepo->findByTypeAndItem($type, $domain)->isEmpty()) {
+                    continue;
+                }
+                $reminder = new UserReminder();
+                $reminder->setType($type);
+                $reminder->setIdent($domain);
+                $this->userReminderRepo->persist($reminder);
+                $this->notify($domain);
+                $reminders->add($reminder);
+            }
+        } while ($paginatedResult->getNextPageKey()->isDefined());
+
         $this->userReminderRepo->flush();
         return $reminders;
     }
