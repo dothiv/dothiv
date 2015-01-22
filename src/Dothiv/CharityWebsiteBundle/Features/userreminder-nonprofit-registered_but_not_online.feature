@@ -5,7 +5,6 @@ Feature: User notification 4.1
   I shall be reminded
   that the domain is not online
 
-  @Current
   Scenario: Send reminders
     Given the fixture "\Dothiv\CharityWebsiteBundle\Features\Fixture\UserReminderFixture" is loaded
     When "reminders" contains the result of calling "send" on the "dothiv.charity.userreminder.nonprofit_registered_but_not_online" service with values:

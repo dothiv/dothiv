@@ -40,6 +40,18 @@ services:
         - {en: ["tem_dRysVqesLGMysMiNj7z4fF", "ver_i2J2ZrgYDV9U4dvYXa4cue"], de: ["tem_dRysVqesLGMysMiNj7z4fF", "ver_By97YcdCbqt2pZZNaaHW6i"]}
         - @dothiv.charity.userreminder.mailer
 
+    dothiv.charity.userreminder.domain.online_but_click_counter_not_configured:
+        class: Dothiv\CharityWebsiteBundle\UserReminder\Domain\OnlineButClickCounterNotConfigured
+        tags:
+        - { name: dothiv.userreminder, type: "domain_online_but_click_counter_not_configured" }
+        arguments:
+        - @dothiv.repository.domain
+        - @dothiv_hiv_domain_status.repository.check
+        - @dothiv.repository.userreminder
+        - @clock
+        - {en: ["tem_nfKoz3EGq7XiopxydULgQG", "ver_TQ4BgrgPsPzA7ALVuUqD4G"]}
+        - @dothiv.charity.userreminder.mailer
+
     dothiv.charity.sendwithus_renderer:
         class: %dothiv.charity.sendwithus_renderer.class%
         arguments:
