@@ -1,6 +1,6 @@
 <?php
 
-namespace Dothiv\CharityWebsiteBundle\Command;
+namespace Dothiv\BusinessBundle\Command;
 
 use Dothiv\BusinessBundle\BusinessEvents;
 use Dothiv\BusinessBundle\Entity\Banner;
@@ -34,7 +34,7 @@ class SendDomainNotificationCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('charity:notify:domain')
+            ->setName('dothiv:notify:domain')
             ->setDescription('Notifify the owner of a domain')
             ->addArgument('domain', InputArgument::REQUIRED, 'Name of the domain')
             ->addArgument('template', InputArgument::REQUIRED, 'SendWithUs Template ID')
@@ -46,7 +46,7 @@ class SendDomainNotificationCommand extends ContainerAwareCommand
         /** @var DomainRepositoryInterface $domainRepo */
         $domainRepo = $this->getContainer()->get('dothiv.repository.domain');
         /** @var UserReminderMailer $mailer */
-        $mailer = $this->getContainer()->get('dothiv.charity.userreminder.mailer');
+        $mailer = $this->getContainer()->get('dothiv.business.userreminder.mailer');
 
         $name = HivDomainValue::createFromUTF8($input->getArgument('domain'));
         /** @var Domain $domain */
