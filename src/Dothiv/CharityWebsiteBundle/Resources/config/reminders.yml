@@ -49,7 +49,7 @@ services:
         - @dothiv_hiv_domain_status.repository.check
         - @dothiv.repository.userreminder
         - @clock
-        - {en: ["xxx", "xxx"]}
+        - {en: ["tem_nfKoz3EGq7XiopxydULgQG", "ver_TQ4BgrgPsPzA7ALVuUqD4G"]}
         - @dothiv.charity.userreminder.mailer
 
     dothiv.charity.sendwithus_renderer:

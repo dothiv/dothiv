@@ -131,7 +131,7 @@ class OnlineButClickCounterNotConfigured implements UserReminderInterface
         $data   = [
             'domain'   => HivDomainValue::create($domain->getName())->toUTF8(),
             'fullname' => $domain->getOwnerName(),
-            'token'    => $domain->getToken(),
+            'claimToken'    => $domain->getToken(),
         ];
 
         list($templateId, $versionId) = $this->config[$locale];
