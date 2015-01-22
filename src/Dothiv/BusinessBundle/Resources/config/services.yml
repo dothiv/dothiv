@@ -78,3 +78,11 @@ services:
 
     dothiv.http_client:
         class: %dothiv.http_client.class%
+
+    dothiv.business.userreminder.mailer:
+        class: %dothiv.charity.userreminder.mailer.class%
+        arguments:
+            - @swiftmailer.mailer.registry
+            - @dothiv.charity.sendwithus_renderer
+            - %registry_email_from_address%
+            - %registry_email_from_name%
