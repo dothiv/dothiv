@@ -24,6 +24,17 @@ use Dothiv\ValueObject\IdentValue;
  */
 class OnlineButClickCounterNotConfigured implements UserReminderInterface
 {
+
+    /**
+     * @var string
+     */
+    protected $after = '-4 weeks';
+
+    /**
+     * @var bool
+     */
+    protected $nonProfit = false;
+
     /**
      * @param DomainRepositoryInterface         $domainRepo
      * @param HivDomainCheckRepositoryInterface $domainCheckRepo
@@ -58,8 +69,9 @@ class OnlineButClickCounterNotConfigured implements UserReminderInterface
         $filter    = new FilterQuery();
         $filter->setProperty('live', '0');
         $filter->setProperty('clickcounterconfig', '0');
+        $filter->setProperty('nonprofit', $this->nonProfit ? '1' : '0');
         $options = new PaginatedQueryOptions();
-        $after   = $this->clock->getNow()->modify('-4 weeks');
+        $after   = $this->clock->getNow()->modify($this->after);
 
         do {
             $paginatedResult = $this->domainRepo->getPaginated($options, $filter);
@@ -129,9 +141,9 @@ class OnlineButClickCounterNotConfigured implements UserReminderInterface
         // TODO: detect locale …
         $locale = 'en';
         $data   = [
-            'domain'   => HivDomainValue::create($domain->getName())->toUTF8(),
-            'fullname' => $domain->getOwnerName(),
-            'claimToken'    => $domain->getToken(),
+            'domain'     => HivDomainValue::create($domain->getName())->toUTF8(),
+            'fullname'   => $domain->getOwnerName(),
+            'claimToken' => $domain->getToken(),
         ];
 
         list($templateId, $versionId) = $this->config[$locale];
@@ -141,5 +153,27 @@ class OnlineButClickCounterNotConfigured implements UserReminderInterface
             $domain->getOwnerEmail(),
             $templateId, $versionId
         );
+    }
+
+    /**
+     * @param string $after
+     *
+     * @return self
+     */
+    public function setAfter($after)
+    {
+        $this->after = $after;
+        return $this;
+    }
+
+    /**
+     * @param boolean $nonProfit
+     *
+     * @return self
+     */
+    public function setNonProfit($nonProfit)
+    {
+        $this->nonProfit = (bool)$nonProfit;
+        return $this;
     }
 }
