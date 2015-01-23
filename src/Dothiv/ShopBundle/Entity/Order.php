@@ -10,6 +10,7 @@ use Dothiv\ShopBundle\Exception\InvalidArgumentException;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
+use Dothiv\ValueObject\NullOnEmptyValue;
 use Dothiv\ValueObject\URLValue;
 use PhpOption\None;
 use PhpOption\Option;
@@ -353,7 +354,7 @@ class Order extends Entity
      */
     public function setFax($fax)
     {
-        $this->fax = $fax;
+        $this->fax = NullOnEmptyValue::parse($fax)->getValue();
     }
 
     /**
@@ -449,7 +450,7 @@ class Order extends Entity
      */
     public function setLocality2($locality2)
     {
-        $this->locality2 = $locality2;
+        $this->locality2 = NullOnEmptyValue::parse($locality2)->getValue();
     }
 
     /**
@@ -465,7 +466,7 @@ class Order extends Entity
      */
     public function setOrganization($organization)
     {
-        $this->organization = $organization;
+        $this->organization = NullOnEmptyValue::parse($organization)->getValue();
     }
 
     /**
@@ -568,7 +569,7 @@ class Order extends Entity
      */
     public function setVatNo($vatNo)
     {
-        $this->vatNo = $vatNo;
+        $this->vatNo = NullOnEmptyValue::parse($vatNo)->getValue();
     }
 
     /**
@@ -619,7 +620,7 @@ class Order extends Entity
      */
     public function setPresenteeFirstname($firstname = null)
     {
-        $this->presenteeFirstname = $firstname;
+        $this->presenteeFirstname = NullOnEmptyValue::parse($firstname)->getValue();
     }
 
     /**
@@ -635,7 +636,7 @@ class Order extends Entity
      */
     public function setPresenteeLastname($lastname = null)
     {
-        $this->presenteeLastname = $lastname;
+        $this->presenteeLastname = NullOnEmptyValue::parse($lastname)->getValue();
     }
 
     /**
@@ -659,7 +660,7 @@ class Order extends Entity
      */
     public function setLandingpageOwner($landingpageOwner = null)
     {
-        $this->landingpageOwner = $landingpageOwner;
+        $this->landingpageOwner = NullOnEmptyValue::parse($landingpageOwner)->getValue();
     }
 
     /**
