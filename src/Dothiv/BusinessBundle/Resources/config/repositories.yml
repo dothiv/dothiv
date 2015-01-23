@@ -30,6 +30,8 @@ parameters:
     dothiv.repository.user_profile_change.repository.class: Dothiv\BusinessBundle\Repository\UserProfileChangeRepository
     dothiv.repository.domain_collaborator.entity: 'DothivBusinessBundle:DomainCollaborator'
     dothiv.repository.domain_collaborator.repository.class: Dothiv\BusinessBundle\Repository\DomainCollaboratorRepository
+    dothiv.repository.domain_whois.entity: 'DothivBusinessBundle:DomainWhois'
+    dothiv.repository.domain_whois.repository.class: Dothiv\BusinessBundle\Repository\DomainWhoisRepository
 
 services:
     dothiv.repository.banner:
@@ -158,5 +160,13 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.domain_collaborator.entity% ]
+        calls:
+        - [setValidator, ["@validator"]]
+
+    dothiv.repository.domain_whois:
+        class: %dothiv.repository.domain_whois.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.domain_whois.entity% ]
         calls:
         - [setValidator, ["@validator"]]
