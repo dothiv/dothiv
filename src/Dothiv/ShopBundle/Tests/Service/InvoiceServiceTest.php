@@ -77,8 +77,8 @@ class InvoiceServiceTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [(int)(18000 * 1.19), 'DE', null, null], // Private person, DE
-            [(int)(18000 * 1.19), 'LU', null, null], // Private person, EU
-            [(int)(18000 * 1.19), 'LI', null, null], // Private person, Non-EU
+            [(int)(18000 * 1.19), 'LU', null, ''], // Private person, EU
+            [(int)(18000 * 1.19), 'LI', '', null], // Private person, Non-EU
             [(int)(18000 * 1.19), 'DE', 'ACME Inc', 'DE12345'], // DE, org
             [(int)(18000 * 1.19), 'LU', 'ACME Inc', null], // EU, org
             [18000, 'LU', 'ACME Inc', 'DE12345'], // EU, org, not VAT id

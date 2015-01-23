@@ -40,10 +40,10 @@ services:
         - {en: ["tem_dRysVqesLGMysMiNj7z4fF", "ver_i2J2ZrgYDV9U4dvYXa4cue"], de: ["tem_dRysVqesLGMysMiNj7z4fF", "ver_By97YcdCbqt2pZZNaaHW6i"]}
         - @dothiv.charity.userreminder.mailer
 
-    dothiv.charity.userreminder.domain.online_but_click_counter_not_configured:
+    dothiv.charity.userreminder.domain.online_but_click_counter_not_configured.nonprofit:
         class: Dothiv\CharityWebsiteBundle\UserReminder\Domain\OnlineButClickCounterNotConfigured
         tags:
-        - { name: dothiv.userreminder, type: "domain_online_but_click_counter_not_configured" }
+        - { name: dothiv.userreminder, type: "domain_online_but_click_counter_not_configured_nonprofit" }
         arguments:
         - @dothiv.repository.domain
         - @dothiv_hiv_domain_status.repository.check
@@ -51,6 +51,24 @@ services:
         - @clock
         - {en: ["tem_nfKoz3EGq7XiopxydULgQG", "ver_TQ4BgrgPsPzA7ALVuUqD4G"]}
         - @dothiv.charity.userreminder.mailer
+        calls:
+        - [setAfter, ["-4 weeks"]]
+        - [setNonProfit, ["1"]]
+
+    dothiv.charity.userreminder.domain.online_but_click_counter_not_configured.forprofit:
+        class: Dothiv\CharityWebsiteBundle\UserReminder\Domain\OnlineButClickCounterNotConfigured
+        tags:
+        - { name: dothiv.userreminder, type: "domain_online_but_click_counter_not_configured_forprofit" }
+        arguments:
+        - @dothiv.repository.domain
+        - @dothiv_hiv_domain_status.repository.check
+        - @dothiv.repository.userreminder
+        - @clock
+        - {en: ["tem_nfKoz3EGq7XiopxydULgQG", "ver_TQ4BgrgPsPzA7ALVuUqD4G"]}
+        - @dothiv.charity.userreminder.mailer
+        calls:
+        - [setAfter, ["-2 weeks"]]
+        - [setNonProfit, ["0"]]
 
     dothiv.charity.sendwithus_renderer:
         class: %dothiv.charity.sendwithus_renderer.class%

@@ -102,19 +102,34 @@ class UserReminderFixture implements FixtureInterface, ContainerAwareInterface
         $nonProfitRegisteredNotOnlineCheck->setUrl('http://non-profit-registered-not-online.hiv/');
         $manager->persist($nonProfitRegisteredNotOnlineCheck);
 
-        $onlineButNotConfiguredDomain = new Domain();
-        $onlineButNotConfiguredDomain->setName('online-but-not-configured.hiv');
-        $onlineButNotConfiguredDomain->setRegistrar($registrar);
-        $onlineButNotConfiguredDomain->setOwnerName($user->getFirstname() . ' ' . $user->getSurname());
-        $onlineButNotConfiguredDomain->setOwnerEmail($user->getEmail());
-        $onlineButNotConfiguredDomain->setCreated($clock->getNow()->modify('-6 weeks'));
-        $manager->persist($onlineButNotConfiguredDomain);
+        $forProfitOnlineButNotConfiguredDomain = new Domain();
+        $forProfitOnlineButNotConfiguredDomain->setName('for-profit-online-but-not-configured.hiv');
+        $forProfitOnlineButNotConfiguredDomain->setRegistrar($registrar);
+        $forProfitOnlineButNotConfiguredDomain->setOwnerName($user->getFirstname() . ' ' . $user->getSurname());
+        $forProfitOnlineButNotConfiguredDomain->setOwnerEmail($user->getEmail());
+        $forProfitOnlineButNotConfiguredDomain->setCreated($clock->getNow()->modify('-3 weeks'));
+        $manager->persist($forProfitOnlineButNotConfiguredDomain);
 
-        $onlineButNotConfiguredDomainCheck = new HivDomainCheck();
-        $onlineButNotConfiguredDomainCheck->setDomain($onlineButNotConfiguredDomain);
-        $onlineButNotConfiguredDomainCheck->setUrl('http://online-but-not-configured.hiv/');
-        $onlineButNotConfiguredDomainCheck->setDnsOk(true);
-        $manager->persist($onlineButNotConfiguredDomainCheck);
+        $forProfitOnlineButNotConfiguredDomainCheck = new HivDomainCheck();
+        $forProfitOnlineButNotConfiguredDomainCheck->setDomain($forProfitOnlineButNotConfiguredDomain);
+        $forProfitOnlineButNotConfiguredDomainCheck->setUrl('http://for-profit-online-but-not-configured.hiv/');
+        $forProfitOnlineButNotConfiguredDomainCheck->setDnsOk(true);
+        $manager->persist($forProfitOnlineButNotConfiguredDomainCheck);
+
+        $nonProfitOnlineButNotConfiguredDomain = new Domain();
+        $nonProfitOnlineButNotConfiguredDomain->setName('non-profit-online-but-not-configured.hiv');
+        $nonProfitOnlineButNotConfiguredDomain->setRegistrar($registrar);
+        $nonProfitOnlineButNotConfiguredDomain->setOwnerName($user->getFirstname() . ' ' . $user->getSurname());
+        $nonProfitOnlineButNotConfiguredDomain->setOwnerEmail($user->getEmail());
+        $nonProfitOnlineButNotConfiguredDomain->setCreated($clock->getNow()->modify('-5 weeks'));
+        $nonProfitOnlineButNotConfiguredDomain->setNonprofit(true);
+        $manager->persist($nonProfitOnlineButNotConfiguredDomain);
+
+        $nonProfitOnlineButNotConfiguredDomainCheck = new HivDomainCheck();
+        $nonProfitOnlineButNotConfiguredDomainCheck->setDomain($nonProfitOnlineButNotConfiguredDomain);
+        $nonProfitOnlineButNotConfiguredDomainCheck->setUrl('http://non-profit-online-but-not-configured.hiv/');
+        $nonProfitOnlineButNotConfiguredDomainCheck->setDnsOk(true);
+        $manager->persist($nonProfitOnlineButNotConfiguredDomainCheck);
 
         // Some wild domains (should not show up in reports)
         $nonProfitLiveManyClicksDomain = new Domain();
