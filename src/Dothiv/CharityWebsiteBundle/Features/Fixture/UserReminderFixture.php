@@ -6,6 +6,7 @@ namespace Dothiv\CharityWebsiteBundle\Features\Fixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Dothiv\BusinessBundle\Entity\Attachment;
+use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\NonProfitRegistration;
 use Dothiv\BusinessBundle\Entity\Registrar;
@@ -152,6 +153,49 @@ class UserReminderFixture implements FixtureInterface, ContainerAwareInterface
         $nonProfitOnlineButNotConfiguredDomainCheck->setUrl('http://non-profit-online-but-not-configured.hiv/');
         $nonProfitOnlineButNotConfiguredDomainCheck->setDnsOk(true);
         $manager->persist($nonProfitOnlineButNotConfiguredDomainCheck);
+
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledDomain = new Domain();
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledDomain->setName('non-profit-online-configured-click-counter-but-not-installed.hiv');
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledDomain->setRegistrar($registrar);
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledDomain->setOwner($user);
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledDomain->setOwnerName($user->getFirstname() . ' ' . $user->getSurname());
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledDomain->setOwnerEmail($user->getEmail());
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledDomain->setCreated($clock->getNow()->modify('-5 weeks'));
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledDomain->setNonprofit(true);
+        $manager->persist($nonProfitOnlineClickCounterConfiguredButNotInstalledDomain);
+
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledBanner = new Banner();
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledBanner->setCreated($clock->getNow()->modify('-5 weeks'));
+        $manager->persist($nonProfitOnlineClickCounterConfiguredButNotInstalledBanner);
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledDomain->setActiveBanner($nonProfitOnlineClickCounterConfiguredButNotInstalledBanner);
+
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledCheck = new HivDomainCheck();
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledCheck->setDomain($nonProfitOnlineClickCounterConfiguredButNotInstalledDomain);
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledCheck->setUrl('http://non-profit-online-configured-click-counter-but-not-installed/');
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledCheck->setDnsOk(true);
+        $nonProfitOnlineClickCounterConfiguredButNotInstalledCheck->setStatusCode(200);
+        $manager->persist($nonProfitOnlineClickCounterConfiguredButNotInstalledCheck);
+
+        $forProfitOnlineClickCounterConfiguredButNotInstalledDomain = new Domain();
+        $forProfitOnlineClickCounterConfiguredButNotInstalledDomain->setName('for-profit-online-configured-click-counter-but-not-installed.hiv');
+        $forProfitOnlineClickCounterConfiguredButNotInstalledDomain->setRegistrar($registrar);
+        $forProfitOnlineClickCounterConfiguredButNotInstalledDomain->setOwner($user);
+        $forProfitOnlineClickCounterConfiguredButNotInstalledDomain->setOwnerName($user->getFirstname() . ' ' . $user->getSurname());
+        $forProfitOnlineClickCounterConfiguredButNotInstalledDomain->setOwnerEmail($user->getEmail());
+        $forProfitOnlineClickCounterConfiguredButNotInstalledDomain->setCreated($clock->getNow()->modify('-5 weeks'));
+        $manager->persist($forProfitOnlineClickCounterConfiguredButNotInstalledDomain);
+
+        $forProfitOnlineClickCounterConfiguredButNotInstalledBanner = new Banner();
+        $forProfitOnlineClickCounterConfiguredButNotInstalledBanner->setCreated($clock->getNow()->modify('-5 weeks'));
+        $manager->persist($forProfitOnlineClickCounterConfiguredButNotInstalledBanner);
+        $forProfitOnlineClickCounterConfiguredButNotInstalledDomain->setActiveBanner($forProfitOnlineClickCounterConfiguredButNotInstalledBanner);
+
+        $forProfitOnlineClickCounterConfiguredButNotInstalledCheck = new HivDomainCheck();
+        $forProfitOnlineClickCounterConfiguredButNotInstalledCheck->setDomain($forProfitOnlineClickCounterConfiguredButNotInstalledDomain);
+        $forProfitOnlineClickCounterConfiguredButNotInstalledCheck->setUrl('http://for-profit-online-configured-click-counter-but-not-installed/');
+        $forProfitOnlineClickCounterConfiguredButNotInstalledCheck->setDnsOk(true);
+        $forProfitOnlineClickCounterConfiguredButNotInstalledCheck->setStatusCode(200);
+        $manager->persist($forProfitOnlineClickCounterConfiguredButNotInstalledCheck);
 
         // Some wild domains (should not show up in reports)
         $nonProfitLiveManyClicksDomain = new Domain();
