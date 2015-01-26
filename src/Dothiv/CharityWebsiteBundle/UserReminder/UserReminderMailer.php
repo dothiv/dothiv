@@ -62,18 +62,17 @@ class UserReminderMailer
      * @param EmailValue  $to
      * @param string      $recipientName
      * @param string      $templateId
-     * @param string|null $versionId
      * @param array|null  $attachments
      * @param string      $locale
      */
-    public function send(array $data, EmailValue $to, $recipientName, $templateId, $versionId = null, array $attachments = null, $locale = 'en')
+    public function send(array $data, EmailValue $to, $recipientName, $templateId, array $attachments = null, $locale = 'en')
     {
         $message = \Swift_Message::newInstance();
         $message
             ->setFrom($this->emailFromAddress->toScalar(), $this->emailFromName)
             ->setTo($to->toScalar(), $recipientName);
 
-        $this->renderer->render($message, $data, $templateId, $versionId);
+        $this->renderer->render($message, $data, $templateId);
 
         if (!empty($attachments)) {
             foreach ($attachments as $attachment) {
