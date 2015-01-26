@@ -60,8 +60,7 @@ class SendDomainNotificationCommand extends ContainerAwareCommand
             $data,
             new EmailValue($domain->getOwner()->getEmail()),
             $domain->getOwner()->getFirstname() . ' ' . $domain->getOwner()->getSurname(),
-            $input->getArgument('template'),
-            $input->getArgument('version')
+            $input->getArgument('template')
         );
     }
 }

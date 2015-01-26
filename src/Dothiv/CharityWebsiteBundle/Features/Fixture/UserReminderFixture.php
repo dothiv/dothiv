@@ -67,6 +67,28 @@ class UserReminderFixture implements FixtureInterface, ContainerAwareInterface
         $proof->setExtension('pdf');
         $manager->persist($proof);
 
+        $nonProfitRegisteredNotRegistered = new NonProfitRegistration();
+        $nonProfitRegisteredNotRegistered->setUser($user);
+        $nonProfitRegisteredNotRegistered->setDomain('non-profit-registered-not-registered.hiv');
+        $nonProfitRegisteredNotRegistered->setPersonFirstname('Jill');
+        $nonProfitRegisteredNotRegistered->setPersonSurname('Jones');
+        $nonProfitRegisteredNotRegistered->setPersonEmail('jill@example.com');
+        $nonProfitRegisteredNotRegistered->setOrganization('ACME Inc.');
+        $nonProfitRegisteredNotRegistered->setProof($proof);
+        $nonProfitRegisteredNotRegistered->setAbout('ACME Stuff');
+        $nonProfitRegisteredNotRegistered->setField('prevention');
+        $nonProfitRegisteredNotRegistered->setPostcode('12345');
+        $nonProfitRegisteredNotRegistered->setLocality('Big City');
+        $nonProfitRegisteredNotRegistered->setCountry('United States');
+        $nonProfitRegisteredNotRegistered->setWebsite('http://example.com/');
+        $nonProfitRegisteredNotRegistered->setForward('1');
+        $nonProfitRegisteredNotRegistered->setPersonPhone('+49178451');
+        $nonProfitRegisteredNotRegistered->setPersonFax('+49178452');
+        $nonProfitRegisteredNotRegistered->setOrgPhone('+49178453');
+        $nonProfitRegisteredNotRegistered->setOrgFax('+49178454');
+        $nonProfitRegisteredNotRegistered->setApproved(new W3CDateTimeValue($clock->getNow()));
+        $manager->persist($nonProfitRegisteredNotRegistered);
+
         $nonProfitRegisteredNotOnlineRegistration = new NonProfitRegistration();
         $nonProfitRegisteredNotOnlineRegistration->setUser($user);
         $nonProfitRegisteredNotOnlineRegistration->setDomain('non-profit-registered-not-online.hiv');

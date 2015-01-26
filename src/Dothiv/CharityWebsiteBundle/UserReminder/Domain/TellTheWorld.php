@@ -5,7 +5,6 @@ namespace Dothiv\CharityWebsiteBundle\UserReminder\Domain;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\BusinessBundle\Entity\DomainWhois;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
@@ -22,7 +21,7 @@ use Dothiv\ValueObject\IdentValue;
 /**
  * This reminders sends the tell the world package for non-profit and for-profit domains.
  */
-class TellTheWorld implements UserReminderInterface
+class TellTheWorld extends AbstractDomainUserReminder implements UserReminderInterface
 {
 
     /**
@@ -34,13 +33,6 @@ class TellTheWorld implements UserReminderInterface
      * @var array
      */
     private $config;
-
-    /**
-     * ISO codes of countries to send german version to.
-     *
-     * @var string[]
-     */
-    private $deCountries = ['DE', 'AT', 'CH'];
 
     /**
      * @param DomainRepositoryInterface       $domainRepo
@@ -59,13 +51,12 @@ class TellTheWorld implements UserReminderInterface
         UserReminderMailer $mailer
     )
     {
+        parent::__construct($domainWhoisRepo);
         $this->domainRepo       = $domainRepo;
-        $this->domainWhoisRepo  = $domainWhoisRepo;
         $this->userReminderRepo = $userReminderRepo;
         $this->clock            = $clock;
         $this->config           = $config;
         $this->mailer           = $mailer;
-
     }
 
     /**
@@ -110,18 +101,10 @@ class TellTheWorld implements UserReminderInterface
      */
     protected function notify(Domain $domain)
     {
-        $d             = HivDomainValue::create($domain->getName());
-        $owner         = $domain->getOwner();
-        $locale        = 'en';
-        $whoisOptional = $this->domainWhoisRepo->findByDomain($d);
-        if ($whoisOptional->isDefined()) {
-            /** @var DomainWhois $whois */
-            $whois = $whoisOptional->get();
-            if (in_array($whois->getWhois()->get('Registrant Country'), $this->deCountries)) {
-                $locale = 'de';
-            }
-        }
-        $data = [
+        $d      = HivDomainValue::create($domain->getName());
+        $owner  = $domain->getOwner();
+        $locale = $this->getLocale($d);
+        $data   = [
             'domain'     => $d->toUTF8(),
             'firstname'  => $owner->getFirstname(),
             'lastname'   => $owner->getSurname(),
@@ -133,7 +116,6 @@ class TellTheWorld implements UserReminderInterface
             new EmailValue($owner->getEmail()),
             $domain->getOwnerEmail(),
             $this->config['templates'][$locale],
-            null,
             $this->config['attachments'],
             $locale
         );

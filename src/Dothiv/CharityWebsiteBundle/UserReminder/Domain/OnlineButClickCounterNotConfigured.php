@@ -8,6 +8,7 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\DomainWhoisRepositoryInterface;
 use Dothiv\CharityWebsiteBundle\UserReminder\UserReminderMailer;
 use Dothiv\HivDomainStatusBundle\Entity\HivDomainCheck;
 use Dothiv\HivDomainStatusBundle\Repository\HivDomainCheckRepositoryInterface;
@@ -22,7 +23,7 @@ use Dothiv\ValueObject\IdentValue;
 /**
  * This reminder is sent to domains, which are online, but no click-counter has been configured.
  */
-class OnlineButClickCounterNotConfigured implements UserReminderInterface
+class OnlineButClickCounterNotConfigured extends AbstractDomainUserReminder implements UserReminderInterface
 {
 
     /**
@@ -37,6 +38,7 @@ class OnlineButClickCounterNotConfigured implements UserReminderInterface
 
     /**
      * @param DomainRepositoryInterface         $domainRepo
+     * @param DomainWhoisRepositoryInterface    $domainWhoisRepo
      * @param HivDomainCheckRepositoryInterface $domainCheckRepo
      * @param UserReminderRepositoryInterface   $userReminderRepo
      * @param ClockValue                        $clock
@@ -45,6 +47,7 @@ class OnlineButClickCounterNotConfigured implements UserReminderInterface
      */
     public function __construct(
         DomainRepositoryInterface $domainRepo,
+        DomainWhoisRepositoryInterface $domainWhoisRepo,
         HivDomainCheckRepositoryInterface $domainCheckRepo,
         UserReminderRepositoryInterface $userReminderRepo,
         ClockValue $clock,
@@ -52,6 +55,7 @@ class OnlineButClickCounterNotConfigured implements UserReminderInterface
         UserReminderMailer $mailer
     )
     {
+        parent::__construct($domainWhoisRepo);
         $this->domainRepo       = $domainRepo;
         $this->domainCheckRepo  = $domainCheckRepo;
         $this->userReminderRepo = $userReminderRepo;
@@ -138,20 +142,19 @@ class OnlineButClickCounterNotConfigured implements UserReminderInterface
      */
     protected function notify(Domain $domain)
     {
-        // TODO: detect locale …
-        $locale = 'en';
+        $d      = HivDomainValue::create($domain->getName());
+        $locale = $this->getLocale($d);
         $data   = [
-            'domain'     => HivDomainValue::create($domain->getName())->toUTF8(),
+            'domain'     => $d->toUTF8(),
             'fullname'   => $domain->getOwnerName(),
             'claimToken' => $domain->getToken(),
         ];
 
-        list($templateId, $versionId) = $this->config[$locale];
         $this->mailer->send(
             $data,
             new EmailValue($domain->getOwnerEmail()),
             $domain->getOwnerEmail(),
-            $templateId, $versionId
+            $this->config[$locale]
         );
     }
 

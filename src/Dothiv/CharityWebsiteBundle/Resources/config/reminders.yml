@@ -13,7 +13,7 @@ services:
         - @dothiv.repository.domain
         - @dothiv.repository.userreminder
         - @clock
-        - {en: ["tem_2YUuqg7BMYyHUubMDkX4CW", "ver_nidDyCHJevjK2NcFy4eBfE"], de: ["tem_2YUuqg7BMYyHUubMDkX4CW", "ver_5txVjMsoruW69Eb8oxC5sJ"]}
+        - {en: "tem_2YUuqg7BMYyHUubMDkX4CW", de: "tem_uxQNKx2SKRjf3CxD22SYe6"}
         - @dothiv.charity.userreminder.mailer
 
     dothiv.charity.userreminder.nonprofit.click_counter_configured_but_no_clicks:
@@ -22,6 +22,7 @@ services:
         # - { name: dothiv.userreminder, type: "nonprofit_click_counter_configured_but_no_clicks" }
         arguments:
         - @dothiv.repository.domain
+        - @dothiv.repository.domain_whois
         - @dothiv.repository.userreminder
         - @clock
         - {en: ["xxx", "xxx"]}
@@ -37,7 +38,7 @@ services:
         - @dothiv_hiv_domain_status.repository.check
         - @dothiv.repository.userreminder
         - @clock
-        - {en: ["tem_dRysVqesLGMysMiNj7z4fF", "ver_i2J2ZrgYDV9U4dvYXa4cue"], de: ["tem_dRysVqesLGMysMiNj7z4fF", "ver_By97YcdCbqt2pZZNaaHW6i"]}
+        - {en: "tem_dRysVqesLGMysMiNj7z4fF", de: "tem_dQP73nt9QjWNTaMcwnZq59"}
         - @dothiv.charity.userreminder.mailer
 
     dothiv.charity.userreminder.domain.online_but_click_counter_not_configured.nonprofit:
@@ -46,10 +47,11 @@ services:
         - { name: dothiv.userreminder, type: "domain_online_but_click_counter_not_configured_nonprofit" }
         arguments:
         - @dothiv.repository.domain
+        - @dothiv.repository.domain_whois
         - @dothiv_hiv_domain_status.repository.check
         - @dothiv.repository.userreminder
         - @clock
-        - {en: ["tem_nfKoz3EGq7XiopxydULgQG", "ver_TQ4BgrgPsPzA7ALVuUqD4G"]}
+        - {en: "tem_nfKoz3EGq7XiopxydULgQG", de: "tem_2ZtRfTXUk8zKd7GfLV7wah"}
         - @dothiv.charity.userreminder.mailer
         calls:
         - [setAfter, ["-4 weeks"]]
@@ -61,10 +63,11 @@ services:
         - { name: dothiv.userreminder, type: "domain_online_but_click_counter_not_configured_forprofit" }
         arguments:
         - @dothiv.repository.domain
+        - @dothiv.repository.domain_whois
         - @dothiv_hiv_domain_status.repository.check
         - @dothiv.repository.userreminder
         - @clock
-        - {en: ["tem_nfKoz3EGq7XiopxydULgQG", "ver_TQ4BgrgPsPzA7ALVuUqD4G"]}
+        - {en: "tem_nfKoz3EGq7XiopxydULgQG", de: "tem_2ZtRfTXUk8zKd7GfLV7wah"}
         - @dothiv.charity.userreminder.mailer
         calls:
         - [setAfter, ["-2 weeks"]]

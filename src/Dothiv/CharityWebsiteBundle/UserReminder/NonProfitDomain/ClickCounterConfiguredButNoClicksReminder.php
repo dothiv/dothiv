@@ -8,6 +8,8 @@ use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\DomainWhoisRepositoryInterface;
+use Dothiv\CharityWebsiteBundle\UserReminder\Domain\AbstractDomainUserReminder;
 use Dothiv\CharityWebsiteBundle\UserReminder\UserReminderMailer;
 use Dothiv\UserReminderBundle\Entity\UserReminder;
 use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
@@ -20,7 +22,7 @@ use Dothiv\ValueObject\IdentValue;
 /**
  * This reminder is sent to non-profit domains, which are set up and live but have no clicks.
  */
-class ClickCounterConfiguredButNoClicksReminder implements UserReminderInterface
+class ClickCounterConfiguredButNoClicksReminder extends AbstractDomainUserReminder implements UserReminderInterface
 {
 
     /**
@@ -32,6 +34,7 @@ class ClickCounterConfiguredButNoClicksReminder implements UserReminderInterface
 
     /**
      * @param DomainRepositoryInterface       $domainRepo
+     * @param DomainWhoisRepositoryInterface  $domainWhoisRepo
      * @param UserReminderRepositoryInterface $userReminderRepo
      * @param ClockValue                      $clock
      * @param array                           $config
@@ -39,12 +42,14 @@ class ClickCounterConfiguredButNoClicksReminder implements UserReminderInterface
      */
     public function __construct(
         DomainRepositoryInterface $domainRepo,
+        DomainWhoisRepositoryInterface $domainWhoisRepo,
         UserReminderRepositoryInterface $userReminderRepo,
         ClockValue $clock,
         array $config,
         UserReminderMailer $mailer
     )
     {
+        parent::__construct($domainWhoisRepo);
         $this->domainRepo       = $domainRepo;
         $this->userReminderRepo = $userReminderRepo;
         $this->clock            = $clock;
@@ -90,20 +95,19 @@ class ClickCounterConfiguredButNoClicksReminder implements UserReminderInterface
 
     protected function notify(Domain $domain)
     {
-        // TODO: detect locale …
-        $locale = 'en';
+        $d      = HivDomainValue::create($domain->getName());
+        $locale = $this->getLocale($d);
         $data   = [
-            'domain'    => HivDomainValue::create($domain->getName())->toUTF8(),
+            'domain'    => $d->toUTF8(),
             'firstname' => $domain->getOwner()->getFirstname(),
             'lastname'  => $domain->getOwner()->getSurname()
         ];
 
-        list($templateId, $versionId) = $this->config[$locale];
         $this->mailer->send(
             $data,
             new EmailValue($domain->getOwner()->getEmail()),
             $domain->getOwner()->getFirstname() . ' ' . $domain->getOwner()->getSurname(),
-            $templateId, $versionId
+            $this->config[$locale]
         );
     }
 }
