@@ -227,7 +227,7 @@ class FeatureContext extends BehatContext
                 return $this->getValue('{' . $childrenLocator . '}', $this->getValue('{' . $parentLocator . '}'));
             }
 
-            if (preg_match('/([^\[]+)(\[[0-9]+\])$/', $match[1], $arrayIndexMatch)) {
+            if (preg_match('/([^\[]+)\[([0-9]+)\]$/', $match[1], $arrayIndexMatch)) {
                 $storageKey = $arrayIndexMatch[1];
                 $arrayIndex = (int)$arrayIndexMatch[2];
             }
