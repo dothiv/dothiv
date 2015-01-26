@@ -117,6 +117,7 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         }
         $this->mapProperty('live', $filterQuery, $qb, true, '0');
         $this->mapProperty('clickcount', $filterQuery, $qb);
+        $this->mapProperty('owner', $filterQuery, $qb, true, '0', '1');
         if ($filterQuery->getProperty('clickcounterconfig')->isDefined()) {
             if ((int)$filterQuery->getProperty('clickcounterconfig')->get()->getValue()) {
                 $qb->andWhere('i.activeBanner IS NOT NULL');
