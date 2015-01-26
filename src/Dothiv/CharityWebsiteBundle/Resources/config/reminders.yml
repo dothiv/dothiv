@@ -16,17 +16,35 @@ services:
         - {en: "tem_2YUuqg7BMYyHUubMDkX4CW", de: "tem_uxQNKx2SKRjf3CxD22SYe6"}
         - @dothiv.charity.userreminder.mailer
 
-    dothiv.charity.userreminder.nonprofit.click_counter_configured_but_no_clicks:
-        class: Dothiv\CharityWebsiteBundle\UserReminder\NonProfitDomain\ClickCounterConfiguredButNoClicksReminder
-        # tags:
-        # - { name: dothiv.userreminder, type: "nonprofit_click_counter_configured_but_no_clicks" }
+    dothiv.charity.userreminder.nonprofit.online_clickcounter_configured_but_not_installed:
+        class: Dothiv\CharityWebsiteBundle\UserReminder\Domain\OnlineClickCounterConfiguredButNotInstalled
+        tags:
+        - { name: dothiv.userreminder, type: "nonprofit_online_clickcounter_configured_but_not_installed" }
         arguments:
         - @dothiv.repository.domain
+        - @dothiv_hiv_domain_status.repository.check
         - @dothiv.repository.domain_whois
         - @dothiv.repository.userreminder
         - @clock
-        - {en: ["xxx", "xxx"]}
+        - {en: "tem_L2T4LS9HCP5fWzSqDr2fZf", de: "tem_28sgdaRhyXPvHiisYNuUM5"}
         - @dothiv.charity.userreminder.mailer
+        calls:
+        - [setNonProfit, ["1"]]
+
+    dothiv.charity.userreminder.forprofit.online_clickcounter_configured_but_not_installed:
+        class: Dothiv\CharityWebsiteBundle\UserReminder\Domain\OnlineClickCounterConfiguredButNotInstalled
+        tags:
+        - { name: dothiv.userreminder, type: "forprofit_online_clickcounter_configured_but_not_installed" }
+        arguments:
+        - @dothiv.repository.domain
+        - @dothiv_hiv_domain_status.repository.check
+        - @dothiv.repository.domain_whois
+        - @dothiv.repository.userreminder
+        - @clock
+        - {en: "tem_L2T4LS9HCP5fWzSqDr2fZf", de: "tem_28sgdaRhyXPvHiisYNuUM5"}
+        - @dothiv.charity.userreminder.mailer
+        calls:
+        - [setNonProfit, ["0"]]
 
     dothiv.charity.userreminder.nonprofit_registered_but_not_online:
         class: Dothiv\CharityWebsiteBundle\UserReminder\NonProfitApplication\RegisteredButNotOnline
