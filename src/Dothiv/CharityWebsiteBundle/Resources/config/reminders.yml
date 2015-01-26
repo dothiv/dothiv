@@ -70,6 +70,34 @@ services:
         - [setAfter, ["-2 weeks"]]
         - [setNonProfit, ["0"]]
 
+    dothiv.charity.userreminder.domain.telltheworld.forprofit:
+        class: Dothiv\CharityWebsiteBundle\UserReminder\Domain\TellTheWorld
+        tags:
+        - { name: dothiv.userreminder, type: "tell_the_world_forprofit" }
+        arguments:
+        - @dothiv.repository.domain
+        - @dothiv.repository.domain_whois
+        - @dothiv.repository.userreminder
+        - @clock
+        - { templates: { en: "tem_LkcjjcYkCBetkV37FSfdrb", de: "tem_RFokjpCcpEYmwfmmZqfLdW" }, attachments: [ { space: xfj3l4zlkg3j, id: 7xCEHA40bCo0muQc6ieyme }, { space: xfj3l4zlkg3j, id: 2pr9w6gSXakaIgWQwGmSuq } ] }
+        - @dothiv.charity.userreminder.mailer
+        calls:
+        - [setNonProfit, ["0"]]
+
+    dothiv.charity.userreminder.domain.telltheworld.nonprofit:
+        class: Dothiv\CharityWebsiteBundle\UserReminder\Domain\TellTheWorld
+        tags:
+        - { name: dothiv.userreminder, type: "tell_the_world_nonprofit" }
+        arguments:
+        - @dothiv.repository.domain
+        - @dothiv.repository.domain_whois
+        - @dothiv.repository.userreminder
+        - @clock
+        - { templates: { en: "tem_LkcjjcYkCBetkV37FSfdrb", de: "tem_RFokjpCcpEYmwfmmZqfLdW" }, attachments: [ { space: xfj3l4zlkg3j, id: 3XrGEdGW6sK4QYsikqos8u }, { space: xfj3l4zlkg3j, id: 3xgBfqG6zCm6yIOUM4MY6e } ] }
+        - @dothiv.charity.userreminder.mailer
+        calls:
+        - [setNonProfit, ["1"]]
+
     dothiv.charity.sendwithus_renderer:
         class: %dothiv.charity.sendwithus_renderer.class%
         arguments:
@@ -80,5 +108,7 @@ services:
         arguments:
             - @swiftmailer.mailer.charity
             - @dothiv.charity.sendwithus_renderer
+            - @dothiv_contentful.asset
+            - @dothiv_contentful.repo.asset
             - %charity_email_from_address%
             - %charity_email_from_name%
