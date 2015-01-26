@@ -10,7 +10,7 @@ class NullTemplateRenderer extends TemplateRenderer
     /**
      * {@inheritdoc}
      */
-    function render(\Swift_Message $message, array $data, $templateId, $versionId)
+    function render(\Swift_Message $message, array $data, $templateId, $versionId = null)
     {
         // pass.
     }

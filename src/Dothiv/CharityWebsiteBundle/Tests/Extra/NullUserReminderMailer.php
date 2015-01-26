@@ -11,7 +11,7 @@ class NullUserReminderMailer extends UserReminderMailer
     /**
      * {@inheritdoc}
      */
-    public function send(array $data, EmailValue $to, $recipientName, $templateId, $versionId)
+    public function send(array $data, EmailValue $to, $recipientName, $templateId, $versionId = null, array $attachments = null, $locale = 'en')
     {
         // pass
     }

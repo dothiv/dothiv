@@ -27,15 +27,17 @@ class TemplateRenderer
      * @param \Swift_Message $message
      * @param array          $data
      * @param string         $templateId
-     * @param string         $versionId
+     * @param string|null    $versionId
      */
-    function render(\Swift_Message $message, array $data, $templateId, $versionId)
+    function render(\Swift_Message $message, array $data, $templateId, $versionId = null)
     {
         $data = [
             'template_id'   => $templateId,
-            'version_id'    => $versionId,
             'template_data' => $data
         ];
+        if ($versionId !== null) {
+            $data['version_id'] = $versionId;
+        }
 
         $request = $this->getClient()->post(
             'https://api.sendwithus.com/api/v1/render',
