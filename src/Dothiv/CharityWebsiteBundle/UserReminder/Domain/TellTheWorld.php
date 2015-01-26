@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dothiv\CharityWebsiteBundle\UserReminder\NonProfitDomain;
+namespace Dothiv\CharityWebsiteBundle\UserReminder\Domain;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\BusinessBundle\Entity\Domain;
@@ -9,7 +9,6 @@ use Dothiv\BusinessBundle\Model\FilterQuery;
 use Dothiv\BusinessBundle\Repository\CRUD\PaginatedQueryOptions;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainWhoisRepositoryInterface;
-use Dothiv\CharityWebsiteBundle\UserReminder\Domain\AbstractDomainUserReminder;
 use Dothiv\CharityWebsiteBundle\UserReminder\UserReminderMailer;
 use Dothiv\UserReminderBundle\Entity\UserReminder;
 use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
@@ -20,17 +19,20 @@ use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
 
 /**
- * This reminder is sent to non-profit domains, which are set up and live but have no clicks.
+ * This reminders sends the tell the world package for non-profit and for-profit domains.
  */
-class ClickCounterConfiguredButNoClicksReminder extends AbstractDomainUserReminder implements UserReminderInterface
+class TellTheWorld extends AbstractDomainUserReminder implements UserReminderInterface
 {
 
     /**
-     * Domain must have less than this number of clicks
-     *
-     * @var int
+     * @var bool
      */
-    private $clickThreshold = 10;
+    protected $nonProfit = false;
+
+    /**
+     * @var array
+     */
+    private $config;
 
     /**
      * @param DomainRepositoryInterface       $domainRepo
@@ -60,13 +62,13 @@ class ClickCounterConfiguredButNoClicksReminder extends AbstractDomainUserRemind
     /**
      * {@inheritdoc}
      */
-    function send(IdentValue $type)
+    public function send(IdentValue $type)
     {
         $reminders = new ArrayCollection();
         $filter    = new FilterQuery();
-        $filter->setProperty('live', $this->clock->getNow()->modify('-4 weeks'), '<');
-        $filter->setProperty('clickcount', $this->clickThreshold, '<');
-        $filter->setProperty('nonprofit', 1);
+        $filter->setProperty('live', '0', '!=');
+        $filter->setProperty('owner', '0', '!=');
+        $filter->setProperty('nonprofit', $this->nonProfit ? '1' : '0');
         $options = new PaginatedQueryOptions();
 
         do {
@@ -80,6 +82,7 @@ class ClickCounterConfiguredButNoClicksReminder extends AbstractDomainUserRemind
                 if (!$this->userReminderRepo->findByTypeAndItem($type, $domain)->isEmpty()) {
                     continue;
                 }
+
                 $reminder = new UserReminder();
                 $reminder->setType($type);
                 $reminder->setIdent($domain);
@@ -93,21 +96,39 @@ class ClickCounterConfiguredButNoClicksReminder extends AbstractDomainUserRemind
         return $reminders;
     }
 
+    /**
+     * @param Domain $domain
+     */
     protected function notify(Domain $domain)
     {
         $d      = HivDomainValue::create($domain->getName());
+        $owner  = $domain->getOwner();
         $locale = $this->getLocale($d);
         $data   = [
-            'domain'    => $d->toUTF8(),
-            'firstname' => $domain->getOwner()->getFirstname(),
-            'lastname'  => $domain->getOwner()->getSurname()
+            'domain'     => $d->toUTF8(),
+            'firstname'  => $owner->getFirstname(),
+            'lastname'   => $owner->getSurname(),
+            'claimToken' => $domain->getToken(),
         ];
 
         $this->mailer->send(
             $data,
-            new EmailValue($domain->getOwner()->getEmail()),
-            $domain->getOwner()->getFirstname() . ' ' . $domain->getOwner()->getSurname(),
-            $this->config[$locale]
+            new EmailValue($owner->getEmail()),
+            $domain->getOwnerEmail(),
+            $this->config['templates'][$locale],
+            $this->config['attachments'],
+            $locale
         );
+    }
+
+    /**
+     * @param boolean $nonProfit
+     *
+     * @return self
+     */
+    public function setNonProfit($nonProfit)
+    {
+        $this->nonProfit = (boolean)$nonProfit;
+        return $this;
     }
 }

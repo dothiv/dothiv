@@ -44,12 +44,11 @@ class AbstractNonProfitApplicationReminder
             'organization' => $nonProfitRegistration->getOrganization()
         ];
 
-        list($templateId, $versionId) = $this->config[$locale];
         $this->mailer->send(
             $data,
             new EmailValue($nonProfitRegistration->getPersonEmail()),
             $nonProfitRegistration->getPersonFirstname() . ' ' . $nonProfitRegistration->getPersonSurname(),
-            $templateId, $versionId
+            $this->config[$locale]
         );
     }
 }

@@ -27,13 +27,11 @@ class TemplateRenderer
      * @param \Swift_Message $message
      * @param array          $data
      * @param string         $templateId
-     * @param string         $versionId
      */
-    function render(\Swift_Message $message, array $data, $templateId, $versionId)
+    function render(\Swift_Message $message, array $data, $templateId)
     {
         $data = [
             'template_id'   => $templateId,
-            'version_id'    => $versionId,
             'template_data' => $data
         ];
 
