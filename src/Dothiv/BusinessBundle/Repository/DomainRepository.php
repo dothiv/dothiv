@@ -109,74 +109,80 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         if ($filterQuery->getTerm()->isDefined()) {
             $qb->andWhere('i.name LIKE :q')->setParameter('q', '%' . $filterQuery->getTerm()->get() . '%');
         }
-        if ($filterQuery->getProperty('transfer')->isDefined()) {
-            $qb->andWhere('i.transfer = :transfer')->setParameter('transfer', (int)$filterQuery->getProperty('transfer')->get()->getValue());
+        if ($filterQuery->getSingleProperty('transfer')->isDefined()) {
+            $qb->andWhere('i.transfer = :transfer')->setParameter('transfer', (int)$filterQuery->getSingleProperty('transfer')->get()->getValue());
         }
-        if ($filterQuery->getProperty('nonprofit')->isDefined()) {
-            $qb->andWhere('i.nonprofit = :nonprofit')->setParameter('nonprofit', (int)$filterQuery->getProperty('nonprofit')->get()->getValue());
+        if ($filterQuery->getSingleProperty('nonprofit')->isDefined()) {
+            $qb->andWhere('i.nonprofit = :nonprofit')->setParameter('nonprofit', (int)$filterQuery->getSingleProperty('nonprofit')->get()->getValue());
         }
         $this->mapProperty('live', $filterQuery, $qb, true, '0');
         $this->mapProperty('clickcount', $filterQuery, $qb);
         $this->mapProperty('owner', $filterQuery, $qb, true, '0', '1');
-        if ($filterQuery->getProperty('clickcounterconfig')->isDefined()) {
-            if ((int)$filterQuery->getProperty('clickcounterconfig')->get()->getValue()) {
+        if ($filterQuery->getSingleProperty('clickcounterconfig')->isDefined()) {
+            if ((int)$filterQuery->getSingleProperty('clickcounterconfig')->get()->getValue()) {
                 $qb->andWhere('i.activeBanner IS NOT NULL');
             } else {
                 $qb->andWhere('i.activeBanner IS NULL');
             }
         }
-        if ($filterQuery->getProperty('registrar')->isDefined()) {
+        if ($filterQuery->getSingleProperty('registrar')->isDefined()) {
             // TODO: Implement URL to public-id for entities.
-            $url       = new URLValue($filterQuery->getProperty('registrar')->get()->getValue());
+            $url       = new URLValue($filterQuery->getSingleProperty('registrar')->get()->getValue());
             $pathParts = explode('/', $url->getPath());
             $qb->leftJoin('i.registrar', 'r');
             $qb->andWhere('r.extId = :extId')->setParameter('extId', array_pop($pathParts));
         }
+        $this->mapProperty('created', $filterQuery, $qb);
         return $this->buildPaginatedResult($qb, $options);
     }
 
     protected function mapProperty($name, FilterQuery $filterQuery, QueryBuilder $qb, $nullableColumn = false, $nullValue = '0')
     {
-        $filterQuery->getProperty($name)->map(function (FilterQueryProperty $property) use ($qb, $name, $nullableColumn, $nullValue) {
+        $applyFilterQueryProperty = function (FilterQueryProperty $property, $index) use ($qb, $name, $nullableColumn, $nullValue) {
             $value       = $property->getValue();
-            $placeholder = ':' . $name;
+            $placeholder = ':' . $name . $index;
             if ($property->equals()) {
                 if ($nullableColumn && $value === $nullValue) {
                     $qb->andWhere($qb->expr()->isNull('i.' . $name));
                 } else {
-                    $qb->andWhere($qb->expr()->eq('i.' . $name, $placeholder))->setParameter($name, $value);
+                    $qb->andWhere($qb->expr()->eq('i.' . $name, $placeholder))->setParameter($name . $index, $value);
                 }
             }
             if ($property->notEquals()) {
                 if ($nullableColumn && $value === $nullValue) {
                     $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
                 } else {
-                    $qb->andWhere($qb->expr()->neq('i.' . $name, $placeholder))->setParameter($name, $value);
+                    $qb->andWhere($qb->expr()->neq('i.' . $name, $placeholder))->setParameter($name . $index, $value);
                 }
             }
             if ($property->greaterThan()) {
                 if ($nullableColumn) {
                     $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
                 }
-                $qb->andWhere($qb->expr()->gt('i.' . $name, $placeholder))->setParameter($name, $value);
+                $qb->andWhere($qb->expr()->gt('i.' . $name, $placeholder))->setParameter($name . $index, $value);
             }
             if ($property->lessThan()) {
                 if ($nullableColumn) {
                     $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
                 }
-                $qb->andWhere($qb->expr()->lt('i.' . $name, $placeholder))->setParameter($name, $value);
+                $qb->andWhere($qb->expr()->lt('i.' . $name, $placeholder))->setParameter($name . $index, $value);
             }
             if ($property->greaterOrEqualThan()) {
                 if ($nullableColumn) {
                     $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
                 }
-                $qb->andWhere($qb->expr()->gte('i.' . $name, $placeholder))->setParameter($name, $value);
+                $qb->andWhere($qb->expr()->gte('i.' . $name, $placeholder))->setParameter($name . $index, $value);
             }
             if ($property->lessOrEqualThan()) {
                 if ($nullableColumn) {
                     $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
                 }
-                $qb->andWhere($qb->expr()->lte('i.' . $name, $placeholder))->setParameter($name, $value);
+                $qb->andWhere($qb->expr()->lte('i.' . $name, $placeholder))->setParameter($name . $index, $value);
+            }
+        };
+        $filterQuery->getProperty($name)->map(function (array $filterProperties) use ($applyFilterQueryProperty) {
+            foreach ($filterProperties as $i => $filterProperty) {
+                $applyFilterQueryProperty($filterProperty, $i);
             }
         });
     }
