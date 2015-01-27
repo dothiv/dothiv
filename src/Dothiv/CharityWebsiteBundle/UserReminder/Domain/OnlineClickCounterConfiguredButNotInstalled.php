@@ -89,7 +89,7 @@ class OnlineClickCounterConfiguredButNotInstalled extends AbstractDomainUserRemi
                 /** @var Domain $domain */
                 // Check if not already notified
                 if (!$this->userReminderRepo->findByTypeAndItem($type, $domain)->isEmpty()) {
-                    // continue;
+                    continue;
                 }
 
                 if ($this->isNotOnline($domain)) {
