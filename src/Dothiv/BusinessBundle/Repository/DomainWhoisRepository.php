@@ -4,14 +4,18 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\DomainWhois;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
+use Dothiv\BusinessBundle\Repository\CRUD\EntityRepositoryInterface;
+use Dothiv\BusinessBundle\Repository\CRUD\ReadEntityRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\Traits;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use Dothiv\ValueObject\HivDomainValue;
 use PhpOption\Option;
 
-class DomainWhoisRepository extends DoctrineEntityRepository implements DomainWhoisRepositoryInterface
+class DomainWhoisRepository extends DoctrineEntityRepository implements DomainWhoisRepositoryInterface, EntityRepositoryInterface, ReadEntityRepositoryInterface
 {
     use Traits\ValidatorTrait;
+    use Traits\GetItemEntityName;
 
     /**
      * {@inheritdoc}
@@ -43,4 +47,13 @@ class DomainWhoisRepository extends DoctrineEntityRepository implements DomainWh
                 ->getOneOrNullResult()
         );
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getItemByIdentifier($identifier)
+    {
+        return $this->findByDomain(new HivDomainValue($identifier));
+    }
+
 }

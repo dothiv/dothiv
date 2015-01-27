@@ -47,9 +47,23 @@ class FilterQuery
     }
 
     /**
+     * Returns the first value for the given property
+     *
      * @param string $name
      *
      * @return Option of FilterQueryProperty
+     *
+     * @deprecated Use getProperty()
+     */
+    public function getSingleProperty($name)
+    {
+        return isset($this->properties[$name]) ? Option::fromValue(is_array($this->properties[$name]) ? $this->properties[$name][0] : $this->properties[$name]) : None::create();
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Option of FilterQueryProperty[]
      */
     public function getProperty($name)
     {
@@ -63,12 +77,10 @@ class FilterQuery
      */
     public function setProperty($name, $value, $operator = null)
     {
-        if (isset($this->properties[$name])) {
-            throw new InvalidArgumentException(
-                sprintf('Property "%s" already defined.', $name)
-            );
+        if (!isset($this->properties[$name])) {
+            $this->properties[$name] = [];
         }
-        $this->properties[$name] = new FilterQueryProperty($name, $value, $operator);
+        $this->properties[$name][] = new FilterQueryProperty($name, $value, $operator);
     }
 
     /**

@@ -78,22 +78,22 @@ class NonProfitRegistrationRepository extends DoctrineEntityRepository implement
         if ($filterQuery->getTerm()->isDefined()) {
             $qb->andWhere('i.domain LIKE :q')->setParameter('q', '%' . $filterQuery->getTerm()->get() . '%');
         }
-        if ($filterQuery->getProperty('approved')->isDefined()) {
-            if ((int)$filterQuery->getProperty('approved')->get()->getValue()) {
+        if ($filterQuery->getSingleProperty('approved')->isDefined()) {
+            if ((int)$filterQuery->getSingleProperty('approved')->get()->getValue()) {
                 $qb->andWhere('i.approved IS NOT NULL');
             } else {
                 $qb->andWhere('i.approved IS NULL');
             }
         }
-        if ($filterQuery->getProperty('registered')->isDefined()) {
-            if ((int)$filterQuery->getProperty('registered')->get()->getValue()) {
+        if ($filterQuery->getSingleProperty('registered')->isDefined()) {
+            if ((int)$filterQuery->getSingleProperty('registered')->get()->getValue()) {
                 $qb->andWhere('i.registered IS NOT NULL');
             } else {
                 $qb->andWhere('i.registered IS NULL');
             }
         }
-        if ($filterQuery->getProperty('older')->isDefined()) {
-            $qb->andWhere('i.created < :older')->setParameter('older', $filterQuery->getProperty('older')->get()->getValue());
+        if ($filterQuery->getSingleProperty('older')->isDefined()) {
+            $qb->andWhere('i.created < :older')->setParameter('older', $filterQuery->getSingleProperty('older')->get()->getValue());
         }
         return $this->buildPaginatedResult($qb, $options);
     }

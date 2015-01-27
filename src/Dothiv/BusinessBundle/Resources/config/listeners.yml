@@ -6,6 +6,7 @@ parameters:
   dothiv_business.listener.update_domain_owner_on_user_email_change.class: Dothiv\BusinessBundle\Listener\UpdateDomainOwnerOnUserEmailChangeListener
   dothiv_business.listener.hiv_domain_check.class: Dothiv\BusinessBundle\Listener\HivDomainStatusDomainCheckListener
   dothiv_business.listener.clickcounter_iframe_config_listener.class: Dothiv\BusinessBundle\Listener\ClickCounterIframeConfigListener
+  dothiv_business.listener.deleted_domain_history_listener.class: Dothiv\BusinessBundle\Listener\DeletedDomainHistoryListener
 
 services:
   dothiv_business.listener.create_registration:
@@ -67,3 +68,8 @@ services:
       - %clickcounter_iframe_service_password%
     tags:
       - { name: dothiv.business.event_listener, event: dothiv.basewebsite.clickcounter.configuration, method: onClickCounterConfiguration }
+
+  dothiv_business.listener.deleted_domain_history_listener:
+    class: %dothiv_business.listener.deleted_domain_history_listener.class%
+    tags:
+      - { name: dothiv.business.event_listener, event: dothiv.business.domain.deleted, method: onDomainDeleted }
