@@ -84,5 +84,7 @@ services:
         arguments:
             - @swiftmailer.mailer.registry
             - @dothiv.charity.sendwithus_renderer
+            - @dothiv_contentful.asset
+            - @dothiv_contentful.repo.asset
             - %registry_email_from_address%
             - %registry_email_from_name%

@@ -2,32 +2,15 @@
 
 namespace Dothiv\BusinessBundle\Command;
 
-use Dothiv\BusinessBundle\BusinessEvents;
-use Dothiv\BusinessBundle\Entity\Banner;
 use Dothiv\BusinessBundle\Entity\Domain;
-use Dothiv\BusinessBundle\Entity\Invoice;
-use Dothiv\BusinessBundle\Event\DomainEvent;
-use Dothiv\BusinessBundle\Repository\BannerRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
-use Dothiv\BusinessBundle\Repository\RegistrarRepositoryInterface;
-use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
-use Dothiv\BusinessBundle\Service\UserServiceInterface;
 use Dothiv\CharityWebsiteBundle\UserReminder\UserReminderMailer;
-use Dothiv\UserReminderBundle\Entity\UserReminder;
-use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
-use Dothiv\ShopBundle\Entity\Order;
-use Dothiv\ShopBundle\Repository\OrderRepositoryInterface;
-use Dothiv\ShopBundle\Service\InvoiceServiceInterface;
-use Dothiv\ShopBundle\Service\OrderMailerInterface;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
-use Dothiv\ValueObject\IdentValue;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SendDomainNotificationCommand extends ContainerAwareCommand
 {
@@ -37,8 +20,7 @@ class SendDomainNotificationCommand extends ContainerAwareCommand
             ->setName('dothiv:notify:domain')
             ->setDescription('Notifify the owner of a domain')
             ->addArgument('domain', InputArgument::REQUIRED, 'Name of the domain')
-            ->addArgument('template', InputArgument::REQUIRED, 'SendWithUs Template ID')
-            ->addArgument('version', InputArgument::REQUIRED, 'Template version');
+            ->addArgument('template', InputArgument::REQUIRED, 'SendWithUs Template ID');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
