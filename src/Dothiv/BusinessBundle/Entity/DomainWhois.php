@@ -53,6 +53,10 @@ class DomainWhois extends Entity
         $w         = new DomainWhois();
         $w->domain = $domain->toScalar();
         $w->whois  = $whois->toArray();
+        $ns        = $whois->get('Name Server');
+        if ($ns) {
+            $w->whois['Name Server'] = $whois->get('Name Server')->toArray();
+        }
         return $w;
     }
 
@@ -81,5 +85,13 @@ class DomainWhois extends Entity
     {
         $this->whois = $whois->getWhois()->toArray();
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublicId()
+    {
+        return $this->getDomain()->toScalar();
     }
 }

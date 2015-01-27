@@ -32,6 +32,8 @@ parameters:
     dothiv.repository.domain_collaborator.repository.class: Dothiv\BusinessBundle\Repository\DomainCollaboratorRepository
     dothiv.repository.domain_whois.entity: 'DothivBusinessBundle:DomainWhois'
     dothiv.repository.domain_whois.repository.class: Dothiv\BusinessBundle\Repository\DomainWhoisRepository
+    dothiv.repository.deleted_domain.entity: 'DothivBusinessBundle:DeletedDomain'
+    dothiv.repository.deleted_domain.repository.class: Dothiv\BusinessBundle\Repository\DeletedDomainRepository
 
 services:
     dothiv.repository.banner:
@@ -168,5 +170,13 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: [ %dothiv.repository.domain_whois.entity% ]
+        calls:
+        - [setValidator, ["@validator"]]
+
+    dothiv.repository.deleted_domain:
+        class: %dothiv.repository.deleted_domain.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.deleted_domain.entity% ]
         calls:
         - [setValidator, ["@validator"]]

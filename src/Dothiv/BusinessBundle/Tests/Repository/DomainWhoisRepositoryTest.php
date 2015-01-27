@@ -49,12 +49,12 @@ class DomainWhoisRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('TLD.HIV', $report->get('Domain Name'));
         $this->assertEquals('TLD dotHIV Registry GmbH', $report->get('Registrant Name'));
         $this->assertEquals('domains@tld.hiv', $report->get('Registrant Email'));
-        $nameservers = new ArrayCollection(array(
+        $nameservers = [
             'NS-CLOUD-E1.GOOGLEDOMAINS.COM',
             'NS-CLOUD-E2.GOOGLEDOMAINS.COM',
             'NS-CLOUD-E3.GOOGLEDOMAINS.COM',
             'NS-CLOUD-E4.GOOGLEDOMAINS.COM'
-        ));
+        ];
         $this->assertEquals($nameservers, $report->get('Name Server'));
     }
 
