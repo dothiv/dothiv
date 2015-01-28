@@ -88,21 +88,9 @@ class UserCreateCommandTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->mockInput = $this->getMockBuilder('\Symfony\Component\Console\Input\InputInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->mockOutput = $this->getMockBuilder('\Symfony\Component\Console\Output\OutputInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->mockOutput->expects($this->any())->method('getFormatter')
-            ->willReturn($this->getMock('\Symfony\Component\Console\Formatter\OutputFormatterInterface'));
-
-        $this->mockContainer = $this->getMockBuilder('\Symfony\Component\DependencyInjection\ContainerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $this->mockInput       = $this->getMock('\Symfony\Component\Console\Input\InputInterface');
+        $this->mockOutput      = $this->getMock('\Symfony\Component\Console\Output\OutputInterface');
+        $this->mockContainer   = $this->getMock('\Symfony\Component\DependencyInjection\ContainerInterface');
         $this->mockUserService = $this->getMock('\Dothiv\BusinessBundle\Service\UserServiceInterface');
     }
 }
