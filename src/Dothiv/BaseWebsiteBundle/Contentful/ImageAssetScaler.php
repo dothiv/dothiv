@@ -58,6 +58,9 @@ class ImageAssetScaler implements LoggerAwareInterface
             if (substr($info['contentType'], 0, 6) != 'image/') {
                 return;
             }
+            if ($info['contentType'] == 'image/gif') {
+                return;
+            }
             $source = $this->assetAdapter->getLocalFile($asset, $locale);
             if (!$source->isFile()) {
                 $this->log('File missing for asset: %s', $asset);
