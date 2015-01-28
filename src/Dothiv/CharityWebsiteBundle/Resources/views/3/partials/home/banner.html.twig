@@ -1,0 +1,9 @@
+<article class="banner">
+    <section>
+        {% if block.image %}
+            {% if block.imageLink is defined %}<a href="{{ block.imageLink }}" target="_blank">{% endif %}
+            <img src="{{ block.image.file.url }}" alt="{{ block.image.title }}" width="100%">
+            {% if block.imageLink is defined %}</a>{% endif %}
+        {% endif %}
+    </section>
+</article>
