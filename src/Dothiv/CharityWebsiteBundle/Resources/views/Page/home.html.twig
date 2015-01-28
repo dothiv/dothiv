@@ -16,7 +16,7 @@
     {% endfor %}
     <main>
         {% for block in page.blocks %}
-            {% if block.code in ["idea","visitdomains","owndomain","clickstart","pressquotes","quotes"] %}
+            {% if block.code in ["idea","visitdomains","owndomain","clickstart","pressquotes","quotes","banner"] %}
                 {% include "DothivCharityWebsiteBundle::3/partials/home/" ~ block.code ~ ".html.twig" %}
             {% endif %}
         {% endfor %}

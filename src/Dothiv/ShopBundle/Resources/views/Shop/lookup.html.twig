@@ -12,6 +12,9 @@
         <div class="block">
             <h2>{{ block.title }}</h2>
             {{ block.text|default("")|markdown }}
+            {% if block.image %}
+                <img src="{{ block.image.file.thumbnails.large }}" alt="{{ block.image.title }}">
+            {% endif %}
         </div>
     </section>
 
@@ -27,6 +30,7 @@
                 </div>
             </section>
             {% if extraCode == "regular" %}
+                {% set sndLvlSuffix = "" %}
                 {% block lookupForm %}
                     <form method="post" action="" novalidate name="{{ code ~ sndLvlSuffix|default() }}Form" class="{{ code }} {{ code ~ sndLvlSuffix|default() }}" data-ng-show="showLookupForm && lookup != 'available'">
                         <fieldset class="lookupDomain">
