@@ -31,6 +31,13 @@ dothiv_charity_content_api:
         _format: json
         type: Quote|hivDomain|PressQuote
 
+dothiv_charity_browserplugin:
+    pattern:  /{locale}/browserplugin
+    defaults:
+        _controller: dothiv.charity.web.controller.browserplugin:redirectsAction
+    requirements:
+        locale: en|de|ky
+
 dothiv_charity_clickstart:
     pattern:  /{locale}/clickstart/{page}
     defaults:
