@@ -3,7 +3,6 @@
 namespace Dothiv\CharityWebsiteBundle\Controller;
 
 use Dothiv\BaseWebsiteBundle\Exception\InvalidArgumentException;
-use PhpOption\Option;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProjectsController extends PageController

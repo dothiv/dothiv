@@ -43,3 +43,15 @@ services:
           - %twitter_oauth_access_token_secret%
           - @clock
           - 600
+
+    dothiv.charity.web.controller.browserplugin:
+        class: Dothiv\CharityWebsiteBundle\Controller\BrowserPluginController
+        arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
+          - @templating
+          - @dothiv.charity.contentful.charity_content
+          - "DothivCharityWebsiteBundle"
+          - @clock
+          - %page_lifetime%
+        calls:
+        - [setDomainRepository, [@dothiv.repository.domain]]
