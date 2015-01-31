@@ -71,5 +71,7 @@ services:
 
   dothiv_business.listener.deleted_domain_history_listener:
     class: %dothiv_business.listener.deleted_domain_history_listener.class%
+    arguments:
+      - @dothiv.repository.deleted_domain
     tags:
       - { name: dothiv.business.event_listener, event: dothiv.business.domain.deleted, method: onDomainDeleted }
