@@ -9,6 +9,7 @@ use Dothiv\BusinessBundle\Repository\DomainWhoisRepository;
 use Dothiv\BusinessBundle\Service\WhoisReportParser;
 use Dothiv\BusinessBundle\Tests\Traits\RepositoryTestTrait;
 use Dothiv\ValueObject\HivDomainValue;
+use Dothiv\ValueObject\W3CDateTimeValue;
 
 class DomainWhoisRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -46,6 +47,8 @@ class DomainWhoisRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($items));
         $report = $storedWhois->getWhois();
         $this->assertEquals('tld.hiv', $storedWhois->getDomain()->toScalar());
+        $this->assertEquals(new W3CDateTimeValue('2014-07-17T21:24:35Z'), $storedWhois->getCreationDate());
+        $this->assertEquals(new W3CDateTimeValue('2015-07-17T21:24:35Z'), $storedWhois->getExpiryDate());
         $this->assertEquals('TLD.HIV', $report->get('Domain Name'));
         $this->assertEquals('TLD dotHIV Registry GmbH', $report->get('Registrant Name'));
         $this->assertEquals('domains@tld.hiv', $report->get('Registrant Email'));
