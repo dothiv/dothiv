@@ -354,7 +354,7 @@ class Order extends Entity
      */
     public function setFax($fax)
     {
-        $this->fax = NullOnEmptyValue::parse($fax)->getValue();
+        $this->fax = NullOnEmptyValue::create($fax)->getValue();
     }
 
     /**
@@ -450,7 +450,7 @@ class Order extends Entity
      */
     public function setLocality2($locality2)
     {
-        $this->locality2 = NullOnEmptyValue::parse($locality2)->getValue();
+        $this->locality2 = NullOnEmptyValue::create($locality2)->getValue();
     }
 
     /**
@@ -466,7 +466,7 @@ class Order extends Entity
      */
     public function setOrganization($organization)
     {
-        $this->organization = NullOnEmptyValue::parse($organization)->getValue();
+        $this->organization = NullOnEmptyValue::create($organization)->getValue();
     }
 
     /**
@@ -569,7 +569,7 @@ class Order extends Entity
      */
     public function setVatNo($vatNo)
     {
-        $this->vatNo = NullOnEmptyValue::parse($vatNo)->getValue();
+        $this->vatNo = NullOnEmptyValue::create($vatNo)->getValue();
     }
 
     /**
@@ -620,7 +620,7 @@ class Order extends Entity
      */
     public function setPresenteeFirstname($firstname = null)
     {
-        $this->presenteeFirstname = NullOnEmptyValue::parse($firstname)->getValue();
+        $this->presenteeFirstname = NullOnEmptyValue::create($firstname)->getValue();
     }
 
     /**
@@ -636,7 +636,7 @@ class Order extends Entity
      */
     public function setPresenteeLastname($lastname = null)
     {
-        $this->presenteeLastname = NullOnEmptyValue::parse($lastname)->getValue();
+        $this->presenteeLastname = NullOnEmptyValue::create($lastname)->getValue();
     }
 
     /**
@@ -660,7 +660,7 @@ class Order extends Entity
      */
     public function setLandingpageOwner($landingpageOwner = null)
     {
-        $this->landingpageOwner = NullOnEmptyValue::parse($landingpageOwner)->getValue();
+        $this->landingpageOwner = NullOnEmptyValue::create($landingpageOwner)->getValue();
     }
 
     /**
