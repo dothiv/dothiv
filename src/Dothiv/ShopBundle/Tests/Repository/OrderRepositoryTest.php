@@ -48,7 +48,7 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $order->setLocality("Waldweg 1");
         $order->setLocality2("Hinterhaus");
         $order->setCity("12345 Neustadt");
-        $order->setCountry("Germany (Deutschland)");
+        $order->setCountry(new IdentValue('DE'));
         $order->setOrganization("Bürger GmbH");
         $order->setVatNo("DE123456789");
         $order->setCurrency(new IdentValue(Order::CURRENCY_EUR));
@@ -77,7 +77,7 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($storedOrder->getLocality(), "Waldweg 1");
         $this->assertEquals($storedOrder->getLocality2()->get(), "Hinterhaus");
         $this->assertEquals($storedOrder->getCity(), "12345 Neustadt");
-        $this->assertEquals($storedOrder->getCountry(), "Germany (Deutschland)");
+        $this->assertEquals($storedOrder->getCountry()->toScalar(), "DE");
         $this->assertEquals($storedOrder->getOrganization()->get(), "Bürger GmbH");
         $this->assertEquals($storedOrder->getVatNo()->get(), "DE123456789");
         $this->assertEquals($storedOrder->getStripeToken(), new IdentValue("tok_14kvt242KFPpMZB00CUopZjt"));
@@ -111,7 +111,7 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $order->setLocality("Waldweg 1");
         $order->setLocality2("Hinterhaus");
         $order->setCity("12345 Neustadt");
-        $order->setCountry("Germany (Deutschland)");
+        $order->setCountry(new IdentValue('DE'));
         $order->setOrganization("Bürger GmbH");
         $order->setVatNo("DE123456789");
         $order->setCurrency(new IdentValue(Order::CURRENCY_EUR));

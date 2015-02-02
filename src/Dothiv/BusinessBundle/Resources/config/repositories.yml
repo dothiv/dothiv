@@ -34,6 +34,7 @@ parameters:
     dothiv.repository.domain_whois.repository.class: Dothiv\BusinessBundle\Repository\DomainWhoisRepository
     dothiv.repository.deleted_domain.entity: 'DothivBusinessBundle:DeletedDomain'
     dothiv.repository.deleted_domain.repository.class: Dothiv\BusinessBundle\Repository\DeletedDomainRepository
+    dothiv.repository.country.repository.class: Dothiv\BusinessBundle\Repository\CountryRepository
 
 services:
     dothiv.repository.banner:
@@ -180,3 +181,6 @@ services:
         arguments: [ %dothiv.repository.deleted_domain.entity% ]
         calls:
         - [setValidator, ["@validator"]]
+
+    dothiv.repository.country:
+        class: %dothiv.repository.country.repository.class%

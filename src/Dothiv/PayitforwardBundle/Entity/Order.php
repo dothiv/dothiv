@@ -8,7 +8,10 @@ use Dothiv\BusinessBundle\Entity\Traits\CreateTime;
 use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
+use Dothiv\ValueObject\IdentValue;
+use Dothiv\ValueObject\NullOnEmptyValue;
 use Dothiv\ValueObject\TwitterHandleValue;
+use PhpOption\Option;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
@@ -24,12 +27,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Order extends Entity
 {
     use CreateTime;
-
-    const TYPE_NONEU = 'noneu';
-    const TYPE_EUORGNET = 'euorgnet';
-    const TYPE_EUORG = 'euorg';
-    const TYPE_DEORG = 'deorg';
-    const TYPE_EUPRIVATE = 'euprivate';
 
     /**
      * The user who created this subscription.
@@ -108,16 +105,6 @@ class Order extends Entity
     protected $token;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", nullable=false)
-     * @Assert\NotNull
-     * @Assert\NotBlank
-     * @Assert\Choice({"noneu", "euorgnet", "euorg", "deorg", "euprivate"})
-     * @Serializer\Expose
-     */
-    protected $type;
-
-    /**
      * @ORM\Column(type="string", nullable=false)
      * @var string
      * @Assert\NotNull
@@ -143,11 +130,19 @@ class Order extends Entity
     protected $address2;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\Length(max=255)
+     * @var string
+     */
+    private $organization;
+
+    /**
      * @ORM\Column(type="string", nullable=false)
      * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
      * @Serializer\Expose
+     * @Assert\RegEx("/^[A-Z]{2}(-[A-Z]{2})?$/")
      */
     protected $country;
 
@@ -157,13 +152,6 @@ class Order extends Entity
      * @Serializer\Expose
      */
     protected $vatNo;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @var string
-     * @Serializer\Expose
-     */
-    protected $taxNo;
 
     /**
      * The first domain the user orders
@@ -397,22 +385,22 @@ class Order extends Entity
     }
 
     /**
-     * @param string $country
+     * @param IdentValue $country
      *
      * @return self
      */
-    public function setCountry($country)
+    public function setCountry(IdentValue $country)
     {
-        $this->country = $country;
+        $this->country = $country->toScalar();
         return $this;
     }
 
     /**
-     * @return string
+     * @return IdentValue
      */
     public function getCountry()
     {
-        return $this->country;
+        return new IdentValue($this->country);
     }
 
     /**
@@ -435,60 +423,22 @@ class Order extends Entity
     }
 
     /**
-     * @param string $taxNo
-     *
-     * @return self
-     */
-    public function setTaxNo($taxNo = null)
-    {
-        $this->taxNo = $taxNo;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getTaxNo()
-    {
-        return $this->taxNo;
-    }
-
-    /**
-     * @param string $type
-     *
-     * @return self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
      * @param string $vatNo
      *
      * @return self
      */
     public function setVatNo($vatNo = null)
     {
-        $this->vatNo = $vatNo;
+        $this->vatNo = NullOnEmptyValue::create($vatNo)->getValue();
         return $this;
     }
 
     /**
-     * @return string|null
+     * @return Option of string
      */
     public function getVatNo()
     {
-        return $this->vatNo;
+        return Option::fromValue($this->vatNo);
     }
 
     /**
@@ -861,6 +811,25 @@ class Order extends Entity
     public function activate(\Stripe_Charge $charge)
     {
         $this->charge = $charge->id;
+        return $this;
+    }
+
+    /**
+     * @return Option of string
+     */
+    public function getOrganization()
+    {
+        return Option::fromValue($this->organization);
+    }
+
+    /**
+     * @param string|null $organization
+     *
+     * @return self
+     */
+    public function setOrganization($organization = null)
+    {
+        $this->organization = NullOnEmptyValue::create($organization)->getValue();
         return $this;
     }
 }

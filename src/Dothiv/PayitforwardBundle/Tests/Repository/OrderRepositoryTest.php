@@ -8,7 +8,9 @@ use Dothiv\PayitforwardBundle\Repository\OrderRepository;
 use Dothiv\BusinessBundle\Tests\Traits\RepositoryTestTrait;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
+use Dothiv\ValueObject\IdentValue;
 use Dothiv\ValueObject\TwitterHandleValue;
+use PhpOption\Some;
 
 class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,13 +44,12 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
             'domain'             => 'example.hiv',
             'domainDonor'        => 'Some Friend',
             'domainDonorTwitter' => '@friend',
-            'type'               => 'deorg',
             'fullname'           => 'John Doe',
             'address1'           => '123 Some Street',
             'address2'           => '123 Some City',
-            'country'            => 'Germany (Deutschland)',
+            'organization'       => 'ACME Inc.',
+            'country'            => new IdentValue('DE'),
             'vatNo'              => '1243',
-            'taxNo'              => '45678',
             'domain1'            => 'super.hiv',
             'domain1Name'        => 'Super User',
             'domain1Company'     => 'Super Company',
@@ -75,7 +76,11 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $e = $all[0];
         foreach ($data as $k => $v) {
             $getter = 'get' . ucfirst($k);
-            $this->assertEquals($v, $e->$getter(), 'Invalid ' . $k);
+            $gv     = $e->$getter();
+            if ($gv instanceof Some) {
+                $gv = $gv->get();
+            }
+            $this->assertEquals($v, $gv, 'Invalid ' . $k);
         }
 
         return $repo;
@@ -98,13 +103,12 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $order->setDomain(new HivDomainValue('example.hiv'));
         $order->setDomainDonor('Some Friend');
         $order->setDomainDonorTwitter(new TwitterHandleValue('@friend'));
-        $order->setType('deorg');
         $order->setFullname('John Doe');
         $order->setAddress1('123 Some Street');
         $order->setAddress2('123 Some City');
-        $order->setCountry('Germany (Deutschland)');
+        $order->setOrganization('ACME Inc.');
+        $order->setCountry(new IdentValue('DE'));
         $order->setVatNo('1243');
-        $order->setTaxNo('45678');
         $order->setDomain1(new HivDomainValue('super.hiv'));
         $order->setDomain1Name('Super User');
         $order->setDomain1Company('Super Company');
@@ -190,4 +194,4 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $repo->setValidator($this->testValidator);
         return $repo;
     }
-} 
+}

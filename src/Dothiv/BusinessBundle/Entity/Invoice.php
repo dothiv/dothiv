@@ -5,6 +5,8 @@ namespace Dothiv\BusinessBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Dothiv\BusinessBundle\Exception\InvalidArgumentException;
 use Dothiv\ValueObject\IdentValue;
+use Dothiv\ValueObject\NullOnEmptyValue;
+use PhpOption\Option;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
@@ -58,8 +60,16 @@ class Invoice extends Entity
      * @Assert\NotNull
      * @Assert\NotBlank
      * @Serializer\Expose
+     * @Assert\RegEx("/^[A-Z]{2}(-[A-Z]{2})?$/")
      */
     protected $country;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     * @Serializer\Expose
+     */
+    protected $organization;
 
     /**
      * @ORM\Column(type="string",nullable=true)
@@ -181,21 +191,21 @@ class Invoice extends Entity
     }
 
     /**
-     * @return string
+     * @return IdentValue
      */
     public function getCountry()
     {
-        return $this->country;
+        return new IdentValue($this->country);
     }
 
     /**
-     * @param string $country
+     * @param IdentValue $country
      *
      * @return self
      */
-    public function setCountry($country)
+    public function setCountry(IdentValue $country)
     {
-        $this->country = $country;
+        $this->country = $country->toScalar();
         return $this;
     }
 
@@ -276,11 +286,30 @@ class Invoice extends Entity
     }
 
     /**
-     * @return string
+     * @return Option of string
+     */
+    public function getOrganization()
+    {
+        return Option::fromValue($this->organization);
+    }
+
+    /**
+     * @param string $organization
+     *
+     * @return self
+     */
+    public function setOrganization($organization = null)
+    {
+        $this->organization = NullOnEmptyValue::create($organization)->getValue();
+        return $this;
+    }
+
+    /**
+     * @return Option of string
      */
     public function getVatNo()
     {
-        return $this->vatNo;
+        return Option::fromValue($this->vatNo);
     }
 
     /**
@@ -288,9 +317,9 @@ class Invoice extends Entity
      *
      * @return self
      */
-    public function setVatNo($vatNo)
+    public function setVatNo($vatNo = null)
     {
-        $this->vatNo = $vatNo;
+        $this->vatNo = NullOnEmptyValue::create($vatNo)->getValue();
         return $this;
     }
 

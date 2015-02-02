@@ -48,13 +48,12 @@ class OrderController
         $order->setDomain($model->getDomain());
         $order->setDomainDonor($model->getDomainDonor());
         $order->setDomainDonorTwitter($model->getDomainDonorTwitter());
-        $order->setType($model->getType());
         $order->setFullname($model->getFullname());
         $order->setAddress1($model->getAddress1());
         $order->setAddress2($model->getAddress2());
         $order->setCountry($model->getCountry());
+        $order->setOrganization($model->getOrganization());
         $order->setVatNo($model->getVatNo());
-        $order->setTaxNo($model->getTaxNo());
         $order->setDomain1($model->getDomain1());
         $order->setDomain1Name($model->getDomain1Name());
         $order->setDomain1Company($model->getDomain1Company());

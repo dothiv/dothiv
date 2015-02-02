@@ -5,6 +5,7 @@ namespace Dothiv\BusinessBundle\Repository\Tests;
 use Dothiv\BusinessBundle\Entity\Invoice;
 use Dothiv\BusinessBundle\Repository\InvoiceRepository;
 use Dothiv\BusinessBundle\Tests\Traits\RepositoryTestTrait;
+use Dothiv\ValueObject\IdentValue;
 
 class InvoiceRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +35,7 @@ class InvoiceRepositoryTest extends \PHPUnit_Framework_TestCase
         $invoice = new Invoice();
         $invoice->setFullname('John Doe');
         $invoice->setAddress1('Some Address');
-        $invoice->setCountry('Some Country');
+        $invoice->setCountry(new IdentValue('DE'));
         $invoice->setItemDescription('Some Item');
         $repo = $this->getTestObject();
         $repo->persist($invoice);
@@ -55,7 +56,7 @@ class InvoiceRepositoryTest extends \PHPUnit_Framework_TestCase
         $invoice = new Invoice();
         $invoice->setFullname('John Doe');
         $invoice->setAddress1('Some Address');
-        $invoice->setCountry('Some Country');
+        $invoice->setCountry(new IdentValue('DE'));
         $invoice->setItemDescription('Some Item');
         $repo = $this->getTestObject();
         $repo->persist($invoice);
@@ -89,4 +90,4 @@ class InvoiceRepositoryTest extends \PHPUnit_Framework_TestCase
         $repo->setValidator($this->testValidator);
         return $repo;
     }
-} 
+}
