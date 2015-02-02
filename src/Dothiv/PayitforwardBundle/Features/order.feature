@@ -25,13 +25,12 @@ Feature: Order payitforward vouchers
       | domain             | example.hiv                  |
       | domainDonor        | Some Friend                  |
       | domainDonorTwitter | @friend                      |
-      | type               | deorg                        |
       | fullname           | John Doe                     |
       | address1           | 123 Some Street              |
       | address2           | 123 Some City                |
-      | country            | Germany (Deutschland)        |
+      | organiziation      | ACME Inc.                    |
+      | country            | DE                           |
       | vatNo              | 1243                         |
-      | taxNo              | 45678                        |
       | domain1            | süper.hiv                    |
       | domain1Name        | Super User                   |
       | domain1Company     | Super Company                |

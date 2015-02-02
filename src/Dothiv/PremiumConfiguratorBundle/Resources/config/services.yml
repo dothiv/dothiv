@@ -24,13 +24,14 @@ services:
         arguments:
         - @dothiv.repository.invoice
         - %premium_price%
-        - %devat%
+        - @dothiv.business.service.vatrules
 
     dothiv.premiumconfigurator.mailer.subscription_confirmed:
         class: %dothiv.premiumconfigurator.mailer.subscription_confirmed.class%
         arguments:
         - @dothiv.charity.service.mailer.content
         - @dothiv.websitebase.money_format
+        - @dothiv.business.service.vatrules
 
     dothiv.premiumconfigurator.configuration_decorator:
         class: %dothiv.premiumconfigurator.configuration_decorator.class%

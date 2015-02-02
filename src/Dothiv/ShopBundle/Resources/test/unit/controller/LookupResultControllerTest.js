@@ -72,7 +72,7 @@ describe('LookupResultController', function () {
         $httpBackend.flush();
         expect(scope.lookup).toMatch("registered");
 
-        expect(scope.alternatives).toMatch([
+        expect(scope.alternatives).toEqual([
             'twistyis4life.hiv',
             'twisty14life.hiv',
             'twistyfight4life.hiv',

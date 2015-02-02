@@ -48,22 +48,16 @@
                     <input type="text" data-ng-model="order.domain" id="domainsFormDomain" data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/">
                 </div>
                 <div class="form-group">
-                    <label for="domainsDomainDonor">My donor's name (First name, last name) <small>(optional)</small></label>
-                    <input type="text"
-                            data-ng-model="order.domainDonor"
-                            data-ng-blur="updateFbText()"
-                            id="domainsDomainDonor"
-                            maxlength="255"
-                            >
+                    <label for="domainsDomainDonor">My donor's name (First name, last name)
+                        <small>(optional)</small>
+                    </label>
+                    <input type="text" data-ng-model="order.domainDonor" data-ng-blur="updateFbText()" id="domainsDomainDonor" maxlength="255">
                 </div>
                 <div class="form-group">
-                    <label for="domainsDomainDonorTwitter">My donor's twitter handle <small>e.g. <code>@acme</code> (optional)</small></label>
-                    <input type="text"
-                            data-ng-model="order.domainDonorTwitter"
-                            id="domainsDomainDonorTwitter"
-                            data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/"
-                            data-ng-blur="updateTweetText()"
-                            >
+                    <label for="domainsDomainDonorTwitter">My donor's twitter handle
+                        <small>e.g. <code>@acme</code> (optional)</small>
+                    </label>
+                    <input type="text" data-ng-model="order.domainDonorTwitter" id="domainsDomainDonorTwitter" data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/" data-ng-blur="updateTweetText()">
                 </div>
             </div>
         </div>
@@ -72,31 +66,6 @@
         <legend>Billing Address</legend>
         <div class="fields">
             <div class="fields">
-                <div class="form-group">
-                    <label>
-                        <input type="radio" name="orderFormType" id="orderFormTypeDeorg" value="deorg" data-ng-model="order.type">
-                        Germany based organization
-                        <small>Price will be including VAT. You need to provide your VAT Reg. No. or Tax No.</small>
-                    </label><br> <label>
-                        <input type="radio" name="orderFormType" id="orderFormTypeEuprivate" value="euprivate" data-ng-model="order.type">
-                        Private person
-                        <small>Price will be including VAT</small>
-                    </label><br> <label>
-                        <input type="radio" name="orderFormType" id="orderFormTypeNoneu" value="noneu" data-ng-model="order.type">
-                        Non-EU organization
-                        <small>Price will be excluding VAT</small>
-                    </label><br> <label>
-                        <input type="radio" name="orderFormType" id="orderFormTypeEuorgnet" value="euorgnet" data-ng-model="order.type">
-                        EU based organization with VAT Reg. No.
-                        <small>Price will be excluding VAT. You must provide your VAT Reg. No. Service are subject to
-                            the reverse charge. VAT is to be accounted for by the recipient
-                        </small>
-                    </label><br> <label>
-                        <input type="radio" name="orderFormType" id="orderFormTypeEuorg" value="euorg" data-ng-model="order.type">
-                        EU based organization without VAT Reg. No.
-                        <small>Price will be including VAT</small>
-                    </label>
-                </div>
                 <div class="form-group">
                     <label for="orderFormName">Name</label>
                     <input type="text" id="orderFormName" data-ng-model="order.fullname" maxlength="255" required>
@@ -112,16 +81,20 @@
                 </div>
                 <div class="form-group">
                     <label for="subscriptionCountry">Country</label>
-                    <input type="text" id="subscriptionCountry" maxlength="255" data-ng-model="order.country" data-typeahead="country for country in countries | filter:$viewValue | limitTo:3" data-ng-hide="countryEditDisabled()" required>
-                    <span data-ng-show="countryEditDisabled()" data-ng-bind="order.country"></span>
+                    <input type="text" id="subscriptionCountry" maxlength="255" data-ng-model="orderCountryName" data-typeahead="country.name for country in countries | filter:$viewValue | limitTo:3" required autocomplete="false" data-typeahead-on-select="selectCountry($item);" data-ng-blur="blurCountry()">
                 </div>
-                <div class="form-group" data-ng-show="vatTaxNoRequired()">
-                    <label for="orderFormVatNo">VAT Reg. No.</label>
-                    <input type="text" id="orderFormVatNo" maxlength="255" data-ng-model="order.vatNo" data-ng-required="vatNoRequired()" data-ng-disabled="!vatNoRequired()">
+                <div class="form-group">
+                    <label for="orderFormOrganization">Organization
+                        <small>(optional)</small>
+                    </label>
+                    <input type="text" id="orderFormOrganization" data-ng-model="order.organization" maxlength="255">
                 </div>
-                <div class="form-group" data-ng-show="vatTaxNoRequired()">
-                    <label for="orderFormTaxNo">Tax No.</label>
-                    <input type="text" id="orderFormTaxNo" maxlength="255" data-ng-model="order.taxNo" data-ng-required="taxNoRequired()" data-ng-disabled="!taxNoRequired()">
+                <div class="form-group">
+                    <label for="orderFormVatNo">
+                        VAT Reg. No.
+                        <small data-ng-show="!vatNoRequired()">(optional)</small>
+                    </label>
+                    <input type="text" id="orderFormVatNo" maxlength="255" data-ng-model="order.vatNo" data-ng-disabled="!vatNoEnabled()" data-ng-required="vatNoRequired()">
                 </div>
             </div>
         </div>
@@ -138,12 +111,8 @@
                         <label for="domainsFormdomain{{ d }}Domain">Domain {{ d }}
                             <small>e.g. <code>example.hiv</code>{% if not required %} (optional){% endif %}</small>
                         </label>
-                        <input type="text"
-                                data-ng-model="order.domain{{ d }}"
-                                data-ng-blur="updateSharingText()"
-                                id="domainsFormdomain{{ d }}Domain" {{ required }}
-                                data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/"
-                                >
+                        <input type="text" data-ng-model="order.domain{{ d }}" data-ng-blur="updateSharingText()" id="domainsFormdomain{{ d }}Domain" {{ required }}
+                                data-ng-pattern="/^[^-/:\.@](?:[^/:\.@-]|-(?!-)){1,62}[^-/:\.@]\.hiv$/">
                     </div>
                     <div class="form-group">
                         <label for="domainsFormdomain{{ d }}Name">First name, last name{% if not required %}
@@ -151,18 +120,16 @@
                         <input type="text" data-ng-model="order.domain{{ d }}Name" id="domainsFormdomain{{ d }}Name" {{ required }} maxlength="255">
                     </div>
                     <div class="form-group">
-                        <label for="domainsFormdomain{{ d }}Company">Company <small>(optional)</small></label>
+                        <label for="domainsFormdomain{{ d }}Company">Company
+                            <small>(optional)</small>
+                        </label>
                         <input type="text" data-ng-model="order.domain{{ d }}Company" id="domainsFormdomain{{ d }}Company" maxlength="255">
                     </div>
                     <div class="form-group">
-                        <label for="domainsFormdomain{{ d }}Twitter">Twitter handle <small>e.g. <code>@acme</code> (optional)</small>
+                        <label for="domainsFormdomain{{ d }}Twitter">Twitter handle
+                            <small>e.g. <code>@acme</code> (optional)</small>
                         </label>
-                        <input type="text"
-                                data-ng-model="order.domain{{ d }}Twitter"
-                                data-ng-blur="updateTweetText()"
-                                id="domainsFormdomain{{ d }}Twitter"
-                                data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/"
-                                >
+                        <input type="text" data-ng-model="order.domain{{ d }}Twitter" data-ng-blur="updateTweetText()" id="domainsFormdomain{{ d }}Twitter" data-ng-pattern="/^@[a-zA-Z0-9_]{1,15}$/">
                     </div>
                 </div>
             </div>
@@ -208,15 +175,14 @@
     <h4>Invoice details</h4>
 
     <p>
-        <span data-ng-bind="order.fullname"></span><br> <span data-ng-bind="order.address1"></span><br>
-        <span data-ng-bind="order.address2"></span><br> <span data-ng-bind="order.country"></span>
+        <span data-ng-bind="order.fullname"></span><br>
+        <span data-ng-bind="order.address1"></span><br>
+        <span data-ng-bind="order.address2"></span><br>
+        <span data-ng-bind="order.country"></span>
     </p>
 
     <p>
-        <span data-ng-show="order.taxNo">
-            Tax No.:
-            <span data-ng-bind="order.taxNo"></span><br>
-        </span>
+        <span data-ng-bind="order.organization"></span><br>
         <span data-ng-show="order.vatNo">
             VAT Reg. No.:
             <span data-ng-bind="order.vatNo"></span><br>
@@ -224,6 +190,35 @@
     </p>
 
     <table>
+        <tfoot>
+        <tr data-ng-show="totalIncludesTax()">
+            <td>Total</td>
+            <td class="money">
+                {% set d = 1 %}
+                {% block total %}
+                    <span data-ng-show="numDomains() == {{ d }}">
+                    {{ (payitforward_price * d / 100 + payitforward_price / 100 * d * devat / 100)|money }}
+                    </span>
+                {% endblock total %}
+                {% set d = 2 %}
+                {{ block('total') }}
+                {% set d = 3 %}
+                {{ block('total') }}
+            </td>
+        </tr>
+        <tr data-ng-hide="totalIncludesTax()">
+            <td>Total</td>
+            <td class="money">
+                {{ (payitforward_price / 100)|money }}
+            </td>
+        </tr>
+        <tr data-ng-show="showReverseChargeNote()">
+            <td colspan="2">
+                Note: Services are subject to the reverse charge.<br>
+                VAT is to be accounted for by the recipient.
+            </td>
+        </tr>
+        </tfoot>
         <tbody>
         {% set d = 1 %}
         {% block item %}
@@ -258,29 +253,6 @@
             </td>
         </tr>
         </tbody>
-        <tfoot>
-        <tr data-ng-show="totalIncludesTax()">
-            <td>Total</td>
-            <td class="money">
-                {% set d = 1 %}
-                {% block total %}
-                    <span data-ng-show="numDomains() == {{ d }}">
-                    {{ (payitforward_price * d / 100 + payitforward_price / 100 * d * devat / 100)|money }}
-                    </span>
-                {% endblock total %}
-                {% set d = 2 %}
-                {{ block('total') }}
-                {% set d = 3 %}
-                {{ block('total') }}
-            </td>
-        </tr>
-        <tr data-ng-hide="totalIncludesTax()">
-            <td>Total</td>
-            <td class="money">
-                {{ (payitforward_price / 100)|money }}
-            </td>
-        </tr>
-        </tfoot>
     </table>
 
     <form novalidate name="reviewForm" role="form" class="explained">

@@ -21,30 +21,8 @@
 
                 {% set subscription_type = subscription.children[0] %}
                 <form role="form" novalidate name="subscriptionForm" data-ng-show="subscriptionStep == 'form'" method="POST">
-                    <fieldset data-ng-hide="subscription.type">
-                        <legend>{{ subscription_type.title }}</legend>
-                        <div class="fields-legend">
-                            {{ subscription_type.text|default()|markdown }}
-                        </div>
-                        <div class="fields">
-                            <div class="form-group">
-                                <div>
-                                    {% for subtype in subscription_type.children %}
-                                        <label class="radio-inline">
-                                            <input type="radio" name="subscriptionType" value="{{ subtype.code }}"
-                                                    data-ng-model="subscription.type"
-                                                    >
-                                            {{ subtype.title }}
-                                        </label>
-                                        {{ subtype.text|markdown }}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-
                     {% set subscription_invoice = subscription.children[1] %}
-                    <fieldset data-ng-show="subscription.type">
+                    <fieldset>
                         <legend>{{ subscription_invoice.title }}</legend>
                         <div class="fields-legend">
                             {{ subscription_invoice.text|default()|markdown }}
@@ -52,71 +30,48 @@
                         <div class="fields">
                             <div class="form-group">
                                 <label for="subscriptionFormName">{% trans %}pc.subscription.name{% endtrans %}</label>
-                                <input type="text" id="subscriptionFormName"
-                                        data-ng-model="subscription.fullname"
-                                        maxlength="255"
-                                        required
-                                        autocompletetype="name"
-                                        >
+                                <input type="text" id="subscriptionFormName" data-ng-model="subscription.fullname" maxlength="255" required autocompletetype="name">
                             </div>
                             <div class="form-group">
-                                <label for="subscriptionFormAddress1">{% trans %}pc.subscription.address1{% endtrans %}</label>
-                                <input type="text" id="subscriptionFormAddress1"
-                                        data-ng-model="subscription.address1"
-                                        maxlength="255"
-                                        required
-                                        autocompletetype="street-address"
-                                        >
+                                <label for="subscriptionFormAddress1">{% trans %}
+                                    pc.subscription.address1{% endtrans %}</label>
+                                <input type="text" id="subscriptionFormAddress1" data-ng-model="subscription.address1" maxlength="255" required autocompletetype="street-address">
                             </div>
                             <div class="form-group">
-                                <label for="subscriptionFormAddress2">{% trans %}pc.subscription.address2{% endtrans %}<br>
-                                    <small>{% trans %}pc.subscription.optional{% endtrans %}</small></label>
-                                <input type="text" id="subscriptionFormAddress2"
-                                        data-ng-model="subscription.address2"
-                                        maxlength="255"
-                                        autocompletetype="postal-code locality"
-                                        >
+                                <label for="subscriptionFormAddress2">{% trans %}pc.subscription.address2{% endtrans %}
+                                    <br>
+                                    <small>{% trans %}pc.subscription.optional{% endtrans %}</small>
+                                </label>
+                                <input type="text" id="subscriptionFormAddress2" data-ng-model="subscription.address2" maxlength="255" autocompletetype="postal-code locality">
                             </div>
                             <div class="form-group">
                                 <label for="subscriptionCountry">
                                     {% trans %}pc.subscription.country{% endtrans %}
                                 </label>
-                                <input type="text" id="subscriptionCountry"
-                                        maxlength="255"
-                                        data-ng-model="subscription.country"
-                                        data-typeahead="country for country in filterCountries() | filter:$viewValue | limitTo:3"
-                                        data-ng-hide="countryEditDisabled()"
-                                        >
-                                <span data-ng-show="countryEditDisabled()" data-ng-bind="subscription.country"></span>
+                                <input type="text" id="subscriptionCountry" maxlength="255" data-ng-model="subscriptionCountry" data-typeahead="country.name for country in countries | filter:$viewValue | limitTo:3" data-typeahead-on-select="selectCountry($item)" autocomplete="off">
                             </div>
-                            <div class="form-group" data-ng-show="vatTaxNoRequired()">
+                            <div class="form-group">
+                                <label for="subscriptionOrganization">{% trans %}pc.subscription.organization{% endtrans %}
+                                    <br>
+                                    <small>{% trans %}pc.subscription.optional{% endtrans %}</small>
+                                </label>
+                                <input type="text" id="subscriptionOrganization" data-ng-model="subscription.organization" maxlength="255" autocompletetype="organization">
+                            </div>
+                            <div class="form-group">
                                 <label for="subscriptionFormVatNo">
                                     {% trans %}pc.subscription.vatno{% endtrans %}
+                                    <br>
+                                    <small data-ng-show="!vatNoRequired()">{% trans %}pc.subscription.optional{% endtrans %}</small>
                                 </label>
-                                <input type="text" id="subscriptionFormVatNo"
-                                        maxlength="255"
-                                        data-ng-model="subscription.vatNo"
-                                        data-ng-required="vatNoRequired()"
-                                        data-ng-disabled="!vatNoRequired()"
-                                        >
+                                <input type="text" id="subscriptionFormVatNo" maxlength="255" data-ng-model="subscription.vatNo" data-ng-required="vatNoRequired()" data-ng-disabled="!vatNoEnabled()">
                             </div>
-                            <div class="form-group" data-ng-show="vatTaxNoRequired()">
-                                <label for="subscriptionFormTaxNo">
-                                    {% trans %}pc.subscription.taxno{% endtrans %}
-                                </label>
-                                <input type="text" id="subscriptionFormTaxNo"
-                                        maxlength="255"
-                                        data-ng-model="subscription.taxNo"
-                                        data-ng-required="taxNoRequired()"
-                                        data-ng-disabled="!taxNoRequired()"
-                                        >
-                            </div>
-                            <p><small data-ng-bind="subscription.type"></small></p>
                         </div>
                     </fieldset>
                     <nav>
-                        <button type="submit" data-ng-click="subscriptionStep = 'checkout'" data-ng-disabled="subscriptionForm.$invalid">{% trans %}pc.checkout.form.button.next{% endtrans %}</button>
-                        <button type="reset" data-ng-disabled="subscriptionForm.$pristine" data-ng-click="resetSubscriptionForm()">{% trans %}pc.checkout.form.button.reset{% endtrans %}</button>
+                        <button type="submit" data-ng-click="subscriptionStep = 'checkout'" data-ng-disabled="subscriptionForm.$invalid">{% trans %}
+                            pc.checkout.form.button.next{% endtrans %}</button>
+                        <button type="reset" data-ng-disabled="subscriptionForm.$pristine" data-ng-click="resetSubscriptionForm()">{% trans %}
+                            pc.checkout.form.button.reset{% endtrans %}</button>
                     </nav>
                 </form>
 
@@ -134,19 +89,36 @@
                         <span data-ng-bind="subscription.address2"></span><br>
                         <span data-ng-bind="subscription.country"></span>
                     </p>
+
                     <p>
-                        <span data-ng-show="subscription.taxNo">
-                            {% trans %}pc.subscription.taxno{% endtrans %}:
-                            <span data-ng-bind="subscription.taxNo"></span><br>
-                        </span>
+                        <span data-ng-bind="subscription.organization"></span><br>
                         <span data-ng-show="subscription.vatNo">
                             {% trans %}pc.subscription.vatno{% endtrans %}:
                             <span data-ng-bind="subscription.vatNo"></span><br>
                         </span>
-                        <small data-ng-bind="subscription.type"></small>
                     </p>
 
                     <table>
+                        <tfoot>
+                        <tr data-ng-show="totalIncludesTax()">
+                            <td>Total</td>
+                            <td class="money">
+                                {{ (premium_price / 100 + premium_price / 100 * devat / 100)|money }}
+                            </td>
+                        </tr>
+                        <tr data-ng-hide="totalIncludesTax()">
+                            <td>Total</td>
+                            <td class="money">
+                                {{ (premium_price / 100)|money }}
+                            </td>
+                        </tr>
+                        <tr data-ng-show="showReverseChargeNote()">
+                            <td colspan="2">
+                                Note: Services are subject to the reverse charge.<br>
+                                VAT is to be accounted for by the recipient.
+                            </td>
+                        </tr>
+                        </tfoot>
                         <tbody>
                         <tr>
                             <td>
@@ -167,20 +139,6 @@
                             </td>
                         </tr>
                         </tbody>
-                        <tfoot>
-                        <tr data-ng-show="totalIncludesTax()">
-                            <td>Total</td>
-                            <td class="money">
-                                {{ (premium_price / 100 + premium_price / 100 * devat / 100)|money }}
-                            </td>
-                        </tr>
-                        <tr data-ng-hide="totalIncludesTax()">
-                            <td>Total</td>
-                            <td class="money">
-                                {{ (premium_price / 100)|money }}
-                            </td>
-                        </tr>
-                        </tfoot>
                     </table>
 
                     <form role="form" novalidate name="confirmForm">
@@ -193,9 +151,7 @@
                                 {% for checkbox in subscription_confirm.children %}
                                     <div class="form-group" data-ng-init="confirm.checkbox{{ loop.index }} = false">
                                         <label class="checkbox-inline">
-                                            <input type="checkbox"
-                                                    data-ng-model="confirm.checkbox{{ loop.index }}"
-                                                    >
+                                            <input type="checkbox" data-ng-model="confirm.checkbox{{ loop.index }}">
                                             {{ checkbox.text|markdown|striptags('<a><em><strong><code>')|raw }}
                                         </label>
                                     </div>
@@ -204,8 +160,10 @@
                         </fieldset>
                         <nav>
 
-                            <button type="submit" data-ng-click="checkout()" data-ng-disabled="!allChecked()">{% trans %}pc.checkout.button{% endtrans %}</button>
-                            <button type="button" data-ng-click="subscriptionStep = 'form'">{% trans %}pc.checkout.form.button.previous{% endtrans %}</button>
+                            <button type="submit" data-ng-click="checkout()" data-ng-disabled="!allChecked()">{% trans %}
+                                pc.checkout.button{% endtrans %}</button>
+                            <button type="button" data-ng-click="subscriptionStep = 'form'">{% trans %}
+                                pc.checkout.form.button.previous{% endtrans %}</button>
                         </nav>
                     </form>
 
@@ -225,7 +183,8 @@
 
             </div>
             <div data-ng-show="block == 'pc.subscription.subscribed' || block == 'pc.subscription.purchased'">
-            <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}">{% trans %}pc.preview.finish{% endtrans %}</a>
+                <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}">{% trans %}
+                    pc.preview.finish{% endtrans %}</a>
             </div>
         </section>
         <footer>

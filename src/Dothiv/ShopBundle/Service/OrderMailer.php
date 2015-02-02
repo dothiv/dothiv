@@ -5,6 +5,7 @@ namespace Dothiv\ShopBundle\Service;
 use Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailerInterface;
 use Dothiv\BaseWebsiteBundle\Service\MoneyFormatServiceInterface;
 use Dothiv\BusinessBundle\Entity\Invoice;
+use Dothiv\BusinessBundle\Service\VatRulesInterface;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\IdentValue;
@@ -24,16 +25,24 @@ class OrderMailer implements OrderMailerInterface
     private $moneyFormat;
 
     /**
+     * @var VatRulesInterface
+     */
+    private $vatRules;
+
+    /**
      * @param ContentMailerInterface      $contentMailer
      * @param MoneyFormatServiceInterface $moneyFormatService
+     * @param VatRulesInterface           $vatRules
      */
     public function __construct(
         ContentMailerInterface $contentMailer,
-        MoneyFormatServiceInterface $moneyFormatService
+        MoneyFormatServiceInterface $moneyFormatService,
+        VatRulesInterface $vatRules
     )
     {
         $this->contentMailer = $contentMailer;
         $this->moneyFormat   = $moneyFormatService;
+        $this->vatRules      = $vatRules;
     }
 
     /**
@@ -47,39 +56,43 @@ class OrderMailer implements OrderMailerInterface
     public function send(Order $order, Invoice $invoice, EmailValue $recipient = null, $recipientName = null)
     {
         $deCountries = array(
-            'Deutschland',
-            'Österreich',
-            'Schweiz'
+            'DE',
+            'AT',
+            'CH'
         );
         $locale      = 'en';
         $dateFormat  = 'M. jS Y';
-        foreach ($deCountries as $c) {
-            if (stristr($order->getCountry(), $c) !== false) {
-                $locale     = 'de';
-                $dateFormat = 'd.m.Y';
-            }
+        if (in_array($order->getCountry()->toScalar(), $deCountries)) {
+            $locale     = 'de';
+            $dateFormat = 'd.m.Y';
         }
 
         $symbol = $invoice->getCurrency()->equals(new IdentValue(Invoice::CURRENCY_USD)) ? '$' : '€';
-
-        $data = array(
+        $rules  = $this->vatRules->getRules(
+            $invoice->getOrganization()->isDefined(),
+            $invoice->getCountry(),
+            $invoice->getVatNo()->isDefined()
+        );
+        $data   = array(
             'firstname' => $order->getFirstname(),
             'lastname'  => $order->getLastname(),
             'email'     => $order->getEmail()->toScalar(),
             'domain'    => $order->getDomain()->toUTF8(),
             'invoice'   => array(
-                'no'               => $invoice->getNo(),
-                'created'          => $invoice->getCreated()->format($dateFormat),
-                'fullname'         => $invoice->getFullname(),
-                'address1'         => $invoice->getAddress1(),
-                'address2'         => $invoice->getAddress2(),
-                'country'          => $invoice->getCountry(),
-                'vatNo'            => $invoice->getVatNo(),
-                'item_description' => $invoice->getItemDescription(),
-                'item_price'       => $this->moneyFormat->format($invoice->getItemPrice() / 100, $locale, $symbol),
-                'vat_percent'      => $invoice->getVatPercent(),
-                'vat_price'        => $this->moneyFormat->format($invoice->getVatPrice() / 100, $locale, $symbol),
-                'total_price'      => $this->moneyFormat->format($invoice->getTotalPrice() / 100, $locale, $symbol)
+                'no'                       => $invoice->getNo(),
+                'created'                  => $invoice->getCreated()->format($dateFormat),
+                'fullname'                 => $invoice->getFullname(),
+                'address1'                 => $invoice->getAddress1(),
+                'address2'                 => $invoice->getAddress2(),
+                'country'                  => $invoice->getCountry(),
+                'organization'             => $invoice->getOrganization()->getOrElse(null),
+                'vatNo'                    => $invoice->getVatNo()->getOrElse(null),
+                'item_description'         => $invoice->getItemDescription(),
+                'item_price'               => $this->moneyFormat->format($invoice->getItemPrice() / 100, $locale, $symbol),
+                'vat_percent'              => $invoice->getVatPercent(),
+                'vat_price'                => $this->moneyFormat->format($invoice->getVatPrice() / 100, $locale, $symbol),
+                'total_price'              => $this->moneyFormat->format($invoice->getTotalPrice() / 100, $locale, $symbol),
+                'show_reverse_charge_note' => $rules->showReverseChargeNote()
             )
         );
 

@@ -31,6 +31,6 @@ angular.module('dotHIVApp.controllers').controller('LookupFormController', ['$sc
     };
 
     if (typeof $ !== "undefined") {
-        $('#secondLevelName').focus();
+        $('#secondLevelName4life').focus();
     }
 }]);
