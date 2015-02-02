@@ -5,10 +5,11 @@ namespace Dothiv\BusinessBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Dothiv\ValueObject\HivDomainValue;
+use Dothiv\ValueObject\W3CDateTimeValue;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as AssertORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * WHOIS entry for a domain
@@ -43,6 +44,24 @@ class DomainWhois extends Entity
     protected $whois;
 
     /**
+     * WHOIS Creation Date
+     *
+     * @var W3CDateTimeValue|null
+     * @ORM\Column(type="datetime", nullable=false)
+     * @Assert\Type("\DateTime")
+     */
+    protected $creationDate;
+
+    /**
+     * WHOIS Registry Expiry Date
+     *
+     * @var W3CDateTimeValue|null
+     * @ORM\Column(type="datetime", nullable=false)
+     * @Assert\Type("\DateTime")
+     */
+    protected $expiryDate;
+
+    /**
      * @param HivDomainValue  $domain
      * @param ArrayCollection $whois
      *
@@ -57,6 +76,8 @@ class DomainWhois extends Entity
         if ($ns) {
             $w->whois['Name Server'] = $whois->get('Name Server')->toArray();
         }
+        $w->expiryDate   = new \DateTime($whois->get('Registry Expiry Date'));
+        $w->creationDate = new \DateTime($whois->get('Creation Date'));
         return $w;
     }
 
@@ -93,5 +114,21 @@ class DomainWhois extends Entity
     public function getPublicId()
     {
         return $this->getDomain()->toScalar();
+    }
+
+    /**
+     * @return W3CDateTimeValue
+     */
+    public function getExpiryDate()
+    {
+        return new W3CDateTimeValue($this->expiryDate);
+    }
+
+    /**
+     * @return W3CDateTimeValue
+     */
+    public function getCreationDate()
+    {
+        return new W3CDateTimeValue($this->creationDate);
     }
 }

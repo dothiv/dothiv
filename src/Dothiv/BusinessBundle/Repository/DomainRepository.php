@@ -3,8 +3,9 @@
 namespace Dothiv\BusinessBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\QueryBuilder;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Model\FilterQuery;
@@ -117,7 +118,7 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
         }
         $this->mapProperty('live', $filterQuery, $qb, true, '0');
         $this->mapProperty('clickcount', $filterQuery, $qb);
-        $this->mapProperty('owner', $filterQuery, $qb, true, '0', '1');
+        $this->mapProperty('owner', $filterQuery, $qb, true, '0');
         if ($filterQuery->getSingleProperty('clickcounterconfig')->isDefined()) {
             if ((int)$filterQuery->getSingleProperty('clickcounterconfig')->get()->getValue()) {
                 $qb->andWhere('i.activeBanner IS NOT NULL');
@@ -132,52 +133,59 @@ class DomainRepository extends DoctrineEntityRepository implements DomainReposit
             $qb->leftJoin('i.registrar', 'r');
             $qb->andWhere('r.extId = :extId')->setParameter('extId', array_pop($pathParts));
         }
-        $this->mapProperty('created', $filterQuery, $qb);
+        if ($filterQuery->getProperty('created')->isDefined()) {
+            $qb->leftJoin('DothivBusinessBundle:DomainWhois', 'w', Expr\Join::WITH, 'w.domain = i.name');
+            $this->mapProperty('created', $filterQuery, $qb, null, null, 'w.creationDate');
+        }
         return $this->buildPaginatedResult($qb, $options);
     }
 
-    protected function mapProperty($name, FilterQuery $filterQuery, QueryBuilder $qb, $nullableColumn = false, $nullValue = '0')
+    protected function mapProperty($name, FilterQuery $filterQuery, QueryBuilder $qb, $nullableColumn = null, $nullValue = null, $field = null)
     {
-        $applyFilterQueryProperty = function (FilterQueryProperty $property, $index) use ($qb, $name, $nullableColumn, $nullValue) {
-            $value       = $property->getValue();
-            $placeholder = ':' . $name . $index;
+        $nullableColumn           = Option::fromValue($nullableColumn)->getOrElse(false);
+        $nullValue                = Option::fromValue($nullValue)->getOrElse('0');
+        $field                    = Option::fromValue($field)->getOrElse('i.' . $name);
+        $applyFilterQueryProperty = function (FilterQueryProperty $property, $index) use ($qb, $nullableColumn, $nullValue, $field) {
+            $value            = $property->getValue();
+            $placeholderValue = str_replace('.', '_', $field) . $index;
+            $placeholder      = ':' . $placeholderValue;
             if ($property->equals()) {
                 if ($nullableColumn && $value === $nullValue) {
-                    $qb->andWhere($qb->expr()->isNull('i.' . $name));
+                    $qb->andWhere($qb->expr()->isNull($field));
                 } else {
-                    $qb->andWhere($qb->expr()->eq('i.' . $name, $placeholder))->setParameter($name . $index, $value);
+                    $qb->andWhere($qb->expr()->eq($field, $placeholder))->setParameter($placeholderValue, $value);
                 }
             }
             if ($property->notEquals()) {
                 if ($nullableColumn && $value === $nullValue) {
-                    $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                    $qb->andWhere($qb->expr()->isNotNull($field));
                 } else {
-                    $qb->andWhere($qb->expr()->neq('i.' . $name, $placeholder))->setParameter($name . $index, $value);
+                    $qb->andWhere($qb->expr()->neq($field, $placeholder))->setParameter($placeholderValue, $value);
                 }
             }
             if ($property->greaterThan()) {
                 if ($nullableColumn) {
-                    $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                    $qb->andWhere($qb->expr()->isNotNull($field));
                 }
-                $qb->andWhere($qb->expr()->gt('i.' . $name, $placeholder))->setParameter($name . $index, $value);
+                $qb->andWhere($qb->expr()->gt($field, $placeholder))->setParameter($placeholderValue, $value);
             }
             if ($property->lessThan()) {
                 if ($nullableColumn) {
-                    $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                    $qb->andWhere($qb->expr()->isNotNull($field));
                 }
-                $qb->andWhere($qb->expr()->lt('i.' . $name, $placeholder))->setParameter($name . $index, $value);
+                $qb->andWhere($qb->expr()->lt($field, $placeholder))->setParameter($placeholderValue, $value);
             }
             if ($property->greaterOrEqualThan()) {
                 if ($nullableColumn) {
-                    $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                    $qb->andWhere($qb->expr()->isNotNull($field));
                 }
-                $qb->andWhere($qb->expr()->gte('i.' . $name, $placeholder))->setParameter($name . $index, $value);
+                $qb->andWhere($qb->expr()->gte($field, $placeholder))->setParameter($placeholderValue, $value);
             }
             if ($property->lessOrEqualThan()) {
                 if ($nullableColumn) {
-                    $qb->andWhere($qb->expr()->isNotNull('i.' . $name));
+                    $qb->andWhere($qb->expr()->isNotNull($field));
                 }
-                $qb->andWhere($qb->expr()->lte('i.' . $name, $placeholder))->setParameter($name . $index, $value);
+                $qb->andWhere($qb->expr()->lte($field, $placeholder))->setParameter($placeholderValue, $value);
             }
         };
         $filterQuery->getProperty($name)->map(function (array $filterProperties) use ($applyFilterQueryProperty) {
