@@ -25,7 +25,7 @@ services:
         arguments:
         - @dothiv.repository.invoice
         - @dothiv.shop.domain_price
-        - %devat%
+        - @dothiv.business.service.vatrules
 
     dothiv.shop.mailer.order:
         class: %dothiv.shop.mailer.order.class%
