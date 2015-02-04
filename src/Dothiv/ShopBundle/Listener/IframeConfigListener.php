@@ -6,7 +6,9 @@ use Dothiv\BaseWebsiteBundle\Contentful\ContentInterface;
 use Dothiv\BusinessBundle\Event\ClickCounterConfigurationEvent;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ShopBundle\Repository\OrderRepositoryInterface;
+use Dothiv\ShopBundle\Service\GenitivfyServiceInterface;
 use Dothiv\ValueObject\HivDomainValue;
+use Dothiv\ValueObject\IdentValue;
 
 /**
  * This adds landing page configuration settings to the iFrame config
@@ -16,17 +18,19 @@ use Dothiv\ValueObject\HivDomainValue;
 class IframeConfigListener
 {
     /**
-     * @param OrderRepositoryInterface $orderRepo
-     * @param ContentInterface         $content
-     * @param array                    $clickCounterConfig See Dothiv\BusinessBundle\DependencyInjection\Configuration
+     * @param OrderRepositoryInterface  $orderRepo
+     * @param ContentInterface          $content
+     * @param array                     $clickCounterConfig See Dothiv\BusinessBundle\DependencyInjection\Configuration
+     * @param GenitivfyServiceInterface $genitivfy
      */
-    public function __construct(OrderRepositoryInterface $orderRepo, ContentInterface $content, array $clickCounterConfig)
+    public function __construct(OrderRepositoryInterface $orderRepo, ContentInterface $content, array $clickCounterConfig, $genitivfy)
     {
         $this->orderRepo = $orderRepo;
         $this->content   = $content;
         $this->locales   = $clickCounterConfig['locales'];
         $this->parsedown = new \Parsedown();
         $this->parsedown->setBreaksEnabled(false);
+        $this->genitivfy = $genitivfy;
     }
 
     /**
@@ -48,11 +52,11 @@ class IframeConfigListener
             $iframeConfig['landingPage'] = [
                 'defaultLocale' => $locale
             ];
-            $replace                     = [
-                '%%firstname%%' => $order->getLandingpageOwner()->get(),
-                '%%domain%%'    => HivDomainValue::create($domain->getName())->toUTF8()
-            ];
             foreach ($this->locales as $locale) {
+                $replace                                         = [
+                    '%%firstname%%' => $this->genitivfy->genitivfy($order->getLandingpageOwner()->get(), new IdentValue($locale)),
+                    '%%domain%%'    => HivDomainValue::create($domain->getName())->toUTF8()
+                ];
                 $iframeConfig['landingPage']['strings'][$locale] = array(
                     'title'           => $this->getString('title', $locale, $replace),
                     'about'           => $this->getString('about', $locale, $replace),
