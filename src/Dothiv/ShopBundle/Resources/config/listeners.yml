@@ -18,5 +18,6 @@ services:
         - @dothiv.repository.shop_order
         - @dothiv.shop.name4life_landingpage_content
         - %dothiv_business.clickcounter%
+        - @dothiv.shop.genitivfy
         tags:
         - { name: dothiv.business.event_listener, event: dothiv.basewebsite.clickcounter.iframe.configuration, method: onClickCounterConfiguration }
