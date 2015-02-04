@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('dotHIVApp.controllers').controller('ArticleController', ['$scope',
-    function ($scope) {
+angular.module('dotHIVApp.controllers').controller('ArticleController', ['$scope', '$stateParams',
+    function ($scope, $stateParams) {
         $scope.block = 1;
         $scope.blocks = 0;
+        $scope.domain = $stateParams.domain;
 
         function _hasNext() {
             return $scope.block < $scope.blocks;

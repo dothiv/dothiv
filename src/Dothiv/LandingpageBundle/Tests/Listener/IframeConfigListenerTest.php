@@ -106,4 +106,14 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
         $this->mockConfigRepo    = $this->prophesize('\Dothiv\LandingpageBundle\Repository\LandingpageConfigurationRepositoryInterface');
         $this->mockConfigService = $this->prophesize('\Dothiv\LandingpageBundle\Service\LandingpageConfigServiceInterface');
     }
+
+    /**
+     * Test setup
+     */
+    protected function tearDown()
+    {
+        parent::tearDown();
+        $this->mockConfigRepo->checkProphecyMethodsPredictions();
+        $this->mockConfigService->checkProphecyMethodsPredictions();
+    }
 }

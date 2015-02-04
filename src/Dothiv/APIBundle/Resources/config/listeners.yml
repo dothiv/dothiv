@@ -1,5 +1,6 @@
 parameters:
   dothiv.api.listener.view_request.class: Dothiv\APIBundle\Listener\ViewRequestListener
+  dothiv.api.listener.http_exception.class: Dothiv\APIBundle\Listener\HttpExceptionListener
 
 services:
   dothiv.api.listener.view_request:
@@ -9,3 +10,8 @@ services:
       - @validator
     tags:
       - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+  dothiv.api.listener.http_exception:
+    class: %dothiv.api.listener.http_exception.class%
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }

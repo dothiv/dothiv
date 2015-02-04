@@ -1,0 +1,6 @@
+{% extends "DothivLandingpageBundle:App:article.html.twig" %}
+{% trans_default_domain "charity" %}
+{% block nav %}
+    {{ parent() }}
+    <a rel="next" href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}" target="_self" class="primary">{% trans %}lc.error.close{% endtrans %}</a>
+{% endblock nav %}

@@ -24,9 +24,10 @@ class LandingpagePreviewTest extends WebTestCase
     public function itShouldContainAEurToUsdConversionNote()
     {
         $client  = static::createClient();
-        $crawler = $client->request('GET', 'https://click4life.hiv.dev/en/landingpage-configurator/caro4life.hiv/preview');
+        $crawler = $client->request('GET', 'https://click4life.hiv.dev/en/landingpage-configurator/caro4life.hiv/preview?name=Maria&text=Personal+Text');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals("Caro's digital Red Ribbon", trim($crawler->filter('h1')->text()));
+        $this->assertEquals("Maria's digital Red Ribbon", trim($crawler->filter('h1')->text()));
+        $this->assertEquals("Personal Text", trim($crawler->filter('p')->text()));
     }
 
     public function setup()

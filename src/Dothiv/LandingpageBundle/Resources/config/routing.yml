@@ -19,3 +19,17 @@ dothiv_landingpageconfig_page:
     requirements:
         locale: ^(en|de|ky)$
         appstate: .+
+
+dothiv_landingpageconfig_config:
+    path: /api/landingpage/{identifier}
+    defaults:
+       _controller: dothiv.landingpage.api.controller.config:getItemAction
+       _format: json
+    methods: [GET]
+
+dothiv_landingpageconfig_config_update:
+    path: /api/landingpage/{identifier}
+    defaults:
+        _controller: dothiv.landingpage.api.controller.config:updateItemAction
+        _format: json
+    methods: [PATCH]

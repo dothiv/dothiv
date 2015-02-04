@@ -1,8 +1,7 @@
 {% trans_default_domain "charity" %}
 <form role="form" novalidate name="{{ code }}Form">
     {% for field in section.children %}
-        {% set prefix = code ~ "." %}
-        {% set fieldCode = field.code|replace({prefix: ""}) %}
+        {% set fieldCode = field.code|replace({"lc.settings.text.": ""}) %}
         <fieldset>
             <div class="fields-legend">
                 {{ field.text|default()|markdown }}
@@ -12,7 +11,7 @@
                     <label for="{{ fieldCode }}">
                         {{ field.title }}
                     </label>
-                    <input type="text" id="{{ fieldCode }}" data-ng-model="config.{{ fieldCode }}" data-ng-blur="updateConfigSettings()">
+                    <input type="text" id="{{ fieldCode }}" name="{{ fieldCode }}" data-ng-model="config.{{ fieldCode }}" data-ng-blur="updateConfigSettings()">
                 </div>
             </div>
         </fieldset>

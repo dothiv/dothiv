@@ -2,11 +2,10 @@
 
 namespace Dothiv\ShopBundle\Controller;
 
-use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
 use Dothiv\ShopBundle\Repository\DomainInfoRepositoryInterface;
 use Dothiv\APIBundle\Controller\Traits;
 use Dothiv\BusinessBundle\Service\FilterQueryParser;
-use Dothiv\ShopBundle\Exception\BadRequestHttpException;
+use Dothiv\APIBundle\Exception\BadRequestHttpException;
 use Dothiv\ShopBundle\Service\DomainPriceServiceInterface;
 use Dothiv\ShopBundle\Transformer\DomainInfoTransformer;
 use Dothiv\ValueObject\Exception\InvalidArgumentException;
@@ -83,4 +82,4 @@ class ApiController
         $response->setContent($this->serializer->serialize($model, 'json'));
         return $response;
     }
-} 
+}

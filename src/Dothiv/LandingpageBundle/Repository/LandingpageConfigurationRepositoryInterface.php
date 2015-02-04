@@ -3,10 +3,11 @@
 namespace Dothiv\LandingpageBundle\Repository;
 
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Repository\CRUD;
 use Dothiv\LandingpageBundle\Entity\LandingpageConfiguration;
 use PhpOption\Option;
 
-interface LandingpageConfigurationRepositoryInterface
+interface LandingpageConfigurationRepositoryInterface extends CRUD\UpdateEntityRepositoryInterface
 {
     /**
      * Persist the entity.

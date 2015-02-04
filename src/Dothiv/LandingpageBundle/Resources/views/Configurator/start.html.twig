@@ -68,10 +68,23 @@
 <main data-ui-view></main>
 {% for childPage in page.blocks %}
     {% set code = childPage.code|replace({"landingpage.configurator.": ""}) %}
-    {% if code in ["welcome", "configure"] %}
+    {% if code in ["welcome", "configure", "done"] %}
         {% include "DothivLandingpageBundle::App/" ~ code ~ ".html.twig" with {'page': childPage} %}
     {% endif %}
 {% endfor %}
+<script type="text/ng-template" id="error-modal.html">
+    <header>
+        <h2>%%title%%</h2>
+    </header>
+    <article>
+        %%message%%
+    </article>
+    <footer>
+        <nav>
+            <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}" target="_self" class="primary">{% trans %}lc.error.close{% endtrans %}</a>
+        </nav>
+    </footer>
+</script>
 {% block angular_app %}
     {% javascripts
     '@angular_js_resource'

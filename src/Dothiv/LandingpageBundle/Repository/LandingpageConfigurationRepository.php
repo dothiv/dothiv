@@ -4,6 +4,8 @@ namespace Dothiv\LandingpageBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Dothiv\BusinessBundle\Entity\Domain;
+use Dothiv\BusinessBundle\Entity\EntityInterface;
+use Dothiv\BusinessBundle\Repository\CRUD\UpdateEntityRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\Traits;
 use Dothiv\LandingpageBundle\Entity\Landingpageconfiguration;
 use PhpOption\Option;
@@ -39,5 +41,25 @@ class LandingpageConfigurationRepository extends EntityRepository implements Lan
         $qb = $this->createQueryBuilder('c');
         $qb->andWhere('c.domain = :domain')->setParameter('domain', $domain);
         return Option::fromValue($qb->getQuery()->getOneOrNullResult());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getItemByIdentifier($identifier)
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->leftJoin('c.domain', 'd')
+            ->leftJoin('d.activeBanner', 'b')
+            ->andWhere('d.name = :domain')->setParameter('domain', $identifier);
+        return Option::fromValue($qb->getQuery()->getOneOrNullResult());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function persistItem(EntityInterface $item)
+    {
+        return $this->persist($item);
     }
 }
