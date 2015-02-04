@@ -199,6 +199,7 @@ class Order extends Entity
      * @var string
      * @Assert\NotBlank
      * @Assert\Length(max=255)
+     * @Assert\RegEx("/^[A-Z]{2}(-[A-Z]{2})?$/")
      */
     private $country;
 
@@ -294,19 +295,19 @@ class Order extends Entity
     }
 
     /**
-     * @return string
+     * @return IdentValue
      */
     public function getCountry()
     {
-        return $this->country;
+        return new IdentValue($this->country);
     }
 
     /**
-     * @param string $country
+     * @param IdentValue $country
      */
-    public function setCountry($country)
+    public function setCountry(IdentValue $country)
     {
-        $this->country = $country;
+        $this->country = $country->toScalar();
     }
 
     /**

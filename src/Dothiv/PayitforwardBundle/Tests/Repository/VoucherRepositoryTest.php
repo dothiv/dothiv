@@ -134,16 +134,15 @@ class VoucherRepositoryTest extends \PHPUnit_Framework_TestCase
         $order->setFirstname('John');
         $order->setSurname('Doe');
         $order->setEmail(new EmailValue('john.doe@example.com'));
-        $order->setType('deorg');
         $order->setFullname('John Doe');
         $order->setAddress1('123 Some Street');
-        $order->setCountry('Germany (Deutschland)');
+        $order->setCountry(new IdentValue('DE'));
         $order->setToken('tok_14kcI342KFPpMZB0scN8KPTM');
         $order->setLiveMode('0');
         $this->getTestEntityManager()->persist($order);
-        
+
         $this->getTestEntityManager()->flush();
-        
+
         return $order;
     }
-} 
+}

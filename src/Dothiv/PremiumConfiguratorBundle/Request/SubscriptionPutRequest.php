@@ -2,10 +2,13 @@
 
 namespace Dothiv\PremiumConfiguratorBundle\Request;
 
+use Dothiv\ValueObject\IdentValue;
+use Dothiv\ValueObject\NullOnEmptyValue;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class SubscriptionPutRequest extends SubscriptionGetRequest
 {
+
     /**
      * @var int
      * @Assert\Range(min=0,max=1)
@@ -18,14 +21,6 @@ class SubscriptionPutRequest extends SubscriptionGetRequest
      * @Assert\NotNull
      */
     protected $token;
-
-    /**
-     * @var string
-     * @Assert\NotNull
-     * @Assert\NotBlank
-     * @Assert\Choice({"noneu", "euorgnet", "euorg", "deorg", "euprivate"})
-     */
-    protected $type;
 
     /**
      * @var string
@@ -50,18 +45,19 @@ class SubscriptionPutRequest extends SubscriptionGetRequest
      * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
+     * @Assert\RegEx("/^[A-Z]{2}(-[A-Z]{2})?$/")
      */
     protected $country;
 
     /**
      * @var string
      */
-    protected $vatNo;
+    protected $organization;
 
     /**
      * @var string
      */
-    protected $taxNo;
+    protected $vatNo;
 
     /**
      * @param int $liveMode
@@ -145,11 +141,11 @@ class SubscriptionPutRequest extends SubscriptionGetRequest
     }
 
     /**
-     * @return string
+     * @return IdentValue
      */
     public function getCountry()
     {
-        return $this->country;
+        return new IdentValue($this->country);
     }
 
     /**
@@ -172,41 +168,22 @@ class SubscriptionPutRequest extends SubscriptionGetRequest
     }
 
     /**
-     * @param string $taxNo
+     * @return mixed
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
+     * @param mixed $organization
      *
      * @return self
      */
-    public function setTaxNo($taxNo)
+    public function setOrganization($organization)
     {
-        $this->taxNo = $taxNo;
+        $this->organization = NullOnEmptyValue::create($organization);
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTaxNo()
-    {
-        return $this->taxNo;
-    }
-
-    /**
-     * @param string $type
-     *
-     * @return self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**
