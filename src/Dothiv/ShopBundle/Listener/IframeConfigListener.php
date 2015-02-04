@@ -34,8 +34,12 @@ class IframeConfigListener
      */
     public function onClickCounterConfiguration(ClickCounterConfigurationEvent $event)
     {
-        $iframeConfig  = $event->getConfig();
-        $domain        = $event->getDomain();
+        $iframeConfig = $event->getConfig();
+        $domain       = $event->getDomain();
+        if (!preg_match('/.+4life\.hiv$/', HivDomainValue::create($domain->getName())->toUTF8())) {
+            // Only configure landingpages for 4life.hiv names.
+            return;
+        }
         $orderOptional = $this->orderRepo->findLatestByDomain(new HivDomainValue($domain->getName()));
         if ($orderOptional->isDefined()) {
             /** @var Order $order */
