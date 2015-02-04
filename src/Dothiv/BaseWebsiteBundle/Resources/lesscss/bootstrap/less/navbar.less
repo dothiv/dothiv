@@ -196,7 +196,21 @@
 .navbar-static-top .container,
 .navbar-fixed-top .container,
 .navbar-fixed-bottom .container {
-  #grid > .core > .span(@gridColumns);
+  // #grid > .core > .span(@gridColumns);
+
+  // FIX lessv2 not compiling
+  // Error Output:
+  // NameError: #grid > .core > .span is undefined in /home/m/www/stop.hiv/src/Dothiv/BaseWebsiteBundle/Resources/lesscss/bootstrap/less/navbar.less on line 199, column 3:
+  // 198 .navbar-fixed-bottom .container {
+  // 199   #grid > .core > .span(@gridColumns);
+  // 200 }
+  #grid {
+    .core {
+      .span(@gridColumns) {
+        width: (@gridColumnWidth * @gridColumns) + (@gridGutterWidth * (@gridColumns - 1));
+      }
+    }
+  }
 }
 
 // Fixed to top
