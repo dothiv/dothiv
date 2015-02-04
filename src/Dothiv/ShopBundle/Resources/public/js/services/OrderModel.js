@@ -97,14 +97,14 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
         if (!this.countryModel.eu) {
             // Out of EU
             // private -> vat
-            if (!this.contact.isOrg || this.contact.isOrg.length == 0) {
+            if (!this.contact.organization || this.contact.organization.length == 0) {
                 return false;
             }
             // organization  -> no vat
             return false;
         }
         // In eu
-        if (!this.contact.isOrg || this.contact.isOrg.length == 0) {
+        if (!this.contact.organization || this.contact.organization.length == 0) {
             // Private person must pay VAT
             return true;
         }
@@ -128,7 +128,7 @@ angular.module('dotHIVApp.services').factory('OrderModel', [function () {
             "locality2": this.contact.locality2, // Hinterhaus
             "city": this.contact.city, // 12345 Neustadt
             "country": this.countryModel.iso, // DE
-            "organization": this.contact.isOrg, // Bürger GmbH
+            "organization": this.contact.organization, // Bürger GmbH
             "vatNo": this.contact.vat, // DE123456789
             "currency": this.currency, // EUR
             "stripeToken": this.stripe.token, // tok_14kvt242KFPpMZB00CUopZjt
