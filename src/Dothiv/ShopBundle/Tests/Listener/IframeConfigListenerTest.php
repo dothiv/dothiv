@@ -6,11 +6,10 @@ namespace Dothiv\ShopBundle\Test\Listener;
 use Dothiv\BaseWebsiteBundle\Contentful\ContentInterface;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Event\ClickCounterConfigurationEvent;
-use Dothiv\ShopBundle\Entity\DomainInfo;
-use Dothiv\BusinessBundle\Event\DomainEvent;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ShopBundle\Listener\IframeConfigListener;
 use Dothiv\ShopBundle\Repository\OrderRepositoryInterface;
+use Dothiv\ShopBundle\Service\GenitivfyService;
 use Dothiv\ValueObject\HivDomainValue;
 use PhpOption\Option;
 
@@ -87,7 +86,12 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
      */
     protected function createTestObject()
     {
-        return new IframeConfigListener($this->mockOrderRepo, $this->mockConfig, ['locales' => ['en', 'de', 'es', 'fr']]);
+        return new IframeConfigListener(
+            $this->mockOrderRepo,
+            $this->mockConfig,
+            ['locales' => ['en', 'de', 'es', 'fr']],
+            new GenitivfyService()
+        );
     }
 
     /**
