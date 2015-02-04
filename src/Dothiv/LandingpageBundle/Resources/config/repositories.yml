@@ -1,0 +1,12 @@
+parameters:
+    dothiv.repository.landingpage_configuration.entity: 'DothivLandingpageBundle:LandingpageConfiguration'
+    dothiv.repository.landingpage_configuration.repository.class: Dothiv\LandingpageBundle\Repository\LandingpageConfigurationRepository
+
+services:
+    dothiv.repository.landingpage_configuration:
+        class: %dothiv.repository.landingpage_configuration.repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ %dothiv.repository.landingpage_configuration.entity% ]
+        calls:
+        - [setValidator, ["@validator"]]

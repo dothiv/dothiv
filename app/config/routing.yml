@@ -51,3 +51,7 @@ dothiv_payitforward:
 DothivHivDomainStatusBundle:
     resource: "@DothivHivDomainStatusBundle/Resources/config/routing.yml"
     prefix:   /
+
+DothivLandingpageBundle:
+    resource: "@DothivLandingpageBundle/Resources/config/routing.yml"
+    prefix:   /
