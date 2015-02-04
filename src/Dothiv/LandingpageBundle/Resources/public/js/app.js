@@ -10,6 +10,7 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'dot
     }])
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.headers.common.Accept = "application/json";
+        $httpProvider.interceptors.push('HttpLoadingInterceptor');
     }])
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
         $stateProvider
@@ -23,14 +24,21 @@ angular.module('dotHIVApp', ['dotHIVApp.services', 'dotHIVApp.controllers', 'dot
                 templateUrl: '/template/configurator/configure.html',
                 controller: 'ConfigureController'
             })
+            .state('done', {
+                url: '/:locale/landingpage-configurator/:domain/done',
+                templateUrl: '/template/configurator/done.html',
+                controller: 'ArticleController'
+            })
         ;
     }])
-    .run(['$rootScope', '$window', 'ContentBehaviour', function ($rootScope, $window, ContentBehaviour) {
+    .run(['$rootScope', 'security', '$window', 'ContentBehaviour', function ($rootScope, security, $window, ContentBehaviour) {
         $rootScope.$on('$viewContentLoaded', function (event, current, previous, rejection) {
             $window.setTimeout(function () {
                 ContentBehaviour.run();
             }, 0);
         });
+        // Get the current user when the application starts (in case they are still logged in from a previous session)
+        security.updateUserInfo();
     }])
 ;
 angular.module('dotHIVApp.services', ['dotHIVApp.controllers', 'ui.router', 'ngResource', 'ngCookies', 'angularFileUpload']);

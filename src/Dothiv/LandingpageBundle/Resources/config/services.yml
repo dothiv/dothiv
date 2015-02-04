@@ -2,6 +2,7 @@ parameters:
     dothiv.landingpage.genitivfy.class: Dothiv\LandingpageBundle\Service\GenitivfyService
     dothiv.landingpage.service.class: Dothiv\LandingpageBundle\Service\LandingpageService
     dothiv.landingpage.config.class: Dothiv\LandingpageBundle\Service\LandingpageConfigService
+    dothiv.landingpage.transformer.landingpage_configuration.class: Dothiv\LandingpageBundle\Transformer\LandingpageConfigurationTransformer
 
 services:
     dothiv.landingpage:
@@ -23,3 +24,9 @@ services:
         - @dothiv.landingpage.content
         - %dothiv_business.clickcounter%
         - @dothiv.landingpage.genitivfy
+
+    dothiv.landingpage.transformer.landingpage_configuration:
+        class: %dothiv.landingpage.transformer.landingpage_configuration.class%
+        arguments:
+        - @router
+        - "dothiv_landingpageconfig_config"

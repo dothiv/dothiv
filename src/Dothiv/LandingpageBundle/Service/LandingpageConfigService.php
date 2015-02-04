@@ -46,7 +46,7 @@ class LandingpageConfigService implements LandingpageConfigServiceInterface
             ];
             $landingpageConfig['strings'][$locale] = array(
                 'title'           => $this->getString('title', $locale, $replace),
-                'about'           => $this->getString('about', $locale, $replace),
+                'about'           => $config->getText()->isDefined() ? $config->getText()->get() : $this->getString('about', $locale, $replace),
                 'learnMore'       => $this->getString('learnMore', $locale, $replace),
                 'getYourOwn'      => $this->getString('getYourOwn', $locale, $replace),
                 'tellYourFriends' => $this->getString('tellYourFriends', $locale, $replace),

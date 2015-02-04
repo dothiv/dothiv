@@ -3,9 +3,11 @@
 namespace Dothiv\LandingpageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dothiv\BusinessBundle\Entity\CRUD\OwnerEntityInterface;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\Entity;
 use Dothiv\BusinessBundle\Entity\Traits;
+use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\LandingpageBundle\Exception\InvalidArgumentException;
 use Dothiv\ValueObject\IdentValue;
 use Dothiv\ValueObject\NullOnEmptyValue;
@@ -22,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="landingpageconfig__domain",columns={"domain_id"})})
  * @Serializer\ExclusionPolicy("all")
  */
-class LandingpageConfiguration extends Entity
+class LandingpageConfiguration extends Entity implements OwnerEntityInterface
 {
     use Traits\CreateUpdateTime;
 
@@ -169,5 +171,29 @@ class LandingpageConfiguration extends Entity
     {
         $this->text = NullOnEmptyValue::create($text)->getValue();
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOwner()
+    {
+        return $this->getDomain()->getOwner();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOwner(User $owner)
+    {
+        // pass
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublicId()
+    {
+        return $this->getDomain()->getName();
     }
 }

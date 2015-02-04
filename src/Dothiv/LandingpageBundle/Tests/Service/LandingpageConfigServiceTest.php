@@ -19,6 +19,11 @@ class LandingpageConfigServiceTest extends \PHPUnit_Framework_TestCase
     private $mockContent;
 
     /**
+     * @var string[]
+     */
+    private $locales = ['en', 'de', 'es', 'fr'];
+
+    /**
      * @test
      * @group LandingpageBundle
      * @group Listener
@@ -29,18 +34,22 @@ class LandingpageConfigServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string|null $customText
+     *
      * @test
-     * @group   LandingpageBundle
-     * @group   Listener
-     * @depends itShouldBeInstantiable
+     * @group        LandingpageBundle
+     * @group        Listener
+     * @depends      itShouldBeInstantiable
+     * @dataProvider getTestData
      */
-    public function itShouldCreateLandingPageConfig()
+    public function itShouldCreateLandingPageConfig($customText = null)
     {
         $domain = new Domain();
         $domain->setName('caro4life.hiv');
         $landingpageConfig = new LandingpageConfiguration();
         $landingpageConfig->setName('Caro');
         $landingpageConfig->setDomain($domain);
+        $landingpageConfig->setText($customText);
 
         $this->mockContent->buildEntry('String', Argument::any(), Argument::any())
             ->willReturn((object)['value' => 'some string'])
@@ -50,6 +59,22 @@ class LandingpageConfigServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('en', $config['defaultLocale']);
         $this->assertArrayHasKey('strings', $config);
         $this->assertCount(4, $config['strings']);
+        if (!is_null($customText)) {
+            foreach ($this->locales as $locale) {
+                $this->assertEquals($customText, $config['strings'][$locale]['about']);
+            }
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getTestData()
+    {
+        return [
+            [null],
+            ['This is my text.']
+        ];
     }
 
     /**
@@ -59,7 +84,7 @@ class LandingpageConfigServiceTest extends \PHPUnit_Framework_TestCase
     {
         return new LandingpageConfigService(
             $this->mockContent->reveal(),
-            ['locales' => ['en', 'de', 'es', 'fr']],
+            ['locales' => $this->locales],
             new GenitivfyService()
         );
     }

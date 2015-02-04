@@ -1,20 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: m
- * Date: 18.12.14
- * Time: 12:52
- */
 
-namespace Dothiv\ShopBundle\Listener;
+namespace Dothiv\APIBundle\Listener;
 
-
-use Dothiv\ShopBundle\Exception\AccessDeniedHttpException;
-use Dothiv\ShopBundle\Exception\BadRequestHttpException;
-use Dothiv\ShopBundle\Exception\ConflictHttpException;
-use Dothiv\ShopBundle\Exception\ExceptionInterface;
+use Dothiv\APIBundle\Exception;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Dothiv\APIBundle\Controller\Traits;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class HttpExceptionListener
 {
@@ -27,18 +18,24 @@ class HttpExceptionListener
         }
         /** @var \Exception $exception */
         $exception = $event->getException();
-        if (!($exception instanceof ExceptionInterface)) {
+        if (!($exception instanceof Exception\ExceptionInterface)
+            && !($exception instanceof HttpExceptionInterface)
+        ) {
             return;
         }
 
         $code = 500; // Response::HTTP_INTERNAL_SERVER_ERROR
 
-        if ($exception instanceof BadRequestHttpException) {
+        if ($exception instanceof Exception\BadRequestHttpException) {
             $code = 400; // Response::HTTP_BAD_REQUEST
-        } elseif ($exception instanceof ConflictHttpException) {
+        } elseif ($exception instanceof Exception\ConflictHttpException) {
             $code = 409; // Response::HTTP_CONFLICT
-        } elseif ($exception instanceof AccessDeniedHttpException) {
+        } elseif ($exception instanceof Exception\AccessDeniedHttpException) {
             $code = 403; // Response::HTTP_ACCESS_DENIED
+        } elseif ($exception instanceof Exception\NotFoundHttpException) {
+            $code = 404; // Response::HTTP_NOT_FOUND
+        } elseif ($exception instanceof HttpExceptionInterface) {
+            $code = $exception->getStatusCode();
         }
 
         $response = $this->createResponse();
@@ -50,4 +47,4 @@ class HttpExceptionListener
         )));
         $event->setResponse($response);
     }
-} 
+}

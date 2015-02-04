@@ -5,9 +5,10 @@ namespace Dothiv\LandingpageBundle\Controller;
 use Dothiv\BaseWebsiteBundle\Contentful\Content;
 use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\LandingpageBundle\Entity\LandingpageConfiguration;
-use Dothiv\LandingpageBundle\Exception\NotFoundHttpException;
+use Dothiv\ApiBundle\Exception\NotFoundHttpException;
 use Dothiv\LandingpageBundle\Repository\LandingpageConfigurationRepositoryInterface;
 use Dothiv\LandingpageBundle\Service\LandingpageConfigServiceInterface;
+use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,7 +49,13 @@ class PreviewController
     {
         try {
             /** @var LandingpageConfiguration $config */
-            $config         = $this->landingpageConfigRepo->findByDomain($this->domainRepo->getDomainByName($domain)->get())->get();
+            $config = $this->landingpageConfigRepo->findByDomain($this->domainRepo->getDomainByName($domain)->get())->get();
+            Option::fromValue($request->get('name'))->map(function ($name) use ($config) {
+                $config->setName($name);
+            });
+            Option::fromValue($request->get('text'))->map(function ($text) use ($config) {
+                $config->setText($text);
+            });
             $response       = new Response();
             $data           = $this->landingpageConfigService->buildConfig($config)['strings'][$config->getLanguage()->toScalar()];
             $data['locale'] = $config->getLanguage()->toScalar();
