@@ -9,8 +9,8 @@ services:
         arguments:
         - @dothiv.repository.invoice
         - %payitforward_price%
-        - %devat%
-        
+        - @dothiv.business.service.vatrules
+
     dothiv.payitforward.service.order:
         class: %dothiv.payitforward.service.order.class%
         arguments:
@@ -22,3 +22,4 @@ services:
         arguments:
         - @dothiv.registry.service.mailer.content
         - @dothiv.websitebase.money_format
+        - @dothiv.business.service.vatrules

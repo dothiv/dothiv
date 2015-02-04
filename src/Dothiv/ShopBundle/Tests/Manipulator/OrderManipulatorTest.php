@@ -49,7 +49,7 @@ class OrderManipulatorTest extends \PHPUnit_Framework_TestCase
         $model->setLocality("Waldweg 1");
         $model->setLocality2("Hinterhaus");
         $model->setCity("12345 Neustadt");
-        $model->setCountry("Germany (Deutschland)");
+        $model->setCountry("DE");
         $model->setOrganization("Bürger GmbH");
         $model->setVatNo("DE123456789");
         $model->setCurrency(Order::CURRENCY_EUR);
@@ -76,7 +76,7 @@ class OrderManipulatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($order->getLocality(), "Waldweg 1");
         $this->assertEquals($order->getLocality2()->get(), "Hinterhaus");
         $this->assertEquals($order->getCity(), "12345 Neustadt");
-        $this->assertEquals($order->getCountry(), "Germany (Deutschland)");
+        $this->assertEquals($order->getCountry()->toScalar(), "DE");
         $this->assertEquals($order->getOrganization()->get(), "Bürger GmbH");
         $this->assertEquals($order->getVatNo()->get(), "DE123456789");
         $this->assertEquals($order->getStripeToken(), new IdentValue("tok_14kvt242KFPpMZB00CUopZjt"));

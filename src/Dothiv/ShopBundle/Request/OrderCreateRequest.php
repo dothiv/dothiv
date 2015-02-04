@@ -109,6 +109,7 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
      * @var string
      * @Assert\NotBlank
      * @Assert\Length(max=255)
+     * @Assert\RegEx("/^[A-Z]{2}(-[A-Z]{2})?$/")
      */
     private $country;
 
@@ -228,11 +229,11 @@ class OrderCreateRequest extends AbstractDataModel implements DataModelInterface
     }
 
     /**
-     * @return string
+     * @return IdentValue
      */
     public function getCountry()
     {
-        return $this->country;
+        return new IdentValue($this->country);
     }
 
     /**

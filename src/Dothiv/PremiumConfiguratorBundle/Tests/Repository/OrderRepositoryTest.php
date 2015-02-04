@@ -9,6 +9,7 @@ use Dothiv\BusinessBundle\Tests\Traits\RepositoryTestTrait;
 use Dothiv\PremiumConfiguratorBundle\Entity\Subscription;
 use Dothiv\PremiumConfiguratorBundle\Repository\SubscriptionRepository;
 use Dothiv\ValueObject\EmailValue;
+use Dothiv\ValueObject\IdentValue;
 
 class SubscriptionRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -67,13 +68,11 @@ class SubscriptionRepositoryTest extends \PHPUnit_Framework_TestCase
         $subscription->setUser($user);
         $subscription->setEmail(new EmailValue('john.doe@example.com'));
         $subscription->setDomain($domain);
-        $subscription->setType('deorg');
         $subscription->setFullname('John Doe');
         $subscription->setAddress1('123 Some Street');
         $subscription->setAddress2('123 Some City');
-        $subscription->setCountry('Germany (Deutschland)');
+        $subscription->setCountry(new IdentValue('DE'));
         $subscription->setVatNo('1243');
-        $subscription->setTaxNo('45678');
         $subscription->setToken('tok_14kcI342KFPpMZB0scN8KPTM');
         $subscription->setLiveMode('0');
         return $subscription;
@@ -122,4 +121,4 @@ class SubscriptionRepositoryTest extends \PHPUnit_Framework_TestCase
         $repo->setValidator($this->testValidator);
         return $repo;
     }
-} 
+}

@@ -25,13 +25,14 @@ services:
         arguments:
         - @dothiv.repository.invoice
         - @dothiv.shop.domain_price
-        - %devat%
+        - @dothiv.business.service.vatrules
 
     dothiv.shop.mailer.order:
         class: %dothiv.shop.mailer.order.class%
         arguments:
         - @dothiv.registry.service.mailer.content
         - @dothiv.websitebase.money_format
+        - @dothiv.business.service.vatrules
 
     dothiv.shop.name4life_landingpage_content:
         class: %dothiv.websitebase.contentful.content.class%

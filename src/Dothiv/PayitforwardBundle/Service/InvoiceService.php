@@ -4,8 +4,8 @@ namespace Dothiv\PayitforwardBundle\Service;
 
 use Dothiv\BusinessBundle\Entity\Invoice;
 use Dothiv\BusinessBundle\Repository\InvoiceRepositoryInterface;
+use Dothiv\BusinessBundle\Service\VatRulesInterface;
 use Dothiv\PayitforwardBundle\Entity\Order;
-use PhpOption\Option;
 
 class InvoiceService implements InvoiceServiceInterface
 {
@@ -21,15 +21,20 @@ class InvoiceService implements InvoiceServiceInterface
     private $payitforwardPrice;
 
     /**
-     * @var int
+     * @var VatRulesInterface
      */
-    private $deVat;
+    private $vatRules;
 
-    public function __construct(InvoiceRepositoryInterface $repo, $payitforwardPrice, $deVat)
+    /**
+     * @param InvoiceRepositoryInterface $repo
+     * @param int                        $payitforwardPrice
+     * @param VatRulesInterface          $vatRules
+     */
+    public function __construct(InvoiceRepositoryInterface $repo, $payitforwardPrice, VatRulesInterface $vatRules)
     {
         $this->repo              = $repo;
         $this->payitforwardPrice = $payitforwardPrice;
-        $this->deVat             = $deVat;
+        $this->vatRules          = $vatRules;
     }
 
     /**
@@ -42,7 +47,8 @@ class InvoiceService implements InvoiceServiceInterface
         $invoice->setAddress1($order->getAddress1());
         $invoice->setAddress2($order->getAddress2());
         $invoice->setCountry($order->getCountry());
-        $invoice->setVatNo(Option::fromValue($order->getTaxNo())->orElse(Option::fromValue($order->getVatNo()))->getOrElse(null));
+        $invoice->setOrganization($order->getOrganization()->getOrElse(null));
+        $invoice->setVatNo($order->getVatNo()->getOrElse(null));
 
         $numVouchers = $order->getNumVouchers();
         $invoice->setItemPrice($this->payitforwardPrice * $numVouchers);
@@ -52,23 +58,12 @@ class InvoiceService implements InvoiceServiceInterface
                 $numVouchers
             )
         );
-        switch ($order->getType()) {
-            case Order::TYPE_NONEU:
-                $invoice->setVatPercent(0);
-                break;
-            case Order::TYPE_EUORGNET:
-                $invoice->setVatPercent(0);
-                break;
-            case Order::TYPE_EUORG:
-                $invoice->setVatPercent($this->deVat);
-                break;
-            case Order::TYPE_DEORG:
-                $invoice->setVatPercent($this->deVat);
-                break;
-            case Order::TYPE_EUPRIVATE:
-                $invoice->setVatPercent($this->deVat);
-                break;
-        }
+        $rules = $this->vatRules->getRules(
+            $order->getOrganization()->isDefined(),
+            $order->getCountry(),
+            $order->getVatNo()->isDefined()
+        );
+        $invoice->setVatPercent($rules->vatPercent());
         $invoice->setVatPrice((int)round($invoice->getItemPrice() * $invoice->getVatPercent() / 100, 0));
         $invoice->setTotalPrice($invoice->getVatPrice() + $invoice->getItemPrice());
 
@@ -76,4 +71,4 @@ class InvoiceService implements InvoiceServiceInterface
 
         return $invoice;
     }
-} 
+}

@@ -6,6 +6,8 @@ use Dothiv\APIBundle\Request\AbstractDataModel;
 use Dothiv\APIBundle\Request\DataModelInterface;
 use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\HivDomainValue;
+use Dothiv\ValueObject\IdentValue;
+use Dothiv\ValueObject\NullOnEmptyValue;
 use Dothiv\ValueObject\TwitterHandleValue;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -24,14 +26,6 @@ class OrderPutRequest extends AbstractDataModel implements DataModelInterface
      * @Assert\NotNull
      */
     protected $token;
-
-    /**
-     * @var string
-     * @Assert\NotNull
-     * @Assert\NotBlank
-     * @Assert\Choice({"noneu", "euorgnet", "euorg", "deorg", "euprivate"})
-     */
-    protected $type;
 
     /**
      * @var string
@@ -56,18 +50,19 @@ class OrderPutRequest extends AbstractDataModel implements DataModelInterface
      * @var string
      * @Assert\NotNull
      * @Assert\NotBlank
+     * @Assert\RegEx("/^[A-Z]{2}(-[A-Z]{2})?$/")
      */
     protected $country;
 
     /**
      * @var string
      */
-    protected $vatNo;
+    protected $organization;
 
     /**
      * @var string
      */
-    protected $taxNo;
+    protected $vatNo;
 
     /**
      * @var string
@@ -271,11 +266,11 @@ class OrderPutRequest extends AbstractDataModel implements DataModelInterface
     }
 
     /**
-     * @return string
+     * @return IdentValue
      */
     public function getCountry()
     {
-        return $this->country;
+        return new IdentValue($this->country);
     }
 
     /**
@@ -298,41 +293,22 @@ class OrderPutRequest extends AbstractDataModel implements DataModelInterface
     }
 
     /**
-     * @param string $taxNo
+     * @return string|null
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
+     * @param string|null $organization
      *
      * @return self
      */
-    public function setTaxNo($taxNo)
+    public function setOrganization($organization = null)
     {
-        $this->taxNo = $taxNo;
+        $this->organization = NullOnEmptyValue::create($organization)->getValue();
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTaxNo()
-    {
-        return $this->taxNo;
-    }
-
-    /**
-     * @param string $type
-     *
-     * @return self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**

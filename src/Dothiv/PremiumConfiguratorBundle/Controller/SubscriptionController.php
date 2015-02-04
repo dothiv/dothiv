@@ -88,13 +88,12 @@ class SubscriptionController
         $subscription->setDomain($domain);
         $subscription->setLiveMode($model->getLiveMode());
         $subscription->setToken($model->getToken());
-        $subscription->setType($model->getType());
         $subscription->setFullname($model->getFullname());
         $subscription->setAddress1($model->getAddress1());
         $subscription->setAddress2($model->getAddress2());
         $subscription->setCountry($model->getCountry());
+        $subscription->setOrganization($model->getOrganization());
         $subscription->setVatNo($model->getVatNo());
-        $subscription->setTaxNo($model->getTaxNo());
         $user = $this->securityContext->getToken()->getUser();
         $subscription->setUser($user);
         $subscription->setEmail(new EmailValue($user->getEmail()));

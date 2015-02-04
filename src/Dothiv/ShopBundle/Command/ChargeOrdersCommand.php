@@ -133,7 +133,7 @@ class ChargeOrdersCommand extends ContainerAwareCommand
             $table->addRow(array('Locality (ctd.)', $order->getLocality2()->get()));
         }
         $table->addRow(array('City', $order->getCity()));
-        $table->addRow(array('Country', $order->getCountry()));
+        $table->addRow(array('Country', $order->getCountry()->toScalar()));
         if ($order->getOrganization()->isDefined()) {
             $table->addRow(array('Organization', $order->getOrganization()->get()));
         }

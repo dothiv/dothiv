@@ -8,6 +8,7 @@ parameters:
     dothiv.business.service.nonprofitregistration.class: Dothiv\BusinessBundle\Service\NonprofitRegistrationService
     dothiv.business.service.whois.class: Dothiv\BusinessBundle\Service\WhoisSocketService
     dothiv.http_client.class: Guzzle\Http\Client
+    dothiv.business.service.vatrules.class: Dothiv\BusinessBundle\Service\VatRules
 
 services:
     clickcounter:
@@ -88,3 +89,9 @@ services:
             - @dothiv_contentful.repo.asset
             - %registry_email_from_address%
             - %registry_email_from_name%
+
+    dothiv.business.service.vatrules:
+        class: %dothiv.business.service.vatrules.class%
+        arguments:
+        - %devat%
+        - @dothiv.repository.country

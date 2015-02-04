@@ -1,6 +1,6 @@
 <?php
 
-namespace Dothiv\ShopBundle\Model;
+namespace Dothiv\BusinessBundle\Model;
 
 class CountryModel
 {
