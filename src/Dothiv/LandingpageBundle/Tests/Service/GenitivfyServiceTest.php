@@ -1,25 +1,25 @@
 <?php
 
-namespace Dothiv\ShopBundle\Test\Service;
+namespace Dothiv\LandingpageBundle\Test\Service;
 
-use Dothiv\ShopBundle\Service\GenitivfyService;
+use Dothiv\LandingpageBundle\Service\GenitivfyService;
 use Dothiv\ValueObject\IdentValue;
 
 class GenitivfyServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @group Shop
+     * @group LandingpageBundle
      * @group Service
      */
     public function itShouldBeInstantiable()
     {
-        $this->assertInstanceOf('\Dothiv\ShopBundle\Service\GenitivfyService', $this->createTestObject());
+        $this->assertInstanceOf('\Dothiv\LandingpageBundle\Service\GenitivfyService', $this->createTestObject());
     }
 
     /**
      * @test
-     * @group        Shop
+     * @group        LandingpageBundle
      * @group        Service
      * @depends      itShouldBeInstantiable
      *

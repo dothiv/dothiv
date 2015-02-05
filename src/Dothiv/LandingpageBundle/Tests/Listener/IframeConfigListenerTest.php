@@ -1,44 +1,44 @@
 <?php
 
 
-namespace Dothiv\ShopBundle\Test\Listener;
+namespace Dothiv\LandingpageBundle\Test\Listener;
 
 use Dothiv\BaseWebsiteBundle\Contentful\ContentInterface;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Event\ClickCounterConfigurationEvent;
-use Dothiv\ShopBundle\Entity\Order;
-use Dothiv\ShopBundle\Listener\IframeConfigListener;
-use Dothiv\ShopBundle\Repository\OrderRepositoryInterface;
-use Dothiv\ShopBundle\Service\GenitivfyService;
-use Dothiv\ValueObject\HivDomainValue;
+use Dothiv\LandingpageBundle\Entity\LandingpageConfiguration;
+use Dothiv\LandingpageBundle\Listener\IframeConfigListener;
+use Dothiv\LandingpageBundle\Repository\LandingpageConfigurationRepositoryInterface;
+use Dothiv\LandingpageBundle\Service\GenitivfyService;
+use PhpOption\None;
 use PhpOption\Option;
 
 class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var OrderRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var LandingpageConfigurationRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $mockOrderRepo;
+    private $mockConfigRepo;
 
     /**
      * @var ContentInterface|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $mockConfig;
+    private $mockContent;
 
     /**
      * @test
-     * @group Shop
+     * @group LandingpageBundle
      * @group Listener
      */
     public function itShouldBeInstantiable()
     {
-        $this->assertInstanceOf('\Dothiv\ShopBundle\Listener\IframeConfigListener', $this->createTestObject());
+        $this->assertInstanceOf('\Dothiv\LandingpageBundle\Listener\IframeConfigListener', $this->createTestObject());
     }
 
     /**
      * @test
-     * @group   Shop
+     * @group   LandingpageBundle
      * @group   Listener
      * @depends itShouldBeInstantiable
      */
@@ -46,15 +46,15 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
     {
         $domain = new Domain();
         $domain->setName('caro4life.hiv');
-        $order = new Order();
-        $order->setLandingpageOwner('Caro');
+        $landingpageConfig = new LandingpageConfiguration();
+        $landingpageConfig->setName('Caro');
         $config = [];
 
-        $this->mockOrderRepo->expects($this->once())->method('findLatestByDomain')
-            ->with(new HivDomainValue('caro4life.hiv'))
-            ->willReturn(Option::fromValue($order));
+        $this->mockConfigRepo->expects($this->once())->method('findByDomain')
+            ->with($domain)
+            ->willReturn(Option::fromValue($landingpageConfig));
 
-        $this->mockConfig->expects($this->any())->method('buildEntry')
+        $this->mockContent->expects($this->any())->method('buildEntry')
             ->with('String')
             ->willReturn((object)['value' => 'some string']);
 
@@ -65,7 +65,7 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @group   Shop
+     * @group   LandingpageBundle
      * @group   Listener
      * @depends itShouldBeInstantiable
      */
@@ -74,7 +74,9 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
         $domain = new Domain();
         $domain->setName('caro.hiv');
 
-        $this->mockOrderRepo->expects($this->never())->method('findLatestByDomain');
+        $this->mockConfigRepo->expects($this->once())->method('findByDomain')
+            ->with($domain)
+            ->willReturn(None::create());
 
         $event = new ClickCounterConfigurationEvent($domain, []);
         $this->createTestObject()->onClickCounterConfiguration($event);
@@ -87,8 +89,8 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
     protected function createTestObject()
     {
         return new IframeConfigListener(
-            $this->mockOrderRepo,
-            $this->mockConfig,
+            $this->mockConfigRepo,
+            $this->mockContent,
             ['locales' => ['en', 'de', 'es', 'fr']],
             new GenitivfyService()
         );
@@ -100,7 +102,7 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockOrderRepo = $this->getMock('\Dothiv\ShopBundle\Repository\OrderRepositoryInterface');
-        $this->mockConfig    = $this->getMock('\Dothiv\BaseWebsiteBundle\Contentful\ContentInterface');
+        $this->mockConfigRepo = $this->getMock('\Dothiv\LandingpageBundle\Repository\LandingpageConfigurationRepositoryInterface');
+        $this->mockContent    = $this->getMock('\Dothiv\BaseWebsiteBundle\Contentful\ContentInterface');
     }
 }

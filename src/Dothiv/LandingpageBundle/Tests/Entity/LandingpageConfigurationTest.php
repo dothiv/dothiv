@@ -10,9 +10,8 @@ class LandingpageConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @group Entity
-     * @group ShopBundle
+     * @group LandingpageBundle
      * @group LandingpageConfiguration
-     * @group Shop
      */
     public function itShouldBeInstantiateable()
     {
@@ -22,9 +21,8 @@ class LandingpageConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @group                    Entity
-     * @group                    ShopBundle
+     * @group                    LandingpageBundle
      * @group                    LandingpageConfiguration
-     * @group                    Shop
      * @depends                  itShouldBeInstantiateable
      * @expectedException        \Dothiv\LandingpageBundle\Exception\InvalidArgumentException
      * @expectedExceptionMessage Invalid language provided: "pl"

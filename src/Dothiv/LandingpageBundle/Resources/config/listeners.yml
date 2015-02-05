@@ -1,0 +1,23 @@
+# NOTE: Not loaded in test env
+parameters:
+    dothiv.landingpage.listener.iframe_config.class: Dothiv\LandingpageBundle\Listener\IframeConfigListener
+    dothiv.landingpage.listener.shop_order_charged.class: Dothiv\LandingpageBundle\Listener\ShopOrderChargedListener
+
+services:
+    dothiv.landingpage.listener.iframe_config:
+        class: %dothiv.landingpage.listener.iframe_config.class%
+        arguments:
+        - @dothiv.repository.shop_order
+        - @dothiv.shop.name4life_landingpage_content
+        - %dothiv_business.clickcounter%
+        - @dothiv.landingpage.genitivfy
+        - @dothiv.landingpage
+        tags:
+        - { name: dothiv.business.event_listener, event: dothiv.basewebsite.clickcounter.iframe.configuration, method: onClickCounterConfiguration }
+
+    dothiv.landingpage.listener.shop_order_charged:
+        class: %dothiv.landingpage.listener.shop_order_charged.class%
+        arguments:
+        - @dothiv.landingpage
+        tags:
+        - { name: dothiv.business.event_listener, event: dothiv.shop.order.charged, method: onShopOrderCharged }
