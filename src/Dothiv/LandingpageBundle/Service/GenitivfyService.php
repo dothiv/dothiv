@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dothiv\ShopBundle\Service;
+namespace Dothiv\LandingpageBundle\Service;
 
 use Dothiv\ValueObject\IdentValue;
 

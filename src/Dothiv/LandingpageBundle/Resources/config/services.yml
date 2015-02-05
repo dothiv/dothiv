@@ -1,0 +1,10 @@
+parameters:
+    dothiv.landingpage.genitivfy.class: Dothiv\LandingpageBundle\Service\GenitivfyService
+    dothiv.landingpage.service.class: Dothiv\LandingpageBundle\Service\LandingpageService
+
+services:
+    dothiv.landingpage:
+        class: %dothiv.landingpage.service.class%
+
+    dothiv.landingpage.genitivfy:
+        class: %dothiv.landingpage.genitivfy.class%

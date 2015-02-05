@@ -4,17 +4,17 @@
 namespace Dothiv\ShopBundle\Test\Service;
 
 use Dothiv\BusinessBundle\Entity\Config;
-use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
-use Dothiv\ShopBundle\Entity\DomainInfo;
-use Dothiv\BusinessBundle\Event\DomainEvent;
-use Dothiv\ShopBundle\Entity\Order;
-use Dothiv\ShopBundle\Repository\DomainInfoRepositoryInterface;
+use Dothiv\LandingpageBundle\Service\LandingpageServiceInterface;
 use Dothiv\ShopBundle\Service\DomainPriceService;
 use Dothiv\ValueObject\HivDomainValue;
 
 class DomainPriceServiceTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var LandingpageServiceInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockLandingpageService;
 
     /**
      * @var ConfigRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -38,12 +38,13 @@ class DomainPriceServiceTest extends \PHPUnit_Framework_TestCase
      * @depends      itShouldBeInstantiable
      *
      * @param string $domain
+     * @param bool   $promoDomain
      * @param int    $expectedEurPrice
      * @param int    $expectedUsdPrice
      *
      * @dataProvider domainPriceDataProvider
      */
-    public function itShouldCalculateTheDomainPrice($domain, $expectedEurPrice, $expectedUsdPrice)
+    public function itShouldCalculateTheDomainPrice($domain, $promoDomain, $expectedEurPrice, $expectedUsdPrice)
     {
         $newConfig = function ($name, $value) {
             $config = new Config();
@@ -72,6 +73,10 @@ class DomainPriceServiceTest extends \PHPUnit_Framework_TestCase
         $this->mockConfigRepo->expects($this->any())->method('get')
             ->will($this->returnValueMap($configMap));
 
+        $this->mockLandingpageService->expects($this->once())->method('qualifiesForLandingpage')
+            ->with(HivDomainValue::create($domain))
+            ->willReturn($promoDomain);
+
         $price = $this->createTestObject()->getPrice(new HivDomainValue($domain));
         $this->assertEquals($expectedEurPrice, $price->getNetPriceEUR());
         $this->assertEquals($expectedUsdPrice, $price->getNetPriceUSD());
@@ -83,8 +88,8 @@ class DomainPriceServiceTest extends \PHPUnit_Framework_TestCase
     public function domainPriceDataProvider()
     {
         return array(
-            array('caro.hiv', 14500, 18000),
-            array('caro4life.hiv', 1500, 1900),
+            array('caro.hiv', false, 14500, 18000),
+            array('caro4life.hiv', true, 1500, 1900),
         );
     }
 
@@ -93,7 +98,7 @@ class DomainPriceServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected function createTestObject()
     {
-        return new DomainPriceService($this->mockConfigRepo);
+        return new DomainPriceService($this->mockConfigRepo, $this->mockLandingpageService);
     }
 
     /**
@@ -102,6 +107,7 @@ class DomainPriceServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockConfigRepo = $this->getMock('\Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface');
+        $this->mockConfigRepo         = $this->getMock('\Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface');
+        $this->mockLandingpageService = $this->getMock('\Dothiv\LandingpageBundle\Service\LandingpageServiceInterface');
     }
 }

@@ -20,3 +20,4 @@ services:
         arguments: [ %dothiv.repository.order.entity% ]
         calls:
         - [setValidator, ["@validator"]]
+        - [setLandingpageService, ["@dothiv.landingpage"]]
