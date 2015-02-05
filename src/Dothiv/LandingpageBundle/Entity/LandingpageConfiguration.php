@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Dothiv\BusinessBundle\Entity\Domain;
 use Dothiv\BusinessBundle\Entity\Entity;
 use Dothiv\BusinessBundle\Entity\Traits;
-use Dothiv\ShopBundle\Exception\InvalidArgumentException;
+use Dothiv\LandingpageBundle\Exception\InvalidArgumentException;
 use Dothiv\ValueObject\IdentValue;
 use Dothiv\ValueObject\NullOnEmptyValue;
 use Gedmo\Mapping\Annotation as Gedmo;
