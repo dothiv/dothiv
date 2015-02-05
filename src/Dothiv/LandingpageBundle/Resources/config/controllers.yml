@@ -1,0 +1,10 @@
+services:
+    dothiv.landingpage.controller.page:
+        class: Dothiv\BaseWebsiteBundle\Controller\PageController
+        arguments:
+          - @dothiv.websitebase.cache.request_lastmodified
+          - @templating
+          - @dothiv.charity.contentful.charity_content
+          - "DothivLandingpageBundle"
+          - @clock
+          - %page_lifetime%
