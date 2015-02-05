@@ -176,8 +176,14 @@
                                 <span class="domain-clicks">{% trans %}domains.clicks.label{% endtrans %}</span>
                             </p>
                             <nav>
-                                <a data-ng-click="edit(domain)" data-ng-hide="idnToUnicode(domain.name).search('4life.hiv') > 0">{% trans %}
-                                    account.profile.domains.edit{% endtrans %}</a>
+                                <a data-ng-click="edit(domain)" data-ng-hide="idnToUnicode(domain.name).search('4life.hiv') > 0">
+                                    {% trans %}account.profile.domains.edit{% endtrans %}
+                                </a>
+                                {% if "DothivLandingpageBundle" in bundles %}
+                                <a data-ng-href="{{ path('dothiv_landingpageconfig_page', {'domain': 'example.hiv', 'locale': locale})|trans({'example.hiv': '{{domain.name}}'}) }}" data-ng-show="idnToUnicode(domain.name).search('4life.hiv') > 0">
+                                    {% trans %}profile.domain.editors.landingpage{% endtrans %}
+                                </a>
+                                {% endif %}
                                 {% if features.domain_collaborator %}
                                 <br>
                                 <a data-ng-href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}#!/profile/collaborators/{{ '{{domain.name}}' }}">{% trans %}account.profile.domains.share{% endtrans %}</a>

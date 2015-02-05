@@ -1,0 +1,12 @@
+dothiv_landingpageconfig_page:
+    host: %charitydomain%
+    schemes:  [https]
+    path:     /{locale}/landingpage-configurator/{domain}/{appstate}
+    defaults:
+        _controller: dothiv.landingpage.controller.page:pageAction
+        page: landingpage.configurator
+        template: Configurator:start
+        appstate: ~
+    requirements:
+        locale: ^(en|de|ky)$
+        appstate: .+

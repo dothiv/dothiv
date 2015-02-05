@@ -17,6 +17,7 @@ class DothivLandingpageExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('repositories.yml');
         $loader->load('services.yml');
+        $loader->load('controllers.yml');
         if ($container->getParameter("kernel.environment") != 'test') {
             $loader->load('listeners.yml');
         }

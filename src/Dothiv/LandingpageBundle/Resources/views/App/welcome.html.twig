@@ -1,0 +1,6 @@
+{% extends "DothivLandingpageBundle:App:article.html.twig" %}
+{% trans_default_domain "charity" %}
+{% block nav %}
+    {{ parent() }}
+    <a rel="next" href="{{ path('dothiv_landingpageconfig_page', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}/configure">{% trans %}pc.nav.configure{% endtrans %}</a>
+{% endblock nav %}

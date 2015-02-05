@@ -1,0 +1,27 @@
+{% trans_default_domain "charity" %}
+<script type="text/ng-template" id="/template/configurator/{{ code }}.html">
+    <div class="content">
+        <article data-ng-init="children = {{ page.children|length }}">
+            {% for block in page.children %}
+                <section data-ng-show="block == '{{ loop.index }}'">
+                    <div class="block">
+                        {% if block.title is defined %}
+                            <h2>{{ block.title }}</h2>
+                        {% endif %}
+                        {% if block.text is defined %}
+                            {{ block.text|markdown }}
+                        {% endif %}
+                    </div>
+                </section>
+            {% endfor %}
+            <nav>
+                {% block nav %}
+                    <a rel="prev" data-ng-click="prev()" data-ng-show="hasPrev()">{% trans %}
+                        lc.nav.prev{% endtrans %}</a>
+                    <a rel="next" data-ng-click="next()" data-ng-show="hasNext()">{% trans %}
+                        lc.nav.next{% endtrans %}</a>
+                {% endblock nav %}
+            </nav>
+        </article>
+    </div>
+</script>

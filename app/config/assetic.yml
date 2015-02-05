@@ -12,6 +12,7 @@ assetic:
       - 'DothivPayitforwardBundle'
       - 'DothivDomainGiftBundle'
       - 'DothivShopBundle'
+      - 'DothivLandingpageBundle'
     #java: /usr/bin/java
     filters:
         less:
