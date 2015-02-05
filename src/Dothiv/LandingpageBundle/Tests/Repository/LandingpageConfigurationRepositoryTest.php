@@ -8,6 +8,7 @@ use Dothiv\BusinessBundle\Entity\User;
 use Dothiv\BusinessBundle\Tests\Traits;
 use Dothiv\LandingpageBundle\Entity\LandingpageConfiguration;
 use Dothiv\LandingpageBundle\Repository\LandingpageConfigurationRepository;
+use Dothiv\ValueObject\IdentValue;
 
 class LandingpageConfigurationRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -59,6 +60,7 @@ class LandingpageConfigurationRepositoryTest extends \PHPUnit_Framework_TestCase
         $lc->setClickCounter(true);
         $lc->setName('Caro');
         $lc->setText('Example text');
+        $lc->setLanguage(new IdentValue('en'));
         $repo = $this->createTestObject();
         $repo->persist($lc);
         $repo->flush();
@@ -69,6 +71,7 @@ class LandingpageConfigurationRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($slc->getClickCounter(), true);
         $this->assertEquals('Caro', $slc->getName());
         $this->assertEquals('Example text', $slc->getText()->get());
+        $this->assertEquals('en', $slc->getLanguage()->toScalar());
     }
 
     /**
