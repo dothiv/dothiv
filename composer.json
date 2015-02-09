@@ -56,7 +56,7 @@
         "squizlabs/php_codesniffer": "2.*@dev",
         "sebastian/phpcpd": "*",
         "covex-nn/phpcb": "*",
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "*@dev",
         "behat/symfony2-extension": "1.*@dev",
         "behatch/contexts": "dev-behat-2.x@dev",
         "behat/mink-extension": "*",

@@ -1,6 +1,7 @@
 parameters:
     dothiv.landingpage.genitivfy.class: Dothiv\LandingpageBundle\Service\GenitivfyService
     dothiv.landingpage.service.class: Dothiv\LandingpageBundle\Service\LandingpageService
+    dothiv.landingpage.config.class: Dothiv\LandingpageBundle\Service\LandingpageConfigService
 
 services:
     dothiv.landingpage:
@@ -8,3 +9,17 @@ services:
 
     dothiv.landingpage.genitivfy:
         class: %dothiv.landingpage.genitivfy.class%
+
+    dothiv.landingpage.content:
+        class: %dothiv.websitebase.contentful.content.class%
+        arguments:
+        - @dothiv_contentful.content
+        - @dothiv.websitebase.contentful.view_builder
+        - %contenful_space_landingpage%
+
+    dothiv.landingpage.config:
+        class: %dothiv.landingpage.config.class%
+        arguments:
+        - @dothiv.landingpage.content
+        - %dothiv_business.clickcounter%
+        - @dothiv.landingpage.genitivfy

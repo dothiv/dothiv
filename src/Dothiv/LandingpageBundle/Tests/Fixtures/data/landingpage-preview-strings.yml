@@ -1,0 +1,51 @@
+title:
+   code:
+      en: title
+   value:
+      en: "%%firstname%% digital Red Ribbon"
+      de: "%%firstname%% digitale Rote Schleife"
+      fr: "Ruban rouge en ligne de %%firstname%%"
+      es: "El lazo rojo digital de %%firstname%%"
+about:
+   code:
+      en: "about"
+   value:
+      en: "I support the global, digital movement to see the end of AIDS. Together we can do it! Let\u2019s build an AIDS free generation."
+      de: "Mit dieser Internetadresse setze ich ein digitales Zeichen f\u00fcr das Ende von Aids. Unsere Generation kann es schaffen!"
+      es: "Con esta direcci\u00f3n electr\u00f3nica formo parte de un movimiento digital para acabar con el flagelo del SIDA. \u00a1Juntos podemos lograrlo!"
+      fr: "Avec cette adresse web je prends part \u00e0 un mouvement num\u00e9rique pour la fin du SIDA. Pour une g\u00e9n\u00e9ration sans SIDA! Ensemble nous y arriverons."
+learnMore:
+   code:
+      en: "learnMore"
+   value:
+      en: "Learn more"
+      de: "Mehr \u00fcber .hiv"
+      es: "M\u00e1s informaci\u00f3n"
+      fr: "Plus d'information sur .hiv"
+getYourOwn:
+   code:
+      en: "getYourOwn"
+   value:
+      en: "Get your own"
+      de: "Mach mit"
+      fr: "Participe, toi aussi!"
+      es: "Participa"
+tellYourFriends:
+   code:
+      en: "tellYourFriends"
+   value:
+      en: "Tell your friends:"
+      de: "Jetzt weitersagen:"
+      es: "Corre la voz:"
+      fr: "Passez le mot:"
+tweet:
+   code:
+      en: "tweet"
+   value:
+      en: "Lets work together to see an #AIDS free generation @dotHIV \u2013 %%domain%%"
+imprint:
+   code:
+      en: "imprint"
+   value:
+      en: "Imprint"
+      de: "Impressum"

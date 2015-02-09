@@ -12,19 +12,20 @@ use Dothiv\LandingpageBundle\Repository\LandingpageConfigurationRepositoryInterf
 use Dothiv\LandingpageBundle\Service\GenitivfyService;
 use PhpOption\None;
 use PhpOption\Option;
+use Prophecy\Prophecy\ObjectProphecy;
 
 class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var LandingpageConfigurationRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ObjectProphecy
      */
     private $mockConfigRepo;
 
     /**
-     * @var ContentInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ObjectProphecy
      */
-    private $mockContent;
+    private $mockConfigService;
 
     /**
      * @test
@@ -50,17 +51,19 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
         $landingpageConfig->setName('Caro');
         $config = [];
 
-        $this->mockConfigRepo->expects($this->once())->method('findByDomain')
-            ->with($domain)
-            ->willReturn(Option::fromValue($landingpageConfig));
+        $this->mockConfigRepo->findByDomain($domain)
+            ->willReturn(Option::fromValue($landingpageConfig))
+            ->shouldBeCalledTimes(1);
 
-        $this->mockContent->expects($this->any())->method('buildEntry')
-            ->with('String')
-            ->willReturn((object)['value' => 'some string']);
+        $lpConfig = ['some' => 'config'];
+
+        $this->mockConfigService->buildConfig($landingpageConfig)
+            ->willReturn($lpConfig)
+            ->shouldBeCalledTimes(1);
 
         $event = new ClickCounterConfigurationEvent($domain, $config);
         $this->createTestObject()->onClickCounterConfiguration($event);
-        $this->assertArrayHasKey('landingPage', $event->getConfig());
+        $this->assertEquals($lpConfig, $event->getConfig()['landingPage']);
     }
 
     /**
@@ -74,9 +77,9 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
         $domain = new Domain();
         $domain->setName('caro.hiv');
 
-        $this->mockConfigRepo->expects($this->once())->method('findByDomain')
-            ->with($domain)
-            ->willReturn(None::create());
+        $this->mockConfigRepo->findByDomain($domain)
+            ->willReturn(None::create())
+            ->shouldBeCalledTimes(1);
 
         $event = new ClickCounterConfigurationEvent($domain, []);
         $this->createTestObject()->onClickCounterConfiguration($event);
@@ -89,10 +92,8 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
     protected function createTestObject()
     {
         return new IframeConfigListener(
-            $this->mockConfigRepo,
-            $this->mockContent,
-            ['locales' => ['en', 'de', 'es', 'fr']],
-            new GenitivfyService()
+            $this->mockConfigRepo->reveal(),
+            $this->mockConfigService->reveal()
         );
     }
 
@@ -102,7 +103,7 @@ class IframeConfigListenerTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockConfigRepo = $this->getMock('\Dothiv\LandingpageBundle\Repository\LandingpageConfigurationRepositoryInterface');
-        $this->mockContent    = $this->getMock('\Dothiv\BaseWebsiteBundle\Contentful\ContentInterface');
+        $this->mockConfigRepo    = $this->prophesize('\Dothiv\LandingpageBundle\Repository\LandingpageConfigurationRepositoryInterface');
+        $this->mockConfigService = $this->prophesize('\Dothiv\LandingpageBundle\Service\LandingpageConfigServiceInterface');
     }
 }
