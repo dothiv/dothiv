@@ -1,5 +1,48 @@
+{% trans_default_domain "charity" %}
 <script type="text/ng-template" id="/template/configurator/{{ code }}.html">
     <div id="configurator" data-ng-class="{fullscreen: fullscreen}" data-ng-style="configuratorStyle">
-
+        <iframe data-ng-cloak src="%%iframeUrl%%" data-ng-init="iframeUrl='{{ path('dothiv_landingpageconfig_preview', {'domain': app.request.get('domain'), 'locale': app.request.get('locale')}) }}'" data-ng-style="iframeStyle"></iframe>
+        <div id="topnav">
+            <div class="inner">
+                <nav class="preview">
+                    <button data-ng-click="fullscreen = true" data-ng-show="!fullscreen">
+                        {% trans %}lc.preview.fullscreen{% endtrans %}
+                    </button>
+                    <button data-ng-click="fullscreen = false" data-ng-show="fullscreen">
+                        {% trans %}lc.preview.fullscreen.close{% endtrans %}
+                    </button>
+                    <button class="primary" data-ng-click="finish()">
+                        {% trans %}lc.preview.finish{% endtrans %}
+                    </button>
+                </nav>
+            </div>
+        </div>
+        {% set settings = content('Block', 'lc.settings') %}
+        {% if settings.children is defined %}
+        <div id="settings" data-ng-hide="fullscreen" data-ng-init="settings = '{{ settings.children[0].code|replace({"lc.settings.": ""}) }}'">
+            <header>
+                <div class="inner">
+                    <nav>
+                        {% for section in settings.children %}
+                            {% set code = section.code|replace({"lc.settings.": ""}) %}
+                            <button data-ng-click="settings = '{{ code }}'" data-ng-class="{active: settings == '{{ code }}'}">
+                                {{ section.title }}
+                            </button>
+                        {% endfor %}
+                    </nav>
+                </div>
+            </header>
+            <div class="main">
+                <div class="inner">
+                    {% for section in settings.children %}
+                        {% set code = section.code|replace({"lc.settings.": ""}) %}
+                        <section data-ng-show="settings == '{{ code }}'">
+                            {% include "DothivLandingpageBundle:App:configure/" ~ code ~ ".html.twig" %}
+                        </section>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </script>

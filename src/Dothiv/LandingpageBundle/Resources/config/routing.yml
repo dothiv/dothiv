@@ -1,3 +1,12 @@
+dothiv_landingpageconfig_preview:
+    host: %charitydomain%
+    schemes:  [https]
+    path:     /{locale}/landingpage-configurator/{domain}/preview
+    defaults:
+        _controller: dothiv.landingpage.controller.preview:previewAction
+    requirements:
+        locale: ^(en|de|ky)$
+
 dothiv_landingpageconfig_page:
     host: %charitydomain%
     schemes:  [https]

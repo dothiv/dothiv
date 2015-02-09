@@ -1,10 +1,22 @@
+parameters:
+    dothiv.landingpage.controller.preview.class: Dothiv\LandingpageBundle\Controller\PreviewController
+
 services:
     dothiv.landingpage.controller.page:
         class: Dothiv\BaseWebsiteBundle\Controller\PageController
         arguments:
-          - @dothiv.websitebase.cache.request_lastmodified
-          - @templating
-          - @dothiv.charity.contentful.charity_content
-          - "DothivLandingpageBundle"
-          - @clock
-          - %page_lifetime%
+        - @dothiv.websitebase.cache.request_lastmodified
+        - @templating
+        - @dothiv.charity.contentful.charity_content
+        - "DothivLandingpageBundle"
+        - @clock
+        - %page_lifetime%
+
+    dothiv.landingpage.controller.preview:
+        class: %dothiv.landingpage.controller.preview.class%
+        arguments:
+        - @templating
+        - @dothiv.repository.domain
+        - @dothiv.repository.landingpage_configuration
+        - @dothiv.landingpage.config
+        - @dothiv.landingpage.content

@@ -7,11 +7,8 @@ services:
     dothiv.landingpage.listener.iframe_config:
         class: %dothiv.landingpage.listener.iframe_config.class%
         arguments:
-        - @dothiv.repository.shop_order
-        - @dothiv.shop.name4life_landingpage_content
-        - %dothiv_business.clickcounter%
-        - @dothiv.landingpage.genitivfy
-        - @dothiv.landingpage
+        - @dothiv.repository.landingpage_configuration
+        - @dothiv.landingpage.config
         tags:
         - { name: dothiv.business.event_listener, event: dothiv.basewebsite.clickcounter.iframe.configuration, method: onClickCounterConfiguration }
 
