@@ -7,6 +7,8 @@ parameters:
 services:
     dothiv.landingpage:
         class: %dothiv.landingpage.service.class%
+        arguments:
+        - @dothiv.repository.landingpage_configuration
 
     dothiv.landingpage.genitivfy:
         class: %dothiv.landingpage.genitivfy.class%
