@@ -32,4 +32,5 @@ dothiv_landingpageconfig_config_update:
     defaults:
         _controller: dothiv.landingpage.api.controller.config:updateItemAction
         _format: json
+        _dothiv.ApiRequest: \Dothiv\LandingpageBundle\Request\LandingpageConfigurationUpdateRequest
     methods: [PATCH]

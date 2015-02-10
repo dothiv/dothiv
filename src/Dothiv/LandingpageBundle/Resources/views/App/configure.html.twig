@@ -17,13 +17,12 @@
                 </nav>
             </div>
         </div>
-        {% set settings = content('Block', 'lc.settings') %}
-        {% if settings.children is defined %}
-        <div id="settings" data-ng-hide="fullscreen" data-ng-init="settings = '{{ settings.children[0].code|replace({"lc.settings.": ""}) }}'">
+        {% if page.children is defined %}
+        <div id="settings" data-ng-hide="fullscreen" data-ng-init="settings = '{{ page.children[0].code|replace({"lc.settings.": ""}) }}'">
             <header>
                 <div class="inner">
                     <nav>
-                        {% for section in settings.children %}
+                        {% for section in page.children %}
                             {% set code = section.code|replace({"lc.settings.": ""}) %}
                             <button data-ng-click="settings = '{{ code }}'" data-ng-class="{active: settings == '{{ code }}'}">
                                 {{ section.title }}
@@ -34,7 +33,7 @@
             </header>
             <div class="main">
                 <div class="inner">
-                    {% for section in settings.children %}
+                    {% for section in page.children %}
                         {% set code = section.code|replace({"lc.settings.": ""}) %}
                         <section data-ng-show="settings == '{{ code }}'">
                             {% include "DothivLandingpageBundle:App:configure/" ~ code ~ ".html.twig" %}

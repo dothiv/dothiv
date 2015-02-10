@@ -20,13 +20,16 @@ Feature: Order domain
 
   Scenario: Update configuration of my domain
     And I send a PATCH request to "https://click4life.hiv.dev/api/landingpage/caro4life.hiv" with JSON values:
-      | name | Mike |
+      | name     | Mike      |
+      | text     | Some Text |
+      | language | es        |
+    Then I debug the JSON
     Then the response status code should be 204
     Given I send a GET request to "https://click4life.hiv.dev/api/landingpage/caro4life.hiv"
     And the header "content-type" should contain "application/json"
     And the JSON node "name" should contain "Mike"
-    And the JSON node "language" should contain "en"
-    And the JSON node "text" should not exist
+    And the JSON node "language" should contain "es"
+    And the JSON node "text" should contain "Some Text"
     And the JSON node "clickCounter" should be equal to true
 
   Scenario: Fetch configuration of someone else's domain

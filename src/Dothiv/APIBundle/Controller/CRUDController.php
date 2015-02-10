@@ -7,6 +7,7 @@ use Dothiv\APIBundle\Exception\AccessDeniedHttpException;
 use Dothiv\APIBundle\Exception\BadRequestHttpException;
 use Dothiv\APIBundle\Exception\InvalidArgumentException;
 use Dothiv\APIBundle\Exception\NotFoundHttpException;
+use Dothiv\APIBundle\Exception\UnprocessableEntityHttpException;
 use Dothiv\APIBundle\Manipulator\EntityManipulatorInterface;
 use Dothiv\APIBundle\Request\DataModelInterface;
 use Dothiv\APIBundle\Transformer\EntityTransformerInterface;
@@ -260,13 +261,7 @@ class CRUDController
         });
 
         $this->checkPermission($item);
-
-        try {
-            $change = $this->updateItem($item, $request->attributes->get('model'));
-        } catch (InvalidArgumentException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-
+        $change = $this->updateItem($item, $request->attributes->get('model'));
         $repo->persistItem($item)->flush();
         $this->eventDispatcher->dispatch(BusinessEvents::ENTITY_CHANGED, new EntityChangeEvent($change, $item));
         return $this->createNoContentResponse();
@@ -277,12 +272,13 @@ class CRUDController
      * @param DataModelInterface $data
      *
      * @return EntityChange
+     * @throws UnprocessableEntityHttpException
      */
     protected function updateItem(EntityInterface $item, DataModelInterface $data)
     {
         $changes = $this->entityManipulator->manipulate($item, $data);
         if (!$changes) {
-            throw new InvalidArgumentException('Entity unchanged.');
+            throw new UnprocessableEntityHttpException('Entity unchanged.');
         }
         $change = new EntityChange();
         $change->setAuthor(new EmailValue($this->securityContext->getToken()->getUser()->getEmail()));
