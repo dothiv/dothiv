@@ -2,6 +2,8 @@
 
 namespace Dothiv\ShopBundle\Repository\Tests;
 
+use Dothiv\LandingpageBundle\Service\LandingpageService;
+use Dothiv\LandingpageBundle\Service\LandingpageServiceInterface;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ShopBundle\Repository\OrderRepository;
 use Dothiv\BusinessBundle\Tests\Traits;
@@ -13,6 +15,11 @@ use Dothiv\ValueObject\URLValue;
 class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     use Traits\RepositoryTestTrait;
+
+    /**
+     * @var LandingpageServiceInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockLandingpageService;
 
     /**
      * @test
@@ -55,6 +62,11 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $order->setStripeToken(new IdentValue("tok_14kvt242KFPpMZB00CUopZjt"));
         $order->setStripeCard(new IdentValue("crd_14kvt242KFPpMZB00CUopZjt"));
         $order->setStripeCharge(new IdentValue("crg_14kvt242KFPpMZB00CUopZjt"));
+
+        $this->mockLandingpageService->expects($this->once())->method('qualifiesForLandingpage')
+            ->with(HivDomainValue::createFromUTF8("bürger.hiv"))
+            ->willReturn(false);
+
         $repo = $this->getTestObject();
         $repo->persist($order);
         $repo->flush();
@@ -118,6 +130,11 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         $order->setStripeToken(new IdentValue("tok_14kvt242KFPpMZB00CUopZjt"));
         $order->setStripeCard(new IdentValue("crd_14kvt242KFPpMZB00CUopZjt"));
         $order->setStripeCharge(new IdentValue("crg_14kvt242KFPpMZB00CUopZjt"));
+
+        $this->mockLandingpageService->expects($this->once())->method('qualifiesForLandingpage')
+            ->with(HivDomainValue::createFromUTF8("bürger4life.hiv"))
+            ->willReturn(true);
+
         $repo = $this->getTestObject();
         $repo->persist($order);
         $repo->flush();
@@ -143,6 +160,7 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
         /** @var OrderRepository $repo */
         $repo = $this->getTestEntityManager()->getRepository('DothivShopBundle:Order');
         $repo->setValidator($this->testValidator);
+        $repo->setLandingpageService($this->mockLandingpageService);
         return $repo;
     }
 
@@ -151,6 +169,7 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->testValidator = $this->getTestContainer()->get('validator');
+        $this->testValidator          = $this->getTestContainer()->get('validator');
+        $this->mockLandingpageService = $this->getMock('\Dothiv\LandingpageBundle\Service\LandingpageServiceInterface');
     }
 }

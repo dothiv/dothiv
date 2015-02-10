@@ -5,8 +5,9 @@ namespace Dothiv\ShopBundle\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Dothiv\BusinessBundle\Entity\EntityInterface;
-use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\BusinessBundle\Repository\Traits;
+use Dothiv\LandingpageBundle\Service\LandingpageServiceInterface;
+use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ValueObject\HivDomainValue;
 use PhpOption\Option;
 
@@ -16,6 +17,11 @@ class OrderRepository extends EntityRepository implements OrderRepositoryInterfa
     use Traits\GetItemEntityName;
 
     /**
+     * @var LandingpageServiceInterface
+     */
+    private $landingpageService;
+
+    /**
      * @param Order $order
      *
      * @return self
@@ -23,7 +29,7 @@ class OrderRepository extends EntityRepository implements OrderRepositoryInterfa
     public function persist(Order $order)
     {
         $groups = [];
-        if (preg_match('/.+4life\.hiv$/', $order->getDomain()->toUTF8())) {
+        if ($this->landingpageService->qualifiesForLandingpage($order->getDomain())) {
             $groups[] = '4lifeDomain';
             if ($order->getGift()) {
                 $groups[] = '4lifeGiftDomain';
@@ -98,5 +104,16 @@ class OrderRepository extends EntityRepository implements OrderRepositoryInterfa
             ->andWhere('o.stripeCharge IS NULL')
             ->getQuery()
             ->getResult());
+    }
+
+    /**
+     * @param LandingpageServiceInterface $landingpageService
+     *
+     * @return self
+     */
+    public function setLandingpageService(LandingpageServiceInterface $landingpageService)
+    {
+        $this->landingpageService = $landingpageService;
+        return $this;
     }
 }

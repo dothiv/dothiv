@@ -4,7 +4,6 @@ parameters:
     dothiv.shop.domain_price.class: Dothiv\ShopBundle\Service\DomainPriceService
     dothiv.shop.invoice.class: Dothiv\ShopBundle\Service\InvoiceService
     dothiv.shop.mailer.order.class: Dothiv\ShopBundle\Service\OrderMailer
-    dothiv.shop.genitivfy.class: Dothiv\ShopBundle\Service\GenitivfyService
 
 services:
     dothiv.shop.transformer.domain_info:
@@ -20,6 +19,7 @@ services:
         class: %dothiv.shop.domain_price.class%
         arguments:
         - @dothiv.repository.config
+        - @dothiv.landingpage
 
     dothiv.shop.invoice:
         class: %dothiv.shop.invoice.class%
@@ -34,13 +34,3 @@ services:
         - @dothiv.registry.service.mailer.content
         - @dothiv.websitebase.money_format
         - @dothiv.business.service.vatrules
-
-    dothiv.shop.name4life_landingpage_content:
-        class: %dothiv.websitebase.contentful.content.class%
-        arguments:
-            - @dothiv_contentful.content
-            - @dothiv.websitebase.contentful.view_builder
-            - %contenful_space_name4life_landingpage%
-
-    dothiv.shop.genitivfy:
-        class: %dothiv.shop.genitivfy.class%

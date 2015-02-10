@@ -1,0 +1,36 @@
+parameters:
+    dothiv.landingpage.controller.preview.class: Dothiv\LandingpageBundle\Controller\PreviewController
+
+services:
+    dothiv.landingpage.controller.page:
+        class: Dothiv\BaseWebsiteBundle\Controller\PageController
+        arguments:
+        - @dothiv.websitebase.cache.request_lastmodified
+        - @templating
+        - @dothiv.charity.contentful.charity_content
+        - "DothivLandingpageBundle"
+        - @clock
+        - %page_lifetime%
+
+    dothiv.landingpage.controller.preview:
+        class: %dothiv.landingpage.controller.preview.class%
+        arguments:
+        - @templating
+        - @dothiv.repository.domain
+        - @dothiv.repository.landingpage_configuration
+        - @dothiv.landingpage.config
+        - @dothiv.landingpage.content
+
+    dothiv.landingpage.api.controller.config:
+        class: %dothiv.api.controller.crud.class%
+        arguments:
+        - @dothiv.repository.landingpage_configuration
+        - @dothiv.landingpage.transformer.landingpage_configuration
+        - @dothiv.admin.transformer.paginatedlist
+        - @serializer
+        - @dothiv.repository.entity_change
+        - @security.context
+        - @dothiv.api.manipulator.generic
+        - @dothiv.business.event_dispatcher
+        calls:
+        - [disableHistory]
