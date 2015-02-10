@@ -1,0 +1,29 @@
+# NOTE: Not loaded in test env
+parameters:
+    dothiv.landingpage.listener.iframe_config.class: Dothiv\LandingpageBundle\Listener\IframeConfigListener
+    dothiv.landingpage.listener.shop_order_charged.class: Dothiv\LandingpageBundle\Listener\ShopOrderChargedListener
+    dothiv.landingpage.listener.config_changed.class: Dothiv\LandingpageBundle\Listener\LandingpageConfigChangedListener
+
+services:
+    dothiv.landingpage.listener.iframe_config:
+        class: %dothiv.landingpage.listener.iframe_config.class%
+        arguments:
+        - @dothiv.repository.landingpage_configuration
+        - @dothiv.landingpage.config
+        tags:
+        - { name: dothiv.business.event_listener, event: dothiv.basewebsite.clickcounter.iframe.configuration, method: onClickCounterConfiguration }
+
+    dothiv.landingpage.listener.shop_order_charged:
+        class: %dothiv.landingpage.listener.shop_order_charged.class%
+        arguments:
+        - @dothiv.landingpage
+        tags:
+        - { name: dothiv.business.event_listener, event: dothiv.shop.order.charged, method: onShopOrderCharged }
+
+    dothiv.landingpage.listener.config_changed:
+        class: %dothiv.landingpage.listener.config_changed.class%
+        arguments:
+        - @dothiv.repository.banner
+        - @clock
+        tags:
+        - { name: dothiv.business.event_listener, event: dothiv.business.entity.changed, method: onEntityChanged }

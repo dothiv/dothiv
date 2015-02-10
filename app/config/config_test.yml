@@ -42,6 +42,7 @@ parameters:
     contenful_space_charity: charity_space
     contenful_space_registry: registry_space
     contenful_space_clickcounter: clickcounter_space
+    contenful_space_landingpage: landingpage_space
     dothiv.websitebase.imagine.class: Dothiv\BaseWebsiteBundle\Tests\Extra\Imagine
     dothiv.charity.sendwithus_renderer.class: Dothiv\CharityWebsiteBundle\Tests\Extra\NullTemplateRenderer
     dothiv.charity.userreminder.mailer.class: Dothiv\CharityWebsiteBundle\Tests\Extra\NullUserReminderMailer

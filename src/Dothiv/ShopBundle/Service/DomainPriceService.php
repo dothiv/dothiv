@@ -3,7 +3,7 @@
 namespace Dothiv\ShopBundle\Service;
 
 use Dothiv\BusinessBundle\Repository\ConfigRepositoryInterface;
-use Dothiv\ShopBundle\Entity\Order;
+use Dothiv\LandingpageBundle\Service\LandingpageServiceInterface;
 use Dothiv\ShopBundle\Model\DomainPriceModel;
 use Dothiv\ValueObject\HivDomainValue;
 
@@ -18,9 +18,15 @@ class DomainPriceService implements DomainPriceServiceInterface
      */
     private $configRepo;
 
-    public function __construct(ConfigRepositoryInterface $configRepo)
+    /**
+     * @var LandingpageServiceInterface
+     */
+    private $landingpageService;
+
+    public function __construct(ConfigRepositoryInterface $configRepo, LandingpageServiceInterface $landingpageService)
     {
-        $this->configRepo = $configRepo;
+        $this->configRepo         = $configRepo;
+        $this->landingpageService = $landingpageService;
     }
 
     /**
@@ -34,7 +40,8 @@ class DomainPriceService implements DomainPriceServiceInterface
         $price->setNetPriceEUR($this->configRepo->get('shop.price.eur')->getValue());
         $price->setNetPriceUSD($this->configRepo->get('shop.price.usd')->getValue());
         // 4life.hiv campaign
-        if ($this->configRepo->get('shop.promo.name4life.enable')->getValue() && preg_match('/.+4life\.hiv$/', $domain->toUTF8())) {
+        // NOTE: this is currently directly tied to the landingpage. May change in the future.
+        if ($this->configRepo->get('shop.promo.name4life.enable')->getValue() && $this->landingpageService->qualifiesForLandingpage($domain)) {
             $price->setNetPriceEUR($price->getNetPriceEUR() + (int)$this->configRepo->get('shop.promo.name4life.eur.mod')->getValue());
             $price->setNetPriceUSD($price->getNetPriceUSD() + (int)$this->configRepo->get('shop.promo.name4life.usd.mod')->getValue());
         }

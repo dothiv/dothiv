@@ -1,6 +1,3 @@
-parameters:
-    dothiv.shop.listener.http_exception.class: Dothiv\ShopBundle\Listener\HttpExceptionListener
-
 services:
     dothiv.shop.controller.page:
         class: Dothiv\BaseWebsiteBundle\Controller\PageController
@@ -27,8 +24,3 @@ services:
         - @dothiv.repository.shop_order
         - @dothiv.shop.manipulator.order
         - @dothiv.business.event_dispatcher
-
-    dothiv.shop.listener.http_exception:
-        class: %dothiv.shop.listener.http_exception.class%
-        tags:
-            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }

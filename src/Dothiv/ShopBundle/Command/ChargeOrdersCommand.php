@@ -12,6 +12,9 @@ use Dothiv\BusinessBundle\Repository\DomainRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\RegistrarRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Service\UserServiceInterface;
+use Dothiv\LandingpageBundle\Service\LandingpageServiceInterface;
+use Dothiv\ShopBundle\Event\OrderEvent;
+use Dothiv\ShopBundle\ShopEvents;
 use Dothiv\UserReminderBundle\Entity\UserReminder;
 use Dothiv\UserReminderBundle\Repository\UserReminderRepositoryInterface;
 use Dothiv\ShopBundle\Entity\Order;
@@ -38,25 +41,25 @@ class ChargeOrdersCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var OrderRepositoryInterface $orderRepo */
-        $orderRepo = $this->getContainer()->get('dothiv.repository.shop_order');
         /** @var RegistrarRepositoryInterface $registrarRepo */
-        $registrarRepo = $this->getContainer()->get('dothiv.repository.registrar');
         /** @var BannerRepositoryInterface $bannerRepo */
-        $bannerRepo = $this->getContainer()->get('dothiv.repository.banner');
         /** @var DomainRepositoryInterface $domainRepo */
-        $domainRepo = $this->getContainer()->get('dothiv.repository.domain');
         /** @var UserRepositoryInterface $userRepo */
-        $userRepo = $this->getContainer()->get('dothiv.repository.user');
         /** @var InvoiceServiceInterface $invoiceService */
-        $invoiceService = $this->getContainer()->get('dothiv.shop.invoice');
         /** @var UserReminderRepositoryInterface $domainConfigNotificationRepo */
-        $domainConfigNotificationRepo = $this->getContainer()->get('dothiv.repository.userreminder');
         /** @var OrderMailerInterface $mailer */
-        $mailer = $this->getContainer()->get('dothiv.shop.mailer.order');
         /** @var UserServiceInterface $userService */
-        $userService = $this->getContainer()->get('dothiv.businessbundle.service.user');
         /** @var EventDispatcherInterface $eventDispatcher */
-        $eventDispatcher = $this->getContainer()->get('dothiv.business.event_dispatcher');
+        $orderRepo                    = $this->getContainer()->get('dothiv.repository.shop_order');
+        $registrarRepo                = $this->getContainer()->get('dothiv.repository.registrar');
+        $bannerRepo                   = $this->getContainer()->get('dothiv.repository.banner');
+        $domainRepo                   = $this->getContainer()->get('dothiv.repository.domain');
+        $userRepo                     = $this->getContainer()->get('dothiv.repository.user');
+        $invoiceService               = $this->getContainer()->get('dothiv.shop.invoice');
+        $domainConfigNotificationRepo = $this->getContainer()->get('dothiv.repository.userreminder');
+        $mailer                       = $this->getContainer()->get('dothiv.shop.mailer.order');
+        $userService                  = $this->getContainer()->get('dothiv.businessbundle.service.user');
+        $eventDispatcher              = $this->getContainer()->get('dothiv.business.event_dispatcher');
 
         \Stripe::setApiKey($this->getContainer()->getParameter('stripe_secret_key'));
 
@@ -88,6 +91,7 @@ class ChargeOrdersCommand extends ContainerAwareCommand
             $userRepo->flush();
             $domainRepo->flush();
 
+            // Create clickcounter-counter config
             $banner = new Banner();
             if ($order->getRedirect()->isDefined()) {
                 $banner->setRedirectUrl($order->getRedirect()->get());
@@ -107,6 +111,7 @@ class ChargeOrdersCommand extends ContainerAwareCommand
 
             // Notify listeners
             $eventDispatcher->dispatch(BusinessEvents::DOMAIN_REGISTERED, new DomainEvent($domain));
+            $eventDispatcher->dispatch(ShopEvents::ORDER_CHARGED, new OrderEvent($order, $domain));
 
             $output->writeln(
                 sprintf('Processed order for %s by %s.', $order->getDomain()->toUTF8(), $order->getEmail())

@@ -1,0 +1,122 @@
+{% trans_default_domain "charity" %}
+{% set locale = locale|default(app.request.locale|slice(0,2)) %}
+<!DOCTYPE html>
+<!--
+
+
+            _|_|          _|_|
+            _|_|          _|_|
+            _|_|
+            _|_|
+            _|_|_|_|      _|_|  _|_|    _|_|
+            _|_|_|_|_|    _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+            _|_|    _|_|  _|_|  _|_|    _|_|
+      _|_|  _|_|    _|_|  _|_|    _|_|_|_|
+      _|_|  _|_|    _|_|  _|_|      _|_|
+
+      .hiv domains – The digital Red Ribbon
+
+                  click4life.hiv
+
+-->
+<html lang="{{ locale }}">
+<head>
+    <title>
+        {{ page.title }}
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% stylesheets
+    'bundles/dothivlandingpage/lesscss/styles.less'
+    filter='cssrewrite,?uglifycss' %}
+    <link rel="stylesheet" href="{{ asset(asset_url) }}">
+    {% endstylesheets %}
+    {% image '@DothivCharityWebsiteBundle/Resources/public/images/favicon.png' %}
+    <link rel="shortcut icon" href="{{ asset(asset_url) }}">
+    {% endimage %}
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
+    {% javascripts
+    '@angular_js'
+    filter='?uglifyjs2'
+    output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
+    {% endjavascripts %}
+    <base href="/">
+</head>
+<body data-ng-app="dotHIVApp">
+<header data-ng-controller="HeaderController">
+    <article>
+        <section>
+            <h1 data-ng-cloak>
+                {% image '@DothivCharityWebsiteBundle/Resources/public/images/logo.svg' %}
+                <img src="{{ asset(asset_url) }}" alt="{{ page.title }}" width="123">
+                {% endimage %}
+                {% trans %}lc.title{% endtrans %}<br>
+                <small>{% trans %}lc.subtitle{% endtrans %}</small>
+            </h1>
+            <div id="loading" data-ng-show="loading">
+                {% trans %}lc.loading{% endtrans %}
+                {% image '@DothivLandingpageBundle/Resources/public/images/loader.gif' %}
+                <img src="{{ asset(asset_url) }}" alt="{% trans %}lc.loading{% endtrans %}">
+                {% endimage %}
+            </div>
+        </section>
+    </article>
+</header>
+<main data-ui-view></main>
+{% for childPage in page.blocks %}
+    {% set code = childPage.code|replace({"landingpage.configurator.": ""}) %}
+    {% if code in ["welcome", "configure", "done"] %}
+        {% include "DothivLandingpageBundle::App/" ~ code ~ ".html.twig" with {'page': childPage} %}
+    {% endif %}
+{% endfor %}
+<script type="text/ng-template" id="error-modal.html">
+    <header>
+        <h2>%%title%%</h2>
+    </header>
+    <article>
+        %%message%%
+    </article>
+    <footer>
+        <nav>
+            <a href="{{ path('dothiv_charity_account_index', {'locale': locale}) }}" target="_self" class="primary">{% trans %}lc.error.close{% endtrans %}</a>
+        </nav>
+    </footer>
+</script>
+{% block angular_app %}
+    {% javascripts
+    '@angular_js_resource'
+    '@angular_js_route'
+    '@angular_js_cookies'
+    '@angular_ui_router'
+    '@jquery'
+    '@angular_ui_bootstrap_tpls'
+    '@angular_file_upload'
+    '@DothivLandingpageBundle/Resources/public/js/app.js'
+    '@DothivBaseWebsiteBundle/Resources/public/js/services/*.js'
+    '@DothivBaseWebsiteBundle/Resources/public/js/services/models/*.js'
+    '@DothivLandingpageBundle/Resources/public/js/services/*.js'
+    '@DothivLandingpageBundle/Resources/public/js/controllers/*.js'
+    filter='?uglifyjs2'
+    output='js/*.min.js' %}
+    <script type="text/javascript" src="{{ asset(asset_url) }}"></script>
+    {% endjavascripts %}
+{% endblock angular_app %}
+
+{% block angular_config %}
+    <script type="text/javascript">
+        'use strict';
+        angular.module('dotHIVApp.services').factory('config', function () {
+            var config = {
+                locale: '{{ locale }}',
+                domain: '{{ app.request.get('domain') }}'
+            };
+            return config;
+        });
+    </script>
+{% endblock angular_config %}
+
+</body>
+</html>
