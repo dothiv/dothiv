@@ -4,10 +4,12 @@
 namespace Dothiv\BusinessBundle\Model;
 
 use Dothiv\ValueObject\IdentValue;
+use Dothiv\ValueObject\ValueObjectInterface;
 use JMS\Serializer\Annotation as Serializer;
 
 class EntityPropertyChange
 {
+
     /**
      * @var IdentValue
      * @Serializer\Exclude
@@ -33,8 +35,8 @@ class EntityPropertyChange
      */
     public function __construct(IdentValue $property, $oldValue, $newValue)
     {
-        $this->newValue = $newValue;
-        $this->oldValue = $oldValue;
+        $this->newValue = $this->toScalar($newValue);
+        $this->oldValue = $this->toScalar($oldValue);
         $this->property = $property;
     }
 
@@ -60,5 +62,18 @@ class EntityPropertyChange
     public function getProperty()
     {
         return $this->property;
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return string|int|float|bool
+     */
+    protected function toScalar($value)
+    {
+        if ($value instanceof ValueObjectInterface) {
+            $value = $value->toScalar();
+        }
+        return $value;
     }
 }

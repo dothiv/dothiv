@@ -8,6 +8,7 @@ use Dothiv\LandingpageBundle\Entity\LandingpageConfiguration;
 use Dothiv\ApiBundle\Exception\NotFoundHttpException;
 use Dothiv\LandingpageBundle\Repository\LandingpageConfigurationRepositoryInterface;
 use Dothiv\LandingpageBundle\Service\LandingpageConfigServiceInterface;
+use Dothiv\ValueObject\IdentValue;
 use PhpOption\Option;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,6 +56,9 @@ class PreviewController
             });
             Option::fromValue($request->get('text'))->map(function ($text) use ($config) {
                 $config->setText($text);
+            });
+            Option::fromValue($request->get('language'))->map(function ($language) use ($config) {
+                $config->setLanguage(new IdentValue($language));
             });
             $response       = new Response();
             $data           = $this->landingpageConfigService->buildConfig($config)['strings'][$config->getLanguage()->toScalar()];

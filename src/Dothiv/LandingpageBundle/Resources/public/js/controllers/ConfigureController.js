@@ -6,12 +6,10 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController',
 
             // Config stuff
             $scope.config = false;
-            var originalConfig = false;
             $scope.loadConfig = function (callback) {
                 $http.get('/api/landingpage/' + $stateParams.domain)
                     .success(function (response, status, headers, config) {
                         $scope.config = response;
-                        originalConfig = angular.copy($scope.config);
                         updatePreview();
                         (callback || angular.noop)(response);
                     })
@@ -21,32 +19,19 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController',
             };
 
             var saveConfigSettings = function (callback) {
-                if (!$scope.textForm.$dirty) {
-                    (callback || angular.noop)($scope.config);
-                    return;
-                }
-                var newConfig = {};
-                var changes = false;
-                if (!angular.equals(originalConfig.name, $scope.config.name)) {
-                    newConfig.name = $scope.config.name;
-                    changes = true;
-                }
-                if (!angular.equals(originalConfig.text, $scope.config.text)) {
-                    newConfig.text = $scope.config.text;
-                    changes = true;
-                }
-                if (!changes) {
-                    return;
-                }
                 $http({
                     method: 'PATCH',
                     url: '/api/landingpage/' + $stateParams.domain,
-                    data: angular.toJson(newConfig)
+                    data: angular.toJson($scope.config)
                 })
                     .success(function (response, code, headers, request) {
                         $scope.loadConfig(callback);
                     })
                     .error(function (response, code, headers, request) {
+                        if (code === 422) {
+                            $scope.loadConfig(callback);
+                            return;
+                        }
                         error.show(response.title, response.detail);
                     })
                 ;
@@ -54,7 +39,16 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController',
 
             // Fullscreen stuff
             $scope.fullscreen = false;
-            $scope.$watch('fullscreen', function () {
+            $scope.$watch('fullscreen', function (newValue, oldValue) {
+                if (newValue === oldValue) {
+                    return;
+                }
+                $timeout(updateIframeSize, 100);
+            });
+            $scope.$watch('settings', function (newValue, oldValue) {
+                if (newValue === oldValue) {
+                    return;
+                }
                 $timeout(updateIframeSize, 100);
             });
             function updateIframeSize() {
@@ -84,6 +78,9 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController',
                 if (typeof $scope.config.text !== "undefined") {
                     url += '&text=' + encodeURIComponent($scope.config.text)
                 }
+                if (typeof $scope.config.language !== "undefined") {
+                    url += '&language=' + encodeURIComponent($scope.config.language)
+                }
                 $scope.iframeUrl = url;
             }
 
@@ -100,5 +97,6 @@ angular.module('dotHIVApp.controllers').controller('ConfigureController',
 
             // On load
             $scope.loadConfig();
+            $timeout(updateIframeSize, 100);
         }
     ]);
