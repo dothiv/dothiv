@@ -12,7 +12,7 @@ use PhpOption\Option;
 /**
  * This repository contains the users tokens.
  */
-interface UserTokenRepositoryInterface extends ObjectRepository
+interface UserTokenRepositoryInterface extends CRUD\CreateEntityRepositoryInterface
 {
     /**
      * @param User       $user

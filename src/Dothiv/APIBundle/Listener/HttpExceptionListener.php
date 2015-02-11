@@ -3,13 +3,16 @@
 namespace Dothiv\APIBundle\Listener;
 
 use Dothiv\APIBundle\Exception;
+use Dothiv\ContentfulBundle\Logger\LoggerAwareTrait;
+use Psr\Log\LoggerAwareInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Dothiv\APIBundle\Controller\Traits;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
-class HttpExceptionListener
+class HttpExceptionListener implements LoggerAwareInterface
 {
     use Traits\CreateJsonResponseTrait;
+    use LoggerAwareTrait;
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
@@ -37,6 +40,8 @@ class HttpExceptionListener
         } elseif ($exception instanceof HttpExceptionInterface) {
             $code = $exception->getStatusCode();
         }
+
+        $this->log($exception->getMessage());
 
         $response = $this->createResponse();
         $response->setStatusCode($code); // Response::HTTP_BAD_REQUEST

@@ -3,6 +3,7 @@
 namespace Dothiv\BusinessBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dothiv\BusinessBundle\Entity\CRUD\OwnerEntityInterface;
 use Dothiv\BusinessBundle\Entity\Traits\CreateTime;
 use Dothiv\ValueObject\IdentValue;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,7 +26,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\HasLifecycleCallbacks
  */
-class UserToken extends Entity
+class UserToken extends Entity implements OwnerEntityInterface
 {
     use CreateTime;
 
@@ -188,5 +189,29 @@ class UserToken extends Entity
     public function getScope()
     {
         return new IdentValue($this->scope);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOwner()
+    {
+        return $this->getUser();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOwner(User $owner)
+    {
+        $this->setUser($owner);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPublicId()
+    {
+        return $this->token;
     }
 }

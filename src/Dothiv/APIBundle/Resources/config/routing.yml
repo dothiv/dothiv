@@ -134,3 +134,19 @@ dothiv_api_user_profile_change_update:
         _format: json
         _dothiv.ApiRequest: \Dothiv\APIBundle\Request\UserProfileChangeConfirmRequest
     methods: [PATCH]
+
+## Usertoken
+
+dothiv_api_user_token:
+    pattern:  /usertoken/{identifier}
+    defaults:
+        _controller: dothiv.api.controller.user_token:getItemAction
+        _format: json
+    methods: [GET]
+
+dothiv_api_user_token_create:
+    path: /usertoken
+    defaults:
+        _controller: dothiv.api.controller.user_token:createItemAction
+        _format: json
+    methods: [POST]
