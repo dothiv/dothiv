@@ -36,7 +36,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 /**
  * FIXME: Replace transformers with serializers
  */
-class CRUDController
+class CRUDController implements CRUDControllerInterface
 {
     use CreateJsonResponseTrait;
 
@@ -86,6 +86,11 @@ class CRUDController
     protected $isAdminController = false;
 
     /**
+     * @var callable
+     */
+    protected $itemCreator;
+
+    /**
      * @param CRUD\EntityRepositoryInterface  $itemRepo
      * @param EntityTransformerInterface      $itemTransformer
      * @param PaginatedListTransformer        $paginatedListTransformer
@@ -117,13 +122,7 @@ class CRUDController
     }
 
     /**
-     * Returns the paginated list of items.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     * @throws BadRequestHttpException
-     * @throws NotFoundHttpException
+     * {@inheritdoc}
      */
     public function listItemsAction(Request $request)
     {
@@ -292,13 +291,7 @@ class CRUDController
     }
 
     /**
-     * Creates a new item.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     *
-     * @throws AccessDeniedHttpException
+     * {@inheritdoc}
      * @ApiRequest("Dothiv\APIBundle\Request\DefaultCreateRequest")
      */
     public function createItemAction(Request $request)
@@ -308,7 +301,7 @@ class CRUDController
         }
         /** @var CRUD\CreateEntityRepositoryInterface $repo */
         $repo = $this->itemRepo;
-        $item = $this->itemRepo->createItem();
+        $item = $this->createItem();
         if ($this->isUserController()) {
             if (!($item instanceof OwnerEntityInterface)) {
                 throw new AccessDeniedHttpException(sprintf('"%s" items have no owner!', get_class($this->itemRepo)));
@@ -335,15 +328,7 @@ class CRUDController
     }
 
     /**
-     * Deletes item with the identifier $identifier
-     *
-     * @param Request $request
-     * @param string  $identifier
-     *
-     * @return Response
-     * @throws BadRequestHttpException
-     * @throws BadRequestHttpException
-     * @throws NotFoundHttpException
+     * {@inheritdoc}
      * @ApiRequest("Dothiv\APIBundle\Request\DefaultUpdateRequest")
      */
     public function deleteItemAction(Request $request, $identifier)
@@ -392,9 +377,7 @@ class CRUDController
     }
 
     /**
-     * Disable storing of entity changes.
-     *
-     * @return self
+     * {@inheritdoc}
      */
     public function disableHistory()
     {
@@ -403,7 +386,7 @@ class CRUDController
     }
 
     /**
-     * This controller is used in an admin context.
+     * {@inheritdoc}
      */
     public function makeAdminController()
     {
@@ -411,7 +394,7 @@ class CRUDController
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function isAdminController()
     {
@@ -419,10 +402,33 @@ class CRUDController
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function isUserController()
     {
         return !$this->isAdminController();
+    }
+
+    /**
+     * @return EntityInterface
+     */
+    protected function createItem()
+    {
+        if (Option::fromValue($this->itemCreator)->isDefined()) {
+            $callback = $this->itemCreator;
+            return $callback();
+        }
+        return $this->itemRepo->createItem();
+    }
+
+    /**
+     * @param callback $itemCreator
+     *
+     * @return self
+     */
+    public function setItemCreator($itemCreator)
+    {
+        $this->itemCreator = $itemCreator;
+        return $this;
     }
 }

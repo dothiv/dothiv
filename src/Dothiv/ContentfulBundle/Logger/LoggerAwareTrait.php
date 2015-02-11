@@ -31,4 +31,4 @@ trait LoggerAwareTrait
             $logger->debug(call_user_func_array('sprintf', $args));
         });
     }
-} 
+}

@@ -10,6 +10,8 @@ services:
       - @validator
     tags:
       - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+    calls:
+      - [setLogger, [@logger]]
 
   dothiv.api.listener.http_exception:
     class: %dothiv.api.listener.http_exception.class%

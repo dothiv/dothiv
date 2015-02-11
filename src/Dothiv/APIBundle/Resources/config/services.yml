@@ -3,8 +3,10 @@ parameters:
     dothiv.api.transformer.user_profile_change.class: Dothiv\APIBundle\Transformer\UserProfileChangeTransformer
     dothiv.api.transformer.domain.class: Dothiv\APIBundle\Transformer\DomainTransformer
     dothiv.api.transformer.user.class: Dothiv\APIBundle\Transformer\UserTransformer
+    dothiv.api.transformer.user_token.class: Dothiv\APIBundle\Transformer\UserTokenTransformer
     dothiv.api.manipulator.generic.class: Dothiv\APIBundle\Manipulator\GenericEntityManipulator
     dothiv.api.manipulator.user_profile_change.class: Dothiv\APIBundle\Manipulator\UserProfileChangeEntityManipulator
+    dothiv.api.user_token.class: Dothiv\APIBundle\Factory\UserTokenFactory
 
 services:
     dothiv.api.manipulator.generic:
@@ -36,3 +38,16 @@ services:
         arguments:
         - @router
         - "dothiv_api_user_profile"
+
+    dothiv.api.transformer.user_token:
+        class: %dothiv.api.transformer.user_token.class%
+        arguments:
+        - @router
+        - "dothiv_api_user_token"
+
+    dothiv.api.user_token.factory.api:
+        class: %dothiv.api.user_token.class%
+        arguments:
+        - @clock
+        - "api"
+        - 1800
