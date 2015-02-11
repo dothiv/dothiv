@@ -1,3 +1,4 @@
+# NOTE: Not loaded in test env
 parameters:
   dothiv_business.listener.create_registration.class: Dothiv\BusinessBundle\Listener\CreateRegistrationListener
   dothiv_business.listener.notify_podio_registration.class: Dothiv\BusinessBundle\Listener\NotifyPodioRegistrationListener

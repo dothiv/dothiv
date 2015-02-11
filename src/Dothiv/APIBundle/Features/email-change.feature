@@ -52,7 +52,7 @@ Feature: Change email address
       | test.hiv |
     Then "{updatedDomain.ownerEmail}" should contain "someoneelse@example.com"
 
-  Scenario: Try to change profile email to exisiting email
+  Scenario: Try to change profile email to existing email
     Given I send a PATCH request to "http://click4life.hiv.dev/api/user/userAhandle" with JSON values:
       | email | Jane.Doe@example.com |
     Then the response status code should be 409

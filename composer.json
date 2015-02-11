@@ -47,7 +47,8 @@
         "component/buberdds-angular-bootstrap-colorpicker": "3.x",
         "zeroclipboard/zeroclipboard": "2.x",
         "component/urish-angular-moment": "0.x",
-        "abraham/twitteroauth": "0.2.x"
+        "abraham/twitteroauth": "0.2.x",
+        "ircmaxell/password-compat": "1.x"
     },
     "require-dev": {
         "phploc/phploc": "*",

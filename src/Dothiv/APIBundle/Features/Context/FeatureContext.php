@@ -9,7 +9,6 @@ use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
-use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
@@ -17,6 +16,9 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Util\Debug;
 use Doctrine\ORM\Tools\SchemaTool;
+use Dothiv\BusinessBundle\Entity\User;
+use Dothiv\BusinessBundle\Service\UserServiceInterface;
+use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\ValueObjectInterface;
 use PhpOption\Option;
 use Sanpi\Behatch\Context\BehatchContext;
@@ -149,8 +151,10 @@ class FeatureContext extends BehatContext
      *
      * @Given /^"(?P<storageName>[^"]*)" contains the result of calling "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service with values:$/
      * @Given /^"(?P<storageName>[^"]*)" contains the result of calling "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service$/
+     * @Given /^I call "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service with values:$/
+     * @Given /^I call "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service$/
      */
-    public function theResultOfCallingWithIsStoredIn($serviceId, $methodName, $storageName, TableNode $table = null)
+    public function theResultOfCallingWithIsStoredIn($serviceId, $methodName, TableNode $table = null, $storageName = null)
     {
         $service = $this->kernel->getContainer()->get($serviceId);
         $args    = array();
@@ -160,7 +164,9 @@ class FeatureContext extends BehatContext
             }
         }
         $result = call_user_func_array(array($service, $methodName), $args);
-        $this->store($storageName, $result);
+        if ($storageName) {
+            $this->store($storageName, $result);
+        }
     }
 
     /**
@@ -575,5 +581,19 @@ class FeatureContext extends BehatContext
     public function iDebug($storageName)
     {
         Debug::dump($this->getValue($storageName));
+    }
+
+    /**
+     * @Given /^the password of "(?P<storageName>[^"]*)" is set to "(?P<password>[^"]*)"$/
+     */
+    public function setTheUserPassword($storageName, $password)
+    {
+        /** @var UserServiceInterface $userService */
+        /** @var User $user */
+        $userService = $this->kernel->getContainer()->get('dothiv.businessbundle.service.user');
+        $user        = $this->getValue('{' . $storageName . '}');
+        $user->setPassword($password);
+        $change = $userService->updateUser($user);
+        $userService->applyChange($change, new EmailValue('admin@behat.localhost'));
     }
 }

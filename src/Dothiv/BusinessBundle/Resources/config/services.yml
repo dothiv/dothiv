@@ -36,6 +36,7 @@ services:
         arguments:
         - @dothiv.repository.user
         - @dothiv.repository.user_token
+        - @security.encoder_factory
         - @clock
         - @dothiv.business.event_dispatcher
         - @dothiv.repository.user_profile_change

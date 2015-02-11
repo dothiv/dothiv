@@ -1,0 +1,11 @@
+# NOTE: Not loaded in test env
+parameters:
+    dothiv.charity.service.mailer.user_profile_change.class: Dothiv\CharityWebsiteBundle\Listener\SendProfileChangeConfirmationListener
+
+services:
+    dothiv.charity.service.mailer.user_profile_change:
+        class: %dothiv.charity.service.mailer.user_profile_change.class%
+        arguments:
+        - @dothiv.charity.service.mailer.content
+        tags:
+            - { name: dothiv.business.event_listener, event: dothiv.business.entity.created, method: onEntityCreated }

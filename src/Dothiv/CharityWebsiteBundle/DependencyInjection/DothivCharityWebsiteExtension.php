@@ -28,7 +28,9 @@ class DothivCharityWebsiteExtension extends Extension
         $loader->load('services.yml');
         $loader->load('controllers.yml');
         $loader->load('twig_extensions.yml');
-        $loader->load('listeners.yml');
+        if ($container->getParameter("kernel.environment") != 'test') {
+            $loader->load('listeners.yml');
+        }
         $loader->load('reminders.yml');
         foreach ($config['features'] as $name => $feature) {
             if (!$feature['enabled']) {
@@ -38,6 +40,9 @@ class DothivCharityWebsiteExtension extends Extension
                 continue;
             }
             $loader->load($name . '.feature.yml');
+            if ($container->getParameter("kernel.environment") != 'test') {
+                $loader->load($name . '.feature.listeners.yml');
+            }
         }
     }
 }

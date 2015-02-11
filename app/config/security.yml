@@ -1,6 +1,6 @@
 security:
     encoders:
-        Dothiv\BusinessBundle\Entity\User: plaintext
+        Dothiv\BusinessBundle\Entity\User: bcrypt
         Dothiv\ContentfulBundle\Service\WebhookUser: plaintext
 
     providers:
