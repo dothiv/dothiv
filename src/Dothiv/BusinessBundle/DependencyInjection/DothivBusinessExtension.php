@@ -27,6 +27,8 @@ class DothivBusinessExtension extends Extension
         $loader->load('services.yml');
         $loader->load('repositories.yml');
         $loader->load('reports.yml');
-        $loader->load('listeners.yml');
+        if ($container->getParameter("kernel.environment") != 'test') {
+            $loader->load('listeners.yml');
+        }
     }
 }

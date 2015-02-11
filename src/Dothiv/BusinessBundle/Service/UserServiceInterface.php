@@ -7,6 +7,7 @@ use Dothiv\BusinessBundle\Entity\UserProfileChange;
 use Dothiv\BusinessBundle\Entity\UserToken;
 use Dothiv\BusinessBundle\Exception\EntityNotFoundException;
 use Dothiv\BusinessBundle\Exception\TemporarilyUnavailableException;
+use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\IdentValue;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -61,4 +62,12 @@ interface UserServiceInterface
      * @return UserProfileChange
      */
     public function updateUser(User $user, Request $request = null);
+
+    /**
+     * Applies the changes from a UserProfileChange
+     *
+     * @param UserProfileChange $userProfileChange
+     * @param EmailValue        $author
+     */
+    public function applyChange(UserProfileChange $userProfileChange, EmailValue $author);
 }

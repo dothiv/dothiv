@@ -17,10 +17,13 @@ use Dothiv\BusinessBundle\Repository\UserProfileChangeRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserRepositoryInterface;
 use Dothiv\BusinessBundle\Repository\UserTokenRepositoryInterface;
 use Dothiv\ValueObject\ClockValue;
+use Dothiv\ValueObject\EmailValue;
 use Dothiv\ValueObject\IdentValue;
 use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -66,6 +69,11 @@ class UserService implements UserProviderInterface, UserServiceInterface
     protected $userChangeRepo;
 
     /**
+     * @var EncoderFactoryInterface
+     */
+    protected $encoderFactory;
+
+    /**
      * @var int Time in seconds to wait between sending a new login link
      */
     private $linkRequestWait;
@@ -73,6 +81,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     public function __construct(
         UserRepositoryInterface $userRepository,
         UserTokenRepositoryInterface $userTokenRepository,
+        EncoderFactoryInterface $encoderFactory,
         ClockValue $clock,
         EventDispatcherInterface $dispatcher,
         UserProfileChangeRepositoryInterface $userChangeRepo,
@@ -92,6 +101,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $this->clock              = $clock;
         $this->linkRequestWait    = (int)$linkRequestWait;
         $this->userChangeRepo     = $userChangeRepo;
+        $this->encoderFactory     = $encoderFactory;
     }
 
     /**
@@ -292,12 +302,20 @@ class UserService implements UserProviderInterface, UserServiceInterface
     public function updateUser(User $user, Request $request = null)
     {
         $changedData = array(
-            'email' => $user->getEmail()
+            'email'    => $user->getEmail(),
+            'password' => $user->getPassword()
         );
         $this->userRepo->refresh($user);
 
-        if ($changedData['email'] == $user->getEmail()) {
+        if ($changedData['email'] === $user->getEmail()) {
             unset($changedData['email']);
+        }
+
+        if ($changedData['password'] === $user->getPassword()) {
+            unset($changedData['password']);
+        } else {
+            $encoder                 = $this->encoderFactory->getEncoder($user);
+            $changedData['password'] = $encoder->encodePassword($changedData['password'], $user->getSalt());
         }
 
         $change = new UserProfileChange();
@@ -322,10 +340,22 @@ class UserService implements UserProviderInterface, UserServiceInterface
     public function onEntityChanged(EntityChangeEvent $event)
     {
         /** @var UserProfileChange $userProfileChange */
+        $author            = $event->getChange()->getAuthor();
         $userProfileChange = $event->getEntity();
         if (!($userProfileChange instanceof UserProfileChange)) {
             return;
         }
+        if (!$userProfileChange->getConfirmed()) {
+            return;
+        }
+        $this->applyChange($userProfileChange, $author);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function applyChange(UserProfileChange $userProfileChange, EmailValue $author)
+    {
         $user    = $userProfileChange->getUser();
         $tsValue = function (\DateTime $ts = null) {
             return !$ts ? null : $ts->getTimestamp();
@@ -333,28 +363,32 @@ class UserService implements UserProviderInterface, UserServiceInterface
         if ($tsValue($userProfileChange->getUserUpdate()) !== $tsValue($user->getUpdated())) {
             return;
         }
-        $emailChanged = false;
-        $oldEmail     = $user->getEmail();
+        $changes = [];
+
         foreach ($userProfileChange->getProperties()->toArray() as $k => $v) {
             switch ($k) {
                 case 'email':
                     if ($user->getEmail() !== $v) {
+                        $oldEmail = $user->getEmail();
                         $user->setEmail($v);
-                        $emailChanged = true;
-
+                        $changes[] = new EntityPropertyChange(new IdentValue('email'), $oldEmail, $user->getEmail());
+                    }
+                    break;
+                case 'password':
+                    if ($user->getPassword() !== $v) {
+                        $oldPassword = $user->getPassword();
+                        $user->setPassword($v);
+                        $changes[] = new EntityPropertyChange(new IdentValue('password'), $oldPassword, $user->getPassword());
                     }
                     break;
             }
         }
         $this->userRepo->persist($user)->flush();
-        if ($emailChanged) {
+        if (count($changes) > 0) {
             $userChange = new EntityChange();
-            $userChange->setAuthor($event->getChange()->getAuthor());
+            $userChange->setAuthor($author);
             $userChange->setEntity($this->userRepo->getItemEntityName($user));
             $userChange->setIdentifier(new IdentValue($user->getPublicId()));
-            $changes = array(
-                new EntityPropertyChange(new IdentValue('email'), $oldEmail, $user->getEmail())
-            );
             $userChange->setChanges($changes);
             $this->dispatcher->dispatch(BusinessEvents::ENTITY_CHANGED, new EntityChangeEvent($userChange, $user));
         }
