@@ -36,7 +36,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 /**
  * FIXME: Replace transformers with serializers
  */
-class CRUDController implements CRUDControllerInterface
+class CRUDController extends AbstractCRUDController implements CRUDControllerInterface
 {
     use CreateJsonResponseTrait;
 
@@ -74,21 +74,6 @@ class CRUDController implements CRUDControllerInterface
      * @var EventDispatcherInterface
      */
     protected $eventDispatcher;
-
-    /**
-     * @var bool
-     */
-    protected $storeHistory = true;
-
-    /**
-     * @var bool
-     */
-    protected $isAdminController = false;
-
-    /**
-     * @var callable
-     */
-    protected $itemCreator;
 
     /**
      * @param CRUD\EntityRepositoryInterface  $itemRepo
@@ -377,39 +362,6 @@ class CRUDController implements CRUDControllerInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function disableHistory()
-    {
-        $this->storeHistory = false;
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function makeAdminController()
-    {
-        $this->isAdminController = true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isAdminController()
-    {
-        return $this->isAdminController;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isUserController()
-    {
-        return !$this->isAdminController();
-    }
-
-    /**
      * @return EntityInterface
      */
     protected function createItem()
@@ -419,16 +371,5 @@ class CRUDController implements CRUDControllerInterface
             return $callback();
         }
         return $this->itemRepo->createItem();
-    }
-
-    /**
-     * @param callback $itemCreator
-     *
-     * @return self
-     */
-    public function setItemCreator($itemCreator)
-    {
-        $this->itemCreator = $itemCreator;
-        return $this;
     }
 }

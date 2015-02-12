@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "37a8ee9c2430c6a15fb63b07bd4a657d",
+    "hash": "ba411d95efe64159dbcd3c6f9092193b",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -5951,6 +5951,64 @@
                 "standards"
             ],
             "time": "2015-01-21 22:44:05"
+        },
+        {
+            "name": "symfony/property-access",
+            "version": "v2.6.4",
+            "target-dir": "Symfony/Component/PropertyAccess",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/PropertyAccess.git",
+                "reference": "9c0b67ea9c1a2b59cc7afae9177cd3c5ca5ac608"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/PropertyAccess/zipball/9c0b67ea9c1a2b59cc7afae9177cd3c5ca5ac608",
+                "reference": "9c0b67ea9c1a2b59cc7afae9177cd3c5ca5ac608",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\PropertyAccess\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony PropertyAccess Component",
+            "homepage": "http://symfony.com",
+            "keywords": [
+                "access",
+                "array",
+                "extraction",
+                "index",
+                "injection",
+                "object",
+                "property",
+                "property path",
+                "reflection"
+            ],
+            "time": "2015-01-25 04:39:26"
         },
         {
             "name": "theseer/fdomdocument",

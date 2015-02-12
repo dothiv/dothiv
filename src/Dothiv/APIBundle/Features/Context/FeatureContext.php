@@ -150,11 +150,8 @@ class FeatureContext extends BehatContext
      * Calls the method of a named service and stores the result.
      *
      * @Given /^"(?P<storageName>[^"]*)" contains the result of calling "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service with values:$/
-     * @Given /^"(?P<storageName>[^"]*)" contains the result of calling "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service$/
-     * @Given /^I call "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service with values:$/
-     * @Given /^I call "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service$/
      */
-    public function theResultOfCallingWithIsStoredIn($serviceId, $methodName, TableNode $table = null, $storageName = null)
+    public function callServiceWithArgumentsAndStoreResult($serviceId, $methodName, $storageName = null, TableNode $table = null)
     {
         $service = $this->kernel->getContainer()->get($serviceId);
         $args    = array();
@@ -167,6 +164,43 @@ class FeatureContext extends BehatContext
         if ($storageName) {
             $this->store($storageName, $result);
         }
+    }
+
+    /**
+     * @Given /^I call "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service with values:$/
+     */
+    public function callServiceWithArguments($serviceId, $methodName, TableNode $tableName)
+    {
+        $this->callServiceWithArgumentsAndStoreResult($serviceId, $methodName, null, $tableName);
+    }
+
+    /**
+     * @Given /^"(?P<storageName>[^"]*)" contains the result of calling "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service$/
+     */
+    public function callServiceAndStoreResult($serviceId, $methodName, $storageName)
+    {
+        $this->callServiceWithArgumentsAndStoreResult($serviceId, $methodName, $storageName, null);
+    }
+
+    /**
+     * @Given /^I call "(?P<methodName>[^"]+)" on the "(?P<serviceId>[^"]+)" service$/
+     */
+    public function callService($serviceId, $methodName)
+    {
+        $this->callServiceWithArgumentsAndStoreResult($serviceId, $methodName, null, null);
+    }
+
+    /**
+     * Buidl a string buy replacing value placeholders
+     *
+     * @Given /^I build "(?P<storageName>[^"]*)" from "(?P<template>[^"]*)"$/
+     */
+    public function iBuildFrom($storageName, $template)
+    {
+        preg_match_all('/\{[^\}]+\}/', $template, $placeholders);
+        $this->store($storageName, str_replace($placeholders[0], array_map(function ($storageName) {
+            return $this->getValue($storageName);
+        }, $placeholders[0]), $template));
     }
 
     /**
@@ -188,7 +222,7 @@ class FeatureContext extends BehatContext
     /**
      * @Then /^"(?P<storageName>[^"]*)" should contain (?P<num>\d+) elements*$/
      */
-    public function shouldContainElemnts($storageName, $num)
+    public function shouldContainElements($storageName, $num)
     {
         $v = $this->getValue($storageName);
         if ($v instanceof ArrayCollection) {
@@ -314,7 +348,12 @@ class FeatureContext extends BehatContext
      */
     public function iAddHeaderEqualTo($token)
     {
-        $_SERVER['HTTP_AUTHORIZATION'] = 'Bearer ' . $token;
+        if (empty($token)) {
+            unset($_SERVER['HTTP_AUTHORIZATION']);
+        } else {
+            $_SERVER['HTTP_AUTHORIZATION'] = 'Bearer ' . $token;
+        }
+
     }
 
     /**
@@ -595,5 +634,8 @@ class FeatureContext extends BehatContext
         $user->setPassword($password);
         $change = $userService->updateUser($user);
         $userService->applyChange($change, new EmailValue('admin@behat.localhost'));
+        $em = $this->getEntityManager();
+        $em->remove($change);
+        $em->flush();
     }
 }
