@@ -54,13 +54,6 @@ dothiv_api_user_profile_update:
         _format: json
     methods: [PATCH]
 
-dothiv_api_user_token:
-    pattern:  /user/{handle}/token
-    defaults:
-        _controller: dothiv.api.controller.user:revokeTokenAction
-        _format: json
-    methods: [DELETE]
-
 dothiv_api_user_domains:
     pattern:  /user/{handle}/domains
     defaults:
@@ -148,5 +141,21 @@ dothiv_api_user_token_create:
     path: /usertoken
     defaults:
         _controller: dothiv.api.controller.user_token:createItemAction
+        _format: json
+    methods: [POST]
+
+dothiv_api_user_token_delete:
+    pattern:  /user/{handle}/token
+    defaults:
+        _controller: dothiv.api.controller.user:revokeTokenAction
+        _format: json
+    methods: [DELETE]
+
+## Recover Password
+
+dothiv_api_recover_password:
+    path: /recoverpassword
+    defaults:
+        _controller: dothiv.api.controller.recover_password:createItemAction
         _format: json
     methods: [POST]

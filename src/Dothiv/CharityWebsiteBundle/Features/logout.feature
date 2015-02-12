@@ -1,3 +1,4 @@
+@Logout
 Feature: Logout
   A user should be able to revoke his login token
 

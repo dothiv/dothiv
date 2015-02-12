@@ -3,6 +3,7 @@ parameters:
     dothiv.api.controller.account.class: Dothiv\APIBundle\Controller\AccountController
     dothiv.api.controller.user.class: Dothiv\APIBundle\Controller\UserController
     dothiv.api.controller.crud.class: Dothiv\APIBundle\Controller\CRUDController
+    dothiv.api.controller.recover_password.class: Dothiv\APIBundle\Controller\RecoverPasswordController
 
 services:
     dothiv.api.controller.domain:
@@ -102,4 +103,11 @@ services:
         - [disableHistory]
         - [setItemCreator, [['@dothiv.api.user_token.factory.api', 'create']]]
 
-
+    dothiv.api.controller.recover_password:
+        class: %dothiv.api.controller.recover_password.class%
+        arguments:
+        - @dothiv.repository.user
+        - @dothiv.repository.user_token
+        - @dothiv.repository.user_profile_change
+        - @dothiv.businessbundle.service.user
+        - @clock

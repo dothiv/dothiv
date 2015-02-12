@@ -23,7 +23,6 @@ use PhpOption\Option;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -315,7 +314,8 @@ class UserService implements UserProviderInterface, UserServiceInterface
             unset($changedData['password']);
         } else {
             $encoder                 = $this->encoderFactory->getEncoder($user);
-            $changedData['password'] = $encoder->encodePassword($changedData['password'], $user->getSalt());
+            $newPassword             = $changedData['password'];
+            $changedData['password'] = $encoder->encodePassword($newPassword, $user->getSalt());
         }
 
         $change = new UserProfileChange();
@@ -333,7 +333,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
     }
 
     /**
-     * Updates a user's email address once the respective entity has been confirmed
+     * Updates a user's profile once the change has been confirmed
      *
      * @param EntityChangeEvent $event
      */
@@ -364,6 +364,7 @@ class UserService implements UserProviderInterface, UserServiceInterface
             return;
         }
         $changes = [];
+        $this->userRepo->refresh($user);
 
         foreach ($userProfileChange->getProperties()->toArray() as $k => $v) {
             switch ($k) {

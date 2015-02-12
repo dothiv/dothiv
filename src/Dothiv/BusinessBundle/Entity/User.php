@@ -215,7 +215,7 @@ class User implements UserInterface, EntityInterface
      */
     public function getSalt()
     {
-        return null;
+        return $this->password;
     }
 
     /**
@@ -231,7 +231,7 @@ class User implements UserInterface, EntityInterface
      */
     public function eraseCredentials()
     {
-        // pass.
+        $this->password = null;
     }
 
     /**

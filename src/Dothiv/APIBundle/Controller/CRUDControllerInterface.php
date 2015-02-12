@@ -4,6 +4,7 @@ namespace Dothiv\APIBundle\Controller;
 
 use Dothiv\APIBundle\Exception\AccessDeniedHttpException;
 use Dothiv\APIBundle\Exception\BadRequestHttpException;
+use Dothiv\APIBundle\Exception\InvalidArgumentException;
 use Dothiv\APIBundle\Exception\NotFoundHttpException;
 use Dothiv\BusinessBundle\Repository\CRUD;
 use Symfony\Component\HttpFoundation\Request;
@@ -96,6 +97,8 @@ interface CRUDControllerInterface
      * @param callback $itemCreator
      *
      * @return self
+     *
+     * @throws InvalidArgumentException
      */
     public function setItemCreator($itemCreator);
 }

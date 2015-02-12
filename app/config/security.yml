@@ -23,21 +23,21 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        user_oauth:
-            pattern:    ^/api/(user|domain|attachment|nonprofit|premium-configurator|payitforward|notification|landingpage)$
-            stateless:  true
-            provider:   user
-            oauth2:     true
-
         user_basicauth:
-            pattern:    ^/api/(usertoken)$
+            pattern:    ^/api/(usertoken)
             stateless:  true
             provider:   user
             http_basic:
                 realm: "click4life.hiv API"
 
+        user_oauth:
+            pattern:    ^/api/(user|domain|attachment|nonprofit|premium-configurator|payitforward|notification|landingpage)
+            stateless:  true
+            provider:   user
+            oauth2:     true
+
         admin:
-            pattern:    ^/admin/api/(stats|nonprofitregistration|attachment|domain|config|history|registrar|hivdomainstatus|whois)$
+            pattern:    ^/admin/api/(stats|nonprofitregistration|attachment|domain|config|history|registrar|hivdomainstatus|whois)
             stateless:  true
             provider:   user
             oauth2:     true
@@ -49,7 +49,7 @@ security:
               realm: "Contentful Webhook Area"
 
     access_control:
-      - { path: ^/api/(user|domain|attachment|nonprofit|premium-configurator|payitforward|notification|landingpage)$, roles: ROLE_USER }
-      - { path: ^/api/(usertoken)$, roles: ROLE_USER }
-      - { path: ^/admin/api$, roles: ROLE_ADMIN }
-      - { path: ^/contentful/webhook$, roles: ROLE_CONTENTFUL_WEBHOOK }
+      - { path: ^/api/(usertoken), roles: ROLE_USER }
+      - { path: ^/api/(user|domain|attachment|nonprofit|premium-configurator|payitforward|notification|landingpage), roles: ROLE_USER }
+      - { path: ^/admin/api, roles: ROLE_ADMIN }
+      - { path: ^/contentful/webhook, roles: ROLE_CONTENTFUL_WEBHOOK }
