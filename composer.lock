@@ -1856,12 +1856,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dothiv/DothivParsedownBundle.git",
-                "reference": "8c9e466fc0b56937e63e3d598e19deac84262e93"
+                "reference": "d26bf361229007f6c52ba554098363bfae1a17ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dothiv/DothivParsedownBundle/zipball/8c9e466fc0b56937e63e3d598e19deac84262e93",
-                "reference": "8c9e466fc0b56937e63e3d598e19deac84262e93",
+                "url": "https://api.github.com/repos/dothiv/DothivParsedownBundle/zipball/d26bf361229007f6c52ba554098363bfae1a17ff",
+                "reference": "d26bf361229007f6c52ba554098363bfae1a17ff",
                 "shasum": ""
             },
             "require": {
@@ -1897,20 +1897,20 @@
                 "parsedown",
                 "twig"
             ],
-            "time": "2014-05-23 11:29:35"
+            "time": "2015-02-11 13:50:54"
         },
         {
             "name": "dothiv/dothiv-valueobject-bundle",
-            "version": "v1.3.1",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dothiv/DothivValueObjectBundle.git",
-                "reference": "ad7e9a9bc87cfd46a7879468f074c48c1c4b4c7d"
+                "reference": "a4b63b358622efea756ffea605c9eb12f2f143e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dothiv/DothivValueObjectBundle/zipball/ad7e9a9bc87cfd46a7879468f074c48c1c4b4c7d",
-                "reference": "ad7e9a9bc87cfd46a7879468f074c48c1c4b4c7d",
+                "url": "https://api.github.com/repos/dothiv/DothivValueObjectBundle/zipball/a4b63b358622efea756ffea605c9eb12f2f143e8",
+                "reference": "a4b63b358622efea756ffea605c9eb12f2f143e8",
                 "shasum": ""
             },
             "require": {
@@ -1950,7 +1950,7 @@
                 "ValueObject",
                 "bundle"
             ],
-            "time": "2015-02-02 11:46:15"
+            "time": "2015-02-12 08:12:46"
         },
         {
             "name": "erusev/parsedown",
@@ -1997,12 +1997,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "acbf585de09e1ec44b3e362291b9db4eb6cfca6c"
+                "reference": "61a13a7d5febaae676519c595b6caeda1e23ff4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/acbf585de09e1ec44b3e362291b9db4eb6cfca6c",
-                "reference": "acbf585de09e1ec44b3e362291b9db4eb6cfca6c",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/61a13a7d5febaae676519c595b6caeda1e23ff4c",
+                "reference": "61a13a7d5febaae676519c595b6caeda1e23ff4c",
                 "shasum": ""
             },
             "require": {
@@ -2067,7 +2067,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-01-29 15:01:49"
+            "time": "2015-02-10 16:59:37"
         },
         {
             "name": "imagine/imagine",
@@ -5070,12 +5070,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behatch/contexts.git",
-                "reference": "c46a6d7107a612100d7fce1b58354760cb0fb54f"
+                "reference": "7966472e89124c15801913e49945fcb5654dd675"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behatch/contexts/zipball/c46a6d7107a612100d7fce1b58354760cb0fb54f",
-                "reference": "c46a6d7107a612100d7fce1b58354760cb0fb54f",
+                "url": "https://api.github.com/repos/Behatch/contexts/zipball/7966472e89124c15801913e49945fcb5654dd675",
+                "reference": "7966472e89124c15801913e49945fcb5654dd675",
                 "shasum": ""
             },
             "require": {
@@ -5108,7 +5108,7 @@
                 "Context",
                 "Symfony2"
             ],
-            "time": "2015-02-02 10:58:32"
+            "time": "2015-02-11 15:05:59"
         },
         {
             "name": "covex-nn/phpcb",
