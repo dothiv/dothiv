@@ -58,6 +58,7 @@
         "covex-nn/phpcb": "*",
         "phpunit/phpunit": "*@dev",
         "behat/symfony2-extension": "1.*@dev",
+        "symfony/property-access": "~2.4",
         "behatch/contexts": "dev-behat-2.x@dev",
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "1.*",
