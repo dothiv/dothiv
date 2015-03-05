@@ -27,7 +27,7 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
      * @group ShopBundle
      * @group Order
      */
-    public function itShouldBeInstantiateable()
+    public function itShouldBeInstantiable()
     {
         $this->assertInstanceOf('\Dothiv\ShopBundle\Repository\OrderRepository', $this->getTestObject());
     }
@@ -38,30 +38,11 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
      * @group   ShopBundle
      * @group   Order
      * @group   Integration
-     * @depends itShouldBeInstantiateable
+     * @depends itShouldBeInstantiable
      */
     public function itShouldPersist()
     {
-        $order = new Order();
-        $order->setDomain(new HivDomainValue("xn--brger-kva.hiv"));
-        $order->setClickCounter(true);
-        $order->setRedirect(new URLValue("http://jana.com/"));
-        $order->setDuration(3);
-        $order->setFirstname("Jana");
-        $order->setLastname("Bürger");
-        $order->setEmail(new EmailValue('jana.müller@bürger.de'));
-        $order->setPhone("+49301234567");
-        $order->setFax("+4930123456777");
-        $order->setLocality("Waldweg 1");
-        $order->setLocality2("Hinterhaus");
-        $order->setCity("12345 Neustadt");
-        $order->setCountry(new IdentValue('DE'));
-        $order->setOrganization("Bürger GmbH");
-        $order->setVatNo("DE123456789");
-        $order->setCurrency(new IdentValue(Order::CURRENCY_EUR));
-        $order->setStripeToken(new IdentValue("tok_14kvt242KFPpMZB00CUopZjt"));
-        $order->setStripeCard(new IdentValue("crd_14kvt242KFPpMZB00CUopZjt"));
-        $order->setStripeCharge(new IdentValue("crg_14kvt242KFPpMZB00CUopZjt"));
+        $order = $this->createOrder();
 
         $this->mockLandingpageService->expects($this->once())->method('qualifiesForLandingpage')
             ->with(HivDomainValue::createFromUTF8("bürger.hiv"))
@@ -103,7 +84,7 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
      * @group   ShopBundle
      * @group   Order
      * @group   Integration
-     * @depends itShouldBeInstantiateable
+     * @depends itShouldBeInstantiable
      */
     public function itShouldPersistA4lifeDomain()
     {
@@ -153,6 +134,23 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @group   Entity
+     * @group   ShopBundle
+     * @group   Order
+     * @group   Integration
+     * @depends itShouldBeInstantiable
+     */
+    public function itShouldGetById()
+    {
+        $order = $this->createOrder();
+        $repo  = $this->getTestObject();
+        $repo->persist($order);
+        $repo->flush();
+        $this->assertEquals($order->getId(), $repo->getById($order->getId())->getId());
+    }
+
+    /**
      * @return OrderRepository
      */
     protected function getTestObject()
@@ -171,5 +169,33 @@ class OrderRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->testValidator          = $this->getTestContainer()->get('validator');
         $this->mockLandingpageService = $this->getMock('\Dothiv\LandingpageBundle\Service\LandingpageServiceInterface');
+    }
+
+    /**
+     * @return Order
+     */
+    protected function createOrder()
+    {
+        $order = new Order();
+        $order->setDomain(new HivDomainValue("xn--brger-kva.hiv"));
+        $order->setClickCounter(true);
+        $order->setRedirect(new URLValue("http://jana.com/"));
+        $order->setDuration(3);
+        $order->setFirstname("Jana");
+        $order->setLastname("Bürger");
+        $order->setEmail(new EmailValue('jana.müller@bürger.de'));
+        $order->setPhone("+49301234567");
+        $order->setFax("+4930123456777");
+        $order->setLocality("Waldweg 1");
+        $order->setLocality2("Hinterhaus");
+        $order->setCity("12345 Neustadt");
+        $order->setCountry(new IdentValue('DE'));
+        $order->setOrganization("Bürger GmbH");
+        $order->setVatNo("DE123456789");
+        $order->setCurrency(new IdentValue(Order::CURRENCY_EUR));
+        $order->setStripeToken(new IdentValue("tok_14kvt242KFPpMZB00CUopZjt"));
+        $order->setStripeCard(new IdentValue("crd_14kvt242KFPpMZB00CUopZjt"));
+        $order->setStripeCharge(new IdentValue("crg_14kvt242KFPpMZB00CUopZjt"));
+        return $order;
     }
 }

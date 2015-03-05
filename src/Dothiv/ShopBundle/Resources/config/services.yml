@@ -34,3 +34,4 @@ services:
         - @dothiv.registry.service.mailer.content
         - @dothiv.websitebase.money_format
         - @dothiv.business.service.vatrules
+        - @dothiv.repository.country
