@@ -5,6 +5,8 @@ namespace Dothiv\ShopBundle\Service;
 use Dothiv\BaseWebsiteBundle\Service\Mailer\ContentMailerInterface;
 use Dothiv\BaseWebsiteBundle\Service\MoneyFormatServiceInterface;
 use Dothiv\BusinessBundle\Entity\Invoice;
+use Dothiv\BusinessBundle\Model\CountryModel;
+use Dothiv\BusinessBundle\Repository\CountryRepositoryInterface;
 use Dothiv\BusinessBundle\Service\VatRulesInterface;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\ValueObject\EmailValue;
@@ -30,19 +32,27 @@ class OrderMailer implements OrderMailerInterface
     private $vatRules;
 
     /**
+     * @var CountryRepositoryInterface
+     */
+    private $countryRepo;
+
+    /**
      * @param ContentMailerInterface      $contentMailer
      * @param MoneyFormatServiceInterface $moneyFormatService
      * @param VatRulesInterface           $vatRules
+     * @param CountryRepositoryInterface  $countryRepo
      */
     public function __construct(
         ContentMailerInterface $contentMailer,
         MoneyFormatServiceInterface $moneyFormatService,
-        VatRulesInterface $vatRules
+        VatRulesInterface $vatRules,
+        CountryRepositoryInterface $countryRepo
     )
     {
         $this->contentMailer = $contentMailer;
         $this->moneyFormat   = $moneyFormatService;
         $this->vatRules      = $vatRules;
+        $this->countryRepo   = $countryRepo;
     }
 
     /**
@@ -67,13 +77,20 @@ class OrderMailer implements OrderMailerInterface
             $dateFormat = 'd.m.Y';
         }
 
-        $symbol = $invoice->getCurrency()->equals(new IdentValue(Invoice::CURRENCY_USD)) ? '$' : '€';
-        $rules  = $this->vatRules->getRules(
+        $symbol          = $invoice->getCurrency()->equals(new IdentValue(Invoice::CURRENCY_USD)) ? '$' : '€';
+        $rules           = $this->vatRules->getRules(
             $invoice->getOrganization()->isDefined(),
             $invoice->getCountry(),
             $invoice->getVatNo()->isDefined()
         );
-        $data   = array(
+        $countryName     = $invoice->getCountry()->toScalar();
+        $countryOptional = $this->countryRepo->getCountryByIso($invoice->getCountry());
+        if ($countryOptional->isDefined()) {
+            /** @var CountryModel $country */
+            $country     = $countryOptional->get();
+            $countryName = $country->name;
+        }
+        $data = array(
             'firstname' => $order->getFirstname(),
             'lastname'  => $order->getLastname(),
             'email'     => $order->getEmail()->toScalar(),
@@ -84,7 +101,7 @@ class OrderMailer implements OrderMailerInterface
                 'fullname'                 => $invoice->getFullname(),
                 'address1'                 => $invoice->getAddress1(),
                 'address2'                 => $invoice->getAddress2(),
-                'country'                  => $invoice->getCountry(),
+                'country'                  => $countryName,
                 'organization'             => $invoice->getOrganization()->getOrElse(null),
                 'vatNo'                    => $invoice->getVatNo()->getOrElse(null),
                 'item_description'         => $invoice->getItemDescription(),

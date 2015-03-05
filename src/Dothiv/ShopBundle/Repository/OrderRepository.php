@@ -8,6 +8,7 @@ use Dothiv\BusinessBundle\Entity\EntityInterface;
 use Dothiv\BusinessBundle\Repository\Traits;
 use Dothiv\LandingpageBundle\Service\LandingpageServiceInterface;
 use Dothiv\ShopBundle\Entity\Order;
+use Dothiv\ShopBundle\Exception\EntityNotFoundException;
 use Dothiv\ValueObject\HivDomainValue;
 use PhpOption\Option;
 
@@ -115,5 +116,15 @@ class OrderRepository extends EntityRepository implements OrderRepositoryInterfa
     {
         $this->landingpageService = $landingpageService;
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getById($id)
+    {
+        return Option::fromValue($this->find($id))->getOrCall(function() use($id) {
+            throw new EntityNotFoundException();
+        });
     }
 }

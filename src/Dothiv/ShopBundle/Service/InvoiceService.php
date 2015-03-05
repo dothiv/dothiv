@@ -43,8 +43,8 @@ class InvoiceService implements InvoiceServiceInterface
         $price   = $this->priceService->getPrice($order->getDomain());
         $invoice = new Invoice();
         $invoice->setFullname($order->getFirstname() . ' ' . $order->getLastname());
-        $invoice->setAddress1($order->getLocality());
-        $invoice->setAddress2($order->getLocality2()->getOrElse(null));
+        $invoice->setAddress1(trim($order->getLocality() . "\n" . $order->getLocality2()->getOrElse(null)));
+        $invoice->setAddress2($order->getCity());
         $invoice->setCountry($order->getCountry());
         $invoice->setVatNo($order->getVatNo()->getOrElse(null));
         $invoice->setItemPrice(

@@ -16,6 +16,7 @@ use Dothiv\ValueObject\IdentValue;
 
 class InvoiceServiceTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var InvoiceRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -59,6 +60,9 @@ class InvoiceServiceTest extends \PHPUnit_Framework_TestCase
         $order->setCountry(new IdentValue($country));
         $order->setOrganization($org);
         $order->setVatNo($vatNo);
+        $order->setLocality('Some Street');
+        $order->setLocality2('Some Apartment');
+        $order->setCity('Some City');
 
         $price = new DomainPriceModel();
         $price->setNetPriceEUR(14500);
@@ -81,6 +85,9 @@ class InvoiceServiceTest extends \PHPUnit_Framework_TestCase
         $service = $this->createTestObject();
         $invoice = $service->createInvoice($order);
         $this->assertEquals($expectedPrice, $invoice->getTotalPrice());
+        $this->assertEquals("Some Street\nSome Apartment", $invoice->getAddress1());
+        $this->assertEquals("Some City", $invoice->getAddress2());
+        $this->assertEquals($country, $invoice->getCountry());
     }
 
     public function invoiceTestDataProvider()

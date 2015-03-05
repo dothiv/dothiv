@@ -5,6 +5,7 @@ namespace Dothiv\ShopBundle\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dothiv\ShopBundle\Entity\Order;
 use Dothiv\BusinessBundle\Repository\CRUD;
+use Dothiv\ShopBundle\Exception\EntityNotFoundException;
 use Dothiv\ValueObject\HivDomainValue;
 use PhpOption\Option;
 
@@ -39,4 +40,13 @@ interface OrderRepositoryInterface extends CRUD\CreateEntityRepositoryInterface
      * @return ArrayCollection|Order[]
      */
     function findNew();
+
+    /**
+     * @param int $id
+     *
+     * @return Order
+     *
+     * @throws EntityNotFoundException if order is not found.
+     */
+    public function getById($id);
 }
