@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "be606f2eb241df4333a10c4f293c20a6",
+    "hash": "0ec3627c9d4bf6c1705427be8ab26b4e",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1848,6 +1848,53 @@
                 "orm"
             ],
             "time": "2014-06-03 19:53:45"
+        },
+        {
+            "name": "dothiv/dothiv-admin-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dothiv/DothivAdminBundle.git",
+                "reference": "82b8cd64952f5d4ef64b593300898c229fe0750e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dothiv/DothivAdminBundle/zipball/82b8cd64952f5d4ef64b593300898c229fe0750e",
+                "reference": "82b8cd64952f5d4ef64b593300898c229fe0750e",
+                "shasum": ""
+            },
+            "require": {
+                "dothiv/dothiv-valueobject-bundle": "1.x",
+                "jms/serializer": "~0.16.0",
+                "php": ">=5.3.9",
+                "symfony/framework-bundle": "~2.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Dothiv\\AdminBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "TLD dotHIV Registry GmbH",
+                    "homepage": "https://tld.hiv/"
+                }
+            ],
+            "description": "dotHIV admin bundle for Symfony2 groups functionality for the admin dashboard.",
+            "homepage": "http://github.com/dotHIV/DothivAdminBundle",
+            "keywords": [
+                "admin",
+                "bundle",
+                "symfony2"
+            ],
+            "support": {
+                "source": "https://github.com/dothiv/DothivAdminBundle/tree/master"
+            },
+            "time": "2015-03-25 14:53:47"
         },
         {
             "name": "dothiv/dothiv-parsedown-bundle",
@@ -6024,6 +6071,7 @@
         "doctrine/migrations": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "angular-ui/bootstrap": 20,
+        "dothiv/dothiv-admin-bundle": 20,
         "squizlabs/php_codesniffer": 20,
         "phpunit/phpunit": 20,
         "behat/symfony2-extension": 20,
