@@ -46,6 +46,7 @@ class InvoiceService implements InvoiceServiceInterface
         $invoice->setAddress1(trim($order->getLocality() . "\n" . $order->getLocality2()->getOrElse(null)));
         $invoice->setAddress2($order->getCity());
         $invoice->setCountry($order->getCountry());
+        $invoice->setOrganization($order->getOrganization()->getOrElse(null));
         $invoice->setVatNo($order->getVatNo()->getOrElse(null));
         $invoice->setItemPrice(
             $order->getDuration() *

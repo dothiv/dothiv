@@ -13,6 +13,9 @@ use Dothiv\ShopBundle\Service\DomainPriceServiceInterface;
 use Dothiv\ShopBundle\Service\InvoiceService;
 use Dothiv\ValueObject\HivDomainValue;
 use Dothiv\ValueObject\IdentValue;
+use PhpOption\None;
+use PhpOption\Option;
+use Symfony\Component\Validator\Constraints\Optional;
 
 class InvoiceServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -87,6 +90,11 @@ class InvoiceServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedPrice, $invoice->getTotalPrice());
         $this->assertEquals("Some Street\nSome Apartment", $invoice->getAddress1());
         $this->assertEquals("Some City", $invoice->getAddress2());
+        if ($org) {
+            $this->assertEquals($org, $invoice->getOrganization()->get());
+        } else {
+            $this->assertEquals(None::create(), $invoice->getOrganization());
+        }
         $this->assertEquals($country, $invoice->getCountry());
     }
 
