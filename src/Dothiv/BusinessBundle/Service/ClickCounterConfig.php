@@ -128,6 +128,8 @@ class ClickCounterConfig implements ClickCounterConfigInterface
                 'heading'      => $this->getString('heading', $locale),
                 'shortheading' => $this->getString('shortheading', $locale),
                 'money'        => $this->getString('bar', $locale),
+                'info'         => $this->getString('info', $locale),
+                'more'         => $this->getString('more', $locale),
             );
         }
         return $config;
