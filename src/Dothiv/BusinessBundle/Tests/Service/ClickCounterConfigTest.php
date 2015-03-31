@@ -102,6 +102,8 @@ class ClickCounterConfigTest extends \PHPUnit_Framework_TestCase
                 'heading'      => 'some string',
                 'shortheading' => 'some string',
                 'money'        => 'some string',
+                'info'         => 'some string',
+                'more'         => 'some string',
             );
         }
         $expectedConfigJson = json_encode($expectedConfig);
@@ -158,4 +160,4 @@ class ClickCounterConfigTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
     }
-} 
+}
