@@ -40,6 +40,21 @@
         {% endif %}
     {% endfor %}
 {% endblock %}
+{% block aftercontent %}
+    <div class="outer">
+        <aside class="shop shop-extras">
+            {% for block in page.blocks|default([]) %}
+                {% set code = block.code|replace({"shop.": ""}) %}
+                {% if code in ["press"] %}
+                    {% include "DothivShopBundle::Shop/" ~ code ~ ".html.twig" %}
+                {% endif %}
+            {% endfor %}
+        </aside>
+    </div>
+    <div class="outer">
+        {% include "DothivRegistryWebsiteBundle:includes:domainlist.html.twig" %}
+    </div>
+{% endblock %}
 {% block angular_app %}
     {% javascripts
     '@jquery'

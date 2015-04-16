@@ -1,0 +1,17 @@
+<section class="{{ code }}">
+    <div class="block">
+        <h2>{{ block.title }}</h2>
+        {{ block.text|default("")|markdown }}
+        {% for quote in content('PressQuote')|default([]) %}
+            {% if loop.first %}<ul>{% endif %}
+            {% if quote.show|default(false) and quote.logo is defined %}
+            <li>
+                <a href="{{ quote.url }}">
+                    <img src="{{ quote.logo.file.thumbnails.supporter }}" alt="{{ quote.name }}">
+                </a>
+            </li>
+            {% endif %}
+            {% if loop.last %}</ul>{% endif %}
+        {% endfor %}
+    </div>
+</section>
