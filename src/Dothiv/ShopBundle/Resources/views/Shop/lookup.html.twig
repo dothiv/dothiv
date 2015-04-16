@@ -58,6 +58,18 @@
                 {{ block('lookupForm') }}
             {% endif %}
         {% endif %}
+        {% if block.code == "shop.lookup.video" %}
+            <section class="{{ code }}-video">
+                <div class="block">
+                    {% if block.title is defined %}
+                        <h2>{{ block.title }}</h2>
+                    {% endif %}
+                    {% if block.video is defined %}
+                        <iframe src="{{ block.video.embed_url }}" allowfullscreen class="video"></iframe>
+                    {% endif %}
+                </div>
+            </section>
+        {% endif %}
     {% endfor %}
 </script>
 
