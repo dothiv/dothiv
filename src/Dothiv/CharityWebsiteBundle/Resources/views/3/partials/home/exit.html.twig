@@ -1,0 +1,18 @@
+<article class="exit">
+    <header>
+        <h2>{{ block.title }}</h2>
+    </header>
+    <section class="col-md-8">
+        {{ block.text|default("")|markdown }}
+    </section>
+    <section class="col-md-4 center">
+        {% for download in block.downloads %}
+            <p>
+                <a href="{{ download.file.url }}" class="btn btn-primary" title="{{ download.description }}">
+                    {{ download.title|default("") }}
+                </a>
+            </p>
+        {% endfor %}
+        {{ block.textMore|default("")|markdown }}
+    </section>
+</article>
