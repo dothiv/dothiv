@@ -1,6 +1,8 @@
 dothiv
 ======
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dothiv/dothiv.svg)](https://greenkeeper.io/)
+
 [![Code Climate](https://codeclimate.com/github/dothiv/dothiv.png)](https://codeclimate.com/github/dothiv/dothiv)
 
 What is this?
